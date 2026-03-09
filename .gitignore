@@ -1,0 +1,17 @@
+Library/
+Temp/
+Logs/
+UserSettings/
+Build/
+Builds/
+obj/
+
+.vscode/
+.vs/
+Thumbs.db
+
+*.csproj
+*.sln
+*.user
+*.unityproj
+*.vsconfig
