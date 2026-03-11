@@ -586,8 +586,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleSystem
   player: {fileID: 1695557048}
   enemy: {fileID: 1294572163}
-  testAttackCard: {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
-  testHealCard: {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
+  startingDeck:
+  - {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
+  - {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
+  - {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
+  - {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
+  - {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
+  - {fileID: 11400000, guid: e90ebb6468e36cc4a927b6668a4b435e, type: 2}
+  - {fileID: 11400000, guid: e90ebb6468e36cc4a927b6668a4b435e, type: 2}
+  - {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
+  - {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
+  - {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
 --- !u!4 &1995241972
 Transform:
   m_ObjectHideFlags: 0

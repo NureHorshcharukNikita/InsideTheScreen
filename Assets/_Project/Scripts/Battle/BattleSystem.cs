@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
@@ -6,45 +7,94 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private PlayerCharacter player;
     [SerializeField] private EnemyCharacter enemy;
 
-    [Header("Test Cards")]
-    [SerializeField] private CardData testAttackCard;
-    [SerializeField] private CardData testHealCard;
+    [Header("Deck")]
+    [SerializeField] private List<CardData> startingDeck;
 
-    public void PlayAttackCard()
+    private Deck deck = new();
+    private Hand hand = new();
+
+    private void Start()
     {
-        if (testAttackCard == null)
-            return;
+        foreach (var card in startingDeck)
+            deck.Add(card);
 
-        if (!player.SpendActionPoints(testAttackCard.Cost))
-            return;
+        deck.Shuffle();
+        PrintDeck();
 
-        CardResolver.Resolve(testAttackCard, player, enemy);
-        CheckBattleState();
+        DrawCards(5);
+        PrintHand();
     }
 
-    public void AttackPlayer()
+    void PrintDeck()
     {
-        if (testAttackCard == null)
-            return;
+        Debug.Log("Deck order:");
 
-        CardResolver.Resolve(testAttackCard, enemy, player);
-        CheckBattleState();
+        for (int i = 0; i < startingDeck.Count; i++)
+        {
+            Debug.Log(startingDeck[i].CardName);
+        }
     }
 
-    public void PlayHealCard()
+    void DrawCards(int amount)
     {
-        if (testHealCard == null)
+        for (int i = 0; i < amount; i++)
+        {
+            var card = deck.Draw();
+
+            if (card != null)
+            {
+                hand.Add(card);
+                Debug.Log("Draw card: " + card.CardName);
+            }
+        }
+    }
+
+    public void PlayCard(CardData card)
+    {
+        if (card == null)
             return;
 
-        if (!player.SpendActionPoints(testHealCard.Cost))
+        if (!player.SpendActionPoints(card.Cost))
+        {
+            Debug.Log("Not enough action points");
             return;
+        }
 
-        CardResolver.Resolve(testHealCard, player, enemy);
+        CardResolver.Resolve(card, player, enemy);
+        hand.Remove(card);
+
+        Debug.Log("Played: " + card.CardName);
+
+        CheckBattleState();
     }
 
     public void EndTurn()
     {
         player.RestoreActionPoints();
+
+        DrawCards(1);
+        PrintHand();
+
+        EnemyTurn();
+    }
+
+    void PrintHand()
+    {
+        Debug.Log("Hand:");
+
+        for (int i = 0; i < hand.Cards.Count; i++)
+        {
+            Debug.Log(i + ": " + hand.Cards[i].CardName);
+        }
+    }
+
+    void EnemyTurn()
+    {
+        Debug.Log("Enemy attacks!");
+
+        player.TakeDamage(5);
+
+        CheckBattleState();
     }
 
     private void CheckBattleState()
@@ -63,15 +113,29 @@ public class BattleSystem : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            PlayAttackCard();
+            PlayCardFromHand(0);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            AttackPlayer();
+            PlayCardFromHand(1);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            PlayHealCard();
+            PlayCardFromHand(2);
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            PlayCardFromHand(3);
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            PlayCardFromHand(4);
 
         if (Input.GetKeyDown(KeyCode.Space))
             EndTurn();
+    }
+
+    public void PlayCardFromHand(int index)
+    {
+        if (index < 0 || index >= hand.Cards.Count)
+            return;
+
+        PlayCard(hand.Cards[index]);
     }
 }
