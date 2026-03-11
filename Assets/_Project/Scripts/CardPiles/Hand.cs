@@ -4,6 +4,7 @@ public class Hand
 {
     private List<CardData> cards = new();
 
+    public int Count => cards.Count;
     public IReadOnlyList<CardData> Cards => cards;
 
     public void Add(CardData card)

@@ -8,6 +8,8 @@ public class Deck
     public int Count => cards.Count;
     public IReadOnlyList<CardData> Cards => cards;
 
+    private int lastIndex => Count - 1;
+
     public void Add(CardData card)
     {
         if (card == null)
@@ -21,8 +23,9 @@ public class Deck
         if (cards.Count == 0)
             return null;
 
-        var card = cards[0];
-        cards.RemoveAt(0);
+        var card = cards[lastIndex];
+        cards.RemoveAt(lastIndex);
+
         return card;
     }
 
