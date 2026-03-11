@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: 
   cardName: Heal
-  description: 
+  description: Deal 2 Heal
   icon: {fileID: 0}
   cost: 1
   effects:

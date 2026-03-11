@@ -10,9 +10,15 @@ public class BattleSystem : MonoBehaviour
     [Header("Deck")]
     [SerializeField] private List<CardData> startingDeck;
 
+    [Header("UI")]
+    [SerializeField] private CardView cardPrefab;
+    [SerializeField] private Transform handPanel;
+
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
     private TurnManager turnManager;
+
+    private int? selectedCardIndex = null;
 
     private void Start()
     {
@@ -27,24 +33,29 @@ public class BattleSystem : MonoBehaviour
 
         turnManager.StartBattle();
         BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
+
+        RefreshHandUI();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            PlayCardFromHand(0, enemy);
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            PlayCardFromHand(0, player);
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            PlayCardFromHand(1, enemy);
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            PlayCardFromHand(1, player);
-
         if (Input.GetKeyDown(KeyCode.Space))
             EndTurn();
+
+        if (Input.GetKeyDown(KeyCode.E))
+            OnTargetClicked(enemy);
+
+        if (Input.GetKeyDown(KeyCode.P))
+            OnTargetClicked(player);
+    }
+
+    public void OnTargetClicked(IEffectTarget target)
+    {
+        if (selectedCardIndex == null)
+            return;
+
+        PlayCardFromHand(selectedCardIndex.Value, target);
+        selectedCardIndex = null;
     }
 
     public void PlayCardFromHand(int index, IEffectTarget target)
@@ -57,10 +68,13 @@ public class BattleSystem : MonoBehaviour
         if (cardPlayer.TryPlayCard(card, target))
         {
             Debug.Log("Played: " + card.CardName);
+
             BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
             BattleDebugPrinter.PrintCards("Discard", deckManager.DiscardPile.Cards);
 
             BattleStateChecker.Check(player, enemy);
+
+            RefreshHandUI();
         }
     }
 
@@ -70,5 +84,33 @@ public class BattleSystem : MonoBehaviour
 
         BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
         BattleStateChecker.Check(player, enemy);
+
+        selectedCardIndex = null;
+        RefreshHandUI();
+    }
+
+    private void RefreshHandUI()
+    {
+        foreach (Transform child in handPanel)
+            Destroy(child.gameObject);
+
+        for (int i = 0; i < deckManager.Hand.Count; i++)
+        {
+            var cardData = deckManager.Hand.Cards[i];
+            int index = i;
+
+            CardView cardView = Instantiate(cardPrefab, handPanel);
+            cardView.Setup(cardData, index, OnCardClicked);
+        }
+    }
+
+    private void OnCardClicked(int index)
+    {
+        if (index < 0 || index >= deckManager.Hand.Count)
+            return;
+
+        selectedCardIndex = index;
+
+        Debug.Log("Selected card: " + deckManager.Hand.Cards[index].CardName);
     }
 }
