@@ -476,8 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcf4ba830f953e42a765ae012f045e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
-  maxHealth: 30
-  currentHealth: 30
+  maxHealth: 60
+  currentHealth: 60
   maxActionPoints: 5
   currentActionPoints: 4
   actionPointsPerTurn: 2

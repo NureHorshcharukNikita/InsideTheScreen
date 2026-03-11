@@ -1,4 +1,3 @@
-
 public static class CardResolver
 {
     public static void Resolve(CardData card, IEffectTarget source, IEffectTarget target)
@@ -11,7 +10,9 @@ public static class CardResolver
             if (entry.effect == null)
                 continue;
 
-            entry.effect.Execute(source, target, entry.value);
+            IEffectTarget effectTarget = entry.targetType == EffectTargetType.Self ? source : target;
+
+            entry.effect.Execute(source, effectTarget, entry.value);
         }
     }
 }
