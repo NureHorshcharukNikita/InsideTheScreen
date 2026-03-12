@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5502520061171890135}
   - component: {fileID: 3171833193820055324}
   m_Layer: 5
-  m_Name: CardName
+  m_Name: CardNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 8675474376864955575}
   - component: {fileID: 5545347027231519766}
   m_Layer: 5
-  m_Name: CardDescription
+  m_Name: CardDescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 3706104969969494169}
   - component: {fileID: 2301140711458094135}
   m_Layer: 5
-  m_Name: CardCost
+  m_Name: CardCostText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

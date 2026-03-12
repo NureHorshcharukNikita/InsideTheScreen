@@ -13,6 +13,7 @@ public class BattleSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] private CardView cardPrefab;
     [SerializeField] private Transform handPanel;
+    [SerializeField] private ActionPointsUI actionPointsUI;
 
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
@@ -34,7 +35,7 @@ public class BattleSystem : MonoBehaviour
         turnManager.StartBattle();
         BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
 
-        RefreshHandUI();
+        RefreshUI();
     }
 
     private void Update()
@@ -56,6 +57,8 @@ public class BattleSystem : MonoBehaviour
 
         PlayCardFromHand(selectedCardIndex.Value, target);
         selectedCardIndex = null;
+
+        RefreshUI();
     }
 
     public void PlayCardFromHand(int index, IEffectTarget target)
@@ -74,7 +77,7 @@ public class BattleSystem : MonoBehaviour
 
             BattleStateChecker.Check(player, enemy);
 
-            RefreshHandUI();
+            RefreshUI();
         }
     }
 
@@ -86,7 +89,19 @@ public class BattleSystem : MonoBehaviour
         BattleStateChecker.Check(player, enemy);
 
         selectedCardIndex = null;
+
+        RefreshUI();
+    }
+
+    private void RefreshUI()
+    {
+        RefreshPointsUI();
         RefreshHandUI();
+    }
+
+    private void RefreshPointsUI()
+    {
+        actionPointsUI.UpdatePoints(player);
     }
 
     private void RefreshHandUI()

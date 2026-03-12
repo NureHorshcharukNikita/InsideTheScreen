@@ -8,6 +8,7 @@ public class PlayerCharacter : Character
     [SerializeField] private int currentActionPoints = 4;
     [SerializeField] private int actionPointsPerTurn = 2;
 
+    public int MaxActionPoints => maxActionPoints;
     public int CurrentActionPoints => currentActionPoints;
 
     public bool SpendActionPoints(int amount)
