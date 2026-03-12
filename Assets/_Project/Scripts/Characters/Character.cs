@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Character : MonoBehaviour, IEffectTarget
@@ -9,12 +10,15 @@ public class Character : MonoBehaviour, IEffectTarget
     public int MaxHealth => maxHealth;
     public int CurrentHealth => currentHealth;
 
+    public event Action<int, int> HealthChanged;
+
     public void TakeDamage(int amount)
     {
         if (amount < 0)
             return;
 
         currentHealth = Mathf.Max(currentHealth - amount, 0);
+        HealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 
     public void Heal(int amount)
@@ -23,5 +27,6 @@ public class Character : MonoBehaviour, IEffectTarget
             return;
 
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        HealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 }
