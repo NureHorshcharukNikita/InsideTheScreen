@@ -5,8 +5,8 @@ public class ActionPointsUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text valueText;
 
-    public void UpdatePoints(PlayerCharacter player)
+    public void UpdatePoints(int current, int max)
     {
-        valueText.text = player.CurrentActionPoints + " / " + player.MaxActionPoints;
+        valueText.text = current + " / " + max;
     }
 }

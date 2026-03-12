@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -11,14 +12,18 @@ public class PlayerCharacter : Character
     public int MaxActionPoints => maxActionPoints;
     public int CurrentActionPoints => currentActionPoints;
 
+    public event Action<int, int> ActionPointsChanged;
+
     public bool SpendActionPoints(int amount)
     {
         if (!CanSpendActionPoints(amount))
             return false;
 
         currentActionPoints -= amount;
+        ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
         return true;
     }
+
     public bool CanSpendActionPoints(int amount)
     {
         return amount >= 0 && currentActionPoints >= amount;
@@ -27,5 +32,7 @@ public class PlayerCharacter : Character
     public void RestoreActionPoints()
     {
         currentActionPoints = Mathf.Min(currentActionPoints + actionPointsPerTurn, maxActionPoints);
+
+        ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
     }
 }

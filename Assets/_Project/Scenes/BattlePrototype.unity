@@ -119,6 +119,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &205363161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 205363163}
+  - component: {fileID: 205363162}
+  m_Layer: 0
+  m_Name: BattleUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &205363162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205363161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181570e7d7106cf4496d377b74a02eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUI
+  battleSystem: {fileID: 1995241971}
+  cardPrefab: {fileID: 8580646543208704442, guid: 0b6644305efc92e4da8c327aefc46f75, type: 3}
+  handPanel: {fileID: 1882215365}
+  actionPointsUI: {fileID: 2032342502}
+  player: {fileID: 0}
+--- !u!4 &205363163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205363161}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,6 +735,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1474687992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474687994}
+  - component: {fileID: 1474687993}
+  m_Layer: 0
+  m_Name: BattleInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1474687993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474687992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a7967c4bd905943a115a809037dbab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleInput
+  battleSystem: {fileID: 1995241971}
+  enemy: {fileID: 1294572163}
+  player: {fileID: 1695557048}
+--- !u!4 &1474687994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474687992}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1695557047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,9 +1129,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
   - {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
   - {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
-  cardPrefab: {fileID: 8580646543208704442, guid: 0b6644305efc92e4da8c327aefc46f75, type: 3}
-  handPanel: {fileID: 1882215365}
-  actionPointsUI: {fileID: 2032342502}
 --- !u!4 &1995241972
 Transform:
   m_ObjectHideFlags: 0
@@ -1102,7 +1195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b8080b896d5d94ebf9e69f958357d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionPointsUI
-  valueText: {fileID: 0}
+  valueText: {fileID: 1162572047}
 --- !u!114 &2032342503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,5 +1243,7 @@ SceneRoots:
   - {fileID: 1695557050}
   - {fileID: 1294572165}
   - {fileID: 1995241972}
+  - {fileID: 205363163}
+  - {fileID: 1474687994}
   - {fileID: 877740386}
   - {fileID: 1865074695}

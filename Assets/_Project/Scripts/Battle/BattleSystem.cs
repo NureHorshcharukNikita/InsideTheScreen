@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,16 +11,13 @@ public class BattleSystem : MonoBehaviour
     [Header("Deck")]
     [SerializeField] private List<CardData> startingDeck;
 
-    [Header("UI")]
-    [SerializeField] private CardView cardPrefab;
-    [SerializeField] private Transform handPanel;
-    [SerializeField] private ActionPointsUI actionPointsUI;
-
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
     private TurnManager turnManager;
 
     private int? selectedCardIndex = null;
+
+    public event Action<DeckManager, int?> HandChanged;
 
     private void Start()
     {
@@ -35,19 +33,7 @@ public class BattleSystem : MonoBehaviour
         turnManager.StartBattle();
         BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
 
-        RefreshUI();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            EndTurn();
-
-        if (Input.GetKeyDown(KeyCode.E))
-            OnTargetClicked(enemy);
-
-        if (Input.GetKeyDown(KeyCode.P))
-            OnTargetClicked(player);
+        NotifyHandChanged();
     }
 
     public void OnTargetClicked(IEffectTarget target)
@@ -58,7 +44,7 @@ public class BattleSystem : MonoBehaviour
         PlayCardFromHand(selectedCardIndex.Value, target);
         selectedCardIndex = null;
 
-        RefreshUI();
+        NotifyHandChanged();
     }
 
     public void PlayCardFromHand(int index, IEffectTarget target)
@@ -77,7 +63,7 @@ public class BattleSystem : MonoBehaviour
 
             BattleStateChecker.Check(player, enemy);
 
-            RefreshUI();
+            NotifyHandChanged();
         }
     }
 
@@ -90,36 +76,10 @@ public class BattleSystem : MonoBehaviour
 
         selectedCardIndex = null;
 
-        RefreshUI();
+        NotifyHandChanged();
     }
 
-    private void RefreshUI()
-    {
-        RefreshPointsUI();
-        RefreshHandUI();
-    }
-
-    private void RefreshPointsUI()
-    {
-        actionPointsUI.UpdatePoints(player);
-    }
-
-    private void RefreshHandUI()
-    {
-        foreach (Transform child in handPanel)
-            Destroy(child.gameObject);
-
-        for (int i = 0; i < deckManager.Hand.Count; i++)
-        {
-            var cardData = deckManager.Hand.Cards[i];
-            int index = i;
-
-            CardView cardView = Instantiate(cardPrefab, handPanel);
-            cardView.Setup(cardData, index, OnCardClicked);
-        }
-    }
-
-    private void OnCardClicked(int index)
+    public void SelectCard(int index)
     {
         if (index < 0 || index >= deckManager.Hand.Count)
             return;
@@ -127,5 +87,10 @@ public class BattleSystem : MonoBehaviour
         selectedCardIndex = index;
 
         Debug.Log("Selected card: " + deckManager.Hand.Cards[index].CardName);
+    }
+
+    private void NotifyHandChanged()
+    {
+        HandChanged?.Invoke(deckManager, selectedCardIndex);
     }
 }
