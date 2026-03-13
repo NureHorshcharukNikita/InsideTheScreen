@@ -13,6 +13,7 @@ public class BattleSystem : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private DeckUI deckUI;
+    [SerializeField] private BattleEndUI battleEndUI;
 
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
@@ -66,7 +67,7 @@ public class BattleSystem : MonoBehaviour
             BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
             BattleDebugPrinter.PrintCards("Discard", deckManager.DiscardPile.Cards);
 
-            BattleStateChecker.Check(player, enemy);
+            AfterAction();
 
             NotifyHandChanged();
         }
@@ -77,11 +78,16 @@ public class BattleSystem : MonoBehaviour
         turnManager.EndPlayerTurn();
 
         BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
-        BattleStateChecker.Check(player, enemy);
+        AfterAction();
 
         selectedCardIndex = null;
 
         NotifyHandChanged();
+    }
+
+    public void AfterAction()
+    {
+        BattleStateChecker.Check(player, enemy, battleEndUI);
     }
 
     public void SelectCard(int index)
