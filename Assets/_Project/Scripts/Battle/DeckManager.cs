@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
 public class DeckManager
 {
-    public Deck Deck { get; } = new();
+    public Deck Deck { get; private set; }
     public Hand Hand { get; } = new();
     public DiscardPile DiscardPile { get; } = new();
 
     public void Initialize(List<CardData> startingDeck)
     {
+        Deck = new Deck(startingDeck.Count);
+
         foreach (var card in startingDeck)
             Deck.Add(card);
 

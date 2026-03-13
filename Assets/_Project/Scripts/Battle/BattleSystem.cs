@@ -11,6 +11,9 @@ public class BattleSystem : MonoBehaviour
     [Header("Deck")]
     [SerializeField] private List<CardData> startingDeck;
 
+    [Header("UI")]
+    [SerializeField] private DeckUI deckUI;
+
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
     private TurnManager turnManager;
@@ -25,6 +28,8 @@ public class BattleSystem : MonoBehaviour
 
         deckManager = new DeckManager();
         deckManager.Initialize(startingDeck);
+
+        deckUI.Bind(deckManager.Deck);
 
         turnManager = new TurnManager(player, enemy, deckManager);
         cardPlayer = new CardPlayer(player, deckManager, turnManager);
