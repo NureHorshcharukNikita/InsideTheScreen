@@ -10,11 +10,5 @@ public class BattleInput : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
             battleSystem.EndTurn();
-
-        if (Input.GetKeyDown(KeyCode.E))
-            battleSystem.OnTargetClicked(enemy);
-
-        if (Input.GetKeyDown(KeyCode.P))
-            battleSystem.OnTargetClicked(player);
     }
 }

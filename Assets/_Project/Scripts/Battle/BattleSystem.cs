@@ -89,6 +89,17 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("Selected card: " + deckManager.Hand.Cards[index].CardName);
     }
 
+    public void DeselectCard()
+    {
+        if (selectedCardIndex == null)
+            return;
+
+        selectedCardIndex = null;
+        Debug.Log("Card deselected");
+
+        NotifyHandChanged();
+    }
+
     private void NotifyHandChanged()
     {
         HandChanged?.Invoke(deckManager, selectedCardIndex);
