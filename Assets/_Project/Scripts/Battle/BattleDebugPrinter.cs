@@ -12,7 +12,7 @@ public static class BattleDebugPrinter
         if (cards.Count == 0)
         {
             builder.AppendLine("(empty)");
-            Debug.Log(builder.ToString());
+            DevLog.Log(builder.ToString());
             return;
         }
 
@@ -24,6 +24,6 @@ public static class BattleDebugPrinter
             displayIndex++;
         }
 
-        Debug.Log(builder.ToString());
+        DevLog.Log(builder.ToString());
     }
 }

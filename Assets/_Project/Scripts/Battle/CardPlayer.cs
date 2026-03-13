@@ -20,19 +20,19 @@ public class CardPlayer
 
         if (turnManager.CurrentTurn != TurnOwner.Player)
         {
-            Debug.Log("It is not player's turn");
+            DevLog.Log("It is not player's turn");
             return false;
         }
 
         if (!CanUseCardOnTarget(card, target))
         {
-            Debug.Log($"{card.CardName} cannot be used on this target");
+            DevLog.Log($"{card.CardName} cannot be used on this target");
             return false;
         }
 
         if (!player.SpendActionPoints(card.Cost))
         {
-            Debug.Log("Not enough action points");
+            DevLog.Log("Not enough action points");
             return false;
         }
 

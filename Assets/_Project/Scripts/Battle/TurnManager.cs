@@ -17,7 +17,7 @@ public class TurnManager
 
     public void StartBattle()
     {
-        Debug.Log("Battle started");
+        DevLog.Log("Battle started");
 
         CurrentTurn = TurnOwner.Player;
 
@@ -30,7 +30,7 @@ public class TurnManager
     {
         CurrentTurn = TurnOwner.Player;
 
-        Debug.Log("New player turn started");
+        DevLog.Log("New player turn started");
 
         player.RestoreActionPoints();
         deckManager.DrawCards(1);
@@ -41,7 +41,7 @@ public class TurnManager
         if (CurrentTurn != TurnOwner.Player)
             return;
 
-        Debug.Log("Player turn ended");
+        DevLog.Log("Player turn ended");
 
         CurrentTurn = TurnOwner.Enemy;
 
@@ -52,7 +52,7 @@ public class TurnManager
 
     private void ExecuteEnemyTurn()
     {
-        Debug.Log("Enemy turn");
+        DevLog.Log("Enemy turn");
 
         //enemy.Attack(player);
         player.TakeDamage(5);

@@ -61,7 +61,7 @@ public class BattleSystem : MonoBehaviour
 
         if (cardPlayer.TryPlayCard(card, target))
         {
-            Debug.Log("Played: " + card.CardName);
+            DevLog.Log("Played: " + card.CardName);
 
             BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
             BattleDebugPrinter.PrintCards("Discard", deckManager.DiscardPile.Cards);
@@ -91,7 +91,7 @@ public class BattleSystem : MonoBehaviour
 
         selectedCardIndex = index;
 
-        Debug.Log("Selected card: " + deckManager.Hand.Cards[index].CardName);
+        DevLog.Log("Selected card: " + deckManager.Hand.Cards[index].CardName);
     }
 
     public void DeselectCard()
@@ -100,7 +100,7 @@ public class BattleSystem : MonoBehaviour
             return;
 
         selectedCardIndex = null;
-        Debug.Log("Card deselected");
+        DevLog.Log("Card deselected");
 
         NotifyHandChanged();
     }

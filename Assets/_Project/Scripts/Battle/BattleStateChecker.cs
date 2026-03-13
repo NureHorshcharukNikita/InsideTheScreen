@@ -6,12 +6,12 @@ public static class BattleStateChecker
     {
         if (enemy.CurrentHealth <= 0)
         {
-            Debug.Log("Enemy defeated!");
+            DevLog.Log("Enemy defeated!");
         }
 
         if (player.CurrentHealth <= 0)
         {
-            Debug.Log("Player defeated!");
+            DevLog.Log("Player defeated!");
         }
     }
 }

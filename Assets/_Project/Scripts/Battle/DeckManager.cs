@@ -31,8 +31,8 @@ public class DeckManager
             if (card != null)
             {
                 Hand.Add(card);
-                Debug.Log("Draw card: " + card.CardName);
-                Debug.Log("Deck Count: " + Deck.Count);
+                DevLog.Log("Draw card: " + card.CardName);
+                DevLog.Log("Deck Count: " + Deck.Count);
             }
         }
     }
@@ -48,7 +48,7 @@ public class DeckManager
         if (DiscardPile.Count == 0)
             return;
 
-        Debug.Log("Reshuffling discard pile");
+        DevLog.Log("Reshuffling discard pile");
 
         foreach (var card in DiscardPile.Cards)
             Deck.Add(card);
