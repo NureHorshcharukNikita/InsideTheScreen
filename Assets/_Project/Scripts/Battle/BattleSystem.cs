@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
 {
+    public BattleState CurrentBattleState { get; private set; } = BattleState.Running;
+
+    public event Action<DeckManager, int?> HandChanged;
+
     [Header("Characters")]
     [SerializeField] private PlayerCharacter player;
     [SerializeField] private EnemyCharacter enemy;
@@ -20,8 +24,6 @@ public class BattleSystem : MonoBehaviour
     private TurnManager turnManager;
 
     private int? selectedCardIndex = null;
-
-    public event Action<DeckManager, int?> HandChanged;
 
     private void Start()
     {
@@ -44,6 +46,8 @@ public class BattleSystem : MonoBehaviour
 
     public void OnTargetClicked(IEffectTarget target)
     {
+        if (!CanPlay()) return;
+
         if (selectedCardIndex == null)
             return;
 
@@ -55,6 +59,8 @@ public class BattleSystem : MonoBehaviour
 
     public void PlayCardFromHand(int index, IEffectTarget target)
     {
+        if (!CanPlay()) return;
+
         if (index < 0 || index >= deckManager.Hand.Count)
             return;
 
@@ -75,6 +81,8 @@ public class BattleSystem : MonoBehaviour
 
     public void EndTurn()
     {
+        if (!CanPlay()) return;
+
         turnManager.EndPlayerTurn();
 
         BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
@@ -85,13 +93,41 @@ public class BattleSystem : MonoBehaviour
         NotifyHandChanged();
     }
 
+    public void SetVictory()
+    {
+        CurrentBattleState = BattleState.Victory;
+    }
+
+    public void SetDefeat()
+    {
+        CurrentBattleState = BattleState.Defeat;
+    }
+
+    public bool CanPlay()
+    {
+        return CurrentBattleState == BattleState.Running;
+    }
+
     public void AfterAction()
     {
-        BattleStateChecker.Check(player, enemy, battleEndUI);
+        if (enemy.CurrentHealth <= 0)
+        {
+            SetVictory();
+            battleEndUI.ShowVictory();
+            return;
+        }
+
+        if (player.CurrentHealth <= 0)
+        {
+            SetDefeat();
+            battleEndUI.ShowDefeat();
+        }
     }
 
     public void SelectCard(int index)
     {
+        if (!CanPlay()) return;
+
         if (index < 0 || index >= deckManager.Hand.Count)
             return;
 

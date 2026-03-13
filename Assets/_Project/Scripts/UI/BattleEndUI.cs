@@ -20,6 +20,6 @@ public class BattleEndUI : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneNames.Battle);
     }
 }
