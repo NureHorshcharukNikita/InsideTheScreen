@@ -2005,8 +2005,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleInput
   battleSystem: {fileID: 1995241971}
-  enemy: {fileID: 1294572163}
-  player: {fileID: 1695557048}
 --- !u!4 &1474687994
 Transform:
   m_ObjectHideFlags: 0
