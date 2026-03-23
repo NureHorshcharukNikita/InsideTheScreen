@@ -2589,11 +2589,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 585369266782688776, guid: 7c9244323f34a5a4995599721133818c, type: 3}
   m_PrefabInstance: {fileID: 1976746656}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1976746658 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8627476781124298368, guid: 7c9244323f34a5a4995599721133818c, type: 3}
+--- !u!114 &1976746658 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 813081761483875185, guid: 7c9244323f34a5a4995599721133818c, type: 3}
   m_PrefabInstance: {fileID: 1976746656}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fc8b6bd99a76e44a42dbf5c511af37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryWindow
 --- !u!1 &1995930860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,9 +2715,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1995930860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05fc8b6bd99a76e44a42dbf5c511af37, type: 3}
+  m_Script: {fileID: 11500000, guid: d1ac73f852ebdc94ba7a71786fad6cfa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryWindowController
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryInput
   inventoryWindow: {fileID: 1976746658}
 --- !u!1 &2136517632
 GameObject:

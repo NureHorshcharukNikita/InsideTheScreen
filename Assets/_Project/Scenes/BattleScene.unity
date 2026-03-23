@@ -1487,11 +1487,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 585369266782688776, guid: 7c9244323f34a5a4995599721133818c, type: 3}
   m_PrefabInstance: {fileID: 398667322}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &398667324 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8627476781124298368, guid: 7c9244323f34a5a4995599721133818c, type: 3}
+--- !u!114 &398667324 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 813081761483875185, guid: 7c9244323f34a5a4995599721133818c, type: 3}
   m_PrefabInstance: {fileID: 398667322}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fc8b6bd99a76e44a42dbf5c511af37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryWindow
 --- !u!1 &400002966
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,9 +2155,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 877740382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05fc8b6bd99a76e44a42dbf5c511af37, type: 3}
+  m_Script: {fileID: 11500000, guid: d1ac73f852ebdc94ba7a71786fad6cfa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryWindowController
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
   inventoryWindow: {fileID: 398667324}
 --- !u!1 &942480744
 GameObject:
@@ -4215,7 +4221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5807017565810348876, guid: 0b6644305efc92e4da8c327aefc46f75, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9720
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5807017565810348876, guid: 0b6644305efc92e4da8c327aefc46f75, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4256,6 +4262,10 @@ PrefabInstance:
     - target: {fileID: 7647939186568351758, guid: 0b6644305efc92e4da8c327aefc46f75, type: 3}
       propertyPath: m_Name
       value: CardView
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647939186568351758, guid: 0b6644305efc92e4da8c327aefc46f75, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
