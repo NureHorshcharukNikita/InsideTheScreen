@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(InventoryStorage))]
@@ -22,7 +23,7 @@ public class InventoryWindow : MonoBehaviour
             DevLog.Log("Cards Content is not assigned.");
 
         if (cardViewPrefab == null)
-            DevLog.Log("CardView Prefab is not assigned.");
+            DevLog.Log("CardSlot Prefab is not assigned.");
     }
 
     private void Update()
@@ -60,11 +61,19 @@ public class InventoryWindow : MonoBehaviour
             Destroy(cardsContent.GetChild(i).gameObject);
         }
 
-        for (int i = 0; i < inventoryStorage.Cards.Count; i++)
+        var grouped = inventoryStorage.Cards
+            .GroupBy(c => c)
+            .ToList();
+
+        for (int i = 0; i < grouped.Count; i++)
         {
-            CardData card = inventoryStorage.Cards[i];
-            CardView cardView = Instantiate(cardViewPrefab, cardsContent);
-            cardView.Setup(card, i, OnCardClicked);
+            var group = grouped[i];
+
+            CardData card = group.Key;
+            int copies = group.Count();
+
+            CardView CardSlot = Instantiate(cardViewPrefab, cardsContent);
+            CardSlot.Setup(card, copies, i, OnCardClicked);
         }
 
         DevLog.Log($"Inventory refreshed. Cards count: {inventoryStorage.Cards.Count}");

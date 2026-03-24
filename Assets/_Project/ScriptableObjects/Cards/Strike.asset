@@ -15,7 +15,7 @@ MonoBehaviour:
   cardID: 
   cardName: Strike
   description: Deal 6 damage
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 5223168d8022e2447a7eb5a5ef620b55, type: 3}
   cost: 1
   effects:
   - effect: {fileID: 11400000, guid: 6e0d7f8cf16b15d408f403403cce48a3, type: 2}
