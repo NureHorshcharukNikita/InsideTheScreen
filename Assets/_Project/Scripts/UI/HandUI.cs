@@ -14,6 +14,8 @@ public class HandUI : MonoBehaviour
 
     private void OnEnable()
     {
+        ClearHand();
+
         if (battleSystem == null)
             return;
 
@@ -31,17 +33,33 @@ public class HandUI : MonoBehaviour
     private void RefreshHand(DeckManager deckManager, int? selectedCardIndex)
     {
         ClearHand();
+
+        if (deckManager == null)
+            return;
+
+        if (deckManager.Hand == null)
+            return;
+
+        if (deckManager.Hand.Count == 0)
+            return;
+
         CreateCardViews(deckManager);
     }
 
     private void ClearHand()
     {
+        if (handPanel == null)
+            return;
+
         for (int i = handPanel.childCount - 1; i >= 0; i--)
             Destroy(handPanel.GetChild(i).gameObject);
     }
 
     private void CreateCardViews(DeckManager deckManager)
     {
+        if (cardPrefab == null || battleSystem == null)
+            return;
+
         for (int i = 0; i < deckManager.Hand.Count; i++)
         {
             var cardData = deckManager.Hand.Cards[i];

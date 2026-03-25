@@ -7,6 +7,12 @@ public class DeckUI : MonoBehaviour
 
     private Deck deck;
 
+    private void OnEnable()
+    {
+        if (deck == null)
+            SetEmptyValue();
+    }
+
     public void Bind(Deck deck)
     {
         if (this.deck != null)
@@ -18,6 +24,10 @@ public class DeckUI : MonoBehaviour
         {
             this.deck.DeckCountChanged += RefreshDeck;
             RefreshDeck(this.deck.Count, this.deck.MaxCount);
+        }
+        else
+        {
+            SetEmptyValue();
         }
     }
 
@@ -31,6 +41,17 @@ public class DeckUI : MonoBehaviour
 
     private void RefreshDeck(int current, int max)
     {
+        if (valueText == null)
+            return;
+
         valueText.text = current + " / " + max;
+    }
+
+    private void SetEmptyValue()
+    {
+        if (valueText == null)
+            return;
+
+        valueText.text = "0 / 0";
     }
 }

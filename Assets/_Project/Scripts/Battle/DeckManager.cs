@@ -37,9 +37,20 @@ public class DeckManager
         }
     }
 
-    public void Discard(CardData card)
+    public void DiscardByCardFromHand(CardData card)
     {
         Hand.Remove(card);
+        DiscardPile.Add(card);
+    }
+
+    public void DiscardByIndexFromHand(int index)
+    {
+        if (index < 0 || index >= Hand.Count)
+            return;
+
+        var card = Hand.Cards[index];
+
+        Hand.RemoveAt(index);
         DiscardPile.Add(card);
     }
 

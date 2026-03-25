@@ -72,7 +72,7 @@ public class BattleSystem : MonoBehaviour
 
         var card = deckManager.Hand.Cards[index];
 
-        if (cardPlayer.TryPlayCard(card, target))
+        if (cardPlayer.TryPlayCard(index, card, target))
         {
             DevLog.Log("Played: " + card.CardName);
 
@@ -80,7 +80,6 @@ public class BattleSystem : MonoBehaviour
             BattleDebugPrinter.PrintCards("Discard", deckManager.DiscardPile.Cards);
 
             AfterAction();
-
             NotifyHandChanged();
         }
     }
