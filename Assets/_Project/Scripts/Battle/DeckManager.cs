@@ -9,7 +9,7 @@ public class DeckManager
     public Hand Hand { get; } = new();
     public DiscardPile DiscardPile { get; } = new();
 
-    public void Initialize(List<CardData> startingDeck)
+    public void Initialize(IReadOnlyCollection<CardData> startingDeck)
     {
         Deck = new Deck(startingDeck.Count);
 

@@ -12,9 +12,6 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private PlayerCharacter player;
     [SerializeField] private EnemyCharacter enemy;
 
-    [Header("Deck")]
-    [SerializeField] private List<CardData> startingDeck;
-
     [Header("UI")]
     [SerializeField] private DeckUI deckUI;
     [SerializeField] private BattleEndUI battleEndUI;
@@ -27,15 +24,24 @@ public class BattleSystem : MonoBehaviour
 
     private void Start()
     {
-        BattleDebugPrinter.PrintCards("Starting deck", startingDeck);
+        if (DeckProvider.Instance == null)
+        {
+            DevLog.Log("DeckProvider instance not found.");
+            return;
+        }
+
+        var deck = DeckProvider.Instance.Deck;
+
+        BattleDebugPrinter.PrintCards("Starting deck", deck.Cards);
 
         deckManager = new DeckManager();
-        deckManager.Initialize(startingDeck);
+        deckManager.Initialize(deck.Cards);
 
         deckUI.Bind(deckManager.Deck);
 
         turnManager = new TurnManager(player, enemy, deckManager);
         cardPlayer = new CardPlayer(player, deckManager, turnManager);
+
         BattleDebugPrinter.PrintCards("Deck order", deckManager.Deck.Cards);
 
         turnManager.StartBattle();

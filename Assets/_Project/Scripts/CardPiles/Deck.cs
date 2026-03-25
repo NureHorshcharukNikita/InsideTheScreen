@@ -23,9 +23,21 @@ public class Deck
         if (card == null)
             return;
 
+        if (Count >= MaxCount)
+            return;
+
         cards.Add(card);
 
         NotifyDeckChanged();
+    }
+
+    public void Remove(CardData card)
+    {
+        if (card == null)
+            return;
+
+        if (cards.Remove(card))
+            NotifyDeckChanged();
     }
 
     public CardData Draw()
