@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryStorage : MonoBehaviour
+[CreateAssetMenu(menuName = "Game/Inventory Data")]
+public class InventoryData : ScriptableObject
 {
     [SerializeField] private List<CardData> cards = new();
 

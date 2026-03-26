@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.XR;
+﻿using System.Collections.Generic;
 
 public class DeckManager
 {

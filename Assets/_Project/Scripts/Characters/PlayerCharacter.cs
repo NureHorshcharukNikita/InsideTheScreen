@@ -1,18 +1,39 @@
 using System;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class PlayerCharacter : Character
 {
-    [Header("Action Points")]
-    [SerializeField] private int maxActionPoints = 5;
-    [SerializeField] private int currentActionPoints = 4;
-    [SerializeField] private int actionPointsPerTurn = 2;
+    [SerializeField] private PlayerData playerData;
 
-    public int MaxActionPoints => maxActionPoints;
+    private int currentActionPoints;
+
+    public override int MaxHealth => playerData != null ? playerData.maxHealth : 0;
+    public DeckData DeckData => playerData.Deck;
+    public int MaxActionPoints => playerData.maxActionPoints;
     public int CurrentActionPoints => currentActionPoints;
 
     public event Action<int, int> ActionPointsChanged;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (playerData == null)
+        {
+            Debug.LogError("PlayerData is not assigned.");
+            return;
+        }
+
+        if (playerData.Deck == null)
+        {
+            Debug.LogError("DeckData is not assigned in PlayerData.");
+            return;
+        }
+
+        currentActionPoints = playerData.startActionPoints;
+
+        ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
+    }
 
     public bool SpendActionPoints(int amount)
     {
@@ -31,7 +52,9 @@ public class PlayerCharacter : Character
 
     public void RestoreActionPoints()
     {
-        currentActionPoints = Mathf.Min(currentActionPoints + actionPointsPerTurn, maxActionPoints);
+        currentActionPoints = Mathf.Min(
+            currentActionPoints + playerData.actionPointsPerTurn,
+            playerData.maxActionPoints);
 
         ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
     }

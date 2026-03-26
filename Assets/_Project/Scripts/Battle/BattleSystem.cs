@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
@@ -9,8 +8,8 @@ public class BattleSystem : MonoBehaviour
     public event Action<DeckManager, int?> HandChanged;
 
     [Header("Characters")]
-    [SerializeField] private PlayerCharacter player;
     [SerializeField] private EnemyCharacter enemy;
+    [SerializeField] private PlayerCharacter player;
 
     [Header("UI")]
     [SerializeField] private DeckUI deckUI;
@@ -24,13 +23,13 @@ public class BattleSystem : MonoBehaviour
 
     private void Start()
     {
-        if (DeckProvider.Instance == null)
+        if (player == null)
         {
-            DevLog.Log("DeckProvider instance not found.");
+            DevLog.Log("Player not assigned");
             return;
         }
 
-        var deck = DeckProvider.Instance.Deck;
+        var deck = new Deck(player.DeckData);
 
         BattleDebugPrinter.PrintCards("Starting deck", deck.Cards);
 
@@ -42,10 +41,7 @@ public class BattleSystem : MonoBehaviour
         turnManager = new TurnManager(player, enemy, deckManager);
         cardPlayer = new CardPlayer(player, deckManager, turnManager);
 
-        BattleDebugPrinter.PrintCards("Deck order", deckManager.Deck.Cards);
-
         turnManager.StartBattle();
-        BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
 
         NotifyHandChanged();
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Deck
 {
@@ -16,6 +17,18 @@ public class Deck
     public Deck(int maxCount)
     {
         MaxCount = maxCount;
+    }
+
+    public Deck(DeckData deckData)
+    {
+        if (deckData == null)
+        {
+            MaxCount = 0;
+            return;
+        }
+
+        MaxCount = deckData.MaxCount;
+        cards = new List<CardData>(deckData.Cards);
     }
 
     public void Add(CardData card)
@@ -58,7 +71,6 @@ public class Deck
         for (int i = 0; i < cards.Count; i++)
         {
             int randomIndex = UnityEngine.Random.Range(i, cards.Count);
-
             (cards[i], cards[randomIndex]) = (cards[randomIndex], cards[i]);
         }
     }
