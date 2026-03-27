@@ -70,8 +70,15 @@ public class InventoryWindow : MonoBehaviour
         inventoryPreviewPanel.Clear();
     }
 
+    private void OnDisable()
+    {
+        if (GameStateManager.State == GameState.Inventory)
+            GameStateManager.State = GameState.Gameplay;
+    }
+
     public void Open()
     {
+        GameStateManager.State = GameState.Inventory;
         gameObject.SetActive(true);
         Refresh();
         inventoryPreviewPanel.Clear();
@@ -79,6 +86,7 @@ public class InventoryWindow : MonoBehaviour
 
     public void Close()
     {
+        GameStateManager.State = GameState.Gameplay;
         gameObject.SetActive(false);
     }
 

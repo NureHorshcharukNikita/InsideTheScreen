@@ -12,6 +12,9 @@ public class FadeManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        fadeGroup.alpha = 0;
+        fadeGroup.gameObject.SetActive(false);
     }
 
     public void FadeToScene(string sceneName)
@@ -22,6 +25,8 @@ public class FadeManager : MonoBehaviour
     private IEnumerator FadeRoutine(string sceneName)
     {
         float time = 0;
+
+        fadeGroup.gameObject.SetActive(true);
 
         while (time < fadeTime)
         {
@@ -44,5 +49,7 @@ public class FadeManager : MonoBehaviour
         }
 
         fadeGroup.alpha = 0;
+
+        fadeGroup.gameObject.SetActive(false);
     }
 }
