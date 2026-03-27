@@ -20,6 +20,19 @@ public class InventoryPreviewPanel : MonoBehaviour
     public CardData SelectedCard => selectedCard;
     public bool SelectedFromDeck => selectedFromDeck;
 
+    private void Awake()
+    {
+        DisableButtonSelection(addButton);
+        DisableButtonSelection(removeButton);
+    }
+
+    private void DisableButtonSelection(Button button)
+    {
+        var navigation = button.navigation;
+        navigation.mode = Navigation.Mode.None;
+        button.navigation = navigation;
+    }
+
     public void Show(
         CardData card,
         bool fromDeck,

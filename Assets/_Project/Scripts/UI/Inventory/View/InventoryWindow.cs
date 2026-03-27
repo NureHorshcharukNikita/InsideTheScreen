@@ -13,6 +13,7 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private TMP_Text deckCountText;
 
     [SerializeField] private InventoryPreviewPanel inventoryPreviewPanel;
+    [SerializeField] private InventoryCategoriesPanel categoriesPanel;
 
     private InventoryScreenController inventoryScreenController;
 
@@ -57,6 +58,14 @@ public class InventoryWindow : MonoBehaviour
 
     private void OnEnable()
     {
+        categoriesPanel.Build(
+            player.Inventory.Cards,
+            category =>
+            {
+                inventoryScreenController.SetCategory(category);
+                Refresh();
+            });
+
         Refresh();
         inventoryPreviewPanel.Clear();
     }

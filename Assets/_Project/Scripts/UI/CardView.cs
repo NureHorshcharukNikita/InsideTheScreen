@@ -1,26 +1,30 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour
+public class CardView : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private TMP_Text cardNameText;
     [SerializeField] private TMP_Text cardCostText;
     [SerializeField] private TMP_Text cardDescriptionText;
     [SerializeField] private TMP_Text countText;
     [SerializeField] private Image cardIcon;
-    [SerializeField] private Button button;
+    [SerializeField] private GameObject selectionBorder;
 
     private int cardIndex;
+    private Action<int> onPointerDown;
 
-    public void Setup(CardData data, int index, System.Action<int> onClick)
+    public void Setup(CardData data, int index, Action<int> onClick, bool selected = false)
     {
-        Setup(data, null, index, onClick);
+        Setup(data, null, index, onClick, selected);
     }
 
-    public void Setup(CardData data, int? count, int index, System.Action<int> onClick)
+    public void Setup(CardData data, int? count, int index, Action<int> onClick, bool selected = false)
     {
         cardIndex = index;
+        onPointerDown = onClick;
 
         if (cardNameText != null)
             cardNameText.text = data.CardName;
@@ -51,10 +55,17 @@ public class CardView : MonoBehaviour
             cardIcon.preserveAspect = true;
         }
 
-        if (button != null)
-        {
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => onClick?.Invoke(cardIndex));
-        }
+        SetSelected(selected);
+    }
+
+    public void SetSelected(bool selected)
+    {
+        if (selectionBorder != null)
+            selectionBorder.SetActive(selected);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        onPointerDown?.Invoke(cardIndex);
     }
 }

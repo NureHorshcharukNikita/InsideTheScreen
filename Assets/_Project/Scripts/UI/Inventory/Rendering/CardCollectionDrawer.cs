@@ -17,7 +17,10 @@ public class CardCollectionDrawer
         this.cardPrefab = cardPrefab;
     }
 
-    public void Draw(IReadOnlyList<CardData> cards, Action<int> onClick)
+    public void Draw(
+        IReadOnlyList<CardData> cards,
+        Action<int> onClick,
+        Func<CardData, bool> isSelected = null)
     {
         Clear();
 
@@ -37,9 +40,11 @@ public class CardCollectionDrawer
         for (int i = 0; i < sortedCards.Count; i++)
         {
             var card = sortedCards[i];
+            var cardView = GetPool();
 
-            CardView cardView = GetPool();
-            cardView.Setup(card, counts[card], i, onClick);
+            bool selected = isSelected != null && isSelected(card);
+
+            cardView.Setup(card, counts[card], i, onClick, selected);
         }
 
         UpdateContentHeight(sortedCards.Count);
@@ -48,7 +53,10 @@ public class CardCollectionDrawer
     public void Clear()
     {
         for (int i = 0; i < pool.Count; i++)
+        {
+            pool[i].SetSelected(false);
             pool[i].gameObject.SetActive(false);
+        }
     }
 
     private CardView GetPool()
