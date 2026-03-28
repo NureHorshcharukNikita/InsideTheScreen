@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 442d735e4de020240848529e2f98761a
+guid: 4d513cbc2fe1e8d46ac786837e10ae3b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8286603219715691346
-    second: CardBorder_0
+      213: 7317410865896580144
+    second: IconSelectionBorder_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CardBorder_0
+      name: IconSelectionBorder_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1029
-        height: 1488
+        y: 3
+        width: 512
+        height: 507
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eacec36a642100d80800000000000000
-      internalID: -8286603219715691346
+      spriteID: 0346959c96aac8560800000000000000
+      internalID: 7317410865896580144
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CardBorder_0: -8286603219715691346
+      IconSelectionBorder_0: 7317410865896580144
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

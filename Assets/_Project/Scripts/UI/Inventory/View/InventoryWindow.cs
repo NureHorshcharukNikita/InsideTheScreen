@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -16,7 +17,12 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private InventoryPreviewPanel inventoryPreviewPanel;
     [SerializeField] private InventoryCategoriesPanel categoriesPanel;
 
+    [Header("Top Icons")]
+    [SerializeField] private List<GameObject> topIconBorders = new();
+    [SerializeField] private List<GameObject> pages = new();
+
     private InventoryScreenController inventoryScreenController;
+    private int selectedTopIconIndex = -1;
 
     public bool IsOpen => gameObject.activeSelf;
 
@@ -72,6 +78,8 @@ public class InventoryWindow : MonoBehaviour
 
         Refresh();
         inventoryPreviewPanel.Clear();
+
+        SelectTopIcon(0);
     }
 
     private void OnDisable()
@@ -86,6 +94,7 @@ public class InventoryWindow : MonoBehaviour
         gameObject.SetActive(true);
         Refresh();
         inventoryPreviewPanel.Clear();
+        SelectTopIcon(0);
     }
 
     public void Close()
@@ -119,5 +128,49 @@ public class InventoryWindow : MonoBehaviour
     {
         inventoryScreenController.RemoveSelected();
         Refresh();
+    }
+
+    public void SelectTopIcon(int index)
+    {
+        if (index < 0 || index >= topIconBorders.Count)
+            return;
+
+        selectedTopIconIndex = index;
+
+        for (int i = 0; i < topIconBorders.Count; i++)
+        {
+            if (topIconBorders[i] != null)
+                topIconBorders[i].SetActive(i == index);
+        }
+
+        for (int i = 0; i < pages.Count; i++)
+        {
+            if (pages[i] != null)
+                pages[i].SetActive(i == index);
+        }
+    }
+
+    public void SelectNextTopIcon()
+    {
+        if (topIconBorders.Count == 0)
+            return;
+
+        int next = selectedTopIconIndex + 1;
+        if (next >= topIconBorders.Count)
+            next = 0;
+
+        SelectTopIcon(next);
+    }
+
+    public void SelectPreviousTopIcon()
+    {
+        if (topIconBorders.Count == 0)
+            return;
+
+        int prev = selectedTopIconIndex - 1;
+        if (prev < 0)
+            prev = topIconBorders.Count - 1;
+
+        SelectTopIcon(prev);
     }
 }
