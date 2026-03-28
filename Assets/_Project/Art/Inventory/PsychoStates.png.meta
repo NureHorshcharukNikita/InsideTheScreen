@@ -1,0 +1,304 @@
+fileFormatVersion: 2
+guid: fb6d0ea844a790348b83e0e75331129e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3660994487526817042
+    second: PsychoStates_0
+  - first:
+      213: -8802980114790125134
+    second: PsychoStates_1
+  - first:
+      213: 22100736520995689
+    second: PsychoStates_2
+  - first:
+      213: 7752967821162023680
+    second: PsychoStates_3
+  - first:
+      213: 3068738888725343267
+    second: PsychoStates_4
+  - first:
+      213: -8017185870763097078
+    second: PsychoStates_5
+  - first:
+      213: 860519264157010441
+    second: PsychoStates_6
+  - first:
+      213: -1167345858336301987
+    second: PsychoStates_7
+  - first:
+      213: 6452436834382403922
+    second: PsychoStates_8
+  - first:
+      213: 2460385349004796041
+    second: PsychoStates_9
+  - first:
+      213: 5196294673101871309
+    second: PsychoStates_10
+  - first:
+      213: 941513593234738659
+    second: PsychoStates_11
+  - first:
+      213: 8228431761763690856
+    second: PsychoStates_12
+  - first:
+      213: 4700871006676242601
+    second: PsychoStates_13
+  - first:
+      213: 207583792781421967
+    second: PsychoStates_14
+  - first:
+      213: 8265716662992292694
+    second: PsychoStates_15
+  - first:
+      213: 6958086175214746114
+    second: PsychoStates_16
+  - first:
+      213: 6113499257122693317
+    second: PsychoStates_17
+  - first:
+      213: 5111740234228432211
+    second: PsychoStates_18
+  - first:
+      213: 706414824457383904
+    second: PsychoStates_19
+  - first:
+      213: 1211592375475401879
+    second: PsychoStates_20
+  - first:
+      213: -4008690893874960095
+    second: PsychoStates_21
+  - first:
+      213: 3705222891365815951
+    second: PsychoStates_22
+  - first:
+      213: 6620876317194249845
+    second: PsychoStates_23
+  - first:
+      213: -1474173499355441609
+    second: PsychoStates_24
+  - first:
+      213: -8120242277930537039
+    second: PsychoStates_25
+  - first:
+      213: -7677435243638158196
+    second: PsychoStates_26
+  - first:
+      213: 3842586643537876948
+    second: PsychoStates_27
+  - first:
+      213: -5428716955894016531
+    second: PsychoStates_28
+  - first:
+      213: -2570201911829695922
+    second: PsychoStates_29
+  - first:
+      213: -5366376134418168079
+    second: PsychoStates_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PsychoStates_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 371
+        height: 361
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21df2b1f6177ec230800000000000000
+      internalID: 3660994487526817042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PsychoStates_1
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 0
+        width: 371
+        height: 361
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b17b1dc93885d580800000000000000
+      internalID: -8802980114790125134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PsychoStates_2
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 0
+        width: 371
+        height: 361
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 963cb95b0848e4000800000000000000
+      internalID: 22100736520995689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PsychoStates_3
+      rect:
+        serializedVersion: 2
+        x: 1114
+        y: 0
+        width: 330
+        height: 361
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00b85670823189b60800000000000000
+      internalID: 7752967821162023680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 078876c4ca10ddc429de989e7bac3930
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":371.0,"y":361.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      PsychoStates_0: 3660994487526817042
+      PsychoStates_1: -8802980114790125134
+      PsychoStates_2: 22100736520995689
+      PsychoStates_3: 7752967821162023680
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

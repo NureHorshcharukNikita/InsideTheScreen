@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3b9de42a7263cbd49878242d9a046403
+guid: e45fa93a340f6a143917827c1a66b21f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5505784301242206033
-    second: Skills_0
+      213: -8303808212948465891
+    second: SkillPoint_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Skills_0
+      name: SkillPoint_0
       rect:
         serializedVersion: 2
-        x: 109
-        y: 46
-        width: 333
-        height: 417
+        x: 107
+        y: 45
+        width: 299
+        height: 419
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fa8398259568793b0800000000000000
-      internalID: -5505784301242206033
+      spriteID: d174c300d62f2cc80800000000000000
+      internalID: -8303808212948465891
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Skills_0: -5505784301242206033
+      SkillPoint_0: -8303808212948465891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
