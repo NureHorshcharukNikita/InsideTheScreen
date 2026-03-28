@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class InventoryWindow : MonoBehaviour
 {
-    [SerializeField] private PlayerData player;
+    [SerializeField] private PlayerCharacter player;
+    [SerializeField] private PlayerHPText playerHPText;
 
     [SerializeField] private Transform inventoryCardsContent;
     [SerializeField] private Transform deckCardsContent;
@@ -27,8 +28,8 @@ public class InventoryWindow : MonoBehaviour
             return;
         }
 
-        var inventoryStorage = player.Inventory;
-        var deck = player.Deck;
+        var inventoryStorage = player.InventoryData;
+        var deck = player.DeckData;
 
         var inventoryDrawer = new CardCollectionDrawer(
             inventoryCardsContent,
@@ -58,8 +59,11 @@ public class InventoryWindow : MonoBehaviour
 
     private void OnEnable()
     {
+        if (playerHPText != null)
+            playerHPText.SetTarget(player);
+
         categoriesPanel.Build(
-            player.Inventory.Cards,
+            player.InventoryData.Cards,
             category =>
             {
                 inventoryScreenController.SetCategory(category);
