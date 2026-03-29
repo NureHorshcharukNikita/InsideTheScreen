@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.XR;
+﻿using System.Collections.Generic;
 
 public class DeckManager
 {
@@ -9,7 +6,7 @@ public class DeckManager
     public Hand Hand { get; } = new();
     public DiscardPile DiscardPile { get; } = new();
 
-    public void Initialize(List<CardData> startingDeck)
+    public void Initialize(IReadOnlyCollection<CardData> startingDeck)
     {
         Deck = new Deck(startingDeck.Count);
 
@@ -37,9 +34,20 @@ public class DeckManager
         }
     }
 
-    public void Discard(CardData card)
+    public void DiscardByCardFromHand(CardData card)
     {
         Hand.Remove(card);
+        DiscardPile.Add(card);
+    }
+
+    public void DiscardByIndexFromHand(int index)
+    {
+        if (index < 0 || index >= Hand.Count)
+            return;
+
+        var card = Hand.Cards[index];
+
+        Hand.RemoveAt(index);
         DiscardPile.Add(card);
     }
 

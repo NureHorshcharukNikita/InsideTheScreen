@@ -14,9 +14,14 @@ public class TurnManager
         this.enemy = enemy;
         this.deckManager = deckManager;
     }
-
     public void StartBattle()
     {
+        if (deckManager == null)
+        {
+            DevLog.Log("DeckManager is null");
+            return;
+        }
+
         DevLog.Log("Battle started");
 
         CurrentTurn = TurnOwner.Player;

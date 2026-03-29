@@ -3,14 +3,18 @@ using UnityEngine;
 
 public class Character : MonoBehaviour, IEffectTarget
 {
-    [Header("Health")]
-    [SerializeField] private int maxHealth = 30;
     [SerializeField] private int currentHealth = 30;
 
-    public int MaxHealth => maxHealth;
+    public virtual int MaxHealth => 0;
     public int CurrentHealth => currentHealth;
 
     public event Action<int, int> HealthChanged;
+
+    protected virtual void Awake()
+    {
+        //?
+        SetMaxHeal();
+    }
 
     public void TakeDamage(int amount)
     {
@@ -26,7 +30,13 @@ public class Character : MonoBehaviour, IEffectTarget
         if (amount < 0)
             return;
 
-        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        currentHealth = Mathf.Min(currentHealth + amount, MaxHealth);
+        HealthChanged?.Invoke(CurrentHealth, MaxHealth);
+    }
+
+    public void SetMaxHeal()
+    {
+        currentHealth = MaxHealth;
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 }

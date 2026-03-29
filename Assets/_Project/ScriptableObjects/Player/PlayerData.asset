@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec06fd07eb74cc459a4aa927d07c62a, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerData
+  maxHealth: 30
+  maxActionPoints: 5
+  startActionPoints: 4
+  actionPointsPerTurn: 2
+  Deck: {fileID: 11400000, guid: 46108576a1274c34083b3a4f796618f0, type: 2}
+  Inventory: {fileID: 11400000, guid: a5eb58870111e944bb81aff9b9d78960, type: 2}

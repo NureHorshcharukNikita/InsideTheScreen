@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleEndUI : MonoBehaviour
 {
+    [SerializeField] private PlayerCharacter player;
     public TMP_Text resultText;
 
     public void ShowVictory()

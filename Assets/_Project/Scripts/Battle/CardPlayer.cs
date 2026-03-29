@@ -13,7 +13,7 @@ public class CardPlayer
         this.turnManager = turnManager;
     }
 
-    public bool TryPlayCard(CardData card, IEffectTarget target)
+    public bool TryPlayCard(int index, CardData card, IEffectTarget target)
     {
         if (card == null)
             return false;
@@ -38,7 +38,7 @@ public class CardPlayer
 
         CardResolver.Resolve(card, player, target);
 
-        deckManager.Discard(card);
+        deckManager.DiscardByIndexFromHand(index);
 
         return true;
     }

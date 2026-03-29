@@ -23,6 +23,14 @@ public class Hand
         cards.Remove(card);
     }
 
+    public void RemoveAt(int index)
+    {
+        if (index < 0 || index >= cards.Count)
+            return;
+
+        cards.RemoveAt(index);
+    }
+
     public void Clear()
     {
         cards.Clear();

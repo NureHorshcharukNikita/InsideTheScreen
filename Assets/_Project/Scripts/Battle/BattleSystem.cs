@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
@@ -9,11 +8,8 @@ public class BattleSystem : MonoBehaviour
     public event Action<DeckManager, int?> HandChanged;
 
     [Header("Characters")]
-    [SerializeField] private PlayerCharacter player;
     [SerializeField] private EnemyCharacter enemy;
-
-    [Header("Deck")]
-    [SerializeField] private List<CardData> startingDeck;
+    [SerializeField] private PlayerCharacter player;
 
     [Header("UI")]
     [SerializeField] private DeckUI deckUI;
@@ -27,19 +23,25 @@ public class BattleSystem : MonoBehaviour
 
     private void Start()
     {
-        BattleDebugPrinter.PrintCards("Starting deck", startingDeck);
+        if (player == null)
+        {
+            DevLog.Log("Player not assigned");
+            return;
+        }
+
+        var deck = new Deck(player.DeckData);
+
+        BattleDebugPrinter.PrintCards("Starting deck", deck.Cards);
 
         deckManager = new DeckManager();
-        deckManager.Initialize(startingDeck);
+        deckManager.Initialize(deck.Cards);
 
         deckUI.Bind(deckManager.Deck);
 
         turnManager = new TurnManager(player, enemy, deckManager);
         cardPlayer = new CardPlayer(player, deckManager, turnManager);
-        BattleDebugPrinter.PrintCards("Deck order", deckManager.Deck.Cards);
 
         turnManager.StartBattle();
-        BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
 
         NotifyHandChanged();
     }
@@ -66,7 +68,7 @@ public class BattleSystem : MonoBehaviour
 
         var card = deckManager.Hand.Cards[index];
 
-        if (cardPlayer.TryPlayCard(card, target))
+        if (cardPlayer.TryPlayCard(index, card, target))
         {
             DevLog.Log("Played: " + card.CardName);
 
@@ -74,7 +76,6 @@ public class BattleSystem : MonoBehaviour
             BattleDebugPrinter.PrintCards("Discard", deckManager.DiscardPile.Cards);
 
             AfterAction();
-
             NotifyHandChanged();
         }
     }
