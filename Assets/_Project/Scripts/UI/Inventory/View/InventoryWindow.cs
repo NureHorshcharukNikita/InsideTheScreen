@@ -76,10 +76,10 @@ public class InventoryWindow : MonoBehaviour
                 Refresh();
             });
 
-        Refresh();
         inventoryPreviewPanel.Clear();
-
+        
         SelectTopIcon(0);
+        Refresh();
     }
 
     private void OnDisable()
@@ -92,13 +92,18 @@ public class InventoryWindow : MonoBehaviour
     {
         GameStateManager.State = GameState.Inventory;
         gameObject.SetActive(true);
-        Refresh();
+
+        inventoryScreenController.ClearSelection();
+
         inventoryPreviewPanel.Clear();
         SelectTopIcon(0);
+        Refresh();
     }
 
     public void Close()
     {
+        inventoryScreenController.ClearSelection();
+
         GameStateManager.State = GameState.Gameplay;
         gameObject.SetActive(false);
     }
@@ -136,6 +141,11 @@ public class InventoryWindow : MonoBehaviour
             return;
 
         selectedTopIconIndex = index;
+
+        categoriesPanel.ResetToAll();
+
+        inventoryScreenController.ClearSelection();
+        Refresh();
 
         for (int i = 0; i < topIconBorders.Count; i++)
         {

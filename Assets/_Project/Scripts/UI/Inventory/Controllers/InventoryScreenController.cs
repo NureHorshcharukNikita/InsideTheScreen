@@ -171,8 +171,16 @@ public class InventoryScreenController
         if (!CardCategoryUtils.HasCategory(selectedCard, currentCategory))
         {
             selectedCard = null;
+            selectedFromDeck = false;
             inventoryPreviewPanel.Clear();
         }
+    }
+
+    public void ClearSelection()
+    {
+        selectedCard = null;
+        selectedFromDeck = false;
+        inventoryPreviewPanel.Clear();
     }
 
     private void RefreshViewOnly()

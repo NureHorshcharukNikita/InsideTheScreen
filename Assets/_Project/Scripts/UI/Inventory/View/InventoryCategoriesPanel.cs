@@ -52,6 +52,13 @@ public class InventoryCategoriesPanel : MonoBehaviour
         buttons.Add((category, btn));
     }
 
+    public void ResetToAll()
+    {
+        currentSelectedCategory = null;
+        UpdateVisualSelection();
+        onSelected?.Invoke(null);
+    }
+
     private void UpdateVisualSelection()
     {
         foreach (var item in buttons)
