@@ -2,10 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class EnemyIntentView : MonoBehaviour
+public class EnemyIntentView : MonoBehaviour
 {
-    private const string NoPlanPlaceholder = "\u2014";
-
     [SerializeField] private EnemyBrain brain;
     [SerializeField] private TMP_Text intentLabel;
     [SerializeField] private Image intentIcon;
@@ -14,74 +12,121 @@ public partial class EnemyIntentView : MonoBehaviour
     [Header("Layout above sprite")]
     [SerializeField] private float aboveSpritePadding = 10f;
 
-    private EnemyBrain subscribedBrain;
-    private Character targetCharacter;
-    private RectTransform rectTransformCache;
-    private RectTransform followRectTransform;
-    private Canvas canvasCache;
+    private EnemyIntentBrainBinding brainBinding;
+    private EnemyIntentPresenter presenter;
+    private EnemyIntentDisplay display;
+    private EnemyIntentFollower follower;
+    private EnemyIntentRevealAnimator revealAnimator;
 
-    private bool _pendingRevealAfterEnemyAct;
-    private bool _awaitingHandDealFlyReveal;
-    private Coroutine _revealRoutine;
-    private Coroutine _battleStartRevealRoutine;
-    private Color _labelBaseColor = Color.white;
-    private Color _iconBaseColor = Color.white;
-    private bool _capturedBaseColors;
+    private bool pendingRevealAfterEnemyAct;
+    private bool awaitingHandDealFlyReveal;
 
     public void NotifyEnemyActed()
     {
-        StopAllRevealCoroutines();
-        _awaitingHandDealFlyReveal = false;
-        _pendingRevealAfterEnemyAct = true;
-        SetIntentVisualAlpha(0f);
+        EnsureInitialized();
+        revealAnimator.StopAll();
+        awaitingHandDealFlyReveal = false;
+        pendingRevealAfterEnemyAct = true;
+        presenter.SetVisualAlpha(0f);
     }
 
     public void NotifyHandDealFlyFinished()
     {
-        StopBattleStartRevealRoutine();
-        if (!_awaitingHandDealFlyReveal)
+        EnsureInitialized();
+        revealAnimator.StopFallback();
+        if (!awaitingHandDealFlyReveal)
             return;
 
-        _awaitingHandDealFlyReveal = false;
-        StartRevealIntentAnimation();
+        awaitingHandDealFlyReveal = false;
+        revealAnimator.StartReveal();
     }
 
     public void ScheduleHandFlyRevealFallback()
     {
-        if (!_awaitingHandDealFlyReveal)
+        EnsureInitialized();
+        if (!awaitingHandDealFlyReveal)
             return;
 
-        StopBattleStartRevealRoutine();
-        _battleStartRevealRoutine = StartCoroutine(HandFlyRevealFallbackRoutine());
+        revealAnimator.StartFallback();
+    }
+
+    public void BindEnemy(EnemyCharacter enemyCharacter, bool deferInitialRevealUntilHandFlyFinishes = false)
+    {
+        EnsureInitialized();
+        revealAnimator.StopAll();
+        pendingRevealAfterEnemyAct = false;
+        awaitingHandDealFlyReveal = false;
+
+        brainBinding.BindEnemy(enemyCharacter);
+
+        if (deferInitialRevealUntilHandFlyFinishes)
+        {
+            awaitingHandDealFlyReveal = true;
+            Refresh(keepVisualHidden: true);
+        }
+        else
+            Refresh();
     }
 
     private void Awake()
     {
-        rectTransformCache = transform as RectTransform;
-        canvasCache = GetComponentInParent<Canvas>();
-        ResolveFollowRect();
+        EnsureInitialized();
     }
 
     private void OnEnable()
     {
-        ResolveBrainIfMissing();
-        ResolveTargetCharacterIfMissing();
+        EnsureInitialized();
         Refresh(keepVisualHidden: true);
     }
 
     private void OnDisable()
     {
-        StopAllRevealCoroutines();
-        UnsubscribeFromBrain();
+        if (revealAnimator != null)
+            revealAnimator.StopAll();
+        if (brainBinding != null)
+            brainBinding.Unsubscribe();
+    }
+
+    private void LateUpdate()
+    {
+        EnsureInitialized();
+        follower.UpdatePosition(brainBinding.TargetCharacter);
     }
 
     private void OnPlannedChanged()
     {
-        bool reveal = _pendingRevealAfterEnemyAct;
-        _pendingRevealAfterEnemyAct = false;
+        bool reveal = pendingRevealAfterEnemyAct;
+        pendingRevealAfterEnemyAct = false;
         Refresh(keepVisualHidden: reveal);
         if (reveal)
-            StartRevealIntentAnimation();
+            revealAnimator.StartReveal();
+    }
+
+    private void Refresh(bool keepVisualHidden = false)
+    {
+        EnsureInitialized();
+        brainBinding.ResolveMissingReferences();
+        display.Refresh(brainBinding.Brain, keepVisualHidden);
+    }
+
+    private void OnRevealFallbackElapsed()
+    {
+        if (awaitingHandDealFlyReveal)
+            NotifyHandDealFlyFinished();
+        else
+            Refresh();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (presenter != null)
+            return;
+
+        presenter = new EnemyIntentPresenter(gameObject, intentLabel, intentIcon, intentContainer);
+        brainBinding = new EnemyIntentBrainBinding(transform, brain, OnPlannedChanged);
+        display = new EnemyIntentDisplay(presenter);
+        follower = new EnemyIntentFollower(transform as RectTransform, intentContainer, GetComponentInParent<Canvas>(), aboveSpritePadding);
+        revealAnimator = new EnemyIntentRevealAnimator(this, presenter.SetVisualAlpha, OnRevealFallbackElapsed);
     }
 
 }

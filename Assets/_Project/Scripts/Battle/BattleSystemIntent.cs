@@ -1,10 +1,22 @@
-public partial class BattleSystem
+internal sealed class BattleSystemIntentBinder
 {
-    private void WireEnemyIntentForBattleStart()
+    private readonly HandUI handUI;
+    private readonly EnemyIntentView enemyIntentView;
+
+    private TurnManager turnManager;
+
+    public BattleSystemIntentBinder(HandUI handUI, EnemyIntentView enemyIntentView)
+    {
+        this.handUI = handUI;
+        this.enemyIntentView = enemyIntentView;
+    }
+
+    public void WireForBattleStart(TurnManager turnManager, EnemyCharacter enemy)
     {
         if (enemyIntentView == null)
             return;
 
+        this.turnManager = turnManager;
         turnManager.AfterEnemyActed += enemyIntentView.NotifyEnemyActed;
         enemyIntentView.BindEnemy(enemy, deferInitialRevealUntilHandFlyFinishes: true);
 
@@ -14,25 +26,22 @@ public partial class BattleSystem
             enemyIntentView.ScheduleHandFlyRevealFallback();
     }
 
-    private void OnInitialHandDealFlyCompleteRevealIntent()
-    {
-        if (handUI != null)
-            handUI.DrawFlyAnimationCompleted -= OnInitialHandDealFlyCompleteRevealIntent;
-
-        enemyIntentView?.NotifyHandDealFlyFinished();
-    }
-
-    private void OnDestroy()
-    {
-        UnwireEnemyIntentEvents();
-    }
-
-    private void UnwireEnemyIntentEvents()
+    public void Unwire()
     {
         if (handUI != null)
             handUI.DrawFlyAnimationCompleted -= OnInitialHandDealFlyCompleteRevealIntent;
 
         if (turnManager != null && enemyIntentView != null)
             turnManager.AfterEnemyActed -= enemyIntentView.NotifyEnemyActed;
+
+        turnManager = null;
+    }
+
+    private void OnInitialHandDealFlyCompleteRevealIntent()
+    {
+        if (handUI != null)
+            handUI.DrawFlyAnimationCompleted -= OnInitialHandDealFlyCompleteRevealIntent;
+
+        enemyIntentView?.NotifyHandDealFlyFinished();
     }
 }

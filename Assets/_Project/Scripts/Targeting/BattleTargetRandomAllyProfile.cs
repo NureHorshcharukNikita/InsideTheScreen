@@ -4,12 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Battle/Targeting/Random Ally", fileName = "Target_RandomAlly")]
 public class BattleTargetRandomAllyProfile : BattleTargetingProfile
 {
-    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext ctx)
+    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context)
     {
-        if (ctx.Allies == null || ctx.Allies.Count == 0)
+        if (context.Allies == null || context.Allies.Count == 0)
             return System.Array.Empty<ICombatant>();
 
-        int i = Random.Range(0, ctx.Allies.Count);
-        return new[] { ctx.Allies[i] };
+        int randomIndex = Random.Range(0, context.Allies.Count);
+        return new[] { context.Allies[randomIndex] };
     }
 }

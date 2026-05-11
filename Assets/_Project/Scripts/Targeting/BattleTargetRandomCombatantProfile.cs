@@ -4,10 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Battle/Targeting/Random Combatant", fileName = "Target_RandomCombatant")]
 public class BattleTargetRandomCombatantProfile : BattleTargetingProfile
 {
-    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext ctx)
+    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context)
     {
-        int alliesCount = ctx.Allies?.Count ?? 0;
-        int enemiesCount = ctx.Enemies?.Count ?? 0;
+        int alliesCount = context.Allies?.Count ?? 0;
+        int enemiesCount = context.Enemies?.Count ?? 0;
         int totalCount = alliesCount + enemiesCount;
 
         if (totalCount == 0)
@@ -15,8 +15,8 @@ public class BattleTargetRandomCombatantProfile : BattleTargetingProfile
 
         int index = Random.Range(0, totalCount);
         if (index < alliesCount)
-            return new[] { ctx.Allies[index] };
+            return new[] { context.Allies[index] };
 
-        return new[] { ctx.Enemies[index - alliesCount] };
+        return new[] { context.Enemies[index - alliesCount] };
     }
 }

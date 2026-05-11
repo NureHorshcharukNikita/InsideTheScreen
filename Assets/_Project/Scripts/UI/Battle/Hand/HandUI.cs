@@ -128,9 +128,9 @@ public partial class HandUI : MonoBehaviour
             {
                 for (int i = 0; i < rootRect.childCount; i++)
                 {
-                    CardView cv = rootRect.GetChild(i).GetComponent<CardView>();
-                    if (cv != null)
-                        cv.ForceReleaseBattleDragToHand();
+                    CardView cardView = rootRect.GetChild(i).GetComponent<CardView>();
+                    if (cardView != null)
+                        cardView.ForceReleaseBattleDragToHand();
                 }
             }
         }

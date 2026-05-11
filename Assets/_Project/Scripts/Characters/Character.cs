@@ -40,4 +40,10 @@ public class Character : MonoBehaviour, ICombatant
         currentHealth = MaxHealth;
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
+
+    public void SetHealth(int health)
+    {
+        currentHealth = Mathf.Clamp(health, 0, MaxHealth);
+        HealthChanged?.Invoke(CurrentHealth, MaxHealth);
+    }
 }

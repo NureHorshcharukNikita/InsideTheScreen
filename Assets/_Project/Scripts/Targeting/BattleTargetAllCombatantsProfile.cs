@@ -4,17 +4,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Battle/Targeting/All Combatants", fileName = "Target_AllCombatants")]
 public class BattleTargetAllCombatantsProfile : BattleTargetingProfile
 {
-    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext ctx)
+    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context)
     {
-        int alliesCount = ctx.Allies?.Count ?? 0;
-        int enemiesCount = ctx.Enemies?.Count ?? 0;
+        int alliesCount = context.Allies?.Count ?? 0;
+        int enemiesCount = context.Enemies?.Count ?? 0;
 
         if (alliesCount == 0 && enemiesCount == 0)
             return System.Array.Empty<ICombatant>();
 
         var targets = new List<ICombatant>(alliesCount + enemiesCount);
-        AddAll(targets, ctx.Allies);
-        AddAll(targets, ctx.Enemies);
+        AddAll(targets, context.Allies);
+        AddAll(targets, context.Enemies);
         return targets;
     }
 

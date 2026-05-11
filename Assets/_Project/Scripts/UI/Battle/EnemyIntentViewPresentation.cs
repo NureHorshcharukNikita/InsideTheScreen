@@ -1,7 +1,86 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public partial class EnemyIntentView
+internal sealed class EnemyIntentPresenter
 {
+    private readonly GameObject owner;
+    private readonly TMP_Text intentLabel;
+    private readonly Image intentIcon;
+    private readonly GameObject intentContainer;
+
+    private Color labelBaseColor = Color.white;
+    private Color iconBaseColor = Color.white;
+    private bool capturedBaseColors;
+
+    public EnemyIntentPresenter(GameObject owner, TMP_Text intentLabel, Image intentIcon, GameObject intentContainer)
+    {
+        this.owner = owner;
+        this.intentLabel = intentLabel;
+        this.intentIcon = intentIcon;
+        this.intentContainer = intentContainer;
+    }
+
+    public bool HasLabel => intentLabel != null;
+
+    public void ShowEmpty()
+    {
+        if (intentLabel != null)
+        {
+            intentLabel.text = "";
+            intentLabel.enabled = false;
+        }
+
+        SetContainerActive(false);
+        ClearIcon();
+        SetVisualAlpha(1f);
+    }
+
+    public void ShowIntent(string text, Sprite icon, bool keepVisualHidden)
+    {
+        CaptureBaseColorsIfNeeded();
+
+        bool show = !string.IsNullOrEmpty(text);
+        if (intentLabel != null)
+        {
+            intentLabel.text = text;
+            intentLabel.enabled = show;
+        }
+
+        SetContainerActive(show);
+        SetIcon(icon, show);
+        SetVisualAlpha(keepVisualHidden ? 0f : 1f);
+    }
+
+    public void SetVisualAlpha(float alpha)
+    {
+        alpha = Mathf.Clamp01(alpha);
+        CaptureBaseColorsIfNeeded();
+
+        if (intentLabel != null)
+        {
+            Color labelColor = labelBaseColor;
+            labelColor.a = labelBaseColor.a * alpha;
+            intentLabel.color = labelColor;
+        }
+
+        if (intentIcon != null)
+        {
+            Color iconColor = iconBaseColor;
+            iconColor.a = iconBaseColor.a * alpha;
+            intentIcon.color = iconColor;
+        }
+    }
+
+    private void SetIcon(Sprite icon, bool show)
+    {
+        if (intentIcon == null)
+            return;
+
+        intentIcon.sprite = icon;
+        intentIcon.enabled = show && icon != null;
+    }
+
     private void ClearIcon()
     {
         if (intentIcon == null)
@@ -11,12 +90,12 @@ public partial class EnemyIntentView
         intentIcon.enabled = false;
     }
 
-    private void SetIntentContainerActive(bool active)
+    private void SetContainerActive(bool active)
     {
         if (intentContainer == null)
             return;
 
-        if (intentContainer == gameObject)
+        if (intentContainer == owner)
             return;
 
         intentContainer.SetActive(active);
@@ -24,34 +103,13 @@ public partial class EnemyIntentView
 
     private void CaptureBaseColorsIfNeeded()
     {
-        if (_capturedBaseColors)
+        if (capturedBaseColors)
             return;
 
         if (intentLabel != null)
-            _labelBaseColor = intentLabel.color;
+            labelBaseColor = intentLabel.color;
         if (intentIcon != null)
-            _iconBaseColor = intentIcon.color;
-        _capturedBaseColors = true;
+            iconBaseColor = intentIcon.color;
+        capturedBaseColors = true;
     }
-
-    private void SetIntentVisualAlpha(float alpha)
-    {
-        alpha = Mathf.Clamp01(alpha);
-        CaptureBaseColorsIfNeeded();
-
-        if (intentLabel != null)
-        {
-            Color c = _labelBaseColor;
-            c.a = _labelBaseColor.a * alpha;
-            intentLabel.color = c;
-        }
-
-        if (intentIcon != null)
-        {
-            Color c = _iconBaseColor;
-            c.a = _iconBaseColor.a * alpha;
-            intentIcon.color = c;
-        }
-    }
-
 }

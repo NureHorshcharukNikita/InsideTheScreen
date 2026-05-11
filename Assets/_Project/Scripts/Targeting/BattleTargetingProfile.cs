@@ -14,5 +14,5 @@ public abstract class BattleTargetingProfile : ScriptableObject
     public string DisplayName => displayName;
     public string Description => description;
 
-    public abstract IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext ctx);
+    public abstract IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context);
 }

@@ -1,34 +1,55 @@
+using System;
 using UnityEngine;
 
-public partial class EnemyIntentView
+internal sealed class EnemyIntentBrainBinding
 {
-    public void BindEnemy(EnemyCharacter enemyCharacter, bool deferInitialRevealUntilHandFlyFinishes = false)
-    {
-        StopAllRevealCoroutines();
-        _pendingRevealAfterEnemyAct = false;
-        _awaitingHandDealFlyReveal = false;
+    private readonly Transform ownerTransform;
+    private readonly Action plannedChangedHandler;
 
-        UnsubscribeFromBrain();
+    private EnemyBrain brain;
+    private EnemyBrain subscribedBrain;
+    private Character targetCharacter;
+
+    public EnemyIntentBrainBinding(Transform ownerTransform, EnemyBrain initialBrain, Action plannedChangedHandler)
+    {
+        this.ownerTransform = ownerTransform;
+        this.plannedChangedHandler = plannedChangedHandler;
+        brain = initialBrain;
+    }
+
+    public EnemyBrain Brain => brain;
+    public Character TargetCharacter => targetCharacter;
+
+    public void BindEnemy(EnemyCharacter enemyCharacter)
+    {
+        Unsubscribe();
 
         if (enemyCharacter == null)
         {
             brain = null;
             targetCharacter = null;
-            Refresh();
             return;
         }
 
         targetCharacter = enemyCharacter;
         brain = enemyCharacter.Brain;
-        SubscribeToBrain();
+        Subscribe();
+    }
 
-        if (deferInitialRevealUntilHandFlyFinishes)
-        {
-            _awaitingHandDealFlyReveal = true;
-            Refresh(keepVisualHidden: true);
-        }
-        else
-            Refresh();
+    public void ResolveMissingReferences()
+    {
+        ResolveBrainIfMissing();
+        ResolveTargetCharacterIfMissing();
+        Subscribe();
+    }
+
+    public void Unsubscribe()
+    {
+        if (subscribedBrain == null)
+            return;
+
+        subscribedBrain.PlannedActionChanged -= plannedChangedHandler;
+        subscribedBrain = null;
     }
 
     private void ResolveBrainIfMissing()
@@ -36,9 +57,9 @@ public partial class EnemyIntentView
         if (brain != null)
             return;
 
-        brain = GetComponentInParent<EnemyBrain>();
+        brain = ownerTransform.GetComponentInParent<EnemyBrain>();
         if (brain == null)
-            brain = FindAnyObjectByType<EnemyBrain>();
+            brain = UnityEngine.Object.FindAnyObjectByType<EnemyBrain>();
     }
 
     private void ResolveTargetCharacterIfMissing()
@@ -51,25 +72,16 @@ public partial class EnemyIntentView
             targetCharacter = brain.GetComponent<Character>();
     }
 
-    private void SubscribeToBrain()
+    private void Subscribe()
     {
         if (subscribedBrain == brain)
             return;
 
-        UnsubscribeFromBrain();
+        Unsubscribe();
         if (brain == null)
             return;
 
-        brain.PlannedActionChanged += OnPlannedChanged;
+        brain.PlannedActionChanged += plannedChangedHandler;
         subscribedBrain = brain;
-    }
-
-    private void UnsubscribeFromBrain()
-    {
-        if (subscribedBrain == null)
-            return;
-
-        subscribedBrain.PlannedActionChanged -= OnPlannedChanged;
-        subscribedBrain = null;
     }
 }

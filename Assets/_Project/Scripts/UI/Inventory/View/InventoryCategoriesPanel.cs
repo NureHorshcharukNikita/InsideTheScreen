@@ -25,13 +25,13 @@ public class InventoryCategoriesPanel : MonoBehaviour
         CreateButton("All", null);
 
         var categories = cards
-            .SelectMany(c => c.Effects)
-            .Where(e => e.effect != null)
-            .Select(e => e.effect.GetType())
+            .SelectMany(card => card.Effects)
+            .Where(effectEntry => effectEntry.effect != null)
+            .Select(effectEntry => effectEntry.effect.GetType())
             .Distinct()
-            .OrderBy(t => t.Name);
+            .OrderBy(type => type.Name);
 
-        foreach (var category in categories)
+        foreach (Type category in categories)
             CreateButton(category.Name, category);
 
         UpdateVisualSelection();
@@ -40,16 +40,16 @@ public class InventoryCategoriesPanel : MonoBehaviour
 
     private void CreateButton(string label, Type category)
     {
-        var btn = Instantiate(buttonPrefab, container);
+        CategoryButton button = Instantiate(buttonPrefab, container);
 
-        btn.Init(label, () =>
+        button.Init(label, () =>
         {
             currentSelectedCategory = category;
             UpdateVisualSelection();
             onSelected?.Invoke(category);
         }, category == currentSelectedCategory);
 
-        buttons.Add((category, btn));
+        buttons.Add((category, button));
     }
 
     public void ResetToAll()

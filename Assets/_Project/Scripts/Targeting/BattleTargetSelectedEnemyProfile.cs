@@ -4,10 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Battle/Targeting/Selected Enemy", fileName = "Target_SelectedEnemy")]
 public class BattleTargetSelectedEnemyProfile : BattleTargetingProfile
 {
-    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext ctx)
+    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context)
     {
-        return IsOnTeam(ctx.SelectedTarget, ctx.Enemies)
-            ? new[] { ctx.SelectedTarget }
+        return IsOnTeam(context.SelectedTarget, context.Enemies)
+            ? new[] { context.SelectedTarget }
             : System.Array.Empty<ICombatant>();
     }
 

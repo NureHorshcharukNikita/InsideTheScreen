@@ -1,10 +1,42 @@
-public partial class BattleSystem
+using System;
+
+internal sealed class BattleSystemPlayerActions
 {
+    private readonly Func<DeckManager> getDeckManager;
+    private readonly Func<CardPlayer> getCardPlayer;
+    private readonly Func<TurnManager> getTurnManager;
+    private readonly Func<bool> canPlay;
+    private readonly Action afterAction;
+    private readonly Action notifyHandChanged;
+    private readonly Func<int?> getSelectedCardIndex;
+    private readonly Action<int?> setSelectedCardIndex;
+
+    public BattleSystemPlayerActions(
+        Func<DeckManager> getDeckManager,
+        Func<CardPlayer> getCardPlayer,
+        Func<TurnManager> getTurnManager,
+        Func<bool> canPlay,
+        Action afterAction,
+        Action notifyHandChanged,
+        Func<int?> getSelectedCardIndex,
+        Action<int?> setSelectedCardIndex)
+    {
+        this.getDeckManager = getDeckManager;
+        this.getCardPlayer = getCardPlayer;
+        this.getTurnManager = getTurnManager;
+        this.canPlay = canPlay;
+        this.afterAction = afterAction;
+        this.notifyHandChanged = notifyHandChanged;
+        this.getSelectedCardIndex = getSelectedCardIndex;
+        this.setSelectedCardIndex = setSelectedCardIndex;
+    }
+
     public void OnTargetClicked(ICombatant target)
     {
-        if (!CanPlay())
+        if (!canPlay())
             return;
 
+        int? selectedCardIndex = getSelectedCardIndex();
         if (selectedCardIndex == null)
             return;
 
@@ -13,13 +45,18 @@ public partial class BattleSystem
 
     public bool TryPlayCardFromHand(int index, ICombatant target)
     {
-        if (!CanPlay())
+        if (!canPlay())
+            return false;
+
+        DeckManager deckManager = getDeckManager();
+        CardPlayer cardPlayer = getCardPlayer();
+        if (deckManager == null || cardPlayer == null)
             return false;
 
         if (index < 0 || index >= deckManager.Hand.Count)
             return false;
 
-        var card = deckManager.Hand.Cards[index];
+        CardData card = deckManager.Hand.Cards[index];
 
         if (cardPlayer.TryPlayCard(index, card, target))
         {
@@ -28,9 +65,9 @@ public partial class BattleSystem
             BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
             BattleDebugPrinter.PrintCards("Discard", deckManager.DiscardPile.Cards);
 
-            selectedCardIndex = null;
-            AfterAction();
-            NotifyHandChanged();
+            setSelectedCardIndex(null);
+            afterAction();
+            notifyHandChanged();
             return true;
         }
 
@@ -39,9 +76,11 @@ public partial class BattleSystem
 
     public void EndTurn()
     {
-        if (!CanPlay())
+        if (!canPlay())
             return;
 
+        TurnManager turnManager = getTurnManager();
+        DeckManager deckManager = getDeckManager();
         if (turnManager == null || deckManager == null)
             return;
 
@@ -51,32 +90,36 @@ public partial class BattleSystem
         turnManager.EndPlayerTurn();
 
         BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
-        AfterAction();
+        afterAction();
 
-        selectedCardIndex = null;
+        setSelectedCardIndex(null);
 
-        NotifyHandChanged();
+        notifyHandChanged();
     }
 
     public void SelectCard(int index)
     {
-        if (!CanPlay())
+        if (!canPlay())
+            return;
+
+        DeckManager deckManager = getDeckManager();
+        if (deckManager == null)
             return;
 
         if (index < 0 || index >= deckManager.Hand.Count)
             return;
 
-        selectedCardIndex = index;
+        setSelectedCardIndex(index);
 
         DevLog.Log("Selected card: " + deckManager.Hand.Cards[index].CardName);
     }
 
     public void DeselectCard()
     {
-        if (selectedCardIndex == null)
+        if (getSelectedCardIndex() == null)
             return;
 
-        selectedCardIndex = null;
+        setSelectedCardIndex(null);
         DevLog.Log("Card deselected");
     }
 }

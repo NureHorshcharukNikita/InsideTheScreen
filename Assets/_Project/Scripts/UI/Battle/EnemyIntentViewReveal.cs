@@ -1,83 +1,101 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public partial class EnemyIntentView
+internal sealed class EnemyIntentRevealAnimator
 {
     private const float FirstRevealAfterDealDelay = 0.45f;
     private const float RevealFadeInSeconds = 0.12f;
     private const float RevealPulseSeconds = 0.06f;
 
-    private void StopRevealRoutine()
+    private readonly MonoBehaviour coroutineOwner;
+    private readonly Action<float> setVisualAlpha;
+    private readonly Action fallbackElapsed;
+
+    private Coroutine revealRoutine;
+    private Coroutine fallbackRoutine;
+
+    public EnemyIntentRevealAnimator(MonoBehaviour coroutineOwner, Action<float> setVisualAlpha, Action fallbackElapsed)
     {
-        if (_revealRoutine == null)
+        this.coroutineOwner = coroutineOwner;
+        this.setVisualAlpha = setVisualAlpha;
+        this.fallbackElapsed = fallbackElapsed;
+    }
+
+    public void StopReveal()
+    {
+        if (revealRoutine == null)
             return;
 
-        StopCoroutine(_revealRoutine);
-        _revealRoutine = null;
+        coroutineOwner.StopCoroutine(revealRoutine);
+        revealRoutine = null;
     }
 
-    private void StopBattleStartRevealRoutine()
+    public void StopFallback()
     {
-        if (_battleStartRevealRoutine == null)
+        if (fallbackRoutine == null)
             return;
 
-        StopCoroutine(_battleStartRevealRoutine);
-        _battleStartRevealRoutine = null;
+        coroutineOwner.StopCoroutine(fallbackRoutine);
+        fallbackRoutine = null;
     }
 
-    private void StopAllRevealCoroutines()
+    public void StopAll()
     {
-        StopBattleStartRevealRoutine();
-        StopRevealRoutine();
+        StopFallback();
+        StopReveal();
     }
 
-    private void StartRevealIntentAnimation()
+    public void StartReveal()
     {
-        StopRevealRoutine();
-        _revealRoutine = StartCoroutine(RevealIntentRoutine());
+        StopReveal();
+        revealRoutine = coroutineOwner.StartCoroutine(RevealIntentRoutine());
+    }
+
+    public void StartFallback()
+    {
+        StopFallback();
+        fallbackRoutine = coroutineOwner.StartCoroutine(HandFlyRevealFallbackRoutine());
     }
 
     private IEnumerator HandFlyRevealFallbackRoutine()
     {
         float wait = Mathf.Max(0f, FirstRevealAfterDealDelay);
-        float t = 0f;
-        while (t < wait)
+        float elapsed = 0f;
+        while (elapsed < wait)
         {
-            t += Time.unscaledDeltaTime;
+            elapsed += Time.unscaledDeltaTime;
             yield return null;
         }
 
-        _battleStartRevealRoutine = null;
-        if (_awaitingHandDealFlyReveal)
-            NotifyHandDealFlyFinished();
-        else
-            Refresh();
+        fallbackRoutine = null;
+        fallbackElapsed?.Invoke();
     }
 
     private IEnumerator RevealIntentRoutine()
     {
-        float t = 0f;
+        float elapsed = 0f;
         float fade = Mathf.Max(0.01f, RevealFadeInSeconds);
-        while (t < fade)
+        while (elapsed < fade)
         {
-            t += Time.unscaledDeltaTime;
-            SetIntentVisualAlpha(Mathf.SmoothStep(0f, 1f, t / fade));
+            elapsed += Time.unscaledDeltaTime;
+            setVisualAlpha(Mathf.SmoothStep(0f, 1f, elapsed / fade));
             yield return null;
         }
 
-        SetIntentVisualAlpha(1f);
+        setVisualAlpha(1f);
 
         float pulse = Mathf.Max(0.01f, RevealPulseSeconds);
-        t = 0f;
-        while (t < pulse)
+        elapsed = 0f;
+        while (elapsed < pulse)
         {
-            t += Time.unscaledDeltaTime;
-            float wobble = 1f - 0.12f * Mathf.Sin((t / pulse) * Mathf.PI);
-            SetIntentVisualAlpha(wobble);
+            elapsed += Time.unscaledDeltaTime;
+            float wobble = 1f - 0.12f * Mathf.Sin((elapsed / pulse) * Mathf.PI);
+            setVisualAlpha(wobble);
             yield return null;
         }
 
-        SetIntentVisualAlpha(1f);
-        _revealRoutine = null;
+        setVisualAlpha(1f);
+        revealRoutine = null;
     }
 }

@@ -1,25 +1,24 @@
 using UnityEngine;
 
-public partial class EnemyIntentView
+internal sealed class EnemyIntentDisplay
 {
-    private void Refresh(bool keepVisualHidden = false)
+    private const string NoPlanPlaceholder = "\u2014";
+
+    private readonly EnemyIntentPresenter presenter;
+
+    public EnemyIntentDisplay(EnemyIntentPresenter presenter)
     {
-        ResolveBrainIfMissing();
-        ResolveTargetCharacterIfMissing();
-        SubscribeToBrain();
+        this.presenter = presenter;
+    }
 
-        if (intentLabel == null)
+    public void Refresh(EnemyBrain brain, bool keepVisualHidden)
+    {
+        if (!presenter.HasLabel)
             return;
-
-        CaptureBaseColorsIfNeeded();
 
         if (brain == null)
         {
-            intentLabel.text = "";
-            SetIntentContainerActive(false);
-            intentLabel.enabled = false;
-            ClearIcon();
-            SetIntentVisualAlpha(1f);
+            presenter.ShowEmpty();
             return;
         }
 
@@ -27,19 +26,7 @@ public partial class EnemyIntentView
             ? brain.CurrentPlan.GetIntentLabel()
             : NoPlanPlaceholder;
 
-        intentLabel.text = text;
-
-        bool show = !string.IsNullOrEmpty(text);
-        SetIntentContainerActive(show);
-        intentLabel.enabled = show;
-
-        if (intentIcon != null)
-        {
-            Sprite s = brain.CurrentPlan.Ability != null ? brain.CurrentPlan.Ability.icon : null;
-            intentIcon.sprite = s;
-            intentIcon.enabled = show && s != null;
-        }
-
-        SetIntentVisualAlpha(keepVisualHidden ? 0f : 1f);
+        Sprite icon = brain.CurrentPlan.Ability != null ? brain.CurrentPlan.Ability.icon : null;
+        presenter.ShowIntent(text, icon, keepVisualHidden);
     }
 }

@@ -1,11 +1,28 @@
 using UnityEngine;
 
-public partial class EnemyIntentView
+internal sealed class EnemyIntentFollower
 {
-    private void LateUpdate()
+    private readonly RectTransform fallbackRectTransform;
+    private readonly GameObject intentContainer;
+    private readonly Canvas canvas;
+    private readonly float aboveSpritePadding;
+
+    private RectTransform followRectTransform;
+
+    public EnemyIntentFollower(RectTransform fallbackRectTransform, GameObject intentContainer, Canvas canvas, float aboveSpritePadding)
+    {
+        this.fallbackRectTransform = fallbackRectTransform;
+        this.intentContainer = intentContainer;
+        this.canvas = canvas;
+        this.aboveSpritePadding = aboveSpritePadding;
+
+        ResolveFollowRect();
+    }
+
+    public void UpdatePosition(Character targetCharacter)
     {
         ResolveFollowRect();
-        if (targetCharacter == null || followRectTransform == null || canvasCache == null)
+        if (targetCharacter == null || followRectTransform == null || canvas == null)
             return;
 
         SpriteRenderer spriteRenderer = targetCharacter.GetComponent<SpriteRenderer>();
@@ -22,8 +39,8 @@ public partial class EnemyIntentView
         if (screenPoint.z <= 0f)
             return;
 
-        Camera uiEventCamera = canvasCache.renderMode == RenderMode.ScreenSpaceOverlay ? null : camera;
-        RectTransform canvasRect = canvasCache.transform as RectTransform;
+        Camera uiEventCamera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : camera;
+        RectTransform canvasRect = canvas.transform as RectTransform;
         if (canvasRect == null)
             return;
 
@@ -47,6 +64,6 @@ public partial class EnemyIntentView
             }
         }
 
-        followRectTransform = rectTransformCache;
+        followRectTransform = fallbackRectTransform;
     }
 }

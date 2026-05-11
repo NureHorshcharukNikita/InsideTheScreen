@@ -4,12 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Battle/Targeting/Random Enemy", fileName = "Target_RandomEnemy")]
 public class BattleTargetRandomEnemyProfile : BattleTargetingProfile
 {
-    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext ctx)
+    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context)
     {
-        if (ctx.Enemies == null || ctx.Enemies.Count == 0)
+        if (context.Enemies == null || context.Enemies.Count == 0)
             return System.Array.Empty<ICombatant>();
 
-        int i = Random.Range(0, ctx.Enemies.Count);
-        return new[] { ctx.Enemies[i] };
+        int randomIndex = Random.Range(0, context.Enemies.Count);
+        return new[] { context.Enemies[randomIndex] };
     }
 }

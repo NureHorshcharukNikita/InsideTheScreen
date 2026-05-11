@@ -4,11 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Battle/Targeting/Random Other Combatant", fileName = "Target_RandomOtherCombatant")]
 public class BattleTargetRandomOtherCombatantProfile : BattleTargetingProfile
 {
-    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext ctx)
+    public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context)
     {
         var candidates = new List<ICombatant>();
-        AddAllExceptSelf(candidates, ctx.Allies, ctx.Self);
-        AddAllExceptSelf(candidates, ctx.Enemies, ctx.Self);
+        AddAllExceptSelf(candidates, context.Allies, context.Self);
+        AddAllExceptSelf(candidates, context.Enemies, context.Self);
 
         if (candidates.Count == 0)
             return System.Array.Empty<ICombatant>();

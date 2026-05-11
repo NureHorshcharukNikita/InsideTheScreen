@@ -7,18 +7,18 @@ public static class HandCardViewCollection
     {
         for (int i = spawnedViews.Count - 1; i >= 0; i--)
         {
-            CardView cv = spawnedViews[i];
-            if (cv != null)
-                Object.Destroy(cv.gameObject);
+            CardView cardView = spawnedViews[i];
+            if (cardView != null)
+                Object.Destroy(cardView.gameObject);
         }
 
         spawnedViews.Clear();
 
         for (int i = handPanel.childCount - 1; i >= 0; i--)
         {
-            CardView c = handPanel.GetChild(i).GetComponent<CardView>();
-            if (c != null)
-                Object.Destroy(c.gameObject);
+            CardView cardView = handPanel.GetChild(i).GetComponent<CardView>();
+            if (cardView != null)
+                Object.Destroy(cardView.gameObject);
         }
     }
 
@@ -49,9 +49,9 @@ public static class HandCardViewCollection
         int hideFrom = Mathf.Max(0, handCount - drawCount);
         for (int i = hideFrom; i < handCount; i++)
         {
-            CardView cv = spawnedViews[i];
-            if (cv != null)
-                HandCardFlyTween.SetCardFlyVisible(cv.transform, false);
+            CardView cardView = spawnedViews[i];
+            if (cardView != null)
+                HandCardFlyTween.SetCardFlyVisible(cardView.transform, false);
         }
     }
 

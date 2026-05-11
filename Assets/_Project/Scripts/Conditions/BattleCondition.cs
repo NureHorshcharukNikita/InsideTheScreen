@@ -14,20 +14,20 @@ public abstract class BattleCondition : ScriptableObject
     public string DisplayName => displayName;
     public string Description => description;
 
-    public abstract bool IsMet(BattleTargetingContext ctx);
+    public abstract bool IsMet(BattleTargetingContext context);
 
-    public static bool AllMet(IReadOnlyList<BattleCondition> conditions, BattleTargetingContext ctx)
+    public static bool AllMet(IReadOnlyList<BattleCondition> conditions, BattleTargetingContext context)
     {
         if (conditions == null || conditions.Count == 0)
             return true;
 
         for (int i = 0; i < conditions.Count; i++)
         {
-            BattleCondition c = conditions[i];
-            if (c == null)
+            BattleCondition condition = conditions[i];
+            if (condition == null)
                 continue;
 
-            if (!c.IsMet(ctx))
+            if (!condition.IsMet(context))
                 return false;
         }
 

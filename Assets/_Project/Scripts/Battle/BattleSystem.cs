@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public partial class BattleSystem : MonoBehaviour
+public class BattleSystem : MonoBehaviour
 {
     public BattleState CurrentBattleState { get; private set; } = BattleState.Running;
 
@@ -20,6 +20,9 @@ public partial class BattleSystem : MonoBehaviour
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
     private TurnManager turnManager;
+    private BattleEncounterResolver encounterResolver;
+    private BattleSystemPlayerActions playerActions;
+    private BattleSystemIntentBinder intentBinder;
 
     private int? selectedCardIndex = null;
 
@@ -31,27 +34,36 @@ public partial class BattleSystem : MonoBehaviour
             return;
         }
 
-        enemy = ResolveEnemyFromPendingEncounter(enemy);
+        encounterResolver = new BattleEncounterResolver();
+        enemy = encounterResolver.ResolveEnemy(enemy);
         if (enemy == null)
         {
             DevLog.Log("Enemy not assigned");
             return;
         }
 
-        var deck = new Deck(player.DeckData);
-
-        BattleDebugPrinter.PrintCards("Starting deck", deck.Cards);
-
         deckManager = new DeckManager();
-        deckManager.Initialize(deck.Cards);
+        deckManager.Initialize(player.DeckData);
+
+        BattleDebugPrinter.PrintCards("Starting deck", deckManager.Deck.Cards);
 
         deckUI.Bind(deckManager.Deck);
 
         turnManager = new TurnManager(player, enemy, deckManager);
         cardPlayer = new CardPlayer(player, deckManager, turnManager);
+        playerActions = new BattleSystemPlayerActions(
+            () => deckManager,
+            () => cardPlayer,
+            () => turnManager,
+            CanPlay,
+            AfterAction,
+            NotifyHandChanged,
+            () => selectedCardIndex,
+            value => selectedCardIndex = value);
+        intentBinder = new BattleSystemIntentBinder(handUI, enemyIntentView);
 
         turnManager.StartBattle();
-        WireEnemyIntentForBattleStart();
+        intentBinder.WireForBattleStart(turnManager, enemy);
         NotifyHandChanged();
     }
 
@@ -75,6 +87,7 @@ public partial class BattleSystem : MonoBehaviour
         if (enemy.CurrentHealth <= 0)
         {
             SetVictory();
+            ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
             handUI?.ReleaseAllBattleCardDrags();
             battleEndUI?.ShowVictory();
             return;
@@ -86,6 +99,36 @@ public partial class BattleSystem : MonoBehaviour
             handUI?.ReleaseAllBattleCardDrags();
             battleEndUI?.ShowDefeat();
         }
+    }
+
+    public void OnTargetClicked(ICombatant target)
+    {
+        playerActions?.OnTargetClicked(target);
+    }
+
+    public bool TryPlayCardFromHand(int index, ICombatant target)
+    {
+        return playerActions != null && playerActions.TryPlayCardFromHand(index, target);
+    }
+
+    public void EndTurn()
+    {
+        playerActions?.EndTurn();
+    }
+
+    public void SelectCard(int index)
+    {
+        playerActions?.SelectCard(index);
+    }
+
+    public void DeselectCard()
+    {
+        playerActions?.DeselectCard();
+    }
+
+    private void OnDestroy()
+    {
+        intentBinder?.Unwire();
     }
 
     private void NotifyHandChanged()

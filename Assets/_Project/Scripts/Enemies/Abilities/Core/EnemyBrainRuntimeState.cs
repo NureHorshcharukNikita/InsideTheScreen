@@ -21,7 +21,7 @@ internal static class EnemyBrainRuntime
 
     public static bool IsAbilityAvailable(
         EnemyAbilityData ability,
-        BattleTargetingContext ctx,
+        BattleTargetingContext targetingContext,
         Dictionary<EnemyAbilityData, AbilityRuntimeState> runtime)
     {
         AbilityRuntimeState state = GetState(runtime, ability);
@@ -31,7 +31,7 @@ internal static class EnemyBrainRuntime
         if (ability.maxUses >= 0 && state.Uses >= ability.maxUses)
             return false;
 
-        if (!BattleCondition.AllMet(ability.conditions, ctx))
+        if (!BattleCondition.AllMet(ability.conditions, targetingContext))
             return false;
 
         return true;

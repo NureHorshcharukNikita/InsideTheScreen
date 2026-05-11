@@ -1,29 +1,25 @@
 using UnityEngine;
 
-public partial class BattleSystem
+internal sealed class BattleEncounterResolver
 {
-    private static EnemyCharacter ResolveEnemyFromPendingEncounter(EnemyCharacter defaultEnemy)
+    public EnemyCharacter ResolveEnemy(EnemyCharacter fallbackEnemy)
     {
-        if (defaultEnemy == null)
-            return defaultEnemy;
+        if (fallbackEnemy == null)
+            return null;
 
-        GameObject prefab = null;
-        if (PendingBattleEnemy.TryConsumeBattlePrefab(out GameObject pending))
-            prefab = pending;
-        else if (PendingBattleEnemy.LastEncounterEnemyPrefab != null)
-            prefab = PendingBattleEnemy.LastEncounterEnemyPrefab;
+        GameObject prefab = PendingBattleEnemy.ConsumeBattlePrefab();
 
         if (prefab == null)
-            return defaultEnemy;
+            return fallbackEnemy;
 
         EnemyCharacter template = prefab.GetComponent<EnemyCharacter>();
         if (template == null)
         {
             DevLog.Log($"{nameof(BattleSystem)}: battle enemy prefab has no {nameof(EnemyCharacter)}.");
-            return defaultEnemy;
+            return fallbackEnemy;
         }
 
-        defaultEnemy.ApplyEncounterTemplate(template);
-        return defaultEnemy;
+        fallbackEnemy.ApplyEncounterTemplate(template);
+        return fallbackEnemy;
     }
 }

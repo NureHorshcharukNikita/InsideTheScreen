@@ -12,6 +12,8 @@ public class PlayerCharacter : Character
 
     public InventoryData InventoryData => playerData != null ? playerData.Inventory : null;
     public DeckData DeckData => playerData != null ? playerData.Deck : null;
+    public int StartHandSize => playerData != null ? playerData.startHandSize : 0;
+    public int CardsDrawnPerTurn => playerData != null ? playerData.cardsDrawnPerTurn : 0;
     public int MaxActionPoints => playerData != null ? playerData.maxActionPoints : 0;
     public int CurrentActionPoints => currentActionPoints;
 
@@ -32,6 +34,9 @@ public class PlayerCharacter : Character
             Debug.LogError("DeckData is not assigned in PlayerData.");
             return;
         }
+
+        if (ExplorationPlayerSession.TryGetSavedHealth(out int savedHealth))
+            SetHealth(savedHealth);
 
         currentActionPoints = playerData.startActionPoints;
 

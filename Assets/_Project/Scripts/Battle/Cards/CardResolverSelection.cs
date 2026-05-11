@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public static partial class CardResolver
 {
-    private static bool SelectionMatchesProfile(BattleTargetingProfile profile, BattleTargetingContext ctx)
+    private static bool SelectionMatchesProfile(BattleTargetingProfile profile, BattleTargetingContext context)
     {
         switch (profile)
         {
@@ -17,16 +17,16 @@ public static partial class CardResolver
             case BattleTargetAllOtherCombatantsProfile:
                 return true;
             case BattleTargetSelectedEnemyProfile:
-                return IsOnTeam(ctx.SelectedTarget, ctx.Enemies);
+                return IsOnTeam(context.SelectedTarget, context.Enemies);
             case BattleTargetSelectedAllyProfile:
-                return IsOnTeam(ctx.SelectedTarget, ctx.Allies);
+                return IsOnTeam(context.SelectedTarget, context.Allies);
             case BattleTargetSelectedCombatantProfile:
-                return ReferenceEquals(ctx.SelectedTarget, ctx.Self)
-                       || IsOnTeam(ctx.SelectedTarget, ctx.Allies)
-                       || IsOnTeam(ctx.SelectedTarget, ctx.Enemies);
+                return ReferenceEquals(context.SelectedTarget, context.Self)
+                       || IsOnTeam(context.SelectedTarget, context.Allies)
+                       || IsOnTeam(context.SelectedTarget, context.Enemies);
             case BattleTargetSelectedOtherCombatantProfile:
-                return !ReferenceEquals(ctx.SelectedTarget, ctx.Self)
-                       && (IsOnTeam(ctx.SelectedTarget, ctx.Allies) || IsOnTeam(ctx.SelectedTarget, ctx.Enemies));
+                return !ReferenceEquals(context.SelectedTarget, context.Self)
+                       && (IsOnTeam(context.SelectedTarget, context.Allies) || IsOnTeam(context.SelectedTarget, context.Enemies));
             default:
                 return true;
         }

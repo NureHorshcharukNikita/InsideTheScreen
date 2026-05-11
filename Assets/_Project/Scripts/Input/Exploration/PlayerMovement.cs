@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        if (ExplorationPlayerSession.TryGetSavedPosition(out Vector3 savedPosition))
+            transform.position = savedPosition;
     }
 
     private void Update()

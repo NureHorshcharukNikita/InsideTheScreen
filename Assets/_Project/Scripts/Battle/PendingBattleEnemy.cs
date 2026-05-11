@@ -2,34 +2,29 @@ using UnityEngine;
 
 public static class PendingBattleEnemy
 {
-    private static GameObject _pendingPrefab;
-    private static GameObject _lastEncounterPrefab;
+    private static GameObject _battleEnemyPrefab;
+    private static GameObject _currentBattleEnemyPrefab;
 
-    public static string ReturnSceneName { get; private set; } = SceneNames.Exploration;
+    public static string EncounterId { get; private set; }
 
-    public static void RegisterEncounterStart(GameObject battleEnemyPrefab, string returnSceneName = null)
+    public static void RegisterEncounterStart(GameObject battleEnemyPrefab, string encounterId)
     {
-        _pendingPrefab = battleEnemyPrefab;
-        if (battleEnemyPrefab != null)
-            _lastEncounterPrefab = battleEnemyPrefab;
-
-        if (!string.IsNullOrEmpty(returnSceneName))
-            ReturnSceneName = returnSceneName;
+        _battleEnemyPrefab = battleEnemyPrefab;
+        _currentBattleEnemyPrefab = battleEnemyPrefab;
+        EncounterId = encounterId;
     }
 
-    public static bool TryConsumeBattlePrefab(out GameObject prefab)
+    public static GameObject ConsumeBattlePrefab()
     {
-        prefab = _pendingPrefab;
-        _pendingPrefab = null;
-        return prefab != null;
+        GameObject prefab = _battleEnemyPrefab != null ? _battleEnemyPrefab : _currentBattleEnemyPrefab;
+        _battleEnemyPrefab = null;
+        return prefab;
     }
-
-    public static GameObject LastEncounterEnemyPrefab => _lastEncounterPrefab;
 
     public static void ClearSession()
     {
-        _pendingPrefab = null;
-        _lastEncounterPrefab = null;
-        ReturnSceneName = SceneNames.Exploration;
+        _battleEnemyPrefab = null;
+        _currentBattleEnemyPrefab = null;
+        EncounterId = null;
     }
 }

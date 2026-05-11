@@ -6,7 +6,7 @@ public partial class CardView
 {
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (TryForwardInventoryDrag(eventData, (s, e) => s.OnBeginDrag(e)))
+        if (TryForwardInventoryDrag(eventData, (handler, pointerEventData) => handler.OnBeginDrag(pointerEventData)))
             return;
 
         battleDrag.OnBeginDrag(eventData);
@@ -14,7 +14,7 @@ public partial class CardView
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (TryForwardInventoryDrag(eventData, (s, e) => s.OnDrag(e)))
+        if (TryForwardInventoryDrag(eventData, (handler, pointerEventData) => handler.OnDrag(pointerEventData)))
             return;
 
         battleDrag.OnDrag(eventData);
@@ -22,7 +22,7 @@ public partial class CardView
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (TryForwardInventoryDrag(eventData, (s, e) => s.OnEndDrag(e)))
+        if (TryForwardInventoryDrag(eventData, (handler, pointerEventData) => handler.OnEndDrag(pointerEventData)))
             return;
 
         battleDrag.OnEndDrag(eventData);

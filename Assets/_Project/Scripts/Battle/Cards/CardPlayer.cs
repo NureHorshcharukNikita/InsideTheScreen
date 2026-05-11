@@ -24,8 +24,8 @@ public class CardPlayer
             return false;
         }
 
-        BattleTargetingContext ctx = turnManager.BuildTargetingContext(player, target);
-        if (!CardResolver.CanResolveAnyTarget(card, ctx))
+        BattleTargetingContext context = turnManager.BuildTargetingContext(player, target);
+        if (!CardResolver.CanResolveAnyTarget(card, context))
             return false;
 
         if (!player.SpendActionPoints(card.Cost))
@@ -34,8 +34,8 @@ public class CardPlayer
             return false;
         }
 
-        BattleActionContext actionCtx = turnManager.BuildActionContext();
-        CardResolver.Resolve(card, ctx, actionCtx);
+        BattleActionContext actionContext = turnManager.BuildActionContext();
+        CardResolver.Resolve(card, context, actionContext);
 
         deckManager.DiscardByIndexFromHand(index);
 

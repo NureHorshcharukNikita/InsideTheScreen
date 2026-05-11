@@ -5,42 +5,42 @@ internal static class EnemyBrainSelection
 {
     public static EnemyAbilityData PickWeighted(
         IReadOnlyList<EnemyAbilityData> pool,
-        EnemyAbilityBattleContext ctx,
+        EnemyAbilityBattleContext abilityContext,
         Dictionary<EnemyAbilityData, EnemyBrainRuntime.AbilityRuntimeState> runtime)
     {
-        BattleTargetingContext targetingCtx = EnemyAbilityExecutor.BuildTargetingContext(ctx);
+        BattleTargetingContext targetingContext = EnemyAbilityExecutor.BuildTargetingContext(abilityContext);
         int total = 0;
         for (int i = 0; i < pool.Count; i++)
         {
-            EnemyAbilityData a = pool[i];
-            if (a != null && EnemyBrainRuntime.IsAbilityAvailable(a, targetingCtx, runtime))
-                total += Mathf.Max(1, a.selectionWeight);
+            EnemyAbilityData ability = pool[i];
+            if (ability != null && EnemyBrainRuntime.IsAbilityAvailable(ability, targetingContext, runtime))
+                total += Mathf.Max(1, ability.selectionWeight);
         }
 
         if (total <= 0)
             return null;
 
         int roll = Random.Range(0, total);
-        int acc = 0;
+        int accumulatedWeight = 0;
         for (int i = 0; i < pool.Count; i++)
         {
-            EnemyAbilityData a = pool[i];
-            if (a == null)
+            EnemyAbilityData ability = pool[i];
+            if (ability == null)
                 continue;
-            if (!EnemyBrainRuntime.IsAbilityAvailable(a, targetingCtx, runtime))
+            if (!EnemyBrainRuntime.IsAbilityAvailable(ability, targetingContext, runtime))
                 continue;
 
-            acc += Mathf.Max(1, a.selectionWeight);
-            if (roll < acc)
-                return a;
+            accumulatedWeight += Mathf.Max(1, ability.selectionWeight);
+            if (roll < accumulatedWeight)
+                return ability;
         }
 
         return null;
     }
 
-    public static Character ResolvePrimaryTargetForUi(EnemyAbilityData ability, EnemyAbilityBattleContext ctx)
+    public static Character ResolvePrimaryTargetForUi(EnemyAbilityData ability, EnemyAbilityBattleContext abilityContext)
     {
-        if (ability?.effects == null || ctx == null)
+        if (ability?.effects == null || abilityContext == null)
             return null;
 
         foreach (EnemyAbilityEffectSpec spec in ability.effects)
@@ -48,7 +48,7 @@ internal static class EnemyBrainSelection
             if (spec == null)
                 continue;
 
-            IReadOnlyList<Character> targets = EnemyAbilityExecutor.ResolveTargets(spec, ctx);
+            IReadOnlyList<Character> targets = EnemyAbilityExecutor.ResolveTargets(spec, abilityContext);
             if (targets != null && targets.Count > 0)
                 return targets[0];
         }

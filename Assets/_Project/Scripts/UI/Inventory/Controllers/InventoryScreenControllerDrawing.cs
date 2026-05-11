@@ -9,7 +9,7 @@ public partial class InventoryScreenController
         if (currentCategory != null)
         {
             filteredCards = filteredCards
-                .Where(c => CardCategoryUtils.HasCategory(c, currentCategory))
+                .Where(card => CardCategoryUtils.HasCategory(card, currentCategory))
                 .ToList();
         }
 
