@@ -1,7 +1,13 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 [System.Serializable]
 public class CardEffectEntry
 {
-    public CardEffect effect;
+    public BattleEffect effect;
     public int value;
-    public EffectTargetType targetType;
+    public BattleTargetingProfile targeting;
+    [Range(0f, 1f)]
+    public float applyChance = 1f;
+    public List<BattleCondition> conditions = new();
 }

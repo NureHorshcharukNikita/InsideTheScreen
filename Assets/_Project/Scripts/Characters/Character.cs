@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 
-public class Character : MonoBehaviour, IEffectTarget
+public class Character : MonoBehaviour, ICombatant
 {
     [SerializeField] private int currentHealth = 30;
 
     public virtual int MaxHealth => 0;
     public int CurrentHealth => currentHealth;
+    public virtual CombatTeam Team => CombatTeam.Neutral;
+    public bool IsAlive => CurrentHealth > 0;
 
     public event Action<int, int> HealthChanged;
 

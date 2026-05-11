@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewCard", menuName = "Cards/Card")]
+[CreateAssetMenu(fileName = "NewCard", menuName = "Game/Battle/Cards/Card")]
 public class CardData : ScriptableObject
 {
     [Header("Identity")]
@@ -15,6 +15,7 @@ public class CardData : ScriptableObject
 
     [Header("Gameplay")]
     [SerializeField] private int cost = 1;
+    [SerializeField] private List<BattleCondition> conditions = new();
     [SerializeField] private List<CardEffectEntry> effects = new();
 
     public string CardID => cardID;
@@ -22,5 +23,6 @@ public class CardData : ScriptableObject
     public string Description => description;
     public Sprite Icon => icon;
     public int Cost => cost;
+    public IReadOnlyList<BattleCondition> Conditions => conditions;
     public IReadOnlyList<CardEffectEntry> Effects => effects;
 }

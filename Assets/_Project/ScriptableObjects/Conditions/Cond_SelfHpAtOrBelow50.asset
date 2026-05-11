@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
-  m_Name: EnemyData
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterStatsData
-  maxHealth: 60
+  m_Script: {fileID: 11500000, guid: 8f4a2b1c9d0e3f5a7b6c8d9e0f1a2b3c, type: 3}
+  m_Name: Cond_SelfHpAtOrBelow50
+  m_EditorClassIdentifier: Assembly-CSharp::SelfHpAtOrBelowPercentCondition
+  hpRatioThreshold: 0.5

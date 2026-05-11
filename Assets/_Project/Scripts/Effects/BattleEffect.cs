@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class CardEffect : ScriptableObject
+public abstract class BattleEffect : ScriptableObject
 {
     [Header("Effect Info")]
     [SerializeField] private string effectName;
@@ -11,5 +11,5 @@ public abstract class CardEffect : ScriptableObject
     public string EffectName => effectName;
     public string Description => description;
 
-    public abstract void Execute(IEffectTarget source, IEffectTarget target, int value);
+    public abstract void Execute(ICombatant source, ICombatant target, int value, BattleActionContext actionContext);
 }

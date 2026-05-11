@@ -8,6 +8,7 @@ public class PlayerCharacter : Character
     private int currentActionPoints;
 
     public override int MaxHealth => playerData != null ? playerData.maxHealth : 0;
+    public override CombatTeam Team => CombatTeam.Player;
 
     public InventoryData InventoryData => playerData.Inventory;
     public DeckData DeckData => playerData.Deck;

@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Card Effects/Damage")]
-public class DamageEffect : CardEffect
+[CreateAssetMenu(menuName = "Game/Battle/Effects/Damage")]
+public class DamageEffect : BattleEffect
 {
-    public override void Execute(IEffectTarget source, IEffectTarget target, int value)
+    public override void Execute(ICombatant source, ICombatant target, int value, BattleActionContext actionContext)
     {
-        if (target == null)
+        if (target == null || actionContext == null)
             return;
 
-        target.TakeDamage(value);
+        actionContext.Damage.ApplyDamage(source, target, value);
     }
 }
