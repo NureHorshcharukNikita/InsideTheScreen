@@ -2257,8 +2257,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16001cf3e069c924a99cba39183af74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleEndUI
-  player: {fileID: 252743986}
   resultText: {fileID: 2069869700}
+  retryButton: {fileID: 0}
+  leaveButton: {fileID: 0}
+  retryButtonText: {fileID: 0}
+  leaveButtonText: {fileID: 0}
 --- !u!114 &400002969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2760,8 +2763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 296.1697, y: 194.53}
-  m_SizeDelta: {x: 280.01, y: 57.2}
+  m_AnchoredPosition: {x: 324, y: 194.53}
+  m_SizeDelta: {x: 715.4226, y: 57.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678215247
 MonoBehaviour:
@@ -3470,7 +3473,6 @@ MonoBehaviour:
   background: {fileID: 492598783}
   hpFill: {fileID: 1022814606}
   hpText: {fileID: 942480746}
-  anchorHeightAlongSprite: 0
   belowSpritePadding: 4
 --- !u!1 &1105991613
 GameObject:
@@ -3526,7 +3528,6 @@ MonoBehaviour:
   background: {fileID: 1853134097}
   hpFill: {fileID: 832237185}
   hpText: {fileID: 1518911279}
-  anchorHeightAlongSprite: 0
   belowSpritePadding: 4
 --- !u!1 &1162062482
 GameObject:
@@ -4941,8 +4942,6 @@ MonoBehaviour:
   playerHpBar: {fileID: 1055922171}
   enemyHpBar: {fileID: 1105991615}
   enemy: {fileID: 1294572163}
-  acceptableErrorPixels: 2
-  probeWorldUnits: 0.35
 --- !u!1 &2032342500
 GameObject:
   m_ObjectHideFlags: 0
