@@ -13,6 +13,8 @@ public class PlayerData : ScriptableObject
 
     [Header("Deck")]
     public DeckData Deck;
+    public int startHandSize = 5;
+    public int cardsDrawnPerTurn = 1;
 
     [Header("Inventory")]
     public InventoryData Inventory;
