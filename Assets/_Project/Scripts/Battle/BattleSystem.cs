@@ -53,18 +53,20 @@ public class BattleSystem : MonoBehaviour
         if (selectedCardIndex == null)
             return;
 
-        PlayCardFromHand(selectedCardIndex.Value, target);
+        bool played = TryPlayCardFromHand(selectedCardIndex.Value, target);
         selectedCardIndex = null;
 
-        NotifyHandChanged();
+        if (!played)
+            NotifyHandChanged();
     }
 
-    public void PlayCardFromHand(int index, IEffectTarget target)
+    public bool TryPlayCardFromHand(int index, IEffectTarget target)
     {
-        if (!CanPlay()) return;
+        if (!CanPlay())
+            return false;
 
         if (index < 0 || index >= deckManager.Hand.Count)
-            return;
+            return false;
 
         var card = deckManager.Hand.Cards[index];
 
@@ -77,7 +79,10 @@ public class BattleSystem : MonoBehaviour
 
             AfterAction();
             NotifyHandChanged();
+            return true;
         }
+
+        return false;
     }
 
     public void EndTurn()
@@ -144,8 +149,6 @@ public class BattleSystem : MonoBehaviour
 
         selectedCardIndex = null;
         DevLog.Log("Card deselected");
-
-        NotifyHandChanged();
     }
 
     private void NotifyHandChanged()

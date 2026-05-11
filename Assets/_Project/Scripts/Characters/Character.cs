@@ -12,7 +12,6 @@ public class Character : MonoBehaviour, IEffectTarget
 
     protected virtual void Awake()
     {
-        //?
         SetMaxHeal();
     }
 

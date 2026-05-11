@@ -13,8 +13,10 @@ public class EnemyEncounter : MonoBehaviour
             isTriggered = true;
 
             PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+
             if (playerMovement != null)
             {
+                playerMovement.StopMovement();
                 playerMovement.enabled = false;
             }
 

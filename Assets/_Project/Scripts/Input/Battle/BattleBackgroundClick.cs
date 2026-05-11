@@ -7,6 +7,9 @@ public class BattleBackgroundClick : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (eventData.dragging)
+            return;
+
         battleSystem.DeselectCard();
     }
 }

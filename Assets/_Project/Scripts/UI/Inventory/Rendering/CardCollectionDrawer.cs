@@ -44,7 +44,7 @@ public class CardCollectionDrawer
 
             bool selected = isSelected != null && isSelected(card);
 
-            cardView.Setup(card, counts[card], i, onClick, selected);
+            cardView.Setup(card, counts[card], i, onClick, null, selected);
         }
 
         UpdateContentHeight(sortedCards.Count);

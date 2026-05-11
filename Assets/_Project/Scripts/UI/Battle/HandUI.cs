@@ -66,7 +66,7 @@ public class HandUI : MonoBehaviour
             int index = i;
 
             CardView cardView = Instantiate(cardPrefab, handPanel);
-            cardView.Setup(cardData, index, battleSystem.SelectCard);
+            cardView.Setup(cardData, index, battleSystem.SelectCard, battleSystem);
         }
     }
 }
