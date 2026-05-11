@@ -1,10 +1,19 @@
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
-[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(BoxCollider2D))][RequireComponent(typeof(SpriteRenderer))]
 public class BoxCollider2DSpriteSync : MonoBehaviour
 {
     private void Awake()
+    {
+        Sync();
+    }
+
+    private void OnEnable()
+    {
+        Sync();
+    }
+
+    private void Start()
     {
         Sync();
     }
@@ -16,13 +25,21 @@ public class BoxCollider2DSpriteSync : MonoBehaviour
 
     private void Sync()
     {
-        BoxCollider2D box = GetComponent<BoxCollider2D>();
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (box == null || sr == null || sr.sprite == null)
+        if (sr == null || sr.sprite == null)
             return;
 
         Bounds lb = sr.localBounds;
-        box.offset = (Vector2)lb.center;
-        box.size = (Vector2)lb.size;
+        Vector2 center = lb.center;
+        Vector2 size = lb.size;
+
+        foreach (BoxCollider2D box in GetComponents<BoxCollider2D>())
+        {
+            box.offset = center;
+            box.size = size;
+        }
     }
+
+    public void RefreshFromSprite() => Sync();
 }
+

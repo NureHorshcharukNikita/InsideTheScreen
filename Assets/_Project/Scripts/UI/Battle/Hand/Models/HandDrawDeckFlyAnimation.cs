@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
+using UnityEngine.UI;
 
 public readonly struct HandFlyTweenSettings
 {
@@ -55,5 +56,31 @@ public readonly struct HandDrawDeckFlyContext
         FlightSpline = flightSpline;
         Settings = settings;
         OnDeckFlyCardArrived = onDeckFlyCardArrived;
+    }
+}
+
+public readonly struct HandDeckFlyPreparedData
+{
+    public readonly int FirstDrawIndex;
+    public readonly int DrawCount;
+    public readonly Vector3 StackStartWorld;
+    public readonly Vector3[] TargetsWorld;
+    public readonly LayoutElement[] LayoutElements;
+    public readonly CardView[] Views;
+
+    public HandDeckFlyPreparedData(
+        int firstDrawIndex,
+        int drawCount,
+        Vector3 stackStartWorld,
+        Vector3[] targetsWorld,
+        LayoutElement[] layoutElements,
+        CardView[] views)
+    {
+        FirstDrawIndex = firstDrawIndex;
+        DrawCount = drawCount;
+        StackStartWorld = stackStartWorld;
+        TargetsWorld = targetsWorld;
+        LayoutElements = layoutElements;
+        Views = views;
     }
 }

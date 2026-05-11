@@ -41,9 +41,6 @@ public class DeckUI : MonoBehaviour
         deck.DeckCountChanged -= RefreshDeck;
     }
 
-    /// <summary>
-    /// Deck count already reflects drawn cards; bonus keeps UI at "pre-draw" until each fly finishes.
-    /// </summary>
     public void BeginDeckCountFlyStagger(int cardsFlying)
     {
         _displayCountBonus = Mathf.Max(0, cardsFlying);

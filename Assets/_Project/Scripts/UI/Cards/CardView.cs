@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("Texts & icon")]
     [SerializeField] private TMP_Text cardNameText;
@@ -73,45 +73,14 @@ public class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         battleDrag.SyncHierarchy(rectTransform, handParent, canvasRootRect, rootCanvas, layoutElement, canvasGroup);
     }
 
+    public void ForceReleaseBattleDragToHand()
+    {
+        battleDrag?.ForceReleaseDragToHand();
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         onPointerDown?.Invoke(cardIndex);
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        if (TryForwardInventoryDrag(eventData, (s, e) => s.OnBeginDrag(e)))
-            return;
-
-        battleDrag.OnBeginDrag(eventData);
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (TryForwardInventoryDrag(eventData, (s, e) => s.OnDrag(e)))
-            return;
-
-        battleDrag.OnDrag(eventData);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        if (TryForwardInventoryDrag(eventData, (s, e) => s.OnEndDrag(e)))
-            return;
-
-        battleDrag.OnEndDrag(eventData);
-    }
-
-    private bool TryForwardInventoryDrag(PointerEventData eventData, Action<ScrollRect, PointerEventData> forward)
-    {
-        if (battleDrag.IsBattleDragEnabled)
-            return false;
-
-        ScrollRect scroll = GetComponentInParent<ScrollRect>();
-        if (scroll != null)
-            forward(scroll, eventData);
-
-        return true;
     }
 
     private void CacheRectHierarchy()
@@ -138,35 +107,4 @@ public class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         canvasGroup.blocksRaycasts = true;
     }
 
-    private void ApplyCardData(CardData data, int? count)
-    {
-        if (cardNameText != null)
-            cardNameText.text = data.CardName;
-
-        if (cardCostText != null)
-            cardCostText.text = data.Cost.ToString();
-
-        if (cardDescriptionText != null)
-            cardDescriptionText.text = data.Description;
-
-        if (countText != null)
-        {
-            if (count.HasValue)
-            {
-                countText.text = $"x{count.Value}";
-                countText.gameObject.SetActive(true);
-            }
-            else
-            {
-                countText.gameObject.SetActive(false);
-            }
-        }
-
-        if (cardIcon != null)
-        {
-            cardIcon.sprite = data.Icon;
-            cardIcon.enabled = data.Icon != null;
-            cardIcon.preserveAspect = true;
-        }
-    }
 }

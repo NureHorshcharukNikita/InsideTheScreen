@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class CardResolver
+public static partial class CardResolver
 {
     private readonly struct ResolvedEntry
     {
@@ -54,13 +54,15 @@ public static class CardResolver
     {
         foreach (CardEffectEntry entry in card.Effects)
         {
-            if (entry?.effect == null)
+            if (entry?.effect == null || entry.targeting == null)
                 continue;
             if (!BattleCondition.AllMet(entry.conditions, ctx))
                 continue;
 
             IReadOnlyList<ICombatant> targets = ResolveTargets(entry, ctx);
             if (targets == null || targets.Count == 0)
+                continue;
+            if (!SelectionMatchesProfile(entry.targeting, ctx))
                 continue;
 
             yield return new ResolvedEntry(entry, targets);
@@ -74,4 +76,5 @@ public static class CardResolver
 
         return entry.targeting.ResolveTargets(ctx);
     }
+
 }

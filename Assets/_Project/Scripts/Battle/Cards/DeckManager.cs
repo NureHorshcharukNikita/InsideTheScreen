@@ -8,6 +8,12 @@ public class DeckManager
 
     public void Initialize(IReadOnlyCollection<CardData> startingDeck)
     {
+        if (startingDeck == null)
+        {
+            Deck = new Deck(0);
+            return;
+        }
+
         Deck = new Deck(startingDeck.Count);
 
         foreach (var card in startingDeck)
@@ -20,7 +26,7 @@ public class DeckManager
     {
         for (int i = 0; i < amount; i++)
         {
-            if (Deck.Count == 0 && Hand.Count == 0)
+            if (Deck.Count == 0)
                 ReshuffleDiscard();
 
             var card = Deck.Draw();

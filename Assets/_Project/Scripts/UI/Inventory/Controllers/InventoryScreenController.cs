@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 
-public class InventoryScreenController
+public partial class InventoryScreenController
 {
     private readonly InventoryData inventoryStorage;
     private readonly InventoryPreviewPanel inventoryPreviewPanel;
@@ -73,56 +72,6 @@ public class InventoryScreenController
             deckData);
     }
 
-    private void DrawInventory()
-    {
-        filteredCards = inventoryStorage.Cards.ToList();
-
-        if (currentCategory != null)
-        {
-            filteredCards = filteredCards
-                .Where(c => CardCategoryUtils.HasCategory(c, currentCategory))
-                .ToList();
-        }
-
-        inventoryDrawer.Draw(
-            filteredCards,
-            OnInventoryCardClicked,
-            card => !selectedFromDeck && card == selectedCard);
-    }
-
-    private void DrawDeck()
-    {
-        deckDrawer.Draw(
-            deckData.Cards,
-            OnDeckCardClicked,
-            card => selectedFromDeck && card == selectedCard);
-    }
-
-    private void OnInventoryCardClicked(int index)
-    {
-        var card = InventorySelectionController.GetByIndex(filteredCards, index);
-
-        selectedCard = card;
-        selectedFromDeck = false;
-
-        selectionPresenter.ShowFromInventory(card);
-        RefreshViewOnly();
-    }
-
-    private void OnDeckCardClicked(int index)
-    {
-        if (!deckController.HasDeck())
-            return;
-
-        var card = InventorySelectionController.GetByIndex(deckData.Cards, index);
-
-        selectedCard = card;
-        selectedFromDeck = true;
-
-        selectionPresenter.ShowFromDeck(card);
-        RefreshViewOnly();
-    }
-
     public void AddSelected()
     {
         var card = selectionPresenter.GetSelected();
@@ -158,63 +107,4 @@ public class InventoryScreenController
         }
     }
 
-    public void SetCategory(Type category)
-    {
-        currentCategory = category;
-
-        if (selectedCard == null)
-            return;
-
-        if (selectedFromDeck)
-            return;
-
-        if (!CardCategoryUtils.HasCategory(selectedCard, currentCategory))
-        {
-            selectedCard = null;
-            selectedFromDeck = false;
-            inventoryPreviewPanel.Clear();
-        }
-    }
-
-    public void ClearSelection()
-    {
-        selectedCard = null;
-        selectedFromDeck = false;
-        inventoryPreviewPanel.Clear();
-    }
-
-    private void RefreshViewOnly()
-    {
-        DrawInventory();
-
-        if (deckController.HasDeck())
-            DrawDeck();
-    }
-
-    private void ValidateSelection()
-    {
-        if (selectedCard == null)
-            return;
-
-        if (selectedFromDeck)
-        {
-            if (!deckController.IsInDeck(selectedCard))
-            {
-                selectedCard = null;
-                selectedFromDeck = false;
-                inventoryPreviewPanel.Clear();
-            }
-
-            return;
-        }
-
-        bool visibleInInventory = filteredCards == null || filteredCards.Contains(selectedCard);
-
-        if (!visibleInInventory)
-        {
-            selectedCard = null;
-            selectedFromDeck = false;
-            inventoryPreviewPanel.Clear();
-        }
-    }
 }

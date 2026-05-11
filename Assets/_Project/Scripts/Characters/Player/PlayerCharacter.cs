@@ -10,9 +10,9 @@ public class PlayerCharacter : Character
     public override int MaxHealth => playerData != null ? playerData.maxHealth : 0;
     public override CombatTeam Team => CombatTeam.Player;
 
-    public InventoryData InventoryData => playerData.Inventory;
-    public DeckData DeckData => playerData.Deck;
-    public int MaxActionPoints => playerData.maxActionPoints;
+    public InventoryData InventoryData => playerData != null ? playerData.Inventory : null;
+    public DeckData DeckData => playerData != null ? playerData.Deck : null;
+    public int MaxActionPoints => playerData != null ? playerData.maxActionPoints : 0;
     public int CurrentActionPoints => currentActionPoints;
 
     public event Action<int, int> ActionPointsChanged;
@@ -55,6 +55,9 @@ public class PlayerCharacter : Character
 
     public void RestoreActionPoints()
     {
+        if (playerData == null)
+            return;
+
         currentActionPoints = Mathf.Min(
             currentActionPoints + playerData.actionPointsPerTurn,
             playerData.maxActionPoints);

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 using UnityEngine.UI;
 
-public class HandUI : MonoBehaviour
+public partial class HandUI : MonoBehaviour
 {
     public event Action DrawFlyAnimationCompleted;
 
@@ -13,7 +12,6 @@ public class HandUI : MonoBehaviour
     [SerializeField] private CardView cardPrefab;
     [SerializeField] private DeckUI deckUi;
 
-    [Header("Draw from deck (fly-in)")]
     [SerializeField] private bool animateDeckToHand = true;
     [SerializeField] private float flyDealStartDelay = 0.12f;
     [SerializeField] private float flyDuration = 0.35f;
@@ -120,81 +118,30 @@ public class HandUI : MonoBehaviour
         deckUi?.EndDeckCountFlyStagger();
     }
 
-    private void RefreshHand(DeckManager deckManager, int? selectedCardIndex)
+    public void ReleaseAllBattleCardDrags()
     {
-        if (battleSystem == null)
-            return;
-
-        _lastDeckManager = deckManager;
-        _lastSelectedCardIndex = selectedCardIndex;
-
-        if (deckManager == null || deckManager.Hand == null)
+        Canvas rootCanvas = handPanel.GetComponentInParent<Canvas>()?.rootCanvas;
+        if (rootCanvas != null)
         {
-            StopFlyRoutineIfAny();
-            HandCardViewCollection.DestroyAllSpawnedCardViews(handPanel, _spawnedViews);
-            _lastHandOrder.Clear();
-            return;
+            RectTransform rootRect = rootCanvas.transform as RectTransform;
+            if (rootRect != null)
+            {
+                for (int i = 0; i < rootRect.childCount; i++)
+                {
+                    CardView cv = rootRect.GetChild(i).GetComponent<CardView>();
+                    if (cv != null)
+                        cv.ForceReleaseBattleDragToHand();
+                }
+            }
         }
 
-        if (deckManager.Hand.Count == 0)
+        for (int i = 0; i < _spawnedViews.Count; i++)
         {
-            StopFlyRoutineIfAny();
-            HandCardViewCollection.DestroyAllSpawnedCardViews(handPanel, _spawnedViews);
-            _lastHandOrder.Clear();
-            return;
+            if (_spawnedViews[i] != null)
+                _spawnedViews[i].ForceReleaseBattleDragToHand();
         }
 
-        IReadOnlyList<CardData> newHand = deckManager.Hand.Cards;
-        if (_flyRoutine != null && IsSameHandSnapshot(newHand))
-            return;
-
-        StopFlyRoutineIfAny();
-        HandCardViewCollection.DestroyAllSpawnedCardViews(handPanel, _spawnedViews);
-
-        bool suffixDraw = HandCardSequence.TryComputeSuffixDraw(_lastHandOrder, newHand, out int drawCount);
-
-        HandCardViewCollection.CreateCardViews(handPanel, _spawnedViews, deckManager, cardPrefab, battleSystem, selectedCardIndex);
-
-        var handRect = handPanel as RectTransform;
-        Canvas canvas = handRect != null ? handRect.GetComponentInParent<Canvas>() : null;
-        RectTransform canvasRoot = canvas != null ? canvas.transform as RectTransform : null;
-
-        bool shouldFly = animateDeckToHand
-            && suffixDraw
-            && drawCount > 0
-            && handRect != null
-            && canvas != null
-            && canvasRoot != null;
-
-        if (shouldFly)
-        {
-            HandCardViewCollection.HideNewestCards(_spawnedViews, drawCount);
-        }
-
-        if (handRect != null)
-        {
-            Canvas.ForceUpdateCanvases();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(handRect);
-        }
-
-        if (shouldFly)
-        {
-            // Snapshot is updated before animation start to avoid re-triggering
-            // the same fly sequence when duplicate HandChanged arrives.
-            HandCardSequence.CopySnapshot(newHand, _lastHandOrder);
-
-            var settings = new HandFlyTweenSettings(
-                flyDealStartDelay,
-                flyDuration,
-                flyStagger);
-
-            _flyRoutine = StartCoroutine(FlyThenClearRoutine(drawCount, deckManager, handRect, canvasRoot, settings));
-        }
-        else
-        {
-            HandCardSequence.CopySnapshot(newHand, _lastHandOrder);
-            DrawFlyAnimationCompleted?.Invoke();
-        }
+        HandCardViewCollection.RefreshDragHierarchyForChildren(handPanel);
     }
 
     private void RefreshFromLastKnownHandState()
@@ -203,61 +150,6 @@ public class HandUI : MonoBehaviour
             return;
 
         RefreshHand(_lastDeckManager, _lastSelectedCardIndex);
-    }
-
-    private bool IsSameHandSnapshot(IReadOnlyList<CardData> hand)
-    {
-        if (hand == null || hand.Count != _lastHandOrder.Count)
-            return false;
-
-        for (int i = 0; i < hand.Count; i++)
-        {
-            if (hand[i] != _lastHandOrder[i])
-                return false;
-        }
-
-        return true;
-    }
-
-    private IEnumerator FlyThenClearRoutine(
-        int drawCount,
-        DeckManager deckManager,
-        RectTransform handRect,
-        RectTransform canvasRoot,
-        HandFlyTweenSettings settings)
-    {
-        deckUi?.BeginDeckCountFlyStagger(drawCount);
-
-        Action onCardArrived = deckUi != null ? deckUi.OnDeckFlyCardArrived : null;
-        var context = new HandDrawDeckFlyContext(
-            handPanel,
-            _spawnedViews,
-            _currentlyFlying,
-            _lastHandOrder,
-            deckManager,
-            handRect,
-            canvasRoot,
-            handFlightSpline,
-            settings,
-            onCardArrived);
-
-        bool completedCleanly = false;
-        try
-        {
-            IEnumerator inner = HandDrawDeckFlyAnimationDotween.Run(context, drawCount);
-
-            while (inner.MoveNext())
-                yield return inner.Current;
-
-            completedCleanly = true;
-        }
-        finally
-        {
-            deckUi?.EndDeckCountFlyStagger();
-            _flyRoutine = null;
-            if (completedCleanly)
-                DrawFlyAnimationCompleted?.Invoke();
-        }
     }
 
 }

@@ -27,8 +27,7 @@ public static class HandCardViewCollection
         List<CardView> spawnedViews,
         DeckManager deckManager,
         CardView cardPrefab,
-        BattleSystem battleSystem,
-        int? selectedCardIndex)
+        BattleSystem battleSystem)
     {
         if (cardPrefab == null || battleSystem == null)
             return;
@@ -39,8 +38,7 @@ public static class HandCardViewCollection
             int index = i;
 
             CardView cardView = Object.Instantiate(cardPrefab, handPanel);
-            bool selected = selectedCardIndex.HasValue && selectedCardIndex.Value == index;
-            cardView.Setup(cardData, index, battleSystem.SelectCard, battleSystem, selected);
+            cardView.Setup(cardData, index, battleSystem.SelectCard, battleSystem, selected: false);
             spawnedViews.Add(cardView);
         }
     }

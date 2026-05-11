@@ -1,55 +1,106 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FadeManager : MonoBehaviour
+public partial class FadeManager : MonoBehaviour
 {
-    public static FadeManager Instance;
+    public static FadeManager Instance { get; private set; }
+
+    private static bool s_pendingFadeInAfterLoad;
 
     [SerializeField] private CanvasGroup fadeGroup;
-    [SerializeField] private float fadeTime = 0.5f;
+    [SerializeField] private float fadeDuration = 0.5f;
+
+    private bool _isFading;
+    private bool _fadeInFromBlackOnStart;
+
+    public static void TryFadeToScene(string sceneName)
+    {
+        if (Instance != null)
+            Instance.FadeToScene(sceneName);
+        else
+            SceneManager.LoadScene(sceneName);
+    }
+
+    public static void TryLoadSceneWithoutFade(string sceneName)
+    {
+        if (Instance != null)
+            Instance.LoadSceneWithoutFade(sceneName);
+        else
+            SceneManager.LoadScene(sceneName);
+    }
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
 
-        fadeGroup.alpha = 0;
-        fadeGroup.gameObject.SetActive(false);
+        _fadeInFromBlackOnStart = s_pendingFadeInAfterLoad;
+        s_pendingFadeInAfterLoad = false;
+
+        if (fadeGroup == null)
+            return;
+
+        if (_fadeInFromBlackOnStart)
+        {
+            fadeGroup.gameObject.SetActive(true);
+            fadeGroup.alpha = 1f;
+            fadeGroup.blocksRaycasts = true;
+            fadeGroup.interactable = false;
+        }
+        else
+            HideFadeOverlay();
+    }
+
+    private void Start()
+    {
+        if (_fadeInFromBlackOnStart && fadeGroup != null)
+            StartCoroutine(FadeInFromBlackRoutine());
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     public void FadeToScene(string sceneName)
     {
-        StartCoroutine(FadeRoutine(sceneName));
+        if (_isFading)
+            return;
+
+        if (fadeGroup == null)
+        {
+            SceneManager.LoadScene(sceneName);
+            return;
+        }
+
+        StartCoroutine(FadeToBlackThenLoadRoutine(sceneName));
     }
 
-    private IEnumerator FadeRoutine(string sceneName)
+    public void LoadSceneWithoutFade(string sceneName)
     {
-        float time = 0;
+        StopAllCoroutines();
+        s_pendingFadeInAfterLoad = false;
+        _isFading = false;
+        HideFadeOverlay();
+        SceneManager.LoadScene(sceneName);
+    }
 
-        fadeGroup.gameObject.SetActive(true);
+    public CanvasGroup FadeOverlayGroup => fadeGroup;
 
-        while (time < fadeTime)
-        {
-            time += Time.deltaTime;
-            fadeGroup.alpha = time / fadeTime;
-            yield return null;
-        }
-
-        fadeGroup.alpha = 1;
-
-        yield return SceneManager.LoadSceneAsync(sceneName);
-
-        time = fadeTime;
-
-        while (time > 0)
-        {
-            time -= Time.deltaTime;
-            fadeGroup.alpha = time / fadeTime;
-            yield return null;
-        }
-
-        fadeGroup.alpha = 0;
-
+    private void HideFadeOverlay()
+    {
+        if (fadeGroup == null)
+            return;
+        fadeGroup.alpha = 0f;
+        fadeGroup.blocksRaycasts = false;
+        fadeGroup.interactable = false;
         fadeGroup.gameObject.SetActive(false);
     }
+
 }

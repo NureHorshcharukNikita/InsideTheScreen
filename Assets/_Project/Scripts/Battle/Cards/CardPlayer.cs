@@ -24,11 +24,9 @@ public class CardPlayer
             return false;
         }
 
-        if (!CanUseCardOnTarget(card, target))
-        {
-            DevLog.Log($"{card.CardName} cannot be used on this target");
+        BattleTargetingContext ctx = turnManager.BuildTargetingContext(player, target);
+        if (!CardResolver.CanResolveAnyTarget(card, ctx))
             return false;
-        }
 
         if (!player.SpendActionPoints(card.Cost))
         {
@@ -36,18 +34,11 @@ public class CardPlayer
             return false;
         }
 
-        BattleTargetingContext ctx = turnManager.BuildTargetingContext(player, target);
         BattleActionContext actionCtx = turnManager.BuildActionContext();
         CardResolver.Resolve(card, ctx, actionCtx);
 
         deckManager.DiscardByIndexFromHand(index);
 
         return true;
-    }
-
-    private bool CanUseCardOnTarget(CardData card, ICombatant target)
-    {
-        BattleTargetingContext ctx = turnManager.BuildTargetingContext(player, target);
-        return CardResolver.CanResolveAnyTarget(card, ctx);
     }
 }
