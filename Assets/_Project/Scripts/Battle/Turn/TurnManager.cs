@@ -30,6 +30,7 @@ public class TurnManager
         this.enemy = enemy;
         this.deckManager = deckManager;
     }
+
     public void StartBattle()
     {
         if (deckManager == null)
@@ -42,7 +43,7 @@ public class TurnManager
 
         CurrentTurn = TurnOwner.Player;
 
-        deckManager.DrawCards(5);
+        deckManager.DrawCards(player.StartHandSize);
 
         if (enemy?.Brain != null)
         {
@@ -59,7 +60,7 @@ public class TurnManager
         DevLog.Log("New player turn started");
 
         player.RestoreActionPoints();
-        deckManager.DrawCards(1);
+        deckManager.DrawCards(player.CardsDrawnPerTurn);
     }
 
     public void EndPlayerTurn()

@@ -15,4 +15,9 @@ public abstract class BattleTargetingProfile : ScriptableObject
     public string Description => description;
 
     public abstract IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context);
+
+    public virtual bool CanUseWithContext(BattleTargetingContext context)
+    {
+        return true;
+    }
 }

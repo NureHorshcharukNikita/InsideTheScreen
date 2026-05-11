@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCharacter : Character
@@ -16,6 +17,9 @@ public class EnemyCharacter : Character
 
     public EnemyData Data => enemyData;
     public EnemyBrain Brain => brain;
+    public IReadOnlyList<EnemyAbilityData> Abilities => enemyData != null
+        ? enemyData.abilities
+        : System.Array.Empty<EnemyAbilityData>();
 
     public void ApplyEncounterTemplate(EnemyCharacter template)
     {

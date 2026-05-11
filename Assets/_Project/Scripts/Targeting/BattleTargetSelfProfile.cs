@@ -8,4 +8,9 @@ public class BattleTargetSelfProfile : BattleTargetingProfile
     {
         return context.Self != null ? new[] { context.Self } : System.Array.Empty<ICombatant>();
     }
+
+    public override bool CanUseWithContext(BattleTargetingContext context)
+    {
+        return context.SelectedTarget == null || ReferenceEquals(context.SelectedTarget, context.Self);
+    }
 }

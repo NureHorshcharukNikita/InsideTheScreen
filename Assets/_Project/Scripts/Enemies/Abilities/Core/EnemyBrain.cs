@@ -7,9 +7,8 @@ public class EnemyBrain : MonoBehaviour
 {
     [SerializeField] private PlayerCharacter opponent;
 
-    private EnemyCharacter _self;
-    private EnemyAbilityBattleContext _context;
-    private readonly Dictionary<EnemyAbilityData, EnemyBrainRuntime.AbilityRuntimeState> _runtimeState = new();
+    private EnemyCharacter self;
+    private readonly EnemyAbilityStateTracker abilityStates = new();
 
     public PlannedEnemyAction CurrentPlan { get; private set; }
 
@@ -17,92 +16,71 @@ public class EnemyBrain : MonoBehaviour
 
     private void Awake()
     {
-        _self = GetComponent<EnemyCharacter>();
-        if (_self == null)
+        self = GetComponent<EnemyCharacter>();
+        if (self == null)
             DevLog.Log($"{nameof(EnemyBrain)} requires {nameof(EnemyCharacter)} on the same object.");
     }
 
     public void BindOpponent(PlayerCharacter player)
     {
         opponent = player;
-        _runtimeState.Clear();
-        RebuildContext();
+        abilityStates.Clear();
     }
 
-    private void RebuildContext()
+    private BattleTargetingContext CreateTargetingContext()
     {
-        _context = _self != null && opponent != null
-            ? new EnemyAbilityBattleContext(_self, opponent)
-            : null;
+        if (self == null || opponent == null)
+            return new BattleTargetingContext(null, null, null, null);
+
+        return new BattleTargetingContext(
+            self, 
+            opponent, 
+            new ICombatant[] { self }, 
+            new ICombatant[] { opponent }
+            );
     }
 
     public void PlanNextAction()
     {
-        if (_self == null || _self.Data == null)
-        {
-            CurrentPlan = default;
-            PlannedActionChanged?.Invoke();
-            return;
-        }
-
-        if (_context == null && opponent != null)
-            RebuildContext();
-
-        IReadOnlyList<EnemyAbilityData> pool = _self.Data.abilities;
-        if (pool == null || pool.Count == 0)
-        {
-            CurrentPlan = default;
-            PlannedActionChanged?.Invoke();
-            return;
-        }
-
-        EnemyAbilityData picked = EnemyBrainSelection.PickWeighted(pool, _context, _runtimeState);
-        if (picked == null)
-        {
-            CurrentPlan = default;
-            PlannedActionChanged?.Invoke();
-            return;
-        }
-
-        Character primary = EnemyBrainSelection.ResolvePrimaryTargetForUi(picked, _context);
-        CurrentPlan = new PlannedEnemyAction(picked, primary);
-        PlannedActionChanged?.Invoke();
+        SetPlan(CreateNextPlan());
     }
 
     public void ExecutePlanned()
     {
-        if (_context == null && _self != null && opponent != null)
-            RebuildContext();
+        BattleTargetingContext context = CreateTargetingContext();
 
-        if (_context == null || !CurrentPlan.HasAbility)
+        if (context.Self == null || !CurrentPlan.HasAbility)
             return;
 
         EnemyAbilityData ability = CurrentPlan.Ability;
-        EnemyAbilityExecutor.ApplyAbility(ability, _context);
-        AdvanceRuntimeAfterUse(ability);
+        EnemyAbilityExecutor.ApplyAbility(ability, context);
+        abilityStates.RecordUsed(ability, GetAbilities());
     }
 
-    private void AdvanceRuntimeAfterUse(EnemyAbilityData usedAbility)
+    private PlannedEnemyAction CreateNextPlan()
     {
-        if (usedAbility == null)
-            return;
+        IReadOnlyList<EnemyAbilityData> abilities = GetAbilities();
+        if (abilities == null || abilities.Count == 0)
+            return default;
 
-        foreach (EnemyAbilityData ability in _self.Data.abilities)
-        {
-            if (ability == null)
-                continue;
+        BattleTargetingContext context = CreateTargetingContext();
+        EnemyAbilityData ability = EnemyAbilityPicker.PickWeighted(abilities, context, abilityStates);
+        if (ability == null)
+            return default;
 
-            EnemyBrainRuntime.AbilityRuntimeState state = EnemyBrainRuntime.GetState(_runtimeState, ability);
-            if (ability == usedAbility)
-            {
-                state.Uses++;
-                state.CooldownRemaining = Mathf.Max(0, ability.cooldownTurns);
-            }
-            else if (state.CooldownRemaining > 0)
-            {
-                state.CooldownRemaining--;
-            }
-        }
+        Character primaryTarget = EnemyAbilityTargetPreview.FindPrimaryTarget(ability, context);
+        return new PlannedEnemyAction(ability, primaryTarget);
+    }
+
+    private IReadOnlyList<EnemyAbilityData> GetAbilities()
+    {
+        return self != null ? self.Abilities : System.Array.Empty<EnemyAbilityData>();
+    }
+
+    private void SetPlan(PlannedEnemyAction plan)
+    {
+        CurrentPlan = plan;
+        PlannedActionChanged?.Invoke();
     }
 
 }

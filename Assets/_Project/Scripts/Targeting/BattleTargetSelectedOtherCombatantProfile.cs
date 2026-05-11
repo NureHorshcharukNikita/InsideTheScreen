@@ -6,9 +6,15 @@ public class BattleTargetSelectedOtherCombatantProfile : BattleTargetingProfile
 {
     public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context)
     {
-        if (context.SelectedTarget == null || ReferenceEquals(context.SelectedTarget, context.Self))
-            return System.Array.Empty<ICombatant>();
+        return CanUseWithContext(context)
+            ? new[] { context.SelectedTarget }
+            : System.Array.Empty<ICombatant>();
+    }
 
-        return new[] { context.SelectedTarget };
+    public override bool CanUseWithContext(BattleTargetingContext context)
+    {
+        return !ReferenceEquals(context.SelectedTarget, context.Self)
+               && (BattleTargetingTeams.Contains(context.SelectedTarget, context.Allies)
+                   || BattleTargetingTeams.Contains(context.SelectedTarget, context.Enemies));
     }
 }

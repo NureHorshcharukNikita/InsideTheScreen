@@ -1,24 +1,12 @@
-﻿using System.Collections.Generic;
-
 public class DeckManager
 {
     public Deck Deck { get; private set; }
     public Hand Hand { get; } = new();
     public DiscardPile DiscardPile { get; } = new();
 
-    public void Initialize(IReadOnlyCollection<CardData> startingDeck)
+    public void Initialize(DeckData deckData)
     {
-        if (startingDeck == null)
-        {
-            Deck = new Deck(0);
-            return;
-        }
-
-        Deck = new Deck(startingDeck.Count);
-
-        foreach (var card in startingDeck)
-            Deck.Add(card);
-
+        Deck = new Deck(deckData);
         Deck.Shuffle();
     }
 

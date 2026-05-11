@@ -6,8 +6,15 @@ public class BattleTargetSelectedCombatantProfile : BattleTargetingProfile
 {
     public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext context)
     {
-        return context.SelectedTarget != null
+        return CanUseWithContext(context)
             ? new[] { context.SelectedTarget }
             : System.Array.Empty<ICombatant>();
+    }
+
+    public override bool CanUseWithContext(BattleTargetingContext context)
+    {
+        return ReferenceEquals(context.SelectedTarget, context.Self)
+               || BattleTargetingTeams.Contains(context.SelectedTarget, context.Allies)
+               || BattleTargetingTeams.Contains(context.SelectedTarget, context.Enemies);
     }
 }
