@@ -18,6 +18,7 @@ public sealed class CardBattleDragHandler
     private LayoutElement layoutElement;
 
     private Vector2 handAnchoredPosition;
+    private Vector3 handWorldPosition;
     private int handSiblingIndex;
     private Vector2 dragPointerOffset;
     private Coroutine returnCoroutine;
@@ -127,6 +128,7 @@ public sealed class CardBattleDragHandler
     private void CacheHandSlotBeforeDrag()
     {
         handAnchoredPosition = rectTransform.anchoredPosition;
+        handWorldPosition = rectTransform.position;
         handSiblingIndex = rectTransform.GetSiblingIndex();
     }
 
@@ -210,19 +212,20 @@ public sealed class CardBattleDragHandler
             if (rectTransform == null || handParent == null)
                 yield break;
 
-            rectTransform.SetParent(handParent, worldPositionStays: true);
-
-            Vector2 from = rectTransform.anchoredPosition;
-            Vector2 to = handAnchoredPosition;
+            // Keep card under root canvas for the whole return tween to avoid clipping
+            // and local-space jumps when reparenting too early.
+            Vector3 from = rectTransform.position;
+            Vector3 to = handWorldPosition;
             float duration = Mathf.Max(1e-4f, returnAnimationDuration);
 
             for (float t = 0f; t < 1f; t += Time.deltaTime / duration)
             {
                 float eased = EaseOutCubic(Mathf.Clamp01(t));
-                rectTransform.anchoredPosition = Vector2.LerpUnclamped(from, to, eased);
+                rectTransform.position = Vector3.LerpUnclamped(from, to, eased);
                 yield return null;
             }
 
+            rectTransform.position = to;
             RestoreCachedHandSlot();
         }
         finally

@@ -87,7 +87,14 @@ public class BattleSystem : MonoBehaviour
 
     public void EndTurn()
     {
-        if (!CanPlay()) return;
+        if (!CanPlay())
+            return;
+
+        if (turnManager == null || deckManager == null)
+            return;
+
+        if (turnManager.CurrentTurn != TurnOwner.Player)
+            return;
 
         turnManager.EndPlayerTurn();
 
@@ -153,6 +160,6 @@ public class BattleSystem : MonoBehaviour
 
     private void NotifyHandChanged()
     {
-        HandChanged?.Invoke(deckManager, selectedCardIndex);
+        HandChanged?.Invoke(deckManager, null);
     }
 }

@@ -6,6 +6,7 @@ public class DeckUI : MonoBehaviour
     [SerializeField] private TMP_Text valueText;
 
     private Deck deck;
+    private int _displayCountBonus;
 
     private void OnEnable()
     {
@@ -19,11 +20,12 @@ public class DeckUI : MonoBehaviour
             this.deck.DeckCountChanged -= RefreshDeck;
 
         this.deck = deck;
+        _displayCountBonus = 0;
 
         if (this.deck != null)
         {
             this.deck.DeckCountChanged += RefreshDeck;
-            RefreshDeck(this.deck.Count, this.deck.MaxCount);
+            ApplyDeckText(this.deck.Count, this.deck.MaxCount);
         }
         else
         {
@@ -39,12 +41,46 @@ public class DeckUI : MonoBehaviour
         deck.DeckCountChanged -= RefreshDeck;
     }
 
+    /// <summary>
+    /// Deck count already reflects drawn cards; bonus keeps UI at "pre-draw" until each fly finishes.
+    /// </summary>
+    public void BeginDeckCountFlyStagger(int cardsFlying)
+    {
+        _displayCountBonus = Mathf.Max(0, cardsFlying);
+        if (deck != null)
+            ApplyDeckText(deck.Count, deck.MaxCount);
+    }
+
+    public void OnDeckFlyCardArrived()
+    {
+        if (_displayCountBonus > 0)
+            _displayCountBonus--;
+
+        if (deck != null)
+            ApplyDeckText(deck.Count, deck.MaxCount);
+    }
+
+    public void EndDeckCountFlyStagger()
+    {
+        _displayCountBonus = 0;
+        if (deck != null)
+            ApplyDeckText(deck.Count, deck.MaxCount);
+        else
+            SetEmptyValue();
+    }
+
     private void RefreshDeck(int current, int max)
+    {
+        ApplyDeckText(current, max);
+    }
+
+    private void ApplyDeckText(int current, int max)
     {
         if (valueText == null)
             return;
 
-        valueText.text = current + " / " + max;
+        int shown = Mathf.Clamp(current + _displayCountBonus, 0, max);
+        valueText.text = shown + " / " + max;
     }
 
     private void SetEmptyValue()
@@ -52,6 +88,7 @@ public class DeckUI : MonoBehaviour
         if (valueText == null)
             return;
 
+        _displayCountBonus = 0;
         valueText.text = "0 / 0";
     }
 }

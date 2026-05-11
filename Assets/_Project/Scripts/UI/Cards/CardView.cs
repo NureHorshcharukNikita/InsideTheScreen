@@ -67,6 +67,12 @@ public class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             selectionBorder.SetActive(selected);
     }
 
+    public void RefreshDragHierarchyAfterReparent()
+    {
+        CacheRectHierarchy();
+        battleDrag.SyncHierarchy(rectTransform, handParent, canvasRootRect, rootCanvas, layoutElement, canvasGroup);
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         onPointerDown?.Invoke(cardIndex);
