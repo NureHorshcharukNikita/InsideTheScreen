@@ -21,8 +21,8 @@ public class InventoryDeckController
         if (card == null || deck == null || storage == null)
             return false;
 
-        int inventoryCopies = storage.Cards.Count(c => c == card);
-        int deckCopies = deck.Cards.Count(c => c == card);
+        int inventoryCopies = storage.Cards.Count(storedCard => storedCard == card);
+        int deckCopies = deck.Cards.Count(deckCard => deckCard == card);
 
         return deckCopies < inventoryCopies && deck.Cards.Count < deck.MaxCount;
     }

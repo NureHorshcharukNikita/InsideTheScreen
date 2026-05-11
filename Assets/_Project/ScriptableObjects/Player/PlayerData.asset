@@ -17,4 +17,6 @@ MonoBehaviour:
   startActionPoints: 4
   actionPointsPerTurn: 2
   Deck: {fileID: 11400000, guid: 46108576a1274c34083b3a4f796618f0, type: 2}
+  startHandSize: 5
+  cardsDrawnPerTurn: 1
   Inventory: {fileID: 11400000, guid: a5eb58870111e944bb81aff9b9d78960, type: 2}

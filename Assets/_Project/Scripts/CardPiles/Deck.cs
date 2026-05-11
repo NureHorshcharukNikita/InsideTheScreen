@@ -27,8 +27,8 @@ public class Deck
             return;
         }
 
-        MaxCount = deckData.MaxCount;
         cards = new List<CardData>(deckData.Cards);
+        MaxCount = cards.Count;
     }
 
     public void Add(CardData card)

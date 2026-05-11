@@ -138,7 +138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3812834936928381018, guid: 749d97ea79ff2614a998e324fcfed30d, type: 3}
       propertyPath: m_Name
-      value: CardView Variant
+      value: CardView
+      objectReference: {fileID: 0}
+    - target: {fileID: 4062684936246090149, guid: 749d97ea79ff2614a998e324fcfed30d, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4928510316878231369, guid: 749d97ea79ff2614a998e324fcfed30d, type: 3}
       propertyPath: m_AnchorMax.y

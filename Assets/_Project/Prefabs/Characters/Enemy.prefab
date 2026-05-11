@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 192685528533138148}
   - component: {fileID: 4362077912638896549}
   - component: {fileID: 8634195197656089229}
+  - component: {fileID: 4718293655012847364}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -153,3 +154,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4718293655012847364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307414355194484910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b8a912c37f4d2eb5f601a8c9d7e332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoxCollider2DSpriteSync

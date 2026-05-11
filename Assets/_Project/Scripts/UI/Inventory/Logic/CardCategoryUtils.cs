@@ -8,6 +8,6 @@ public static class CardCategoryUtils
         if (category == null)
             return true;
 
-        return card.Effects.Any(e => e.effect != null && e.effect.GetType() == category);
+        return card.Effects.Any(effectEntry => effectEntry.effect != null && effectEntry.effect.GetType() == category);
     }
 }

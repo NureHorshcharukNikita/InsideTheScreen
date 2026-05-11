@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9027456648548596912}
   - component: {fileID: 5825463940424049510}
   - component: {fileID: 8689903142421614453}
+  - component: {fileID: 4718293655012847362}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -154,3 +155,15 @@ MonoBehaviour:
   statsData: {fileID: 11400000, guid: ccdbbd7e0bc7bf54b881865a2d05858f, type: 2}
   currentHealth: 30
   playerData: {fileID: 11400000, guid: 8f18dd0889ea0e641926644cb8cccf7c, type: 2}
+--- !u!114 &4718293655012847362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538070006598882795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b8a912c37f4d2eb5f601a8c9d7e332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoxCollider2DSpriteSync

@@ -14,10 +14,15 @@ public class BattleSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] private DeckUI deckUI;
     [SerializeField] private BattleEndUI battleEndUI;
+    [SerializeField] private HandUI handUI;
+    [SerializeField] private EnemyIntentView enemyIntentView;
 
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
     private TurnManager turnManager;
+    private BattleEncounterResolver encounterResolver;
+    private BattleSystemPlayerActions playerActions;
+    private BattleSystemIntentBinder intentBinder;
 
     private int? selectedCardIndex = null;
 
@@ -29,68 +34,36 @@ public class BattleSystem : MonoBehaviour
             return;
         }
 
-        var deck = new Deck(player.DeckData);
-
-        BattleDebugPrinter.PrintCards("Starting deck", deck.Cards);
+        encounterResolver = new BattleEncounterResolver();
+        enemy = encounterResolver.ResolveEnemy(enemy);
+        if (enemy == null)
+        {
+            DevLog.Log("Enemy not assigned");
+            return;
+        }
 
         deckManager = new DeckManager();
-        deckManager.Initialize(deck.Cards);
+        deckManager.Initialize(player.DeckData);
+
+        BattleDebugPrinter.PrintCards("Starting deck", deckManager.Deck.Cards);
 
         deckUI.Bind(deckManager.Deck);
 
         turnManager = new TurnManager(player, enemy, deckManager);
         cardPlayer = new CardPlayer(player, deckManager, turnManager);
+        playerActions = new BattleSystemPlayerActions(
+            () => deckManager,
+            () => cardPlayer,
+            () => turnManager,
+            CanPlay,
+            AfterAction,
+            NotifyHandChanged,
+            () => selectedCardIndex,
+            value => selectedCardIndex = value);
+        intentBinder = new BattleSystemIntentBinder(handUI, enemyIntentView);
 
         turnManager.StartBattle();
-
-        NotifyHandChanged();
-    }
-
-    public void OnTargetClicked(IEffectTarget target)
-    {
-        if (!CanPlay()) return;
-
-        if (selectedCardIndex == null)
-            return;
-
-        PlayCardFromHand(selectedCardIndex.Value, target);
-        selectedCardIndex = null;
-
-        NotifyHandChanged();
-    }
-
-    public void PlayCardFromHand(int index, IEffectTarget target)
-    {
-        if (!CanPlay()) return;
-
-        if (index < 0 || index >= deckManager.Hand.Count)
-            return;
-
-        var card = deckManager.Hand.Cards[index];
-
-        if (cardPlayer.TryPlayCard(index, card, target))
-        {
-            DevLog.Log("Played: " + card.CardName);
-
-            BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
-            BattleDebugPrinter.PrintCards("Discard", deckManager.DiscardPile.Cards);
-
-            AfterAction();
-            NotifyHandChanged();
-        }
-    }
-
-    public void EndTurn()
-    {
-        if (!CanPlay()) return;
-
-        turnManager.EndPlayerTurn();
-
-        BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
-        AfterAction();
-
-        selectedCardIndex = null;
-
+        intentBinder.WireForBattleStart(turnManager, enemy);
         NotifyHandChanged();
     }
 
@@ -114,38 +87,48 @@ public class BattleSystem : MonoBehaviour
         if (enemy.CurrentHealth <= 0)
         {
             SetVictory();
-            battleEndUI.ShowVictory();
+            ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
+            handUI?.ReleaseAllBattleCardDrags();
+            battleEndUI?.ShowVictory();
             return;
         }
 
         if (player.CurrentHealth <= 0)
         {
             SetDefeat();
-            battleEndUI.ShowDefeat();
+            handUI?.ReleaseAllBattleCardDrags();
+            battleEndUI?.ShowDefeat();
         }
+    }
+
+    public void OnTargetClicked(ICombatant target)
+    {
+        playerActions?.OnTargetClicked(target);
+    }
+
+    public bool TryPlayCardFromHand(int index, ICombatant target)
+    {
+        return playerActions != null && playerActions.TryPlayCardFromHand(index, target);
+    }
+
+    public void EndTurn()
+    {
+        playerActions?.EndTurn();
     }
 
     public void SelectCard(int index)
     {
-        if (!CanPlay()) return;
-
-        if (index < 0 || index >= deckManager.Hand.Count)
-            return;
-
-        selectedCardIndex = index;
-
-        DevLog.Log("Selected card: " + deckManager.Hand.Cards[index].CardName);
+        playerActions?.SelectCard(index);
     }
 
     public void DeselectCard()
     {
-        if (selectedCardIndex == null)
-            return;
+        playerActions?.DeselectCard();
+    }
 
-        selectedCardIndex = null;
-        DevLog.Log("Card deselected");
-
-        NotifyHandChanged();
+    private void OnDestroy()
+    {
+        intentBinder?.Unwire();
     }
 
     private void NotifyHandChanged()

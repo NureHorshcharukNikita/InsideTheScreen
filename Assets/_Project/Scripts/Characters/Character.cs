@@ -1,19 +1,20 @@
 using System;
 using UnityEngine;
 
-public class Character : MonoBehaviour, IEffectTarget
+public class Character : MonoBehaviour, ICombatant
 {
     [SerializeField] private int currentHealth = 30;
 
     public virtual int MaxHealth => 0;
     public int CurrentHealth => currentHealth;
+    public virtual CombatTeam Team => CombatTeam.Neutral;
+    public bool IsAlive => CurrentHealth > 0;
 
     public event Action<int, int> HealthChanged;
 
     protected virtual void Awake()
     {
-        //?
-        SetMaxHeal();
+        SetFullHealth();
     }
 
     public void TakeDamage(int amount)
@@ -34,9 +35,15 @@ public class Character : MonoBehaviour, IEffectTarget
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 
-    public void SetMaxHeal()
+    public void SetFullHealth()
     {
         currentHealth = MaxHealth;
+        HealthChanged?.Invoke(CurrentHealth, MaxHealth);
+    }
+
+    public void SetHealth(int health)
+    {
+        currentHealth = Mathf.Clamp(health, 0, MaxHealth);
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 }

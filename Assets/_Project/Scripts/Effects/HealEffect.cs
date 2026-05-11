@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Card Effects/Heal")]
-public class HealEffect : CardEffect
+[CreateAssetMenu(menuName = "Game/Battle/Effects/Heal")]
+public class HealEffect : BattleEffect
 {
-    public override void Execute(IEffectTarget source, IEffectTarget target, int value)
+    public override void Execute(ICombatant source, ICombatant target, int value, BattleActionContext actionContext)
     {
-        if (target == null)
+        if (target == null || actionContext == null)
             return;
 
-        target.Heal(value);
+        actionContext.Heal.ApplyHeal(source, target, value);
     }
 }

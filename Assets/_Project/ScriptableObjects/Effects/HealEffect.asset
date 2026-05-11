@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59381dd2f693ec4d9f6cc976aed2704, type: 3}
   m_Name: HealEffect
   m_EditorClassIdentifier: Assembly-CSharp::HealEffect
-  effectName: 
-  description: 
+  effectID: heal
+  effectName: Heal
+  description: Restores target health by the effect value, up to maximum health.

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc625fd46a8ad164fb33cd1fa290477c, type: 3}
+  m_Name: EA_TrollRegenerate
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
+  abilityID: troll_regenerate
+  displayName: Regenerate
+  description: Restores 10 health to itself when wounded.
+  icon: {fileID: 0}
+  selectionWeight: 22
+  intentSummary: Regenerate (Heal 6)
+  cooldownTurns: 2
+  maxUses: -1
+  conditions:
+  - {fileID: 11400000, guid: 4ac03d3897771f54886308ac65401a50, type: 2}
+  effects:
+  - effect: {fileID: 11400000, guid: 4e276ddc1412eb14fa444ccefcd693db, type: 2}
+    targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
+    value: 6
+    applyChance: 1
+    conditions: []

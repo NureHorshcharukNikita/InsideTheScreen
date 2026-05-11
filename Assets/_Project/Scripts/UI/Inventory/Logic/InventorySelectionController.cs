@@ -10,9 +10,9 @@ public static class InventorySelectionController
             return new List<CardData>();
 
         return cards
-            .GroupBy(c => c)
-            .Select(g => g.Key)
-            .OrderBy(c => c.CardName)
+            .GroupBy(card => card)
+            .Select(group => group.Key)
+            .OrderBy(card => card.CardName)
             .ToList();
     }
 

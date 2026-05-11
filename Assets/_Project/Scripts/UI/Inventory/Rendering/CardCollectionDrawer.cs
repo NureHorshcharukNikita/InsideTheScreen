@@ -28,13 +28,13 @@ public class CardCollectionDrawer
             return;
 
         Dictionary<CardData, int> counts = cards
-            .GroupBy(c => c)
-            .ToDictionary(g => g.Key, g => g.Count());
+            .GroupBy(card => card)
+            .ToDictionary(group => group.Key, group => group.Count());
 
         List<CardData> sortedCards = cards
-            .GroupBy(c => c)
-            .Select(g => g.Key)
-            .OrderBy(c => c.CardName)
+            .GroupBy(card => card)
+            .Select(group => group.Key)
+            .OrderBy(card => card.CardName)
             .ToList();
 
         for (int i = 0; i < sortedCards.Count; i++)
@@ -44,7 +44,7 @@ public class CardCollectionDrawer
 
             bool selected = isSelected != null && isSelected(card);
 
-            cardView.Setup(card, counts[card], i, onClick, selected);
+            cardView.Setup(card, counts[card], i, onClick, null, selected);
         }
 
         UpdateContentHeight(sortedCards.Count);
@@ -78,7 +78,7 @@ public class CardCollectionDrawer
     private void UpdateContentHeight(int itemCount)
     {
         GridLayoutGroup grid = content.GetComponent<GridLayoutGroup>();
-        RectTransform rt = content.GetComponent<RectTransform>();
+        RectTransform rectTransform = content.GetComponent<RectTransform>();
 
         int columns = grid.constraintCount;
         int rows = Mathf.CeilToInt((float)itemCount / columns);
@@ -89,6 +89,6 @@ public class CardCollectionDrawer
             rows * grid.cellSize.y +
             (rows - 1) * grid.spacing.y;
 
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x, height);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, height);
     }
 }
