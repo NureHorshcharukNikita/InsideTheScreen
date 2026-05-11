@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public partial class EnemyBrain : MonoBehaviour
+public class EnemyBrain : MonoBehaviour
 {
     [SerializeField] private PlayerCharacter opponent;
 
     private EnemyCharacter _self;
     private EnemyAbilityBattleContext _context;
-    private readonly Dictionary<EnemyAbilityData, AbilityRuntimeState> _runtimeState = new();
+    private readonly Dictionary<EnemyAbilityData, EnemyBrainRuntime.AbilityRuntimeState> _runtimeState = new();
 
     public PlannedEnemyAction CurrentPlan { get; private set; }
 
@@ -56,7 +56,7 @@ public partial class EnemyBrain : MonoBehaviour
             return;
         }
 
-        EnemyAbilityData picked = PickWeighted(pool, _context, _runtimeState);
+        EnemyAbilityData picked = EnemyBrainSelection.PickWeighted(pool, _context, _runtimeState);
         if (picked == null)
         {
             CurrentPlan = default;
@@ -64,7 +64,7 @@ public partial class EnemyBrain : MonoBehaviour
             return;
         }
 
-        Character primary = ResolvePrimaryTargetForUi(picked, _context);
+        Character primary = EnemyBrainSelection.ResolvePrimaryTargetForUi(picked, _context);
         CurrentPlan = new PlannedEnemyAction(picked, primary);
         PlannedActionChanged?.Invoke();
     }
@@ -92,7 +92,7 @@ public partial class EnemyBrain : MonoBehaviour
             if (ability == null)
                 continue;
 
-            AbilityRuntimeState state = GetState(_runtimeState, ability);
+            EnemyBrainRuntime.AbilityRuntimeState state = EnemyBrainRuntime.GetState(_runtimeState, ability);
             if (ability == usedAbility)
             {
                 state.Uses++;

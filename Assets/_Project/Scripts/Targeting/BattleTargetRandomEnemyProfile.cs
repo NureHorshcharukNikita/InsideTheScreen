@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Battle/Targeting/Single Enemy", fileName = "Target_SingleEnemy")]
-public class BattleTargetSingleEnemyProfile : BattleTargetingProfile
+[CreateAssetMenu(menuName = "Game/Battle/Targeting/Random Enemy", fileName = "Target_RandomEnemy")]
+public class BattleTargetRandomEnemyProfile : BattleTargetingProfile
 {
     public override IReadOnlyList<ICombatant> ResolveTargets(BattleTargetingContext ctx)
     {

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660d0124ba3cf244187e63e00d960c3c, type: 3}
   m_Name: DamageEffect
   m_EditorClassIdentifier: Assembly-CSharp::DamageEffect
-  effectName: 
-  description: 
+  effectID: damage
+  effectName: Damage
+  description: Reduces target health by the effect value.

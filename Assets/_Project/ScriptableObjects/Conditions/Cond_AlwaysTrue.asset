@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c9eebcf512a374cbcc12ef3d530894, type: 3}
   m_Name: Cond_AlwaysTrue
   m_EditorClassIdentifier: Assembly-CSharp::AlwaysTrueCondition
+  conditionID: always_true
+  displayName: Always True
+  description: Always passes. Use as a default condition when an action should be available.

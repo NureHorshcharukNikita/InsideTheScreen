@@ -16,8 +16,7 @@ public partial class HealthBarUI
             return;
 
         Bounds local = spriteRenderer.localBounds;
-        float anchorT = ResolveAnchorAlongSprite();
-        float yLocal = Mathf.Lerp(local.min.y, local.max.y, anchorT);
+        float yLocal = local.min.y;
         Vector3 anchorLocal = new Vector3(local.center.x, yLocal, local.center.z);
         Vector3 worldPoint = spriteRenderer.transform.TransformPoint(anchorLocal);
 
@@ -41,11 +40,4 @@ public partial class HealthBarUI
         _rect.anchoredPosition = localPoint;
     }
 
-    private float ResolveAnchorAlongSprite()
-    {
-        if (target is EnemyCharacter enemy && enemy.Data != null)
-            return enemy.Data.healthBarAnchorAlongSprite;
-
-        return anchorHeightAlongSprite;
-    }
 }

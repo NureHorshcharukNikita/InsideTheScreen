@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb3ab064b8e44a45815dc86d41ebac0, type: 3}
   m_Name: HeavyStrike
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardID: 
-  cardName: HeavyStrike
-  description: Deal 12 damage
+  cardID: heavy_strike
+  cardName: Heavy Strike
+  description: Deal 12 damage.
   icon: {fileID: 21300000, guid: 705309a3230036f4b9f4d64185082faa, type: 3}
   cost: 2
   conditions: []

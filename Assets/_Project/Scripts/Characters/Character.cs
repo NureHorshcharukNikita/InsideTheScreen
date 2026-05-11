@@ -14,7 +14,7 @@ public class Character : MonoBehaviour, ICombatant
 
     protected virtual void Awake()
     {
-        SetMaxHeal();
+        SetFullHealth();
     }
 
     public void TakeDamage(int amount)
@@ -35,7 +35,7 @@ public class Character : MonoBehaviour, ICombatant
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 
-    public void SetMaxHeal()
+    public void SetFullHealth()
     {
         currentHealth = MaxHealth;
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);

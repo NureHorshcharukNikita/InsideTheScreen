@@ -58,9 +58,7 @@ public class PlayerCharacter : Character
         if (playerData == null)
             return;
 
-        currentActionPoints = Mathf.Min(
-            currentActionPoints + playerData.actionPointsPerTurn,
-            playerData.maxActionPoints);
+        currentActionPoints = Mathf.Min(currentActionPoints + playerData.actionPointsPerTurn, MaxActionPoints);
 
         ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
     }

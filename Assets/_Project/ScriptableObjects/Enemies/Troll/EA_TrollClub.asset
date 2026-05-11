@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc625fd46a8ad164fb33cd1fa290477c, type: 3}
   m_Name: EA_TrollClub
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
+  abilityID: troll_club_smash
   displayName: Club Smash
+  description: Deals 12 damage to one enemy.
   icon: {fileID: 0}
   selectionWeight: 45
   intentSummary: Club Smash 12

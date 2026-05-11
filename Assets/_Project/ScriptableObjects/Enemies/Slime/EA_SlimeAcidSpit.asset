@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc625fd46a8ad164fb33cd1fa290477c, type: 3}
   m_Name: EA_SlimeAcidSpit
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
+  abilityID: slime_acid_spit
   displayName: Acid Spit
+  description: Deals 6 damage to one enemy.
   icon: {fileID: 0}
   selectionWeight: 48
   intentSummary: Acid Spit 6

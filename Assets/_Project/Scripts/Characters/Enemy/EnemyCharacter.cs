@@ -5,11 +5,17 @@ public class EnemyCharacter : Character
     [SerializeField] private EnemyData enemyData;
     private EnemyBrain brain;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        brain = GetComponent<EnemyBrain>();
+    }
+
     public override int MaxHealth => enemyData != null ? enemyData.maxHealth : 0;
     public override CombatTeam Team => CombatTeam.Enemy;
 
     public EnemyData Data => enemyData;
-    public EnemyBrain Brain => brain != null ? brain : (brain = GetComponent<EnemyBrain>());
+    public EnemyBrain Brain => brain;
 
     public void ApplyEncounterTemplate(EnemyCharacter template)
     {
@@ -17,21 +23,23 @@ public class EnemyCharacter : Character
             return;
 
         enemyData = template.Data;
+        CopySpriteFrom(template);
 
+        SetFullHealth();
+        RefreshColliderFromSprite();
+    }
+
+    private void CopySpriteFrom(EnemyCharacter template)
+    {
         SpriteRenderer from = template.GetComponent<SpriteRenderer>();
         SpriteRenderer to = GetComponent<SpriteRenderer>();
-        if (from != null && to != null && from.sprite != null)
+
+        if (from?.sprite != null && to != null)
             to.sprite = from.sprite;
+    }
 
-        SetMaxHeal();
-
-        if (enemyData != null && Mathf.Abs(enemyData.battleLocalPositionYOffset) > 0f)
-        {
-            Vector3 lp = transform.localPosition;
-            lp.y += enemyData.battleLocalPositionYOffset;
-            transform.localPosition = lp;
-        }
-
+    private void RefreshColliderFromSprite()
+    {
         if (TryGetComponent(out BoxCollider2DSpriteSync colliderSync))
             colliderSync.RefreshFromSprite();
     }

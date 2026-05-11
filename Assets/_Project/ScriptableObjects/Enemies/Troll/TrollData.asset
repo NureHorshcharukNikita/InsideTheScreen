@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
   m_Name: TrollData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyID: troll
+  displayName: Troll
+  description: Durable enemy that hits hard and can regenerate a large amount of health.
   maxHealth: 110
   healthBarAnchorAlongSprite: 0
   battleLocalPositionYOffset: 0

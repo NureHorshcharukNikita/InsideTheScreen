@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 
-public partial class EnemyBrain
+internal static class EnemyBrainRuntime
 {
-    private sealed class AbilityRuntimeState
+    internal sealed class AbilityRuntimeState
     {
         public int CooldownRemaining;
         public int Uses;
     }
 
-    private static AbilityRuntimeState GetState(Dictionary<EnemyAbilityData, AbilityRuntimeState> runtime, EnemyAbilityData ability)
+    public static AbilityRuntimeState GetState(Dictionary<EnemyAbilityData, AbilityRuntimeState> runtime, EnemyAbilityData ability)
     {
         if (!runtime.TryGetValue(ability, out AbilityRuntimeState state))
         {
@@ -19,7 +19,7 @@ public partial class EnemyBrain
         return state;
     }
 
-    private static bool IsAbilityAvailable(
+    public static bool IsAbilityAvailable(
         EnemyAbilityData ability,
         BattleTargetingContext ctx,
         Dictionary<EnemyAbilityData, AbilityRuntimeState> runtime)

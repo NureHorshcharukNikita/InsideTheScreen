@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58fa9a78b865734bbf90f29258c0b94, type: 3}
   m_Name: Target_Self
   m_EditorClassIdentifier: Assembly-CSharp::BattleTargetSelfProfile
+  targetingID: self
+  displayName: Self
+  description: Targets the source combatant.

@@ -8,7 +8,6 @@ public partial class HealthBarUI : MonoBehaviour
     [SerializeField] private RectTransform hpFill;
     [SerializeField] private TMP_Text hpText;
 
-    [SerializeField, Range(0f, 1f)] private float anchorHeightAlongSprite = 0f;
     [SerializeField] private float belowSpritePadding = 4f;
 
     private RectTransform _rect;

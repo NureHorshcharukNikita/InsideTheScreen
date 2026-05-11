@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class EnemyBrain
+internal static class EnemyBrainSelection
 {
-    private static EnemyAbilityData PickWeighted(
+    public static EnemyAbilityData PickWeighted(
         IReadOnlyList<EnemyAbilityData> pool,
         EnemyAbilityBattleContext ctx,
-        Dictionary<EnemyAbilityData, AbilityRuntimeState> runtime)
+        Dictionary<EnemyAbilityData, EnemyBrainRuntime.AbilityRuntimeState> runtime)
     {
         BattleTargetingContext targetingCtx = EnemyAbilityExecutor.BuildTargetingContext(ctx);
         int total = 0;
         for (int i = 0; i < pool.Count; i++)
         {
             EnemyAbilityData a = pool[i];
-            if (a != null && IsAbilityAvailable(a, targetingCtx, runtime))
+            if (a != null && EnemyBrainRuntime.IsAbilityAvailable(a, targetingCtx, runtime))
                 total += Mathf.Max(1, a.selectionWeight);
         }
 
@@ -27,7 +27,7 @@ public partial class EnemyBrain
             EnemyAbilityData a = pool[i];
             if (a == null)
                 continue;
-            if (!IsAbilityAvailable(a, targetingCtx, runtime))
+            if (!EnemyBrainRuntime.IsAbilityAvailable(a, targetingCtx, runtime))
                 continue;
 
             acc += Mathf.Max(1, a.selectionWeight);
@@ -38,7 +38,7 @@ public partial class EnemyBrain
         return null;
     }
 
-    private static Character ResolvePrimaryTargetForUi(EnemyAbilityData ability, EnemyAbilityBattleContext ctx)
+    public static Character ResolvePrimaryTargetForUi(EnemyAbilityData ability, EnemyAbilityBattleContext ctx)
     {
         if (ability?.effects == null || ctx == null)
             return null;

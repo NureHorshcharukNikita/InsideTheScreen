@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc625fd46a8ad164fb33cd1fa290477c, type: 3}
   m_Name: EA_WolfBite
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
+  abilityID: wolf_bite
   displayName: Bite
+  description: Deals 5 damage to one enemy.
   icon: {fileID: 0}
   selectionWeight: 45
-  intentSummary: Bite 8
+  intentSummary: Bite 5
   cooldownTurns: 0
   maxUses: -1
   conditions: []

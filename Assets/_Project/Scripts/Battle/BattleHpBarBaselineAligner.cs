@@ -7,8 +7,8 @@ public sealed class BattleHpBarBaselineAligner : MonoBehaviour
     [SerializeField] private HealthBarUI enemyHpBar;
     [SerializeField] private EnemyCharacter enemy;
 
-    [SerializeField] private float acceptableErrorPixels = 2f;
-    [SerializeField] private float probeWorldUnits = 0.35f;
+    private const float AcceptableErrorPixels = 2f;
+    private const float ProbeWorldUnits = 0.35f;
 
     private bool _done;
     private RectTransform _playerRt;
@@ -32,7 +32,7 @@ public sealed class BattleHpBarBaselineAligner : MonoBehaviour
             return;
 
         float err = playerRt.anchoredPosition.y - enemyRt.anchoredPosition.y;
-        if (Mathf.Abs(err) <= acceptableErrorPixels)
+        if (Mathf.Abs(err) <= AcceptableErrorPixels)
         {
             _done = true;
             return;
@@ -41,14 +41,14 @@ public sealed class BattleHpBarBaselineAligner : MonoBehaviour
         Transform t = enemy.transform;
         Vector3 baseLocal = t.localPosition;
 
-        t.localPosition = baseLocal + Vector3.up * probeWorldUnits;
+        t.localPosition = baseLocal + Vector3.up * ProbeWorldUnits;
         enemyHpBar.SnapToSpriteWorldAnchor();
         float errProbe = playerRt.anchoredPosition.y - enemyRt.anchoredPosition.y;
 
         t.localPosition = baseLocal;
         enemyHpBar.SnapToSpriteWorldAnchor();
 
-        float slope = (errProbe - err) / Mathf.Max(1e-5f, probeWorldUnits);
+        float slope = (errProbe - err) / Mathf.Max(1e-5f, ProbeWorldUnits);
         if (Mathf.Abs(slope) < 1e-4f)
         {
             _done = true;

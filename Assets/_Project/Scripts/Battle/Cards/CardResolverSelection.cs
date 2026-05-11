@@ -7,14 +7,26 @@ public static partial class CardResolver
         switch (profile)
         {
             case BattleTargetSelfProfile:
-                return ReferenceEquals(ctx.SelectedTarget, ctx.Self);
-            case BattleTargetSingleEnemyProfile:
+            case BattleTargetRandomEnemyProfile:
             case BattleTargetAllEnemiesProfile:
-            case BattleTargetSelectedProfile:
-                return IsOnTeam(ctx.SelectedTarget, ctx.Enemies);
-            case BattleTargetSingleAllyProfile:
+            case BattleTargetRandomAllyProfile:
             case BattleTargetAllAlliesProfile:
+            case BattleTargetRandomCombatantProfile:
+            case BattleTargetRandomOtherCombatantProfile:
+            case BattleTargetAllCombatantsProfile:
+            case BattleTargetAllOtherCombatantsProfile:
+                return true;
+            case BattleTargetSelectedEnemyProfile:
+                return IsOnTeam(ctx.SelectedTarget, ctx.Enemies);
+            case BattleTargetSelectedAllyProfile:
                 return IsOnTeam(ctx.SelectedTarget, ctx.Allies);
+            case BattleTargetSelectedCombatantProfile:
+                return ReferenceEquals(ctx.SelectedTarget, ctx.Self)
+                       || IsOnTeam(ctx.SelectedTarget, ctx.Allies)
+                       || IsOnTeam(ctx.SelectedTarget, ctx.Enemies);
+            case BattleTargetSelectedOtherCombatantProfile:
+                return !ReferenceEquals(ctx.SelectedTarget, ctx.Self)
+                       && (IsOnTeam(ctx.SelectedTarget, ctx.Allies) || IsOnTeam(ctx.SelectedTarget, ctx.Enemies));
             default:
                 return true;
         }

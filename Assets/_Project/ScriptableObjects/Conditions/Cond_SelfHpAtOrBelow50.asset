@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4a2b1c9d0e3f5a7b6c8d9e0f1a2b3c, type: 3}
   m_Name: Cond_SelfHpAtOrBelow50
   m_EditorClassIdentifier: Assembly-CSharp::SelfHpAtOrBelowPercentCondition
+  conditionID: self_hp_at_or_below_50
+  displayName: Self HP At Or Below 50%
+  description: Passes when the source combatant has half health or less.
   hpRatioThreshold: 0.5

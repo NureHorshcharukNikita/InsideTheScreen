@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc625fd46a8ad164fb33cd1fa290477c, type: 3}
   m_Name: EA_WolfHowl
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
+  abilityID: wolf_howl
   displayName: Howl
+  description: Restores 3 health to itself when wounded.
   icon: {fileID: 0}
   selectionWeight: 20
-  intentSummary: Howl (Heal 5)
+  intentSummary: Howl (Heal 3)
   cooldownTurns: 1
   maxUses: -1
   conditions:
