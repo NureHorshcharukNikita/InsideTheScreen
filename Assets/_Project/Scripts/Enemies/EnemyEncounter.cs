@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyEncounter : MonoBehaviour
 {
+    [SerializeField] private GameObject battleEnemyPrefab;
+
     private bool isTriggered = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -20,7 +22,8 @@ public class EnemyEncounter : MonoBehaviour
                 playerMovement.enabled = false;
             }
 
-            FadeManager.Instance.FadeToScene(SceneNames.Battle);
+            PendingBattleEnemy.RegisterEncounterStart(battleEnemyPrefab, SceneNames.Exploration);
+            FadeManager.TryFadeToScene(SceneNames.Battle);
         }
     }
 }

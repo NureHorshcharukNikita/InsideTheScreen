@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class HandUI : MonoBehaviour
 {
+    public event Action DrawFlyAnimationCompleted;
+
     [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private CardView cardPrefab;
     [SerializeField] private DeckUI deckUi;
@@ -191,6 +193,7 @@ public class HandUI : MonoBehaviour
         else
         {
             HandCardSequence.CopySnapshot(newHand, _lastHandOrder);
+            DrawFlyAnimationCompleted?.Invoke();
         }
     }
 
@@ -238,17 +241,22 @@ public class HandUI : MonoBehaviour
             settings,
             onCardArrived);
 
+        bool completedCleanly = false;
         try
         {
             IEnumerator inner = HandDrawDeckFlyAnimationDotween.Run(context, drawCount);
 
             while (inner.MoveNext())
                 yield return inner.Current;
+
+            completedCleanly = true;
         }
         finally
         {
             deckUi?.EndDeckCountFlyStagger();
             _flyRoutine = null;
+            if (completedCleanly)
+                DrawFlyAnimationCompleted?.Invoke();
         }
     }
 

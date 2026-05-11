@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using System.Collections.Generic;
 
 public class TurnManager
 {
@@ -6,7 +8,21 @@ public class TurnManager
     private EnemyCharacter enemy;
     private DeckManager deckManager;
 
+    public event Action AfterEnemyActed;
+
     public TurnOwner CurrentTurn { get; private set; }
+
+    public BattleTargetingContext BuildTargetingContext(ICombatant self, ICombatant selectedTarget)
+    {
+        IReadOnlyList<ICombatant> allies = GetAlliesOf(self);
+        IReadOnlyList<ICombatant> enemies = GetEnemiesOf(self);
+        return new BattleTargetingContext(self, selectedTarget, allies, enemies);
+    }
+
+    public BattleActionContext BuildActionContext()
+    {
+        return BattleActionContext.CreateDefault();
+    }
 
     public TurnManager(PlayerCharacter player, EnemyCharacter enemy, DeckManager deckManager)
     {
@@ -28,7 +44,12 @@ public class TurnManager
 
         deckManager.DrawCards(5);
 
-        //player.AddActionPoints(4);
+        if (enemy?.Brain != null)
+        {
+            enemy.Brain.BindOpponent(player);
+            enemy.Brain.PlanNextAction();
+        }
+
     }
 
     public void StartNextPlayerTurn()
@@ -59,7 +80,39 @@ public class TurnManager
     {
         DevLog.Log("Enemy turn");
 
-        //enemy.Attack(player);
-        player.TakeDamage(5);
+        if (enemy?.Brain != null)
+        {
+            if (enemy.Brain.CurrentPlan.HasAbility)
+                enemy.Brain.ExecutePlanned();
+
+            AfterEnemyActed?.Invoke();
+            enemy.Brain.PlanNextAction();
+        }
+    }
+
+    private IReadOnlyList<ICombatant> GetAlliesOf(ICombatant self)
+    {
+        if (self == null)
+            return System.Array.Empty<ICombatant>();
+
+        var allies = new List<ICombatant>(2);
+        if (player != null && player.Team == self.Team && player.IsAlive)
+            allies.Add(player);
+        if (enemy != null && enemy.Team == self.Team && enemy.IsAlive)
+            allies.Add(enemy);
+        return allies;
+    }
+
+    private IReadOnlyList<ICombatant> GetEnemiesOf(ICombatant self)
+    {
+        if (self == null)
+            return System.Array.Empty<ICombatant>();
+
+        var enemies = new List<ICombatant>(2);
+        if (player != null && player.Team != self.Team && player.IsAlive)
+            enemies.Add(player);
+        if (enemy != null && enemy.Team != self.Team && enemy.IsAlive)
+            enemies.Add(enemy);
+        return enemies;
     }
 }

@@ -1,18 +1,77 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 public static class CardResolver
 {
-    public static void Resolve(CardData card, IEffectTarget source, IEffectTarget target)
+    private readonly struct ResolvedEntry
+    {
+        public ResolvedEntry(CardEffectEntry entry, IReadOnlyList<ICombatant> targets)
+        {
+            Entry = entry;
+            Targets = targets;
+        }
+
+        public CardEffectEntry Entry { get; }
+        public IReadOnlyList<ICombatant> Targets { get; }
+    }
+
+    public static bool CanResolveAnyTarget(CardData card, BattleTargetingContext ctx)
+    {
+        if (card == null)
+            return false;
+        if (!BattleCondition.AllMet(card.Conditions, ctx))
+            return false;
+
+        using IEnumerator<ResolvedEntry> resolved = EnumerateResolvedEntries(card, ctx).GetEnumerator();
+        return resolved.MoveNext();
+    }
+
+    public static void Resolve(CardData card, BattleTargetingContext ctx, BattleActionContext actionContext)
     {
         if (card == null)
             return;
+        if (!BattleCondition.AllMet(card.Conditions, ctx))
+            return;
 
-        foreach (var entry in card.Effects)
+        BattleActionContext runtime = actionContext ?? BattleActionContext.CreateDefault();
+
+        foreach (ResolvedEntry resolved in EnumerateResolvedEntries(card, ctx))
         {
-            if (entry.effect == null)
+            if (resolved.Entry.applyChance < 1f && Random.value > resolved.Entry.applyChance)
                 continue;
 
-            IEffectTarget effectTarget = entry.targetType == EffectTargetType.Self ? source : target;
+            foreach (ICombatant effectTarget in resolved.Targets)
+            {
+                if (effectTarget == null)
+                    continue;
 
-            entry.effect.Execute(source, effectTarget, entry.value);
+                resolved.Entry.effect.Execute(ctx.Self, effectTarget, resolved.Entry.value, runtime);
+            }
         }
+    }
+
+    private static IEnumerable<ResolvedEntry> EnumerateResolvedEntries(CardData card, BattleTargetingContext ctx)
+    {
+        foreach (CardEffectEntry entry in card.Effects)
+        {
+            if (entry?.effect == null)
+                continue;
+            if (!BattleCondition.AllMet(entry.conditions, ctx))
+                continue;
+
+            IReadOnlyList<ICombatant> targets = ResolveTargets(entry, ctx);
+            if (targets == null || targets.Count == 0)
+                continue;
+
+            yield return new ResolvedEntry(entry, targets);
+        }
+    }
+
+    private static IReadOnlyList<ICombatant> ResolveTargets(CardEffectEntry entry, BattleTargetingContext ctx)
+    {
+        if (entry == null || entry.targeting == null)
+            return System.Array.Empty<ICombatant>();
+
+        return entry.targeting.ResolveTargets(ctx);
     }
 }

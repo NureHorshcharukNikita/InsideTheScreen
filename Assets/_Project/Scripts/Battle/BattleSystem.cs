@@ -14,6 +14,8 @@ public class BattleSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] private DeckUI deckUI;
     [SerializeField] private BattleEndUI battleEndUI;
+    [SerializeField] private HandUI handUI;
+    [SerializeField] private EnemyIntentView enemyIntentView;
 
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
@@ -42,11 +44,47 @@ public class BattleSystem : MonoBehaviour
         cardPlayer = new CardPlayer(player, deckManager, turnManager);
 
         turnManager.StartBattle();
-
+        WireEnemyIntentForBattleStart();
         NotifyHandChanged();
     }
 
-    public void OnTargetClicked(IEffectTarget target)
+    private void WireEnemyIntentForBattleStart()
+    {
+        if (enemyIntentView == null)
+            return;
+
+        turnManager.AfterEnemyActed += enemyIntentView.NotifyEnemyActed;
+        enemyIntentView.BindEnemy(enemy, deferInitialRevealUntilHandFlyFinishes: true);
+
+        if (handUI != null)
+            handUI.DrawFlyAnimationCompleted += OnInitialHandDealFlyCompleteRevealIntent;
+        else
+            enemyIntentView.ScheduleHandFlyRevealFallback();
+    }
+
+    private void OnInitialHandDealFlyCompleteRevealIntent()
+    {
+        if (handUI != null)
+            handUI.DrawFlyAnimationCompleted -= OnInitialHandDealFlyCompleteRevealIntent;
+
+        enemyIntentView?.NotifyHandDealFlyFinished();
+    }
+
+    private void OnDestroy()
+    {
+        UnwireEnemyIntentEvents();
+    }
+
+    private void UnwireEnemyIntentEvents()
+    {
+        if (handUI != null)
+            handUI.DrawFlyAnimationCompleted -= OnInitialHandDealFlyCompleteRevealIntent;
+
+        if (turnManager != null && enemyIntentView != null)
+            turnManager.AfterEnemyActed -= enemyIntentView.NotifyEnemyActed;
+    }
+
+    public void OnTargetClicked(ICombatant target)
     {
         if (!CanPlay()) return;
 
@@ -60,7 +98,7 @@ public class BattleSystem : MonoBehaviour
             NotifyHandChanged();
     }
 
-    public bool TryPlayCardFromHand(int index, IEffectTarget target)
+    public bool TryPlayCardFromHand(int index, ICombatant target)
     {
         if (!CanPlay())
             return false;

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
-  m_Name: WolfData
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterStatsData
-  maxHealth: 60
+  m_Name: SlimeData
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  maxHealth: 40
   healthBarAnchorAlongSprite: 0
   abilities:
-  - {fileID: 11400000, guid: e0cd9b7507de5e945abcb227a38f70bc, type: 2}
-  - {fileID: 11400000, guid: 06f3d8ac8b7c8b146b909ecab77725fe, type: 2}
+  - {fileID: 11400000, guid: beb9137195494bca908e461f5b3ac3e7, type: 2}
+  - {fileID: 11400000, guid: 6974bf61b11b4ba190190d0bfd28cca5, type: 2}

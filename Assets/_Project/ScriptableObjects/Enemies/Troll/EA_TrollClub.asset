@@ -9,18 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cb3ab064b8e44a45815dc86d41ebac0, type: 3}
-  m_Name: Strike
-  m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardID: 
-  cardName: Strike
-  description: Deal 6 damage
-  icon: {fileID: 21300000, guid: 5223168d8022e2447a7eb5a5ef620b55, type: 3}
-  cost: 1
+  m_Script: {fileID: 11500000, guid: cc625fd46a8ad164fb33cd1fa290477c, type: 3}
+  m_Name: EA_TrollClub
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
+  displayName: Club Smash
+  icon: {fileID: 0}
+  selectionWeight: 45
+  intentSummary: Club Smash 12
+  cooldownTurns: 0
+  maxUses: -1
   conditions: []
   effects:
   - effect: {fileID: 11400000, guid: 6e0d7f8cf16b15d408f403403cce48a3, type: 2}
-    value: 6
     targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
+    amount: 12
     applyChance: 1
     conditions: []

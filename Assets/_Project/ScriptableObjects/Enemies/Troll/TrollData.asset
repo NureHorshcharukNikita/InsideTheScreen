@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
-  m_Name: WolfData
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterStatsData
-  maxHealth: 60
+  m_Name: TrollData
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  maxHealth: 110
   healthBarAnchorAlongSprite: 0
+  battleLocalPositionYOffset: 0
   abilities:
-  - {fileID: 11400000, guid: e0cd9b7507de5e945abcb227a38f70bc, type: 2}
-  - {fileID: 11400000, guid: 06f3d8ac8b7c8b146b909ecab77725fe, type: 2}
+  - {fileID: 11400000, guid: 3737b7d5e36f4dfa9c643726bd059fda, type: 2}
+  - {fileID: 11400000, guid: 4a7c0524886b44c4a19e0a2da08b8854, type: 2}

@@ -9,18 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cb3ab064b8e44a45815dc86d41ebac0, type: 3}
-  m_Name: Heal
-  m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardID: 
-  cardName: Heal
-  description: Deal 2 Heal
-  icon: {fileID: 21300000, guid: 81fc109f97e47ed4fb6105dedf5ea57b, type: 3}
-  cost: 1
-  conditions: []
+  m_Script: {fileID: 11500000, guid: cc625fd46a8ad164fb33cd1fa290477c, type: 3}
+  m_Name: EA_TrollRegenerate
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
+  displayName: Regenerate
+  icon: {fileID: 0}
+  selectionWeight: 22
+  intentSummary: Regenerate (Heal 10)
+  cooldownTurns: 2
+  maxUses: -1
+  conditions:
+  - {fileID: 11400000, guid: 4ac03d3897771f54886308ac65401a50, type: 2}
   effects:
   - effect: {fileID: 11400000, guid: 4e276ddc1412eb14fa444ccefcd693db, type: 2}
-    value: 2
     targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
+    amount: 10
     applyChance: 1
     conditions: []

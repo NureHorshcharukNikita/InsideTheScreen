@@ -201,7 +201,7 @@ public sealed class CardBattleDragHandler
 
     private bool TryPlayOnDropTarget(Vector2 screenPosition)
     {
-        IEffectTarget target = ResolveDropTarget(screenPosition);
+        ICombatant target = ResolveDropTarget(screenPosition);
         return target != null && battleSystem.TryPlayCardFromHand(owner.CardIndex, target);
     }
 
@@ -240,7 +240,7 @@ public sealed class CardBattleDragHandler
         return 1f - u * u * u;
     }
 
-    private static IEffectTarget ResolveDropTarget(Vector2 screenPosition)
+    private static ICombatant ResolveDropTarget(Vector2 screenPosition)
     {
         Camera camera = Camera.main;
         if (camera == null)
@@ -250,6 +250,6 @@ public sealed class CardBattleDragHandler
         world.z = 0f;
 
         Collider2D hit = Physics2D.OverlapPoint(world);
-        return hit != null ? hit.GetComponentInParent<IEffectTarget>() : null;
+        return hit != null ? hit.GetComponentInParent<ICombatant>() : null;
     }
 }

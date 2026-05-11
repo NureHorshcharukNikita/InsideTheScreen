@@ -13,7 +13,7 @@ public class CardPlayer
         this.turnManager = turnManager;
     }
 
-    public bool TryPlayCard(int index, CardData card, IEffectTarget target)
+    public bool TryPlayCard(int index, CardData card, ICombatant target)
     {
         if (card == null)
             return false;
@@ -36,27 +36,18 @@ public class CardPlayer
             return false;
         }
 
-        CardResolver.Resolve(card, player, target);
+        BattleTargetingContext ctx = turnManager.BuildTargetingContext(player, target);
+        BattleActionContext actionCtx = turnManager.BuildActionContext();
+        CardResolver.Resolve(card, ctx, actionCtx);
 
         deckManager.DiscardByIndexFromHand(index);
 
         return true;
     }
 
-    private bool CanUseCardOnTarget(CardData card, IEffectTarget target)
+    private bool CanUseCardOnTarget(CardData card, ICombatant target)
     {
-        foreach (var entry in card.Effects)
-        {
-            if (entry.effect == null)
-                continue;
-
-            if (entry.targetType == EffectTargetType.Enemy && target is EnemyCharacter)
-                return true;
-
-            if (entry.targetType == EffectTargetType.Self && target is PlayerCharacter)
-                return true;
-        }
-
-        return false;
+        BattleTargetingContext ctx = turnManager.BuildTargetingContext(player, target);
+        return CardResolver.CanResolveAnyTarget(card, ctx);
     }
 }
