@@ -8,6 +8,14 @@ public class InventoryData : ScriptableObject
 
     public IReadOnlyList<CardData> Cards => cards;
 
+    public InventoryData CreateRuntimeCopy()
+    {
+        InventoryData copy = CreateInstance<InventoryData>();
+        copy.name = $"{name}_Runtime";
+        copy.cards = new List<CardData>(cards);
+        return copy;
+    }
+
     public void AddCard(CardData card)
     {
         if (card == null) return;
