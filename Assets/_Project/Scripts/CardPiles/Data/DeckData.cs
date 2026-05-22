@@ -10,6 +10,15 @@ public class DeckData : ScriptableObject
     public int MaxCount => maxCount;
     public IReadOnlyList<CardData> Cards => cards;
 
+    public DeckData CreateRuntimeCopy()
+    {
+        DeckData copy = CreateInstance<DeckData>();
+        copy.name = $"{name}_Runtime";
+        copy.maxCount = maxCount;
+        copy.cards = new List<CardData>(cards);
+        return copy;
+    }
+
     public void AddCard(CardData card)
     {
         if (card == null)

@@ -144,10 +144,10 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 4.335}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 9.33, y: 8.67}
     newSize: {x: 9.33, y: 8.67}
     adaptiveTilingThreshold: 0.5
@@ -168,6 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b8a912c37f4d2eb5f601a8c9d7e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxCollider2DSpriteSync
+  useManualSize: 0
+  syncWidthToSprite: 0
+  syncHeightToSprite: 0
 --- !u!114 &9123887846233731901
 MonoBehaviour:
   m_ObjectHideFlags: 0

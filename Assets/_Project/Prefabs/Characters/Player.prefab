@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcf4ba830f953e42a765ae012f045e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
-  statsData: {fileID: 11400000, guid: ccdbbd7e0bc7bf54b881865a2d05858f, type: 2}
   currentHealth: 30
   playerData: {fileID: 11400000, guid: 8f18dd0889ea0e641926644cb8cccf7c, type: 2}
 --- !u!114 &4718293655012847362
@@ -167,3 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b8a912c37f4d2eb5f601a8c9d7e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxCollider2DSpriteSync
+  useManualSize: 0
+  syncWidthToSprite: 0
+  syncHeightToSprite: 0

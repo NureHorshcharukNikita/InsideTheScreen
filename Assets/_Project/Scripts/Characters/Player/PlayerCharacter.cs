@@ -6,12 +6,14 @@ public class PlayerCharacter : Character
     [SerializeField] private PlayerData playerData;
 
     private int currentActionPoints;
+    private InventoryData runtimeInventoryData;
+    private DeckData runtimeDeckData;
 
     public override int MaxHealth => playerData != null ? playerData.maxHealth : 0;
     public override CombatTeam Team => CombatTeam.Player;
 
-    public InventoryData InventoryData => playerData != null ? playerData.Inventory : null;
-    public DeckData DeckData => playerData != null ? playerData.Deck : null;
+    public InventoryData InventoryData => runtimeInventoryData;
+    public DeckData DeckData => runtimeDeckData;
     public int StartHandSize => playerData != null ? playerData.startHandSize : 0;
     public int CardsDrawnPerTurn => playerData != null ? playerData.cardsDrawnPerTurn : 0;
     public int MaxActionPoints => playerData != null ? playerData.maxActionPoints : 0;
@@ -34,6 +36,9 @@ public class PlayerCharacter : Character
             Debug.LogError("DeckData is not assigned in PlayerData.");
             return;
         }
+
+        runtimeInventoryData = ExplorationPlayerSession.GetOrCreateRuntimeInventory(playerData.Inventory);
+        runtimeDeckData = ExplorationPlayerSession.GetOrCreateRuntimeDeck(playerData.Deck);
 
         if (ExplorationPlayerSession.TryGetSavedHealth(out int savedHealth))
             SetHealth(savedHealth);

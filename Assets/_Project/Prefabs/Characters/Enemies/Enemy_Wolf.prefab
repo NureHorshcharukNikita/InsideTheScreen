@@ -144,10 +144,10 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 2.715}
   m_SpriteTilingProperty:
-    border: {x: 4.2999997, y: 2.49, z: 2.02, w: 2.36}
-    pivot: {x: 0.5, y: 0.5}
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 9.02, y: 5.43}
     newSize: {x: 9.02, y: 5.43}
     adaptiveTilingThreshold: 0.5
@@ -168,6 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b8a912c37f4d2eb5f601a8c9d7e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxCollider2DSpriteSync
+  useManualSize: 0
+  syncWidthToSprite: 0
+  syncHeightToSprite: 0
 --- !u!114 &9123887846233731901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterClickable
   battleSystem: {fileID: 0}
-  target: {fileID: 0}
+  target: {fileID: 4362077912638896549}
 --- !u!114 &9123887846233731902
 MonoBehaviour:
   m_ObjectHideFlags: 0
