@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
@@ -14,8 +15,14 @@ public class BattleSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] private DeckUI deckUI;
     [SerializeField] private BattleEndUI battleEndUI;
+    [SerializeField] private BattleTurnUI battleTurnUI;
     [SerializeField] private HandUI handUI;
     [SerializeField] private EnemyIntentView enemyIntentView;
+
+    [Header("Turn Pacing")]
+    [SerializeField] private float enemyIntentTelegraphDuration = 0.5f;
+    [SerializeField] private float enemyIntentHideDuration = 0.15f;
+    [SerializeField] private float enemyActionRecoveryDelay = 1f;
 
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
@@ -25,6 +32,10 @@ public class BattleSystem : MonoBehaviour
     private BattleSystemIntentBinder intentBinder;
 
     private int? selectedCardIndex = null;
+    private bool turnTransitionInProgress;
+    private bool skipTurnTransitionRequested;
+
+    public bool IsTurnTransitionInProgress => turnTransitionInProgress;
 
     private void Start()
     {
@@ -58,13 +69,125 @@ public class BattleSystem : MonoBehaviour
             CanPlay,
             AfterAction,
             NotifyHandChanged,
+            RequestEndPlayerTurn,
             () => selectedCardIndex,
             value => selectedCardIndex = value);
         intentBinder = new BattleSystemIntentBinder(handUI, enemyIntentView);
 
         turnManager.StartBattle();
         intentBinder.WireForBattleStart(turnManager, enemy);
+        StartCoroutine(StartBattleRoutine());
+    }
+
+    private IEnumerator StartBattleRoutine()
+    {
+        BeginTurnTransition();
+
+        if (battleTurnUI != null)
+            yield return battleTurnUI.PlayTurnAnnouncement(TurnOwner.Player, ShouldSkipTurnTransition);
+
+        turnManager.DrawStartingHand();
         NotifyHandChanged();
+
+        EndTurnTransition();
+    }
+
+    public void RequestSkipTurnTransition()
+    {
+        if (!turnTransitionInProgress || CurrentBattleState != BattleState.Running)
+            return;
+
+        skipTurnTransitionRequested = true;
+        battleTurnUI?.RequestSkip();
+        enemyIntentView?.SkipToHidden();
+    }
+
+    private void BeginTurnTransition()
+    {
+        skipTurnTransitionRequested = false;
+        turnTransitionInProgress = true;
+    }
+
+    private void EndTurnTransition()
+    {
+        skipTurnTransitionRequested = false;
+        turnTransitionInProgress = false;
+    }
+
+    private bool ShouldSkipTurnTransition()
+    {
+        return skipTurnTransitionRequested;
+    }
+
+    private IEnumerator WaitSkippable(float seconds)
+    {
+        if (seconds <= 0f || ShouldSkipTurnTransition())
+            yield break;
+
+        float elapsed = 0f;
+        while (elapsed < seconds && !ShouldSkipTurnTransition())
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void RequestEndPlayerTurn()
+    {
+        if (turnTransitionInProgress)
+            return;
+
+        StartCoroutine(EndPlayerTurnRoutine());
+    }
+
+    private IEnumerator EndPlayerTurnRoutine()
+    {
+        if (turnManager == null || !turnManager.TryBeginEnemyTurn())
+            yield break;
+
+        BeginTurnTransition();
+        selectedCardIndex = null;
+
+        if (battleTurnUI != null)
+            yield return battleTurnUI.PlayTurnAnnouncement(TurnOwner.Enemy, ShouldSkipTurnTransition);
+
+        if (enemyIntentView != null && !ShouldSkipTurnTransition())
+        {
+            yield return enemyIntentView.ShowCurrentIntentDuringEnemyTurn(
+                enemyIntentTelegraphDuration,
+                ShouldSkipTurnTransition);
+            yield return enemyIntentView.HideIntent(enemyIntentHideDuration, ShouldSkipTurnTransition);
+        }
+        else
+        {
+            enemyIntentView?.SkipToHidden();
+        }
+
+        turnManager.ExecuteEnemyTurn();
+
+        yield return WaitSkippable(enemyActionRecoveryDelay);
+
+        BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
+        AfterAction();
+
+        if (CurrentBattleState != BattleState.Running)
+        {
+            EndTurnTransition();
+            yield break;
+        }
+
+        if (battleTurnUI != null && !ShouldSkipTurnTransition())
+            yield return battleTurnUI.PlayTurnAnnouncement(TurnOwner.Player, ShouldSkipTurnTransition);
+        else
+            battleTurnUI?.ForceHide();
+
+        turnManager.StartNextPlayerTurn();
+        turnManager.PlanNextEnemyAction();
+        enemyIntentView?.RevealCurrentPlan();
+        selectedCardIndex = null;
+        NotifyHandChanged();
+
+        EndTurnTransition();
     }
 
     public void SetVictory()
@@ -79,7 +202,7 @@ public class BattleSystem : MonoBehaviour
 
     public bool CanPlay()
     {
-        return CurrentBattleState == BattleState.Running;
+        return CurrentBattleState == BattleState.Running && !turnTransitionInProgress;
     }
 
     public void AfterAction()

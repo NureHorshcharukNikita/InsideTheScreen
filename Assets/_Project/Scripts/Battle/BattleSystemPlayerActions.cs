@@ -8,6 +8,7 @@ internal sealed class BattleSystemPlayerActions
     private readonly Func<bool> canPlay;
     private readonly Action afterAction;
     private readonly Action notifyHandChanged;
+    private readonly Action requestEndPlayerTurn;
     private readonly Func<int?> getSelectedCardIndex;
     private readonly Action<int?> setSelectedCardIndex;
 
@@ -18,6 +19,7 @@ internal sealed class BattleSystemPlayerActions
         Func<bool> canPlay,
         Action afterAction,
         Action notifyHandChanged,
+        Action requestEndPlayerTurn,
         Func<int?> getSelectedCardIndex,
         Action<int?> setSelectedCardIndex)
     {
@@ -27,6 +29,7 @@ internal sealed class BattleSystemPlayerActions
         this.canPlay = canPlay;
         this.afterAction = afterAction;
         this.notifyHandChanged = notifyHandChanged;
+        this.requestEndPlayerTurn = requestEndPlayerTurn;
         this.getSelectedCardIndex = getSelectedCardIndex;
         this.setSelectedCardIndex = setSelectedCardIndex;
     }
@@ -87,14 +90,7 @@ internal sealed class BattleSystemPlayerActions
         if (turnManager.CurrentTurn != TurnOwner.Player)
             return;
 
-        turnManager.EndPlayerTurn();
-
-        BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
-        afterAction();
-
-        setSelectedCardIndex(null);
-
-        notifyHandChanged();
+        requestEndPlayerTurn?.Invoke();
     }
 
     public void SelectCard(int index)

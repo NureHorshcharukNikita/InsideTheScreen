@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +22,72 @@ public class EnemyIntentView : MonoBehaviour
 
     private bool pendingRevealAfterEnemyAct;
     private bool awaitingHandDealFlyReveal;
+    private bool hideUntilExplicitReveal;
+
+    public IEnumerator ShowCurrentIntentDuringEnemyTurn(float visibleDuration, Func<bool> shouldSkip = null)
+    {
+        EnsureInitialized();
+        revealAnimator.StopAll();
+        hideUntilExplicitReveal = false;
+        Refresh(keepVisualHidden: false);
+        presenter.SetVisualAlpha(1f);
+
+        if (visibleDuration <= 0f || IsSkipped(shouldSkip))
+            yield break;
+
+        float elapsed = 0f;
+        while (elapsed < visibleDuration && !IsSkipped(shouldSkip))
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public IEnumerator HideIntent(float fadeDuration = 0.15f, Func<bool> shouldSkip = null)
+    {
+        EnsureInitialized();
+        revealAnimator.StopAll();
+        hideUntilExplicitReveal = true;
+
+        if (fadeDuration <= 0f || IsSkipped(shouldSkip))
+        {
+            presenter.SetVisualAlpha(0f);
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < fadeDuration && !IsSkipped(shouldSkip))
+        {
+            elapsed += Time.deltaTime;
+            presenter.SetVisualAlpha(1f - Mathf.Clamp01(elapsed / fadeDuration));
+            yield return null;
+        }
+
+        presenter.SetVisualAlpha(0f);
+    }
+
+    public void SkipToHidden()
+    {
+        EnsureInitialized();
+        revealAnimator.StopAll();
+        hideUntilExplicitReveal = true;
+        presenter.SetVisualAlpha(0f);
+    }
+
+    private static bool IsSkipped(Func<bool> shouldSkip)
+    {
+        return shouldSkip != null && shouldSkip();
+    }
+
+    public void RevealCurrentPlan()
+    {
+        EnsureInitialized();
+        revealAnimator.StopAll();
+        hideUntilExplicitReveal = false;
+        pendingRevealAfterEnemyAct = false;
+        Refresh(keepVisualHidden: false);
+        revealAnimator.StartReveal();
+    }
 
     public void NotifyEnemyActed()
     {
@@ -56,6 +124,7 @@ public class EnemyIntentView : MonoBehaviour
         revealAnimator.StopAll();
         pendingRevealAfterEnemyAct = false;
         awaitingHandDealFlyReveal = false;
+        hideUntilExplicitReveal = false;
 
         brainBinding.BindEnemy(enemyCharacter);
 
@@ -95,11 +164,7 @@ public class EnemyIntentView : MonoBehaviour
 
     private void OnPlannedChanged()
     {
-        bool reveal = pendingRevealAfterEnemyAct;
-        pendingRevealAfterEnemyAct = false;
-        Refresh(keepVisualHidden: reveal);
-        if (reveal)
-            revealAnimator.StartReveal();
+        Refresh(keepVisualHidden: hideUntilExplicitReveal || awaitingHandDealFlyReveal);
     }
 
     private void Refresh(bool keepVisualHidden = false)

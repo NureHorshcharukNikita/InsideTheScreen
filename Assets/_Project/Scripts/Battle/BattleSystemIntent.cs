@@ -17,7 +17,6 @@ internal sealed class BattleSystemIntentBinder
             return;
 
         this.turnManager = turnManager;
-        turnManager.AfterEnemyActed += enemyIntentView.NotifyEnemyActed;
         enemyIntentView.BindEnemy(enemy, deferInitialRevealUntilHandFlyFinishes: true);
 
         if (handUI != null)
@@ -30,9 +29,6 @@ internal sealed class BattleSystemIntentBinder
     {
         if (handUI != null)
             handUI.DrawFlyAnimationCompleted -= OnInitialHandDealFlyCompleteRevealIntent;
-
-        if (turnManager != null && enemyIntentView != null)
-            turnManager.AfterEnemyActed -= enemyIntentView.NotifyEnemyActed;
 
         turnManager = null;
     }
