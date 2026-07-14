@@ -28,6 +28,7 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
     private LayoutElement layoutElement;
 
     private CardBattleDragHandler battleDrag;
+    private BattleSystem battleSystem;
 
     internal int CardIndex => cardIndex;
 
@@ -37,6 +38,11 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
         EnsureCanvasGroupForRaycasts();
         battleDrag = new CardBattleDragHandler(this);
         battleDrag.SyncHierarchy(rectTransform, handParent, canvasRootRect, rootCanvas, layoutElement, canvasGroup);
+    }
+
+    private void Update()
+    {
+        RefreshBattleInteractionLock();
     }
 
     public void Setup(CardData data, int index, Action<int> onSelect, BattleSystem battle = null, bool selected = false)
@@ -54,6 +60,7 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
     {
         cardIndex = index;
         onPointerDown = onSelect;
+        battleSystem = battle;
 
         battleDrag.Configure(battle, returnAnimationDuration);
 
@@ -80,7 +87,32 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (IsBattleInteractionLocked())
+            return;
+
         onPointerDown?.Invoke(cardIndex);
+    }
+
+    private bool IsBattleInteractionLocked()
+    {
+        return battleSystem != null && !battleSystem.CanPlay();
+    }
+
+    private void RefreshBattleInteractionLock()
+    {
+        if (battleSystem == null || canvasGroup == null)
+            return;
+
+        bool canInteract = battleSystem.CanPlay();
+        if (!canInteract)
+        {
+            SetSelected(false);
+            if (battleDrag != null && battleDrag.IsDragging)
+                battleDrag.ForceReleaseDragToHand();
+        }
+
+        if (battleDrag == null || !battleDrag.IsDragging)
+            canvasGroup.blocksRaycasts = canInteract;
     }
 
     private void CacheRectHierarchy()

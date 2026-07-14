@@ -28,6 +28,7 @@ public sealed partial class CardBattleDragHandler
     }
 
     public bool IsBattleDragEnabled => battleSystem != null;
+    public bool IsDragging { get; private set; }
 
     public void Configure(BattleSystem battle, float returnDuration)
     {
@@ -40,11 +41,15 @@ public sealed partial class CardBattleDragHandler
         if (!IsBattleDragEnabled)
             return;
 
+        if (!battleSystem.CanPlay())
+            return;
+
         if (!CanBeginBattleDrag(eventData))
             return;
 
         CancelReturnAnimationIfRunning();
         CacheHandSlotBeforeDrag();
+        IsDragging = true;
 
         MoveUnderRootCanvasUnclipped();
         SetLayoutIgnoredForDrag(true);
@@ -55,7 +60,16 @@ public sealed partial class CardBattleDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!IsBattleDragEnabled || !HasValidDragContext())
+        if (!IsBattleDragEnabled)
+            return;
+
+        if (!battleSystem.CanPlay())
+        {
+            ForceReleaseDragToHand();
+            return;
+        }
+
+        if (!HasValidDragContext())
             return;
 
         if (!TryScreenToCanvasLocal(eventData.position, out Vector2 localPoint))
@@ -69,20 +83,34 @@ public sealed partial class CardBattleDragHandler
         if (!IsBattleDragEnabled)
             return;
 
+        if (!battleSystem.CanPlay())
+        {
+            IsDragging = false;
+            if (HasValidDragContext())
+                returnCoroutine = owner.StartCoroutine(AnimateReturnToHandCoroutine());
+            else
+                SetRaycastBlocking(true);
+
+            return;
+        }
+
         if (!HasValidDragContext())
         {
+            IsDragging = false;
             SetRaycastBlocking(true);
             return;
         }
 
         if (TryPlayOnDropTarget(eventData.position))
         {
+            IsDragging = false;
             SetLayoutIgnoredForDrag(false);
             SetRaycastBlocking(true);
             Object.Destroy(owner.gameObject);
             return;
         }
 
+        IsDragging = false;
         returnCoroutine = owner.StartCoroutine(AnimateReturnToHandCoroutine());
     }
 

@@ -378,7 +378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5825463940424049510, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
       propertyPath: m_Size.x
-      value: 11.70906
+      value: 6.17
       objectReference: {fileID: 0}
     - target: {fileID: 5825463940424049510, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
       propertyPath: m_Size.y
@@ -386,7 +386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5825463940424049510, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
       propertyPath: m_Offset.x
-      value: 2.7695298
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5825463940424049510, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
       propertyPath: m_Offset.y
@@ -851,11 +851,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 585369266782688776, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 585369266782688776, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 585369266782688776, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3264,10 +3264,10 @@ RectTransform:
   - {fileID: 1105991614}
   - {fileID: 678215246}
   - {fileID: 2120980049}
-  - {fileID: 398667323}
-  - {fileID: 400002967}
-  - {fileID: 920010012}
   - {fileID: 920010101}
+  - {fileID: 400002967}
+  - {fileID: 398667323}
+  - {fileID: 920010012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3461,7 +3461,7 @@ MonoBehaviour:
   slideInDuration: 0.45
   slideOutDuration: 0.4
   playerHoldDuration: 1
-  enemyHoldDuration: 0.75
+  enemyHoldDuration: 0.6
   slideOvershoot: 80
 --- !u!1 &942480744
 GameObject:
@@ -4238,7 +4238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1343011670
 GameObject:
   m_ObjectHideFlags: 0
@@ -5306,7 +5306,7 @@ MonoBehaviour:
   enemyIntentView: {fileID: 678215247}
   enemyIntentTelegraphDuration: 0.5
   enemyIntentHideDuration: 0.15
-  enemyActionRecoveryDelay: 1
+  enemyActionRecoveryDelay: 0.75
 --- !u!4 &1995241972
 Transform:
   m_ObjectHideFlags: 0
@@ -6025,23 +6025,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8634195197656089229, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
       propertyPath: m_Offset.y
+      value: 2.715
+      objectReference: {fileID: 0}
+    - target: {fileID: 8634195197656089229, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8634195197656089229, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
       propertyPath: m_SpriteTilingProperty.border.w
-      value: 2.36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8634195197656089229, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
       propertyPath: m_SpriteTilingProperty.border.x
-      value: 4.2999997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8634195197656089229, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
       propertyPath: m_SpriteTilingProperty.border.y
-      value: 2.49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8634195197656089229, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
       propertyPath: m_SpriteTilingProperty.border.z
-      value: 2.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8634195197656089229, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -6061,6 +6065,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8307414355194484910, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8123887846233731937}
+    - targetCorrespondingSourceObject: {fileID: 8307414355194484910, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8123887846233731942}
   m_SourcePrefab: {fileID: 100100000, guid: d532ef44d49eeec43b0d51d432fbe098, type: 3}
 --- !u!1 &8123887846233731935 stripped
 GameObject:
@@ -6094,6 +6101,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBrain
   opponent: {fileID: 252743986}
+--- !u!114 &8123887846233731942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8123887846233731935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88441c54ade841508bd84a9468e80d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackLungeAnimation
+  lungeDuration: 0.28
+  returnDuration: 0.22
+  impactDistance: 1.15
+  impactPause: 0.08
+  impactPunchScale: 0.12
+  targetPunchDistance: 0.12
+  sortingOrderBoost: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

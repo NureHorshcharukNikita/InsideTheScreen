@@ -18,14 +18,24 @@ public class BattleTurnUI : MonoBehaviour
     [SerializeField] private float slideInDuration = 0.45f;
     [SerializeField] private float slideOutDuration = 0.4f;
     [SerializeField] private float playerHoldDuration = 1f;
-    [SerializeField] private float enemyHoldDuration = 0.75f;
+    [SerializeField] private float enemyHoldDuration = 0.6f;
     [SerializeField] private float slideOvershoot = 80f;
 
     private Vector2 restPosition;
     private Tween activeTween;
+    private bool initialized;
 
     private void Awake()
     {
+        EnsureInitialized();
+        ForceHide();
+    }
+
+    private void EnsureInitialized()
+    {
+        if (initialized)
+            return;
+
         if (panelRect == null)
             panelRect = transform as RectTransform;
 
@@ -35,7 +45,7 @@ public class BattleTurnUI : MonoBehaviour
         if (panelRect != null)
             restPosition = panelRect.anchoredPosition;
 
-        gameObject.SetActive(false);
+        initialized = true;
     }
 
     private void OnDisable()
@@ -58,6 +68,7 @@ public class BattleTurnUI : MonoBehaviour
 
     public IEnumerator PlayTurnAnnouncement(TurnOwner owner, Func<bool> shouldSkip = null)
     {
+        EnsureInitialized();
         if (panelRect == null || turnText == null)
             yield break;
 
@@ -68,7 +79,8 @@ public class BattleTurnUI : MonoBehaviour
             yield break;
 
         turnText.text = owner == TurnOwner.Player ? playerTurnLabel : enemyTurnLabel;
-        gameObject.SetActive(true);
+        ShowPanelObjects();
+        Canvas.ForceUpdateCanvases();
 
         float offscreenOffset = panelRect.rect.width + slideOvershoot;
         Vector2 hiddenLeft = restPosition + Vector2.left * offscreenOffset;
@@ -76,6 +88,14 @@ public class BattleTurnUI : MonoBehaviour
         float holdDuration = owner == TurnOwner.Enemy ? enemyHoldDuration : playerHoldDuration;
 
         panelRect.anchoredPosition = hiddenLeft;
+        Canvas.ForceUpdateCanvases();
+        yield return null;
+
+        if (IsSkipped(shouldSkip))
+        {
+            ForceHide();
+            yield break;
+        }
 
         activeTween = panelRect
             .DOAnchorPos(restPosition, slideInDuration)
@@ -107,6 +127,28 @@ public class BattleTurnUI : MonoBehaviour
     }
 
     private bool localSkipRequested;
+
+    private void ShowPanelObjects()
+    {
+        SetSelfAndParentsActive(panelRect != null ? panelRect.transform : transform);
+        SetSelfAndParentsActive(transform);
+
+        if (panelRect != null)
+            panelRect.gameObject.SetActive(true);
+        if (turnText != null)
+            turnText.gameObject.SetActive(true);
+    }
+
+    private static void SetSelfAndParentsActive(Transform target)
+    {
+        if (target == null)
+            return;
+
+        if (target.parent != null)
+            SetSelfAndParentsActive(target.parent);
+
+        target.gameObject.SetActive(true);
+    }
 
     private static bool IsSkipped(Func<bool> shouldSkip)
     {

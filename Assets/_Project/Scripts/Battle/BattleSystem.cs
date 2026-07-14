@@ -22,7 +22,7 @@ public class BattleSystem : MonoBehaviour
     [Header("Turn Pacing")]
     [SerializeField] private float enemyIntentTelegraphDuration = 0.5f;
     [SerializeField] private float enemyIntentHideDuration = 0.15f;
-    [SerializeField] private float enemyActionRecoveryDelay = 1f;
+    [SerializeField] private float enemyActionRecoveryDelay = 0.75f;
 
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
@@ -72,7 +72,7 @@ public class BattleSystem : MonoBehaviour
             RequestEndPlayerTurn,
             () => selectedCardIndex,
             value => selectedCardIndex = value);
-        intentBinder = new BattleSystemIntentBinder(handUI, enemyIntentView);
+        intentBinder = new BattleSystemIntentBinder(enemyIntentView);
 
         turnManager.StartBattle();
         intentBinder.WireForBattleStart(turnManager, enemy);
@@ -83,8 +83,14 @@ public class BattleSystem : MonoBehaviour
     {
         BeginTurnTransition();
 
+        yield return null;
+        while (FadeManager.Instance != null && FadeManager.Instance.IsFading)
+            yield return null;
+
         if (battleTurnUI != null)
             yield return battleTurnUI.PlayTurnAnnouncement(TurnOwner.Player, ShouldSkipTurnTransition);
+
+        enemyIntentView?.RevealCurrentPlan();
 
         turnManager.DrawStartingHand();
         NotifyHandChanged();
@@ -163,7 +169,7 @@ public class BattleSystem : MonoBehaviour
             enemyIntentView?.SkipToHidden();
         }
 
-        turnManager.ExecuteEnemyTurn();
+        yield return PlayEnemyActionAnimation();
 
         yield return WaitSkippable(enemyActionRecoveryDelay);
 
@@ -202,7 +208,9 @@ public class BattleSystem : MonoBehaviour
 
     public bool CanPlay()
     {
-        return CurrentBattleState == BattleState.Running && !turnTransitionInProgress;
+        return CurrentBattleState == BattleState.Running
+               && !turnTransitionInProgress
+               && (handUI == null || !handUI.IsAnimatingCards);
     }
 
     public void AfterAction()
@@ -236,7 +244,43 @@ public class BattleSystem : MonoBehaviour
 
     public void EndTurn()
     {
+        if (turnTransitionInProgress)
+        {
+            RequestSkipTurnTransition();
+            return;
+        }
+
         playerActions?.EndTurn();
+    }
+
+    private IEnumerator PlayEnemyActionAnimation()
+    {
+        if (turnManager == null || enemy?.Brain == null || !enemy.Brain.CurrentPlan.HasAbility)
+        {
+            turnManager?.ExecuteEnemyTurn();
+            yield break;
+        }
+
+        enemy.TryGetComponent(out EnemyAttackLungeAnimation animation);
+        Character target = enemy.Brain.CurrentPlan.PrimaryTargetForUi;
+        bool executed = false;
+
+        void ExecuteOnce()
+        {
+            if (executed)
+                return;
+
+            executed = true;
+            turnManager.ExecuteEnemyTurn();
+        }
+
+        if (animation != null)
+            yield return animation.Play(enemy, target, ExecuteOnce, ShouldSkipTurnTransition);
+        else
+            ExecuteOnce();
+
+        if (!executed)
+            ExecuteOnce();
     }
 
     public void SelectCard(int index)

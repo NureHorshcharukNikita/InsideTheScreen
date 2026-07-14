@@ -85,7 +85,7 @@ public partial class InventoryWindow : MonoBehaviour
     private void OnDisable()
     {
         if (GameStateManager.State == GameState.Inventory)
-            GameStateManager.State = GameState.Gameplay;
+            GameStateManager.SetState(GameState.Gameplay);
     }
 
     public void Refresh()

@@ -2,7 +2,7 @@ public partial class InventoryWindow
 {
     public void Open()
     {
-        GameStateManager.State = GameState.Inventory;
+        GameStateManager.SetState(GameState.Inventory);
         gameObject.SetActive(true);
 
         inventoryScreenController.ClearSelection();
@@ -16,7 +16,7 @@ public partial class InventoryWindow
     {
         inventoryScreenController.ClearSelection();
 
-        GameStateManager.State = GameState.Gameplay;
+        GameStateManager.SetState(GameState.Gameplay);
         gameObject.SetActive(false);
     }
 

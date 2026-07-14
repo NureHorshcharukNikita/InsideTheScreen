@@ -20,7 +20,6 @@ public class EnemyIntentView : MonoBehaviour
     private EnemyIntentFollower follower;
     private EnemyIntentRevealAnimator revealAnimator;
 
-    private bool pendingRevealAfterEnemyAct;
     private bool awaitingHandDealFlyReveal;
     private bool hideUntilExplicitReveal;
 
@@ -84,7 +83,6 @@ public class EnemyIntentView : MonoBehaviour
         EnsureInitialized();
         revealAnimator.StopAll();
         hideUntilExplicitReveal = false;
-        pendingRevealAfterEnemyAct = false;
         Refresh(keepVisualHidden: false);
         revealAnimator.StartReveal();
     }
@@ -94,7 +92,6 @@ public class EnemyIntentView : MonoBehaviour
         EnsureInitialized();
         revealAnimator.StopAll();
         awaitingHandDealFlyReveal = false;
-        pendingRevealAfterEnemyAct = true;
         presenter.SetVisualAlpha(0f);
     }
 
@@ -122,7 +119,6 @@ public class EnemyIntentView : MonoBehaviour
     {
         EnsureInitialized();
         revealAnimator.StopAll();
-        pendingRevealAfterEnemyAct = false;
         awaitingHandDealFlyReveal = false;
         hideUntilExplicitReveal = false;
 
