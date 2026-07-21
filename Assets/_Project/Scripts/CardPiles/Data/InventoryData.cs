@@ -20,16 +20,26 @@ public class InventoryData : ScriptableObject
     {
         if (card == null) return;
         cards.Add(card);
+        ExplorationPlayerSession.SavePersistent();
     }
 
     public void RemoveCard(CardData card)
     {
         if (card == null) return;
         cards.Remove(card);
+        ExplorationPlayerSession.SavePersistent();
     }
 
     public void Clear()
     {
         cards.Clear();
+        ExplorationPlayerSession.SavePersistent();
+    }
+
+    public void ReplaceCards(IEnumerable<CardData> newCards)
+    {
+        cards = newCards != null
+            ? new List<CardData>(newCards)
+            : new List<CardData>();
     }
 }

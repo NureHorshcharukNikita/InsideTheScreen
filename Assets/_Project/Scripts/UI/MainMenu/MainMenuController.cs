@@ -21,6 +21,7 @@ public sealed class MainMenuController : MonoBehaviour
 
     private void Awake()
     {
+        ExplorationPlayerSession.LoadPersistentSaveIfNeeded();
         GameStateManager.SetState(GameState.Gameplay);
 
         if (settingsPanel != null)

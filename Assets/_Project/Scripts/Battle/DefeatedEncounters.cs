@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public static class DefeatedEncounters
 {
@@ -7,7 +8,10 @@ public static class DefeatedEncounters
     public static void MarkDefeated(string encounterId)
     {
         if (!string.IsNullOrEmpty(encounterId))
+        {
             defeatedIds.Add(encounterId);
+            ExplorationPlayerSession.SavePersistent();
+        }
     }
 
     public static bool IsDefeated(string encounterId)
@@ -18,5 +22,25 @@ public static class DefeatedEncounters
     public static void Clear()
     {
         defeatedIds.Clear();
+        ExplorationPlayerSession.SavePersistent();
+    }
+
+    public static string[] ToArray()
+    {
+        return defeatedIds.ToArray();
+    }
+
+    public static void Restore(IEnumerable<string> encounterIds)
+    {
+        defeatedIds.Clear();
+
+        if (encounterIds == null)
+            return;
+
+        foreach (string encounterId in encounterIds)
+        {
+            if (!string.IsNullOrEmpty(encounterId))
+                defeatedIds.Add(encounterId);
+        }
     }
 }

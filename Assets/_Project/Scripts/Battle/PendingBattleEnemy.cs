@@ -37,6 +37,15 @@ public static class PendingBattleEnemy
         return _hasCurrentEnemyHealth;
     }
 
+    public static void RestoreSession(string encounterId, bool hasEnemyHealth, int enemyHealth)
+    {
+        _battleEnemyPrefab = null;
+        _currentBattleEnemyPrefab = null;
+        EncounterId = encounterId;
+        _hasCurrentEnemyHealth = hasEnemyHealth;
+        _currentEnemyHealth = enemyHealth;
+    }
+
     public static void ClearSession()
     {
         _battleEnemyPrefab = null;
