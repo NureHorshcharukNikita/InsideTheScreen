@@ -34,6 +34,7 @@ public class BattleSystem : MonoBehaviour
     private int? selectedCardIndex = null;
     private bool turnTransitionInProgress;
     private bool skipTurnTransitionRequested;
+    private bool victoryHandled;
 
     public bool IsTurnTransitionInProgress => turnTransitionInProgress;
 
@@ -217,10 +218,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (enemy.CurrentHealth <= 0)
         {
-            SetVictory();
-            ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
-            handUI?.ReleaseAllBattleCardDrags();
-            battleEndUI?.ShowVictory();
+            HandleVictory();
             return;
         }
 
@@ -230,6 +228,21 @@ public class BattleSystem : MonoBehaviour
             handUI?.ReleaseAllBattleCardDrags();
             battleEndUI?.ShowDefeat();
         }
+    }
+
+    private void HandleVictory()
+    {
+        if (victoryHandled)
+            return;
+
+        victoryHandled = true;
+        SetVictory();
+
+        ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
+        DefeatedEncounters.MarkDefeated(PendingBattleEnemy.EncounterId);
+
+        handUI?.ReleaseAllBattleCardDrags();
+        battleEndUI?.ShowVictory();
     }
 
     public void OnTargetClicked(ICombatant target)

@@ -114,7 +114,6 @@ public class BattleEndUI : MonoBehaviour
         _transitionStarted = true;
         gameObject.SetActive(false);
 
-        DefeatedEncounters.MarkDefeated(PendingBattleEnemy.EncounterId);
         PendingBattleEnemy.ClearSession();
         EnemyEncounter.ResetEncounterIds();
         FadeManager.TryFadeToScene(SceneNames.Exploration);
