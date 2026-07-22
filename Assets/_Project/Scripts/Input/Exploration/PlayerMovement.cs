@@ -73,4 +73,5 @@ public class PlayerMovement : MonoBehaviour
             animator.Play("Idle_Down");
         }
     }
+
 }
