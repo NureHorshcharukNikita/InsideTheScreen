@@ -193,7 +193,6 @@ public class InventoryWindow : MonoBehaviour
         else
             ExplorationPlayerSession.SavePlayer(currentPlayer);
 
-        GameStateManager.SetState(GameState.Gameplay);
-        FadeManager.TryFadeToScene(SceneNames.MainMenu);
+        MainMenuNavigation.GoToMainMenu();
     }
 }

@@ -19,6 +19,11 @@ public static class DefeatedEncounters
         return !string.IsNullOrEmpty(encounterId) && defeatedIds.Contains(encounterId);
     }
 
+    public static bool HasAny()
+    {
+        return defeatedIds.Count > 0;
+    }
+
     public static void Clear()
     {
         defeatedIds.Clear();
