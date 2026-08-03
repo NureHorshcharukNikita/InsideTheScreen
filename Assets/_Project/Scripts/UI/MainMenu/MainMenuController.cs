@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Video;
 using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -19,10 +20,17 @@ public sealed class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject creditsPanel;
 
+    [Header("Video")]
+    [SerializeField] private VideoPlayer menuVideoPlayer;
+
+    private bool menuVideoWasPlayingBeforeFocusLoss;
+    private bool menuVideoPausedByFocusLoss;
+
     private void Awake()
     {
         ExplorationPlayerSession.LoadPersistentSaveIfNeeded();
         GameStateManager.SetState(GameState.Gameplay);
+        CacheMenuVideoPlayer();
 
         if (settingsPanel != null)
             settingsPanel.SetActive(false);
@@ -88,9 +96,52 @@ public sealed class MainMenuController : MonoBehaviour
 #endif
     }
 
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        SetMenuVideoFocusState(hasFocus);
+    }
+
+    private void OnApplicationPause(bool isPaused)
+    {
+        SetMenuVideoFocusState(!isPaused);
+    }
+
     private void RefreshContinueButton()
     {
         if (continueButton != null)
             continueButton.interactable = ExplorationPlayerSession.HasSession;
+    }
+
+    private void CacheMenuVideoPlayer()
+    {
+        if (menuVideoPlayer == null)
+            menuVideoPlayer = FindFirstObjectByType<VideoPlayer>();
+    }
+
+    private void SetMenuVideoFocusState(bool hasFocus)
+    {
+        if (menuVideoPlayer == null)
+            return;
+
+        if (!hasFocus)
+        {
+            if (menuVideoPausedByFocusLoss)
+                return;
+
+            menuVideoWasPlayingBeforeFocusLoss = menuVideoPlayer.isPlaying;
+            menuVideoPausedByFocusLoss = true;
+            menuVideoPlayer.Pause();
+            return;
+        }
+
+        if (!menuVideoPausedByFocusLoss)
+            return;
+
+        menuVideoPausedByFocusLoss = false;
+
+        if (!menuVideoWasPlayingBeforeFocusLoss)
+            return;
+
+        menuVideoPlayer.Play();
     }
 }
