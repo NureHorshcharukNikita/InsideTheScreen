@@ -9,6 +9,7 @@ public class FadeManager : MonoBehaviour
 
     [SerializeField] private CanvasGroup fadeGroup;
     [SerializeField] private float fadeDuration = 0.5f;
+    [SerializeField] private bool fadeInOnSceneStart;
 
     private FadeOverlayController _overlay;
     private bool _isFading;
@@ -42,7 +43,7 @@ public class FadeManager : MonoBehaviour
 
         Instance = this;
 
-        _fadeInFromBlackOnStart = shouldFadeInAfterSceneLoad;
+        _fadeInFromBlackOnStart = shouldFadeInAfterSceneLoad || fadeInOnSceneStart;
         shouldFadeInAfterSceneLoad = false;
 
         _overlay = new FadeOverlayController(fadeGroup);
