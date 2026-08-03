@@ -9,10 +9,15 @@ public class BattleInput : MonoBehaviour
         if (!GameStateManager.IsGameplay)
             return;
 
-        if (battleSystem == null || !battleSystem.CanPlay())
+        if (battleSystem == null)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!Input.GetKeyDown(KeyCode.Space))
+            return;
+
+        if (battleSystem.IsTurnTransitionInProgress)
+            battleSystem.RequestSkipTurnTransition();
+        else if (battleSystem.CanPlay())
             battleSystem.EndTurn();
     }
 }

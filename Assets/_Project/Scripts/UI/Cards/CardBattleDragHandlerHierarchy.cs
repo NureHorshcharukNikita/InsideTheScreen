@@ -5,6 +5,7 @@ public sealed partial class CardBattleDragHandler
 {
     public void ForceReleaseDragToHand()
     {
+        IsDragging = false;
         CancelReturnAnimationIfRunning();
 
         if (rectTransform == null || canvasRootRect == null || handParent == null)

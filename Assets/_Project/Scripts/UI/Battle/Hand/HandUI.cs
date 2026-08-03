@@ -28,6 +28,8 @@ public partial class HandUI : MonoBehaviour
     private DeckManager _lastDeckManager;
     private int? _lastSelectedCardIndex;
 
+    public bool IsAnimatingCards => _flyRoutine != null;
+
     private void Awake()
     {
         handPanel = transform;

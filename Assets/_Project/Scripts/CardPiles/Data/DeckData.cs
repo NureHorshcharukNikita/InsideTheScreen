@@ -28,6 +28,7 @@ public class DeckData : ScriptableObject
             return;
 
         cards.Add(card);
+        ExplorationPlayerSession.SavePersistent();
     }
 
     public void RemoveCard(CardData card)
@@ -36,10 +37,19 @@ public class DeckData : ScriptableObject
             return;
 
         cards.Remove(card);
+        ExplorationPlayerSession.SavePersistent();
     }
 
     public void Clear()
     {
         cards.Clear();
+        ExplorationPlayerSession.SavePersistent();
+    }
+
+    public void ReplaceCards(IEnumerable<CardData> newCards)
+    {
+        cards = newCards != null
+            ? new List<CardData>(newCards)
+            : new List<CardData>();
     }
 }

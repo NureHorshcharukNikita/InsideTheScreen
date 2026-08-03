@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public partial class InventoryWindow : MonoBehaviour
+public class InventoryWindow : MonoBehaviour
 {
     [SerializeField] private PlayerCharacter player;
     [SerializeField] private PlayerHPText playerHPText;
@@ -85,7 +86,7 @@ public partial class InventoryWindow : MonoBehaviour
     private void OnDisable()
     {
         if (GameStateManager.State == GameState.Inventory)
-            GameStateManager.State = GameState.Gameplay;
+            GameStateManager.SetState(GameState.Gameplay);
     }
 
     public void Refresh()
@@ -107,4 +108,91 @@ public partial class InventoryWindow : MonoBehaviour
         Refresh();
     }
 
+    public void Open()
+    {
+        GameStateManager.SetState(GameState.Inventory);
+        gameObject.SetActive(true);
+
+        inventoryScreenController.ClearSelection();
+
+        inventoryPreviewPanel.Clear();
+        SelectTopIcon(0);
+        Refresh();
+    }
+
+    public void Close()
+    {
+        inventoryScreenController.ClearSelection();
+
+        GameStateManager.SetState(GameState.Gameplay);
+        gameObject.SetActive(false);
+    }
+
+    public void Toggle()
+    {
+        if (IsOpen)
+            Close();
+        else
+            Open();
+    }
+
+    public void SelectTopIcon(int index)
+    {
+        if (index < 0 || index >= topIconBorders.Count)
+            return;
+
+        selectedTopIconIndex = index;
+
+        categoriesPanel.ResetToAll();
+
+        inventoryScreenController.ClearSelection();
+        Refresh();
+
+        for (int i = 0; i < topIconBorders.Count; i++)
+        {
+            if (topIconBorders[i] != null)
+                topIconBorders[i].SetActive(i == index);
+        }
+
+        for (int i = 0; i < pages.Count; i++)
+        {
+            if (pages[i] != null)
+                pages[i].SetActive(i == index);
+        }
+    }
+
+    public void SelectNextTopIcon()
+    {
+        if (topIconBorders.Count == 0)
+            return;
+
+        int next = selectedTopIconIndex + 1;
+        if (next >= topIconBorders.Count)
+            next = 0;
+
+        SelectTopIcon(next);
+    }
+
+    public void SelectPreviousTopIcon()
+    {
+        if (topIconBorders.Count == 0)
+            return;
+
+        int prev = selectedTopIconIndex - 1;
+        if (prev < 0)
+            prev = topIconBorders.Count - 1;
+
+        SelectTopIcon(prev);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        PlayerCharacter currentPlayer = FindFirstObjectByType<PlayerCharacter>();
+        if (SceneManager.GetActiveScene().name == SceneNames.Battle)
+            ExplorationPlayerSession.SaveBattle(currentPlayer, FindFirstObjectByType<EnemyCharacter>());
+        else
+            ExplorationPlayerSession.SavePlayer(currentPlayer);
+
+        MainMenuNavigation.GoToMainMenu();
+    }
 }

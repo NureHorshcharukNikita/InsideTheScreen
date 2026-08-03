@@ -20,6 +20,9 @@ internal sealed class BattleEncounterResolver
         }
 
         fallbackEnemy.ApplyEncounterTemplate(template);
+        if (PendingBattleEnemy.TryGetCurrentEnemyHealth(out int enemyHealth))
+            fallbackEnemy.SetHealth(enemyHealth);
+
         return fallbackEnemy;
     }
 }

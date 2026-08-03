@@ -14,6 +14,8 @@ public class FadeManager : MonoBehaviour
     private bool _isFading;
     private bool _fadeInFromBlackOnStart;
 
+    public bool IsFading => _isFading;
+
     public static void TryFadeToScene(string sceneName)
     {
         if (Instance != null)

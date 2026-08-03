@@ -43,14 +43,19 @@ public class TurnManager
 
         CurrentTurn = TurnOwner.Player;
 
-        deckManager.DrawCards(player.StartHandSize);
-
         if (enemy?.Brain != null)
         {
             enemy.Brain.BindOpponent(player);
             enemy.Brain.PlanNextAction();
         }
+    }
 
+    public void DrawStartingHand()
+    {
+        if (deckManager == null)
+            return;
+
+        deckManager.DrawCards(player.StartHandSize);
     }
 
     public void StartNextPlayerTurn()
@@ -63,21 +68,17 @@ public class TurnManager
         deckManager.DrawCards(player.CardsDrawnPerTurn);
     }
 
-    public void EndPlayerTurn()
+    public bool TryBeginEnemyTurn()
     {
         if (CurrentTurn != TurnOwner.Player)
-            return;
+            return false;
 
         DevLog.Log("Player turn ended");
-
         CurrentTurn = TurnOwner.Enemy;
-
-        ExecuteEnemyTurn();
-        
-        StartNextPlayerTurn();
+        return true;
     }
 
-    private void ExecuteEnemyTurn()
+    public void ExecuteEnemyTurn()
     {
         DevLog.Log("Enemy turn");
 
@@ -87,8 +88,13 @@ public class TurnManager
                 enemy.Brain.ExecutePlanned();
 
             AfterEnemyActed?.Invoke();
-            enemy.Brain.PlanNextAction();
         }
+    }
+
+    public void PlanNextEnemyAction()
+    {
+        if (enemy?.Brain != null)
+            enemy.Brain.PlanNextAction();
     }
 
     private IReadOnlyList<ICombatant> GetAlliesOf(ICombatant self)

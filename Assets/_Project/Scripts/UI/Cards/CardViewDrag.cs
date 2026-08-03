@@ -6,6 +6,9 @@ public partial class CardView
 {
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (IsBattleInteractionLocked())
+            return;
+
         if (TryForwardInventoryDrag(eventData, (handler, pointerEventData) => handler.OnBeginDrag(pointerEventData)))
             return;
 
@@ -14,6 +17,12 @@ public partial class CardView
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (IsBattleInteractionLocked())
+        {
+            ForceReleaseBattleDragToHand();
+            return;
+        }
+
         if (TryForwardInventoryDrag(eventData, (handler, pointerEventData) => handler.OnDrag(pointerEventData)))
             return;
 
@@ -22,6 +31,12 @@ public partial class CardView
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (IsBattleInteractionLocked())
+        {
+            ForceReleaseBattleDragToHand();
+            return;
+        }
+
         if (TryForwardInventoryDrag(eventData, (handler, pointerEventData) => handler.OnEndDrag(pointerEventData)))
             return;
 
