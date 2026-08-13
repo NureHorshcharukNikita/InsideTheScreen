@@ -60,7 +60,7 @@ public class InventoryWindow : MonoBehaviour
 
     private void Update()
     {
-        if (IsOpen && Input.GetKeyDown(KeyCode.Escape))
+        if (IsOpen && GameInputSettings.GetKeyDown(GameInputAction.Close))
             Close();
     }
 

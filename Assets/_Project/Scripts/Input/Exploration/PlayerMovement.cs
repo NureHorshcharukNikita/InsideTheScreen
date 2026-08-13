@@ -27,12 +27,9 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        movement = GameInputSettings.GetMovement();
 
-        movement = new Vector2(moveX, moveY).normalized;
-
-        UpdateAnimation(moveX, moveY);
+        UpdateAnimation(movement.x, movement.y);
     }
 
     private void FixedUpdate()

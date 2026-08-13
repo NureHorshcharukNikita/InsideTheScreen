@@ -6,7 +6,7 @@ public class InventoryInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (GameInputSettings.GetKeyDown(GameInputAction.Inventory))
             inventoryWindow.Toggle();
     }
 }

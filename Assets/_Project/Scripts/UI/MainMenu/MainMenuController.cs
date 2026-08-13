@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -17,13 +18,13 @@ public sealed class MainMenuController : MonoBehaviour
     [SerializeField] private Button closeCreditsButton;
 
     [Header("Panels")]
+    [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject creditsPanel;
 
     [Header("Video")]
     [SerializeField] private VideoPlayer menuVideoPlayer;
 
-    private bool menuVideoWasPlayingBeforeFocusLoss;
     private bool menuVideoPausedByFocusLoss;
 
     private void Awake()
@@ -65,26 +66,38 @@ public sealed class MainMenuController : MonoBehaviour
 
     public void ShowSettings()
     {
+        ClearSelectedButton();
+        if (menuPanel != null)
+            menuPanel.SetActive(false);
         if (settingsPanel != null)
             settingsPanel.SetActive(true);
     }
 
     public void HideSettings()
     {
+        ClearSelectedButton();
         if (settingsPanel != null)
             settingsPanel.SetActive(false);
+        if (menuPanel != null)
+            menuPanel.SetActive(true);
     }
 
     public void ShowCredits()
     {
+        ClearSelectedButton();
+        if (menuPanel != null)
+            menuPanel.SetActive(false);
         if (creditsPanel != null)
             creditsPanel.SetActive(true);
     }
 
     public void HideCredits()
     {
+        ClearSelectedButton();
         if (creditsPanel != null)
             creditsPanel.SetActive(false);
+        if (menuPanel != null)
+            menuPanel.SetActive(true);
     }
 
     public void QuitGame()
@@ -128,7 +141,6 @@ public sealed class MainMenuController : MonoBehaviour
             if (menuVideoPausedByFocusLoss)
                 return;
 
-            menuVideoWasPlayingBeforeFocusLoss = menuVideoPlayer.isPlaying;
             menuVideoPausedByFocusLoss = true;
             menuVideoPlayer.Pause();
             return;
@@ -138,10 +150,12 @@ public sealed class MainMenuController : MonoBehaviour
             return;
 
         menuVideoPausedByFocusLoss = false;
-
-        if (!menuVideoWasPlayingBeforeFocusLoss)
-            return;
-
         menuVideoPlayer.Play();
+    }
+
+    private static void ClearSelectedButton()
+    {
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
     }
 }

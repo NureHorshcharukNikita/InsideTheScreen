@@ -33,6 +33,12 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
         Apply(false);
     }
 
+    private void OnDisable()
+    {
+        isSelected = false;
+        Apply(false);
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!IsInteractable())

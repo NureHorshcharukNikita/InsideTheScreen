@@ -12,7 +12,7 @@ public class BattleInput : MonoBehaviour
         if (battleSystem == null)
             return;
 
-        if (!Input.GetKeyDown(KeyCode.Space))
+        if (!GameInputSettings.GetKeyDown(GameInputAction.EndTurn))
             return;
 
         if (battleSystem.IsTurnTransitionInProgress)

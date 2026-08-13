@@ -10,8 +10,7 @@ public sealed class SignInteraction : MonoBehaviour
     [SerializeField] private CanvasGroup promptCanvasGroup;
     [SerializeField] private SpriteRenderer signSprite;
     [SerializeField] private Vector2 promptOffset = new(0f, 0.25f);
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
-    [SerializeField] private string interactHint = "E - Read";
+    [SerializeField] private string interactHintTemplate = "{0} - Read";
     [SerializeField] private string message = "Sign text";
     [SerializeField] private float fadeDuration = 0.2f;
 
@@ -35,7 +34,7 @@ public sealed class SignInteraction : MonoBehaviour
         if (!playerNearby || !GameStateManager.IsGameplay)
             return;
 
-        if (Input.GetKeyDown(interactKey))
+        if (GameInputSettings.GetKeyDown(GameInputAction.Interact))
             ShowMessage();
     }
 
@@ -52,7 +51,9 @@ public sealed class SignInteraction : MonoBehaviour
 
         playerNearby = true;
         messageVisible = false;
-        ShowPromptText(interactHint);
+        ShowPromptText(string.Format(
+            interactHintTemplate,
+            GameInputSettings.GetDisplayName(GameInputAction.Interact)));
     }
 
     private void OnTriggerExit2D(Collider2D other)
