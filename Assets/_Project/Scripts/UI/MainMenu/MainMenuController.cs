@@ -21,6 +21,7 @@ public sealed class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject creditsPanel;
+    [SerializeField] private MainMenuSaveSlotsPanel saveSlotsPanel;
 
     [Header("Video")]
     [SerializeField] private VideoPlayer menuVideoPlayer;
@@ -37,13 +38,26 @@ public sealed class MainMenuController : MonoBehaviour
             settingsPanel.SetActive(false);
         if (creditsPanel != null)
             creditsPanel.SetActive(false);
+        if (saveSlotsPanel != null)
+            saveSlotsPanel.gameObject.SetActive(false);
 
         RefreshContinueButton();
     }
 
     public void StartNewGame()
     {
-        ExplorationPlayerSession.Clear();
+        if (!ExplorationPlayerSession.HasAnyPersistentSession)
+        {
+            StartNewGameInSlot(0);
+            return;
+        }
+
+        ShowSaveSlots(MainMenuSaveSlotMode.NewGame);
+    }
+
+    public void StartNewGameInSlot(int slotIndex)
+    {
+        ExplorationPlayerSession.StartNewPersistentSlot(slotIndex);
         PendingBattleEnemy.ClearSession();
         DefeatedEncounters.Clear();
         EnemyEncounter.ResetEncounterIds();
@@ -54,7 +68,15 @@ public sealed class MainMenuController : MonoBehaviour
 
     public void ContinueGame()
     {
-        if (!ExplorationPlayerSession.HasSession)
+        if (!ExplorationPlayerSession.HasAnyPersistentSession)
+            return;
+
+        ShowSaveSlots(MainMenuSaveSlotMode.Continue);
+    }
+
+    public void ContinueGameFromSlot(int slotIndex)
+    {
+        if (!ExplorationPlayerSession.LoadPersistentSlot(slotIndex))
             return;
 
         string sceneName = ExplorationPlayerSession.ContinueSceneName;
@@ -64,6 +86,15 @@ public sealed class MainMenuController : MonoBehaviour
         GameStateManager.SetState(GameState.Gameplay);
         LoadingScreenRequest.SetTargetScene(sceneName);
         FadeManager.TryFadeToScene(SceneNames.Loading);
+    }
+
+    public void HideSaveSlots()
+    {
+        ClearSelectedButton();
+        if (saveSlotsPanel != null)
+            saveSlotsPanel.gameObject.SetActive(false);
+        if (menuPanel != null)
+            menuPanel.SetActive(true);
     }
 
     public void ShowSettings()
@@ -124,7 +155,16 @@ public sealed class MainMenuController : MonoBehaviour
     private void RefreshContinueButton()
     {
         if (continueButton != null)
-            continueButton.interactable = ExplorationPlayerSession.HasSession;
+            continueButton.interactable = ExplorationPlayerSession.HasAnyPersistentSession;
+    }
+
+    private void ShowSaveSlots(MainMenuSaveSlotMode mode)
+    {
+        ClearSelectedButton();
+        if (menuPanel != null)
+            menuPanel.SetActive(false);
+        if (saveSlotsPanel != null)
+            saveSlotsPanel.Show(this, mode);
     }
 
     private void CacheMenuVideoPlayer()

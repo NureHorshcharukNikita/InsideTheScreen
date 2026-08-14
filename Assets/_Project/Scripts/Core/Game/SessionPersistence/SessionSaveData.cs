@@ -5,6 +5,7 @@ public sealed class SessionSaveData
 {
     public bool hasSession;
     public string continueSceneName;
+    public long savedAtTicks;
 
     public bool hasSavedPosition;
     public float positionX;

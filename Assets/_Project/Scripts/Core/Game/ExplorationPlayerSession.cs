@@ -13,6 +13,7 @@ public static class ExplorationPlayerSession
 
     public static bool HasSession { get; private set; }
     public static string ContinueSceneName { get; private set; } = SceneNames.Exploration;
+    public static bool HasAnyPersistentSession => PersistentSessionSave.HasAnySlot();
 
     public static void SavePosition(Vector3 position)
     {
@@ -116,7 +117,6 @@ public static class ExplorationPlayerSession
 
     public static void LoadPersistentSaveIfNeeded()
     {
-#if !UNITY_EDITOR
         if (persistentLoaded)
             return;
 
@@ -127,20 +127,48 @@ public static class ExplorationPlayerSession
 
         loadedPersistentData = data;
         RestoreFrom(data);
-#endif
     }
 
     public static void SavePersistent()
     {
-#if !UNITY_EDITOR
         if (!HasSession)
             return;
 
         PersistentSessionSave.Save(CreateSaveData());
-#endif
+    }
+
+    public static bool HasPersistentSessionInSlot(int slotIndex)
+    {
+        return PersistentSessionSave.HasSlot(slotIndex);
+    }
+
+    public static void StartNewPersistentSlot(int slotIndex)
+    {
+        PersistentSessionSave.SetActiveSlot(slotIndex);
+        Clear();
+    }
+
+    public static bool LoadPersistentSlot(int slotIndex)
+    {
+        PersistentSessionSave.SetActiveSlot(slotIndex);
+        ResetRuntimeState();
+        persistentLoaded = true;
+
+        if (!PersistentSessionSave.TryLoad(out SessionSaveData data))
+            return false;
+
+        loadedPersistentData = data;
+        RestoreFrom(data);
+        return HasSession;
     }
 
     public static void Clear()
+    {
+        ResetRuntimeState();
+        PersistentSessionSave.Delete();
+    }
+
+    private static void ResetRuntimeState()
     {
         savedPosition = default;
         hasSavedPosition = false;
@@ -148,11 +176,11 @@ public static class ExplorationPlayerSession
         hasSavedHealth = false;
         runtimeInventory = null;
         runtimeDeck = null;
+        loadedPersistentData = null;
         HasSession = false;
         ContinueSceneName = SceneNames.Exploration;
-#if !UNITY_EDITOR
-        PersistentSessionSave.Delete();
-#endif
+        PendingBattleEnemy.ClearSession();
+        DefeatedEncounters.Clear();
     }
 
     private static SessionSaveData CreateSaveData()
