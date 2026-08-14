@@ -48,7 +48,8 @@ public sealed class MainMenuController : MonoBehaviour
         DefeatedEncounters.Clear();
         EnemyEncounter.ResetEncounterIds();
         GameStateManager.SetState(GameState.Gameplay);
-        FadeManager.TryFadeToScene(SceneNames.Exploration);
+        LoadingScreenRequest.SetTargetScene(SceneNames.Exploration);
+        FadeManager.TryFadeToScene(SceneNames.Loading);
     }
 
     public void ContinueGame()
@@ -61,7 +62,8 @@ public sealed class MainMenuController : MonoBehaviour
             EnemyEncounter.ResetEncounterIds();
 
         GameStateManager.SetState(GameState.Gameplay);
-        FadeManager.TryFadeToScene(sceneName);
+        LoadingScreenRequest.SetTargetScene(sceneName);
+        FadeManager.TryFadeToScene(SceneNames.Loading);
     }
 
     public void ShowSettings()

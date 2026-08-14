@@ -33,6 +33,11 @@ public class FadeManager : MonoBehaviour
             SceneManager.LoadScene(sceneName);
     }
 
+    public static void MarkFadeInAfterNextSceneLoad()
+    {
+        shouldFadeInAfterSceneLoad = true;
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
