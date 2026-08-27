@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class InventoryWindow : MonoBehaviour
 {
@@ -21,6 +25,11 @@ public class InventoryWindow : MonoBehaviour
     [Header("Top Icons")]
     [SerializeField] private List<GameObject> topIconBorders = new();
     [SerializeField] private List<GameObject> pages = new();
+
+    [Header("Pause Menu")]
+    [SerializeField] private GameObject pauseOverlay;
+    [SerializeField] private GameObject pauseMenuPanel;
+    [SerializeField] private GameObject optionsPanel;
 
     private InventoryScreenController inventoryScreenController;
     private int selectedTopIconIndex = -1;
@@ -56,6 +65,8 @@ public class InventoryWindow : MonoBehaviour
         InventoryViewUtils.Cleanup(
             inventoryCardsContent,
             deckCardsContent);
+
+        ResetPauseMenu();
     }
 
     private void Update()
@@ -116,6 +127,7 @@ public class InventoryWindow : MonoBehaviour
         inventoryScreenController.ClearSelection();
 
         inventoryPreviewPanel.Clear();
+        ResetPauseMenu();
         SelectTopIcon(0);
         Refresh();
     }
@@ -126,6 +138,48 @@ public class InventoryWindow : MonoBehaviour
 
         GameStateManager.SetState(GameState.Gameplay);
         gameObject.SetActive(false);
+    }
+
+    public void ResumeGame()
+    {
+        ClearSelectedButton();
+        ResetPauseMenu();
+    }
+
+    public void ShowOptions()
+    {
+        ClearSelectedButton();
+        if (pauseMenuPanel != null)
+            pauseMenuPanel.SetActive(false);
+        if (optionsPanel != null)
+            optionsPanel.SetActive(true);
+    }
+
+    public void HideOptions()
+    {
+        ClearSelectedButton();
+        if (optionsPanel != null)
+            optionsPanel.SetActive(false);
+        if (pauseMenuPanel != null)
+            pauseMenuPanel.SetActive(true);
+    }
+
+    public void SaveGame()
+    {
+        ClearSelectedButton();
+        SaveCurrentSession();
+    }
+
+    public void QuitGame()
+    {
+        ClearSelectedButton();
+        SaveCurrentSession();
+
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     public void Toggle()
@@ -187,12 +241,32 @@ public class InventoryWindow : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        SaveCurrentSession();
+        MainMenuNavigation.GoToMainMenu();
+    }
+
+    private void SaveCurrentSession()
+    {
         PlayerCharacter currentPlayer = FindFirstObjectByType<PlayerCharacter>();
         if (SceneManager.GetActiveScene().name == SceneNames.Battle)
             ExplorationPlayerSession.SaveBattle(currentPlayer, FindFirstObjectByType<EnemyCharacter>());
         else
             ExplorationPlayerSession.SavePlayer(currentPlayer);
+    }
 
-        MainMenuNavigation.GoToMainMenu();
+    private void ResetPauseMenu()
+    {
+        if (pauseOverlay != null)
+            pauseOverlay.SetActive(false);
+        if (pauseMenuPanel != null)
+            pauseMenuPanel.SetActive(true);
+        if (optionsPanel != null)
+            optionsPanel.SetActive(false);
+    }
+
+    private static void ClearSelectedButton()
+    {
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
     }
 }
