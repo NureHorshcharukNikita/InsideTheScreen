@@ -5,6 +5,10 @@ public sealed class DefaultDamageService : IDamageService
         if (target == null || amount < 0)
             return;
 
-        target.TakeDamage(amount);
+        int remainingDamage = target is IArmorable armorable
+            ? armorable.AbsorbDamageWithArmor(amount)
+            : amount;
+
+        target.TakeDamage(remainingDamage);
     }
 }

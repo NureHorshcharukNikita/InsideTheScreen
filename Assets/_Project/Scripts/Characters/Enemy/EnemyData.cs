@@ -13,6 +13,7 @@ public class EnemyData : ScriptableObject
 
     [Header("Health")]
     public int maxHealth = 30;
+    public int startingArmor = 0;
 
     [Header("Abilities")]
     public List<EnemyAbilityData> abilities = new();

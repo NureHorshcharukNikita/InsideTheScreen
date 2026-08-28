@@ -13,6 +13,7 @@ public class EnemyCharacter : Character
     }
 
     public override int MaxHealth => enemyData != null ? enemyData.maxHealth : 0;
+    public override int StartingArmor => enemyData != null ? enemyData.startingArmor : 0;
     public override CombatTeam Team => CombatTeam.Enemy;
 
     public EnemyData Data => enemyData;
@@ -30,6 +31,7 @@ public class EnemyCharacter : Character
         CopySpriteFrom(template);
 
         SetFullHealth();
+        SetArmor(StartingArmor);
         RefreshColliderFromSprite();
     }
 

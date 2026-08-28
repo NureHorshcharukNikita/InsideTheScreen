@@ -5,6 +5,7 @@ public class PlayerData : ScriptableObject
 {
     [Header("Health")]
     public int maxHealth = 30;
+    public int startingArmor = 0;
 
     [Header("Action Points")]
     public int maxActionPoints = 5;

@@ -10,6 +10,7 @@ public class PlayerCharacter : Character
     private DeckData runtimeDeckData;
 
     public override int MaxHealth => playerData != null ? playerData.maxHealth : 0;
+    public override int StartingArmor => playerData != null ? playerData.startingArmor : 0;
     public override CombatTeam Team => CombatTeam.Player;
 
     public InventoryData InventoryData => runtimeInventoryData;

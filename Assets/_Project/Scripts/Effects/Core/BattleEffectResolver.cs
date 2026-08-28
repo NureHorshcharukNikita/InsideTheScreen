@@ -37,7 +37,7 @@ public static class BattleEffectResolver
                 if (target == null)
                     continue;
 
-                resolved.Spec.Effect.Execute(context.Self, target, resolved.Spec.Value, runtime);
+                resolved.Spec.Effect.Execute(context.Self, target, resolved.Spec, runtime);
             }
         }
     }

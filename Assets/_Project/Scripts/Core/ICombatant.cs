@@ -1,3 +1,3 @@
-public interface ICombatant : ICombatantInfo, IDamageable, IHealable
+public interface ICombatant : ICombatantInfo, IDamageable, IHealable, IArmorable, IStatusReceiver
 {
 }

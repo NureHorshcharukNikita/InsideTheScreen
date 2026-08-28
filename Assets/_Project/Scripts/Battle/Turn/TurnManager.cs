@@ -64,6 +64,7 @@ public class TurnManager
 
         DevLog.Log("New player turn started");
 
+        TickStatus(player, BattleStatusTiming.TurnStart);
         player.RestoreActionPoints();
         deckManager.DrawCards(player.CardsDrawnPerTurn);
     }
@@ -74,6 +75,7 @@ public class TurnManager
             return false;
 
         DevLog.Log("Player turn ended");
+        TickStatus(player, BattleStatusTiming.TurnEnd);
         CurrentTurn = TurnOwner.Enemy;
         return true;
     }
@@ -82,11 +84,14 @@ public class TurnManager
     {
         DevLog.Log("Enemy turn");
 
+        TickStatus(enemy, BattleStatusTiming.TurnStart);
+
         if (enemy?.Brain != null)
         {
-            if (enemy.Brain.CurrentPlan.HasAbility)
+            if (enemy.IsAlive && enemy.Brain.CurrentPlan.HasAbility)
                 enemy.Brain.ExecutePlanned();
 
+            TickStatus(enemy, BattleStatusTiming.TurnEnd);
             AfterEnemyActed?.Invoke();
         }
     }
@@ -121,5 +126,14 @@ public class TurnManager
         if (enemy != null && enemy.Team != self.Team && enemy.IsAlive)
             enemies.Add(enemy);
         return enemies;
+    }
+
+    private void TickStatus(ICombatant combatant, BattleStatusTiming timing)
+    {
+        if (combatant == null || !combatant.IsAlive)
+            return;
+
+        BattleActionContext actionContext = BuildActionContext();
+        actionContext.Status.TickStatuses(combatant, timing, actionContext);
     }
 }

@@ -14,4 +14,9 @@ public abstract class BattleEffect : ScriptableObject
     public string Description => description;
 
     public abstract void Execute(ICombatant source, ICombatant target, int value, BattleActionContext actionContext);
+
+    public virtual void Execute(ICombatant source, ICombatant target, IBattleEffectSpec spec, BattleActionContext actionContext)
+    {
+        Execute(source, target, spec?.Value ?? 0, actionContext);
+    }
 }

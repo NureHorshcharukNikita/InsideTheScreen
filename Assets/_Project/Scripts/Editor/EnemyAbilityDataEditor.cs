@@ -77,12 +77,16 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
         int missingEffectCount = 0;
         int missingTargetingCount = 0;
         int invalidChanceCount = 0;
+        int invalidDurationCount = 0;
+        int invalidStackCount = 0;
         for (int i = 0; i < _effectsProp.arraySize; i++)
         {
             SerializedProperty entryProp = _effectsProp.GetArrayElementAtIndex(i);
             SerializedProperty effectProp = entryProp.FindPropertyRelative("effect");
             SerializedProperty targetingProp = entryProp.FindPropertyRelative("targeting");
             SerializedProperty chanceProp = entryProp.FindPropertyRelative("applyChance");
+            SerializedProperty durationProp = entryProp.FindPropertyRelative("duration");
+            SerializedProperty stacksProp = entryProp.FindPropertyRelative("stacks");
 
             if (effectProp.objectReferenceValue == null)
                 missingEffectCount++;
@@ -90,6 +94,10 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
                 missingTargetingCount++;
             if (chanceProp.floatValue < 0f || chanceProp.floatValue > 1f)
                 invalidChanceCount++;
+            if (durationProp.intValue < 0)
+                invalidDurationCount++;
+            if (stacksProp.intValue < 1)
+                invalidStackCount++;
         }
 
         if (missingEffectCount > 0)
@@ -98,5 +106,9 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
             EditorGUILayout.HelpBox($"Effect specs without targeting profile: {missingTargetingCount}. They are skipped by executor.", MessageType.Warning);
         if (invalidChanceCount > 0)
             EditorGUILayout.HelpBox($"Effect specs with invalid apply chance (expected 0..1): {invalidChanceCount}.", MessageType.Warning);
+        if (invalidDurationCount > 0)
+            EditorGUILayout.HelpBox($"Effect specs with invalid duration (expected >= 0): {invalidDurationCount}.", MessageType.Warning);
+        if (invalidStackCount > 0)
+            EditorGUILayout.HelpBox($"Effect specs with invalid stacks (expected >= 1): {invalidStackCount}.", MessageType.Warning);
     }
 }
