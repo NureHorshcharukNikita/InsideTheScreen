@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public sealed class SettingsKeyBindingRow : MonoBehaviour
@@ -19,9 +20,7 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
 
     private void Awake()
     {
-        if (rebindButton != null)
-            rebindButton.onClick.AddListener(BeginRebind);
-
+        WireRebindButton();
         Refresh();
     }
 
@@ -53,6 +52,7 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
             GameInputSettings.SetKey(action, KeyCode.None);
             isWaitingForKey = false;
             Refresh();
+            ClearSelectedButton();
             return;
         }
 
@@ -67,6 +67,7 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
             GameInputSettings.SetKey(action, keyCode);
             isWaitingForKey = false;
             Refresh();
+            ClearSelectedButton();
             return;
         }
     }
@@ -75,6 +76,7 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
     {
         isWaitingForKey = true;
         skipCurrentFrame = true;
+        SelectRebindButton();
 
         if (keyLabel != null)
             keyLabel.text = actionLabel == null
@@ -94,6 +96,40 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
                 ? string.Format(combinedLabelFormat, GetActionName(action), keyName)
                 : keyName;
         }
+    }
+
+    public void Configure(GameInputAction inputAction, TMP_Text inputActionLabel, TMP_Text inputKeyLabel, Button inputRebindButton)
+    {
+        action = inputAction;
+        actionLabel = inputActionLabel;
+        keyLabel = inputKeyLabel;
+        rebindButton = inputRebindButton;
+
+        WireRebindButton();
+        Refresh();
+    }
+
+    private void SelectRebindButton()
+    {
+        if (EventSystem.current == null || rebindButton == null)
+            return;
+
+        EventSystem.current.SetSelectedGameObject(rebindButton.gameObject);
+    }
+
+    private static void ClearSelectedButton()
+    {
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    private void WireRebindButton()
+    {
+        if (rebindButton == null)
+            return;
+
+        rebindButton.onClick.RemoveListener(BeginRebind);
+        rebindButton.onClick.AddListener(BeginRebind);
     }
 
     private static string GetActionName(GameInputAction inputAction)
