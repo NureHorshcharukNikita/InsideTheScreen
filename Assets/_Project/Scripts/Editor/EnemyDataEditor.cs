@@ -8,6 +8,8 @@ public class EnemyDataEditor : UnityEditor.Editor
     private SerializedProperty _displayNameProp;
     private SerializedProperty _descriptionProp;
     private SerializedProperty _maxHealthProp;
+    private SerializedProperty _startingArmorProp;
+    private SerializedProperty _battleSpriteProp;
     private SerializedProperty _abilitiesProp;
 
     private void OnEnable()
@@ -16,6 +18,8 @@ public class EnemyDataEditor : UnityEditor.Editor
         _displayNameProp = serializedObject.FindProperty("displayName");
         _descriptionProp = serializedObject.FindProperty("description");
         _maxHealthProp = serializedObject.FindProperty("maxHealth");
+        _startingArmorProp = serializedObject.FindProperty("startingArmor");
+        _battleSpriteProp = serializedObject.FindProperty("battleSprite");
         _abilitiesProp = serializedObject.FindProperty("abilities");
     }
 
@@ -31,6 +35,11 @@ public class EnemyDataEditor : UnityEditor.Editor
         EditorGUILayout.Space(6f);
         EditorGUILayout.LabelField("Enemy Stats", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(_maxHealthProp);
+        EditorGUILayout.PropertyField(_startingArmorProp);
+
+        EditorGUILayout.Space(6f);
+        EditorGUILayout.LabelField("Battle View", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(_battleSpriteProp);
 
         EditorGUILayout.Space(6f);
         EditorGUILayout.LabelField("Abilities", EditorStyles.boldLabel);
@@ -47,6 +56,9 @@ public class EnemyDataEditor : UnityEditor.Editor
 
         if (_maxHealthProp.intValue <= 0)
             EditorGUILayout.HelpBox("Max Health should be > 0.", MessageType.Warning);
+
+        if (_battleSpriteProp.objectReferenceValue == null)
+            EditorGUILayout.HelpBox("Battle Sprite is empty. BattleEnemyBase will keep its current sprite.", MessageType.Info);
 
         if (_abilitiesProp.arraySize == 0)
         {

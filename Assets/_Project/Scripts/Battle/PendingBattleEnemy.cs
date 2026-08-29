@@ -1,28 +1,26 @@
-using UnityEngine;
-
 public static class PendingBattleEnemy
 {
-    private static GameObject _battleEnemyPrefab;
-    private static GameObject _currentBattleEnemyPrefab;
+    private static EnemyData _enemyData;
+    private static EnemyData _currentEnemyData;
     private static int _currentEnemyHealth;
     private static bool _hasCurrentEnemyHealth;
 
     public static string EncounterId { get; private set; }
 
-    public static void RegisterEncounterStart(GameObject battleEnemyPrefab, string encounterId)
+    public static void RegisterEncounterStart(EnemyData enemyData, string encounterId)
     {
-        _battleEnemyPrefab = battleEnemyPrefab;
-        _currentBattleEnemyPrefab = battleEnemyPrefab;
+        _enemyData = enemyData;
+        _currentEnemyData = enemyData;
         _currentEnemyHealth = default;
         _hasCurrentEnemyHealth = false;
         EncounterId = encounterId;
     }
 
-    public static GameObject ConsumeBattlePrefab()
+    public static EnemyData ConsumeEnemyData()
     {
-        GameObject prefab = _battleEnemyPrefab != null ? _battleEnemyPrefab : _currentBattleEnemyPrefab;
-        _battleEnemyPrefab = null;
-        return prefab;
+        EnemyData data = _enemyData != null ? _enemyData : _currentEnemyData;
+        _enemyData = null;
+        return data;
     }
 
     public static void SaveCurrentEnemyHealth(int health)
@@ -39,8 +37,8 @@ public static class PendingBattleEnemy
 
     public static void RestoreSession(string encounterId, bool hasEnemyHealth, int enemyHealth)
     {
-        _battleEnemyPrefab = null;
-        _currentBattleEnemyPrefab = null;
+        _enemyData = null;
+        _currentEnemyData = null;
         EncounterId = encounterId;
         _hasCurrentEnemyHealth = hasEnemyHealth;
         _currentEnemyHealth = enemyHealth;
@@ -48,8 +46,8 @@ public static class PendingBattleEnemy
 
     public static void ClearSession()
     {
-        _battleEnemyPrefab = null;
-        _currentBattleEnemyPrefab = null;
+        _enemyData = null;
+        _currentEnemyData = null;
         _currentEnemyHealth = default;
         _hasCurrentEnemyHealth = false;
         EncounterId = null;

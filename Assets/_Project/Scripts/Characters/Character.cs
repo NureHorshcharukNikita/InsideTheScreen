@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(ArmorController))]
+[RequireComponent(typeof(StatusController))]
 public class Character : MonoBehaviour, ICombatant
 {
     [SerializeField] private int currentHealth = 30;
@@ -20,8 +22,9 @@ public class Character : MonoBehaviour, ICombatant
     {
         add
         {
-            EnsureArmorController();
-            armorController.ArmorChanged += value;
+            CacheRequiredComponents();
+            if (armorController != null)
+                armorController.ArmorChanged += value;
         }
         remove
         {
@@ -32,8 +35,7 @@ public class Character : MonoBehaviour, ICombatant
 
     protected virtual void Awake()
     {
-        EnsureArmorController();
-        EnsureStatusController();
+        CacheRequiredComponents();
 
         SetFullHealth();
         SetArmor(StartingArmor);
@@ -71,57 +73,44 @@ public class Character : MonoBehaviour, ICombatant
 
     public void AddArmor(int amount)
     {
-        EnsureArmorController();
-        armorController.AddArmor(amount);
+        armorController?.AddArmor(amount);
     }
 
     public void SetArmor(int amount)
     {
-        EnsureArmorController();
-        armorController.SetArmor(amount);
+        armorController?.SetArmor(amount);
     }
 
     public int AbsorbDamageWithArmor(int amount)
     {
-        EnsureArmorController();
-        return armorController.AbsorbDamage(amount);
+        return armorController != null
+            ? armorController.AbsorbDamage(amount)
+            : amount;
     }
 
     public void ClearArmor()
     {
-        EnsureArmorController();
-        armorController.ClearArmor();
+        armorController?.ClearArmor();
     }
 
     public void ApplyStatus(StatusEffect status, int duration, int stacks, int value, ICombatant source, BattleActionContext actionContext)
     {
-        EnsureStatusController();
-        statusController.ApplyStatus(status, duration, stacks, value, source, this, actionContext);
+        statusController?.ApplyStatus(status, duration, stacks, value, source, this, actionContext);
     }
 
     public void TickStatuses(BattleStatusTiming timing, BattleActionContext actionContext)
     {
-        EnsureStatusController();
-        statusController.TickStatuses(this, timing, actionContext);
+        statusController?.TickStatuses(this, timing, actionContext);
     }
 
-    private void EnsureArmorController()
+    private void CacheRequiredComponents()
     {
-        if (armorController != null)
-            return;
-
         armorController = GetComponent<ArmorController>();
         if (armorController == null)
-            armorController = gameObject.AddComponent<ArmorController>();
-    }
-
-    private void EnsureStatusController()
-    {
-        if (statusController != null)
-            return;
+            Debug.LogError($"{nameof(ArmorController)} is missing on {name}.", this);
 
         statusController = GetComponent<StatusController>();
         if (statusController == null)
-            statusController = gameObject.AddComponent<StatusController>();
+            Debug.LogError($"{nameof(StatusController)} is missing on {name}.", this);
     }
 }

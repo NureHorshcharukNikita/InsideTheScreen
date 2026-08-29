@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyEncounter : MonoBehaviour
 {
-    [SerializeField] private GameObject battleEnemyPrefab;
+    [SerializeField] private EnemyData enemyData;
     [SerializeField] private float playerReturnOffset = 1.25f;
 
     private static int nextEncounterId = 1;
@@ -43,7 +43,7 @@ public class EnemyEncounter : MonoBehaviour
                 playerMovement.enabled = false;
             }
 
-            PendingBattleEnemy.RegisterEncounterStart(battleEnemyPrefab, encounterId);
+            PendingBattleEnemy.RegisterEncounterStart(enemyData, encounterId);
             FadeManager.TryFadeToScene(SceneNames.Battle);
         }
     }

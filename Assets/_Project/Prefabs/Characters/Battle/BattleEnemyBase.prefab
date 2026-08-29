@@ -13,11 +13,14 @@ GameObject:
   - component: {fileID: 4362077912638896549}
   - component: {fileID: 8634195197656089229}
   - component: {fileID: 4718293655012847364}
-  - component: {fileID: 9123887846233731901}
-  - component: {fileID: 9123887846233731902}
+  - component: {fileID: 7000000000000000011}
+  - component: {fileID: 7000000000000000012}
+  - component: {fileID: 7000000000000000013}
+  - component: {fileID: 7000000000000000014}
+  - component: {fileID: 7000000000000000015}
   m_Layer: 0
-  m_Name: Enemy_Troll
-  m_TagString: Enemy
+  m_Name: BattleEnemyBase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 1.22, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -86,15 +89,15 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 0db844707c83d3145911544c951a53e4, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 9.33, y: 8.67}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4362077912638896549
 MonoBehaviour:
@@ -106,10 +109,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 326c2caf2fcca9946ae11db6c5f9f3dc, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
-  currentHealth: 110
-  enemyData: {fileID: 11400000, guid: 7c93b3b42f664d619a259063b602052e, type: 2}
+  currentHealth: 0
+  enemyData: {fileID: 0}
 --- !u!61 &8634195197656089229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,17 +147,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 4.335}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 9.33, y: 8.67}
-    newSize: {x: 9.33, y: 8.67}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 9.33, y: 8.67}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &4718293655012847364
 MonoBehaviour:
@@ -166,12 +169,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4b8a912c37f4d2eb5f601a8c9d7e332, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::BoxCollider2DSpriteSync
   useManualSize: 0
   syncWidthToSprite: 0
   syncHeightToSprite: 0
---- !u!114 &9123887846233731901
+--- !u!114 &7000000000000000011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307414355194484910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6650a390c7384f15853d32e9e3ed5731, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::ArmorController
+--- !u!114 &7000000000000000012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307414355194484910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f3056050274adcaff313982bd1751f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::StatusController
+--- !u!114 &7000000000000000013
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,11 +208,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3543f3213afae0143b6414e714e96683, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterClickable
   battleSystem: {fileID: 0}
   target: {fileID: 4362077912638896549}
---- !u!114 &9123887846233731902
+--- !u!114 &7000000000000000014
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,6 +222,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14e0251403f7afb45bffc0d4813214e2, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBrain
   opponent: {fileID: 0}
+--- !u!114 &7000000000000000015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307414355194484910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88441c54ade841508bd84a9468e80d2b, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackLungeAnimation
+  lungeDuration: 0.28
+  returnDuration: 0.22
+  impactDistance: 1.15
+  impactPause: 0.08
+  impactPunchScale: 0.12
+  targetPunchDistance: 0.12
+  sortingOrderBoost: 10

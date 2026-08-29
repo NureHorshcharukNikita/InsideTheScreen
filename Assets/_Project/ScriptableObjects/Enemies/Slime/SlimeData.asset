@@ -17,6 +17,7 @@ MonoBehaviour:
   description: Balanced enemy that attacks with acid and reforms when wounded.
   maxHealth: 40
   healthBarAnchorAlongSprite: 0
+  battleSprite: {fileID: 21300000, guid: ac79dc239e6942945a7454750f0afe5a, type: 3}
   abilities:
   - {fileID: 11400000, guid: beb9137195494bca908e461f5b3ac3e7, type: 2}
   - {fileID: 11400000, guid: 6974bf61b11b4ba190190d0bfd28cca5, type: 2}

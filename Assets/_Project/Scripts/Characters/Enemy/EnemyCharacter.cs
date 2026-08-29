@@ -22,31 +22,29 @@ public class EnemyCharacter : Character
         ? enemyData.abilities
         : System.Array.Empty<EnemyAbilityData>();
 
-    public void ApplyEncounterTemplate(EnemyCharacter template)
+    public void ApplyData(EnemyData data)
     {
-        if (template == null)
+        if (data == null)
             return;
 
-        enemyData = template.Data;
-        CopySpriteFrom(template);
+        enemyData = data;
+        ApplyBattleSprite(data.battleSprite);
 
         SetFullHealth();
         SetArmor(StartingArmor);
-        RefreshColliderFromSprite();
     }
 
-    private void CopySpriteFrom(EnemyCharacter template)
+    private void ApplyBattleSprite(Sprite sprite)
     {
-        SpriteRenderer from = template.GetComponent<SpriteRenderer>();
-        SpriteRenderer to = GetComponent<SpriteRenderer>();
+        if (sprite == null)
+            return;
 
-        if (from?.sprite != null && to != null)
-            to.sprite = from.sprite;
-    }
-
-    private void RefreshColliderFromSprite()
-    {
-        if (TryGetComponent(out BoxCollider2DSpriteSync colliderSync))
-            colliderSync.RefreshFromSprite();
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = sprite;
+            if (TryGetComponent(out BoxCollider2DSpriteSync colliderSync))
+                colliderSync.RefreshFromSprite();
+        }
     }
 }

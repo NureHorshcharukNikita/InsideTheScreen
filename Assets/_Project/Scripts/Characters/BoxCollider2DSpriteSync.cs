@@ -60,4 +60,17 @@ public class BoxCollider2DSpriteSync : MonoBehaviour
     }
 
     public void RefreshFromSprite() => Sync();
+
+    public void ApplyManualBounds(Vector2 offset, Vector2 size)
+    {
+        useManualSize = true;
+        syncWidthToSprite = false;
+        syncHeightToSprite = false;
+
+        foreach (BoxCollider2D box in GetComponents<BoxCollider2D>())
+        {
+            box.offset = offset;
+            box.size = new Vector2(Mathf.Max(0f, size.x), Mathf.Max(0f, size.y));
+        }
+    }
 }

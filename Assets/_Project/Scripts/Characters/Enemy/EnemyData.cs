@@ -15,6 +15,9 @@ public class EnemyData : ScriptableObject
     public int maxHealth = 30;
     public int startingArmor = 0;
 
+    [Header("Battle View")]
+    public Sprite battleSprite;
+
     [Header("Abilities")]
     public List<EnemyAbilityData> abilities = new();
 }

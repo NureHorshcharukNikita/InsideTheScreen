@@ -17,6 +17,7 @@ MonoBehaviour:
   description: Fast enemy that bites often and howls to recover when wounded.
   maxHealth: 60
   healthBarAnchorAlongSprite: 0
+  battleSprite: {fileID: 21300000, guid: 22c2c4f974c8876429c286979b202856, type: 3}
   abilities:
   - {fileID: 11400000, guid: e0cd9b7507de5e945abcb227a38f70bc, type: 2}
   - {fileID: 11400000, guid: 06f3d8ac8b7c8b146b909ecab77725fe, type: 2}

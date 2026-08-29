@@ -17,6 +17,7 @@ MonoBehaviour:
   description: Durable enemy that hits hard and can regenerate a large amount of
     health.
   maxHealth: 80
+  battleSprite: {fileID: 21300000, guid: 0db844707c83d3145911544c951a53e4, type: 3}
   abilities:
   - {fileID: 11400000, guid: 3737b7d5e36f4dfa9c643726bd059fda, type: 2}
   - {fileID: 11400000, guid: 4a7c0524886b44c4a19e0a2da08b8854, type: 2}
