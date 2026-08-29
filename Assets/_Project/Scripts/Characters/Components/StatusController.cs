@@ -1,9 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StatusController : MonoBehaviour
 {
     private readonly List<ActiveStatusEffect> statuses = new();
+
+    public IReadOnlyList<ActiveStatusEffect> Statuses => statuses;
+
+    public event Action StatusesChanged;
 
     public void ApplyStatus(StatusEffect status, int duration, int stacks, int value, ICombatant source, ICombatant target, BattleActionContext actionContext)
     {
@@ -15,12 +20,14 @@ public class StatusController : MonoBehaviour
         {
             existing.Refresh(duration, stacks, value, source);
             status.OnApply(existing, target, actionContext);
+            StatusesChanged?.Invoke();
             return;
         }
 
         ActiveStatusEffect activeStatus = new(status, duration, stacks, value, source);
         statuses.Add(activeStatus);
         status.OnApply(activeStatus, target, actionContext);
+        StatusesChanged?.Invoke();
     }
 
     public void TickStatuses(ICombatant target, BattleStatusTiming timing, BattleActionContext actionContext)
@@ -28,13 +35,17 @@ public class StatusController : MonoBehaviour
         if (target == null)
             return;
 
+        bool changed = false;
         for (int i = statuses.Count - 1; i >= 0; i--)
         {
             ActiveStatusEffect activeStatus = statuses[i];
             activeStatus.Status.Tick(activeStatus, target, timing, actionContext);
 
             if (timing == BattleStatusTiming.TurnEnd)
+            {
                 activeStatus.ReduceDuration();
+                changed = true;
+            }
 
             if (!activeStatus.IsExpired)
                 continue;
@@ -42,5 +53,8 @@ public class StatusController : MonoBehaviour
             activeStatus.Status.OnExpire(activeStatus, target, actionContext);
             statuses.RemoveAt(i);
         }
+
+        if (changed)
+            StatusesChanged?.Invoke();
     }
 }

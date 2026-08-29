@@ -8,6 +8,10 @@ public partial class HealthBarUI : MonoBehaviour
     [SerializeField] private RectTransform hpFill;
     [SerializeField] private TMP_Text hpText;
 
+    [Header("Effects")]
+    [SerializeField] private Sprite armorIcon;
+    [SerializeField] private Vector2 effectsOffset = new(0f, -7f);
+
     [SerializeField] private float belowSpritePadding = 4f;
 
     private RectTransform _rect;
@@ -17,6 +21,7 @@ public partial class HealthBarUI : MonoBehaviour
     {
         _rect = (RectTransform)transform;
         _canvas = GetComponentInParent<Canvas>();
+        InitializeEffectsView();
     }
 
     private void OnEnable()
@@ -25,7 +30,9 @@ public partial class HealthBarUI : MonoBehaviour
             return;
 
         target.HealthChanged += RefreshHealth;
+        SubscribeEffects(target);
         RefreshHealth(target.CurrentHealth, target.MaxHealth);
+        RefreshEffects();
     }
 
     private void OnDisable()
@@ -34,6 +41,7 @@ public partial class HealthBarUI : MonoBehaviour
             return;
 
         target.HealthChanged -= RefreshHealth;
+        UnsubscribeEffects(target);
     }
 
     private void LateUpdate()

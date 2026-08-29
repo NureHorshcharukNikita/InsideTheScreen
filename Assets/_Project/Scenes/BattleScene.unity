@@ -3730,6 +3730,8 @@ MonoBehaviour:
   background: {fileID: 492598783}
   hpFill: {fileID: 1022814606}
   hpText: {fileID: 942480746}
+  armorIcon: {fileID: 21300000, guid: 1b00539bd5cbbbe4195c3f7073d0aae4, type: 3}
+  effectsOffset: {x: 0, y: -7}
   belowSpritePadding: 4
 --- !u!1 &1105991613
 GameObject:
@@ -3785,6 +3787,8 @@ MonoBehaviour:
   background: {fileID: 1853134097}
   hpFill: {fileID: 832237185}
   hpText: {fileID: 1518911279}
+  armorIcon: {fileID: 21300000, guid: 1b00539bd5cbbbe4195c3f7073d0aae4, type: 3}
+  effectsOffset: {x: 0, y: -7}
   belowSpritePadding: 4
 --- !u!1 &1162062482
 GameObject:

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ArmorController))]
@@ -14,10 +15,28 @@ public class Character : MonoBehaviour, ICombatant
     public virtual int StartingArmor => 0;
     public int CurrentHealth => currentHealth;
     public int Armor => armorController != null ? armorController.Armor : 0;
+    public IReadOnlyList<ActiveStatusEffect> Statuses => statusController != null
+        ? statusController.Statuses
+        : Array.Empty<ActiveStatusEffect>();
     public virtual CombatTeam Team => CombatTeam.Neutral;
     public bool IsAlive => CurrentHealth > 0;
 
     public event Action<int, int> HealthChanged;
+    public event Action StatusesChanged
+    {
+        add
+        {
+            CacheRequiredComponents();
+            if (statusController != null)
+                statusController.StatusesChanged += value;
+        }
+        remove
+        {
+            if (statusController != null)
+                statusController.StatusesChanged -= value;
+        }
+    }
+
     public event Action<int> ArmorChanged
     {
         add
