@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6650a390c7384f15853d32e9e3ed5731, type: 3}
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::ArmorController
+  displayData: {fileID: 11400000, guid: 6b7f4df369e8408e94f0e34c6aa62665, type: 2}
 --- !u!114 &7000000000000000012
 MonoBehaviour:
   m_ObjectHideFlags: 0

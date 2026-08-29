@@ -11,10 +11,39 @@ public abstract class StatusEffect : ScriptableObject
 
     [SerializeField] private Sprite icon;
 
+    [Header("Display")]
+    [SerializeField] private BattleEffectDisplayData displayData;
+
     public string StatusID => statusID;
     public string StatusName => statusName;
     public string Description => description;
     public Sprite Icon => icon;
+
+    public BattleEffectDisplayEntry CreateDisplayEntry(ActiveStatusEffect status)
+    {
+        string fallbackTitle = string.IsNullOrWhiteSpace(statusName) ? name : statusName;
+        string fallbackLabel = string.IsNullOrWhiteSpace(fallbackTitle) ? "S" : fallbackTitle[..1];
+        string badgeValue = status.Stacks > 1
+            ? status.Stacks.ToString()
+            : status.Duration.ToString();
+
+        if (displayData != null)
+        {
+            return displayData.CreateEntry(
+                fallbackTitle,
+                description,
+                status.Value,
+                status.Duration,
+                status.Stacks);
+        }
+
+        return new BattleEffectDisplayEntry(
+            icon,
+            fallbackLabel,
+            badgeValue,
+            fallbackTitle,
+            description);
+    }
 
     public virtual void OnApply(ActiveStatusEffect status, ICombatant target, BattleActionContext actionContext)
     {

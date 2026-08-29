@@ -10,10 +10,10 @@ public sealed class BattleEffectBadgeUI : MonoBehaviour, IPointerEnterHandler, I
     private string tooltipTitle;
     private string tooltipBody;
 
-    public void Build(Sprite icon, string fallbackLabel, string value, string title, string body)
+    public void Build(BattleEffectDisplayEntry entry)
     {
-        tooltipTitle = title;
-        tooltipBody = body;
+        tooltipTitle = entry.Title;
+        tooltipBody = entry.Tooltip;
 
         Image background = gameObject.AddComponent<Image>();
         background.color = new Color(0.03f, 0.025f, 0.025f, 0.28f);
@@ -22,8 +22,8 @@ public sealed class BattleEffectBadgeUI : MonoBehaviour, IPointerEnterHandler, I
         RectTransform rect = (RectTransform)transform;
         rect.sizeDelta = new Vector2(55f, 49f);
 
-        CreateIcon(icon, fallbackLabel);
-        CreateValue(value);
+        CreateIcon(entry.Icon, entry.FallbackLabel);
+        CreateValue(entry.BadgeValue);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

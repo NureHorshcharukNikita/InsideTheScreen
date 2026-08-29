@@ -107,6 +107,15 @@ public class Character : MonoBehaviour, ICombatant
             : amount;
     }
 
+    public bool TryCreateArmorDisplayEntry(out BattleEffectDisplayEntry entry)
+    {
+        if (armorController != null)
+            return armorController.TryCreateDisplayEntry(out entry);
+
+        entry = default;
+        return false;
+    }
+
     public void ClearArmor()
     {
         armorController?.ClearArmor();

@@ -69,15 +69,8 @@ public partial class HealthBarUI
         if (target == null)
             return;
 
-        if (target.Armor > 0)
-        {
-            AddEffectBadge(
-                armorIcon,
-                "A",
-                target.Armor.ToString(),
-                "Armor",
-                $"Blocks incoming damage before health.\nCurrent armor: {target.Armor}");
-        }
+        if (target.TryCreateArmorDisplayEntry(out BattleEffectDisplayEntry armorEntry))
+            AddEffectBadge(armorEntry);
 
         foreach (ActiveStatusEffect status in target.Statuses)
         {
@@ -86,31 +79,20 @@ public partial class HealthBarUI
             if (status.Duration <= 0)
                 continue;
 
-            string value = status.Stacks > 1
-                ? status.Stacks.ToString()
-                : status.Duration.ToString();
-            string title = string.IsNullOrWhiteSpace(status.Status.StatusName)
-                ? status.Status.name
-                : status.Status.StatusName;
-            string description = string.IsNullOrWhiteSpace(status.Status.Description)
-                ? "Active effect."
-                : status.Status.Description;
-            string body = $"{description}\nDuration: {status.Duration}\nStacks: {status.Stacks}";
-
-            AddEffectBadge(status.Status.Icon, "S", value, title, body);
+            AddEffectBadge(status.Status.CreateDisplayEntry(status));
         }
 
         UpdateEffectsLayout();
         effectsRoot.gameObject.SetActive(effectBadges.Count > 0);
     }
 
-    private void AddEffectBadge(Sprite icon, string fallbackLabel, string value, string title, string body)
+    private void AddEffectBadge(BattleEffectDisplayEntry entry)
     {
-        GameObject badgeObject = new(title, typeof(RectTransform));
+        GameObject badgeObject = new(entry.Title, typeof(RectTransform));
         badgeObject.transform.SetParent(effectsRoot, false);
 
         BattleEffectBadgeUI badge = badgeObject.AddComponent<BattleEffectBadgeUI>();
-        badge.Build(icon, fallbackLabel, value, title, body);
+        badge.Build(entry);
 
         effectBadges.Add(badgeObject);
     }

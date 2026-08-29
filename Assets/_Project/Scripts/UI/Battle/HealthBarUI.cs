@@ -9,7 +9,6 @@ public partial class HealthBarUI : MonoBehaviour
     [SerializeField] private TMP_Text hpText;
 
     [Header("Effects")]
-    [SerializeField] private Sprite armorIcon;
     [SerializeField] private Vector2 effectsOffset = new(0f, -7f);
 
     [SerializeField] private float belowSpritePadding = 4f;

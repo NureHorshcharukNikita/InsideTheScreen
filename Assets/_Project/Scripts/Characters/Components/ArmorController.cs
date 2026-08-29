@@ -3,11 +3,25 @@ using UnityEngine;
 
 public class ArmorController : MonoBehaviour
 {
+    [SerializeField] private BattleEffectDisplayData displayData;
+
     private int armor;
 
     public int Armor => armor;
 
     public event Action<int> ArmorChanged;
+
+    public bool TryCreateDisplayEntry(out BattleEffectDisplayEntry entry)
+    {
+        if (armor <= 0 || displayData == null)
+        {
+            entry = default;
+            return false;
+        }
+
+        entry = displayData.CreateEntry(displayData.name, string.Empty, armor, 0, 1);
+        return true;
+    }
 
     public void AddArmor(int amount)
     {
