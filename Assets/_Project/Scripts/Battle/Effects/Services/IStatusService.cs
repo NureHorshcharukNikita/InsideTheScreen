@@ -7,6 +7,7 @@ public interface IStatusService
         int duration,
         int stacks,
         int value,
+        BattleStatusReapplyMode reapplyMode,
         BattleActionContext actionContext);
 
     void TickStatuses(IStatusReceiver target, BattleStatusTiming timing, BattleActionContext actionContext);

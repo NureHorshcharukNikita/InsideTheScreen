@@ -500,6 +500,12 @@ public class ConditionCreatorWindow : EditorWindow
         _coreDataTypes.Add(typeof(PlayerData));
         _coreDataTypes.Add(typeof(DeckData));
         _coreDataTypes.Add(typeof(InventoryData));
+        _coreDataTypes.Add(typeof(BattleEffectDisplayData));
+        foreach (Type type in TypeCache.GetTypesDerivedFrom<BattleStatus>())
+        {
+            if (!type.IsAbstract)
+                _coreDataTypes.Add(type);
+        }
 
         _coreDataTypeNames = _coreDataTypes.Select(type => type.Name).ToArray();
         _coreDataTypeIndex = Mathf.Clamp(_coreDataTypeIndex, 0, Mathf.Max(0, _coreDataTypes.Count - 1));
@@ -594,6 +600,8 @@ public class ConditionCreatorWindow : EditorWindow
         LoadCoreDataAssets<PlayerData>();
         LoadCoreDataAssets<DeckData>();
         LoadCoreDataAssets<InventoryData>();
+        LoadCoreDataAssets<BattleEffectDisplayData>();
+        LoadCoreDataAssets<BattleStatus>();
 
         _conditions.Sort((left, right) => string.Compare(left.name, right.name, StringComparison.OrdinalIgnoreCase));
         _effects.Sort((left, right) => string.Compare(left.name, right.name, StringComparison.OrdinalIgnoreCase));

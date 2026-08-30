@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   maxHealth: 30
+  startingArmor: 0
   maxActionPoints: 5
   startActionPoints: 4
   actionPointsPerTurn: 2

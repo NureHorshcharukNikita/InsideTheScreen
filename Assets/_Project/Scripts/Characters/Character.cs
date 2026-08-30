@@ -112,9 +112,9 @@ public class Character : MonoBehaviour, ICombatant
         armorController?.ClearArmor();
     }
 
-    public void ApplyStatus(BattleStatus status, int duration, int stacks, int value, ICombatant source, BattleActionContext actionContext)
+    public void ApplyStatus(BattleStatus status, int duration, int stacks, int value, ICombatant source, BattleStatusReapplyMode reapplyMode, BattleActionContext actionContext)
     {
-        statusController?.ApplyStatus(status, duration, stacks, value, source, this, actionContext);
+        statusController?.ApplyStatus(status, duration, stacks, value, source, this, reapplyMode, actionContext);
     }
 
     public void TickStatuses(BattleStatusTiming timing, BattleActionContext actionContext)

@@ -21,6 +21,8 @@ public class StatusApplicationSpec : IStatusApplicationSpec
     [Range(0f, 1f)]
     public float applyChance = 1f;
 
+    public StatusApplicationReapplyMode reapplyMode;
+
     public List<BattleEffectConditionSpec> conditions = new();
 
     public BattleStatus Status => status;
@@ -29,5 +31,6 @@ public class StatusApplicationSpec : IStatusApplicationSpec
     public int Duration => duration;
     public int Stacks => stacks;
     public float ApplyChance => applyChance;
+    public StatusApplicationReapplyMode ReapplyMode => reapplyMode;
     public IReadOnlyList<BattleEffectConditionSpec> Conditions => conditions;
 }

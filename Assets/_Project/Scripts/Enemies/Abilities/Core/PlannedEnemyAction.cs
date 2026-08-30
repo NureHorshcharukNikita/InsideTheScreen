@@ -15,8 +15,8 @@ public readonly struct PlannedEnemyAction
         if (!HasAbility)
             return "";
 
-        if (!string.IsNullOrWhiteSpace(Ability.intentSummary))
-            return Ability.intentSummary.Trim();
+        if (!string.IsNullOrWhiteSpace(Ability.IntentSummary))
+            return Ability.IntentSummary.Trim();
 
         if (!string.IsNullOrWhiteSpace(Ability.displayName))
             return Ability.displayName.Trim();

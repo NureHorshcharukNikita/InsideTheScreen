@@ -93,6 +93,74 @@ public partial class CardCreatorWindow
         }
     }
 
+    private void DrawStatusesListPanel()
+    {
+        using (new EditorGUILayout.VerticalScope(GUILayout.MinWidth(620)))
+        {
+            EditorGUILayout.LabelField("Battle Statuses", EditorStyles.boldLabel);
+            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+            {
+                _statusesFolder = EditorGUILayout.TextField("Statuses Folder", _statusesFolder);
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    _newStatusName = EditorGUILayout.TextField("New Status Name", _newStatusName);
+                    if (_statusTypes.Count > 0)
+                        _statusTypeIndex = EditorGUILayout.Popup(_statusTypeIndex, _statusTypeNames, GUILayout.Width(170));
+
+                    using (new EditorGUI.DisabledScope(_statusTypes.Count == 0))
+                    {
+                        if (GUILayout.Button("Create", GUILayout.Width(110), GUILayout.Height(24)))
+                            CreateStatusAsset();
+                    }
+                }
+
+                _statusSearch = EditorGUILayout.TextField("Search", _statusSearch);
+            }
+
+            EditorGUILayout.Space(6);
+            _leftScroll = EditorGUILayout.BeginScrollView(_leftScroll, GUI.skin.box);
+            foreach (BattleStatus status in _statuses.Where(MatchStatusSearch))
+            {
+                if (status == null)
+                    continue;
+                DrawStatusRow(_statuses.IndexOf(status), status);
+            }
+
+            EditorGUILayout.EndScrollView();
+        }
+    }
+
+    private void DrawDisplaysListPanel()
+    {
+        using (new EditorGUILayout.VerticalScope(GUILayout.MinWidth(620)))
+        {
+            EditorGUILayout.LabelField("Effect Displays", EditorStyles.boldLabel);
+            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+            {
+                _displaysFolder = EditorGUILayout.TextField("Displays Folder", _displaysFolder);
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    _newDisplayName = EditorGUILayout.TextField("New Display Name", _newDisplayName);
+                    if (GUILayout.Button("Create", GUILayout.Width(110), GUILayout.Height(24)))
+                        CreateDisplayAsset();
+                }
+
+                _displaySearch = EditorGUILayout.TextField("Search", _displaySearch);
+            }
+
+            EditorGUILayout.Space(6);
+            _leftScroll = EditorGUILayout.BeginScrollView(_leftScroll, GUI.skin.box);
+            foreach (BattleEffectDisplayData display in _displays.Where(MatchDisplaySearch))
+            {
+                if (display == null)
+                    continue;
+                DrawDisplayRow(_displays.IndexOf(display), display);
+            }
+
+            EditorGUILayout.EndScrollView();
+        }
+    }
+
     private void DrawCardsTableHeader(Rect rowRect)
     {
         DrawTableBackground(rowRect, new Color(0f, 0f, 0f, 0.14f));
@@ -184,7 +252,63 @@ public partial class CardCreatorWindow
         HandleRowSelectionAndContextMenu(rowRect, index, isCardRow: false);
     }
 
+    private void DrawStatusRow(int index, BattleStatus status)
+    {
+        string displayName = string.IsNullOrWhiteSpace(status.StatusName) ? status.name : status.StatusName;
+        string typeName = status.GetType().Name;
+        string assetPath = AssetDatabase.GetAssetPath(status);
+        bool selected = _selectedStatusIndex == index;
+        Rect rowRect = GUILayoutUtility.GetRect(10f, 22f, GUILayout.ExpandWidth(true));
+        if (Event.current.type == EventType.Repaint)
+            EditorGUI.DrawRect(rowRect, selected ? new Color(0.24f, 0.45f, 0.85f, 0.45f) : new Color(0f, 0f, 0f, 0.08f));
+
+        Rect nameRect = new Rect(rowRect.x + 6f, rowRect.y + 2f, _effectColName - 6f, rowRect.height - 4f);
+        Rect typeRect = new Rect(nameRect.xMax + 6f, rowRect.y + 2f, _effectColType - 6f, rowRect.height - 4f);
+        Rect pathRect = new Rect(typeRect.xMax + 6f, rowRect.y + 2f, Mathf.Max(40f, rowRect.width - (typeRect.xMax - rowRect.x) - 12f), rowRect.height - 4f);
+
+        EditorGUI.LabelField(nameRect, displayName);
+        EditorGUI.LabelField(typeRect, typeName);
+        EditorGUI.LabelField(pathRect, assetPath);
+        DrawVerticalLine(nameRect.xMax + 3f, rowRect);
+        DrawVerticalLine(typeRect.xMax + 3f, rowRect);
+        HandleRowSelectionAndContextMenu(rowRect, index, RowKind.Status);
+    }
+
+    private void DrawDisplayRow(int index, BattleEffectDisplayData display)
+    {
+        string typeName = display.GetType().Name;
+        string assetPath = AssetDatabase.GetAssetPath(display);
+        bool selected = _selectedDisplayIndex == index;
+        Rect rowRect = GUILayoutUtility.GetRect(10f, 22f, GUILayout.ExpandWidth(true));
+        if (Event.current.type == EventType.Repaint)
+            EditorGUI.DrawRect(rowRect, selected ? new Color(0.24f, 0.45f, 0.85f, 0.45f) : new Color(0f, 0f, 0f, 0.08f));
+
+        Rect nameRect = new Rect(rowRect.x + 6f, rowRect.y + 2f, _effectColName - 6f, rowRect.height - 4f);
+        Rect typeRect = new Rect(nameRect.xMax + 6f, rowRect.y + 2f, _effectColType - 6f, rowRect.height - 4f);
+        Rect pathRect = new Rect(typeRect.xMax + 6f, rowRect.y + 2f, Mathf.Max(40f, rowRect.width - (typeRect.xMax - rowRect.x) - 12f), rowRect.height - 4f);
+
+        EditorGUI.LabelField(nameRect, display.name);
+        EditorGUI.LabelField(typeRect, typeName);
+        EditorGUI.LabelField(pathRect, assetPath);
+        DrawVerticalLine(nameRect.xMax + 3f, rowRect);
+        DrawVerticalLine(typeRect.xMax + 3f, rowRect);
+        HandleRowSelectionAndContextMenu(rowRect, index, RowKind.Display);
+    }
+
+    private enum RowKind
+    {
+        Card,
+        InstantEffect,
+        Status,
+        Display
+    }
+
     private void HandleRowSelectionAndContextMenu(Rect rowRect, int index, bool isCardRow)
+    {
+        HandleRowSelectionAndContextMenu(rowRect, index, isCardRow ? RowKind.Card : RowKind.InstantEffect);
+    }
+
+    private void HandleRowSelectionAndContextMenu(Rect rowRect, int index, RowKind rowKind)
     {
         Event currentEvent = Event.current;
         if (!rowRect.Contains(currentEvent.mousePosition))
@@ -192,19 +316,31 @@ public partial class CardCreatorWindow
 
         if (currentEvent.type == EventType.MouseDown && currentEvent.button == 0)
         {
-            if (isCardRow) SelectCard(index); else SelectEffect(index);
+            SelectRow(index, rowKind);
             currentEvent.Use();
             return;
         }
 
         if (currentEvent.type == EventType.ContextClick)
         {
-            if (isCardRow) SelectCard(index); else SelectEffect(index);
+            SelectRow(index, rowKind);
             var menu = new GenericMenu();
             menu.AddItem(new GUIContent("Delete"), false, DeleteSelectedAssetWithConfirm);
             menu.ShowAsContext();
             currentEvent.Use();
         }
+    }
+
+    private void SelectRow(int index, RowKind rowKind)
+    {
+        if (rowKind == RowKind.Card)
+            SelectCard(index);
+        else if (rowKind == RowKind.InstantEffect)
+            SelectEffect(index);
+        else if (rowKind == RowKind.Status)
+            SelectStatus(index);
+        else
+            SelectDisplay(index);
     }
 
     private static void DrawTableBackground(Rect rect, Color color)

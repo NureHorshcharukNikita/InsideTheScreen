@@ -33,6 +33,8 @@ public class CardDataEditor : UnityEditor.Editor
         EditorGUILayout.PropertyField(_cardIdProp);
         EditorGUILayout.PropertyField(_cardNameProp);
         EditorGUILayout.PropertyField(_descriptionProp);
+        DrawDescriptionTemplateHelp();
+        DrawFormattedPreview();
         EditorGUILayout.PropertyField(_iconProp);
 
         EditorGUILayout.Space(6f);
@@ -131,6 +133,30 @@ public class CardDataEditor : UnityEditor.Editor
             EditorGUILayout.HelpBox($"Status applications with invalid duration (expected >= 0): {invalidDurationCount}.", MessageType.Warning);
         if (invalidStackCount > 0)
             EditorGUILayout.HelpBox($"Status applications with invalid stacks (expected >= 1): {invalidStackCount}.", MessageType.Warning);
+    }
+
+    private void DrawDescriptionTemplateHelp()
+    {
+        EditorGUILayout.HelpBox(
+            "Description supports: {value}, {duration}, {stacks}, {chance}, {effect}, {status}. " +
+            "For exact entries use: {instant0.value}, {instant0.effect}, {status0.value}, {status0.status}, {status0.duration}.",
+            MessageType.Info);
+    }
+
+    private void DrawFormattedPreview()
+    {
+        CardData card = target as CardData;
+        if (card == null)
+            return;
+
+        string preview = card.Description;
+        if (string.IsNullOrWhiteSpace(preview))
+            return;
+
+        using (new EditorGUI.DisabledScope(true))
+        {
+            EditorGUILayout.TextArea(preview, GUILayout.MinHeight(34f));
+        }
     }
 
     private static int CountEmptyConditions(SerializedProperty conditionsProp)

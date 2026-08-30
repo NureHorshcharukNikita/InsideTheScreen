@@ -21,7 +21,8 @@ public class CardData : ScriptableObject
 
     public string CardID => cardID;
     public string CardName => cardName;
-    public string Description => description;
+    public string RawDescription => description;
+    public string Description => CardDescriptionFormatter.Format(this, description);
     public Sprite Icon => icon;
     public int Cost => cost;
     public IReadOnlyList<BattleCondition> Conditions => conditions;

@@ -30,4 +30,9 @@ public class EnemyAbilityData : ScriptableObject
     public List<BattleCondition> conditions = new();
     public List<EnemyAbilityInstantEffectSpec> instantEffects = new();
     public List<EnemyAbilityStatusApplicationSpec> statusApplications = new();
+
+    public string RawDescription => description;
+    public string Description => BattleDescriptionFormatter.Format(description, instantEffects, statusApplications);
+    public string RawIntentSummary => intentSummary;
+    public string IntentSummary => BattleDescriptionFormatter.Format(intentSummary, instantEffects, statusApplications);
 }

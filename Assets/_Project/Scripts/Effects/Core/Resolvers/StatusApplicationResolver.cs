@@ -41,9 +41,23 @@ public static class StatusApplicationResolver
                     resolved.Spec.Duration,
                     Mathf.Max(resolved.Spec.Stacks, 1),
                     resolved.Spec.Value,
+                    ResolveReapplyMode(resolved.Spec),
                     runtime);
             }
         }
+    }
+
+    private static BattleStatusReapplyMode ResolveReapplyMode(IStatusApplicationSpec spec)
+    {
+        if (spec?.Status == null)
+            return BattleStatusReapplyMode.AddStacks;
+
+        return spec.ReapplyMode switch
+        {
+            StatusApplicationReapplyMode.AddDuration => BattleStatusReapplyMode.AddDuration,
+            StatusApplicationReapplyMode.AddStacks => BattleStatusReapplyMode.AddStacks,
+            _ => spec.Status.ReapplyMode
+        };
     }
 
     private static IEnumerable<ResolvedStatusApplication<TSpec>> EnumerateResolved<TSpec>(

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
   abilityID: troll_club_smash
   displayName: Club Smash
-  description: Deals 12 damage to one enemy.
+  description: Deals {value} damage to one enemy.
   icon: {fileID: 0}
   selectionWeight: 45
-  intentSummary: Club Smash 6
+  intentSummary: Club Smash {value}
   cooldownTurns: 0
   maxUses: -1
   conditions: []

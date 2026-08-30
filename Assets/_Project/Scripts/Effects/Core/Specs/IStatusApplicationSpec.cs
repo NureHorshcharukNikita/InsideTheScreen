@@ -8,5 +8,6 @@ public interface IStatusApplicationSpec
     int Duration { get; }
     int Stacks { get; }
     float ApplyChance { get; }
+    StatusApplicationReapplyMode ReapplyMode { get; }
     IReadOnlyList<BattleEffectConditionSpec> Conditions { get; }
 }

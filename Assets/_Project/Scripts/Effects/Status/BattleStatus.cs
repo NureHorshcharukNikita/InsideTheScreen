@@ -9,8 +9,12 @@ public abstract class BattleStatus : ScriptableObject
     [Header("Display")]
     [SerializeField] private BattleEffectDisplayData displayData;
 
+    [Header("Reapply")]
+    [SerializeField] private BattleStatusReapplyMode reapplyMode = BattleStatusReapplyMode.AddStacks;
+
     public string StatusID => statusID;
     public string StatusName => statusName;
+    public BattleStatusReapplyMode ReapplyMode => reapplyMode;
 
     public BattleEffectDisplayEntry CreateDisplayEntry(ActiveBattleStatus status)
     {

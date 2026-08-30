@@ -7,12 +7,13 @@ public sealed class DefaultStatusService : IStatusService
         int duration,
         int stacks,
         int value,
+        BattleStatusReapplyMode reapplyMode,
         BattleActionContext actionContext)
     {
         if (target == null || status == null)
             return;
 
-        target.ApplyStatus(status, duration, stacks, value, source, actionContext);
+        target.ApplyStatus(status, duration, stacks, value, source, reapplyMode, actionContext);
     }
 
     public void TickStatuses(IStatusReceiver target, BattleStatusTiming timing, BattleActionContext actionContext)

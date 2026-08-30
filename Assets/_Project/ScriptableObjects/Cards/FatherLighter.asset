@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: father_lighter
   cardName: Father's Lighter
-  description: Apply 3 Burning for 2 turns.
+  description: Apply {value} {status} for {duration} turns.
   icon: {fileID: 21300000, guid: ff1553eaa3e564a4ab3c2259750a57c3, type: 3}
   cost: 1
   conditions: []
@@ -26,4 +26,5 @@ MonoBehaviour:
     duration: 2
     stacks: 1
     applyChance: 1
+    reapplyMode: 0
     conditions: []

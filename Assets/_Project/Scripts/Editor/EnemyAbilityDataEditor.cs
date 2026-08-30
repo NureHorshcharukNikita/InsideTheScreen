@@ -39,8 +39,11 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
         EditorGUILayout.PropertyField(_abilityIdProp);
         EditorGUILayout.PropertyField(_displayNameProp);
         EditorGUILayout.PropertyField(_descriptionProp);
+        DrawDescriptionTemplateHelp();
+        DrawFormattedPreview("Formatted Description", (target as EnemyAbilityData)?.Description);
         EditorGUILayout.PropertyField(_iconProp);
         EditorGUILayout.PropertyField(_intentSummaryProp);
+        DrawFormattedPreview("Formatted Intent", (target as EnemyAbilityData)?.IntentSummary);
 
         EditorGUILayout.Space(6f);
         EditorGUILayout.LabelField("Selection Rules", EditorStyles.boldLabel);
@@ -141,6 +144,26 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
             EditorGUILayout.HelpBox($"Status applications with invalid duration (expected >= 0): {invalidDurationCount}.", MessageType.Warning);
         if (invalidStackCount > 0)
             EditorGUILayout.HelpBox($"Status applications with invalid stacks (expected >= 1): {invalidStackCount}.", MessageType.Warning);
+    }
+
+    private void DrawDescriptionTemplateHelp()
+    {
+        EditorGUILayout.HelpBox(
+            "Description and Intent Summary support: {value}, {duration}, {stacks}, {chance}, {effect}, {status}. " +
+            "For exact entries use: {instant0.value}, {instant0.effect}, {status0.value}, {status0.status}, {status0.duration}.",
+            MessageType.Info);
+    }
+
+    private void DrawFormattedPreview(string label, string preview)
+    {
+        if (string.IsNullOrWhiteSpace(preview))
+            return;
+
+        EditorGUILayout.LabelField(label, EditorStyles.miniBoldLabel);
+        using (new EditorGUI.DisabledScope(true))
+        {
+            EditorGUILayout.TextArea(preview, GUILayout.MinHeight(24f));
+        }
     }
 
     private static int CountEmptyConditions(SerializedProperty conditionsProp)

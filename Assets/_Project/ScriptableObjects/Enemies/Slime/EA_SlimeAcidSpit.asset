@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
   abilityID: slime_acid_spit
   displayName: Acid Spit
-  description: Deals 6 damage to one enemy.
+  description: Deals {value} damage to one enemy.
   icon: {fileID: 0}
   selectionWeight: 48
-  intentSummary: Acid Spit 6
+  intentSummary: Acid Spit {value}
   cooldownTurns: 0
   maxUses: -1
   conditions: []

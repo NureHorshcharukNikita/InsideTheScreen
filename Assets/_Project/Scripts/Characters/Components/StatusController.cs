@@ -22,7 +22,7 @@ public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
         }
     }
 
-    public void ApplyStatus(BattleStatus status, int duration, int stacks, int value, ICombatant source, ICombatant target, BattleActionContext actionContext)
+    public void ApplyStatus(BattleStatus status, int duration, int stacks, int value, ICombatant source, ICombatant target, BattleStatusReapplyMode reapplyMode, BattleActionContext actionContext)
     {
         if (status == null || target == null)
             return;
@@ -30,7 +30,7 @@ public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
         ActiveBattleStatus existing = statuses.Find(activeStatus => activeStatus.Status == status);
         if (existing != null)
         {
-            existing.Refresh(duration, stacks, value, source);
+            existing.Refresh(duration, stacks, value, source, reapplyMode);
             status.OnApply(existing, target, actionContext);
             StatusesChanged?.Invoke();
             return;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: heal
   cardName: Heal
-  description: Restore 4 health.
+  description: Restore {value} health.
   icon: {fileID: 21300000, guid: 23efbe00250c3144cb7e12979f938919, type: 3}
   cost: 1
   conditions: []
@@ -24,3 +24,4 @@ MonoBehaviour:
     value: 4
     applyChance: 1
     conditions: []
+  statusApplications: []

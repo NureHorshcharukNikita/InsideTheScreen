@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
   abilityID: troll_regenerate
   displayName: Regenerate
-  description: Restores 10 health to itself when wounded.
+  description: Restores {value} health to itself when wounded.
   icon: {fileID: 0}
   selectionWeight: 22
-  intentSummary: Regenerate (Heal 6)
+  intentSummary: Regenerate (Heal {value})
   cooldownTurns: 2
   maxUses: -1
   conditions:

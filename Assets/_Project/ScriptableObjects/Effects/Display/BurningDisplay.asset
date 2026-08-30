@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: ac77e0e65b9d3a14db248c23f844527b, type: 3}
   fallbackLabel: B
   badgeValueSource: 3
-  badgeValueFormat: '{value}'
+  badgeValueFormat: '{duration}'
   title: Burning
   tooltipFormat: 'Takes {value} fire damage at the end of each turn.
 

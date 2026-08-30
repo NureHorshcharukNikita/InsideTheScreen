@@ -52,6 +52,53 @@ public partial class CardCreatorWindow
         }
     }
 
+    private void CreateStatusAsset()
+    {
+        EnsureFolderExists(_statusesFolder);
+        string safeName = string.IsNullOrWhiteSpace(_newStatusName) ? "NewStatus" : _newStatusName.Trim();
+        string path = AssetDatabase.GenerateUniqueAssetPath($"{_statusesFolder}/{safeName}.asset");
+        Type statusType = _statusTypes[Mathf.Clamp(_statusTypeIndex, 0, _statusTypes.Count - 1)];
+        BattleStatus status = (BattleStatus)CreateInstance(statusType);
+        AssetDatabase.CreateAsset(status, path);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        RefreshAssets();
+
+        BattleStatus createdStatus = AssetDatabase.LoadAssetAtPath<BattleStatus>(path);
+        if (createdStatus != null)
+        {
+            _tabIndex = 2;
+            int index = _statuses.IndexOf(createdStatus);
+            if (index >= 0)
+                SelectStatus(index);
+            _rightScroll = Vector2.zero;
+            Repaint();
+        }
+    }
+
+    private void CreateDisplayAsset()
+    {
+        EnsureFolderExists(_displaysFolder);
+        string safeName = string.IsNullOrWhiteSpace(_newDisplayName) ? "NewDisplay" : _newDisplayName.Trim();
+        string path = AssetDatabase.GenerateUniqueAssetPath($"{_displaysFolder}/{safeName}.asset");
+        BattleEffectDisplayData display = CreateInstance<BattleEffectDisplayData>();
+        AssetDatabase.CreateAsset(display, path);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        RefreshAssets();
+
+        BattleEffectDisplayData createdDisplay = AssetDatabase.LoadAssetAtPath<BattleEffectDisplayData>(path);
+        if (createdDisplay != null)
+        {
+            _tabIndex = 3;
+            int index = _displays.IndexOf(createdDisplay);
+            if (index >= 0)
+                SelectDisplay(index);
+            _rightScroll = Vector2.zero;
+            Repaint();
+        }
+    }
+
     private void SelectCard(int index)
     {
         if (index < 0 || index >= _cards.Count)
@@ -59,6 +106,8 @@ public partial class CardCreatorWindow
 
         _selectedCardIndex = index;
         _selectedEffectIndex = -1;
+        _selectedStatusIndex = -1;
+        _selectedDisplayIndex = -1;
         SetSelectedAsset(_cards[index]);
     }
 
@@ -69,7 +118,33 @@ public partial class CardCreatorWindow
 
         _selectedEffectIndex = index;
         _selectedCardIndex = -1;
+        _selectedStatusIndex = -1;
+        _selectedDisplayIndex = -1;
         SetSelectedAsset(_effects[index]);
+    }
+
+    private void SelectStatus(int index)
+    {
+        if (index < 0 || index >= _statuses.Count)
+            return;
+
+        _selectedStatusIndex = index;
+        _selectedCardIndex = -1;
+        _selectedEffectIndex = -1;
+        _selectedDisplayIndex = -1;
+        SetSelectedAsset(_statuses[index]);
+    }
+
+    private void SelectDisplay(int index)
+    {
+        if (index < 0 || index >= _displays.Count)
+            return;
+
+        _selectedDisplayIndex = index;
+        _selectedCardIndex = -1;
+        _selectedEffectIndex = -1;
+        _selectedStatusIndex = -1;
+        SetSelectedAsset(_displays[index]);
     }
 
     private void SetSelectedAsset(UnityEngine.Object selected)
@@ -87,6 +162,8 @@ public partial class CardCreatorWindow
     {
         _cards.Clear();
         _effects.Clear();
+        _statuses.Clear();
+        _displays.Clear();
 
         foreach (string guid in AssetDatabase.FindAssets("t:CardData"))
         {
@@ -102,12 +179,24 @@ public partial class CardCreatorWindow
             InstantBattleEffect effect = AssetDatabase.LoadAssetAtPath<InstantBattleEffect>(path);
             if (effect != null)
                 _effects.Add(effect);
+
+            BattleStatus status = AssetDatabase.LoadAssetAtPath<BattleStatus>(path);
+            if (status != null)
+                _statuses.Add(status);
+
+            BattleEffectDisplayData display = AssetDatabase.LoadAssetAtPath<BattleEffectDisplayData>(path);
+            if (display != null)
+                _displays.Add(display);
         }
 
         _cards.Sort((left, right) => string.Compare(left.name, right.name, StringComparison.OrdinalIgnoreCase));
         _effects.Sort((left, right) => string.Compare(left.name, right.name, StringComparison.OrdinalIgnoreCase));
+        _statuses.Sort((left, right) => string.Compare(left.name, right.name, StringComparison.OrdinalIgnoreCase));
+        _displays.Sort((left, right) => string.Compare(left.name, right.name, StringComparison.OrdinalIgnoreCase));
         _selectedCardIndex = -1;
         _selectedEffectIndex = -1;
+        _selectedStatusIndex = -1;
+        _selectedDisplayIndex = -1;
         SetSelectedAsset(null);
     }
 
@@ -135,6 +224,28 @@ public partial class CardCreatorWindow
             || ContainsIgnoreCase(effect.GetType().Name, query);
     }
 
+    private bool MatchStatusSearch(BattleStatus status)
+    {
+        if (string.IsNullOrWhiteSpace(_statusSearch))
+            return true;
+
+        string query = _statusSearch.Trim();
+        return ContainsIgnoreCase(status.name, query)
+            || ContainsIgnoreCase(status.StatusID, query)
+            || ContainsIgnoreCase(status.StatusName, query)
+            || ContainsIgnoreCase(status.GetType().Name, query);
+    }
+
+    private bool MatchDisplaySearch(BattleEffectDisplayData display)
+    {
+        if (string.IsNullOrWhiteSpace(_displaySearch))
+            return true;
+
+        string query = _displaySearch.Trim();
+        return ContainsIgnoreCase(display.name, query)
+            || ContainsIgnoreCase(display.GetType().Name, query);
+    }
+
     private static bool ContainsIgnoreCase(string source, string query)
     {
         if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(query))
@@ -157,6 +268,20 @@ public partial class CardCreatorWindow
         _effectTypeIndex = Mathf.Clamp(_effectTypeIndex, 0, Mathf.Max(0, _effectTypes.Count - 1));
     }
 
+    private void BuildStatusTypeList()
+    {
+        _statusTypes.Clear();
+        foreach (Type type in TypeCache.GetTypesDerivedFrom<BattleStatus>())
+        {
+            if (!type.IsAbstract)
+                _statusTypes.Add(type);
+        }
+
+        _statusTypes.Sort((left, right) => string.Compare(left.Name, right.Name, StringComparison.OrdinalIgnoreCase));
+        _statusTypeNames = _statusTypes.Select(type => type.Name).ToArray();
+        _statusTypeIndex = Mathf.Clamp(_statusTypeIndex, 0, Mathf.Max(0, _statusTypes.Count - 1));
+    }
+
     private void DeleteSelectedAssetWithConfirm()
     {
         UnityEngine.Object selected = null;
@@ -174,6 +299,18 @@ public partial class CardCreatorWindow
             selected = _effects[_selectedEffectIndex];
             title = "Delete Effect";
             message = $"Delete effect '{selected.name}'?";
+        }
+        else if (_selectedStatusIndex >= 0 && _selectedStatusIndex < _statuses.Count)
+        {
+            selected = _statuses[_selectedStatusIndex];
+            title = "Delete Battle Status";
+            message = $"Delete status '{selected.name}'?";
+        }
+        else if (_selectedDisplayIndex >= 0 && _selectedDisplayIndex < _displays.Count)
+        {
+            selected = _displays[_selectedDisplayIndex];
+            title = "Delete Effect Display";
+            message = $"Delete display '{selected.name}'?";
         }
 
         if (selected == null)

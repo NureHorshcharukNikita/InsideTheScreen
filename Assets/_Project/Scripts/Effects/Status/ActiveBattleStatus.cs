@@ -18,10 +18,19 @@ public sealed class ActiveBattleStatus
     public ICombatant Source { get; private set; }
     public bool IsExpired => Duration == 0;
 
-    public void Refresh(int duration, int stacks, int value, ICombatant source)
+    public void Refresh(int duration, int stacks, int value, ICombatant source, BattleStatusReapplyMode reapplyMode)
     {
-        Duration = Mathf.Max(Duration, duration);
-        Stacks += Mathf.Max(stacks, 1);
+        if (reapplyMode == BattleStatusReapplyMode.AddDuration)
+        {
+            Duration += Mathf.Max(duration, 0);
+            Stacks = Mathf.Max(Stacks, Mathf.Max(stacks, 1));
+        }
+        else
+        {
+            Duration = Mathf.Max(Duration, duration);
+            Stacks += Mathf.Max(stacks, 1);
+        }
+
         Value = Mathf.Max(Value, value);
         Source = source ?? Source;
     }
