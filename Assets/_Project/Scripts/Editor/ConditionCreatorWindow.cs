@@ -13,7 +13,7 @@ public class ConditionCreatorWindow : EditorWindow
 
     private readonly List<BattleCondition> _conditions = new();
     private readonly List<Type> _conditionTypes = new();
-    private readonly List<BattleEffect> _effects = new();
+    private readonly List<InstantBattleEffect> _effects = new();
     private readonly List<Type> _effectTypes = new();
     private readonly List<BattleTargetingProfile> _targets = new();
     private readonly List<Type> _targetTypes = new();
@@ -75,7 +75,7 @@ public class ConditionCreatorWindow : EditorWindow
     private void OnGUI()
     {
         DrawTopBar();
-        _tabIndex = GUILayout.Toolbar(_tabIndex, new[] { "Conditions", "Effects", "Targets", "Core Data" });
+        _tabIndex = GUILayout.Toolbar(_tabIndex, new[] { "Conditions", "Instant Effects", "Targets", "Core Data" });
         EditorGUILayout.Space(6f);
 
         using (new EditorGUILayout.HorizontalScope())
@@ -154,10 +154,10 @@ public class ConditionCreatorWindow : EditorWindow
     {
         using (new EditorGUILayout.VerticalScope(GUILayout.MinWidth(620f)))
         {
-            EditorGUILayout.LabelField("Effects", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Instant Effects", EditorStyles.boldLabel);
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                _effectsFolder = EditorGUILayout.TextField("Effects Folder", _effectsFolder);
+                _effectsFolder = EditorGUILayout.TextField("Instant Effects Folder", _effectsFolder);
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     _newEffectName = EditorGUILayout.TextField("New Effect Name", _newEffectName);
@@ -178,7 +178,7 @@ public class ConditionCreatorWindow : EditorWindow
             _leftScroll = EditorGUILayout.BeginScrollView(_leftScroll, GUI.skin.box);
             for (int i = 0; i < _effects.Count; i++)
             {
-                BattleEffect effect = _effects[i];
+                InstantBattleEffect effect = _effects[i];
                 if (effect == null || !MatchesEffectSearch(effect))
                     continue;
 
@@ -301,7 +301,7 @@ public class ConditionCreatorWindow : EditorWindow
         HandleConditionRowEvents(rowRect, index);
     }
 
-    private void DrawEffectRow(int index, BattleEffect effect)
+    private void DrawEffectRow(int index, InstantBattleEffect effect)
     {
         bool selected = _selectedEffectIndex == index;
         Rect rowRect = GUILayoutUtility.GetRect(10f, 22f, GUILayout.ExpandWidth(true));
@@ -469,7 +469,7 @@ public class ConditionCreatorWindow : EditorWindow
     private void BuildEffectTypeList()
     {
         _effectTypes.Clear();
-        foreach (Type type in TypeCache.GetTypesDerivedFrom<BattleEffect>())
+        foreach (Type type in TypeCache.GetTypesDerivedFrom<InstantBattleEffect>())
         {
             if (!type.IsAbstract)
                 _effectTypes.Add(type);
@@ -525,7 +525,7 @@ public class ConditionCreatorWindow : EditorWindow
         string safeName = string.IsNullOrWhiteSpace(_newEffectName) ? "NewEffect" : _newEffectName.Trim();
         string path = AssetDatabase.GenerateUniqueAssetPath($"{_effectsFolder}/{safeName}.asset");
         Type effectType = _effectTypes[Mathf.Clamp(_effectTypeIndex, 0, _effectTypes.Count - 1)];
-        BattleEffect asset = (BattleEffect)CreateInstance(effectType);
+        InstantBattleEffect asset = (InstantBattleEffect)CreateInstance(effectType);
         AssetDatabase.CreateAsset(asset, path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -578,7 +578,7 @@ public class ConditionCreatorWindow : EditorWindow
         foreach (string guid in AssetDatabase.FindAssets("t:ScriptableObject"))
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            BattleEffect effect = AssetDatabase.LoadAssetAtPath<BattleEffect>(path);
+            InstantBattleEffect effect = AssetDatabase.LoadAssetAtPath<InstantBattleEffect>(path);
             if (effect != null)
                 _effects.Add(effect);
         }
@@ -630,7 +630,7 @@ public class ConditionCreatorWindow : EditorWindow
                || ContainsIgnoreCase(condition.GetType().Name, query);
     }
 
-    private bool MatchesEffectSearch(BattleEffect effect)
+    private bool MatchesEffectSearch(InstantBattleEffect effect)
     {
         if (string.IsNullOrWhiteSpace(_effectSearch))
             return true;
@@ -786,7 +786,7 @@ public class ConditionCreatorWindow : EditorWindow
         }
         else if (isEffect)
         {
-            BattleEffect created = AssetDatabase.LoadAssetAtPath<BattleEffect>(path);
+            InstantBattleEffect created = AssetDatabase.LoadAssetAtPath<InstantBattleEffect>(path);
             int index = _effects.IndexOf(created);
             if (index >= 0)
                 SelectEffect(index);

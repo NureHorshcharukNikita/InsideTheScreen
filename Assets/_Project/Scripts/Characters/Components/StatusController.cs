@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
 {
-    private readonly List<ActiveStatusEffect> statuses = new();
+    private readonly List<ActiveBattleStatus> statuses = new();
 
-    public IReadOnlyList<ActiveStatusEffect> Statuses => statuses;
+    public IReadOnlyList<ActiveBattleStatus> Statuses => statuses;
 
     public event Action StatusesChanged;
 
@@ -14,7 +14,7 @@ public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
     {
         for (int i = 0; i < statuses.Count; i++)
         {
-            ActiveStatusEffect status = statuses[i];
+            ActiveBattleStatus status = statuses[i];
             if (status?.Status == null || status.Duration <= 0)
                 continue;
 
@@ -22,12 +22,12 @@ public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
         }
     }
 
-    public void ApplyStatus(StatusEffect status, int duration, int stacks, int value, ICombatant source, ICombatant target, BattleActionContext actionContext)
+    public void ApplyStatus(BattleStatus status, int duration, int stacks, int value, ICombatant source, ICombatant target, BattleActionContext actionContext)
     {
         if (status == null || target == null)
             return;
 
-        ActiveStatusEffect existing = statuses.Find(activeStatus => activeStatus.Status == status);
+        ActiveBattleStatus existing = statuses.Find(activeStatus => activeStatus.Status == status);
         if (existing != null)
         {
             existing.Refresh(duration, stacks, value, source);
@@ -36,7 +36,7 @@ public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
             return;
         }
 
-        ActiveStatusEffect activeStatus = new(status, duration, stacks, value, source);
+        ActiveBattleStatus activeStatus = new(status, duration, stacks, value, source);
         statuses.Add(activeStatus);
         status.OnApply(activeStatus, target, actionContext);
         StatusesChanged?.Invoke();
@@ -50,7 +50,7 @@ public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
         bool changed = false;
         for (int i = statuses.Count - 1; i >= 0; i--)
         {
-            ActiveStatusEffect activeStatus = statuses[i];
+            ActiveBattleStatus activeStatus = statuses[i];
             activeStatus.Status.Tick(activeStatus, target, timing, actionContext);
 
             if (timing == BattleStatusTiming.TurnEnd)

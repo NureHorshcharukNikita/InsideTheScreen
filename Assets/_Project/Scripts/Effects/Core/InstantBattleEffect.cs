@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BattleEffect : ScriptableObject
+public abstract class InstantBattleEffect : ScriptableObject
 {
     [Header("Effect Info")]
     [SerializeField] private string effectID;
@@ -15,7 +15,7 @@ public abstract class BattleEffect : ScriptableObject
 
     public abstract void Execute(ICombatant source, ICombatant target, int value, BattleActionContext actionContext);
 
-    public virtual void Execute(ICombatant source, ICombatant target, IBattleEffectSpec spec, BattleActionContext actionContext)
+    public virtual void Execute(ICombatant source, ICombatant target, IInstantEffectSpec spec, BattleActionContext actionContext)
     {
         Execute(source, target, spec?.Value ?? 0, actionContext);
     }

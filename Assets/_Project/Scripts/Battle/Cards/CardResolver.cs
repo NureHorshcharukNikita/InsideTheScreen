@@ -9,11 +9,16 @@ public static class CardResolver
         if (!BattleCondition.AllMet(card.Conditions, context))
             return false;
 
-        return BattleEffectResolver.CanResolveAny(
-            card.Effects,
-            context,
-            ResolveTargets,
-            CanUseResolvedTargets);
+        return InstantEffectResolver.CanResolveAny(
+                card.InstantEffects,
+                context,
+                ResolveTargets,
+                CanUseResolvedTargets)
+            || StatusApplicationResolver.CanResolveAny(
+                card.StatusApplications,
+                context,
+                ResolveStatusTargets,
+                CanUseResolvedStatusTargets);
     }
 
     public static void Resolve(CardData card, BattleTargetingContext context, BattleActionContext actionContext)
@@ -23,15 +28,22 @@ public static class CardResolver
         if (!BattleCondition.AllMet(card.Conditions, context))
             return;
 
-        BattleEffectResolver.Resolve(
-            card.Effects,
+        InstantEffectResolver.Resolve(
+            card.InstantEffects,
             context,
             actionContext,
             ResolveTargets,
             CanUseResolvedTargets);
+
+        StatusApplicationResolver.Resolve(
+            card.StatusApplications,
+            context,
+            actionContext,
+            ResolveStatusTargets,
+            CanUseResolvedStatusTargets);
     }
 
-    private static IReadOnlyList<ICombatant> ResolveTargets(CardEffectEntry entry, BattleTargetingContext context)
+    private static IReadOnlyList<ICombatant> ResolveTargets(CardInstantEffectEntry entry, BattleTargetingContext context)
     {
         if (entry == null || entry.targeting == null)
             return System.Array.Empty<ICombatant>();
@@ -39,7 +51,20 @@ public static class CardResolver
         return entry.targeting.ResolveTargets(context);
     }
 
-    private static bool CanUseResolvedTargets(CardEffectEntry entry, BattleTargetingContext context)
+    private static bool CanUseResolvedTargets(CardInstantEffectEntry entry, BattleTargetingContext context)
+    {
+        return entry?.targeting != null && entry.targeting.CanUseWithContext(context);
+    }
+
+    private static IReadOnlyList<ICombatant> ResolveStatusTargets(CardStatusApplicationEntry entry, BattleTargetingContext context)
+    {
+        if (entry == null || entry.targeting == null)
+            return System.Array.Empty<ICombatant>();
+
+        return entry.targeting.ResolveTargets(context);
+    }
+
+    private static bool CanUseResolvedStatusTargets(CardStatusApplicationEntry entry, BattleTargetingContext context)
     {
         return entry?.targeting != null && entry.targeting.CanUseWithContext(context);
     }

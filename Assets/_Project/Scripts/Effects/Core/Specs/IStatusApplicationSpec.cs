@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 
-public interface IBattleEffectSpec
+public interface IStatusApplicationSpec
 {
-    BattleEffect Effect { get; }
-    StatusEffect Status { get; }
+    BattleStatus Status { get; }
     BattleTargetingProfile Targeting { get; }
     int Value { get; }
     int Duration { get; }
     int Stacks { get; }
     float ApplyChance { get; }
-    IReadOnlyList<BattleCondition> Conditions { get; }
+    IReadOnlyList<BattleEffectConditionSpec> Conditions { get; }
 }

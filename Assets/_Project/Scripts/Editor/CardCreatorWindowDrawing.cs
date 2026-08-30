@@ -43,10 +43,10 @@ public partial class CardCreatorWindow
     {
         using (new EditorGUILayout.VerticalScope(GUILayout.MinWidth(620)))
         {
-            EditorGUILayout.LabelField("Effects", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Instant Effects", EditorStyles.boldLabel);
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                _effectsFolder = EditorGUILayout.TextField("Effects Folder", _effectsFolder);
+                _effectsFolder = EditorGUILayout.TextField("Instant Effects Folder", _effectsFolder);
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     _newEffectName = EditorGUILayout.TextField("New Effect Name", _newEffectName);
@@ -67,8 +67,8 @@ public partial class CardCreatorWindow
             _leftScroll = EditorGUILayout.BeginScrollView(_leftScroll, GUI.skin.box);
             Rect headerRect = GUILayoutUtility.GetRect(10f, 24f, GUILayout.ExpandWidth(true));
             DrawEffectsTableHeader(headerRect);
-            IEnumerable<BattleEffect> filtered = _effects.Where(MatchEffectSearch);
-            foreach (BattleEffect effect in filtered)
+            IEnumerable<InstantBattleEffect> filtered = _effects.Where(MatchEffectSearch);
+            foreach (InstantBattleEffect effect in filtered)
             {
                 if (effect == null)
                     continue;
@@ -105,7 +105,7 @@ public partial class CardCreatorWindow
         EditorGUI.LabelField(nameRect, "Name", EditorStyles.miniBoldLabel);
         EditorGUI.LabelField(idRect, "ID", EditorStyles.miniBoldLabel);
         EditorGUI.LabelField(costRect, "Cost", EditorStyles.miniBoldLabel);
-        EditorGUI.LabelField(effectsRect, "Effects", EditorStyles.miniBoldLabel);
+        EditorGUI.LabelField(effectsRect, "Instant Effects", EditorStyles.miniBoldLabel);
         EditorGUI.LabelField(assetRect, "Asset", EditorStyles.miniBoldLabel);
 
         DrawVerticalLine(nameRect.xMax + 3f, rowRect);
@@ -138,7 +138,7 @@ public partial class CardCreatorWindow
         EditorGUI.LabelField(nameRect, displayName);
         EditorGUI.LabelField(idRect, id);
         EditorGUI.LabelField(costRect, card.Cost.ToString());
-        EditorGUI.LabelField(effectsRect, card.Effects.Count.ToString());
+        EditorGUI.LabelField(effectsRect, (card.InstantEffects.Count + card.StatusApplications.Count).ToString());
         EditorGUI.LabelField(assetRect, assetPath);
         DrawVerticalLine(nameRect.xMax + 3f, rowRect);
         DrawVerticalLine(idRect.xMax + 3f, rowRect);
@@ -162,7 +162,7 @@ public partial class CardCreatorWindow
         HandleColumnResize("effect_type", new Rect(typeRect.xMax + 1f, rowRect.y, 6f, rowRect.height), ref _effectColType, 100f, 320f);
     }
 
-    private void DrawEffectRow(int index, BattleEffect effect)
+    private void DrawEffectRow(int index, InstantBattleEffect effect)
     {
         string displayName = string.IsNullOrWhiteSpace(effect.EffectName) ? effect.name : effect.EffectName;
         string typeName = effect.GetType().Name;

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class BattleEffectSpec : IBattleEffectSpec
+public class StatusApplicationSpec : IStatusApplicationSpec
 {
-    public BattleEffect effect;
-
-    public StatusEffect status;
+    public BattleStatus status;
 
     public BattleTargetingProfile targeting;
 
@@ -17,20 +15,19 @@ public class BattleEffectSpec : IBattleEffectSpec
     [Min(0)]
     public int duration;
 
-    [Min(0)]
+    [Min(1)]
     public int stacks = 1;
 
     [Range(0f, 1f)]
     public float applyChance = 1f;
 
-    public List<BattleCondition> conditions = new();
+    public List<BattleEffectConditionSpec> conditions = new();
 
-    public BattleEffect Effect => effect;
-    public StatusEffect Status => status;
+    public BattleStatus Status => status;
     public BattleTargetingProfile Targeting => targeting;
     public int Value => value;
     public int Duration => duration;
     public int Stacks => stacks;
     public float ApplyChance => applyChance;
-    public IReadOnlyList<BattleCondition> Conditions => conditions;
+    public IReadOnlyList<BattleEffectConditionSpec> Conditions => conditions;
 }

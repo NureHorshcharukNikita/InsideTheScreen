@@ -3,7 +3,7 @@ public interface IStatusService
     void ApplyStatus(
         ICombatant source,
         IStatusReceiver target,
-        StatusEffect status,
+        BattleStatus status,
         int duration,
         int stacks,
         int value,

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cefa0c04886c044caccdd255d5e446e, type: 3}
   m_Name: BurningStatus
-  m_EditorClassIdentifier: Assembly-CSharp::PeriodicDamageStatusEffect
+  m_EditorClassIdentifier: Assembly-CSharp::PeriodicDamageStatus
   statusID: burning
   statusName: Burning
   displayData: {fileID: 11400000, guid: 87e6c9411f2c4d3e90081098548b98be, type: 2}

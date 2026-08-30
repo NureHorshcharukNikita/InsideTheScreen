@@ -9,7 +9,7 @@ public partial class CardCreatorWindow : EditorWindow
     private const string DefaultEffectsFolder = "Assets/_Project/ScriptableObjects/Effects";
 
     private readonly List<CardData> _cards = new();
-    private readonly List<BattleEffect> _effects = new();
+    private readonly List<InstantBattleEffect> _effects = new();
     private readonly List<Type> _effectTypes = new();
 
     private string[] _effectTypeNames = Array.Empty<string>();
@@ -62,7 +62,7 @@ public partial class CardCreatorWindow : EditorWindow
     private void OnGUI()
     {
         DrawTopBar();
-        _tabIndex = GUILayout.Toolbar(_tabIndex, new[] { "Cards", "Effects" });
+        _tabIndex = GUILayout.Toolbar(_tabIndex, new[] { "Cards", "Instant Effects" });
         EditorGUILayout.Space(6);
 
         if (_tabIndex == 0)

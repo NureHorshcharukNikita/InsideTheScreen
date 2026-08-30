@@ -194,7 +194,9 @@ public class EnemyCreatorWindow : EditorWindow
         Rect pathRect = new Rect(effectsRect.xMax + 8f, rowRect.y + 2f, Mathf.Max(40f, rowRect.width - (effectsRect.xMax - rowRect.x) - 14f), rowRect.height - 4f);
         EditorGUI.LabelField(nameRect, displayName);
         EditorGUI.LabelField(weightRect, ability.selectionWeight.ToString());
-        EditorGUI.LabelField(effectsRect, ability.effects != null ? ability.effects.Count.ToString() : "0");
+        int instantEffectCount = ability.instantEffects != null ? ability.instantEffects.Count : 0;
+        int statusApplicationCount = ability.statusApplications != null ? ability.statusApplications.Count : 0;
+        EditorGUI.LabelField(effectsRect, (instantEffectCount + statusApplicationCount).ToString());
         EditorGUI.LabelField(pathRect, assetPath);
 
         HandleRowEvents(rowRect, index, isEnemyRow: false);

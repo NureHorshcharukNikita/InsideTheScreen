@@ -14,6 +14,7 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
     private SerializedProperty _maxUsesProp;
     private SerializedProperty _conditionsProp;
     private SerializedProperty _effectsProp;
+    private SerializedProperty _statusEffectsProp;
 
     private void OnEnable()
     {
@@ -26,7 +27,8 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
         _cooldownTurnsProp = serializedObject.FindProperty("cooldownTurns");
         _maxUsesProp = serializedObject.FindProperty("maxUses");
         _conditionsProp = serializedObject.FindProperty("conditions");
-        _effectsProp = serializedObject.FindProperty("effects");
+        _effectsProp = serializedObject.FindProperty("instantEffects");
+        _statusEffectsProp = serializedObject.FindProperty("statusApplications");
     }
 
     public override void OnInspectorGUI()
@@ -49,6 +51,7 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
         EditorGUILayout.Space(6f);
         EditorGUILayout.PropertyField(_conditionsProp, true);
         EditorGUILayout.PropertyField(_effectsProp, true);
+        EditorGUILayout.PropertyField(_statusEffectsProp, true);
 
         DrawValidation();
         serializedObject.ApplyModifiedProperties();
@@ -68,53 +71,93 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
         if (_maxUsesProp.intValue < -1)
             EditorGUILayout.HelpBox("Max Uses should be -1 (unlimited) or >= 0.", MessageType.Warning);
 
-        if (_effectsProp.arraySize == 0)
+        if (_effectsProp.arraySize == 0 && _statusEffectsProp.arraySize == 0)
         {
-            EditorGUILayout.HelpBox("Ability has no effects. Executing it will do nothing.", MessageType.Warning);
+            EditorGUILayout.HelpBox("Ability has no instant effects or status applications. Executing it will do nothing.", MessageType.Warning);
             return;
         }
 
         int missingEffectCount = 0;
+        int missingStatusCount = 0;
         int missingTargetingCount = 0;
-        int invalidChanceCount = 0;
+        int invalidApplyChanceCount = 0;
         int invalidDurationCount = 0;
         int invalidStackCount = 0;
-        int missingStatusCount = 0;
+        int emptyConditionCount = 0;
+
         for (int i = 0; i < _effectsProp.arraySize; i++)
         {
             SerializedProperty entryProp = _effectsProp.GetArrayElementAtIndex(i);
             SerializedProperty effectProp = entryProp.FindPropertyRelative("effect");
-            SerializedProperty statusProp = entryProp.FindPropertyRelative("status");
             SerializedProperty targetingProp = entryProp.FindPropertyRelative("targeting");
-            SerializedProperty chanceProp = entryProp.FindPropertyRelative("applyChance");
-            SerializedProperty durationProp = entryProp.FindPropertyRelative("duration");
-            SerializedProperty stacksProp = entryProp.FindPropertyRelative("stacks");
+            SerializedProperty applyChanceProp = entryProp.FindPropertyRelative("applyChance");
+            SerializedProperty conditionsProp = entryProp.FindPropertyRelative("conditions");
 
             if (effectProp.objectReferenceValue == null)
                 missingEffectCount++;
             if (targetingProp.objectReferenceValue == null)
                 missingTargetingCount++;
-            if (effectProp.objectReferenceValue is ApplyStatusEffect && statusProp.objectReferenceValue == null)
+            if (applyChanceProp.floatValue < 0f || applyChanceProp.floatValue > 1f)
+                invalidApplyChanceCount++;
+
+            emptyConditionCount += CountEmptyConditions(conditionsProp);
+        }
+
+        for (int i = 0; i < _statusEffectsProp.arraySize; i++)
+        {
+            SerializedProperty entryProp = _statusEffectsProp.GetArrayElementAtIndex(i);
+            SerializedProperty statusProp = entryProp.FindPropertyRelative("status");
+            SerializedProperty targetingProp = entryProp.FindPropertyRelative("targeting");
+            SerializedProperty durationProp = entryProp.FindPropertyRelative("duration");
+            SerializedProperty stacksProp = entryProp.FindPropertyRelative("stacks");
+            SerializedProperty applyChanceProp = entryProp.FindPropertyRelative("applyChance");
+            SerializedProperty conditionsProp = entryProp.FindPropertyRelative("conditions");
+
+            if (statusProp.objectReferenceValue == null)
                 missingStatusCount++;
-            if (chanceProp.floatValue < 0f || chanceProp.floatValue > 1f)
-                invalidChanceCount++;
+            if (targetingProp.objectReferenceValue == null)
+                missingTargetingCount++;
+            if (applyChanceProp.floatValue < 0f || applyChanceProp.floatValue > 1f)
+                invalidApplyChanceCount++;
             if (durationProp.intValue < 0)
                 invalidDurationCount++;
             if (stacksProp.intValue < 1)
                 invalidStackCount++;
+
+            emptyConditionCount += CountEmptyConditions(conditionsProp);
         }
 
         if (missingEffectCount > 0)
-            EditorGUILayout.HelpBox($"Effect specs without BattleEffect: {missingEffectCount}. They are skipped by executor.", MessageType.Warning);
-        if (missingTargetingCount > 0)
-            EditorGUILayout.HelpBox($"Effect specs without targeting profile: {missingTargetingCount}. They are skipped by executor.", MessageType.Warning);
+            EditorGUILayout.HelpBox($"Instant Effects without InstantBattleEffect: {missingEffectCount}. They are skipped by executor.", MessageType.Warning);
         if (missingStatusCount > 0)
-            EditorGUILayout.HelpBox($"Apply Status effect specs without Status: {missingStatusCount}. They will not apply anything.", MessageType.Warning);
-        if (invalidChanceCount > 0)
-            EditorGUILayout.HelpBox($"Effect specs with invalid apply chance (expected 0..1): {invalidChanceCount}.", MessageType.Warning);
+            EditorGUILayout.HelpBox($"Status applications without BattleStatus: {missingStatusCount}. They are skipped by executor.", MessageType.Warning);
+        if (missingTargetingCount > 0)
+            EditorGUILayout.HelpBox($"Entries without targeting profile: {missingTargetingCount}. They are skipped by executor.", MessageType.Warning);
+        if (invalidApplyChanceCount > 0)
+            EditorGUILayout.HelpBox($"Entries with invalid Apply Chance (expected 0..1): {invalidApplyChanceCount}.", MessageType.Warning);
+        if (emptyConditionCount > 0)
+            EditorGUILayout.HelpBox($"Empty effect conditions: {emptyConditionCount}. Assign a BattleCondition asset or remove the condition entry.", MessageType.Warning);
         if (invalidDurationCount > 0)
-            EditorGUILayout.HelpBox($"Effect specs with invalid duration (expected >= 0): {invalidDurationCount}.", MessageType.Warning);
+            EditorGUILayout.HelpBox($"Status applications with invalid duration (expected >= 0): {invalidDurationCount}.", MessageType.Warning);
         if (invalidStackCount > 0)
-            EditorGUILayout.HelpBox($"Effect specs with invalid stacks (expected >= 1): {invalidStackCount}.", MessageType.Warning);
+            EditorGUILayout.HelpBox($"Status applications with invalid stacks (expected >= 1): {invalidStackCount}.", MessageType.Warning);
+    }
+
+    private static int CountEmptyConditions(SerializedProperty conditionsProp)
+    {
+        if (conditionsProp == null || !conditionsProp.isArray)
+            return 0;
+
+        int emptyCount = 0;
+        for (int i = 0; i < conditionsProp.arraySize; i++)
+        {
+            SerializedProperty conditionSpecProp = conditionsProp.GetArrayElementAtIndex(i);
+            SerializedProperty conditionProp = conditionSpecProp.FindPropertyRelative("condition");
+
+            if (conditionProp.objectReferenceValue == null)
+                emptyCount++;
+        }
+
+        return emptyCount;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 public static class CardCategoryUtils
@@ -8,6 +8,7 @@ public static class CardCategoryUtils
         if (category == null)
             return true;
 
-        return card.Effects.Any(effectEntry => effectEntry.effect != null && effectEntry.effect.GetType() == category);
+        return card.InstantEffects.Any(effectEntry => effectEntry.effect != null && effectEntry.effect.GetType() == category)
+            || card.StatusApplications.Any(statusEntry => statusEntry.status != null && statusEntry.status.GetType() == category);
     }
 }

@@ -3,7 +3,7 @@ public sealed class DefaultStatusService : IStatusService
     public void ApplyStatus(
         ICombatant source,
         IStatusReceiver target,
-        StatusEffect status,
+        BattleStatus status,
         int duration,
         int stacks,
         int value,

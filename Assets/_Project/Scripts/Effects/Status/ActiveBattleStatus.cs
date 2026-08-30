@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public sealed class ActiveStatusEffect
+public sealed class ActiveBattleStatus
 {
-    public ActiveStatusEffect(StatusEffect status, int duration, int stacks, int value, ICombatant source)
+    public ActiveBattleStatus(BattleStatus status, int duration, int stacks, int value, ICombatant source)
     {
         Status = status;
         Duration = Mathf.Max(duration, 0);
@@ -11,7 +11,7 @@ public sealed class ActiveStatusEffect
         Source = source;
     }
 
-    public StatusEffect Status { get; }
+    public BattleStatus Status { get; }
     public int Duration { get; private set; }
     public int Stacks { get; private set; }
     public int Value { get; private set; }

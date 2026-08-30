@@ -34,13 +34,13 @@ public partial class CardCreatorWindow
         string safeName = string.IsNullOrWhiteSpace(_newEffectName) ? "NewEffect" : _newEffectName.Trim();
         string path = AssetDatabase.GenerateUniqueAssetPath($"{_effectsFolder}/{safeName}.asset");
         Type effectType = _effectTypes[Mathf.Clamp(_effectTypeIndex, 0, _effectTypes.Count - 1)];
-        BattleEffect effect = (BattleEffect)CreateInstance(effectType);
+        InstantBattleEffect effect = (InstantBattleEffect)CreateInstance(effectType);
         AssetDatabase.CreateAsset(effect, path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         RefreshAssets();
 
-        BattleEffect createdEffect = AssetDatabase.LoadAssetAtPath<BattleEffect>(path);
+        InstantBattleEffect createdEffect = AssetDatabase.LoadAssetAtPath<InstantBattleEffect>(path);
         if (createdEffect != null)
         {
             _tabIndex = 1;
@@ -99,7 +99,7 @@ public partial class CardCreatorWindow
         foreach (string guid in AssetDatabase.FindAssets("t:ScriptableObject"))
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            BattleEffect effect = AssetDatabase.LoadAssetAtPath<BattleEffect>(path);
+            InstantBattleEffect effect = AssetDatabase.LoadAssetAtPath<InstantBattleEffect>(path);
             if (effect != null)
                 _effects.Add(effect);
         }
@@ -123,7 +123,7 @@ public partial class CardCreatorWindow
             || ContainsIgnoreCase(card.Description, query);
     }
 
-    private bool MatchEffectSearch(BattleEffect effect)
+    private bool MatchEffectSearch(InstantBattleEffect effect)
     {
         if (string.IsNullOrWhiteSpace(_effectSearch))
             return true;
@@ -146,7 +146,7 @@ public partial class CardCreatorWindow
     private void BuildEffectTypeList()
     {
         _effectTypes.Clear();
-        foreach (Type type in TypeCache.GetTypesDerivedFrom<BattleEffect>())
+        foreach (Type type in TypeCache.GetTypesDerivedFrom<InstantBattleEffect>())
         {
             if (!type.IsAbstract)
                 _effectTypes.Add(type);

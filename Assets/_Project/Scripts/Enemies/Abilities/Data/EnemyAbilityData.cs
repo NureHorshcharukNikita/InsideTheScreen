@@ -28,5 +28,6 @@ public class EnemyAbilityData : ScriptableObject
 
     [Header("Gameplay")]
     public List<BattleCondition> conditions = new();
-    public List<EnemyAbilityEffectSpec> effects = new();
+    public List<EnemyAbilityInstantEffectSpec> instantEffects = new();
+    public List<EnemyAbilityStatusApplicationSpec> statusApplications = new();
 }

@@ -1,4 +1,4 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 
 public partial class HealthBarUI : MonoBehaviour
@@ -8,7 +8,7 @@ public partial class HealthBarUI : MonoBehaviour
     [SerializeField] private RectTransform hpFill;
     [SerializeField] private TMP_Text hpText;
 
-    [Header("Effects")]
+    [Header("instantEffects")]
     [SerializeField] private Vector2 effectsOffset = new(0f, -7f);
 
     [SerializeField] private float belowSpritePadding = 4f;

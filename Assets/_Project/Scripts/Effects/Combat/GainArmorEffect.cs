@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Battle/Effects/Gain Armor")]
-public class GainArmorEffect : BattleEffect
+[CreateAssetMenu(menuName = "Game/Battle/Instant Effects/Gain Armor")]
+public class GainArmorEffect : InstantBattleEffect
 {
     public override void Execute(ICombatant source, ICombatant target, int value, BattleActionContext actionContext)
     {

@@ -78,7 +78,9 @@ public class EnemyDataEditor : UnityEditor.Editor
                 continue;
             }
 
-            if (ability.selectionWeight <= 0 || ability.effects == null || ability.effects.Count == 0)
+            bool hasInstantEffects = ability.instantEffects != null && ability.instantEffects.Count > 0;
+            bool hasStatusApplications = ability.statusApplications != null && ability.statusApplications.Count > 0;
+            if (ability.selectionWeight <= 0 || (!hasInstantEffects && !hasStatusApplications))
                 disabledEntries++;
         }
 
@@ -88,7 +90,7 @@ public class EnemyDataEditor : UnityEditor.Editor
         if (disabledEntries > 0)
         {
             EditorGUILayout.HelpBox(
-                $"Potentially unusable abilities: {disabledEntries} (weight <= 0 or no effects).",
+                $"Potentially unusable abilities: {disabledEntries} (weight <= 0 or no instant effects/status applications).",
                 MessageType.Info);
         }
     }

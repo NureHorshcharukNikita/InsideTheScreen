@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class StatusEffect : ScriptableObject
+public abstract class BattleStatus : ScriptableObject
 {
     [Header("Status Info")]
     [SerializeField] private string statusID;
@@ -12,7 +12,7 @@ public abstract class StatusEffect : ScriptableObject
     public string StatusID => statusID;
     public string StatusName => statusName;
 
-    public BattleEffectDisplayEntry CreateDisplayEntry(ActiveStatusEffect status)
+    public BattleEffectDisplayEntry CreateDisplayEntry(ActiveBattleStatus status)
     {
         string fallbackTitle = string.IsNullOrWhiteSpace(statusName) ? name : statusName;
         if (displayData != null)
@@ -38,15 +38,15 @@ public abstract class StatusEffect : ScriptableObject
             "Active status.");
     }
 
-    public virtual void OnApply(ActiveStatusEffect status, ICombatant target, BattleActionContext actionContext)
+    public virtual void OnApply(ActiveBattleStatus status, ICombatant target, BattleActionContext actionContext)
     {
     }
 
-    public virtual void Tick(ActiveStatusEffect status, ICombatant target, BattleStatusTiming timing, BattleActionContext actionContext)
+    public virtual void Tick(ActiveBattleStatus status, ICombatant target, BattleStatusTiming timing, BattleActionContext actionContext)
     {
     }
 
-    public virtual void OnExpire(ActiveStatusEffect status, ICombatant target, BattleActionContext actionContext)
+    public virtual void OnExpire(ActiveBattleStatus status, ICombatant target, BattleActionContext actionContext)
     {
     }
 }

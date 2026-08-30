@@ -4,15 +4,25 @@ internal static class EnemyAbilityTargetPreview
 {
     public static Character FindPrimaryTarget(EnemyAbilityData ability, BattleTargetingContext context)
     {
-        if (ability?.effects == null || context.Self == null)
+        if (ability?.instantEffects == null || context.Self == null)
             return null;
 
-        foreach (EnemyAbilityEffectSpec spec in ability.effects)
+        foreach (EnemyAbilityInstantEffectSpec spec in ability.instantEffects)
         {
             if (spec == null)
                 continue;
 
             IReadOnlyList<ICombatant> targets = EnemyAbilityExecutor.ResolveTargets(spec, context);
+            if (targets != null && targets.Count > 0)
+                return targets[0] as Character;
+        }
+
+        foreach (EnemyAbilityStatusApplicationSpec spec in ability.statusApplications)
+        {
+            if (spec == null)
+                continue;
+
+            IReadOnlyList<ICombatant> targets = EnemyAbilityExecutor.ResolveStatusTargets(spec, context);
             if (targets != null && targets.Count > 0)
                 return targets[0] as Character;
         }

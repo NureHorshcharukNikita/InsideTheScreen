@@ -16,7 +16,8 @@ public class CardData : ScriptableObject
     [Header("Gameplay")]
     [SerializeField] private int cost = 1;
     [SerializeField] private List<BattleCondition> conditions = new();
-    [SerializeField] private List<CardEffectEntry> effects = new();
+    [SerializeField] private List<CardInstantEffectEntry> instantEffects = new();
+    [SerializeField] private List<CardStatusApplicationEntry> statusApplications = new();
 
     public string CardID => cardID;
     public string CardName => cardName;
@@ -24,5 +25,6 @@ public class CardData : ScriptableObject
     public Sprite Icon => icon;
     public int Cost => cost;
     public IReadOnlyList<BattleCondition> Conditions => conditions;
-    public IReadOnlyList<CardEffectEntry> Effects => effects;
+    public IReadOnlyList<CardInstantEffectEntry> InstantEffects => instantEffects;
+    public IReadOnlyList<CardStatusApplicationEntry> StatusApplications => statusApplications;
 }

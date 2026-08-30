@@ -15,9 +15,9 @@ public class Character : MonoBehaviour, ICombatant
     public virtual int StartingArmor => 0;
     public int CurrentHealth => currentHealth;
     public int Armor => armorController != null ? armorController.Armor : 0;
-    public IReadOnlyList<ActiveStatusEffect> Statuses => statusController != null
+    public IReadOnlyList<ActiveBattleStatus> Statuses => statusController != null
         ? statusController.Statuses
-        : Array.Empty<ActiveStatusEffect>();
+        : Array.Empty<ActiveBattleStatus>();
     public virtual CombatTeam Team => CombatTeam.Neutral;
     public bool IsAlive => CurrentHealth > 0;
 
@@ -112,7 +112,7 @@ public class Character : MonoBehaviour, ICombatant
         armorController?.ClearArmor();
     }
 
-    public void ApplyStatus(StatusEffect status, int duration, int stacks, int value, ICombatant source, BattleActionContext actionContext)
+    public void ApplyStatus(BattleStatus status, int duration, int stacks, int value, ICombatant source, BattleActionContext actionContext)
     {
         statusController?.ApplyStatus(status, duration, stacks, value, source, this, actionContext);
     }

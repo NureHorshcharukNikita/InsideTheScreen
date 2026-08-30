@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,9 +25,12 @@ public class InventoryCategoriesPanel : MonoBehaviour
         CreateButton("All", null);
 
         var categories = cards
-            .SelectMany(card => card.Effects)
-            .Where(effectEntry => effectEntry.effect != null)
-            .Select(effectEntry => effectEntry.effect.GetType())
+            .SelectMany(card => card.InstantEffects
+                .Where(effectEntry => effectEntry.effect != null)
+                .Select(effectEntry => effectEntry.effect.GetType())
+                .Concat(card.StatusApplications
+                    .Where(statusEntry => statusEntry.status != null)
+                    .Select(statusEntry => statusEntry.status.GetType())))
             .Distinct()
             .OrderBy(type => type.Name);
 
