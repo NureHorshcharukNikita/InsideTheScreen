@@ -14,7 +14,7 @@ public partial class InventoryScreenController
     private readonly InventoryPreviewController previewController;
     private readonly InventorySelectionPresenter selectionPresenter;
 
-    private string currentCategory;
+    private CardCategory? currentCategory;
     private List<CardData> filteredCards;
 
     private DeckData deckData;

@@ -25,7 +25,7 @@ public partial class InventoryScreenController
         RefreshViewOnly();
     }
 
-    public void SetCategory(string category)
+    public void SetCategory(CardCategory? category)
     {
         currentCategory = category;
 

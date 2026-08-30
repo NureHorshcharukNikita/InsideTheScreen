@@ -8,12 +8,12 @@ public class InventoryCategoriesPanel : MonoBehaviour
     [SerializeField] private CategoryButton buttonPrefab;
     [SerializeField] private Transform container;
 
-    private Action<string> onSelected;
-    private readonly List<(string category, CategoryButton button)> buttons = new();
+    private Action<CardCategory?> onSelected;
+    private readonly List<(CardCategory? category, CategoryButton button)> buttons = new();
 
-    private string currentSelectedCategory;
+    private CardCategory? currentSelectedCategory;
 
-    public void Build(IEnumerable<CardData> cards, Action<string> onCategorySelected)
+    public void Build(IEnumerable<CardData> cards, Action<CardCategory?> onCategorySelected)
     {
         onSelected = onCategorySelected;
         buttons.Clear();
@@ -26,19 +26,17 @@ public class InventoryCategoriesPanel : MonoBehaviour
 
         var categories = cards
             .SelectMany(card => card.Categories)
-            .Where(category => !string.IsNullOrWhiteSpace(category))
-            .Select(category => category.Trim())
-            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Distinct()
             .OrderBy(category => category);
 
-        foreach (string category in categories)
-            CreateButton(category, category);
+        foreach (CardCategory category in categories)
+            CreateButton(GetCategoryLabel(category), category);
 
         UpdateVisualSelection();
         onSelected?.Invoke(null);
     }
 
-    private void CreateButton(string label, string category)
+    private void CreateButton(string label, CardCategory? category)
     {
         CategoryButton button = Instantiate(buttonPrefab, container);
 
@@ -63,8 +61,20 @@ public class InventoryCategoriesPanel : MonoBehaviour
     {
         foreach (var item in buttons)
         {
-            bool isSelected = string.Equals(item.category, currentSelectedCategory, StringComparison.OrdinalIgnoreCase);
+            bool isSelected = item.category == currentSelectedCategory;
             item.button.SetSelected(isSelected);
         }
+    }
+
+    private static string GetCategoryLabel(CardCategory category)
+    {
+        string text = category.ToString();
+        for (int i = text.Length - 1; i > 0; i--)
+        {
+            if (char.IsUpper(text[i]) && !char.IsWhiteSpace(text[i - 1]))
+                text = text.Insert(i, " ");
+        }
+
+        return text;
     }
 }

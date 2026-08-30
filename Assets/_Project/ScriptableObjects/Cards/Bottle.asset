@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb3ab064b8e44a45815dc86d41ebac0, type: 3}
+  m_Name: Bottle
+  m_EditorClassIdentifier: Assembly-CSharp::CardData
+  cardID: bottle
+  cardName: Bottle
+  description: 
+  icon: {fileID: 21300000, guid: bd7cfd7ddceef1245a10e5e28233f0a1, type: 3}
+  categories:
+  - 9
+  cost: 1
+  conditions: []
+  instantEffects: []
+  statusApplications: []
+

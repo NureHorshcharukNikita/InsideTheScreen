@@ -2,14 +2,11 @@ using System.Linq;
 
 public static class CardCategoryUtils
 {
-    public static bool HasCategory(CardData card, string category)
+    public static bool HasCategory(CardData card, CardCategory? category)
     {
-        if (string.IsNullOrWhiteSpace(category))
+        if (!category.HasValue)
             return true;
 
-        return card.Categories.Any(cardCategory => string.Equals(
-            cardCategory?.Trim(),
-            category.Trim(),
-            System.StringComparison.OrdinalIgnoreCase));
+        return card.Categories.Any(cardCategory => cardCategory == category.Value);
     }
 }
