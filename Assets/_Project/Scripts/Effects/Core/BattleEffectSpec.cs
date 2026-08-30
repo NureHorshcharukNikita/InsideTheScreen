@@ -7,6 +7,8 @@ public class BattleEffectSpec : IBattleEffectSpec
 {
     public BattleEffect effect;
 
+    public StatusEffect status;
+
     public BattleTargetingProfile targeting;
 
     [Min(0)]
@@ -24,6 +26,7 @@ public class BattleEffectSpec : IBattleEffectSpec
     public List<BattleCondition> conditions = new();
 
     public BattleEffect Effect => effect;
+    public StatusEffect Status => status;
     public BattleTargetingProfile Targeting => targeting;
     public int Value => value;
     public int Duration => duration;

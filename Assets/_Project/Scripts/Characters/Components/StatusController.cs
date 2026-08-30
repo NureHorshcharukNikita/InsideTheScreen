@@ -2,13 +2,25 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusController : MonoBehaviour
+public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
 {
     private readonly List<ActiveStatusEffect> statuses = new();
 
     public IReadOnlyList<ActiveStatusEffect> Statuses => statuses;
 
     public event Action StatusesChanged;
+
+    public void CollectDisplayEntries(List<BattleEffectDisplayEntry> entries)
+    {
+        for (int i = 0; i < statuses.Count; i++)
+        {
+            ActiveStatusEffect status = statuses[i];
+            if (status?.Status == null || status.Duration <= 0)
+                continue;
+
+            entries.Add(status.Status.CreateDisplayEntry(status));
+        }
+    }
 
     public void ApplyStatus(StatusEffect status, int duration, int stacks, int value, ICombatant source, ICombatant target, BattleActionContext actionContext)
     {

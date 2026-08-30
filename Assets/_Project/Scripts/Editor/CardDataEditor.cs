@@ -69,10 +69,12 @@ public class CardDataEditor : UnityEditor.Editor
         int invalidChanceCount = 0;
         int invalidDurationCount = 0;
         int invalidStackCount = 0;
+        int missingStatusCount = 0;
         for (int i = 0; i < _effectsProp.arraySize; i++)
         {
             SerializedProperty entryProp = _effectsProp.GetArrayElementAtIndex(i);
             SerializedProperty effectProp = entryProp.FindPropertyRelative("effect");
+            SerializedProperty statusProp = entryProp.FindPropertyRelative("status");
             SerializedProperty targetingProp = entryProp.FindPropertyRelative("targeting");
             SerializedProperty chanceProp = entryProp.FindPropertyRelative("applyChance");
             SerializedProperty durationProp = entryProp.FindPropertyRelative("duration");
@@ -82,6 +84,8 @@ public class CardDataEditor : UnityEditor.Editor
                 missingEffectCount++;
             if (targetingProp.objectReferenceValue == null)
                 missingTargetingCount++;
+            if (effectProp.objectReferenceValue is ApplyStatusEffect && statusProp.objectReferenceValue == null)
+                missingStatusCount++;
             if (chanceProp.floatValue < 0f || chanceProp.floatValue > 1f)
                 invalidChanceCount++;
             if (durationProp.intValue < 0)
@@ -94,6 +98,8 @@ public class CardDataEditor : UnityEditor.Editor
             EditorGUILayout.HelpBox($"Effects without BattleEffect: {missingEffectCount}. They are skipped at runtime.", MessageType.Warning);
         if (missingTargetingCount > 0)
             EditorGUILayout.HelpBox($"Effects without targeting profile: {missingTargetingCount}. They are skipped by CardResolver.", MessageType.Warning);
+        if (missingStatusCount > 0)
+            EditorGUILayout.HelpBox($"Apply Status effects without Status: {missingStatusCount}. They will not apply anything.", MessageType.Warning);
         if (invalidChanceCount > 0)
             EditorGUILayout.HelpBox($"Effects with invalid apply chance (expected 0..1): {invalidChanceCount}.", MessageType.Warning);
         if (invalidDurationCount > 0)

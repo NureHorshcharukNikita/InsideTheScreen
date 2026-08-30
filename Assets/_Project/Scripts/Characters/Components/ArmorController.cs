@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmorController : MonoBehaviour
+public class ArmorController : MonoBehaviour, IBattleEffectDisplaySource
 {
     [SerializeField] private BattleEffectDisplayData displayData;
 
@@ -11,16 +12,12 @@ public class ArmorController : MonoBehaviour
 
     public event Action<int> ArmorChanged;
 
-    public bool TryCreateDisplayEntry(out BattleEffectDisplayEntry entry)
+    public void CollectDisplayEntries(List<BattleEffectDisplayEntry> entries)
     {
         if (armor <= 0 || displayData == null)
-        {
-            entry = default;
-            return false;
-        }
+            return;
 
-        entry = displayData.CreateEntry(displayData.name, string.Empty, armor, 0, 1);
-        return true;
+        entries.Add(displayData.CreateEntry(displayData.name, string.Empty, armor, 0, 1));
     }
 
     public void AddArmor(int amount)

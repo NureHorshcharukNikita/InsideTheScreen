@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public interface IBattleEffectSpec
 {
     BattleEffect Effect { get; }
+    StatusEffect Status { get; }
     BattleTargetingProfile Targeting { get; }
     int Value { get; }
     int Duration { get; }

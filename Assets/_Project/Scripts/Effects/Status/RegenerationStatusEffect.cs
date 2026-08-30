@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Battle/Statuses/Regeneration")]
+[CreateAssetMenu(menuName = "Game/Battle/Statuses/Regeneration", fileName = "RegenerationStatus")]
 public class RegenerationStatusEffect : StatusEffect
 {
     [SerializeField] private BattleStatusTiming tickTiming = BattleStatusTiming.TurnEnd;

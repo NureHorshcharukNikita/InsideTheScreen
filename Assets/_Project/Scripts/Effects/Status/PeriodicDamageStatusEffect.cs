@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Battle/Statuses/Periodic Damage")]
+[CreateAssetMenu(menuName = "Game/Battle/Statuses/Periodic Damage", fileName = "PeriodicDamageStatus")]
 public class PeriodicDamageStatusEffect : StatusEffect
 {
     [SerializeField] private BattleStatusTiming tickTiming = BattleStatusTiming.TurnEnd;

@@ -11,6 +11,8 @@ public partial class HealthBarUI
     private RectTransform effectsRoot;
     private GridLayoutGroup effectsGrid;
     private readonly List<GameObject> effectBadges = new();
+    private readonly List<IBattleEffectDisplaySource> effectDisplaySources = new();
+    private readonly List<BattleEffectDisplayEntry> effectDisplayEntries = new();
 
     private void InitializeEffectsView()
     {
@@ -19,6 +21,7 @@ public partial class HealthBarUI
 
     private void SubscribeEffects(Character character)
     {
+        CacheEffectDisplaySources(character);
         character.ArmorChanged += RefreshEffects;
         character.StatusesChanged += RefreshEffects;
     }
@@ -69,21 +72,28 @@ public partial class HealthBarUI
         if (target == null)
             return;
 
-        if (target.TryCreateArmorDisplayEntry(out BattleEffectDisplayEntry armorEntry))
-            AddEffectBadge(armorEntry);
-
-        foreach (ActiveStatusEffect status in target.Statuses)
-        {
-            if (status?.Status == null)
-                continue;
-            if (status.Duration <= 0)
-                continue;
-
-            AddEffectBadge(status.Status.CreateDisplayEntry(status));
-        }
+        CollectDisplayEntries();
+        foreach (BattleEffectDisplayEntry entry in effectDisplayEntries)
+            AddEffectBadge(entry);
 
         UpdateEffectsLayout();
         effectsRoot.gameObject.SetActive(effectBadges.Count > 0);
+    }
+
+    private void CacheEffectDisplaySources(Character character)
+    {
+        effectDisplaySources.Clear();
+        character.GetComponents(effectDisplaySources);
+    }
+
+    private void CollectDisplayEntries()
+    {
+        if (effectDisplaySources.Count == 0 && target != null)
+            CacheEffectDisplaySources(target);
+
+        effectDisplayEntries.Clear();
+        for (int i = 0; i < effectDisplaySources.Count; i++)
+            effectDisplaySources[i]?.CollectDisplayEntries(effectDisplayEntries);
     }
 
     private void AddEffectBadge(BattleEffectDisplayEntry entry)
