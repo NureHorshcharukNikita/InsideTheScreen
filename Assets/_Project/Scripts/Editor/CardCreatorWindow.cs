@@ -52,7 +52,6 @@ public partial class CardCreatorWindow : EditorWindow
     private float _cardColName = 180f;
     private float _cardColId = 140f;
     private float _cardColCost = 60f;
-    private float _cardColEffects = 70f;
     private float _effectColName = 220f;
     private float _effectColType = 160f;
 

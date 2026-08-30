@@ -16,6 +16,8 @@ MonoBehaviour:
   cardName: Heavy Strike
   description: Deal {value} damage.
   icon: {fileID: 21300000, guid: 705309a3230036f4b9f4d64185082faa, type: 3}
+  categories:
+  - Damage
   cost: 2
   conditions: []
   instantEffects:

@@ -1,5 +1,5 @@
-using System;
 using System.Linq;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +8,12 @@ public class InventoryCategoriesPanel : MonoBehaviour
     [SerializeField] private CategoryButton buttonPrefab;
     [SerializeField] private Transform container;
 
-    private Action<Type> onSelected;
-    private readonly List<(Type category, CategoryButton button)> buttons = new();
+    private Action<string> onSelected;
+    private readonly List<(string category, CategoryButton button)> buttons = new();
 
-    private Type currentSelectedCategory;
+    private string currentSelectedCategory;
 
-    public void Build(IEnumerable<CardData> cards, Action<Type> onCategorySelected)
+    public void Build(IEnumerable<CardData> cards, Action<string> onCategorySelected)
     {
         onSelected = onCategorySelected;
         buttons.Clear();
@@ -25,23 +25,20 @@ public class InventoryCategoriesPanel : MonoBehaviour
         CreateButton("All", null);
 
         var categories = cards
-            .SelectMany(card => card.InstantEffects
-                .Where(effectEntry => effectEntry.effect != null)
-                .Select(effectEntry => effectEntry.effect.GetType())
-                .Concat(card.StatusApplications
-                    .Where(statusEntry => statusEntry.status != null)
-                    .Select(statusEntry => statusEntry.status.GetType())))
-            .Distinct()
-            .OrderBy(type => type.Name);
+            .SelectMany(card => card.Categories)
+            .Where(category => !string.IsNullOrWhiteSpace(category))
+            .Select(category => category.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(category => category);
 
-        foreach (Type category in categories)
-            CreateButton(category.Name, category);
+        foreach (string category in categories)
+            CreateButton(category, category);
 
         UpdateVisualSelection();
         onSelected?.Invoke(null);
     }
 
-    private void CreateButton(string label, Type category)
+    private void CreateButton(string label, string category)
     {
         CategoryButton button = Instantiate(buttonPrefab, container);
 
@@ -66,7 +63,7 @@ public class InventoryCategoriesPanel : MonoBehaviour
     {
         foreach (var item in buttons)
         {
-            bool isSelected = item.category == currentSelectedCategory;
+            bool isSelected = string.Equals(item.category, currentSelectedCategory, StringComparison.OrdinalIgnoreCase);
             item.button.SetSelected(isSelected);
         }
     }

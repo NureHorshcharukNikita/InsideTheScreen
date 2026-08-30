@@ -16,6 +16,9 @@ MonoBehaviour:
   cardName: Bandage
   description: Apply {value} Healing for {duration} turns.
   icon: {fileID: 21300000, guid: 25ab0e6a866b6d64c8cd16d0df1c3c90, type: 3}
+  categories:
+  - Healing
+  - Regeneration
   cost: 1
   conditions:
   - {fileID: 11400000, guid: 4ac03d3897771f54886308ac65401a50, type: 2}

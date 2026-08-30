@@ -8,6 +8,7 @@ public class CardDataEditor : UnityEditor.Editor
     private SerializedProperty _cardNameProp;
     private SerializedProperty _descriptionProp;
     private SerializedProperty _iconProp;
+    private SerializedProperty _categoriesProp;
     private SerializedProperty _costProp;
     private SerializedProperty _conditionsProp;
     private SerializedProperty _effectsProp;
@@ -19,6 +20,7 @@ public class CardDataEditor : UnityEditor.Editor
         _cardNameProp = serializedObject.FindProperty("cardName");
         _descriptionProp = serializedObject.FindProperty("description");
         _iconProp = serializedObject.FindProperty("icon");
+        _categoriesProp = serializedObject.FindProperty("categories");
         _costProp = serializedObject.FindProperty("cost");
         _conditionsProp = serializedObject.FindProperty("conditions");
         _effectsProp = serializedObject.FindProperty("instantEffects");
@@ -36,6 +38,7 @@ public class CardDataEditor : UnityEditor.Editor
         DrawDescriptionTemplateHelp();
         DrawFormattedPreview();
         EditorGUILayout.PropertyField(_iconProp);
+        EditorGUILayout.PropertyField(_categoriesProp, true);
 
         EditorGUILayout.Space(6f);
         EditorGUILayout.LabelField("Gameplay", EditorStyles.boldLabel);

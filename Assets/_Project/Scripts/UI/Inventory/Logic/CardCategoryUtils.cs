@@ -1,14 +1,15 @@
-using System;
 using System.Linq;
 
 public static class CardCategoryUtils
 {
-    public static bool HasCategory(CardData card, Type category)
+    public static bool HasCategory(CardData card, string category)
     {
-        if (category == null)
+        if (string.IsNullOrWhiteSpace(category))
             return true;
 
-        return card.InstantEffects.Any(effectEntry => effectEntry.effect != null && effectEntry.effect.GetType() == category)
-            || card.StatusApplications.Any(statusEntry => statusEntry.status != null && statusEntry.status.GetType() == category);
+        return card.Categories.Any(cardCategory => string.Equals(
+            cardCategory?.Trim(),
+            category.Trim(),
+            System.StringComparison.OrdinalIgnoreCase));
     }
 }

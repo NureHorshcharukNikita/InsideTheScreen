@@ -16,6 +16,8 @@ MonoBehaviour:
   cardName: Strike
   description: Deal {value} damage.
   icon: {fileID: 21300000, guid: 5223168d8022e2447a7eb5a5ef620b55, type: 3}
+  categories:
+  - Damage
   cost: 1
   conditions: []
   instantEffects:

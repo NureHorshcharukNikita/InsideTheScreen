@@ -167,24 +167,20 @@ public partial class CardCreatorWindow
         Rect nameRect = new Rect(rowRect.x + 6f, rowRect.y + 3f, _cardColName - 6f, rowRect.height - 6f);
         Rect idRect = new Rect(nameRect.xMax + 6f, rowRect.y + 3f, _cardColId - 6f, rowRect.height - 6f);
         Rect costRect = new Rect(idRect.xMax + 6f, rowRect.y + 3f, _cardColCost - 6f, rowRect.height - 6f);
-        Rect effectsRect = new Rect(costRect.xMax + 6f, rowRect.y + 3f, _cardColEffects - 6f, rowRect.height - 6f);
-        Rect assetRect = new Rect(effectsRect.xMax + 6f, rowRect.y + 3f, Mathf.Max(40f, rowRect.width - (effectsRect.xMax - rowRect.x) - 12f), rowRect.height - 6f);
+        Rect assetRect = new Rect(costRect.xMax + 6f, rowRect.y + 3f, Mathf.Max(40f, rowRect.width - (costRect.xMax - rowRect.x) - 12f), rowRect.height - 6f);
 
         EditorGUI.LabelField(nameRect, "Name", EditorStyles.miniBoldLabel);
         EditorGUI.LabelField(idRect, "ID", EditorStyles.miniBoldLabel);
         EditorGUI.LabelField(costRect, "Cost", EditorStyles.miniBoldLabel);
-        EditorGUI.LabelField(effectsRect, "Instant Effects", EditorStyles.miniBoldLabel);
         EditorGUI.LabelField(assetRect, "Asset", EditorStyles.miniBoldLabel);
 
         DrawVerticalLine(nameRect.xMax + 3f, rowRect);
         DrawVerticalLine(idRect.xMax + 3f, rowRect);
         DrawVerticalLine(costRect.xMax + 3f, rowRect);
-        DrawVerticalLine(effectsRect.xMax + 3f, rowRect);
 
         HandleColumnResize("card_name", new Rect(nameRect.xMax + 1f, rowRect.y, 6f, rowRect.height), ref _cardColName, 120f, 420f);
         HandleColumnResize("card_id", new Rect(idRect.xMax + 1f, rowRect.y, 6f, rowRect.height), ref _cardColId, 80f, 320f);
         HandleColumnResize("card_cost", new Rect(costRect.xMax + 1f, rowRect.y, 6f, rowRect.height), ref _cardColCost, 50f, 140f);
-        HandleColumnResize("card_effects", new Rect(effectsRect.xMax + 1f, rowRect.y, 6f, rowRect.height), ref _cardColEffects, 60f, 160f);
     }
 
     private void DrawCardRow(int index, CardData card)
@@ -200,18 +196,15 @@ public partial class CardCreatorWindow
         Rect nameRect = new Rect(rowRect.x + 6f, rowRect.y + 2f, _cardColName - 6f, rowRect.height - 4f);
         Rect idRect = new Rect(nameRect.xMax + 6f, rowRect.y + 2f, _cardColId - 6f, rowRect.height - 4f);
         Rect costRect = new Rect(idRect.xMax + 6f, rowRect.y + 2f, _cardColCost - 6f, rowRect.height - 4f);
-        Rect effectsRect = new Rect(costRect.xMax + 6f, rowRect.y + 2f, _cardColEffects - 6f, rowRect.height - 4f);
-        Rect assetRect = new Rect(effectsRect.xMax + 6f, rowRect.y + 2f, Mathf.Max(40f, rowRect.width - (effectsRect.xMax - rowRect.x) - 12f), rowRect.height - 4f);
+        Rect assetRect = new Rect(costRect.xMax + 6f, rowRect.y + 2f, Mathf.Max(40f, rowRect.width - (costRect.xMax - rowRect.x) - 12f), rowRect.height - 4f);
 
         EditorGUI.LabelField(nameRect, displayName);
         EditorGUI.LabelField(idRect, id);
         EditorGUI.LabelField(costRect, card.Cost.ToString());
-        EditorGUI.LabelField(effectsRect, (card.InstantEffects.Count + card.StatusApplications.Count).ToString());
         EditorGUI.LabelField(assetRect, assetPath);
         DrawVerticalLine(nameRect.xMax + 3f, rowRect);
         DrawVerticalLine(idRect.xMax + 3f, rowRect);
         DrawVerticalLine(costRect.xMax + 3f, rowRect);
-        DrawVerticalLine(effectsRect.xMax + 3f, rowRect);
         HandleRowSelectionAndContextMenu(rowRect, index, isCardRow: true);
     }
 

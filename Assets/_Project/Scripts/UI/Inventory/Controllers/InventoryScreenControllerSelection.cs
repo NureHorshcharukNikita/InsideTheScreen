@@ -1,5 +1,3 @@
-using System;
-
 public partial class InventoryScreenController
 {
     private void OnInventoryCardClicked(int index)
@@ -27,7 +25,7 @@ public partial class InventoryScreenController
         RefreshViewOnly();
     }
 
-    public void SetCategory(Type category)
+    public void SetCategory(string category)
     {
         currentCategory = category;
 

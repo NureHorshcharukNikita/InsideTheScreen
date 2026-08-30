@@ -12,6 +12,7 @@ public class CardData : ScriptableObject
     [SerializeField] private string description;
 
     [SerializeField] private Sprite icon;
+    [SerializeField] private List<string> categories = new();
 
     [Header("Gameplay")]
     [SerializeField] private int cost = 1;
@@ -24,6 +25,7 @@ public class CardData : ScriptableObject
     public string RawDescription => description;
     public string Description => CardDescriptionFormatter.Format(this, description);
     public Sprite Icon => icon;
+    public IReadOnlyList<string> Categories => categories;
     public int Cost => cost;
     public IReadOnlyList<BattleCondition> Conditions => conditions;
     public IReadOnlyList<CardInstantEffectEntry> InstantEffects => instantEffects;
