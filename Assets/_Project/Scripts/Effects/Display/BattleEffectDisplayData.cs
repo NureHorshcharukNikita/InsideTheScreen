@@ -6,6 +6,7 @@ public class BattleEffectDisplayData : ScriptableObject
     [Header("Badge")]
     [SerializeField] private Sprite icon;
     [SerializeField] private string fallbackLabel;
+    [SerializeField] private BattleEffectBadgeMode badgeMode = BattleEffectBadgeMode.ValueSource;
     [SerializeField] private BattleEffectBadgeValueSource badgeValueSource = BattleEffectBadgeValueSource.Value;
     [SerializeField] private string badgeValueFormat = "{value}";
 
@@ -27,21 +28,17 @@ public class BattleEffectDisplayData : ScriptableObject
     {
         string displayTitle = string.IsNullOrWhiteSpace(title) ? fallbackTitle : title;
         string tooltipTemplate = string.IsNullOrWhiteSpace(tooltipFormat) ? fallbackTooltip : tooltipFormat;
-        string badgeTemplate = string.IsNullOrWhiteSpace(badgeValueFormat)
-            ? "{value}"
-            : badgeValueFormat;
-
         return new BattleEffectDisplayEntry(
             icon,
             fallbackLabel,
-            CreateBadgeValue(badgeTemplate, value, duration, stacks),
+            CreateBadgeValue(value, duration, stacks),
             displayTitle,
             BattleEffectDisplayFormatter.Format(tooltipTemplate, value, duration, stacks));
     }
 
-    private string CreateBadgeValue(string badgeTemplate, int value, int duration, int stacks)
+    private string CreateBadgeValue(int value, int duration, int stacks)
     {
-        int displayValue = badgeValueSource switch
+        int badgeValue = badgeValueSource switch
         {
             BattleEffectBadgeValueSource.Duration => duration,
             BattleEffectBadgeValueSource.Stacks => stacks,
@@ -49,6 +46,12 @@ public class BattleEffectDisplayData : ScriptableObject
             _ => value
         };
 
-        return BattleEffectDisplayFormatter.Format(badgeTemplate, displayValue, duration, stacks);
+        string badgeTemplate = badgeMode == BattleEffectBadgeMode.CustomFormat
+            ? badgeValueFormat
+            : "{badge}";
+        if (string.IsNullOrWhiteSpace(badgeTemplate))
+            badgeTemplate = "{badge}";
+
+        return BattleEffectDisplayFormatter.Format(badgeTemplate, value, duration, stacks, badgeValue);
     }
 }

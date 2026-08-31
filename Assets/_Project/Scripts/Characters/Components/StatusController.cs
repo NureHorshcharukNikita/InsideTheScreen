@@ -55,7 +55,7 @@ public class StatusController : MonoBehaviour, IBattleEffectDisplaySource
 
             if (timing == BattleStatusTiming.TurnEnd)
             {
-                activeStatus.ReduceDuration();
+                activeStatus.ReduceDuration(activeStatus.Status.ExpirationMode);
                 changed = true;
             }
 

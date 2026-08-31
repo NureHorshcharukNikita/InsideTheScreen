@@ -12,9 +12,13 @@ public abstract class BattleStatus : ScriptableObject
     [Header("Reapply")]
     [SerializeField] private BattleStatusReapplyMode reapplyMode = BattleStatusReapplyMode.AddStacks;
 
+    [Header("Expiration")]
+    [SerializeField] private BattleStatusExpirationMode expirationMode = BattleStatusExpirationMode.RemoveStatus;
+
     public string StatusID => statusID;
     public string StatusName => statusName;
     public BattleStatusReapplyMode ReapplyMode => reapplyMode;
+    public BattleStatusExpirationMode ExpirationMode => expirationMode;
 
     public BattleEffectDisplayEntry CreateDisplayEntry(ActiveBattleStatus status)
     {

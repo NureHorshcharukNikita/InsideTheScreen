@@ -6,6 +6,7 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
 {
     private SerializedProperty _iconProp;
     private SerializedProperty _fallbackLabelProp;
+    private SerializedProperty _badgeModeProp;
     private SerializedProperty _badgeValueSourceProp;
     private SerializedProperty _badgeValueFormatProp;
     private SerializedProperty _titleProp;
@@ -19,6 +20,7 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
     {
         _iconProp = serializedObject.FindProperty("icon");
         _fallbackLabelProp = serializedObject.FindProperty("fallbackLabel");
+        _badgeModeProp = serializedObject.FindProperty("badgeMode");
         _badgeValueSourceProp = serializedObject.FindProperty("badgeValueSource");
         _badgeValueFormatProp = serializedObject.FindProperty("badgeValueFormat");
         _titleProp = serializedObject.FindProperty("title");
@@ -33,8 +35,14 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
         {
             EditorGUILayout.PropertyField(_iconProp);
             EditorGUILayout.PropertyField(_fallbackLabelProp);
-            EditorGUILayout.PropertyField(_badgeValueSourceProp);
-            EditorGUILayout.PropertyField(_badgeValueFormatProp);
+            EditorGUILayout.PropertyField(_badgeModeProp);
+
+            BattleEffectBadgeMode badgeMode = (BattleEffectBadgeMode)_badgeModeProp.enumValueIndex;
+            if (badgeMode == BattleEffectBadgeMode.ValueSource)
+                EditorGUILayout.PropertyField(_badgeValueSourceProp);
+            else
+                EditorGUILayout.PropertyField(_badgeValueFormatProp);
+
             DrawTemplateHelp();
             DrawBadgePreview();
         }, 0f);
@@ -52,18 +60,21 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
     private void DrawTemplateHelp()
     {
         EditorSectionGUI.DrawTemplateHelp(
-            "Badge Value Format and Tooltip support: {value}, {total}, {duration}, {stacks}. " +
-            "Preview uses value=3, total=6, duration=2, stacks=2.");
+            "Custom Format and Tooltip support: {value}, {total}, {duration}, {stacks}, {badge}. " +
+            "Value Source uses {badge}. Preview uses value=3, total=6, duration=2, stacks=2.");
     }
 
     private void DrawBadgePreview()
     {
-        string template = string.IsNullOrWhiteSpace(_badgeValueFormatProp.stringValue)
-            ? "{value}"
-            : _badgeValueFormatProp.stringValue;
+        BattleEffectBadgeMode badgeMode = (BattleEffectBadgeMode)_badgeModeProp.enumValueIndex;
+        string template = badgeMode == BattleEffectBadgeMode.CustomFormat
+            ? _badgeValueFormatProp.stringValue
+            : "{badge}";
+        if (string.IsNullOrWhiteSpace(template))
+            template = "{badge}";
 
-        int value = GetPreviewBadgeValue();
-        string preview = BattleEffectDisplayFormatter.Format(template, value, PreviewDuration, PreviewStacks);
+        int badgeValue = GetPreviewBadgeValue();
+        string preview = BattleEffectDisplayFormatter.Format(template, PreviewValue, PreviewDuration, PreviewStacks, badgeValue);
         EditorSectionGUI.DrawReadonlyPreview("Badge Preview", preview, 20f);
     }
 

@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleEffectDisplayData
   icon: {fileID: 21300000, guid: b40eb59fdf40bad4caaf41d4f71b5128, type: 3}
   fallbackLabel: R
+  badgeMode: 1
   badgeValueSource: 1
-  badgeValueFormat: '{duration}'
+  badgeValueFormat: '{total}/{duration}'
   title: Regeneration
-  tooltipFormat: 'Restores {total} Health at the end of each turn.
-
-    Lasts {duration}
-    turns.'
+  tooltipFormat: Restores {total} Health at the end of each turn. Lasts {duration}
+    turns.

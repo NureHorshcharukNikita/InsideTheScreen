@@ -55,6 +55,7 @@ public static class StatusApplicationResolver
         return spec.ReapplyMode switch
         {
             StatusApplicationReapplyMode.AddDuration => BattleStatusReapplyMode.AddDuration,
+            StatusApplicationReapplyMode.AddStacksAndDuration => BattleStatusReapplyMode.AddStacksAndDuration,
             StatusApplicationReapplyMode.AddStacks => BattleStatusReapplyMode.AddStacks,
             _ => spec.Status.ReapplyMode
         };

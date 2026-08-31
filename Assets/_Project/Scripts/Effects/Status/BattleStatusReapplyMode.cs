@@ -1,5 +1,12 @@
 public enum BattleStatusReapplyMode
 {
     AddStacks,
-    AddDuration
+    AddDuration,
+    AddStacksAndDuration
+}
+
+public enum BattleStatusExpirationMode
+{
+    RemoveStatus,
+    DecayStacks
 }

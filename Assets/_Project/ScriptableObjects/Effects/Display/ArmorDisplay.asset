@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleEffectDisplayData
   icon: {fileID: 21300000, guid: 1b00539bd5cbbbe4195c3f7073d0aae4, type: 3}
   fallbackLabel: A
+  badgeMode: 0
   badgeValueSource: 0
   badgeValueFormat: '{value}'
   title: Armor
-  tooltipFormat: 'Blocks incoming damage before health.
-
-    Current armor: {value}.'
+  tooltipFormat: 'Blocks incoming damage before health. Current armor: {value}.'

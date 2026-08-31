@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Battle/Statuses/Regeneration", fileName = "RegenerationStatus")]
 public class RegenerationStatus : BattleStatus
 {
+    [Header("Tick")]
     [SerializeField] private BattleStatusTiming tickTiming = BattleStatusTiming.TurnEnd;
 
     public override void Tick(ActiveBattleStatus status, ICombatant target, BattleStatusTiming timing, BattleActionContext actionContext)

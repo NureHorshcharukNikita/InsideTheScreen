@@ -6,6 +6,7 @@ public sealed class ActiveBattleStatus
     {
         Status = status;
         Duration = Mathf.Max(duration, 0);
+        BaseDuration = Duration;
         Stacks = Mathf.Max(stacks, 1);
         Value = Mathf.Max(value, 0);
         Source = source;
@@ -13,6 +14,7 @@ public sealed class ActiveBattleStatus
 
     public BattleStatus Status { get; }
     public int Duration { get; private set; }
+    public int BaseDuration { get; private set; }
     public int Stacks { get; private set; }
     public int Value { get; private set; }
     public ICombatant Source { get; private set; }
@@ -20,10 +22,17 @@ public sealed class ActiveBattleStatus
 
     public void Refresh(int duration, int stacks, int value, ICombatant source, BattleStatusReapplyMode reapplyMode)
     {
+        BaseDuration = Mathf.Max(BaseDuration, Mathf.Max(duration, 0));
+
         if (reapplyMode == BattleStatusReapplyMode.AddDuration)
         {
             Duration += Mathf.Max(duration, 0);
             Stacks = Mathf.Max(Stacks, Mathf.Max(stacks, 1));
+        }
+        else if (reapplyMode == BattleStatusReapplyMode.AddStacksAndDuration)
+        {
+            Duration += Mathf.Max(duration, 0);
+            Stacks += Mathf.Max(stacks, 1);
         }
         else
         {
@@ -35,9 +44,15 @@ public sealed class ActiveBattleStatus
         Source = source ?? Source;
     }
 
-    public void ReduceDuration()
+    public void ReduceDuration(BattleStatusExpirationMode expirationMode)
     {
         if (Duration > 0)
             Duration--;
+
+        if (Duration > 0 || expirationMode != BattleStatusExpirationMode.DecayStacks || Stacks <= 1)
+            return;
+
+        Stacks--;
+        Duration = Mathf.Max(BaseDuration, 1);
     }
 }

@@ -2,5 +2,6 @@ public enum StatusApplicationReapplyMode
 {
     UseStatusDefault,
     AddStacks,
-    AddDuration
+    AddDuration,
+    AddStacksAndDuration
 }
