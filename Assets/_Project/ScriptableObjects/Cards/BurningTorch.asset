@@ -16,10 +16,8 @@ MonoBehaviour:
   cardName: Burning Torch
   description: 
   icon: {fileID: 21300000, guid: 1f215ba8e86542143b6c6049a51d2939, type: 3}
-  categories:
-  - 3
+  categories: 
   cost: 1
   conditions: []
   instantEffects: []
   statusApplications: []
-

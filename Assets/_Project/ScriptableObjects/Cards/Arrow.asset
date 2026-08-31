@@ -16,10 +16,8 @@ MonoBehaviour:
   cardName: Arrow
   description: 
   icon: {fileID: 21300000, guid: cb9f614ddde53b24795c1cef4f470cc8, type: 3}
-  categories:
-  - 0
+  categories: 
   cost: 1
   conditions: []
   instantEffects: []
   statusApplications: []
-

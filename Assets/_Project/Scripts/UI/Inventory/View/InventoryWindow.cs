@@ -157,6 +157,25 @@ public class InventoryWindow : MonoBehaviour
             deckCountText);
     }
 
+    public void RebuildCategoriesAndRefresh()
+    {
+        if (inventoryScreenController == null)
+            return;
+
+        if (categoriesPanel != null && player != null && player.InventoryData != null)
+        {
+            categoriesPanel.Build(
+                player.InventoryData.Cards,
+                category =>
+                {
+                    inventoryScreenController.SetCategory(category);
+                    Refresh();
+                });
+        }
+
+        Refresh();
+    }
+
     public void AddSelectedToDeck()
     {
         inventoryScreenController.AddSelected();

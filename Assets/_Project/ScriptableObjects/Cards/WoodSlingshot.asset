@@ -16,10 +16,8 @@ MonoBehaviour:
   cardName: Wood Slingshot
   description: 
   icon: {fileID: 21300000, guid: b1ab00f07e0146d4bb256a666819600b, type: 3}
-  categories:
-  - 0
+  categories: 
   cost: 1
   conditions: []
   instantEffects: []
   statusApplications: []
-

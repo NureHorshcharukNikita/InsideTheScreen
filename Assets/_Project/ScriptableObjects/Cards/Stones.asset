@@ -16,10 +16,8 @@ MonoBehaviour:
   cardName: Stones
   description: 
   icon: {fileID: 21300000, guid: 3d52363e5702b354ca41f3976bc75240, type: 3}
-  categories:
-  - 0
+  categories: 
   cost: 1
   conditions: []
   instantEffects: []
   statusApplications: []
-

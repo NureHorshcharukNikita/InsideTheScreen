@@ -58,11 +58,13 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
         BattleSystem battle = null,
         bool selected = false)
     {
+        EnsureRuntimeReferences();
+
         cardIndex = index;
         onPointerDown = onSelect;
         battleSystem = battle;
 
-        battleDrag.Configure(battle, returnAnimationDuration);
+        battleDrag?.Configure(battle, returnAnimationDuration);
 
         ApplyCardData(data, count);
         SetSelected(selected);
@@ -139,4 +141,17 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
         canvasGroup.blocksRaycasts = true;
     }
 
+    private void EnsureRuntimeReferences()
+    {
+        if (rectTransform == null || rootCanvas == null || layoutElement == null)
+            CacheRectHierarchy();
+
+        if (canvasGroup == null)
+            EnsureCanvasGroupForRaycasts();
+
+        if (battleDrag == null)
+            battleDrag = new CardBattleDragHandler(this);
+
+        battleDrag.SyncHierarchy(rectTransform, handParent, canvasRootRect, rootCanvas, layoutElement, canvasGroup);
+    }
 }

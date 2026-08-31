@@ -16,10 +16,8 @@ MonoBehaviour:
   cardName: Torch
   description: 
   icon: {fileID: 21300000, guid: 3f112c17dc21cba49ab82c37faffc682, type: 3}
-  categories:
-  - 3
+  categories: 
   cost: 1
   conditions: []
   instantEffects: []
   statusApplications: []
-
