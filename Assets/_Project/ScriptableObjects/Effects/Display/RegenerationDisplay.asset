@@ -17,9 +17,7 @@ MonoBehaviour:
   badgeValueSource: 1
   badgeValueFormat: '{duration}'
   title: Regeneration
-  tooltipFormat: 'Restores {value} health at the end of each turn.
+  tooltipFormat: 'Restores {total} Health at the end of each turn.
 
-    Duration:
-    {duration}
-
-    Stacks: {stacks}'
+    Lasts {duration}
+    turns.'

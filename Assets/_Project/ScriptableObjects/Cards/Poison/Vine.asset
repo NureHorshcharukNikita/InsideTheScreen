@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: vine
   cardName: Vine
-  description: Apply {value} {status} for {duration} turns.
+  description: Apply {status0.value} {status0.status} for {duration} turns.
+  shortDescription: '{status0.value} {status0.status} / {status0.duration} turns.'
   icon: {fileID: 21300000, guid: 0174ca577792c654a97950ff8d946f93, type: 3}
   categories: 0000000004000000
   cost: 1

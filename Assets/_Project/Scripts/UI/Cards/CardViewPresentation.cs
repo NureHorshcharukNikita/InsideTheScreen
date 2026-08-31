@@ -12,7 +12,7 @@ public partial class CardView
             cardCostText.text = data != null ? data.Cost.ToString() : string.Empty;
 
         if (cardDescriptionText != null)
-            cardDescriptionText.text = data != null ? data.Description : string.Empty;
+            cardDescriptionText.text = data != null ? data.ShortDescription : string.Empty;
 
         ApplyCount(count);
         ApplyIcon(data);

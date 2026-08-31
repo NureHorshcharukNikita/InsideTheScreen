@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: apple
   cardName: Apple
-  description: Restore {value} health.
+  description: Restore {instant0.value} Health.
+  shortDescription: 
   icon: {fileID: 21300000, guid: 1e272f06ec116d948a86385437000f5a, type: 3}
-  categories:
-  - 1
+  categories: 01000000
   cost: 1
   conditions: []
   instantEffects:
@@ -27,4 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-

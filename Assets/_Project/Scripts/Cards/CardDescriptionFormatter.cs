@@ -28,10 +28,13 @@ public static class BattleDescriptionFormatter
         TStatus status = GetFirst(statusApplications);
 
         int primaryValue = instant?.Value ?? status?.Value ?? 0;
+        int primaryStacks = status?.Stacks ?? 1;
+        int primaryTotal = primaryValue * primaryStacks;
         string result = template
             .Replace("{value}", FormatInt(primaryValue))
+            .Replace("{total}", FormatInt(primaryTotal))
             .Replace("{duration}", FormatInt(status?.Duration ?? 0))
-            .Replace("{stacks}", FormatInt(status?.Stacks ?? 1))
+            .Replace("{stacks}", FormatInt(primaryStacks))
             .Replace("{chance}", FormatPercent(instant?.ApplyChance ?? status?.ApplyChance ?? 1f))
             .Replace("{effect}", instant?.Effect != null ? instant.Effect.EffectName : string.Empty)
             .Replace("{status}", status?.Status != null ? status.Status.StatusName : string.Empty);
@@ -57,6 +60,7 @@ public static class BattleDescriptionFormatter
         string prefix = "{instant" + index.ToString(CultureInfo.InvariantCulture) + ".";
         return text
             .Replace(prefix + "value}", FormatInt(entry?.Value ?? 0))
+            .Replace(prefix + "total}", FormatInt(entry?.Value ?? 0))
             .Replace(prefix + "chance}", FormatPercent(entry?.ApplyChance ?? 1f))
             .Replace(prefix + "effect}", entry?.Effect != null ? entry.Effect.EffectName : string.Empty);
     }
@@ -65,10 +69,13 @@ public static class BattleDescriptionFormatter
         where TStatus : class, IStatusApplicationSpec
     {
         string prefix = "{status" + index.ToString(CultureInfo.InvariantCulture) + ".";
+        int value = entry?.Value ?? 0;
+        int stacks = entry?.Stacks ?? 1;
         return text
-            .Replace(prefix + "value}", FormatInt(entry?.Value ?? 0))
+            .Replace(prefix + "value}", FormatInt(value))
+            .Replace(prefix + "total}", FormatInt(value * stacks))
             .Replace(prefix + "duration}", FormatInt(entry?.Duration ?? 0))
-            .Replace(prefix + "stacks}", FormatInt(entry?.Stacks ?? 1))
+            .Replace(prefix + "stacks}", FormatInt(stacks))
             .Replace(prefix + "chance}", FormatPercent(entry?.ApplyChance ?? 1f))
             .Replace(prefix + "status}", entry?.Status != null ? entry.Status.StatusName : string.Empty);
     }

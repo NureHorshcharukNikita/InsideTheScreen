@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: rock
   cardName: Rock
-  description: Deal {value} damage.
+  description: Deal {instant0.value} Damage.
+  shortDescription: 
   icon: {fileID: 21300000, guid: acbf92bc0b73fb84c8b837aedc255bab, type: 3}
-  categories:
-  - 0
+  categories: 00000000
   cost: 1
   conditions: []
   instantEffects:

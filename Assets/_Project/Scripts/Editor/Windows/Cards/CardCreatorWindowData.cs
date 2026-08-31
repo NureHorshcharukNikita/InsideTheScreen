@@ -182,7 +182,8 @@ public partial class CardCreatorWindow
         return EditorAssetUtility.ContainsIgnoreCase(card.name, query)
             || EditorAssetUtility.ContainsIgnoreCase(card.CardName, query)
             || EditorAssetUtility.ContainsIgnoreCase(card.CardID, query)
-            || EditorAssetUtility.ContainsIgnoreCase(card.Description, query);
+            || EditorAssetUtility.ContainsIgnoreCase(card.Description, query)
+            || EditorAssetUtility.ContainsIgnoreCase(card.ShortDescription, query);
     }
 
     private bool MatchEffectSearch(InstantBattleEffect effect)

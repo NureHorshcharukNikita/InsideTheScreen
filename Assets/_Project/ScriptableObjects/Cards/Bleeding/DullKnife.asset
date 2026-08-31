@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: dull_knife
   cardName: Dull Knife
-  description: Deal {instant0.value} damage and apply {status0.value} {status0.status}
+  description: Deal {instant0.value} Damage and Apply {status0.value} {status0.status}
     for {status0.duration} turns.
+  shortDescription: Deal {instant0.value} Damage. {status0.value} {status0.status}
+    / {status0.duration} turns.
   icon: {fileID: 21300000, guid: 1444544bc9942f24185e4ff60d32c204, type: 3}
   categories: 0000000005000000
   cost: 1

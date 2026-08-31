@@ -158,8 +158,8 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
     private void DrawDescriptionTemplateHelp()
     {
         EditorSectionGUI.DrawTemplateHelp(
-            "Description and Intent Summary support: {value}, {duration}, {stacks}, {chance}, {effect}, {status}. " +
-            "For exact entries use: {instant0.value}, {instant0.effect}, {status0.value}, {status0.status}, {status0.duration}.");
+            "Description and Intent Summary support: {value}, {total}, {duration}, {stacks}, {chance}, {effect}, {status}. " +
+            "For exact entries use: {instant0.value}, {instant0.total}, {instant0.effect}, {status0.value}, {status0.total}, {status0.status}, {status0.duration}.");
     }
 
 }

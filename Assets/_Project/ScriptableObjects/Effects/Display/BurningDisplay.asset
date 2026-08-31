@@ -17,9 +17,7 @@ MonoBehaviour:
   badgeValueSource: 1
   badgeValueFormat: '{duration}'
   title: Burning
-  tooltipFormat: 'Takes {value} fire damage at the end of each turn.
+  tooltipFormat: 'Takes {total} Burn damage at the end of each turn.
 
-    Duration:
-    {duration}
-
-    Stacks: {stacks}'
+    Lasts
+    {duration} turns.'

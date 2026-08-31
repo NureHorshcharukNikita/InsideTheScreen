@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: bandage
   cardName: Bandage
-  description: Apply {value} Healing for {duration} turns.
+  description: Apply {status0.value} Healing for {status0.duration} turns.
+  shortDescription: '{status0.value} Health / {status0.duration} turns.'
   icon: {fileID: 21300000, guid: 25ab0e6a866b6d64c8cd16d0df1c3c90, type: 3}
-  categories:
-  - 1
-  - 6
+  categories: 0100000006000000
   cost: 1
   conditions:
   - {fileID: 11400000, guid: 4ac03d3897771f54886308ac65401a50, type: 2}
@@ -32,4 +31,3 @@ MonoBehaviour:
     applyChance: 1
     reapplyMode: 0
     conditions: []
-

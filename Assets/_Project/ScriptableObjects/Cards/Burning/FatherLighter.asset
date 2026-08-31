@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: father_lighter
   cardName: Father's Lighter
-  description: Apply {value} {status} for {duration} turns.
+  description: Apply {status0.value} {status0.status} for {status0.duration} turns.
+  shortDescription: '{status0.value} {status0.status} / {status0.duration} turns.'
   icon: {fileID: 21300000, guid: ff1553eaa3e564a4ab3c2259750a57c3, type: 3}
-  categories:
-  - 0
-  - 3
+  categories: 0000000003000000
   cost: 1
   conditions: []
   instantEffects: []
@@ -31,4 +30,3 @@ MonoBehaviour:
     applyChance: 1
     reapplyMode: 0
     conditions: []
-

@@ -7,6 +7,7 @@ public class CardDataEditor : UnityEditor.Editor
     private SerializedProperty _cardIdProp;
     private SerializedProperty _cardNameProp;
     private SerializedProperty _descriptionProp;
+    private SerializedProperty _shortDescriptionProp;
     private SerializedProperty _iconProp;
     private SerializedProperty _categoriesProp;
     private SerializedProperty _costProp;
@@ -19,6 +20,7 @@ public class CardDataEditor : UnityEditor.Editor
         _cardIdProp = serializedObject.FindProperty("cardID");
         _cardNameProp = serializedObject.FindProperty("cardName");
         _descriptionProp = serializedObject.FindProperty("description");
+        _shortDescriptionProp = serializedObject.FindProperty("shortDescription");
         _iconProp = serializedObject.FindProperty("icon");
         _categoriesProp = serializedObject.FindProperty("categories");
         _costProp = serializedObject.FindProperty("cost");
@@ -44,6 +46,7 @@ public class CardDataEditor : UnityEditor.Editor
         EditorGUILayout.PropertyField(_cardIdProp);
         EditorGUILayout.PropertyField(_cardNameProp);
         EditorGUILayout.PropertyField(_descriptionProp);
+        EditorGUILayout.PropertyField(_shortDescriptionProp);
         DrawDescriptionTemplateHelp();
         DrawFormattedPreview();
         EditorGUILayout.PropertyField(_iconProp);
@@ -155,8 +158,8 @@ public class CardDataEditor : UnityEditor.Editor
     private void DrawDescriptionTemplateHelp()
     {
         EditorSectionGUI.DrawTemplateHelp(
-            "Description supports: {value}, {duration}, {stacks}, {chance}, {effect}, {status}. " +
-            "For exact entries use: {instant0.value}, {instant0.effect}, {status0.value}, {status0.status}, {status0.duration}.");
+            "Description supports: {value}, {total}, {duration}, {stacks}, {chance}, {effect}, {status}. " +
+            "For exact entries use: {instant0.value}, {instant0.total}, {instant0.effect}, {status0.value}, {status0.total}, {status0.status}, {status0.duration}.");
     }
 
     private void DrawFormattedPreview()
@@ -166,10 +169,13 @@ public class CardDataEditor : UnityEditor.Editor
             return;
 
         string preview = card.Description;
-        if (string.IsNullOrWhiteSpace(preview))
-            return;
+        string shortPreview = card.ShortDescription;
 
-        EditorSectionGUI.DrawReadonlyPreview("Formatted Description", preview, 34f);
+        if (!string.IsNullOrWhiteSpace(preview))
+            EditorSectionGUI.DrawReadonlyPreview("Formatted Description", preview, 34f);
+
+        if (!string.IsNullOrWhiteSpace(shortPreview))
+            EditorSectionGUI.DrawReadonlyPreview("Card Text Preview", shortPreview, 34f);
     }
 
     private void DrawQuickActions()

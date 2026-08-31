@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: leather_hat
   cardName: Leather Hat
-  description: Gain {value} armor.
+  description: Gain {instant0.value} Armor.
+  shortDescription: 
   icon: {fileID: 21300000, guid: d0914de9db9d4db489a68274a76579eb, type: 3}
-  categories:
-  - 2
+  categories: 02000000
   cost: 1
   conditions: []
   instantEffects:
@@ -27,5 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-
-

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: tree_bark
   cardName: Tree Bark
-  description: Gain {value} armor.
+  description: '{instant0.chance} chance to gain {instant0.value} Armor.'
+  shortDescription: Gain {instant0.value} Armor ({instant0.chance}).
   icon: {fileID: 21300000, guid: 57457a1ff1ada4540b231199f6ef979c, type: 3}
   categories: 0200000009000000
   cost: 1
@@ -23,6 +24,6 @@ MonoBehaviour:
   - effect: {fileID: 11400000, guid: 972dbff6f90eee24eb0ca5c32880a20c, type: 2}
     targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
     value: 3
-    applyChance: 0.75
+    applyChance: 0.8
     conditions: []
   statusApplications: []

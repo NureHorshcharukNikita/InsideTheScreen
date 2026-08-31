@@ -14,18 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: leather_jacket
   cardName: Leather Jacket
-  description: Gain {value} armor.
+  description: Gain {instant0.value} Armor.
+  shortDescription: 
   icon: {fileID: 21300000, guid: 48c34c1d4e9720046bc94b707fce29b6, type: 3}
-  categories:
-  - 2
-  cost: 1
+  categories: 02000000
+  cost: 2
   conditions: []
   instantEffects:
   - effect: {fileID: 11400000, guid: 972dbff6f90eee24eb0ca5c32880a20c, type: 2}
     targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
-    value: 6
+    value: 7
     applyChance: 1
     conditions: []
   statusApplications: []
-
-

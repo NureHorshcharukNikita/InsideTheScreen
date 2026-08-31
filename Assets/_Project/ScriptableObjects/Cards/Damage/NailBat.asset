@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: nail_bat
   cardName: Nail Bat
-  description: Deal {value} damage.
+  description: Deal {instant0.value} Damage.
+  shortDescription: 
   icon: {fileID: 21300000, guid: 6aa5fbb30dd9a204d8e7547a85140923, type: 3}
-  categories:
-  - 0
+  categories: 00000000
   cost: 2
   conditions: []
   instantEffects:
@@ -27,4 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: blunt_spear
   cardName: Blunt Spear
-  description: Deal {value} damage.
+  description: Deal {instant0.value} Damage.
+  shortDescription: 
   icon: {fileID: 21300000, guid: 5e0368f756f28db43af62956fc6a6f45, type: 3}
-  categories:
-  - 0
+  categories: 00000000
   cost: 1
   conditions: []
   instantEffects:
@@ -27,4 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-

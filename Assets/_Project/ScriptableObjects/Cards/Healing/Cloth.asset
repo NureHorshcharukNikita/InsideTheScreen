@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: cloth
   cardName: Cloth
-  description: Apply {value} Healing for {duration} turns.
+  description: Apply {status0.value} Healing for {status0.duration} turns.
+  shortDescription: '{status0.value} Health / {status0.duration} turns.'
   icon: {fileID: 21300000, guid: 9076c930dc791c944a08b1676b69ad93, type: 3}
   categories: 0100000006000000
   cost: 1

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: iron_pickaxe
   cardName: Iron Pickaxe
-  description: Deal {value} damage.
+  description: Deal {instant0.value} Damage.
+  shortDescription: 
   icon: {fileID: 21300000, guid: b3f8c643d5d0c614aaf77f534fe124af, type: 3}
-  categories:
-  - 0
+  categories: 00000000
   cost: 2
   conditions: []
   instantEffects:
@@ -27,4 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-

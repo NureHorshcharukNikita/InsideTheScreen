@@ -13,7 +13,7 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
 
     private const int PreviewValue = 3;
     private const int PreviewDuration = 2;
-    private const int PreviewStacks = 1;
+    private const int PreviewStacks = 2;
 
     private void OnEnable()
     {
@@ -52,8 +52,8 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
     private void DrawTemplateHelp()
     {
         EditorSectionGUI.DrawTemplateHelp(
-            "Badge Value Format and Tooltip support: {value}, {duration}, {stacks}. " +
-            "Preview uses value=3, duration=2, stacks=1.");
+            "Badge Value Format and Tooltip support: {value}, {total}, {duration}, {stacks}. " +
+            "Preview uses value=3, total=6, duration=2, stacks=2.");
     }
 
     private void DrawBadgePreview()

@@ -11,8 +11,10 @@ public static class BattleEffectDisplayFormatter
         if (string.IsNullOrWhiteSpace(template))
             return string.Empty;
 
+        int total = value * stacks;
         return template
             .Replace("{value}", value.ToString(CultureInfo.InvariantCulture))
+            .Replace("{total}", total.ToString(CultureInfo.InvariantCulture))
             .Replace("{duration}", duration.ToString(CultureInfo.InvariantCulture))
             .Replace("{stacks}", stacks.ToString(CultureInfo.InvariantCulture));
     }

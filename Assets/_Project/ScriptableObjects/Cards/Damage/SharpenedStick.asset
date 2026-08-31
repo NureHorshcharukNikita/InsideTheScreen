@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: sharpened_stick
   cardName: Sharpened Stick
-  description: Deal {value} damage.
+  description: Deal {instant0.value} Damage.
+  shortDescription: 
   icon: {fileID: 21300000, guid: e0d090a277b427048b613773be7801ba, type: 3}
-  categories:
-  - 0
+  categories: 00000000
   cost: 1
   conditions: []
   instantEffects:
@@ -27,4 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-

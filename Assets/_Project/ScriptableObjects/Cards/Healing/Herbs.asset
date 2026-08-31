@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: herbs
   cardName: Herbs
-  description: Restore {value} health.
+  description: Restore {instant0.value} Health.
+  shortDescription: 
   icon: {fileID: 21300000, guid: e801770819df4214bae0ceac8e1cee3e, type: 3}
-  categories:
-  - 1
+  categories: 01000000
   cost: 1
   conditions: []
   instantEffects:
@@ -27,4 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-

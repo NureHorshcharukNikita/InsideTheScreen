@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: leather_leggings
   cardName: Leather Leggings
-  description: Gain {value} armor.
+  description: Gain {instant0.value} Armor.
+  shortDescription: 
   icon: {fileID: 21300000, guid: 7c99b01ac6d02344d963f4f954bf093e, type: 3}
-  categories:
-  - 2
+  categories: 02000000
   cost: 1
   conditions: []
   instantEffects:
@@ -27,5 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-
-

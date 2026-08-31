@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: carrot
   cardName: Carrot
-  description: Restore {value} health.
+  description: Restore {instant0.value} Health.
+  shortDescription: 
   icon: {fileID: 21300000, guid: 9f967f6665cdb9c4ea437aa44337c076, type: 3}
-  categories:
-  - 1
+  categories: 01000000
   cost: 1
   conditions: []
   instantEffects:
@@ -27,4 +27,3 @@ MonoBehaviour:
     applyChance: 1
     conditions: []
   statusApplications: []
-

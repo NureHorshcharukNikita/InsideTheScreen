@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: health_potion
   cardName: Health Potion
-  description: Restore {value} health.
+  description: Restore {instant0.value} Health.
+  shortDescription: 
   icon: {fileID: 21300000, guid: 23efbe00250c3144cb7e12979f938919, type: 3}
   categories: 01000000
   cost: 1

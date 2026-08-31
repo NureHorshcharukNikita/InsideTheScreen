@@ -17,9 +17,7 @@ MonoBehaviour:
   badgeValueSource: 1
   badgeValueFormat: '{duration}'
   title: Bleeding
-  tooltipFormat: 'Takes {value} bleeding damage at the end of each turn.
+  tooltipFormat: 'Takes {total} Bleed damage at the end of each turn.
 
-    Duration:
-    {duration}
-
-    Stacks: {stacks}'
+    Lasts
+    {duration} turns.'

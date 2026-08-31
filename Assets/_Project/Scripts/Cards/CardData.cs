@@ -11,6 +11,9 @@ public class CardData : ScriptableObject
     [TextArea(3, 6)]
     [SerializeField] private string description;
 
+    [TextArea(2, 4)]
+    [SerializeField] private string shortDescription;
+
     [SerializeField] private Sprite icon;
     [SerializeField] private List<CardCategory> categories = new();
 
@@ -23,7 +26,19 @@ public class CardData : ScriptableObject
     public string CardID => cardID;
     public string CardName => cardName;
     public string RawDescription => description;
+    public string RawShortDescription => shortDescription;
     public string Description => CardDescriptionFormatter.Format(this, description);
+    public string ShortDescription
+    {
+        get
+        {
+            string formattedShortDescription = CardDescriptionFormatter.Format(this, shortDescription);
+            return string.IsNullOrWhiteSpace(formattedShortDescription)
+                ? Description
+                : formattedShortDescription;
+        }
+    }
+
     public Sprite Icon => icon;
     public IReadOnlyList<CardCategory> Categories => categories;
     public int Cost => cost;
