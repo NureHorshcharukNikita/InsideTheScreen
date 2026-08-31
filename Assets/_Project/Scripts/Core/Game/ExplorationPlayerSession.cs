@@ -181,6 +181,7 @@ public static class ExplorationPlayerSession
         ContinueSceneName = SceneNames.Exploration;
         PendingBattleEnemy.ClearSession();
         DefeatedEncounters.Clear();
+        CollectedPickups.Clear();
     }
 
     private static SessionSaveData CreateSaveData()
@@ -215,6 +216,7 @@ public static class ExplorationPlayerSession
             data.enemyHealth);
 
         DefeatedEncounters.Restore(data.defeatedEncounterIds);
+        CollectedPickups.Restore(data.collectedPickupIds);
     }
 
     private static void RestoreRuntimeInventoryFromLoadedData(InventoryData template)

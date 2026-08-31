@@ -24,7 +24,8 @@ public static class ExplorationSessionSaveMapper
             pendingEncounterId = PendingBattleEnemy.EncounterId,
             inventoryCardIds = SessionCardSaveMapper.ToIds(runtimeInventory?.Cards),
             deckCardIds = SessionCardSaveMapper.ToIds(runtimeDeck?.Cards),
-            defeatedEncounterIds = DefeatedEncounters.ToArray()
+            defeatedEncounterIds = DefeatedEncounters.ToArray(),
+            collectedPickupIds = CollectedPickups.ToArray()
         };
 
         if (PendingBattleEnemy.TryGetCurrentEnemyHealth(out int enemyHealth))

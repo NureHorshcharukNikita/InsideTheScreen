@@ -21,4 +21,5 @@ public sealed class SessionSaveData
     public string[] inventoryCardIds;
     public string[] deckCardIds;
     public string[] defeatedEncounterIds;
+    public string[] collectedPickupIds;
 }

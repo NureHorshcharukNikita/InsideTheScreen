@@ -2,11 +2,16 @@ using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [RequireComponent(typeof(Collider2D))]
 public class RandomCardPickup : MonoBehaviour
 {
     [Header("Drop")]
+    [Tooltip("Stable pickup id saved in the player session. Auto-filled for scene objects.")]
+    [SerializeField] private string pickupId;
     [SerializeField] private List<CardData> cardPool = new();
     [SerializeField, Min(1)] private int minCards = 1;
     [SerializeField, Min(1)] private int maxCards = 3;
@@ -22,9 +27,23 @@ public class RandomCardPickup : MonoBehaviour
     [SerializeField] private int textSortingOrder = 100;
 
     private bool isPickedUp;
+    private string runtimePickupId;
+
+    private void Awake()
+    {
+        runtimePickupId = CreateRuntimePickupId();
+    }
+
+    private void Start()
+    {
+        if (CollectedPickups.IsCollected(runtimePickupId))
+            Destroy(gameObject);
+    }
 
     private void Reset()
     {
+        AutoFillPickupId();
+
         Collider2D trigger = GetComponent<Collider2D>();
         if (trigger != null)
             trigger.isTrigger = true;
@@ -32,6 +51,8 @@ public class RandomCardPickup : MonoBehaviour
 
     private void OnValidate()
     {
+        AutoFillPickupId();
+
         minCards = Mathf.Max(1, minCards);
         maxCards = Mathf.Max(minCards, maxCards);
 
@@ -42,7 +63,7 @@ public class RandomCardPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (isPickedUp || !other.CompareTag("Player"))
+        if (isPickedUp)
             return;
 
         PlayerCharacter player = other.GetComponent<PlayerCharacter>();
@@ -54,6 +75,7 @@ public class RandomCardPickup : MonoBehaviour
             return;
 
         isPickedUp = true;
+        CollectedPickups.MarkCollected(runtimePickupId);
         DisablePickupCollision();
 
         int cardsToDrop = Random.Range(minCards, maxCards + 1);
@@ -162,5 +184,81 @@ public class RandomCardPickup : MonoBehaviour
         }
 
         return availableCards;
+    }
+
+    private string CreateRuntimePickupId()
+    {
+        if (!string.IsNullOrWhiteSpace(pickupId))
+            return pickupId.Trim();
+
+        return CreateReadablePickupId();
+    }
+
+    private void AutoFillPickupId()
+    {
+#if UNITY_EDITOR
+        if (!string.IsNullOrWhiteSpace(pickupId) || EditorApplication.isPlayingOrWillChangePlaymode)
+            return;
+
+        if (PrefabUtility.IsPartOfPrefabAsset(gameObject))
+            return;
+
+        pickupId = CreateReadablePickupId();
+        EditorUtility.SetDirty(this);
+#endif
+    }
+
+    private string CreateReadablePickupId()
+    {
+        string scenePrefix = CreateIdPart(gameObject.scene.name);
+        string objectName = CreateIdPart(gameObject.name);
+
+        if (string.IsNullOrEmpty(scenePrefix))
+            scenePrefix = "scene";
+        if (string.IsNullOrEmpty(objectName))
+            objectName = "pickup";
+
+        return $"{scenePrefix}_{objectName}_{transform.GetSiblingIndex() + 1:00}";
+    }
+
+    private static string CreateIdPart(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return string.Empty;
+
+        List<char> chars = new();
+        bool previousWasSeparator = false;
+
+        string trimmedValue = value.Trim();
+        for (int i = 0; i < trimmedValue.Length; i++)
+        {
+            char character = trimmedValue[i];
+            bool shouldSplitBeforeUppercase = i > 0
+                                              && char.IsUpper(character)
+                                              && char.IsLetterOrDigit(trimmedValue[i - 1])
+                                              && !previousWasSeparator;
+
+            if (shouldSplitBeforeUppercase)
+            {
+                chars.Add('_');
+                previousWasSeparator = true;
+            }
+
+            if (char.IsLetterOrDigit(character))
+            {
+                chars.Add(char.ToLowerInvariant(character));
+                previousWasSeparator = false;
+            }
+            else if (!previousWasSeparator)
+            {
+                chars.Add('_');
+                previousWasSeparator = true;
+            }
+        }
+
+        while (chars.Count > 0 && chars[^1] == '_')
+            chars.RemoveAt(chars.Count - 1);
+
+        return new string(chars.ToArray());
     }
 }

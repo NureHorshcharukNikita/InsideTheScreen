@@ -167,12 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50b7fd74401c224193ea5db96519734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomCardPickup
-  cardPool:
-  - {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
-  - {fileID: 11400000, guid: e90ebb6468e36cc4a927b6668a4b435e, type: 2}
-  - {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
-  - {fileID: 11400000, guid: e23a6e3ebe43a304c96ac0c3f0fb73a9, type: 2}
-  - {fileID: 11400000, guid: de95a9968f2198749bac82515afe5c3f, type: 2}
+  pickupId: 
+  cardPool: []
   minCards: 1
   maxCards: 3
   destroyAfterPickup: 1
