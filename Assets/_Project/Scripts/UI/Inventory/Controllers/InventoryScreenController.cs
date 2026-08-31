@@ -74,6 +74,9 @@ public partial class InventoryScreenController
 
     public void AddSelected()
     {
+        if (!GameStateManager.CanEditCardCollections())
+            return;
+
         var card = selectionPresenter.GetSelected();
 
         if (card == null)
@@ -88,6 +91,9 @@ public partial class InventoryScreenController
 
     public void RemoveSelected()
     {
+        if (!GameStateManager.CanEditCardCollections())
+            return;
+
         var card = selectionPresenter.GetSelected();
 
         if (card == null)

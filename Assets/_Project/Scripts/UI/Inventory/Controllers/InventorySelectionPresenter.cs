@@ -17,12 +17,13 @@
             return;
 
         bool inDeck = deckController.IsInDeck(card);
+        bool canEdit = GameStateManager.CanEditCardCollections();
 
         preview.Show(
             card,
             false,
-            deckController.HasDeck() && deckController.CanAdd(card),
-            inDeck);
+            canEdit && deckController.HasDeck() && deckController.CanAdd(card),
+            canEdit && inDeck);
     }
 
     public void ShowFromDeck(CardData card)
@@ -30,11 +31,13 @@
         if (card == null)
             return;
 
+        bool canEdit = GameStateManager.CanEditCardCollections();
+
         preview.Show(
             card,
             true,
-            deckController.CanAdd(card),
-            true);
+            canEdit && deckController.CanAdd(card),
+            canEdit);
     }
 
     public CardData GetSelected()

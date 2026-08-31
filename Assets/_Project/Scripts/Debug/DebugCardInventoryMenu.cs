@@ -182,11 +182,13 @@ public class DebugCardInventoryMenu : MonoBehaviour
             using (new GUILayout.VerticalScope(GUILayout.Width(120f)))
             {
                 GUILayout.Space(10f);
+                bool canEditCards = GameStateManager.CanEditCardCollections();
+                bool wasEnabled = GUI.enabled;
+                GUI.enabled = canEditCards;
                 if (GUILayout.Button("Add +1", GUILayout.Height(36f)))
                     AddCard(card);
 
-                bool wasEnabled = GUI.enabled;
-                GUI.enabled = ownedCount > 0;
+                GUI.enabled = canEditCards && ownedCount > 0;
                 if (GUILayout.Button("Remove -1", GUILayout.Height(36f)))
                     RemoveCard(card);
                 GUI.enabled = wasEnabled;
@@ -211,6 +213,12 @@ public class DebugCardInventoryMenu : MonoBehaviour
 
     private void AddCard(CardData card)
     {
+        if (!GameStateManager.CanEditCardCollections())
+        {
+            statusMessage = "Card editing is locked during battle.";
+            return;
+        }
+
         RefreshRuntimeReferences();
         if (player == null || player.InventoryData == null)
         {
@@ -228,6 +236,12 @@ public class DebugCardInventoryMenu : MonoBehaviour
 
     private void RemoveCard(CardData card)
     {
+        if (!GameStateManager.CanEditCardCollections())
+        {
+            statusMessage = "Card editing is locked during battle.";
+            return;
+        }
+
         RefreshRuntimeReferences();
         if (player == null || player.InventoryData == null)
         {

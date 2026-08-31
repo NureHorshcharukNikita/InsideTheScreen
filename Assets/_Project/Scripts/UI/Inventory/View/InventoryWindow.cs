@@ -178,18 +178,27 @@ public class InventoryWindow : MonoBehaviour
 
     public void AddSelectedToDeck()
     {
+        if (!GameStateManager.CanEditCardCollections())
+            return;
+
         inventoryScreenController.AddSelected();
         Refresh();
     }
 
     public void RemoveSelectedFromDeck()
     {
+        if (!GameStateManager.CanEditCardCollections())
+            return;
+
         inventoryScreenController.RemoveSelected();
         Refresh();
     }
 
     public void Open()
     {
+        if (!GameStateManager.CanOpenInventory())
+            return;
+
         GameStateManager.SetState(GameState.Inventory);
         gameObject.SetActive(true);
 
@@ -253,6 +262,14 @@ public class InventoryWindow : MonoBehaviour
 
     public void Toggle()
     {
+        if (!GameStateManager.CanOpenInventory())
+        {
+            if (IsOpen)
+                Close();
+
+            return;
+        }
+
         if (IsOpen)
             Close();
         else

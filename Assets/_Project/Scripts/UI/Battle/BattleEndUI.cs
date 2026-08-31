@@ -41,6 +41,7 @@ public class BattleEndUI : MonoBehaviour
     private void ShowEndScreen(bool victory)
     {
         _lastOutcomeWasVictory = victory;
+        CloseOpenInventoryWindow();
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
         ClearPointerUiState();
@@ -49,6 +50,13 @@ public class BattleEndUI : MonoBehaviour
             resultText.text = victory ? "VICTORY" : "DEFEAT";
 
         RefreshButtons(victory);
+    }
+
+    private static void CloseOpenInventoryWindow()
+    {
+        InventoryWindow inventoryWindow = FindFirstObjectByType<InventoryWindow>(FindObjectsInactive.Include);
+        if (inventoryWindow != null && inventoryWindow.IsOpen)
+            inventoryWindow.Close();
     }
 
     private static void ClearPointerUiState()

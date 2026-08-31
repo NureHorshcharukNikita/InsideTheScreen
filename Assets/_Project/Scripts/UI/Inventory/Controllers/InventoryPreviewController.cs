@@ -28,6 +28,7 @@ public class InventoryPreviewController
 
         bool inDeck =
             deck.IsInDeck(card);
+        bool canEdit = GameStateManager.CanEditCardCollections();
 
         if (!inInventory && !inDeck)
         {
@@ -38,7 +39,7 @@ public class InventoryPreviewController
         preview.Show(
             card,
             inDeck,
-            deck.HasDeck() && deck.CanAdd(card),
-            inDeck);
+            canEdit && deck.HasDeck() && deck.CanAdd(card),
+            canEdit && inDeck);
     }
 }
