@@ -5,7 +5,6 @@ public class BattleEffectDisplayData : ScriptableObject
 {
     [Header("Badge")]
     [SerializeField] private Sprite icon;
-    [SerializeField] private string fallbackLabel;
     [SerializeField] private BattleEffectBadgeMode badgeMode = BattleEffectBadgeMode.ValueSource;
     [SerializeField] private BattleEffectBadgeValueSource badgeValueSource = BattleEffectBadgeValueSource.Value;
     [SerializeField] private string badgeValueFormat = "{value}";
@@ -17,7 +16,6 @@ public class BattleEffectDisplayData : ScriptableObject
     [SerializeField] private string tooltipFormat;
 
     public Sprite Icon => icon;
-    public string FallbackLabel => fallbackLabel;
 
     public BattleEffectDisplayEntry CreateEntry(
         string fallbackTitle,
@@ -30,7 +28,7 @@ public class BattleEffectDisplayData : ScriptableObject
         string tooltipTemplate = string.IsNullOrWhiteSpace(tooltipFormat) ? fallbackTooltip : tooltipFormat;
         return new BattleEffectDisplayEntry(
             icon,
-            fallbackLabel,
+            CreateFallbackLabel(displayTitle),
             CreateBadgeValue(value, duration, stacks),
             displayTitle,
             BattleEffectDisplayFormatter.Format(tooltipTemplate, value, duration, stacks));
@@ -53,5 +51,10 @@ public class BattleEffectDisplayData : ScriptableObject
             badgeTemplate = "{badge}";
 
         return BattleEffectDisplayFormatter.Format(badgeTemplate, value, duration, stacks, badgeValue);
+    }
+
+    private static string CreateFallbackLabel(string title)
+    {
+        return string.IsNullOrWhiteSpace(title) ? "?" : title.Trim()[..1];
     }
 }

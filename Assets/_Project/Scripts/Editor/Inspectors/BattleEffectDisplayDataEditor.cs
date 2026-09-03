@@ -5,7 +5,6 @@ using UnityEngine;
 public class BattleEffectDisplayDataEditor : UnityEditor.Editor
 {
     private SerializedProperty _iconProp;
-    private SerializedProperty _fallbackLabelProp;
     private SerializedProperty _badgeModeProp;
     private SerializedProperty _badgeValueSourceProp;
     private SerializedProperty _badgeValueFormatProp;
@@ -19,7 +18,6 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
     private void OnEnable()
     {
         _iconProp = serializedObject.FindProperty("icon");
-        _fallbackLabelProp = serializedObject.FindProperty("fallbackLabel");
         _badgeModeProp = serializedObject.FindProperty("badgeMode");
         _badgeValueSourceProp = serializedObject.FindProperty("badgeValueSource");
         _badgeValueFormatProp = serializedObject.FindProperty("badgeValueFormat");
@@ -34,7 +32,6 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
         EditorSectionGUI.DrawSection("Badge", () =>
         {
             EditorGUILayout.PropertyField(_iconProp);
-            EditorGUILayout.PropertyField(_fallbackLabelProp);
             EditorGUILayout.PropertyField(_badgeModeProp);
 
             BattleEffectBadgeMode badgeMode = (BattleEffectBadgeMode)_badgeModeProp.enumValueIndex;
