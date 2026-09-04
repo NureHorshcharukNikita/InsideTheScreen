@@ -10,6 +10,7 @@ public class FadeManager : MonoBehaviour
     [SerializeField] private CanvasGroup fadeGroup;
     [SerializeField] private float fadeDuration = 0.5f;
     [SerializeField] private bool fadeInOnSceneStart;
+    [SerializeField] private bool persistRootOnAwake;
 
     private FadeOverlayController _overlay;
     private bool _isFading;
@@ -42,11 +43,14 @@ public class FadeManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
+            new FadeOverlayController(fadeGroup).Hide();
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
+        if (persistRootOnAwake)
+            DontDestroyOnLoad(transform.root.gameObject);
 
         _fadeInFromBlackOnStart = shouldFadeInAfterSceneLoad || fadeInOnSceneStart;
         shouldFadeInAfterSceneLoad = false;
@@ -57,6 +61,8 @@ public class FadeManager : MonoBehaviour
             _overlay.ShowBlack();
         else
             _overlay.Hide();
+
+        SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
     private void Start()
@@ -71,7 +77,23 @@ public class FadeManager : MonoBehaviour
     private void OnDestroy()
     {
         if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
             Instance = null;
+        }
+    }
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!shouldFadeInAfterSceneLoad)
+            return;
+
+        shouldFadeInAfterSceneLoad = false;
+        _overlay?.ShowBlack();
+        StartCoroutine(FadeSceneTransition.FadeInFromBlack(
+            _overlay,
+            fadeDuration,
+            value => _isFading = value));
     }
 
     public void FadeToScene(string sceneName)
