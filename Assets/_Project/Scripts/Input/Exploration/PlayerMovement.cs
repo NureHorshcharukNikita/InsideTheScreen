@@ -4,13 +4,19 @@
 [RequireComponent(typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
+    private const float MovementThreshold = 0.001f;
+
+    private static readonly int IsMovingParameter = Animator.StringToHash("IsMoving");
+    private static readonly int DirectionParameter = Animator.StringToHash("Direction");
+
     public float speed = 5f;
 
     private Rigidbody2D rigidBody;
     private Animator animator;
     private Vector2 movement;
+    private PlayerFacingDirection facingDirection = PlayerFacingDirection.Down;
 
-    public bool IsMoving => GameStateManager.IsGameplay && movement.sqrMagnitude > 0.001f;
+    public bool IsMoving => GameStateManager.IsGameplay && movement.sqrMagnitude > MovementThreshold;
 
     private void Awake()
     {
@@ -30,12 +36,17 @@ public class PlayerMovement : MonoBehaviour
         }
 
         movement = GameInputSettings.GetMovement();
+        if (movement.sqrMagnitude > 1f)
+            movement.Normalize();
 
-        UpdateAnimation(movement.x, movement.y);
+        UpdateAnimation();
     }
 
     private void FixedUpdate()
     {
+        if (!GameStateManager.IsGameplay)
+            return;
+
         rigidBody.MovePosition(rigidBody.position + movement * speed * Time.fixedDeltaTime);
     }
 
@@ -43,34 +54,34 @@ public class PlayerMovement : MonoBehaviour
     {
         movement = Vector2.zero;
         rigidBody.linearVelocity = Vector2.zero;
-        animator.Play("Idle_Down");
+        animator.SetBool(IsMovingParameter, false);
     }
 
-    private void UpdateAnimation(float moveX, float moveY)
+    private void UpdateAnimation()
     {
-        if (movement.magnitude > 0)
+        bool isMoving = movement.sqrMagnitude > MovementThreshold;
+        animator.SetBool(IsMovingParameter, isMoving);
+
+        if (!isMoving)
+            return;
+
+        if (Mathf.Abs(movement.y) >= Mathf.Abs(movement.x))
         {
-            if (moveY > 0)
-            {
-                animator.Play("Walk_Up");
-            }
-            else if (moveY < 0)
-            {
-                animator.Play("Walk_Down");
-            }
-            else if (moveX < 0)
-            {
-                animator.Play("Walk_Left");
-            }
-            else if (moveX > 0)
-            {
-                animator.Play("Walk_Right");
-            }
+            facingDirection = movement.y > 0f ? PlayerFacingDirection.Up : PlayerFacingDirection.Down;
         }
         else
         {
-            animator.Play("Idle_Down");
+            facingDirection = movement.x > 0f ? PlayerFacingDirection.Right : PlayerFacingDirection.Left;
         }
+
+        animator.SetInteger(DirectionParameter, (int)facingDirection);
     }
 
+    private enum PlayerFacingDirection
+    {
+        Down = 0,
+        Up = 1,
+        Left = 2,
+        Right = 3
+    }
 }
