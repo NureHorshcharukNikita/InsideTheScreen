@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private Vector2 movement;
 
+    public bool IsMoving => GameStateManager.IsGameplay && movement.sqrMagnitude > 0.001f;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
