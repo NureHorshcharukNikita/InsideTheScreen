@@ -105,7 +105,6 @@ public partial class HandUI
     {
         deckUi?.BeginDeckCountFlyStagger(drawCount);
 
-        Action onCardArrived = deckUi != null ? deckUi.OnDeckFlyCardArrived : null;
         var context = new HandDrawDeckFlyContext(
             handPanel,
             _spawnedViews,
@@ -116,7 +115,7 @@ public partial class HandUI
             canvasRoot,
             handFlightSpline,
             settings,
-            onCardArrived);
+            NotifyDrawCardStarted);
 
         bool completedCleanly = false;
         try

@@ -450,6 +450,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4084010726468306320, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
+    - {fileID: 2322554107593301820, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
+    - {fileID: 3877182516714812601, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
+    - {fileID: 5361005518021097031, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
+    - {fileID: 7000000000000000003, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5129,7 +5133,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 4059743646884936382, guid: 6787597d76fed4a4d9cb39d8d399a1d0, type: 3}
   deckUi: {fileID: 849390529}
   animateDeckToHand: 1
-  flyDealStartDelay: 0.12
+  flyDealStartDelay: 0
   flyDuration: 0.35
   flyStagger: 0.08
   handFlightSpline: {fileID: 669438489}
@@ -5564,6 +5568,110 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1001 &2901202609050000001
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_Name
+      value: SceneAudioController
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 357bead223ed4a7e8374cbfe56a2a1f0, type: 3}
+--- !u!1 &2901202609050000100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2901202609050000101}
+  - component: {fileID: 2901202609050000102}
+  m_Layer: 0
+  m_Name: BattleAudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2901202609050000101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901202609050000100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2901202609050000102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901202609050000100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1cb3d43ef449dca7bb0e61a6998792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleAudioController
+  handUi: {fileID: 1882215370}
+  drawCardSfx: {fileID: 8300000, guid: ea66a9de48a9c4c4296acc1485b45d90, type: 3}
+  drawCardSfxVolume: 0.8
 --- !u!1001 &5781957508352486006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5889,6 +5997,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 2901202609050000001}
+  - {fileID: 2901202609050000101}
   - {fileID: 59007162}
   - {fileID: 252743983}
   - {fileID: 8123887846233731934}

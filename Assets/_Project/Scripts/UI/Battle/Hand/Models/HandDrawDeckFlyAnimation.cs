@@ -32,7 +32,7 @@ public readonly struct HandDrawDeckFlyContext
     public readonly RectTransform CanvasRoot;
     public readonly SplineContainer FlightSpline;
     public readonly HandFlyTweenSettings Settings;
-    public readonly Action OnDeckFlyCardArrived;
+    public readonly Action OnDeckFlyCardStarted;
 
     public HandDrawDeckFlyContext(
         Transform handPanel,
@@ -44,7 +44,7 @@ public readonly struct HandDrawDeckFlyContext
         RectTransform canvasRoot,
         SplineContainer flightSpline,
         HandFlyTweenSettings settings,
-        Action onDeckFlyCardArrived = null)
+        Action onDeckFlyCardStarted = null)
     {
         HandPanel = handPanel;
         SpawnedViews = spawnedViews;
@@ -55,7 +55,7 @@ public readonly struct HandDrawDeckFlyContext
         CanvasRoot = canvasRoot;
         FlightSpline = flightSpline;
         Settings = settings;
-        OnDeckFlyCardArrived = onDeckFlyCardArrived;
+        OnDeckFlyCardStarted = onDeckFlyCardStarted;
     }
 }
 

@@ -7,13 +7,14 @@ using UnityEngine.UI;
 public partial class HandUI : MonoBehaviour
 {
     public event Action DrawFlyAnimationCompleted;
+    public event Action DrawCardStarted;
 
     [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private CardView cardPrefab;
     [SerializeField] private DeckUI deckUi;
 
     [SerializeField] private bool animateDeckToHand = true;
-    [SerializeField] private float flyDealStartDelay = 0.12f;
+    [SerializeField] private float flyDealStartDelay = 0f;
     [SerializeField] private float flyDuration = 0.35f;
     [SerializeField] private float flyStagger = 0.08f;
     [SerializeField] private SplineContainer handFlightSpline;
@@ -154,4 +155,9 @@ public partial class HandUI : MonoBehaviour
         RefreshHand(_lastDeckManager, _lastSelectedCardIndex);
     }
 
+    private void NotifyDrawCardStarted()
+    {
+        deckUi?.OnDeckFlyCardArrived();
+        DrawCardStarted?.Invoke();
+    }
 }

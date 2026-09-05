@@ -23,9 +23,9 @@ public static partial class HandDrawDeckFlyAnimationDotween
                 if (flyingCard == null)
                     continue;
 
+                context.OnDeckFlyCardStarted?.Invoke();
                 flyingCard.position = preparedFlyData.StackStartWorld;
                 HandCardFlyTween.SetCardFlyVisible(flyingCard, true);
-                context.OnDeckFlyCardArrived?.Invoke();
 
                 if (index >= preparedFlyData.TargetsWorld.Length)
                     yield break;
