@@ -492,15 +492,31 @@ public class InventoryWindow : MonoBehaviour
             return;
 
         TMP_Text title = optionsPanel.transform.Find("OptionsTitle")?.GetComponent<TMP_Text>();
+        RectTransform optionsRect = optionsPanel.GetComponent<RectTransform>();
+        if (optionsRect != null)
+            optionsRect.sizeDelta = new Vector2(680f, 640f);
+
         if (title != null)
         {
             title.text = "Settings";
             RectTransform titleRect = title.GetComponent<RectTransform>();
-            titleRect.anchoredPosition = new Vector2(0f, 235f);
+            titleRect.anchorMin = new Vector2(0.5f, 0.5f);
+            titleRect.anchorMax = new Vector2(0.5f, 0.5f);
+            titleRect.pivot = new Vector2(0.5f, 0.5f);
+            titleRect.sizeDelta = new Vector2(470f, 70f);
+            titleRect.anchoredPosition = new Vector2(0f, 245f);
+            title.fontSize = 42f;
         }
 
         if (optionsPanel.transform.Find("SettingsBody") != null)
         {
+            RectTransform existingBodyRect = optionsPanel.transform.Find("SettingsBody") as RectTransform;
+            Transform content = optionsPanel.transform.Find("SettingsBody/BindingsContent");
+            Transform controlsTitle = optionsPanel.transform.Find("ControlsTitle");
+            Button existingResetButton = optionsPanel.transform.Find("SettingsResetButton")?.GetComponent<Button>();
+            EnsureSettingsScrollbar(existingBodyRect, existingBodyRect != null ? existingBodyRect.GetComponent<ScrollRect>() : null);
+            SettingsTabsPanel.Ensure(optionsPanel.transform, content, existingResetButton, controlsTitle);
+            AlignSettingsActionButtons();
             StyleSettingsButtons(optionsPanel.transform);
             return;
         }
@@ -548,8 +564,8 @@ public class InventoryWindow : MonoBehaviour
         foreach (GameInputAction action in SettingsActions)
             CreateSettingsBindingRow(contentRect.transform, action);
 
-        CreateSettingsScrollbar(bodyRect, scrollRect);
-        Button resetButton = CreateButton("SettingsResetButton", optionsPanel.transform, "Reset", new Vector2(-145f, -258f), new Vector2(250f, 50f), GameInputSettings.ResetToDefaults, SettingsActionButtonColor, SettingsActionButtonHighlightedColor, SettingsActionButtonPressedColor);
+        EnsureSettingsScrollbar(bodyRect, scrollRect);
+        Button resetButton = CreateButton("SettingsResetButton", optionsPanel.transform, "Reset", new Vector2(-145f, -250f), new Vector2(250f, 50f), GameInputSettings.ResetToDefaults, SettingsActionButtonColor, SettingsActionButtonHighlightedColor, SettingsActionButtonPressedColor);
 
         Transform backButton = optionsPanel.transform.Find("OptionsBackButton");
         if (backButton != null)
@@ -558,7 +574,7 @@ public class InventoryWindow : MonoBehaviour
             if (backRect != null)
             {
                 backRect.sizeDelta = new Vector2(250f, 50f);
-                backRect.anchoredPosition = new Vector2(145f, -258f);
+                backRect.anchoredPosition = new Vector2(145f, -250f);
             }
 
             Button backUiButton = backButton.GetComponent<Button>();
@@ -569,6 +585,28 @@ public class InventoryWindow : MonoBehaviour
         }
 
         resetButton.transform.SetSiblingIndex(backButton != null ? backButton.GetSiblingIndex() : resetButton.transform.GetSiblingIndex());
+        SettingsTabsPanel.Ensure(optionsPanel.transform, contentRect.transform, resetButton, optionsPanel.transform.Find("ControlsTitle"));
+    }
+
+    private void AlignSettingsActionButtons()
+    {
+        if (optionsPanel == null)
+            return;
+
+        AlignSettingsActionButton(optionsPanel.transform.Find("SettingsResetButton") as RectTransform, new Vector2(-145f, -250f));
+        AlignSettingsActionButton(optionsPanel.transform.Find("OptionsBackButton") as RectTransform, new Vector2(145f, -250f));
+    }
+
+    private static void AlignSettingsActionButton(RectTransform rect, Vector2 position)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.sizeDelta = new Vector2(250f, 50f);
+        rect.anchoredPosition = position;
     }
 
     private static void StyleSettingsButtons(Transform optionsTransform)
@@ -613,7 +651,22 @@ public class InventoryWindow : MonoBehaviour
         return rectTransform.gameObject;
     }
 
-    private void CreateSettingsScrollbar(RectTransform bodyRect, ScrollRect scrollRect)
+    private void EnsureSettingsScrollbar(RectTransform bodyRect, ScrollRect scrollRect)
+    {
+        if (bodyRect == null || scrollRect == null)
+            return;
+
+        Scrollbar scrollbar = bodyRect.Find("BindingsScrollbar")?.GetComponent<Scrollbar>();
+        if (scrollbar == null)
+            scrollbar = CreateSettingsScrollbar(bodyRect);
+
+        scrollRect.verticalScrollbar = scrollbar;
+        scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
+        scrollRect.verticalScrollbarSpacing = 0f;
+        scrollbar.gameObject.SetActive(false);
+    }
+
+    private Scrollbar CreateSettingsScrollbar(RectTransform bodyRect)
     {
         RectTransform scrollbarRect = CreateUIObject("BindingsScrollbar", bodyRect);
         scrollbarRect.anchorMin = new Vector2(1f, 0f);
@@ -646,9 +699,7 @@ public class InventoryWindow : MonoBehaviour
         scrollbar.targetGraphic = handleImage;
         scrollbar.handleRect = handleRect;
         scrollbar.value = 1f;
-        scrollRect.verticalScrollbar = scrollbar;
-        scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
-        scrollRect.verticalScrollbarSpacing = 0f;
+        return scrollbar;
     }
 
     private Button CreateButton(string name, Transform parent, string label, Vector2 position, Vector2 size, UnityEngine.Events.UnityAction onClick, Color normalColor, Color highlightedColor, Color pressedColor)

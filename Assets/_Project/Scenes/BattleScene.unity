@@ -5671,7 +5671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleAudioController
   handUi: {fileID: 1882215370}
   drawCardSfx: {fileID: 8300000, guid: ea66a9de48a9c4c4296acc1485b45d90, type: 3}
-  drawCardSfxVolume: 0.8
+  drawCardSfxVolume: 0.6
 --- !u!1001 &5781957508352486006
 PrefabInstance:
   m_ObjectHideFlags: 0

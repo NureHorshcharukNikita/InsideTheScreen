@@ -25,6 +25,7 @@ public sealed class MainMenuController : MonoBehaviour
 
     [Header("Video")]
     [SerializeField] private VideoPlayer menuVideoPlayer;
+    [SerializeField] private AudioSource menuVideoAudioSource;
 
     private bool menuVideoPausedByFocusLoss;
 
@@ -33,6 +34,7 @@ public sealed class MainMenuController : MonoBehaviour
         ExplorationPlayerSession.LoadPersistentSaveIfNeeded();
         GameStateManager.SetState(GameState.Gameplay);
         CacheMenuVideoPlayer();
+        ApplyMenuVideoVolume();
 
         if (settingsPanel != null)
             settingsPanel.SetActive(false);
@@ -42,6 +44,17 @@ public sealed class MainMenuController : MonoBehaviour
             saveSlotsPanel.gameObject.SetActive(false);
 
         RefreshContinueButton();
+    }
+
+    private void OnEnable()
+    {
+        AudioManager.VolumesChanged += ApplyMenuVideoVolume;
+        ApplyMenuVideoVolume();
+    }
+
+    private void OnDisable()
+    {
+        AudioManager.VolumesChanged -= ApplyMenuVideoVolume;
     }
 
     public void StartNewGame()
@@ -171,6 +184,19 @@ public sealed class MainMenuController : MonoBehaviour
     {
         if (menuVideoPlayer == null)
             menuVideoPlayer = FindFirstObjectByType<VideoPlayer>();
+
+        if (menuVideoAudioSource == null && menuVideoPlayer != null)
+            menuVideoAudioSource = menuVideoPlayer.GetComponent<AudioSource>();
+    }
+
+    private void ApplyMenuVideoVolume()
+    {
+        CacheMenuVideoPlayer();
+
+        if (menuVideoAudioSource == null || AudioManager.Instance == null)
+            return;
+
+        menuVideoAudioSource.volume = AudioManager.Instance.GetOutputVolume(AudioChannel.Music);
     }
 
     private void SetMenuVideoFocusState(bool hasFocus)

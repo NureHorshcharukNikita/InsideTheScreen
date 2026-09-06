@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public sealed class AudioManager : MonoBehaviour
     private const string UiVolumeKey = "audio.uiVolume";
 
     public static AudioManager Instance { get; private set; }
+    public static event Action VolumesChanged;
 
     [Header("Sources")]
     [SerializeField] private AudioSource musicSource;
@@ -155,6 +157,7 @@ public sealed class AudioManager : MonoBehaviour
 
         ApplyVolumes();
         SaveVolumes();
+        VolumesChanged?.Invoke();
     }
 
     public float GetVolume(AudioChannel channel)
@@ -168,6 +171,11 @@ public sealed class AudioManager : MonoBehaviour
             AudioChannel.Ui => uiVolume,
             _ => 1f
         };
+    }
+
+    public float GetOutputVolume(AudioChannel channel)
+    {
+        return masterVolume * GetVolume(channel);
     }
 
     private void InitializeSources()
@@ -214,7 +222,7 @@ public sealed class AudioManager : MonoBehaviour
         else
         {
             source.clip = clip;
-            source.volume = GetChannelOutputVolume(channel);
+            source.volume = GetOutputVolume(channel);
             source.Play();
             fadeRoutine = null;
         }
@@ -253,7 +261,7 @@ public sealed class AudioManager : MonoBehaviour
         source.clip = clip;
         source.Play();
 
-        yield return FadeSourceVolume(source, duration * 0.5f, 0f, GetChannelOutputVolume(channel));
+        yield return FadeSourceVolume(source, duration * 0.5f, 0f, GetOutputVolume(channel));
     }
 
     private IEnumerator FadeOutThenStop(AudioSource source, float duration)
@@ -286,21 +294,16 @@ public sealed class AudioManager : MonoBehaviour
     private void ApplyVolumes()
     {
         if (musicSource != null)
-            musicSource.volume = GetChannelOutputVolume(AudioChannel.Music);
+            musicSource.volume = GetOutputVolume(AudioChannel.Music);
 
         if (ambienceSource != null)
-            ambienceSource.volume = GetChannelOutputVolume(AudioChannel.Ambience);
+            ambienceSource.volume = GetOutputVolume(AudioChannel.Ambience);
 
         if (sfxSource != null)
-            sfxSource.volume = GetChannelOutputVolume(AudioChannel.Sfx);
+            sfxSource.volume = GetOutputVolume(AudioChannel.Sfx);
 
         if (uiSource != null)
-            uiSource.volume = GetChannelOutputVolume(AudioChannel.Ui);
-    }
-
-    private float GetChannelOutputVolume(AudioChannel channel)
-    {
-        return masterVolume * GetVolume(channel);
+            uiSource.volume = GetOutputVolume(AudioChannel.Ui);
     }
 
     private void LoadVolumes()

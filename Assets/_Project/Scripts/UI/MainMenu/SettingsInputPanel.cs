@@ -8,6 +8,8 @@ public sealed class SettingsInputPanel : MonoBehaviour
 
     private void Awake()
     {
+        EnsureAudioSettings();
+
         if (resetButton != null)
             resetButton.onClick.AddListener(ResetBindings);
 
@@ -16,6 +18,8 @@ public sealed class SettingsInputPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        EnsureAudioSettings();
+
         GameInputSettings.Changed += Refresh;
         Refresh();
     }
@@ -40,5 +44,12 @@ public sealed class SettingsInputPanel : MonoBehaviour
             if (row != null)
                 row.Refresh();
         }
+    }
+
+    private void EnsureAudioSettings()
+    {
+        Transform content = transform.Find("SettingsBody/BindingsContent");
+        Transform controlsTitle = transform.Find("ControlsTitle");
+        SettingsTabsPanel.Ensure(transform, content, resetButton, controlsTitle);
     }
 }
