@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec06fd07eb74cc459a4aa927d07c62a, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
+  profile: {fileID: 11400000, guid: 6ab36fdbc77e493ab4c9071ea094fbc4, type: 2}
   maxHealth: 30
   startingArmor: 0
   maxActionPoints: 5

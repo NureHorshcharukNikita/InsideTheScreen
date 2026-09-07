@@ -4,30 +4,26 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Characters/NPC Data")]
 public sealed class NpcData : ScriptableObject
 {
-    [Header("Identity")]
-    public string npcID;
-    public string displayName;
-
-    [TextArea(2, 4)]
-    public string description;
+    [Header("Profile")]
+    public CharacterProfile profile;
 
     [Header("Character")]
     public NpcDisposition disposition = NpcDisposition.Neutral;
     public int maxHealth = 1;
     public int startingArmor = 0;
-    public Sprite worldSprite;
-    public Sprite dialogueSprite;
 
     [Header("Dialogue")]
-    [TextArea(2, 4)]
-    public List<string> dialogueLines = new();
+    public bool enableDialogue = true;
+    public DialogueData dialogue;
 
-    [Header("Overhead Lines")]
+    [Header("Overhead Speech")]
+    public bool enableOverheadSpeech = true;
+
     [TextArea(1, 2)]
     public List<string> overheadLines = new();
 
     [Header("Quests")]
-    public List<string> questIDs = new();
+    public List<string> questKeys = new();
 
     [Header("Trade")]
     public List<ScriptableObject> tradeStock = new();
@@ -36,10 +32,14 @@ public sealed class NpcData : ScriptableObject
     public bool canMove;
     public float moveSpeed = 2f;
 
-    public bool CanTalk => HasAnyText(dialogueLines);
-    public bool CanShowOverheadLines => HasAnyText(overheadLines);
+    public bool CanTalk => enableDialogue && dialogue != null && dialogue.HasLines;
+    public bool CanShowOverheadLines => enableOverheadSpeech && HasAnyText(overheadLines);
     public bool CanTrade => HasAnyAssignedAsset(tradeStock);
-    public bool CanOfferQuests => HasAnyText(questIDs);
+    public bool CanOfferQuests => HasAnyText(questKeys);
+    public string CharacterID => profile != null ? profile.CharacterID : name;
+    public string DisplayName => profile != null ? profile.DisplayName : name;
+    public string Description => profile != null ? profile.Description : string.Empty;
+    public Sprite PortraitSprite => profile != null ? profile.PortraitSprite : null;
 
     private static bool HasAnyText(List<string> values)
     {

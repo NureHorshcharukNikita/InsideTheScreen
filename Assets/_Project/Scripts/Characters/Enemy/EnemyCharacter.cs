@@ -28,7 +28,7 @@ public class EnemyCharacter : Character
             return;
 
         enemyData = data;
-        ApplyBattleSprite(data.battleSprite);
+        ApplyBattleSprite(data.BattleSprite);
 
         SetFullHealth();
         SetArmor(StartingArmor);

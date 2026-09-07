@@ -4,22 +4,16 @@ using UnityEngine;
 [CustomEditor(typeof(EnemyData))]
 public class EnemyDataEditor : UnityEditor.Editor
 {
-    private SerializedProperty _enemyIdProp;
-    private SerializedProperty _displayNameProp;
-    private SerializedProperty _descriptionProp;
+    private SerializedProperty _profileProp;
     private SerializedProperty _maxHealthProp;
     private SerializedProperty _startingArmorProp;
-    private SerializedProperty _battleSpriteProp;
     private SerializedProperty _abilitiesProp;
 
     private void OnEnable()
     {
-        _enemyIdProp = serializedObject.FindProperty("enemyID");
-        _displayNameProp = serializedObject.FindProperty("displayName");
-        _descriptionProp = serializedObject.FindProperty("description");
+        _profileProp = serializedObject.FindProperty("profile");
         _maxHealthProp = serializedObject.FindProperty("maxHealth");
         _startingArmorProp = serializedObject.FindProperty("startingArmor");
-        _battleSpriteProp = serializedObject.FindProperty("battleSprite");
         _abilitiesProp = serializedObject.FindProperty("abilities");
     }
 
@@ -27,30 +21,22 @@ public class EnemyDataEditor : UnityEditor.Editor
     {
         serializedObject.Update();
 
-        EditorSectionGUI.DrawSection("Enemy Identity", DrawIdentitySection, 0f);
+        EditorSectionGUI.DrawSection("Enemy Profile", DrawProfileSection, 0f);
         EditorSectionGUI.DrawSection("Enemy Stats", DrawStatsSection);
-        EditorSectionGUI.DrawSection("Battle View", DrawBattleViewSection);
         EditorSectionGUI.DrawSection("Abilities", DrawAbilitiesSection);
         EditorSectionGUI.DrawSection("Validation", DrawValidation);
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void DrawIdentitySection()
+    private void DrawProfileSection()
     {
-        EditorGUILayout.PropertyField(_enemyIdProp);
-        EditorGUILayout.PropertyField(_displayNameProp);
-        EditorGUILayout.PropertyField(_descriptionProp);
+        EditorGUILayout.PropertyField(_profileProp);
     }
 
     private void DrawStatsSection()
     {
         EditorGUILayout.PropertyField(_maxHealthProp);
         EditorGUILayout.PropertyField(_startingArmorProp);
-    }
-
-    private void DrawBattleViewSection()
-    {
-        EditorGUILayout.PropertyField(_battleSpriteProp);
     }
 
     private void DrawAbilitiesSection()
@@ -60,14 +46,20 @@ public class EnemyDataEditor : UnityEditor.Editor
 
     private void DrawValidation()
     {
-        if (string.IsNullOrWhiteSpace(_enemyIdProp.stringValue))
-            EditorGUILayout.HelpBox("Enemy ID is empty. Use stable unique IDs for saves and content references.", MessageType.Warning);
+        CharacterProfile profile = _profileProp.objectReferenceValue as CharacterProfile;
+        if (profile == null)
+            EditorGUILayout.HelpBox("Profile is empty. Assign a CharacterProfile with ID, name, description, and sprites.", MessageType.Warning);
+        else
+        {
+            if (string.IsNullOrWhiteSpace(profile.characterID))
+                EditorGUILayout.HelpBox("Profile Character ID is empty. Use stable unique IDs for saves and content references.", MessageType.Warning);
+
+            if (profile.PortraitSprite == null)
+                EditorGUILayout.HelpBox("Profile Portrait Sprite is empty. BattleEnemyBase will keep its current sprite.", MessageType.Info);
+        }
 
         if (_maxHealthProp.intValue <= 0)
             EditorGUILayout.HelpBox("Max Health should be > 0.", MessageType.Warning);
-
-        if (_battleSpriteProp.objectReferenceValue == null)
-            EditorGUILayout.HelpBox("Battle Sprite is empty. BattleEnemyBase will keep its current sprite.", MessageType.Info);
 
         if (_abilitiesProp.arraySize == 0)
         {

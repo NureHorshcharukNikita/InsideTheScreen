@@ -1,0 +1,40 @@
+using UnityEditor;
+
+[CustomEditor(typeof(CharacterProfile))]
+public sealed class CharacterProfileEditor : UnityEditor.Editor
+{
+    private SerializedProperty characterIdProp;
+    private SerializedProperty displayNameProp;
+    private SerializedProperty descriptionProp;
+    private SerializedProperty portraitSpriteProp;
+
+    private void OnEnable()
+    {
+        characterIdProp = serializedObject.FindProperty("characterID");
+        displayNameProp = serializedObject.FindProperty("displayName");
+        descriptionProp = serializedObject.FindProperty("description");
+        portraitSpriteProp = serializedObject.FindProperty("portraitSprite");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+
+        EditorSectionGUI.DrawSection("Identity", DrawIdentitySection, 0f);
+        EditorSectionGUI.DrawSection("Portrait", DrawPortraitSection);
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    private void DrawIdentitySection()
+    {
+        EditorGUILayout.PropertyField(characterIdProp);
+        EditorGUILayout.PropertyField(displayNameProp);
+        EditorGUILayout.PropertyField(descriptionProp);
+    }
+
+    private void DrawPortraitSection()
+    {
+        EditorGUILayout.PropertyField(portraitSpriteProp);
+    }
+}

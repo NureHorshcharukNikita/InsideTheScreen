@@ -167,7 +167,7 @@ public class EnemyCreatorWindow : EditorWindow
         EditorTableGUI.DrawRow(
             new[]
             {
-                enemy.name,
+                enemy.DisplayName,
                 enemy.maxHealth.ToString(),
                 enemy.abilities != null ? enemy.abilities.Count.ToString() : "0",
                 AssetDatabase.GetAssetPath(enemy)
@@ -240,7 +240,10 @@ public class EnemyCreatorWindow : EditorWindow
             return true;
 
         string query = _enemySearch.Trim();
-        return EditorAssetUtility.ContainsIgnoreCase(enemy.name, query);
+        return EditorAssetUtility.ContainsIgnoreCase(enemy.name, query)
+               || EditorAssetUtility.ContainsIgnoreCase(enemy.CharacterID, query)
+               || EditorAssetUtility.ContainsIgnoreCase(enemy.DisplayName, query)
+               || EditorAssetUtility.ContainsIgnoreCase(enemy.Description, query);
     }
 
     private bool MatchesAbilitySearch(EnemyAbilityData ability)

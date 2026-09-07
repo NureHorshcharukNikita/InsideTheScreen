@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
   m_Name: SlimeData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  enemyID: slime
-  displayName: Slime
-  description: Balanced enemy that attacks with acid and reforms when wounded.
+  profile: {fileID: 11400000, guid: e7d093ff654d42b4b895c99a3242188f, type: 2}
   maxHealth: 40
-  healthBarAnchorAlongSprite: 0
-  battleSprite: {fileID: 21300000, guid: ac79dc239e6942945a7454750f0afe5a, type: 3}
+  startingArmor: 0
   abilities:
   - {fileID: 11400000, guid: beb9137195494bca908e461f5b3ac3e7, type: 2}
   - {fileID: 11400000, guid: 6974bf61b11b4ba190190d0bfd28cca5, type: 2}

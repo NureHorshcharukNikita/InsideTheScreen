@@ -13,12 +13,13 @@ public class NpcCharacter : Character
 
     public NpcData Data => npcData;
     public NpcState State => state;
-    public string DisplayName => npcData != null ? npcData.displayName : name;
+    public string DisplayName => npcData != null ? npcData.DisplayName : name;
     public NpcDisposition Disposition => npcData != null ? npcData.disposition : NpcDisposition.Neutral;
-    public Sprite DialogueSprite => npcData != null ? npcData.dialogueSprite : null;
-    public IReadOnlyList<string> DialogueLines => npcData != null ? npcData.dialogueLines : Array.Empty<string>();
+    public Sprite PortraitSprite => npcData != null ? npcData.PortraitSprite : null;
+    public Sprite DialogueSprite => PortraitSprite;
+    public DialogueData Dialogue => npcData != null ? npcData.dialogue : null;
     public IReadOnlyList<string> OverheadLines => npcData != null ? npcData.overheadLines : Array.Empty<string>();
-    public IReadOnlyList<string> QuestIDs => npcData != null ? npcData.questIDs : Array.Empty<string>();
+    public IReadOnlyList<string> QuestKeys => npcData != null ? npcData.questKeys : Array.Empty<string>();
     public IReadOnlyList<ScriptableObject> TradeStock => npcData != null ? npcData.tradeStock : Array.Empty<ScriptableObject>();
     public bool CanMove => npcData != null && npcData.canMove;
     public float MoveSpeed => npcData != null ? Mathf.Max(0f, npcData.moveSpeed) : 0f;
@@ -34,7 +35,6 @@ public class NpcCharacter : Character
     protected override void Awake()
     {
         base.Awake();
-        ApplyWorldSprite(npcData != null ? npcData.worldSprite : null);
     }
 
     public void ApplyData(NpcData data)
@@ -43,7 +43,6 @@ public class NpcCharacter : Character
             return;
 
         npcData = data;
-        ApplyWorldSprite(data.worldSprite);
         SetFullHealth();
         SetArmor(StartingArmor);
         SetState(NpcState.Idle);
@@ -124,17 +123,4 @@ public class NpcCharacter : Character
         };
     }
 
-    private void ApplyWorldSprite(Sprite sprite)
-    {
-        if (sprite == null)
-            return;
-
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.sprite = sprite;
-            if (TryGetComponent(out BoxCollider2DSpriteSync colliderSync))
-                colliderSync.RefreshFromSprite();
-        }
-    }
 }

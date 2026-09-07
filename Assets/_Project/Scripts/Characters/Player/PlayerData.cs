@@ -3,6 +3,9 @@
 [CreateAssetMenu(menuName = "Game/Player Data")]
 public class PlayerData : ScriptableObject
 {
+    [Header("Profile")]
+    public CharacterProfile profile;
+
     [Header("Health")]
     public int maxHealth = 30;
     public int startingArmor = 0;
@@ -19,4 +22,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Inventory")]
     public InventoryData Inventory;
+
+    public string DisplayName => profile != null ? profile.DisplayName : name;
+    public Sprite PortraitSprite => profile != null ? profile.PortraitSprite : null;
 }
