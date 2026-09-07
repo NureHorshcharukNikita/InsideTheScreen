@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 192685528533138148, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 21300000, guid: 0db844707c83d3145911544c951a53e4, type: 3}
     - target: {fileID: 192685528533138148, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -30,11 +30,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7000000000000000101, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
       propertyPath: m_Size.y
-      value: 2.5930543
+      value: 2.6238961
       objectReference: {fileID: 0}
     - target: {fileID: 7000000000000000101, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
       propertyPath: m_Offset.y
-      value: 1.2965271
+      value: 1.3119481
       objectReference: {fileID: 0}
     - target: {fileID: 7000000000000000101, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7000000000000000102, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
       propertyPath: enemyData
-      value:
+      value: 
       objectReference: {fileID: 11400000, guid: 7c93b3b42f664d619a259063b602052e, type: 2}
     - target: {fileID: 8307414355194484910, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
       propertyPath: m_Name
