@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a3a79120840ee43b75f909bae0aa53, type: 3}
+  m_Name: AncientEldonData
+  m_EditorClassIdentifier: Assembly-CSharp::NpcData
+  npcID: ancient_eldon
+  displayName: Ancient Eldon
+  description: The wisest elder of Cardland and the head of Leymar. Eldon remembers old paths, forgotten rules, and the price of every careless choice.
+  disposition: 1
+  maxHealth: 30
+  startingArmor: 0
+  worldSprite: {fileID: 21300000, guid: e31786befe2e14e4993fb0aa337d7777, type: 3}
+  dialogueSprite: {fileID: 21300000, guid: b70460a0a86efc14ba06691c92c47257, type: 3}
+  dialogueLines:
+  - Welcome, traveler. Few reach Leymar by accident, and fewer still leave unchanged.
+  - Cardland remembers every hand that was played. Listen closely, and you may hear what the cards refuse to say.
+  - The Screen is not only a border. It is a wound between what is seen and what is hidden.
+  - If you seek answers, begin with patience. If you seek power, begin with restraint.
+  overheadLines:
+  - The old screen hums again.
+  - Leymar is listening.
+  - Every card has a memory.
+  questIDs: []
+  tradeStock: []
+  canMove: 0
+  moveSpeed: 2
