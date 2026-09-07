@@ -24,6 +24,6 @@ public static class GameStateManager
     public static void SetState(GameState state)
     {
         State = state;
-        UnityEngine.Time.timeScale = state == GameState.Inventory ? 0f : 1f;
+        UnityEngine.Time.timeScale = state == GameState.Inventory || state == GameState.Dialogue ? 0f : 1f;
     }
 }
