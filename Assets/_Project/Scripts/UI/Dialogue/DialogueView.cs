@@ -138,6 +138,8 @@ public sealed class DialogueView : MonoBehaviour
             canvasGroup.interactable = value;
             canvasGroup.blocksRaycasts = value;
         }
+
+        GameplayHudFadeState.SetMinimapBlocked(value);
     }
 
     private void SetPortrait(Image image, Sprite sprite, bool activeSpeaker, bool flipped)

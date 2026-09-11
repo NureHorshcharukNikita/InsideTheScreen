@@ -6,10 +6,13 @@ public class InventoryInput : MonoBehaviour
 
     private void Update()
     {
-        if (!GameStateManager.CanOpenInventory())
+        if (inventoryWindow == null)
             return;
 
-        if (GameInputSettings.GetKeyDown(GameInputAction.Inventory))
+        if (!GameInputSettings.GetKeyDown(GameInputAction.Inventory))
+            return;
+
+        if (inventoryWindow.IsOpen || GameStateManager.CanOpenInventory())
             inventoryWindow.Toggle();
     }
 }

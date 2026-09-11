@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 10425862496936990}
   - component: {fileID: 7307619153746167091}
   - component: {fileID: 882385298784838348}
+  - component: {fileID: 3713851481459547461}
   m_Layer: 5
   m_Name: BackpackButton
   m_TagString: Untagged
@@ -132,3 +133,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3713851481459547461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798356851672663640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5fb0ed7a0e434d9d5036179d87f4a9, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryOpenButtonState
+  button: {fileID: 882385298784838348}

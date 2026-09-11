@@ -9,6 +9,9 @@ public static class GameStateManager
 
     public static bool CanOpenInventory()
     {
+        if (!IsGameplay)
+            return false;
+
         if (!IsBattleScene)
             return true;
 

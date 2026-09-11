@@ -97627,6 +97627,7 @@ GameObject:
   - component: {fileID: 1568691549}
   - component: {fileID: 1568691548}
   - component: {fileID: 1568691550}
+  - component: {fileID: 1568691551}
   m_Layer: 5
   m_Name: MinimapMask
   m_TagString: Untagged
@@ -97706,6 +97707,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
+--- !u!114 &1568691551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568691545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf0850ce4a746adb73a28e21416f985, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::GameplayHudFadeState
+  canvasGroup: {fileID: 0}
+  gameplayAlpha: 1
+  blockedAlpha: 0.5
 --- !u!1 &1626305829
 GameObject:
   m_ObjectHideFlags: 0
