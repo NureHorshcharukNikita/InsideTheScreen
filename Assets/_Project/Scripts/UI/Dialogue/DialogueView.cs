@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,13 +26,28 @@ public sealed class DialogueView : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private GameObject continueIndicator;
 
-    public event Action ContinueRequested;
+    [Header("Choices")]
+    [SerializeField] private RectTransform choicesRoot;
+    [SerializeField] private Button choiceButtonPrefab;
 
+    public event Action ContinueRequested;
+    public event Action<int> ChoiceRequested;
+
+    private const float DefaultChoiceButtonHeight = 62f;
+    private const float DefaultChoiceHorizontalPadding = 44f;
+    private const float MinChoiceWidth = 260f;
+    private const float MaxChoiceWidth = 860f;
+    private const string ChoiceHoverPrefix = "> ";
+
+    private readonly List<Button> choiceButtons = new();
+    private Vector2 dialogueTextDefaultOffsetMin;
     private bool visible;
+    private bool showingChoices;
 
     private void Awake()
     {
         WireButton();
+        CacheDialogueTextLayout();
 
         if (!visible)
             Hide();
@@ -41,12 +57,20 @@ public sealed class DialogueView : MonoBehaviour
     {
         if (continueButton != null)
             continueButton.onClick.RemoveListener(RequestContinue);
+
+        ClearChoices();
     }
 
     private void Update()
     {
         if (!visible)
             return;
+
+        if (showingChoices)
+        {
+            SelectChoiceFromKeyboard();
+            return;
+        }
 
         if (GameInputSettings.GetKeyDown(GameInputAction.Interact))
             RequestContinue();
@@ -57,7 +81,8 @@ public sealed class DialogueView : MonoBehaviour
         string fallbackSpeakerName,
         Sprite fallbackPortrait,
         Sprite leftFallbackPortrait,
-        Sprite rightFallbackPortrait)
+        Sprite rightFallbackPortrait,
+        IReadOnlyList<DialogueChoice> choices = null)
     {
         if (line == null)
             return;
@@ -96,13 +121,14 @@ public sealed class DialogueView : MonoBehaviour
         if (rightSpeakerRoot != null)
             rightSpeakerRoot.SetActive(rightPortrait == null || rightPortrait.sprite != null);
 
-        if (continueIndicator != null)
-            continueIndicator.SetActive(true);
+        ShowChoices(choices);
     }
 
     public void Hide()
     {
         SetVisible(false);
+        ClearChoices();
+        RestoreDialogueTextLayout();
 
         if (speakerNameText != null)
             speakerNameText.text = string.Empty;
@@ -125,6 +151,11 @@ public sealed class DialogueView : MonoBehaviour
         ContinueRequested?.Invoke();
     }
 
+    private void RequestChoice(int index)
+    {
+        ChoiceRequested?.Invoke(index);
+    }
+
     private void SetVisible(bool value)
     {
         visible = value;
@@ -140,6 +171,191 @@ public sealed class DialogueView : MonoBehaviour
         }
 
         GameplayHudFadeState.SetMinimapBlocked(value);
+    }
+
+    private void CacheDialogueTextLayout()
+    {
+        if (dialogueText == null)
+            return;
+
+        RectTransform rect = dialogueText.rectTransform;
+        dialogueTextDefaultOffsetMin = rect.offsetMin;
+    }
+
+    private void RestoreDialogueTextLayout()
+    {
+        if (dialogueText == null)
+            return;
+
+        RectTransform rect = dialogueText.rectTransform;
+        rect.offsetMin = dialogueTextDefaultOffsetMin;
+    }
+
+    private void ShowChoices(IReadOnlyList<DialogueChoice> choices)
+    {
+        ClearChoices();
+
+        bool hasChoices = choices != null && choices.Count > 0;
+        showingChoices = hasChoices;
+        if (continueButton != null)
+            continueButton.gameObject.SetActive(!showingChoices);
+        if (continueIndicator != null)
+            continueIndicator.SetActive(!showingChoices);
+
+        if (!hasChoices)
+        {
+            RestoreDialogueTextLayout();
+            if (choicesRoot != null)
+                choicesRoot.gameObject.SetActive(false);
+            return;
+        }
+
+        if (choicesRoot == null || choiceButtonPrefab == null)
+        {
+            Debug.LogError("Dialogue choices UI is not assigned. Expected ChoicesRoot and ChoiceButtonTemplate in the DialogueRoot hierarchy.", this);
+            return;
+        }
+
+        RestoreDialogueTextLayout();
+        choicesRoot.gameObject.SetActive(true);
+
+        for (int i = 0; i < choices.Count; i++)
+            CreateChoiceButton(choices[i], i);
+
+        ResizeChoicesRoot();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(choicesRoot);
+    }
+
+    private void ClearChoices()
+    {
+        showingChoices = false;
+
+        for (int i = 0; i < choiceButtons.Count; i++)
+        {
+            if (choiceButtons[i] != null)
+            {
+                choiceButtons[i].gameObject.SetActive(false);
+                Destroy(choiceButtons[i].gameObject);
+            }
+        }
+
+        choiceButtons.Clear();
+
+        if (choicesRoot != null)
+            choicesRoot.gameObject.SetActive(false);
+    }
+
+    private void CreateChoiceButton(DialogueChoice choice, int index)
+    {
+        if (choice == null || choicesRoot == null || choiceButtonPrefab == null)
+            return;
+
+        Button button = Instantiate(choiceButtonPrefab, choicesRoot);
+        button.name = "ChoiceButton";
+        button.transition = Selectable.Transition.None;
+        button.gameObject.SetActive(true);
+        button.onClick.RemoveAllListeners();
+
+        int choiceIndex = index;
+        button.onClick.AddListener(() => RequestChoice(choiceIndex));
+
+        TMP_Text label = button.GetComponentInChildren<TMP_Text>(true);
+        if (label != null)
+        {
+            label.text = choice.text;
+            label.textWrappingMode = TextWrappingModes.NoWrap;
+            label.overflowMode = TextOverflowModes.Ellipsis;
+        }
+
+        DialogueChoiceButtonFeedback feedback = button.GetComponent<DialogueChoiceButtonFeedback>();
+        if (feedback == null)
+            feedback = button.gameObject.AddComponent<DialogueChoiceButtonFeedback>();
+        feedback.Configure(label, choice.text, ChoiceHoverPrefix);
+
+        choiceButtons.Add(button);
+    }
+
+    private void ResizeChoicesRoot()
+    {
+        if (choicesRoot == null)
+            return;
+
+        int choiceCount = choiceButtons.Count;
+        VerticalLayoutGroup layout = choicesRoot.GetComponent<VerticalLayoutGroup>();
+        float spacing = layout != null ? layout.spacing : 0f;
+        float padding = layout != null ? layout.padding.top + layout.padding.bottom : 0f;
+        float height = choiceCount * GetChoiceButtonHeight() + Mathf.Max(0, choiceCount - 1) * spacing + padding;
+        choicesRoot.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+        choicesRoot.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, GetChoicesWidth());
+    }
+
+    private float GetChoiceButtonHeight()
+    {
+        if (choiceButtonPrefab == null)
+            return DefaultChoiceButtonHeight;
+
+        LayoutElement layout = choiceButtonPrefab.GetComponent<LayoutElement>();
+        if (layout != null && layout.preferredHeight > 0f)
+            return layout.preferredHeight;
+
+        RectTransform rect = choiceButtonPrefab.transform as RectTransform;
+        if (rect != null)
+        {
+            if (rect.sizeDelta.y > 0f)
+                return rect.sizeDelta.y;
+
+            if (rect.rect.height > 0f)
+                return rect.rect.height;
+        }
+
+        return DefaultChoiceButtonHeight;
+    }
+
+    private float GetChoicesWidth()
+    {
+        float maxTextWidth = 0f;
+        TMP_Text widestLabel = null;
+        for (int i = 0; i < choiceButtons.Count; i++)
+        {
+            if (choiceButtons[i] == null)
+                continue;
+
+            TMP_Text label = choiceButtons[i].GetComponentInChildren<TMP_Text>(true);
+            if (label == null || string.IsNullOrWhiteSpace(label.text))
+                continue;
+
+            float textWidth = label.GetPreferredValues(ChoiceHoverPrefix + label.text).x;
+            if (textWidth > maxTextWidth)
+                widestLabel = label;
+            maxTextWidth = Mathf.Max(maxTextWidth, textWidth);
+        }
+
+        return Mathf.Ceil(Mathf.Clamp(maxTextWidth + GetChoiceHorizontalPadding(widestLabel), MinChoiceWidth, MaxChoiceWidth));
+    }
+
+    private static float GetChoiceHorizontalPadding(TMP_Text label)
+    {
+        if (label == null)
+            return DefaultChoiceHorizontalPadding;
+
+        RectTransform textRect = label.rectTransform;
+        float padding = textRect.offsetMin.x - textRect.offsetMax.x;
+        return padding > 0f ? padding : DefaultChoiceHorizontalPadding;
+    }
+
+    private void SelectChoiceFromKeyboard()
+    {
+        int maxChoiceCount = Mathf.Min(choiceButtons.Count, 9);
+        for (int i = 0; i < maxChoiceCount; i++)
+        {
+            KeyCode alphaKey = (KeyCode)((int)KeyCode.Alpha1 + i);
+            KeyCode keypadKey = (KeyCode)((int)KeyCode.Keypad1 + i);
+            if (Input.GetKeyDown(alphaKey) || Input.GetKeyDown(keypadKey))
+            {
+                RequestChoice(i);
+                return;
+            }
+        }
     }
 
     private void SetPortrait(Image image, Sprite sprite, bool activeSpeaker, bool flipped)

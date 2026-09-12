@@ -17,23 +17,71 @@ MonoBehaviour:
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
     text: Welcome, traveler. Few reach Leymar by accident, and fewer still leave unchanged.
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: What would you like to ask?
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    choices:
+    - text: What is happening beyond the Screen?
+      nextLineIndex: 2
+      endDialogue: 0
+    - text: Who are you?
+      nextLineIndex: 7
+      endDialogue: 0
+    - text: I should go.
+      nextLineIndex: -1
+      endDialogue: 1
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
     text: I need to understand what is happening beyond the Screen.
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    choices: []
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
     text: Cardland remembers every hand that was played. Listen closely, and you may hear what the cards refuse to say.
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    choices: []
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
     text: The Screen is not only a border. It is a wound between what is seen and what is hidden.
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    choices: []
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
     text: Then I will cross it carefully.
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    choices: []
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
     text: If you seek answers, begin with patience. If you seek power, begin with restraint.
+    nextLineIndex: 1
+    endDialogueAfterLine: 0
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: Who are you?
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: I am what remains when maps fade and stories learn to walk on their own.
+    nextLineIndex: 1
+    endDialogueAfterLine: 0
+    choices: []

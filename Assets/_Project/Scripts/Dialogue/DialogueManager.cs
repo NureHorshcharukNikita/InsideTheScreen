@@ -51,13 +51,18 @@ public sealed class DialogueManager : MonoBehaviour
         {
             view.ContinueRequested -= Continue;
             view.ContinueRequested += Continue;
+            view.ChoiceRequested -= Choose;
+            view.ChoiceRequested += Choose;
         }
     }
 
     private void OnDisable()
     {
         if (view != null)
+        {
             view.ContinueRequested -= Continue;
+            view.ChoiceRequested -= Choose;
+        }
     }
 
     private void OnDestroy()
@@ -106,14 +111,63 @@ public sealed class DialogueManager : MonoBehaviour
         if (!dialogueActive)
             return;
 
-        activeLineIndex++;
-        if (activeLineIndex >= activeLines.Count)
+        if (CurrentLineHasChoices())
+            return;
+
+        DialogueLine line = activeLines[activeLineIndex];
+        if (line.endDialogueAfterLine)
         {
             EndDialogue();
             return;
         }
 
+        GoToLine(GetNextLineIndex(line));
+    }
+
+    public void Choose(int choiceIndex)
+    {
+        if (!dialogueActive)
+            return;
+
+        DialogueLine line = activeLines[activeLineIndex];
+        List<DialogueChoice> choices = GetValidChoices(line);
+        if (choiceIndex < 0 || choiceIndex >= choices.Count)
+            return;
+
+        DialogueChoice choice = choices[choiceIndex];
+        if (choice == null)
+            return;
+
+        if (choice.endDialogue)
+        {
+            EndDialogue();
+            return;
+        }
+
+        int nextLineIndex = choice.nextLineIndex < 0
+            ? GetNextLineIndex(line)
+            : choice.nextLineIndex;
+
+        GoToLine(nextLineIndex);
+    }
+
+    private void GoToLine(int lineIndex)
+    {
+        if (lineIndex < 0 || lineIndex >= activeLines.Count)
+        {
+            EndDialogue();
+            return;
+        }
+
+        activeLineIndex = lineIndex;
         ShowCurrentLine();
+    }
+
+    private int GetNextLineIndex(DialogueLine line)
+    {
+        return line != null && line.nextLineIndex >= 0
+            ? line.nextLineIndex
+            : activeLineIndex + 1;
     }
 
     public void EndDialogue()
@@ -148,7 +202,31 @@ public sealed class DialogueManager : MonoBehaviour
             fallbackName,
             fallbackPortrait,
             PlayerPortrait,
-            activeNpc.DialogueSprite);
+            activeNpc.DialogueSprite,
+            GetValidChoices(line));
+    }
+
+    private bool CurrentLineHasChoices()
+    {
+        return activeLineIndex >= 0
+            && activeLineIndex < activeLines.Count
+            && GetValidChoices(activeLines[activeLineIndex]).Count > 0;
+    }
+
+    private static List<DialogueChoice> GetValidChoices(DialogueLine line)
+    {
+        List<DialogueChoice> choices = new();
+        if (line?.choices == null)
+            return choices;
+
+        for (int i = 0; i < line.choices.Count; i++)
+        {
+            DialogueChoice choice = line.choices[i];
+            if (choice != null && !string.IsNullOrWhiteSpace(choice.text))
+                choices.Add(choice);
+        }
+
+        return choices;
     }
 
     private void AddDialogueDataLines(DialogueData dialogue)
