@@ -8,6 +8,7 @@ public class EnemyDataEditor : UnityEditor.Editor
     private SerializedProperty _maxHealthProp;
     private SerializedProperty _startingArmorProp;
     private SerializedProperty _abilitiesProp;
+    private SerializedProperty _lootDropsProp;
 
     private void OnEnable()
     {
@@ -15,6 +16,7 @@ public class EnemyDataEditor : UnityEditor.Editor
         _maxHealthProp = serializedObject.FindProperty("maxHealth");
         _startingArmorProp = serializedObject.FindProperty("startingArmor");
         _abilitiesProp = serializedObject.FindProperty("abilities");
+        _lootDropsProp = serializedObject.FindProperty("lootDrops");
     }
 
     public override void OnInspectorGUI()
@@ -24,6 +26,7 @@ public class EnemyDataEditor : UnityEditor.Editor
         EditorSectionGUI.DrawSection("Enemy Profile", DrawProfileSection, 0f);
         EditorSectionGUI.DrawSection("Enemy Stats", DrawStatsSection);
         EditorSectionGUI.DrawSection("Abilities", DrawAbilitiesSection);
+        EditorSectionGUI.DrawSection("Loot Drops", DrawLootSection);
         EditorSectionGUI.DrawSection("Validation", DrawValidation);
         serializedObject.ApplyModifiedProperties();
     }
@@ -42,6 +45,11 @@ public class EnemyDataEditor : UnityEditor.Editor
     private void DrawAbilitiesSection()
     {
         EditorGUILayout.PropertyField(_abilitiesProp, true);
+    }
+
+    private void DrawLootSection()
+    {
+        EditorGUILayout.PropertyField(_lootDropsProp, true);
     }
 
     private void DrawValidation()
@@ -94,5 +102,25 @@ public class EnemyDataEditor : UnityEditor.Editor
                 $"Potentially unusable abilities: {disabledEntries} (weight <= 0 or no instant effects/status applications).",
                 MessageType.Info);
         }
+
+        int emptyLootCards = 0;
+        int disabledLootEntries = 0;
+        for (int i = 0; i < _lootDropsProp.arraySize; i++)
+        {
+            SerializedProperty dropProp = _lootDropsProp.GetArrayElementAtIndex(i);
+            CardData card = dropProp.FindPropertyRelative("card").objectReferenceValue as CardData;
+            float chance = dropProp.FindPropertyRelative("dropChancePercent").floatValue;
+
+            if (card == null)
+                emptyLootCards++;
+            else if (chance <= 0f)
+                disabledLootEntries++;
+        }
+
+        if (emptyLootCards > 0)
+            EditorGUILayout.HelpBox($"Empty loot card slots: {emptyLootCards}.", MessageType.Warning);
+
+        if (disabledLootEntries > 0)
+            EditorGUILayout.HelpBox($"Loot entries with 0% chance: {disabledLootEntries}. They will never drop.", MessageType.Info);
     }
 }

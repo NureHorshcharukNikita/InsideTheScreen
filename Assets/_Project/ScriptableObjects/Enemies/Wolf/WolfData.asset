@@ -18,3 +18,16 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: e0cd9b7507de5e945abcb227a38f70bc, type: 2}
   - {fileID: 11400000, guid: 06f3d8ac8b7c8b146b909ecab77725fe, type: 2}
+  lootDrops:
+  - card: {fileID: 11400000, guid: 27f76cbd394f4854b5b69607e76670cf, type: 2}
+    dropChancePercent: 65
+    minAmount: 1
+    maxAmount: 1
+  - card: {fileID: 11400000, guid: 72d41a12baee418493bd6c6ab72a1d64, type: 2}
+    dropChancePercent: 45
+    minAmount: 1
+    maxAmount: 1
+  - card: {fileID: 11400000, guid: d626f537dfd74dd99ce79b53b5151b78, type: 2}
+    dropChancePercent: 30
+    minAmount: 1
+    maxAmount: 1

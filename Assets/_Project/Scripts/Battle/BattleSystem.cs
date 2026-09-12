@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
@@ -238,11 +239,25 @@ public class BattleSystem : MonoBehaviour
         victoryHandled = true;
         SetVictory();
 
+        List<CardData> droppedLoot = RollAndCollectEnemyLoot();
+
         ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
         DefeatedEncounters.MarkDefeated(PendingBattleEnemy.EncounterId);
 
         handUI?.ReleaseAllBattleCardDrags();
-        battleEndUI?.ShowVictory();
+        battleEndUI?.ShowVictory(droppedLoot);
+    }
+
+    private List<CardData> RollAndCollectEnemyLoot()
+    {
+        List<CardData> droppedLoot = EnemyLootRoller.Roll(enemy != null ? enemy.Data : null);
+        if (player?.InventoryData == null)
+            return droppedLoot;
+
+        for (int i = 0; i < droppedLoot.Count; i++)
+            player.InventoryData.AddCard(droppedLoot[i]);
+
+        return droppedLoot;
     }
 
     public void OnTargetClicked(ICombatant target)
