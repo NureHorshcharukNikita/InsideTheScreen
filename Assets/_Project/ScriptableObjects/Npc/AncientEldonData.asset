@@ -17,13 +17,48 @@ MonoBehaviour:
   maxHealth: 30
   startingArmor: 0
   enableDialogue: 1
-  dialogue: {fileID: 11400000, guid: e50c8b9482934314cb78163347b75e3c, type: 2}
+  dialogueEntries:
+  - key: eldon_chest_active
+    dialogue: {fileID: 11400000, guid: 916965ba350e4f708003eb10bb2a25c2, type: 2}
+    repeatable: 1
+    talkTiming: 2
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    requireQuestStatus: 1
+    quest: {fileID: 11400000, guid: ecd4838f76df402b9fb8d76974950286, type: 2}
+    questStatus: 1
+    requiredStoryFlag:
+    invertStoryFlag: 0
+  - key: eldon_first_meeting
+    dialogue: {fileID: 11400000, guid: e50c8b9482934314cb78163347b75e3c, type: 2}
+    repeatable: 0
+    talkTiming: 1
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    requireQuestStatus: 0
+    quest: {fileID: 0}
+    questStatus: 1
+    requiredStoryFlag:
+    invertStoryFlag: 0
+  - key: eldon_return
+    dialogue: {fileID: 11400000, guid: 7c25f03e808f43088ffce6557ff9f157, type: 2}
+    repeatable: 1
+    talkTiming: 2
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    requireQuestStatus: 0
+    quest: {fileID: 0}
+    questStatus: 1
+    requiredStoryFlag:
+    invertStoryFlag: 0
   enableOverheadSpeech: 1
   overheadLines:
   - The old screen hums again.
   - Leymar is listening.
   - Every card has a memory.
-  questKeys: []
   tradeStock: []
   canMove: 0
   moveSpeed: 2

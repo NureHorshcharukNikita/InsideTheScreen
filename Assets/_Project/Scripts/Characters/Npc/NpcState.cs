@@ -4,7 +4,6 @@ public enum NpcState
     Walking,
     Talking,
     Trading,
-    OfferingQuest,
     Busy,
     Disabled
 }

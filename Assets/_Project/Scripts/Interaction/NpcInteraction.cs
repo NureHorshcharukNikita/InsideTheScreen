@@ -110,9 +110,6 @@ public sealed class NpcInteraction : MonoBehaviour
             RequestPlaceholderInteraction(NpcInteractionType.Trade);
             return;
         }
-
-        if (npc.CanOfferQuests)
-            RequestPlaceholderInteraction(NpcInteractionType.Quest);
     }
 
     private void RefreshPrompt()
@@ -130,7 +127,7 @@ public sealed class NpcInteraction : MonoBehaviour
 
     private bool HasAnyInteraction()
     {
-        return npc != null && (npc.CanTalk || npc.CanShowOverheadLines || npc.CanTrade || npc.CanOfferQuests);
+        return npc != null && (npc.CanTalk || npc.CanShowOverheadLines || npc.CanTrade);
     }
 
     private string GetPromptActionName()
@@ -143,9 +140,6 @@ public sealed class NpcInteraction : MonoBehaviour
 
         if (npc.CanTrade)
             return "Trade";
-
-        if (npc.CanOfferQuests)
-            return "Quest";
 
         return "Interact";
     }

@@ -20,6 +20,8 @@ public sealed class DialogueManager : MonoBehaviour
 
     private readonly List<DialogueLine> activeLines = new();
     private NpcCharacter activeNpc;
+    private NpcDialogueEntry activeDialogueEntry;
+    private string activeNpcKey;
     private PlayerCharacter activePlayer;
     private int activeLineIndex;
     private GameState previousState;
@@ -91,12 +93,15 @@ public sealed class DialogueManager : MonoBehaviour
         }
 
         activeLines.Clear();
-        AddDialogueDataLines(npc.Dialogue);
+        DialogueData dialogue = npc.SelectDialogue(out NpcDialogueEntry selectedEntry);
+        AddDialogueDataLines(dialogue);
 
         if (activeLines.Count == 0)
             return false;
 
         activeNpc = npc;
+        activeDialogueEntry = selectedEntry;
+        activeNpcKey = npc.PersistenceKey;
         activeLineIndex = 0;
         dialogueActive = true;
         previousState = GameStateManager.State;
@@ -137,6 +142,8 @@ public sealed class DialogueManager : MonoBehaviour
         DialogueChoice choice = choices[choiceIndex];
         if (choice == null)
             return;
+
+        ExecuteActions(choice.actions);
 
         if (choice.endDialogue)
         {
@@ -181,10 +188,14 @@ public sealed class DialogueManager : MonoBehaviour
         if (view != null)
             view.Hide();
 
+        NpcDialogueProgress.RecordDialogueFinished(activeNpcKey, activeDialogueEntry?.Key);
+
         if (activeNpc != null)
             activeNpc.EndInteraction();
 
         activeNpc = null;
+        activeDialogueEntry = null;
+        activeNpcKey = null;
         GameStateManager.SetState(previousState);
     }
 
@@ -197,6 +208,8 @@ public sealed class DialogueManager : MonoBehaviour
         string fallbackName = playerSpeaking ? PlayerName : activeNpc.DisplayName;
         Sprite fallbackPortrait = playerSpeaking ? PlayerPortrait : activeNpc.DialogueSprite;
 
+        ExecuteActions(line.actions);
+
         view.ShowLine(
             line,
             fallbackName,
@@ -204,6 +217,15 @@ public sealed class DialogueManager : MonoBehaviour
             PlayerPortrait,
             activeNpc.DialogueSprite,
             GetValidChoices(line));
+    }
+
+    private static void ExecuteActions(IReadOnlyList<DialogueAction> actions)
+    {
+        if (actions == null)
+            return;
+
+        for (int i = 0; i < actions.Count; i++)
+            actions[i]?.Execute();
     }
 
     private bool CurrentLineHasChoices()

@@ -10,7 +10,11 @@ public static class ExplorationSessionSaveMapper
         bool hasSavedHealth,
         int savedHealth,
         InventoryData runtimeInventory,
-        DeckData runtimeDeck)
+        DeckData runtimeDeck,
+        QuestProgressSaveData[] questProgress,
+        NpcPositionSaveData[] npcPositions,
+        NpcDialogueProgressSaveData[] npcDialogueProgress,
+        string[] storyFlags)
     {
         SessionSaveData data = new()
         {
@@ -25,7 +29,11 @@ public static class ExplorationSessionSaveMapper
             inventoryCardIds = SessionCardSaveMapper.ToIds(runtimeInventory?.Cards),
             deckCardIds = SessionCardSaveMapper.ToIds(runtimeDeck?.Cards),
             defeatedEncounterIds = DefeatedEncounters.ToArray(),
-            collectedPickupIds = CollectedPickups.ToArray()
+            collectedPickupIds = CollectedPickups.ToArray(),
+            questProgress = questProgress,
+            npcPositions = npcPositions,
+            npcDialogueProgress = npcDialogueProgress,
+            storyFlags = storyFlags
         };
 
         if (PendingBattleEnemy.TryGetCurrentEnemyHealth(out int enemyHealth))

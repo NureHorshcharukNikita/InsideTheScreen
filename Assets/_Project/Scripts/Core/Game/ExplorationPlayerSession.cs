@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class ExplorationPlayerSession
@@ -8,6 +9,7 @@ public static class ExplorationPlayerSession
     private static bool hasSavedHealth;
     private static InventoryData runtimeInventory;
     private static DeckData runtimeDeck;
+    private static readonly Dictionary<string, Vector3> npcPositions = new();
     private static bool persistentLoaded;
     private static SessionSaveData loadedPersistentData = null;
 
@@ -80,9 +82,13 @@ public static class ExplorationPlayerSession
         if (player == null)
             return;
 
-        SavePosition(player.transform.position);
-        SaveHealth(player.CurrentHealth);
+        savedPosition = player.transform.position;
+        hasSavedPosition = true;
+        savedHealth = player.CurrentHealth;
+        hasSavedHealth = true;
+        HasSession = true;
         ContinueSceneName = SceneNames.Exploration;
+        SavePersistent();
     }
 
     public static void SaveBattle(PlayerCharacter player)
@@ -112,6 +118,45 @@ public static class ExplorationPlayerSession
 
         HasSession = true;
         ContinueSceneName = sceneName;
+        SavePersistent();
+    }
+
+    public static void SaveQuestProgress()
+    {
+        HasSession = true;
+        SavePersistent();
+    }
+
+    public static void SaveDialogueProgress()
+    {
+        HasSession = true;
+        SavePersistent();
+    }
+
+    public static void SaveStoryFlags()
+    {
+        HasSession = true;
+        SavePersistent();
+    }
+
+    public static bool TryGetNpcPosition(string npcKey, out Vector3 position)
+    {
+        if (string.IsNullOrWhiteSpace(npcKey))
+        {
+            position = default;
+            return false;
+        }
+
+        return npcPositions.TryGetValue(npcKey, out position);
+    }
+
+    public static void SaveNpcPosition(string npcKey, Vector3 position)
+    {
+        if (string.IsNullOrWhiteSpace(npcKey))
+            return;
+
+        npcPositions[npcKey] = position;
+        HasSession = true;
         SavePersistent();
     }
 
@@ -176,12 +221,16 @@ public static class ExplorationPlayerSession
         hasSavedHealth = false;
         runtimeInventory = null;
         runtimeDeck = null;
+        npcPositions.Clear();
         loadedPersistentData = null;
         HasSession = false;
         ContinueSceneName = SceneNames.Exploration;
         PendingBattleEnemy.ClearSession();
         DefeatedEncounters.Clear();
         CollectedPickups.Clear();
+        QuestManager.Clear();
+        NpcDialogueProgress.Clear();
+        StoryFlagManager.Clear();
     }
 
     private static SessionSaveData CreateSaveData()
@@ -194,7 +243,11 @@ public static class ExplorationPlayerSession
             hasSavedHealth,
             savedHealth,
             runtimeInventory,
-            runtimeDeck);
+            runtimeDeck,
+            QuestManager.ToArray(),
+            CreateNpcPositionSaveData(),
+            NpcDialogueProgress.ToArray(),
+            StoryFlagManager.ToArray());
     }
 
     private static void RestoreFrom(SessionSaveData data)
@@ -217,6 +270,62 @@ public static class ExplorationPlayerSession
 
         DefeatedEncounters.Restore(data.defeatedEncounterIds);
         CollectedPickups.Restore(data.collectedPickupIds);
+        QuestManager.Restore(data.questProgress);
+        NpcDialogueProgress.Restore(data.npcDialogueProgress);
+        StoryFlagManager.Restore(data.storyFlags);
+        RestoreNpcPositions(data.npcPositions);
+    }
+
+    private static NpcPositionSaveData[] CreateNpcPositionSaveData()
+    {
+        CaptureNpcPositionsFromScene();
+
+        NpcPositionSaveData[] result = new NpcPositionSaveData[npcPositions.Count];
+        int index = 0;
+        foreach (KeyValuePair<string, Vector3> entry in npcPositions)
+        {
+            result[index] = new NpcPositionSaveData
+            {
+                npcKey = entry.Key,
+                positionX = entry.Value.x,
+                positionY = entry.Value.y,
+                positionZ = entry.Value.z
+            };
+            index++;
+        }
+
+        return result;
+    }
+
+    private static void CaptureNpcPositionsFromScene()
+    {
+        NpcCharacter[] npcs = Object.FindObjectsByType<NpcCharacter>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < npcs.Length; i++)
+        {
+            NpcCharacter npc = npcs[i];
+            if (npc == null)
+                continue;
+
+            string key = npc.PersistenceKey;
+            if (!string.IsNullOrWhiteSpace(key))
+                npcPositions[key] = npc.transform.position;
+        }
+    }
+
+    private static void RestoreNpcPositions(NpcPositionSaveData[] savedNpcPositions)
+    {
+        npcPositions.Clear();
+        if (savedNpcPositions == null)
+            return;
+
+        for (int i = 0; i < savedNpcPositions.Length; i++)
+        {
+            NpcPositionSaveData savedNpc = savedNpcPositions[i];
+            if (savedNpc == null || string.IsNullOrWhiteSpace(savedNpc.npcKey))
+                continue;
+
+            npcPositions[savedNpc.npcKey] = new Vector3(savedNpc.positionX, savedNpc.positionY, savedNpc.positionZ);
+        }
     }
 
     private static void RestoreRuntimeInventoryFromLoadedData(InventoryData template)

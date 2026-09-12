@@ -6,6 +6,7 @@ public class NpcCharacter : Character
 {
     [SerializeField] private NpcData npcData;
     [SerializeField] private NpcState state = NpcState.Idle;
+    [SerializeField] private string persistenceKeyOverride;
 
     public override int MaxHealth => npcData != null ? Mathf.Max(1, npcData.maxHealth) : 1;
     public override int StartingArmor => npcData != null ? Mathf.Max(0, npcData.startingArmor) : 0;
@@ -17,17 +18,15 @@ public class NpcCharacter : Character
     public NpcDisposition Disposition => npcData != null ? npcData.disposition : NpcDisposition.Neutral;
     public Sprite PortraitSprite => npcData != null ? npcData.PortraitSprite : null;
     public Sprite DialogueSprite => PortraitSprite;
-    public DialogueData Dialogue => npcData != null ? npcData.dialogue : null;
     public IReadOnlyList<string> OverheadLines => npcData != null ? npcData.overheadLines : Array.Empty<string>();
-    public IReadOnlyList<string> QuestKeys => npcData != null ? npcData.questKeys : Array.Empty<string>();
     public IReadOnlyList<ScriptableObject> TradeStock => npcData != null ? npcData.tradeStock : Array.Empty<ScriptableObject>();
     public bool CanMove => npcData != null && npcData.canMove;
     public float MoveSpeed => npcData != null ? Mathf.Max(0f, npcData.moveSpeed) : 0f;
 
-    public bool CanTalk => npcData != null && npcData.CanTalk;
+    public bool CanTalk => npcData != null && npcData.CanTalkWithState(PersistenceKey);
     public bool CanShowOverheadLines => npcData != null && npcData.CanShowOverheadLines;
     public bool CanTrade => npcData != null && npcData.CanTrade;
-    public bool CanOfferQuests => npcData != null && npcData.CanOfferQuests;
+    public string PersistenceKey => GetPersistenceKey();
 
     public event Action<NpcState, NpcState> StateChanged;
     public event Action<NpcCharacter, NpcInteractionType> InteractionRequested;
@@ -35,6 +34,7 @@ public class NpcCharacter : Character
     protected override void Awake()
     {
         base.Awake();
+        RestoreSavedPosition();
     }
 
     public void ApplyData(NpcData data)
@@ -55,11 +55,16 @@ public class NpcCharacter : Character
 
         return interaction switch
         {
-            NpcInteractionType.Talk => npcData.CanTalk,
+            NpcInteractionType.Talk => CanTalk,
             NpcInteractionType.Trade => npcData.CanTrade,
-            NpcInteractionType.Quest => npcData.CanOfferQuests,
             _ => false
         };
+    }
+
+    public DialogueData SelectDialogue(out NpcDialogueEntry selectedEntry)
+    {
+        selectedEntry = null;
+        return npcData != null ? npcData.SelectDialogue(PersistenceKey, out selectedEntry) : null;
     }
 
     public bool TryInteract(NpcInteractionType interaction)
@@ -74,7 +79,7 @@ public class NpcCharacter : Character
 
     public void EndInteraction()
     {
-        if (state == NpcState.Talking || state == NpcState.Trading || state == NpcState.OfferingQuest)
+        if (state == NpcState.Talking || state == NpcState.Trading)
             SetState(NpcState.Idle);
     }
 
@@ -118,9 +123,26 @@ public class NpcCharacter : Character
         return interaction switch
         {
             NpcInteractionType.Trade => NpcState.Trading,
-            NpcInteractionType.Quest => NpcState.OfferingQuest,
             _ => NpcState.Talking
         };
+    }
+
+    private void RestoreSavedPosition()
+    {
+        string key = PersistenceKey;
+        if (!string.IsNullOrWhiteSpace(key) && ExplorationPlayerSession.TryGetNpcPosition(key, out Vector3 savedPosition))
+            transform.position = savedPosition;
+    }
+
+    private string GetPersistenceKey()
+    {
+        if (!string.IsNullOrWhiteSpace(persistenceKeyOverride))
+            return persistenceKeyOverride;
+
+        if (npcData != null && !string.IsNullOrWhiteSpace(npcData.CharacterID))
+            return npcData.CharacterID;
+
+        return name;
     }
 
 }

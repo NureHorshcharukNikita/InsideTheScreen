@@ -30,12 +30,19 @@ public sealed class QuestPageView : MonoBehaviour
     [SerializeField] private TMP_Text emptyListText;
 
     private readonly List<QuestListItemView> itemViews = new();
+    private readonly List<QuestData> receivedQuests = new();
     private int selectedIndex = NoSelectionIndex;
 
     private void OnEnable()
     {
+        QuestManager.QuestChanged += HandleQuestChanged;
         selectedIndex = NoSelectionIndex;
         BuildList();
+    }
+
+    private void OnDisable()
+    {
+        QuestManager.QuestChanged -= HandleQuestChanged;
     }
 
     public void SetQuests(IReadOnlyList<QuestData> newQuests)
@@ -57,6 +64,8 @@ public sealed class QuestPageView : MonoBehaviour
 
     private void BuildList()
     {
+        RefreshReceivedQuests();
+
         if (listContent == null || listItemTemplate == null)
         {
             ClearDetails();
@@ -66,7 +75,7 @@ public sealed class QuestPageView : MonoBehaviour
             return;
         }
 
-        if (quests.Count == 0)
+        if (receivedQuests.Count == 0)
         {
             HideListItems();
             SetListContentVisible(false);
@@ -79,24 +88,24 @@ public sealed class QuestPageView : MonoBehaviour
         SetListContentVisible(true);
         SetEmptyListVisible(false);
 
-        if (selectedIndex >= quests.Count)
+        if (selectedIndex >= receivedQuests.Count)
             selectedIndex = NoSelectionIndex;
 
         List<QuestListItemView> reusableItems = GetReusableListItems();
         itemViews.Clear();
 
-        for (int i = 0; i < quests.Count; i++)
+        for (int i = 0; i < receivedQuests.Count; i++)
         {
             QuestListItemView item = i < reusableItems.Count
                 ? reusableItems[i]
                 : Instantiate(listItemTemplate, listContent);
 
             item.gameObject.SetActive(true);
-            item.Setup(quests[i], i, i == selectedIndex, SelectQuest);
+            item.Setup(receivedQuests[i], i, i == selectedIndex, QuestManager.IsUnread(receivedQuests[i]), SelectQuest);
             itemViews.Add(item);
         }
 
-        for (int i = quests.Count; i < reusableItems.Count; i++)
+        for (int i = receivedQuests.Count; i < reusableItems.Count; i++)
             reusableItems[i].gameObject.SetActive(false);
 
         if (selectedIndex == NoSelectionIndex)
@@ -109,19 +118,23 @@ public sealed class QuestPageView : MonoBehaviour
 
     private void SelectQuest(int index)
     {
-        if (index < 0 || index >= quests.Count)
+        if (index < 0 || index >= receivedQuests.Count)
             return;
 
         selectedIndex = index;
+        QuestManager.MarkOpened(receivedQuests[selectedIndex]);
         ShowQuest(selectedIndex);
 
         for (int i = 0; i < itemViews.Count; i++)
+        {
             itemViews[i].SetSelected(i == selectedIndex);
+            itemViews[i].SetUnread(QuestManager.IsUnread(receivedQuests[i]));
+        }
     }
 
     private void ShowQuest(int index)
     {
-        QuestData quest = quests[index];
+        QuestData quest = receivedQuests[index];
 
         SetDetailsContentVisible(true);
         SetEmptyDetailsVisible(false);
@@ -130,7 +143,12 @@ public sealed class QuestPageView : MonoBehaviour
             titleText.text = quest.Title;
 
         if (giverText != null)
-            giverText.text = string.IsNullOrWhiteSpace(quest.GiverName) ? string.Empty : $"Giver: {quest.GiverName}";
+        {
+            string status = $"Status: {QuestManager.GetStatus(quest)}";
+            giverText.text = string.IsNullOrWhiteSpace(quest.GiverName)
+                ? status
+                : $"Giver: {quest.GiverName}\n{status}";
+        }
 
         if (descriptionText != null)
             descriptionText.text = quest.Description;
@@ -251,5 +269,16 @@ public sealed class QuestPageView : MonoBehaviour
 
         if (listScroll != null)
             listScroll.verticalNormalizedPosition = 1f;
+    }
+
+    private void RefreshReceivedQuests()
+    {
+        receivedQuests.Clear();
+        receivedQuests.AddRange(QuestManager.GetReceivedQuests(quests));
+    }
+
+    private void HandleQuestChanged(QuestData quest, QuestStatus status)
+    {
+        BuildList();
     }
 }

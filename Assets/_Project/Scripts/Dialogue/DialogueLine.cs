@@ -16,6 +16,7 @@ public sealed class DialogueLine
     [Tooltip("Line to show after this line. -1 continues to the next line.")]
     public int nextLineIndex = -1;
     public bool endDialogueAfterLine;
+    public List<DialogueAction> actions = new();
 
     [Header("Choices")]
     public List<DialogueChoice> choices = new();

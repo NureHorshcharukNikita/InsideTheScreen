@@ -3118,7 +3118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestPageView
   hierarchyVersion: 27
-  quests: []
+  quests:
+  - {fileID: 11400000, guid: ecd4838f76df402b9fb8d76974950286, type: 2}
+  - {fileID: 11400000, guid: 3f5ff94a3fbb42889210eca59fd8e02e, type: 2}
+  - {fileID: 11400000, guid: 7e919a98c9a44e2f99be8610733c5d11, type: 2}
+  - {fileID: 11400000, guid: 942068ad887743c99db7d9287832d109, type: 2}
   listContent: {fileID: 2098558822837105671}
   listItemTemplate: {fileID: 3874413918675245754}
   listScroll: {fileID: 7317335519557488611}

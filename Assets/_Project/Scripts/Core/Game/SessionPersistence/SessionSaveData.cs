@@ -22,4 +22,33 @@ public sealed class SessionSaveData
     public string[] deckCardIds;
     public string[] defeatedEncounterIds;
     public string[] collectedPickupIds;
+    public QuestProgressSaveData[] questProgress;
+    public NpcPositionSaveData[] npcPositions;
+    public NpcDialogueProgressSaveData[] npcDialogueProgress;
+    public string[] storyFlags;
+}
+
+[Serializable]
+public sealed class QuestProgressSaveData
+{
+    public string questKey;
+    public QuestStatus status;
+    public bool wasOpened;
+}
+
+[Serializable]
+public sealed class NpcPositionSaveData
+{
+    public string npcKey;
+    public float positionX;
+    public float positionY;
+    public float positionZ;
+}
+
+[Serializable]
+public sealed class NpcDialogueProgressSaveData
+{
+    public string npcKey;
+    public int talkCount;
+    public string[] usedDialogueKeys;
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public sealed class DialogueChoice
@@ -9,4 +10,5 @@ public sealed class DialogueChoice
     public int nextLineIndex = -1;
 
     public bool endDialogue;
+    public List<DialogueAction> actions = new();
 }
