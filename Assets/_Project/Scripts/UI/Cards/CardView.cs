@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public partial class CardView : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("Texts & icon")]
     [SerializeField] private TMP_Text cardNameText;
@@ -17,8 +17,14 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
     [Header("Drag")]
     [SerializeField] private float returnAnimationDuration = 0.15f;
 
+    private CardData cardData;
     private int cardIndex;
     private Action<int> onPointerDown;
+    private Action<CardData, InventoryCardLocation, InventoryCardLocation> onInventoryDrop;
+    private InventoryCardLocation inventoryDragSource;
+    private RectTransform inventoryDropArea;
+    private RectTransform deckDropArea;
+    private bool inventoryTransferEnabled;
 
     private RectTransform rectTransform;
     private RectTransform canvasRootRect;
@@ -63,11 +69,43 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
         cardIndex = index;
         onPointerDown = onSelect;
         battleSystem = battle;
+        cardData = data;
+        ClearInventoryTransfer();
 
         battleDrag?.Configure(battle, returnAnimationDuration);
 
         ApplyCardData(data, count);
         SetSelected(selected);
+    }
+
+    public void ConfigureInventoryTransfer(
+        CardData data,
+        InventoryCardLocation source,
+        RectTransform inventoryArea,
+        RectTransform deckArea,
+        Action<CardData, InventoryCardLocation, InventoryCardLocation> onDrop)
+    {
+        cardData = data;
+        inventoryDragSource = source;
+        inventoryDropArea = inventoryArea;
+        deckDropArea = deckArea;
+        onInventoryDrop = onDrop;
+        inventoryTransferEnabled = data != null
+            && source != InventoryCardLocation.None
+            && onDrop != null;
+    }
+
+    public void ClearInventoryTransfer()
+    {
+        if (inventoryTransferDragging)
+            RestoreInventoryDragSlot();
+        CancelInventoryReturnAnimationIfRunning();
+
+        inventoryTransferEnabled = false;
+        inventoryDragSource = InventoryCardLocation.None;
+        inventoryDropArea = null;
+        deckDropArea = null;
+        onInventoryDrop = null;
     }
 
     public void SetSelected(bool selected)
@@ -90,6 +128,26 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IBeginDragHa
     public void OnPointerDown(PointerEventData eventData)
     {
         if (IsBattleInteractionLocked())
+            return;
+
+        if (CanUseInventoryTransferDrag())
+            return;
+
+        onPointerDown?.Invoke(cardIndex);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (IsBattleInteractionLocked())
+            return;
+
+        if (!CanUseInventoryTransferDrag())
+            return;
+
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
+
+        if (ConsumeInventoryDragClickSuppression())
             return;
 
         onPointerDown?.Invoke(cardIndex);

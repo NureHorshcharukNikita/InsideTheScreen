@@ -1,8 +1,9 @@
 public partial class InventoryScreenController
 {
-    private void OnInventoryCardClicked(int index)
+    private void OnInventoryCardClicked(CardData card)
     {
-        var card = InventorySelectionController.GetByIndex(filteredCards, index);
+        if (card == null)
+            return;
 
         selectedCard = card;
         selectedFromDeck = false;
@@ -11,18 +12,59 @@ public partial class InventoryScreenController
         RefreshViewOnly();
     }
 
-    private void OnDeckCardClicked(int index)
+    private void OnDeckCardClicked(CardData card)
     {
         if (!deckController.HasDeck())
             return;
 
-        var card = InventorySelectionController.GetByIndex(deckData.Cards, index);
+        if (card == null)
+            return;
 
         selectedCard = card;
         selectedFromDeck = true;
 
         selectionPresenter.ShowFromDeck(card);
         RefreshViewOnly();
+    }
+
+    private void OnInventoryCardDropped(
+        CardData card,
+        InventoryCardLocation source,
+        InventoryCardLocation destination)
+    {
+        if (!GameStateManager.CanEditCardCollections())
+            return;
+
+        if (card == null || source == destination)
+            return;
+
+        if (source == InventoryCardLocation.Inventory && destination == InventoryCardLocation.Deck)
+        {
+            RequestQuantityOrTransfer(
+                card,
+                source,
+                deckController.GetAddableCount(card),
+                quantity =>
+                {
+                    if (TryAddToDeck(card, quantity))
+                        RefreshAfterCardCollectionChanged();
+                });
+
+            return;
+        }
+
+        if (source == InventoryCardLocation.Deck && destination == InventoryCardLocation.Inventory)
+        {
+            RequestQuantityOrTransfer(
+                card,
+                source,
+                deckController.GetDeckCount(card),
+                quantity =>
+                {
+                    if (TryRemoveFromDeck(card, quantity))
+                        RefreshAfterCardCollectionChanged();
+                });
+        }
     }
 
     public void SetCategory(CardCategory? category)

@@ -4,6 +4,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum InventoryCardLocation
+{
+    None,
+    Inventory,
+    Deck
+}
+
 public class CardCollectionDrawer
 {
     private readonly Transform content;
@@ -11,16 +18,23 @@ public class CardCollectionDrawer
 
     private readonly List<CardView> pool = new();
 
+    public RectTransform DropArea { get; }
+
     public CardCollectionDrawer(Transform content, CardView cardPrefab)
     {
         this.content = content;
         this.cardPrefab = cardPrefab;
+        DropArea = ResolveDropArea(content);
     }
 
     public void Draw(
         IReadOnlyList<CardData> cards,
-        Action<int> onClick,
-        Func<CardData, bool> isSelected = null)
+        Action<CardData> onClick,
+        Func<CardData, bool> isSelected = null,
+        InventoryCardLocation source = InventoryCardLocation.None,
+        RectTransform inventoryDropArea = null,
+        RectTransform deckDropArea = null,
+        Action<CardData, InventoryCardLocation, InventoryCardLocation> onDrop = null)
     {
         Clear();
 
@@ -44,7 +58,13 @@ public class CardCollectionDrawer
 
             bool selected = isSelected != null && isSelected(card);
 
-            cardView.Setup(card, counts[card], i, onClick, null, selected);
+            cardView.Setup(card, counts[card], i, _ => onClick?.Invoke(card), null, selected);
+            cardView.ConfigureInventoryTransfer(
+                card,
+                source,
+                inventoryDropArea,
+                deckDropArea,
+                onDrop);
         }
 
         UpdateContentHeight(sortedCards.Count);
@@ -73,6 +93,19 @@ public class CardCollectionDrawer
         var newCard = UnityEngine.Object.Instantiate(cardPrefab, content);
         pool.Add(newCard);
         return newCard;
+    }
+
+    private static RectTransform ResolveDropArea(Transform content)
+    {
+        if (content == null)
+            return null;
+
+        ScrollRect scrollRect = content.GetComponentInParent<ScrollRect>();
+        if (scrollRect != null)
+            return scrollRect.transform.parent as RectTransform
+                ?? scrollRect.transform as RectTransform;
+
+        return content as RectTransform;
     }
 
     private void UpdateContentHeight(int itemCount)

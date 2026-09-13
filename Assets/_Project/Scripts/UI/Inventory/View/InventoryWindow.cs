@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -34,6 +35,14 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject confirmationPanel;
     [SerializeField] private RectTransform saveToastRect;
+
+    private RectTransform transferQuantityOverlay;
+    private TMP_Text transferQuantityTitleText;
+    private Slider transferQuantitySlider;
+    private TMP_InputField transferQuantityInput;
+    private Action<int> pendingTransferQuantityConfirm;
+    private int transferQuantityMax = 1;
+    private bool updatingTransferQuantity;
 
     private static readonly GameInputAction[] SettingsActions =
     {
@@ -87,6 +96,7 @@ public class InventoryWindow : MonoBehaviour
     {
         EnsurePauseMenuReferences();
         EnsurePauseMenuRuntimeFallbacks();
+        EnsureTransferQuantityPrompt();
 
         if (player == null)
         {
@@ -110,7 +120,8 @@ public class InventoryWindow : MonoBehaviour
             deck,
             inventoryPreviewPanel,
             inventoryDrawer,
-            deckDrawer);
+            deckDrawer,
+            ShowTransferQuantityPrompt);
 
         InventoryViewUtils.Cleanup(
             inventoryCardsContent,
@@ -146,6 +157,8 @@ public class InventoryWindow : MonoBehaviour
 
     private void OnDisable()
     {
+        HideTransferQuantityPrompt();
+
         if (GameStateManager.State == GameState.Inventory)
             GameStateManager.SetState(GameState.Gameplay);
     }
@@ -182,7 +195,6 @@ public class InventoryWindow : MonoBehaviour
             return;
 
         inventoryScreenController.AddSelected();
-        Refresh();
     }
 
     public void RemoveSelectedFromDeck()
@@ -191,7 +203,6 @@ public class InventoryWindow : MonoBehaviour
             return;
 
         inventoryScreenController.RemoveSelected();
-        Refresh();
     }
 
     public void Open()
@@ -212,6 +223,7 @@ public class InventoryWindow : MonoBehaviour
 
     public void Close()
     {
+        HideTransferQuantityPrompt();
         inventoryScreenController.ClearSelection();
         ResetPauseMenu();
 
@@ -452,6 +464,284 @@ public class InventoryWindow : MonoBehaviour
 
         CreateText("Text", saveToastRect, "Game saved", 26, Vector2.zero, new Vector2(270f, 46f), TextAlignmentOptions.Center);
         HideSaveToast();
+    }
+
+    private void EnsureTransferQuantityPrompt()
+    {
+        if (transferQuantityOverlay != null)
+            return;
+
+        Transform overlayParent = GetOverlayParent();
+        transferQuantityOverlay = CreateUIObject("TransferQuantityOverlay", overlayParent);
+        transferQuantityOverlay.anchorMin = Vector2.zero;
+        transferQuantityOverlay.anchorMax = Vector2.one;
+        transferQuantityOverlay.pivot = new Vector2(0.5f, 0.5f);
+        transferQuantityOverlay.offsetMin = Vector2.zero;
+        transferQuantityOverlay.offsetMax = Vector2.zero;
+        transferQuantityOverlay.localScale = Vector3.one;
+
+        Image overlayImage = transferQuantityOverlay.gameObject.AddComponent<Image>();
+        overlayImage.color = new Color(0.04f, 0.03f, 0.025f, 0.5f);
+        overlayImage.raycastTarget = true;
+
+        GameObject panel = CreatePanel("TransferQuantityPanel", transferQuantityOverlay, new Vector2(500f, 330f));
+
+        transferQuantityTitleText = CreateText(
+            "TransferQuantityTitle",
+            panel.transform,
+            "Move quantity",
+            32,
+            new Vector2(0f, 112f),
+            new Vector2(420f, 52f),
+            TextAlignmentOptions.Center);
+
+        CreateText(
+            "TransferQuantityLabel",
+            panel.transform,
+            "Quantity",
+            25,
+            new Vector2(0f, 47f),
+            new Vector2(320f, 36f),
+            TextAlignmentOptions.Center);
+
+        transferQuantitySlider = CreateQuantitySlider(panel.transform);
+        transferQuantityInput = CreateQuantityInput(panel.transform);
+
+        CreateButton(
+            "TransferQuantityConfirmButton",
+            panel.transform,
+            "Move",
+            new Vector2(-115f, -112f),
+            new Vector2(180f, 50f),
+            ConfirmTransferQuantity,
+            ConfirmButtonColor,
+            ConfirmButtonHighlightedColor,
+            ConfirmButtonPressedColor);
+
+        CreateButton(
+            "TransferQuantityCancelButton",
+            panel.transform,
+            "Cancel",
+            new Vector2(115f, -112f),
+            new Vector2(180f, 50f),
+            CancelTransferQuantity,
+            ButtonColor,
+            ButtonHighlightedColor,
+            ButtonPressedColor);
+
+        transferQuantityOverlay.gameObject.SetActive(false);
+    }
+
+    private Transform GetOverlayParent()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas != null && canvas.rootCanvas != null)
+            return canvas.rootCanvas.transform;
+
+        return transform;
+    }
+
+    private Slider CreateQuantitySlider(Transform parent)
+    {
+        RectTransform sliderRect = CreateUIObject("TransferQuantitySlider", parent);
+        sliderRect.anchorMin = new Vector2(0.5f, 0.5f);
+        sliderRect.anchorMax = new Vector2(0.5f, 0.5f);
+        sliderRect.pivot = new Vector2(0.5f, 0.5f);
+        sliderRect.sizeDelta = new Vector2(350f, 34f);
+        sliderRect.anchoredPosition = new Vector2(0f, 8f);
+
+        Slider slider = sliderRect.gameObject.AddComponent<Slider>();
+        slider.wholeNumbers = true;
+        slider.minValue = 1f;
+        slider.maxValue = 1f;
+        slider.value = 1f;
+
+        RectTransform background = CreateUIObject("Background", sliderRect);
+        StretchToParent(background, 12f, 11f, 12f, 11f);
+        Image backgroundImage = background.gameObject.AddComponent<Image>();
+        backgroundImage.color = new Color(0.42f, 0.30f, 0.25f, 1f);
+
+        RectTransform fillArea = CreateUIObject("Fill Area", sliderRect);
+        StretchToParent(fillArea, 12f, 11f, 12f, 11f);
+        RectTransform fill = CreateUIObject("Fill", fillArea);
+        StretchToParent(fill, 0f, 0f, 0f, 0f);
+        Image fillImage = fill.gameObject.AddComponent<Image>();
+        fillImage.color = new Color(0.73f, 0.61f, 0.52f, 1f);
+
+        RectTransform handleArea = CreateUIObject("Handle Slide Area", sliderRect);
+        StretchToParent(handleArea, 12f, 0f, 12f, 0f);
+        RectTransform handle = CreateUIObject("Handle", handleArea);
+        handle.sizeDelta = new Vector2(26f, 26f);
+        Image handleImage = handle.gameObject.AddComponent<Image>();
+        handleImage.color = TextColor;
+
+        slider.fillRect = fill;
+        slider.handleRect = handle;
+        slider.targetGraphic = handleImage;
+        slider.direction = Slider.Direction.LeftToRight;
+        slider.onValueChanged.AddListener(OnTransferQuantitySliderChanged);
+        return slider;
+    }
+
+    private TMP_InputField CreateQuantityInput(Transform parent)
+    {
+        RectTransform inputRect = CreateUIObject("TransferQuantityInput", parent);
+        inputRect.anchorMin = new Vector2(0.5f, 0.5f);
+        inputRect.anchorMax = new Vector2(0.5f, 0.5f);
+        inputRect.pivot = new Vector2(0.5f, 0.5f);
+        inputRect.sizeDelta = new Vector2(130f, 44f);
+        inputRect.anchoredPosition = new Vector2(0f, -45f);
+
+        Image inputImage = inputRect.gameObject.AddComponent<Image>();
+        inputImage.color = new Color(0.21f, 0.15f, 0.13f, 1f);
+
+        TMP_InputField input = inputRect.gameObject.AddComponent<TMP_InputField>();
+        input.contentType = TMP_InputField.ContentType.IntegerNumber;
+        input.lineType = TMP_InputField.LineType.SingleLine;
+        input.characterLimit = 3;
+
+        TMP_Text text = CreateText(
+            "Text",
+            inputRect,
+            "1",
+            26,
+            Vector2.zero,
+            new Vector2(110f, 34f),
+            TextAlignmentOptions.Center);
+        TMP_Text placeholder = CreateText(
+            "Placeholder",
+            inputRect,
+            "1",
+            26,
+            Vector2.zero,
+            new Vector2(110f, 34f),
+            TextAlignmentOptions.Center);
+        placeholder.color = new Color(TextColor.r, TextColor.g, TextColor.b, 0.45f);
+
+        input.textComponent = text;
+        input.placeholder = placeholder;
+        input.text = "1";
+        input.onValueChanged.AddListener(OnTransferQuantityInputChanged);
+        input.onEndEdit.AddListener(OnTransferQuantityInputEndEdit);
+        return input;
+    }
+
+    private static void StretchToParent(RectTransform rect, float left, float bottom, float right, float top)
+    {
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.offsetMin = new Vector2(left, bottom);
+        rect.offsetMax = new Vector2(-right, -top);
+    }
+
+    private void ShowTransferQuantityPrompt(
+        CardData card,
+        InventoryCardLocation source,
+        int maxQuantity,
+        Action<int> onConfirmed)
+    {
+        EnsureTransferQuantityPrompt();
+
+        transferQuantityMax = Mathf.Max(1, maxQuantity);
+        pendingTransferQuantityConfirm = onConfirmed;
+
+        if (transferQuantityTitleText != null)
+        {
+            string action = source == InventoryCardLocation.Inventory ? "Add to deck" : "Remove from deck";
+            transferQuantityTitleText.text = $"{action}: {GetCardDisplayName(card)}";
+        }
+
+        if (transferQuantitySlider != null)
+        {
+            transferQuantitySlider.minValue = 1f;
+            transferQuantitySlider.maxValue = transferQuantityMax;
+            transferQuantitySlider.interactable = transferQuantityMax > 1;
+        }
+
+        if (transferQuantityInput != null)
+            transferQuantityInput.interactable = transferQuantityMax > 1;
+
+        SetTransferQuantityValue(1);
+        transferQuantityOverlay.gameObject.SetActive(true);
+        transferQuantityOverlay.SetAsLastSibling();
+        ClearSelectedButton();
+    }
+
+    private void ConfirmTransferQuantity()
+    {
+        int quantity = GetTransferQuantityInputValue();
+        Action<int> callback = pendingTransferQuantityConfirm;
+        HideTransferQuantityPrompt();
+        callback?.Invoke(quantity);
+    }
+
+    private void CancelTransferQuantity()
+    {
+        HideTransferQuantityPrompt();
+    }
+
+    private void HideTransferQuantityPrompt()
+    {
+        pendingTransferQuantityConfirm = null;
+        if (transferQuantityOverlay != null)
+            transferQuantityOverlay.gameObject.SetActive(false);
+    }
+
+    private void OnTransferQuantitySliderChanged(float value)
+    {
+        if (updatingTransferQuantity)
+            return;
+
+        SetTransferQuantityValue(Mathf.RoundToInt(value));
+    }
+
+    private void OnTransferQuantityInputChanged(string value)
+    {
+        if (updatingTransferQuantity)
+            return;
+
+        if (!int.TryParse(value, out int quantity))
+            return;
+
+        SetTransferQuantityValue(quantity);
+    }
+
+    private void OnTransferQuantityInputEndEdit(string value)
+    {
+        if (!int.TryParse(value, out int quantity))
+            quantity = 1;
+
+        SetTransferQuantityValue(quantity);
+    }
+
+    private void SetTransferQuantityValue(int value)
+    {
+        int clampedValue = Mathf.Clamp(value, 1, transferQuantityMax);
+        updatingTransferQuantity = true;
+
+        if (transferQuantitySlider != null)
+            transferQuantitySlider.SetValueWithoutNotify(clampedValue);
+        if (transferQuantityInput != null)
+            transferQuantityInput.SetTextWithoutNotify(clampedValue.ToString());
+
+        updatingTransferQuantity = false;
+    }
+
+    private int GetTransferQuantityInputValue()
+    {
+        if (transferQuantityInput == null || !int.TryParse(transferQuantityInput.text, out int quantity))
+            quantity = 1;
+
+        return Mathf.Clamp(quantity, 1, transferQuantityMax);
+    }
+
+    private static string GetCardDisplayName(CardData card)
+    {
+        if (card == null)
+            return "Card";
+
+        return string.IsNullOrWhiteSpace(card.CardName) ? card.name : card.CardName;
     }
 
     private void EnsureConfirmationPanel()

@@ -13,6 +13,7 @@ public partial class InventoryScreenController
     private readonly InventoryDeckController deckController;
     private readonly InventoryPreviewController previewController;
     private readonly InventorySelectionPresenter selectionPresenter;
+    private readonly Action<CardData, InventoryCardLocation, int, Action<int>> requestTransferQuantity;
 
     private CardCategory? currentCategory;
     private List<CardData> filteredCards;
@@ -21,19 +22,23 @@ public partial class InventoryScreenController
 
     private CardData selectedCard;
     private bool selectedFromDeck;
+    private TMP_Text inventoryCountText;
+    private TMP_Text deckCountText;
 
     public InventoryScreenController(
         InventoryData storage,
         DeckData deck,
         InventoryPreviewPanel preview,
         CardCollectionDrawer inventoryDrawer,
-        CardCollectionDrawer deckDrawer)
+        CardCollectionDrawer deckDrawer,
+        Action<CardData, InventoryCardLocation, int, Action<int>> requestTransferQuantity = null)
     {
         inventoryStorage = storage;
         deckData = deck;
         inventoryPreviewPanel = preview;
         this.inventoryDrawer = inventoryDrawer;
         this.deckDrawer = deckDrawer;
+        this.requestTransferQuantity = requestTransferQuantity;
 
         deckController = new InventoryDeckController(inventoryStorage, deckData);
 
@@ -49,6 +54,9 @@ public partial class InventoryScreenController
 
     public void Refresh(TMP_Text inventoryText, TMP_Text deckText)
     {
+        inventoryCountText = inventoryText;
+        deckCountText = deckText;
+
         inventoryDrawer.Clear();
         deckDrawer.Clear();
 
@@ -79,14 +87,15 @@ public partial class InventoryScreenController
 
         var card = selectionPresenter.GetSelected();
 
-        if (card == null)
-            return;
-
-        if (!deckController.CanAdd(card))
-            return;
-
-        deckController.Add(card);
-        previewController.Update();
+        RequestQuantityOrTransfer(
+            card,
+            InventoryCardLocation.Inventory,
+            deckController.GetAddableCount(card),
+            quantity =>
+            {
+                if (TryAddToDeck(card, quantity))
+                    RefreshAfterCardCollectionChanged();
+            });
     }
 
     public void RemoveSelected()
@@ -96,21 +105,75 @@ public partial class InventoryScreenController
 
         var card = selectionPresenter.GetSelected();
 
+        RequestQuantityOrTransfer(
+            card,
+            InventoryCardLocation.Deck,
+            deckController.GetDeckCount(card),
+            quantity =>
+            {
+                if (TryRemoveFromDeck(card, quantity))
+                    RefreshAfterCardCollectionChanged();
+            });
+    }
+
+    private bool TryAddToDeck(CardData card, int quantity)
+    {
         if (card == null)
+            return false;
+
+        if (!deckController.CanAdd(card))
+            return false;
+
+        return deckController.Add(card, quantity) > 0;
+    }
+
+    private bool TryRemoveFromDeck(CardData card, int quantity)
+    {
+        if (card == null || !deckController.IsInDeck(card))
+            return false;
+
+        return deckController.Remove(card, quantity) > 0;
+    }
+
+    private void RequestQuantityOrTransfer(
+        CardData card,
+        InventoryCardLocation source,
+        int maxQuantity,
+        Action<int> transfer)
+    {
+        if (card == null || transfer == null || maxQuantity <= 0)
             return;
 
-        deckController.Remove(card);
+        if (maxQuantity > 1 && requestTransferQuantity != null)
+        {
+            requestTransferQuantity(card, source, maxQuantity, quantity =>
+            {
+                int clampedQuantity = System.Math.Clamp(quantity, 1, maxQuantity);
+                transfer(clampedQuantity);
+            });
 
-        if (selectedFromDeck && !deckController.IsInDeck(card))
-        {
-            selectedCard = null;
-            selectedFromDeck = false;
-            inventoryPreviewPanel.Clear();
+            return;
         }
-        else
-        {
-            previewController.Update();
-        }
+
+        transfer(1);
+    }
+
+    private void RefreshAfterCardCollectionChanged()
+    {
+        selectedCard = null;
+        selectedFromDeck = false;
+        inventoryPreviewPanel.Clear();
+        RefreshViewOnly();
+        RefreshCounters();
+    }
+
+    private void RefreshCounters()
+    {
+        InventoryCounters.Update(
+            inventoryCountText,
+            deckCountText,
+            inventoryStorage,
+            deckData);
     }
 
 }

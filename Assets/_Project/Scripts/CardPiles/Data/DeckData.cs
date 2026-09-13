@@ -21,23 +21,45 @@ public class DeckData : ScriptableObject
 
     public void AddCard(CardData card)
     {
+        AddCards(card, 1);
+    }
+
+    public int AddCards(CardData card, int count)
+    {
         if (card == null)
-            return;
+            return 0;
 
-        if (cards.Count >= maxCount)
-            return;
+        int added = 0;
+        while (added < count && cards.Count < maxCount)
+        {
+            cards.Add(card);
+            added++;
+        }
 
-        cards.Add(card);
-        ExplorationPlayerSession.SavePersistent();
+        if (added > 0)
+            ExplorationPlayerSession.SavePersistent();
+
+        return added;
     }
 
     public void RemoveCard(CardData card)
     {
-        if (card == null)
-            return;
+        RemoveCards(card, 1);
+    }
 
-        cards.Remove(card);
-        ExplorationPlayerSession.SavePersistent();
+    public int RemoveCards(CardData card, int count)
+    {
+        if (card == null)
+            return 0;
+
+        int removed = 0;
+        while (removed < count && cards.Remove(card))
+            removed++;
+
+        if (removed > 0)
+            ExplorationPlayerSession.SavePersistent();
+
+        return removed;
     }
 
     public void Clear()

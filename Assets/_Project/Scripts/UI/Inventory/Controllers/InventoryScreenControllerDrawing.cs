@@ -16,7 +16,11 @@ public partial class InventoryScreenController
         inventoryDrawer.Draw(
             filteredCards,
             OnInventoryCardClicked,
-            card => !selectedFromDeck && card == selectedCard);
+            card => !selectedFromDeck && card == selectedCard,
+            InventoryCardLocation.Inventory,
+            inventoryDrawer.DropArea,
+            deckDrawer.DropArea,
+            OnInventoryCardDropped);
     }
 
     private void DrawDeck()
@@ -24,7 +28,11 @@ public partial class InventoryScreenController
         deckDrawer.Draw(
             deckData.Cards,
             OnDeckCardClicked,
-            card => selectedFromDeck && card == selectedCard);
+            card => selectedFromDeck && card == selectedCard,
+            InventoryCardLocation.Deck,
+            inventoryDrawer.DropArea,
+            deckDrawer.DropArea,
+            OnInventoryCardDropped);
     }
 
     private void RefreshViewOnly()
