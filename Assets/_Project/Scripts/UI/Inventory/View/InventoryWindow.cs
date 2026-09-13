@@ -133,7 +133,7 @@ public class InventoryWindow : MonoBehaviour
     private void Update()
     {
         if (IsOpen && GameInputSettings.GetKeyDown(GameInputAction.Close))
-            Close();
+            HandleCloseInput();
     }
 
     private void OnEnable()
@@ -235,6 +235,7 @@ public class InventoryWindow : MonoBehaviour
     {
         ClearSelectedButton();
         ResetPauseMenu();
+        SelectTopIcon(0);
     }
 
     public void ShowOptions()
@@ -686,6 +687,37 @@ public class InventoryWindow : MonoBehaviour
         pendingTransferQuantityConfirm = null;
         if (transferQuantityOverlay != null)
             transferQuantityOverlay.gameObject.SetActive(false);
+    }
+
+    private void HandleCloseInput()
+    {
+        ClearSelectedButton();
+
+        if (transferQuantityOverlay != null && transferQuantityOverlay.gameObject.activeSelf)
+        {
+            HideTransferQuantityPrompt();
+            return;
+        }
+
+        if (confirmationPanel != null && confirmationPanel.activeSelf)
+        {
+            CancelExit();
+            return;
+        }
+
+        if (optionsPanel != null && optionsPanel.activeSelf)
+        {
+            HideOptions();
+            return;
+        }
+
+        if (pauseOverlay != null && pauseOverlay.activeSelf)
+        {
+            ResumeGame();
+            return;
+        }
+
+        Close();
     }
 
     private void OnTransferQuantitySliderChanged(float value)
