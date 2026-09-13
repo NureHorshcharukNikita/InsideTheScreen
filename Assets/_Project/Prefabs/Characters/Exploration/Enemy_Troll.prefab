@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: enemyData
       value: 
       objectReference: {fileID: 11400000, guid: 7c93b3b42f664d619a259063b602052e, type: 2}
+    - target: {fileID: 7000000000000000102, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
+      propertyPath: encounterId
+      value: leymer_troll
+      objectReference: {fileID: 0}
     - target: {fileID: 8307414355194484910, guid: e001e723b4614df4a4bb30adf1a74d10, type: 3}
       propertyPath: m_Name
       value: Enemy_Troll

@@ -18,7 +18,7 @@ MonoBehaviour:
   startingArmor: 0
   enableDialogue: 1
   dialogueEntries:
-  - key: eldon_chest_active
+  - key: eldon_troll_hunt_active
     dialogue: {fileID: 11400000, guid: 916965ba350e4f708003eb10bb2a25c2, type: 2}
     repeatable: 1
     talkTiming: 2

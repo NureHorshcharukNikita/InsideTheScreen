@@ -20,6 +20,9 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private HandUI handUI;
     [SerializeField] private EnemyIntentView enemyIntentView;
 
+    [Header("Quests")]
+    [SerializeField] private List<QuestData> questCatalog = new();
+
     [Header("Turn Pacing")]
     [SerializeField] private float enemyIntentTelegraphDuration = 0.5f;
     [SerializeField] private float enemyIntentHideDuration = 0.15f;
@@ -41,6 +44,8 @@ public class BattleSystem : MonoBehaviour
 
     private void Start()
     {
+        QuestManager.RegisterQuests(questCatalog);
+
         if (player == null)
         {
             DevLog.Log("Player not assigned");
@@ -243,6 +248,7 @@ public class BattleSystem : MonoBehaviour
 
         ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
         DefeatedEncounters.MarkDefeated(PendingBattleEnemy.EncounterId);
+        QuestManager.HandleEncounterDefeated(PendingBattleEnemy.EncounterId, player.InventoryData);
 
         handUI?.ReleaseAllBattleCardDrags();
         battleEndUI?.ShowVictory(droppedLoot);

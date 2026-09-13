@@ -215,4 +215,5 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEncounter
   enemyData: {fileID: 0}
+  encounterId:
   playerReturnOffset: 1.25

@@ -5191,6 +5191,8 @@ MonoBehaviour:
   battleTurnUI: {fileID: 920010102}
   handUI: {fileID: 1882215370}
   enemyIntentView: {fileID: 678215247}
+  questCatalog:
+  - {fileID: 11400000, guid: ecd4838f76df402b9fb8d76974950286, type: 2}
   enemyIntentTelegraphDuration: 0.5
   enemyIntentHideDuration: 0.15
   enemyActionRecoveryDelay: 0.75

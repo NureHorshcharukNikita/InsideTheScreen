@@ -3,11 +3,11 @@ using UnityEngine;
 public class EnemyEncounter : MonoBehaviour
 {
     [SerializeField] private EnemyData enemyData;
+    [SerializeField] private string encounterId;
     [SerializeField] private float playerReturnOffset = 1.25f;
 
     private static int nextEncounterId = 1;
 
-    private string encounterId;
     private bool isTriggered = false;
 
     public static void ResetEncounterIds()
@@ -17,7 +17,8 @@ public class EnemyEncounter : MonoBehaviour
 
     private void Awake()
     {
-        encounterId = (nextEncounterId++).ToString();
+        if (string.IsNullOrWhiteSpace(encounterId))
+            encounterId = (nextEncounterId++).ToString();
     }
 
     private void Start()

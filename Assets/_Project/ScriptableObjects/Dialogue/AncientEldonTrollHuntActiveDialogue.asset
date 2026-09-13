@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: AncientEldonQuestActiveDialogue
+  m_Name: AncientEldonTrollHuntActiveDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: The chest already listens for you. Follow its blue hum, and do not mistake silence for safety.
+    text: The troll still prowls near Leymar. Face it carefully; brute strength is loud, but hunger is louder.
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
     choices:
-    - text: What should I look for?
+    - text: Which troll?
       nextLineIndex: 1
       endDialogue: 0
       actions: []
@@ -32,7 +32,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: What should I look for?
+    text: Which troll?
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -40,7 +40,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: A lock that is warm, a light that breathes, and a sound that does not belong to metal.
+    text: The one by the southern path. Bring it down, and take what meat you can use.
     nextLineIndex: 0
     endDialogueAfterLine: 0
     actions: []

@@ -64,6 +64,31 @@ public static class QuestManager
         return true;
     }
 
+    public static bool HandleEncounterDefeated(string encounterId, InventoryData inventory)
+    {
+        if (string.IsNullOrWhiteSpace(encounterId))
+            return false;
+
+        bool completedAny = false;
+        for (int i = 0; i < KnownQuests.Count; i++)
+        {
+            QuestData quest = KnownQuests[i];
+            if (quest == null
+                || quest.ObjectiveType != QuestObjectiveType.DefeatEncounter
+                || quest.TargetEncounterId != encounterId
+                || GetStatus(quest) != QuestStatus.Active)
+                continue;
+
+            if (!SetStatus(quest, QuestStatus.Completed))
+                continue;
+
+            GrantReward(quest, inventory);
+            completedAny = true;
+        }
+
+        return completedAny;
+    }
+
     public static bool HasQuest(QuestData quest)
     {
         return quest != null && HasQuest(quest.QuestKey);
@@ -236,5 +261,14 @@ public static class QuestManager
         }
 
         return null;
+    }
+
+    private static void GrantReward(QuestData quest, InventoryData inventory)
+    {
+        if (quest == null || inventory == null || quest.RewardCard == null)
+            return;
+
+        for (int i = 0; i < quest.RewardCardCount; i++)
+            inventory.AddCard(quest.RewardCard);
     }
 }

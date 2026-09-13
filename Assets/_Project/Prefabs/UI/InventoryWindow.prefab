@@ -9193,7 +9193,7 @@ GameObject:
   - component: {fileID: 5986954643674954320}
   - component: {fileID: 1725597021500019021}
   m_Layer: 5
-  m_Name: QuestListItem_2_Mysterious chest
+  m_Name: QuestListItem_2_Troll Hunt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9661,7 +9661,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mysterious chest
+  m_text: Troll Hunt
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
