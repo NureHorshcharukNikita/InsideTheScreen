@@ -108,7 +108,10 @@ public partial class CardView
     private void DragInventoryTransfer(PointerEventData eventData)
     {
         if (!HasValidInventoryDragContext())
+        {
+            ForceReleaseInventoryTransferDrag(suppressClick: true);
             return;
+        }
 
         if (!TryScreenToInventoryCanvasLocal(eventData.position, out Vector2 localPoint))
             return;
@@ -122,6 +125,12 @@ public partial class CardView
     {
         inventoryTransferDragging = false;
         suppressInventoryClickAfterDrag = true;
+
+        if (eventData == null)
+        {
+            inventoryReturnCoroutine = StartCoroutine(AnimateInventoryReturnCoroutine());
+            return;
+        }
 
         InventoryCardLocation target = ResolveInventoryDropTarget(eventData);
         if (target != InventoryCardLocation.None && target != inventoryDragSource)
@@ -225,6 +234,10 @@ public partial class CardView
 
     private bool TryScreenToInventoryCanvasLocal(Vector2 screenPosition, out Vector2 localPoint)
     {
+        localPoint = default;
+        if (canvasRootRect == null)
+            return false;
+
         return RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRootRect,
             screenPosition,
@@ -396,6 +409,15 @@ public partial class CardView
     private RectTransform GetInventoryDragVisualRect()
     {
         return inventoryDragGhost != null ? inventoryDragGhost : rectTransform;
+    }
+
+    private void ForceReleaseInventoryTransferDrag(bool suppressClick)
+    {
+        inventoryTransferDragging = false;
+        suppressInventoryClickAfterDrag = suppressClick;
+
+        CancelInventoryReturnAnimationIfRunning();
+        RestoreInventoryDragSlot();
     }
 
     private IEnumerator AnimateInventoryReturnCoroutine()

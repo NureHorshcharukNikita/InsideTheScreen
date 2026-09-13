@@ -8,6 +8,8 @@ public static class QuestManager
 
     public static event Action<QuestData, QuestStatus> QuestChanged;
     public static event Action<QuestData> QuestStarted;
+    public static event Action<QuestData> QuestCompleted;
+    public static event Action<QuestData> QuestRewardGranted;
 
     public static bool StartQuest(QuestData quest, bool showNotification = true)
     {
@@ -39,6 +41,20 @@ public static class QuestManager
 
     public static bool SetStatus(QuestData quest, QuestStatus status)
     {
+        return SetStatusInternal(quest, status, true);
+    }
+
+    public static bool CompleteQuest(QuestData quest, InventoryData inventory = null, bool showNotification = true)
+    {
+        if (!SetStatusInternal(quest, QuestStatus.Completed, showNotification))
+            return false;
+
+        GrantReward(quest, inventory, showNotification);
+        return true;
+    }
+
+    private static bool SetStatusInternal(QuestData quest, QuestStatus status, bool showNotification)
+    {
         if (quest == null || string.IsNullOrWhiteSpace(quest.QuestKey))
             return false;
 
@@ -60,6 +76,15 @@ public static class QuestManager
 
         progress.status = status;
         QuestChanged?.Invoke(quest, status);
+
+        if (status == QuestStatus.Completed)
+        {
+            QuestCompleted?.Invoke(quest);
+
+            if (showNotification)
+                QuestNotificationToast.ShowQuestCompleted(quest);
+        }
+
         ExplorationPlayerSession.SaveQuestProgress();
         return true;
     }
@@ -79,10 +104,9 @@ public static class QuestManager
                 || GetStatus(quest) != QuestStatus.Active)
                 continue;
 
-            if (!SetStatus(quest, QuestStatus.Completed))
+            if (!CompleteQuest(quest, inventory))
                 continue;
 
-            GrantReward(quest, inventory);
             completedAny = true;
         }
 
@@ -263,12 +287,17 @@ public static class QuestManager
         return null;
     }
 
-    private static void GrantReward(QuestData quest, InventoryData inventory)
+    private static void GrantReward(QuestData quest, InventoryData inventory, bool showNotification)
     {
-        if (quest == null || inventory == null || quest.RewardCard == null)
+        if (quest == null || inventory == null || quest.RewardCard == null || quest.RewardCardCount <= 0)
             return;
 
         for (int i = 0; i < quest.RewardCardCount; i++)
             inventory.AddCard(quest.RewardCard);
+
+        QuestRewardGranted?.Invoke(quest);
+
+        if (showNotification)
+            QuestNotificationToast.ShowRewardReceived(quest);
     }
 }

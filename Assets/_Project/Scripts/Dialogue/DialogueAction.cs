@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public sealed class DialogueAction
@@ -16,7 +17,8 @@ public sealed class DialogueAction
                 QuestManager.StartQuest(quest, !silent);
                 break;
             case DialogueActionType.CompleteQuest:
-                QuestManager.SetStatus(quest, QuestStatus.Completed);
+                PlayerCharacter player = UnityEngine.Object.FindFirstObjectByType<PlayerCharacter>();
+                QuestManager.CompleteQuest(quest, player != null ? player.InventoryData : null, !silent);
                 break;
             case DialogueActionType.FailQuest:
                 QuestManager.SetStatus(quest, QuestStatus.Failed);

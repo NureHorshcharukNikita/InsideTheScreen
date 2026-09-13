@@ -97,9 +97,7 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IPointerClic
 
     public void ClearInventoryTransfer()
     {
-        if (inventoryTransferDragging)
-            RestoreInventoryDragSlot();
-        CancelInventoryReturnAnimationIfRunning();
+        ForceReleaseInventoryTransferDrag(suppressClick: false);
 
         inventoryTransferEnabled = false;
         inventoryDragSource = InventoryCardLocation.None;

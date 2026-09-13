@@ -3308,8 +3308,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 281.65427, y: -71}
-  m_SizeDelta: {x: 539.30853, y: 32}
+  m_AnchoredPosition: {x: 281.65427, y: -84}
+  m_SizeDelta: {x: 539.30853, y: 58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &925000000000000003
 CanvasRenderer:
@@ -3332,7 +3332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.12, g: 0.08, b: 0.06, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3427,7 +3427,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 32
+  m_PreferredHeight: 58
   m_FlexibleWidth: -1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
@@ -4446,7 +4446,7 @@ MonoBehaviour:
   titleText: {fileID: 3097347043692771805}
   rewardIcon: {fileID: 5488781774819234853}
   normalColor: {r: 0.59607846, g: 0.48235294, b: 0.44313726, a: 0.78}
-  selectedColor: {r: 0.27450982, g: 0.46666667, b: 0.59607846, a: 1}
+  selectedColor: {r: 0.56, g: 0.37, b: 0.18, a: 1}
   normalTextColor: {r: 0, g: 0, b: 0, a: 1}
   selectedTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1748235983953425297
@@ -6369,7 +6369,7 @@ MonoBehaviour:
   titleText: {fileID: 614199851163531852}
   rewardIcon: {fileID: 1758343875163129936}
   normalColor: {r: 0.59607846, g: 0.48235294, b: 0.44313726, a: 0.78}
-  selectedColor: {r: 0.27450982, g: 0.46666667, b: 0.59607846, a: 1}
+  selectedColor: {r: 0.56, g: 0.37, b: 0.18, a: 1}
   normalTextColor: {r: 0, g: 0, b: 0, a: 1}
   selectedTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &4051135675468002258
@@ -9365,7 +9365,7 @@ MonoBehaviour:
   titleText: {fileID: 134527644079533771}
   rewardIcon: {fileID: 5399648667077120598}
   normalColor: {r: 0.59607846, g: 0.48235294, b: 0.44313726, a: 0.78}
-  selectedColor: {r: 0.27450982, g: 0.46666667, b: 0.59607846, a: 1}
+  selectedColor: {r: 0.56, g: 0.37, b: 0.18, a: 1}
   normalTextColor: {r: 0, g: 0, b: 0, a: 1}
   selectedTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5670992612143716446
@@ -11264,7 +11264,7 @@ MonoBehaviour:
   titleText: {fileID: 8446923268915504457}
   rewardIcon: {fileID: 3691244056870042488}
   normalColor: {r: 0.59607846, g: 0.48235294, b: 0.44313726, a: 0.78}
-  selectedColor: {r: 0.27450982, g: 0.46666667, b: 0.59607846, a: 1}
+  selectedColor: {r: 0.56, g: 0.37, b: 0.18, a: 1}
   normalTextColor: {r: 0, g: 0, b: 0, a: 1}
   selectedTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6766706744220457895
@@ -11455,7 +11455,7 @@ MonoBehaviour:
   titleText: {fileID: 2491188930393809611}
   rewardIcon: {fileID: 5416013754914352283}
   normalColor: {r: 0.59607846, g: 0.48235294, b: 0.44313726, a: 0.78}
-  selectedColor: {r: 0.27450982, g: 0.46666667, b: 0.59607846, a: 1}
+  selectedColor: {r: 0.56, g: 0.37, b: 0.18, a: 1}
   normalTextColor: {r: 0, g: 0, b: 0, a: 1}
   selectedTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6828227684157851431
@@ -13976,7 +13976,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 5
+  m_Spacing: 12
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1

@@ -87,15 +87,8 @@ public partial class InventoryScreenController
 
         var card = selectionPresenter.GetSelected();
 
-        RequestQuantityOrTransfer(
-            card,
-            InventoryCardLocation.Inventory,
-            deckController.GetAddableCount(card),
-            quantity =>
-            {
-                if (TryAddToDeck(card, quantity))
-                    RefreshAfterCardCollectionChanged();
-            });
+        if (TryAddToDeck(card, 1))
+            RefreshAfterCardCollectionChanged();
     }
 
     public void RemoveSelected()
@@ -105,15 +98,8 @@ public partial class InventoryScreenController
 
         var card = selectionPresenter.GetSelected();
 
-        RequestQuantityOrTransfer(
-            card,
-            InventoryCardLocation.Deck,
-            deckController.GetDeckCount(card),
-            quantity =>
-            {
-                if (TryRemoveFromDeck(card, quantity))
-                    RefreshAfterCardCollectionChanged();
-            });
+        if (TryRemoveFromDeck(card, 1))
+            RefreshAfterCardCollectionChanged();
     }
 
     private bool TryAddToDeck(CardData card, int quantity)

@@ -8,6 +8,7 @@ public sealed class QuestPageView : MonoBehaviour
     private const int NoSelectionIndex = -1;
     private const string EmptyDetailsMessage = "Select a quest to view details";
     private const string EmptyListMessage = "No quests yet";
+    private static readonly Color DetailsTextColor = new(0.12f, 0.08f, 0.06f, 1f);
 
     [SerializeField, HideInInspector] private int hierarchyVersion;
     [SerializeField] private List<QuestData> quests = new();
@@ -100,8 +101,15 @@ public sealed class QuestPageView : MonoBehaviour
                 ? reusableItems[i]
                 : Instantiate(listItemTemplate, listContent);
 
+            QuestStatus status = QuestManager.GetStatus(receivedQuests[i]);
             item.gameObject.SetActive(true);
-            item.Setup(receivedQuests[i], i, i == selectedIndex, QuestManager.IsUnread(receivedQuests[i]), SelectQuest);
+            item.Setup(
+                receivedQuests[i],
+                i,
+                i == selectedIndex,
+                QuestManager.IsUnread(receivedQuests[i]),
+                status,
+                SelectQuest);
             itemViews.Add(item);
         }
 
@@ -129,12 +137,14 @@ public sealed class QuestPageView : MonoBehaviour
         {
             itemViews[i].SetSelected(i == selectedIndex);
             itemViews[i].SetUnread(QuestManager.IsUnread(receivedQuests[i]));
+            itemViews[i].SetStatus(QuestManager.GetStatus(receivedQuests[i]));
         }
     }
 
     private void ShowQuest(int index)
     {
         QuestData quest = receivedQuests[index];
+        QuestStatus status = QuestManager.GetStatus(quest);
 
         SetDetailsContentVisible(true);
         SetEmptyDetailsVisible(false);
@@ -144,10 +154,12 @@ public sealed class QuestPageView : MonoBehaviour
 
         if (giverText != null)
         {
-            string status = $"Status: {QuestManager.GetStatus(quest)}";
+            string statusText = $"Status: {GetColoredStatusLabel(status)}";
             giverText.text = string.IsNullOrWhiteSpace(quest.GiverName)
-                ? status
-                : $"Giver: {quest.GiverName}\n{status}";
+                ? statusText
+                : $"Giver: {quest.GiverName}\n{statusText}";
+            giverText.color = DetailsTextColor;
+            giverText.richText = true;
         }
 
         if (descriptionText != null)
@@ -158,12 +170,19 @@ public sealed class QuestPageView : MonoBehaviour
             rewardRoot.SetActive(hasReward);
 
         if (rewardLabelText != null)
-            rewardLabelText.text = quest.RewardLabel;
+        {
+            rewardLabelText.text = status == QuestStatus.Completed && !string.IsNullOrWhiteSpace(quest.RewardLabel)
+                ? $"Reward received: {quest.RewardLabel}"
+                : quest.RewardLabel;
+        }
 
         if (rewardIcon != null)
         {
             rewardIcon.sprite = quest.RewardIcon;
             rewardIcon.enabled = quest.RewardIcon != null;
+            rewardIcon.color = status == QuestStatus.Completed
+                ? Color.white
+                : new Color(1f, 1f, 1f, 0.72f);
         }
 
         ResetScrolls();
@@ -280,5 +299,16 @@ public sealed class QuestPageView : MonoBehaviour
     private void HandleQuestChanged(QuestData quest, QuestStatus status)
     {
         BuildList();
+    }
+
+    private static string GetColoredStatusLabel(QuestStatus status)
+    {
+        return status switch
+        {
+            QuestStatus.Completed => "<color=#6B4218>Completed</color>",
+            QuestStatus.Failed => "<color=#9A342E>Failed</color>",
+            QuestStatus.Active => "<color=#375D78>Active</color>",
+            _ => "<color=#4B352B>Available</color>"
+        };
     }
 }

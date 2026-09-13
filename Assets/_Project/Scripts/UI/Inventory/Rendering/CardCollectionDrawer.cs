@@ -74,6 +74,7 @@ public class CardCollectionDrawer
     {
         for (int i = 0; i < pool.Count; i++)
         {
+            pool[i].ClearInventoryTransfer();
             pool[i].SetSelected(false);
             pool[i].gameObject.SetActive(false);
         }

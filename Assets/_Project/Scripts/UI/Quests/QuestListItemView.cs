@@ -13,15 +13,28 @@ public sealed class QuestListItemView : MonoBehaviour
 
     [Header("Colors")]
     [SerializeField] private Color normalColor = new(0.59607846f, 0.48235294f, 0.44313726f, 0.78f);
-    [SerializeField] private Color selectedColor = new(0.27450982f, 0.46666667f, 0.59607846f, 1f);
+    [SerializeField] private Color selectedColor = new(0.56f, 0.37f, 0.18f, 1f);
+    [SerializeField] private Color completedColor = new(0.36f, 0.28f, 0.2f, 0.96f);
+    [SerializeField] private Color completedSelectedColor = new(0.46f, 0.31f, 0.16f, 1f);
+    [SerializeField] private Color failedColor = new(0.39f, 0.2f, 0.19f, 0.96f);
+    [SerializeField] private Color failedSelectedColor = new(0.54f, 0.26f, 0.24f, 1f);
     [SerializeField] private Color normalTextColor = Color.black;
     [SerializeField] private Color selectedTextColor = Color.white;
+    [SerializeField] private Color completedTextColor = new(1f, 0.9f, 0.62f, 1f);
     [SerializeField] private Color unreadDotColor = new(0.9529412f, 0.78431374f, 0.427451f, 1f);
 
     private int index;
     private Action<int> onSelected;
+    private QuestStatus currentStatus;
+    private bool currentSelected;
 
-    public void Setup(QuestData quest, int itemIndex, bool selected, bool unread, Action<int> selectedCallback)
+    public void Setup(
+        QuestData quest,
+        int itemIndex,
+        bool selected,
+        bool unread,
+        QuestStatus status,
+        Action<int> selectedCallback)
     {
         index = itemIndex;
         onSelected = selectedCallback;
@@ -40,19 +53,52 @@ public sealed class QuestListItemView : MonoBehaviour
         {
             rewardIcon.sprite = quest != null ? quest.RewardIcon : null;
             rewardIcon.enabled = rewardIcon.sprite != null;
+            rewardIcon.color = status == QuestStatus.Completed
+                ? Color.white
+                : new Color(1f, 1f, 1f, 0.72f);
         }
 
+        SetStatus(status);
         SetSelected(selected);
         SetUnread(unread);
     }
 
     public void SetSelected(bool selected)
     {
+        currentSelected = selected;
+        ApplyVisualState();
+    }
+
+    public void SetStatus(QuestStatus status)
+    {
+        currentStatus = status;
+        ApplyVisualState();
+    }
+
+    private void ApplyVisualState()
+    {
+        bool completed = currentStatus == QuestStatus.Completed;
+        bool failed = currentStatus == QuestStatus.Failed;
+
         if (backgroundImage != null)
-            backgroundImage.color = selected ? selectedColor : normalColor;
+        {
+            if (completed)
+                backgroundImage.color = currentSelected ? completedSelectedColor : completedColor;
+            else if (failed)
+                backgroundImage.color = currentSelected ? failedSelectedColor : failedColor;
+            else
+                backgroundImage.color = currentSelected ? selectedColor : normalColor;
+        }
 
         if (titleText != null)
-            titleText.color = selected ? selectedTextColor : normalTextColor;
+        {
+            if (completed)
+                titleText.color = completedTextColor;
+            else if (failed)
+                titleText.color = currentSelected ? selectedTextColor : new Color(1f, 0.72f, 0.68f, 1f);
+            else
+                titleText.color = currentSelected ? selectedTextColor : normalTextColor;
+        }
     }
 
     public void SetUnread(bool unread)
