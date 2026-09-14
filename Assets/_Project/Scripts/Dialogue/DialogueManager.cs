@@ -143,7 +143,10 @@ public sealed class DialogueManager : MonoBehaviour
         if (choice == null)
             return;
 
-        ExecuteActions(choice.actions);
+        ExecuteActions(choice.actions, activeNpc, activePlayer);
+
+        if (!dialogueActive)
+            return;
 
         if (choice.endDialogue)
         {
@@ -208,7 +211,10 @@ public sealed class DialogueManager : MonoBehaviour
         string fallbackName = playerSpeaking ? PlayerName : activeNpc.DisplayName;
         Sprite fallbackPortrait = playerSpeaking ? PlayerPortrait : activeNpc.DialogueSprite;
 
-        ExecuteActions(line.actions);
+        ExecuteActions(line.actions, activeNpc, activePlayer);
+
+        if (!dialogueActive)
+            return;
 
         view.ShowLine(
             line,
@@ -219,13 +225,13 @@ public sealed class DialogueManager : MonoBehaviour
             GetValidChoices(line));
     }
 
-    private static void ExecuteActions(IReadOnlyList<DialogueAction> actions)
+    private static void ExecuteActions(IReadOnlyList<DialogueAction> actions, NpcCharacter npc, PlayerCharacter player)
     {
         if (actions == null)
             return;
 
         for (int i = 0; i < actions.Count; i++)
-            actions[i]?.Execute();
+            actions[i]?.Execute(npc, player);
     }
 
     private bool CurrentLineHasChoices()

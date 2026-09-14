@@ -14,6 +14,9 @@ public sealed class SessionSaveData
     public bool hasSavedHealth;
     public int savedHealth;
 
+    public bool hasGold;
+    public int gold;
+
     public string pendingEncounterId;
     public bool hasEnemyHealth;
     public int enemyHealth;
@@ -23,6 +26,7 @@ public sealed class SessionSaveData
     public string[] defeatedEncounterIds;
     public string[] collectedPickupIds;
     public QuestProgressSaveData[] questProgress;
+    public ShopProgressSaveData[] shopProgress;
     public NpcPositionSaveData[] npcPositions;
     public NpcDialogueProgressSaveData[] npcDialogueProgress;
     public string[] storyFlags;
@@ -34,6 +38,14 @@ public sealed class QuestProgressSaveData
     public string questKey;
     public QuestStatus status;
     public bool wasOpened;
+}
+
+[Serializable]
+public sealed class ShopProgressSaveData
+{
+    public string shopKey;
+    public int itemIndex;
+    public int purchasedCount;
 }
 
 [Serializable]

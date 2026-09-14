@@ -3,4 +3,5 @@
     Gameplay,
     Dialogue,
     Inventory,
+    Shop,
 }

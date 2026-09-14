@@ -23,6 +23,9 @@ public class PlayerData : ScriptableObject
     [Header("Inventory")]
     public InventoryData Inventory;
 
+    [Header("Currency")]
+    public int startingGold = 35;
+
     public string DisplayName => profile != null ? profile.DisplayName : name;
     public Sprite PortraitSprite => profile != null ? profile.PortraitSprite : null;
 }

@@ -59,6 +59,6 @@ MonoBehaviour:
   - The old screen hums again.
   - Leymar is listening.
   - Every card has a memory.
-  tradeStock: []
+  shop: {fileID: 11400000, guid: 039799b982724bcca9f607fae2fd05a7, type: 2}
   canMove: 0
   moveSpeed: 2

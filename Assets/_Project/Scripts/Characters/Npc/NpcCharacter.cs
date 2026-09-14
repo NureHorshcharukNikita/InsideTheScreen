@@ -19,7 +19,7 @@ public class NpcCharacter : Character
     public Sprite PortraitSprite => npcData != null ? npcData.PortraitSprite : null;
     public Sprite DialogueSprite => PortraitSprite;
     public IReadOnlyList<string> OverheadLines => npcData != null ? npcData.overheadLines : Array.Empty<string>();
-    public IReadOnlyList<ScriptableObject> TradeStock => npcData != null ? npcData.tradeStock : Array.Empty<ScriptableObject>();
+    public ShopData Shop => npcData != null ? npcData.Shop : null;
     public bool CanMove => npcData != null && npcData.canMove;
     public float MoveSpeed => npcData != null ? Mathf.Max(0f, npcData.moveSpeed) : 0f;
 
@@ -56,7 +56,7 @@ public class NpcCharacter : Character
         return interaction switch
         {
             NpcInteractionType.Talk => CanTalk,
-            NpcInteractionType.Trade => npcData.CanTrade,
+            NpcInteractionType.Trade => CanTrade,
             _ => false
         };
     }

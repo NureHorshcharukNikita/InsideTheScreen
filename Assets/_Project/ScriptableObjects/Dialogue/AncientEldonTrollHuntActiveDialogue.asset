@@ -25,6 +25,15 @@ MonoBehaviour:
       nextLineIndex: 1
       endDialogue: 0
       actions: []
+    - text: Show me your wares.
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 11400000, guid: 039799b982724bcca9f607fae2fd05a7, type: 2}
     - text: I will return later.
       nextLineIndex: -1
       endDialogue: 1

@@ -23,7 +23,7 @@ public sealed class NpcData : ScriptableObject
     public List<string> overheadLines = new();
 
     [Header("Trade")]
-    public List<ScriptableObject> tradeStock = new();
+    public ShopData shop;
 
     [Header("Movement")]
     public bool canMove;
@@ -31,7 +31,8 @@ public sealed class NpcData : ScriptableObject
 
     public bool CanTalk => enableDialogue && HasAnyDialogueEntry();
     public bool CanShowOverheadLines => enableOverheadSpeech && HasAnyText(overheadLines);
-    public bool CanTrade => HasAnyAssignedAsset(tradeStock);
+    public bool CanTrade => shop != null && shop.HasItems;
+    public ShopData Shop => shop;
     public string CharacterID => profile != null ? profile.CharacterID : name;
     public string DisplayName => profile != null ? profile.DisplayName : name;
     public string Description => profile != null ? profile.Description : string.Empty;
@@ -92,17 +93,4 @@ public sealed class NpcData : ScriptableObject
         return false;
     }
 
-    private static bool HasAnyAssignedAsset(List<ScriptableObject> values)
-    {
-        if (values == null)
-            return false;
-
-        for (int i = 0; i < values.Count; i++)
-        {
-            if (values[i] != null)
-                return true;
-        }
-
-        return false;
-    }
 }

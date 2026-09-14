@@ -11,6 +11,7 @@ public class CardDataEditor : UnityEditor.Editor
     private SerializedProperty _iconProp;
     private SerializedProperty _categoriesProp;
     private SerializedProperty _costProp;
+    private SerializedProperty _baseGoldValueProp;
     private SerializedProperty _conditionsProp;
     private SerializedProperty _effectsProp;
     private SerializedProperty _statusEffectsProp;
@@ -24,6 +25,7 @@ public class CardDataEditor : UnityEditor.Editor
         _iconProp = serializedObject.FindProperty("icon");
         _categoriesProp = serializedObject.FindProperty("categories");
         _costProp = serializedObject.FindProperty("cost");
+        _baseGoldValueProp = serializedObject.FindProperty("baseGoldValue");
         _conditionsProp = serializedObject.FindProperty("conditions");
         _effectsProp = serializedObject.FindProperty("instantEffects");
         _statusEffectsProp = serializedObject.FindProperty("statusApplications");
@@ -35,6 +37,7 @@ public class CardDataEditor : UnityEditor.Editor
 
         EditorSectionGUI.DrawSection("Card Identity", DrawIdentitySection, 0f);
         EditorSectionGUI.DrawSection("Gameplay", DrawGameplaySection);
+        EditorSectionGUI.DrawSection("Economy", DrawEconomySection);
         EditorSectionGUI.DrawSection("Validation", DrawValidation);
         DrawQuickActions();
 
@@ -59,6 +62,14 @@ public class CardDataEditor : UnityEditor.Editor
         EditorGUILayout.PropertyField(_conditionsProp, true);
         EditorGUILayout.PropertyField(_effectsProp, true);
         EditorGUILayout.PropertyField(_statusEffectsProp, true);
+    }
+
+    private void DrawEconomySection()
+    {
+        EditorGUILayout.PropertyField(_baseGoldValueProp, new GUIContent("Base Gold Value"));
+
+        if (_baseGoldValueProp.intValue <= 0)
+            EditorGUILayout.HelpBox("If this is 0 or lower, runtime falls back to Cost * 2.", MessageType.Info);
     }
 
     public override Texture2D RenderStaticPreview(string assetPath, UnityEngine.Object[] subAssets, int width, int height)

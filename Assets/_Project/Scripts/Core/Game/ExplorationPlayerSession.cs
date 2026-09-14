@@ -139,6 +139,18 @@ public static class ExplorationPlayerSession
         SavePersistent();
     }
 
+    public static void SaveWallet()
+    {
+        HasSession = true;
+        SavePersistent();
+    }
+
+    public static void SaveShopProgress()
+    {
+        HasSession = true;
+        SavePersistent();
+    }
+
     public static bool TryGetNpcPosition(string npcKey, out Vector3 position)
     {
         if (string.IsNullOrWhiteSpace(npcKey))
@@ -229,6 +241,8 @@ public static class ExplorationPlayerSession
         DefeatedEncounters.Clear();
         CollectedPickups.Clear();
         QuestManager.Clear();
+        ShopManager.Clear();
+        PlayerWallet.Clear();
         NpcDialogueProgress.Clear();
         StoryFlagManager.Clear();
     }
@@ -242,9 +256,12 @@ public static class ExplorationPlayerSession
             savedPosition,
             hasSavedHealth,
             savedHealth,
+            PlayerWallet.IsInitialized,
+            PlayerWallet.Gold,
             runtimeInventory,
             runtimeDeck,
             QuestManager.ToArray(),
+            ShopManager.ToArray(),
             CreateNpcPositionSaveData(),
             NpcDialogueProgress.ToArray(),
             StoryFlagManager.ToArray());
@@ -263,6 +280,8 @@ public static class ExplorationPlayerSession
         hasSavedHealth = data.hasSavedHealth;
         savedHealth = data.savedHealth;
 
+        PlayerWallet.Restore(data.hasGold, data.gold);
+
         PendingBattleEnemy.RestoreSession(
             data.pendingEncounterId,
             data.hasEnemyHealth,
@@ -271,6 +290,7 @@ public static class ExplorationPlayerSession
         DefeatedEncounters.Restore(data.defeatedEncounterIds);
         CollectedPickups.Restore(data.collectedPickupIds);
         QuestManager.Restore(data.questProgress);
+        ShopManager.Restore(data.shopProgress);
         NpcDialogueProgress.Restore(data.npcDialogueProgress);
         StoryFlagManager.Restore(data.storyFlags);
         RestoreNpcPositions(data.npcPositions);

@@ -8,8 +8,9 @@ public sealed class DialogueAction
     public QuestData quest;
     public string storyFlag;
     public bool silent;
+    public ShopData shop;
 
-    public void Execute()
+    public void Execute(NpcCharacter npc = null, PlayerCharacter player = null)
     {
         switch (type)
         {
@@ -17,7 +18,7 @@ public sealed class DialogueAction
                 QuestManager.StartQuest(quest, !silent);
                 break;
             case DialogueActionType.CompleteQuest:
-                PlayerCharacter player = UnityEngine.Object.FindFirstObjectByType<PlayerCharacter>();
+                player ??= UnityEngine.Object.FindFirstObjectByType<PlayerCharacter>();
                 QuestManager.CompleteQuest(quest, player != null ? player.InventoryData : null, !silent);
                 break;
             case DialogueActionType.FailQuest:
@@ -29,7 +30,22 @@ public sealed class DialogueAction
             case DialogueActionType.ClearStoryFlag:
                 StoryFlagManager.ClearFlag(storyFlag);
                 break;
+            case DialogueActionType.OpenShop:
+                OpenShop(npc, player);
+                break;
         }
+    }
+
+    private void OpenShop(NpcCharacter npc, PlayerCharacter player)
+    {
+        ShopData shopToOpen = shop != null ? shop : npc != null ? npc.Shop : null;
+        if (shopToOpen == null)
+            return;
+
+        DialogueManager.Instance?.EndDialogue();
+
+        player ??= UnityEngine.Object.FindFirstObjectByType<PlayerCharacter>(UnityEngine.FindObjectsInactive.Include);
+        ShopWindow.Open(shopToOpen, npc, player);
     }
 }
 
@@ -40,5 +56,6 @@ public enum DialogueActionType
     CompleteQuest,
     FailQuest,
     SetStoryFlag,
-    ClearStoryFlag
+    ClearStoryFlag,
+    OpenShop
 }

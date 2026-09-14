@@ -107,7 +107,7 @@ public sealed class NpcInteraction : MonoBehaviour
 
         if (npc.CanTrade)
         {
-            RequestPlaceholderInteraction(NpcInteractionType.Trade);
+            OpenTrade();
             return;
         }
     }
@@ -221,12 +221,18 @@ public sealed class NpcInteraction : MonoBehaviour
         return child != null ? child.GetComponent<TMP_Text>() : null;
     }
 
-    private void RequestPlaceholderInteraction(NpcInteractionType interaction)
+    private void OpenTrade()
     {
-        if (!npc.TryInteract(interaction))
+        if (npc == null || !npc.CanTrade)
             return;
 
-        Debug.Log($"{interaction} interaction requested for {npc.DisplayName}. UI is not implemented yet.", npc);
-        npc.EndInteraction();
+        PlayerCharacter player = FindFirstObjectByType<PlayerCharacter>(FindObjectsInactive.Include);
+        if (!ShopWindow.Open(npc.Shop, npc, player))
+        {
+            npc.EndInteraction();
+            return;
+        }
+
+        HideSpeechRoot();
     }
 }

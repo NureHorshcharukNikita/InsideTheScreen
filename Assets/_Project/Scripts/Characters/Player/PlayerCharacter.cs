@@ -44,6 +44,7 @@ public class PlayerCharacter : Character
 
         runtimeInventoryData = ExplorationPlayerSession.GetOrCreateRuntimeInventory(playerData.Inventory);
         runtimeDeckData = ExplorationPlayerSession.GetOrCreateRuntimeDeck(playerData.Deck);
+        PlayerWallet.Initialize(playerData.startingGold);
 
         if (ExplorationPlayerSession.TryGetSavedHealth(out int savedHealth))
             SetHealth(savedHealth);

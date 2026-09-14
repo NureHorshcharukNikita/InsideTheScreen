@@ -23,6 +23,9 @@ public class CardData : ScriptableObject
     [SerializeField] private List<CardInstantEffectEntry> instantEffects = new();
     [SerializeField] private List<CardStatusApplicationEntry> statusApplications = new();
 
+    [Header("Economy")]
+    [SerializeField] private int baseGoldValue = 1;
+
     public string CardID => cardID;
     public string CardName => cardName;
     public string RawDescription => description;
@@ -42,6 +45,7 @@ public class CardData : ScriptableObject
     public Sprite Icon => icon;
     public IReadOnlyList<CardCategory> Categories => categories;
     public int Cost => cost;
+    public int BaseGoldValue => baseGoldValue > 0 ? baseGoldValue : Mathf.Max(1, cost * 2);
     public IReadOnlyList<BattleCondition> Conditions => conditions;
     public IReadOnlyList<CardInstantEffectEntry> InstantEffects => instantEffects;
     public IReadOnlyList<CardStatusApplicationEntry> StatusApplications => statusApplications;
