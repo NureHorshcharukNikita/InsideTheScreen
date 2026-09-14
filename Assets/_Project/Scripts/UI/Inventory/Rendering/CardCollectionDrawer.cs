@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -114,14 +114,19 @@ public class CardCollectionDrawer
         GridLayoutGroup grid = content.GetComponent<GridLayoutGroup>();
         RectTransform rectTransform = content.GetComponent<RectTransform>();
 
-        int columns = grid.constraintCount;
-        int rows = Mathf.CeilToInt((float)itemCount / columns);
+        if (grid == null || rectTransform == null)
+            return;
+
+        int columns = Mathf.Max(1, grid.constraintCount);
+        int rows = itemCount > 0
+            ? Mathf.CeilToInt((float)itemCount / columns)
+            : 0;
 
         float height =
             grid.padding.top +
             grid.padding.bottom +
             rows * grid.cellSize.y +
-            (rows - 1) * grid.spacing.y;
+            Mathf.Max(0, rows - 1) * grid.spacing.y;
 
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, height);
     }

@@ -18,6 +18,8 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private Transform inventoryCardsContent;
     [SerializeField] private Transform deckCardsContent;
     [SerializeField] private CardView cardViewPrefab;
+    [SerializeField] private GameObject inventoryEmptyState;
+    [SerializeField] private GameObject deckEmptyState;
 
     [SerializeField] private TMP_Text inventoryCountText;
     [SerializeField] private TMP_Text deckCountText;
@@ -121,7 +123,9 @@ public class InventoryWindow : MonoBehaviour
             inventoryPreviewPanel,
             inventoryDrawer,
             deckDrawer,
-            ShowTransferQuantityPrompt);
+            ShowTransferQuantityPrompt,
+            visible => SetEmptyStateVisible(inventoryEmptyState, visible),
+            visible => SetEmptyStateVisible(deckEmptyState, visible));
 
         InventoryViewUtils.Cleanup(
             inventoryCardsContent,
@@ -141,13 +145,7 @@ public class InventoryWindow : MonoBehaviour
         if (playerHPText != null)
             playerHPText.SetTarget(player);
 
-        categoriesPanel.Build(
-            player.InventoryData.Cards,
-            category =>
-            {
-                inventoryScreenController.SetCategory(category);
-                Refresh();
-            });
+        RebuildCategories();
 
         inventoryPreviewPanel.Clear();
         
@@ -176,15 +174,7 @@ public class InventoryWindow : MonoBehaviour
             return;
 
         if (categoriesPanel != null && player != null && player.InventoryData != null)
-        {
-            categoriesPanel.Build(
-                player.InventoryData.Cards,
-                category =>
-                {
-                    inventoryScreenController.SetCategory(category);
-                    Refresh();
-                });
-        }
+            RebuildCategories();
 
         Refresh();
     }
@@ -296,7 +286,10 @@ public class InventoryWindow : MonoBehaviour
 
         selectedTopIconIndex = index;
 
-        categoriesPanel.ResetToAll();
+        if (categoriesPanel != null && categoriesPanel.gameObject.activeSelf)
+            categoriesPanel.ResetToAll();
+        else
+            inventoryScreenController.SetCategory(null);
 
         inventoryScreenController.ClearSelection();
         Refresh();
@@ -312,6 +305,40 @@ public class InventoryWindow : MonoBehaviour
             if (pages[i] != null)
                 pages[i].SetActive(i == index);
         }
+    }
+
+    private void RebuildCategories()
+    {
+        if (categoriesPanel == null || player == null || player.InventoryData == null)
+            return;
+
+        bool hasCards = player.InventoryData.Cards != null && player.InventoryData.Cards.Count > 0;
+        categoriesPanel.gameObject.SetActive(true);
+
+        if (!hasCards)
+        {
+            categoriesPanel.ClearButtons();
+            inventoryScreenController.SetCategory(null);
+            return;
+        }
+
+        categoriesPanel.Build(
+            player.InventoryData.Cards,
+            category =>
+            {
+                inventoryScreenController.SetCategory(category);
+                Refresh();
+            });
+    }
+
+    private static void SetEmptyStateVisible(GameObject emptyState, bool visible)
+    {
+        if (emptyState == null)
+            return;
+
+        emptyState.SetActive(visible);
+        if (visible)
+            emptyState.transform.SetAsLastSibling();
     }
 
     public void SelectNextTopIcon()

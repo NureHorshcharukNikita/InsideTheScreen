@@ -14,6 +14,8 @@ public partial class InventoryScreenController
     private readonly InventoryPreviewController previewController;
     private readonly InventorySelectionPresenter selectionPresenter;
     private readonly Action<CardData, InventoryCardLocation, int, Action<int>> requestTransferQuantity;
+    private readonly Action<bool> setInventoryEmptyStateVisible;
+    private readonly Action<bool> setDeckEmptyStateVisible;
 
     private CardCategory? currentCategory;
     private List<CardData> filteredCards;
@@ -31,7 +33,9 @@ public partial class InventoryScreenController
         InventoryPreviewPanel preview,
         CardCollectionDrawer inventoryDrawer,
         CardCollectionDrawer deckDrawer,
-        Action<CardData, InventoryCardLocation, int, Action<int>> requestTransferQuantity = null)
+        Action<CardData, InventoryCardLocation, int, Action<int>> requestTransferQuantity = null,
+        Action<bool> setInventoryEmptyStateVisible = null,
+        Action<bool> setDeckEmptyStateVisible = null)
     {
         inventoryStorage = storage;
         deckData = deck;
@@ -39,6 +43,8 @@ public partial class InventoryScreenController
         this.inventoryDrawer = inventoryDrawer;
         this.deckDrawer = deckDrawer;
         this.requestTransferQuantity = requestTransferQuantity;
+        this.setInventoryEmptyStateVisible = setInventoryEmptyStateVisible;
+        this.setDeckEmptyStateVisible = setDeckEmptyStateVisible;
 
         deckController = new InventoryDeckController(inventoryStorage, deckData);
 
@@ -62,16 +68,21 @@ public partial class InventoryScreenController
 
         if (inventoryStorage == null)
         {
+            setInventoryEmptyStateVisible?.Invoke(false);
+            setDeckEmptyStateVisible?.Invoke(false);
             InventoryCounters.SetEmpty(inventoryText, deckText);
             return;
         }
 
+        BuildFilteredCards();
         ValidateSelection();
 
         DrawInventory();
 
         if (deckController.HasDeck())
             DrawDeck();
+        else
+            setDeckEmptyStateVisible?.Invoke(false);
 
         InventoryCounters.Update(
             inventoryText,

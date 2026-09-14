@@ -16,11 +16,7 @@ public class InventoryCategoriesPanel : MonoBehaviour
     public void Build(IEnumerable<CardData> cards, Action<CardCategory?> onCategorySelected)
     {
         onSelected = onCategorySelected;
-        buttons.Clear();
-        currentSelectedCategory = null;
-
-        foreach (Transform child in container)
-            Destroy(child.gameObject);
+        ClearButtons();
 
         CreateButton("All", null);
 
@@ -34,6 +30,16 @@ public class InventoryCategoriesPanel : MonoBehaviour
 
         UpdateVisualSelection();
         onSelected?.Invoke(null);
+    }
+
+    public void ClearButtons()
+    {
+        onSelected = null;
+        buttons.Clear();
+        currentSelectedCategory = null;
+
+        foreach (Transform child in container)
+            Destroy(child.gameObject);
     }
 
     private void CreateButton(string label, CardCategory? category)
