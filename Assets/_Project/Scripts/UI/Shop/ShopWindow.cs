@@ -21,6 +21,7 @@ public sealed class ShopWindow : MonoBehaviour
     private static readonly Color SelectedColor = new(0.68f, 0.43f, 0.19f, 1f);
     private static readonly Color TextColor = new(0.97f, 0.94f, 0.88f, 1f);
     private static readonly Color MutedTextColor = new(0.78f, 0.7f, 0.64f, 1f);
+    private static readonly Color EmptyTextColor = new(0.96f, 0.9f, 0.82f, 0.95f);
     private static readonly Color GoldColor = new(1f, 0.74f, 0.27f, 1f);
     private static readonly Color DisabledColor = new(0.4f, 0.34f, 0.31f, 0.9f);
     private static readonly Color BuyButtonColor = new(0.58f, 0.42f, 0.24f, 1f);
@@ -54,23 +55,36 @@ public sealed class ShopWindow : MonoBehaviour
     private int selectedShopIndex = -1;
     private CardData selectedInventoryCard;
     private bool selectedFromShop = true;
+    private bool suppressGoldChangedDetailsRefresh;
 
     private sealed class ShopRowView
     {
+        private readonly GameObject gameObject;
         private readonly Image background;
         private readonly Button button;
         private readonly TMP_Text subtitleText;
         private readonly TMP_Text rightText;
         private bool available;
 
-        public ShopRowView(Image background, Button button, TMP_Text subtitleText, TMP_Text rightText, bool available)
+        public ShopRowView(
+            GameObject gameObject,
+            CardData card,
+            Image background,
+            Button button,
+            TMP_Text subtitleText,
+            TMP_Text rightText,
+            bool available)
         {
+            this.gameObject = gameObject;
+            Card = card;
             this.background = background;
             this.button = button;
             this.subtitleText = subtitleText;
             this.rightText = rightText;
             this.available = available;
         }
+
+        public CardData Card { get; }
 
         public void SetSubtitle(string text)
         {
@@ -97,6 +111,21 @@ public sealed class ShopWindow : MonoBehaviour
 
             if (button != null)
                 button.colors = CreateButtonColors(normal, RowHighlightColor, RowPressedColor);
+        }
+
+        public void SetSiblingIndex(int index)
+        {
+            if (gameObject != null)
+                gameObject.transform.SetSiblingIndex(index);
+        }
+
+        public void Destroy()
+        {
+            if (gameObject != null)
+            {
+                gameObject.SetActive(false);
+                UnityEngine.Object.Destroy(gameObject);
+            }
         }
     }
 
@@ -237,12 +266,15 @@ public sealed class ShopWindow : MonoBehaviour
     private void HandleGoldChanged(int _)
     {
         RefreshGold();
-        RefreshDetails();
+
+        if (!suppressGoldChangedDetailsRefresh)
+            RefreshDetails();
     }
 
     private void RefreshInventory()
     {
         ClearChildren(inventoryContent);
+        RemoveEmptyText(inventoryContent);
         inventoryRows.Clear();
 
         if (activeInventory == null || activeInventory.Cards == null || activeInventory.Cards.Count == 0)
@@ -281,6 +313,7 @@ public sealed class ShopWindow : MonoBehaviour
     private void RefreshShop()
     {
         ClearChildren(shopContent);
+        RemoveEmptyText(shopContent);
         shopRows.Clear();
 
         if (activeShop == null || activeShop.Items == null || activeShop.Items.Count == 0)
@@ -451,7 +484,17 @@ public sealed class ShopWindow : MonoBehaviour
             return;
         }
 
-        bool bought = ShopManager.Buy(activeShop, selectedShopIndex, activeInventory);
+        suppressGoldChangedDetailsRefresh = true;
+        bool bought;
+        try
+        {
+            bought = ShopManager.Buy(activeShop, selectedShopIndex, activeInventory);
+        }
+        finally
+        {
+            suppressGoldChangedDetailsRefresh = false;
+        }
+
         statusText.text = bought ? "Purchased." : "Can't buy this item.";
 
         if (bought && ShopManager.GetRemainingStock(activeShop, selectedShopIndex) <= 0)
@@ -494,18 +537,19 @@ public sealed class ShopWindow : MonoBehaviour
 
     private void RefreshAfterTransaction()
     {
-        TryRefreshInventoryRowsData();
+        RefreshInventoryRowsData();
         RefreshShopRowsData();
         RefreshRowSelectionStates();
         RefreshDetails();
     }
 
-    private bool TryRefreshInventoryRowsData()
+    private void RefreshInventoryRowsData()
     {
-        if (activeInventory == null || activeInventory.Cards == null || activeInventory.Cards.Count == 0)
+        if (activeInventory == null || activeInventory.Cards == null)
         {
-            RefreshInventory();
-            return false;
+            ClearInventoryRows();
+            EnsureInventoryEmptyText();
+            return;
         }
 
         Dictionary<CardData, int> counts = activeInventory.Cards
@@ -517,16 +561,98 @@ public sealed class ShopWindow : MonoBehaviour
             .OrderBy(GetCardName)
             .ToList();
 
-        if (cards.Count != inventoryRows.Count)
+        if (cards.Count == 0)
         {
-            RefreshInventory();
-            return false;
+            ClearInventoryRows();
+            EnsureInventoryEmptyText();
+            return;
         }
 
-        for (int i = 0; i < inventoryRows.Count; i++)
-            inventoryRows[i].SetRightText($"x{counts[cards[i]]}");
+        RemoveEmptyText(inventoryContent);
 
-        return true;
+        Dictionary<CardData, ShopRowView> existingRows = inventoryRows
+            .Where(row => row.Card != null)
+            .ToDictionary(row => row.Card, row => row);
+
+        List<ShopRowView> nextRows = new();
+        for (int i = 0; i < cards.Count; i++)
+        {
+            CardData card = cards[i];
+            bool selected = !selectedFromShop && selectedInventoryCard == card;
+
+            if (!existingRows.TryGetValue(card, out ShopRowView row))
+            {
+                row = CreateItemRow(
+                    inventoryContent,
+                    card,
+                    GetCardName(card),
+                    card.ShortDescription,
+                    $"x{counts[card]}",
+                    selected,
+                    true,
+                    () => SelectInventoryCard(card));
+            }
+            else
+            {
+                row.SetRightText($"x{counts[card]}");
+                row.SetSelected(selected);
+                existingRows.Remove(card);
+            }
+
+            row.SetSiblingIndex(i);
+            nextRows.Add(row);
+        }
+
+        foreach (ShopRowView removedRow in existingRows.Values)
+            removedRow.Destroy();
+
+        inventoryRows.Clear();
+        inventoryRows.AddRange(nextRows);
+    }
+
+    private void ClearInventoryRows()
+    {
+        for (int i = 0; i < inventoryRows.Count; i++)
+            inventoryRows[i].Destroy();
+
+        inventoryRows.Clear();
+    }
+
+    private void EnsureInventoryEmptyText()
+    {
+        Transform emptyParent = ResolveEmptyTextParent(inventoryContent);
+        if (emptyParent == null)
+            return;
+
+        for (int i = 0; i < emptyParent.childCount; i++)
+        {
+            if (emptyParent.GetChild(i).name == "EmptyText")
+                return;
+        }
+
+        CreateEmptyText(inventoryContent, "Inventory is empty.");
+    }
+
+    private static void RemoveEmptyText(Transform parent)
+    {
+        RemoveEmptyTextChildren(parent);
+        RemoveEmptyTextChildren(ResolveEmptyTextParent(parent));
+    }
+
+    private static void RemoveEmptyTextChildren(Transform parent)
+    {
+        if (parent == null)
+            return;
+
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            Transform child = parent.GetChild(i);
+            if (child.name == "EmptyText")
+            {
+                child.gameObject.SetActive(false);
+                Destroy(child.gameObject);
+            }
+        }
     }
 
     private void RefreshShopRowsData()
@@ -561,7 +687,17 @@ public sealed class ShopWindow : MonoBehaviour
             return;
 
         int sellPrice = ShopManager.GetSellPrice(activeShop, selectedInventoryCard);
-        bool sold = ShopManager.Sell(activeShop, selectedInventoryCard, activeInventory);
+        suppressGoldChangedDetailsRefresh = true;
+        bool sold;
+        try
+        {
+            sold = ShopManager.Sell(activeShop, selectedInventoryCard, activeInventory);
+        }
+        finally
+        {
+            suppressGoldChangedDetailsRefresh = false;
+        }
+
         statusText.text = sold ? $"Sold for {sellPrice} gold." : "Can't sell this item.";
 
         if (activeInventory.Cards == null || !activeInventory.Cards.Contains(selectedInventoryCard))
@@ -917,15 +1053,33 @@ public sealed class ShopWindow : MonoBehaviour
         rightLayout.preferredWidth = 86f;
         rightLayout.flexibleWidth = 0f;
 
-        return new ShopRowView(background, button, subtitleText, right, available);
+        return new ShopRowView(row.gameObject, card, background, button, subtitleText, right, available);
     }
 
     private void CreateEmptyText(Transform parent, string text)
     {
-        TMP_Text empty = CreateText("EmptyText", parent, text, 24f, MutedTextColor, TextAlignmentOptions.Center);
+        Transform emptyParent = ResolveEmptyTextParent(parent);
+        if (emptyParent == null)
+            return;
+
+        RemoveEmptyText(parent);
+
+        TMP_Text empty = CreateText("EmptyText", emptyParent, text, 24f, EmptyTextColor, TextAlignmentOptions.Center);
         empty.textWrappingMode = TextWrappingModes.Normal;
-        LayoutElement layout = empty.gameObject.AddComponent<LayoutElement>();
-        layout.preferredHeight = 120f;
+        empty.raycastTarget = false;
+
+        RectTransform rect = empty.transform as RectTransform;
+        Stretch(rect);
+        rect.offsetMin = new Vector2(18f, 0f);
+        rect.offsetMax = new Vector2(-18f, 0f);
+        rect.SetAsLastSibling();
+    }
+
+    private static Transform ResolveEmptyTextParent(Transform content)
+    {
+        return content != null && content.parent != null
+            ? content.parent
+            : content;
     }
 
     private static RectTransform CreateRect(string name, Transform parent)
