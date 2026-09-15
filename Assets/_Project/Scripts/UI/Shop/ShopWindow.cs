@@ -10,27 +10,14 @@ public sealed class ShopWindow : MonoBehaviour
 {
     private static ShopWindow instance;
 
-    private static readonly Color ScreenColor = new(0.13f, 0.09f, 0.075f, 0.86f);
-    private static readonly Color HeaderColor = new(0.33f, 0.22f, 0.19f, 1f);
-    private static readonly Color PanelColor = new(0.46f, 0.36f, 0.33f, 0.98f);
-    private static readonly Color PanelDarkColor = new(0.36f, 0.25f, 0.21f, 1f);
-    private static readonly Color PanelSoftColor = new(0.58f, 0.49f, 0.46f, 1f);
     private static readonly Color RowColor = new(0.58f, 0.43f, 0.36f, 1f);
     private static readonly Color RowHighlightColor = new(0.68f, 0.52f, 0.43f, 1f);
     private static readonly Color RowPressedColor = new(0.5f, 0.36f, 0.3f, 1f);
     private static readonly Color SelectedColor = new(0.68f, 0.43f, 0.19f, 1f);
     private static readonly Color TextColor = new(0.97f, 0.94f, 0.88f, 1f);
     private static readonly Color MutedTextColor = new(0.78f, 0.7f, 0.64f, 1f);
-    private static readonly Color EmptyTextColor = new(0.96f, 0.9f, 0.82f, 0.95f);
     private static readonly Color GoldColor = new(1f, 0.74f, 0.27f, 1f);
     private static readonly Color DisabledColor = new(0.4f, 0.34f, 0.31f, 0.9f);
-    private static readonly Color BuyButtonColor = new(0.58f, 0.42f, 0.24f, 1f);
-    private static readonly Color BuyButtonHighlightColor = new(0.71f, 0.52f, 0.29f, 1f);
-    private static readonly Color BuyButtonPressedColor = new(0.44f, 0.31f, 0.18f, 1f);
-    private static readonly Color ScrollbarTrackColor = new(0.27f, 0.18f, 0.15f, 0.95f);
-    private static readonly Color ScrollbarHandleColor = new(0.52f, 0.34f, 0.24f, 1f);
-    private static readonly Color ScrollbarHandleHighlightColor = new(0.64f, 0.43f, 0.31f, 1f);
-    private static readonly Color ScrollbarHandlePressedColor = new(0.42f, 0.27f, 0.2f, 1f);
 
     private ShopData activeShop;
     private NpcCharacter activeNpc;
@@ -38,15 +25,23 @@ public sealed class ShopWindow : MonoBehaviour
     private InventoryData activeInventory;
     private GameState previousState = GameState.Gameplay;
 
-    private TMP_Text titleText;
-    private TMP_Text goldText;
-    private TMP_Text detailsNameText;
-    private TMP_Text detailsDescriptionText;
-    private TMP_Text detailsMetaText;
-    private TMP_Text statusText;
-    private TMP_Text buyButtonText;
-    private Image detailsIcon;
-    private Button buyButton;
+    [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text goldText;
+    [SerializeField] private TMP_Text detailsNameText;
+    [SerializeField] private TMP_Text detailsDescriptionText;
+    [SerializeField] private TMP_Text detailsMetaText;
+    [SerializeField] private RectTransform detailsPriceRow;
+    [SerializeField] private TMP_Text detailsPriceLabelText;
+    [SerializeField] private TMP_Text detailsPriceValueText;
+    [SerializeField] private TMP_Text statusText;
+    [SerializeField] private TMP_Text buyButtonText;
+    [SerializeField] private Image detailsIcon;
+    [SerializeField] private Button buyButton;
+    [SerializeField] private Button closeButton;
+    [SerializeField] private RectTransform inventoryRowTemplate;
+    [SerializeField] private RectTransform shopRowTemplate;
+    [SerializeField] private GameObject inventoryEmptyState;
+    [SerializeField] private GameObject shopEmptyState;
     private Transform inventoryContent;
     private Transform shopContent;
     private readonly List<ShopRowView> inventoryRows = new();
@@ -62,8 +57,11 @@ public sealed class ShopWindow : MonoBehaviour
         private readonly GameObject gameObject;
         private readonly Image background;
         private readonly Button button;
+        private readonly Image icon;
+        private readonly TMP_Text titleText;
         private readonly TMP_Text subtitleText;
         private readonly TMP_Text rightText;
+        private readonly Image rightIcon;
         private bool available;
 
         public ShopRowView(
@@ -71,20 +69,28 @@ public sealed class ShopWindow : MonoBehaviour
             CardData card,
             Image background,
             Button button,
+            Image icon,
+            TMP_Text titleText,
             TMP_Text subtitleText,
             TMP_Text rightText,
+            Image rightIcon,
             bool available)
         {
             this.gameObject = gameObject;
             Card = card;
             this.background = background;
             this.button = button;
+            this.icon = icon;
+            this.titleText = titleText;
             this.subtitleText = subtitleText;
             this.rightText = rightText;
+            this.rightIcon = rightIcon;
             this.available = available;
+            ApplyTextColors();
         }
 
         public CardData Card { get; }
+        public RectTransform RectTransform => gameObject != null ? gameObject.transform as RectTransform : null;
 
         public void SetSubtitle(string text)
         {
@@ -101,6 +107,25 @@ public sealed class ShopWindow : MonoBehaviour
         public void SetAvailable(bool value)
         {
             available = value;
+            ApplyTextColors();
+        }
+
+        private void ApplyTextColors()
+        {
+            if (titleText != null)
+                titleText.color = available ? TextColor : MutedTextColor;
+
+            if (subtitleText != null)
+                subtitleText.color = available ? MutedTextColor : new Color(0.58f, 0.51f, 0.47f, 1f);
+
+            if (rightText != null)
+                rightText.color = available ? GoldColor : MutedTextColor;
+
+            if (rightIcon != null)
+                rightIcon.color = available ? Color.white : MutedTextColor;
+
+            if (icon != null && icon.sprite != null)
+                icon.color = available ? Color.white : MutedTextColor;
         }
 
         public void SetSelected(bool selected)
@@ -155,9 +180,8 @@ public sealed class ShopWindow : MonoBehaviour
         if (instance != null)
             return instance;
 
-        GameObject root = new("ShopWindow");
-        instance = root.AddComponent<ShopWindow>();
-        return instance;
+        Debug.LogError("ShopWindow is missing from the scene hierarchy. Add Assets/_Project/Prefabs/UI/ShopWindow.prefab to the UI canvas.");
+        return null;
     }
 
     private void Awake()
@@ -169,9 +193,35 @@ public sealed class ShopWindow : MonoBehaviour
         }
 
         instance = this;
-        BuildUi();
+        PreparePrefabState();
         EnsureEventSystem();
-        gameObject.SetActive(false);
+    }
+
+    private void PreparePrefabState()
+    {
+        inventoryContent = ResolveContentFromEmptyState(inventoryEmptyState);
+        shopContent = ResolveContentFromEmptyState(shopEmptyState);
+        closeButton ??= FindDescendant<Button>(transform, "CloseButton");
+
+        if (closeButton != null)
+        {
+            closeButton.onClick.RemoveListener(Close);
+            closeButton.onClick.AddListener(Close);
+        }
+
+        if (buyButton != null)
+        {
+            buyButton.onClick.RemoveListener(BuySelected);
+            buyButton.onClick.AddListener(BuySelected);
+        }
+
+        SetEmptyStateVisible(inventoryEmptyState, false);
+        SetEmptyStateVisible(shopEmptyState, false);
+        SetTemplateVisible(inventoryRowTemplate, false);
+        SetTemplateVisible(shopRowTemplate, false);
+
+        if (inventoryContent == null || shopContent == null || inventoryRowTemplate == null || shopRowTemplate == null)
+            Debug.LogError("ShopWindow prefab is missing required list content or row template references.", this);
     }
 
     private void OnEnable()
@@ -229,8 +279,8 @@ public sealed class ShopWindow : MonoBehaviour
         activeInventory = player.InventoryData;
         selectedInventoryCard = null;
         selectedFromShop = true;
-        selectedShopIndex = FindFirstAvailableShopIndex();
-        statusText.text = string.Empty;
+        selectedShopIndex = -1;
+        SetStatusText(string.Empty);
 
         if (player.Data != null)
             PlayerWallet.Initialize(player.Data.startingGold);
@@ -260,7 +310,7 @@ public sealed class ShopWindow : MonoBehaviour
     private void RefreshGold()
     {
         if (goldText != null)
-            goldText.text = $"Gold {PlayerWallet.Gold}";
+            goldText.text = PlayerWallet.Gold.ToString();
     }
 
     private void HandleGoldChanged(int _)
@@ -273,13 +323,13 @@ public sealed class ShopWindow : MonoBehaviour
 
     private void RefreshInventory()
     {
-        ClearChildren(inventoryContent);
-        RemoveEmptyText(inventoryContent);
+        ClearChildren(inventoryContent, inventoryRowTemplate);
+        SetEmptyStateVisible(inventoryEmptyState, false);
         inventoryRows.Clear();
 
         if (activeInventory == null || activeInventory.Cards == null || activeInventory.Cards.Count == 0)
         {
-            CreateEmptyText(inventoryContent, "Inventory is empty.");
+            SetEmptyStateVisible(inventoryEmptyState, true);
             return;
         }
 
@@ -291,6 +341,12 @@ public sealed class ShopWindow : MonoBehaviour
         List<CardData> cards = counts.Keys
             .OrderBy(GetCardName)
             .ToList();
+
+        if (cards.Count == 0)
+        {
+            SetEmptyStateVisible(inventoryEmptyState, true);
+            return;
+        }
 
         for (int i = 0; i < cards.Count; i++)
         {
@@ -305,20 +361,22 @@ public sealed class ShopWindow : MonoBehaviour
                 $"x{count}",
                 selected,
                 true,
+                false,
                 () => SelectInventoryCard(card));
-            inventoryRows.Add(row);
+            if (row != null)
+                inventoryRows.Add(row);
         }
     }
 
     private void RefreshShop()
     {
-        ClearChildren(shopContent);
-        RemoveEmptyText(shopContent);
+        ClearChildren(shopContent, shopRowTemplate);
+        SetEmptyStateVisible(shopEmptyState, false);
         shopRows.Clear();
 
         if (activeShop == null || activeShop.Items == null || activeShop.Items.Count == 0)
         {
-            CreateEmptyText(shopContent, "Nothing for sale.");
+            SetEmptyStateVisible(shopEmptyState, true);
             return;
         }
 
@@ -344,15 +402,17 @@ public sealed class ShopWindow : MonoBehaviour
                 item.card,
                 GetCardName(item.card),
                 stockText,
-                $"{buyPrice} gold",
+                buyPrice.ToString(),
                 selected,
                 available,
+                true,
                 () => SelectShopItem(index));
-            shopRows.Add(row);
+            if (row != null)
+                shopRows.Add(row);
         }
 
         if (!hasAny)
-            CreateEmptyText(shopContent, "Nothing for sale.");
+            SetEmptyStateVisible(shopEmptyState, true);
     }
 
     private void RefreshDetails()
@@ -383,7 +443,7 @@ public sealed class ShopWindow : MonoBehaviour
             ? remainingStock > 0 ? remainingStock.ToString() : "Sold out"
             : "Unlimited";
 
-        detailsMetaText.text = $"Price: {buyPrice} gold\nStock: {stockText}";
+        ShowPriceDetails("Price:", buyPrice, $"Stock: {stockText}", priceFirst: true);
         buyButton.gameObject.SetActive(true);
         buyButton.interactable = remainingStock > 0 && PlayerWallet.Gold >= buyPrice;
         buyButtonText.text = remainingStock > 0 ? "Buy" : "Sold out";
@@ -403,7 +463,7 @@ public sealed class ShopWindow : MonoBehaviour
             : 0;
 
         int sellPrice = ShopManager.GetSellPrice(activeShop, selectedInventoryCard);
-        detailsMetaText.text = $"Owned: x{ownedCount}\nSell price: {sellPrice} gold";
+        ShowPriceDetails("Sell price:", sellPrice, $"Owned: x{ownedCount}", priceFirst: true);
         buyButton.gameObject.SetActive(true);
         buyButton.interactable = ownedCount > 0 && sellPrice > 0;
         buyButtonText.text = "Sell";
@@ -427,6 +487,8 @@ public sealed class ShopWindow : MonoBehaviour
         detailsNameText.text = text;
         detailsDescriptionText.text = string.Empty;
         detailsMetaText.text = string.Empty;
+        SetStatusText(string.Empty);
+        SetPriceRowVisible(false);
         detailsIcon.sprite = null;
         detailsIcon.enabled = false;
         buyButton.gameObject.SetActive(true);
@@ -434,12 +496,47 @@ public sealed class ShopWindow : MonoBehaviour
         buyButtonText.text = "Select";
     }
 
+    private void ShowPriceDetails(string label, int amount, string plainLine, bool priceFirst)
+    {
+        detailsMetaText.text = plainLine;
+        detailsPriceLabelText.text = label;
+        detailsPriceValueText.text = amount.ToString();
+        SetPriceRowVisible(true);
+
+        if (priceFirst)
+        {
+            detailsPriceRow.SetSiblingIndex(0);
+            detailsMetaText.transform.SetSiblingIndex(1);
+        }
+        else
+        {
+            detailsMetaText.transform.SetSiblingIndex(0);
+            detailsPriceRow.SetSiblingIndex(1);
+        }
+    }
+
+    private void SetPriceRowVisible(bool visible)
+    {
+        if (detailsPriceRow != null)
+            detailsPriceRow.gameObject.SetActive(visible);
+    }
+
+    private void SetStatusText(string text)
+    {
+        if (statusText == null)
+            return;
+
+        bool hasText = !string.IsNullOrEmpty(text);
+        statusText.text = hasText ? text : string.Empty;
+        statusText.gameObject.SetActive(hasText);
+    }
+
     private void SelectShopItem(int itemIndex)
     {
         selectedShopIndex = itemIndex;
         selectedInventoryCard = null;
         selectedFromShop = true;
-        statusText.text = string.Empty;
+        SetStatusText(string.Empty);
         ClearSelectedButton();
         RefreshRowSelectionStates();
         RefreshDetails();
@@ -449,7 +546,7 @@ public sealed class ShopWindow : MonoBehaviour
     {
         selectedInventoryCard = card;
         selectedFromShop = false;
-        statusText.text = string.Empty;
+        SetStatusText(string.Empty);
         ClearSelectedButton();
         RefreshRowSelectionStates();
         RefreshDetails();
@@ -470,7 +567,7 @@ public sealed class ShopWindow : MonoBehaviour
 
         if (ShopManager.GetRemainingStock(activeShop, selectedShopIndex) <= 0)
         {
-            statusText.text = "Sold out.";
+            SetStatusText("Sold out.");
             RefreshShopRowsData();
             RefreshDetails();
             return;
@@ -479,7 +576,7 @@ public sealed class ShopWindow : MonoBehaviour
         int buyPrice = ShopManager.GetBuyPrice(activeShop, selectedShopIndex);
         if (PlayerWallet.Gold < buyPrice)
         {
-            statusText.text = "Not enough gold.";
+            SetStatusText("Not enough.");
             RefreshDetails();
             return;
         }
@@ -495,7 +592,7 @@ public sealed class ShopWindow : MonoBehaviour
             suppressGoldChangedDetailsRefresh = false;
         }
 
-        statusText.text = bought ? "Purchased." : "Can't buy this item.";
+        SetStatusText(bought ? "Purchased." : "Can't buy this item.");
 
         if (bought && ShopManager.GetRemainingStock(activeShop, selectedShopIndex) <= 0)
             selectedShopIndex = FindFirstAvailableShopIndex();
@@ -537,10 +634,37 @@ public sealed class ShopWindow : MonoBehaviour
 
     private void RefreshAfterTransaction()
     {
-        RefreshInventoryRowsData();
-        RefreshShopRowsData();
+        if (inventoryRows.Count != CountInventoryGroups())
+            RefreshInventory();
+        else
+            RefreshInventoryRowsData();
+
+        if (shopRows.Count != CountValidShopItems())
+            RefreshShop();
+        else
+            RefreshShopRowsData();
+
         RefreshRowSelectionStates();
         RefreshDetails();
+    }
+
+    private int CountInventoryGroups()
+    {
+        if (activeInventory == null || activeInventory.Cards == null)
+            return 0;
+
+        return activeInventory.Cards
+            .Where(card => card != null)
+            .Distinct()
+            .Count();
+    }
+
+    private int CountValidShopItems()
+    {
+        if (activeShop == null || activeShop.Items == null)
+            return 0;
+
+        return activeShop.Items.Count(item => item != null && item.IsValid);
     }
 
     private void RefreshInventoryRowsData()
@@ -548,7 +672,7 @@ public sealed class ShopWindow : MonoBehaviour
         if (activeInventory == null || activeInventory.Cards == null)
         {
             ClearInventoryRows();
-            EnsureInventoryEmptyText();
+            SetEmptyStateVisible(inventoryEmptyState, true);
             return;
         }
 
@@ -564,11 +688,11 @@ public sealed class ShopWindow : MonoBehaviour
         if (cards.Count == 0)
         {
             ClearInventoryRows();
-            EnsureInventoryEmptyText();
+            SetEmptyStateVisible(inventoryEmptyState, true);
             return;
         }
 
-        RemoveEmptyText(inventoryContent);
+        SetEmptyStateVisible(inventoryEmptyState, false);
 
         Dictionary<CardData, ShopRowView> existingRows = inventoryRows
             .Where(row => row.Card != null)
@@ -590,7 +714,10 @@ public sealed class ShopWindow : MonoBehaviour
                     $"x{counts[card]}",
                     selected,
                     true,
+                    false,
                     () => SelectInventoryCard(card));
+                if (row == null)
+                    continue;
             }
             else
             {
@@ -618,43 +745,6 @@ public sealed class ShopWindow : MonoBehaviour
         inventoryRows.Clear();
     }
 
-    private void EnsureInventoryEmptyText()
-    {
-        Transform emptyParent = ResolveEmptyTextParent(inventoryContent);
-        if (emptyParent == null)
-            return;
-
-        for (int i = 0; i < emptyParent.childCount; i++)
-        {
-            if (emptyParent.GetChild(i).name == "EmptyText")
-                return;
-        }
-
-        CreateEmptyText(inventoryContent, "Inventory is empty.");
-    }
-
-    private static void RemoveEmptyText(Transform parent)
-    {
-        RemoveEmptyTextChildren(parent);
-        RemoveEmptyTextChildren(ResolveEmptyTextParent(parent));
-    }
-
-    private static void RemoveEmptyTextChildren(Transform parent)
-    {
-        if (parent == null)
-            return;
-
-        for (int i = parent.childCount - 1; i >= 0; i--)
-        {
-            Transform child = parent.GetChild(i);
-            if (child.name == "EmptyText")
-            {
-                child.gameObject.SetActive(false);
-                Destroy(child.gameObject);
-            }
-        }
-    }
-
     private void RefreshShopRowsData()
     {
         int rowIndex = 0;
@@ -675,7 +765,7 @@ public sealed class ShopWindow : MonoBehaviour
                 : "Unlimited";
 
             shopRows[rowIndex].SetSubtitle(stockText);
-            shopRows[rowIndex].SetRightText($"{buyPrice} gold");
+            shopRows[rowIndex].SetRightText(buyPrice.ToString());
             shopRows[rowIndex].SetAvailable(available);
             rowIndex++;
         }
@@ -698,7 +788,7 @@ public sealed class ShopWindow : MonoBehaviour
             suppressGoldChangedDetailsRefresh = false;
         }
 
-        statusText.text = sold ? $"Sold for {sellPrice} gold." : "Can't sell this item.";
+        SetStatusText(sold ? $"Sold for {sellPrice}." : "Can't sell this item.");
 
         if (activeInventory.Cards == null || !activeInventory.Cards.Contains(selectedInventoryCard))
             selectedInventoryCard = null;
@@ -738,244 +828,6 @@ public sealed class ShopWindow : MonoBehaviour
         return item != null && item.IsValid;
     }
 
-    private void BuildUi()
-    {
-        Canvas canvas = gameObject.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 920;
-
-        CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920f, 1080f);
-        scaler.matchWidthOrHeight = 0.5f;
-
-        gameObject.AddComponent<GraphicRaycaster>();
-
-        RectTransform root = CreateRect("Root", transform);
-        Stretch(root);
-        AddImage(root, ScreenColor);
-
-        RectTransform topBar = CreateRect("TopBar", root);
-        topBar.anchorMin = new Vector2(0f, 1f);
-        topBar.anchorMax = new Vector2(1f, 1f);
-        topBar.pivot = new Vector2(0.5f, 1f);
-        topBar.offsetMin = new Vector2(0f, -104f);
-        topBar.offsetMax = Vector2.zero;
-        AddImage(topBar, HeaderColor);
-
-        Button closeButton = CreateButton("CloseButton", topBar, "X", 58f, HeaderColor, RowHighlightColor, RowPressedColor);
-        RectTransform closeRect = closeButton.transform as RectTransform;
-        closeRect.anchorMin = new Vector2(0f, 0.5f);
-        closeRect.anchorMax = new Vector2(0f, 0.5f);
-        closeRect.pivot = new Vector2(0.5f, 0.5f);
-        closeRect.sizeDelta = new Vector2(92f, 92f);
-        closeRect.anchoredPosition = new Vector2(66f, 0f);
-        closeButton.onClick.AddListener(Close);
-
-        titleText = CreateText("TitleText", topBar, "Trader", 52f, TextColor, TextAlignmentOptions.Center);
-        RectTransform titleRect = titleText.transform as RectTransform;
-        titleRect.anchorMin = new Vector2(0.18f, 0f);
-        titleRect.anchorMax = new Vector2(0.82f, 1f);
-        titleRect.offsetMin = Vector2.zero;
-        titleRect.offsetMax = Vector2.zero;
-
-        goldText = CreateText("GoldText", topBar, "Gold 0", 42f, GoldColor, TextAlignmentOptions.MidlineRight);
-        RectTransform goldRect = goldText.transform as RectTransform;
-        goldRect.anchorMin = new Vector2(0.72f, 0f);
-        goldRect.anchorMax = new Vector2(1f, 1f);
-        goldRect.offsetMin = new Vector2(0f, 0f);
-        goldRect.offsetMax = new Vector2(-44f, 0f);
-
-        RectTransform body = CreateRect("Body", root);
-        body.anchorMin = Vector2.zero;
-        body.anchorMax = Vector2.one;
-        body.offsetMin = new Vector2(70f, 58f);
-        body.offsetMax = new Vector2(-70f, -144f);
-
-        HorizontalLayoutGroup bodyLayout = body.gameObject.AddComponent<HorizontalLayoutGroup>();
-        bodyLayout.spacing = 18f;
-        bodyLayout.childControlWidth = true;
-        bodyLayout.childControlHeight = true;
-        bodyLayout.childForceExpandWidth = true;
-        bodyLayout.childForceExpandHeight = true;
-
-        RectTransform inventoryPanel = CreateColumn(body, "Inventory", 520f, 1.05f);
-        RectTransform detailsPanel = CreateColumn(body, "Details", 620f, 0.8f);
-        RectTransform shopPanel = CreateColumn(body, "For Sale", 560f, 1.15f);
-
-        inventoryContent = CreateScrollList(inventoryPanel, "InventoryScroll");
-        BuildDetailsPanel(detailsPanel);
-        shopContent = CreateScrollList(shopPanel, "ShopScroll");
-    }
-
-    private RectTransform CreateColumn(Transform parent, string header, float preferredWidth, float flexibleWidth)
-    {
-        RectTransform column = CreateRect($"{header}Column", parent);
-        AddImage(column, PanelColor);
-
-        LayoutElement layoutElement = column.gameObject.AddComponent<LayoutElement>();
-        layoutElement.minWidth = preferredWidth;
-        layoutElement.preferredWidth = preferredWidth;
-        layoutElement.flexibleWidth = flexibleWidth;
-        layoutElement.flexibleHeight = 1f;
-
-        VerticalLayoutGroup layout = column.gameObject.AddComponent<VerticalLayoutGroup>();
-        layout.padding = new RectOffset(18, 18, 16, 18);
-        layout.spacing = 12f;
-        layout.childControlWidth = true;
-        layout.childControlHeight = true;
-        layout.childForceExpandWidth = true;
-        layout.childForceExpandHeight = false;
-
-        TMP_Text headerText = CreateText($"{header}Header", column, header, 32f, TextColor, TextAlignmentOptions.MidlineLeft);
-        LayoutElement headerLayout = headerText.gameObject.AddComponent<LayoutElement>();
-        headerLayout.preferredHeight = 48f;
-
-        return column;
-    }
-
-    private Transform CreateScrollList(Transform parent, string name)
-    {
-        RectTransform scrollRectTransform = CreateRect(name, parent);
-        AddImage(scrollRectTransform, PanelSoftColor);
-        LayoutElement layoutElement = scrollRectTransform.gameObject.AddComponent<LayoutElement>();
-        layoutElement.flexibleHeight = 1f;
-
-        ScrollRect scrollRect = scrollRectTransform.gameObject.AddComponent<ScrollRect>();
-        scrollRect.horizontal = false;
-        scrollRect.vertical = true;
-        scrollRect.movementType = ScrollRect.MovementType.Clamped;
-        scrollRect.scrollSensitivity = 42f;
-
-        RectTransform viewport = CreateRect("Viewport", scrollRectTransform);
-        Stretch(viewport);
-        viewport.offsetMax = new Vector2(-24f, 0f);
-        Image viewportImage = AddImage(viewport, new Color(0f, 0f, 0f, 0.01f));
-        viewportImage.raycastTarget = true;
-        Mask mask = viewport.gameObject.AddComponent<Mask>();
-        mask.showMaskGraphic = false;
-
-        RectTransform content = CreateRect("Content", viewport);
-        content.anchorMin = new Vector2(0f, 1f);
-        content.anchorMax = new Vector2(1f, 1f);
-        content.pivot = new Vector2(0.5f, 1f);
-        content.offsetMin = new Vector2(10f, 0f);
-        content.offsetMax = new Vector2(-10f, -10f);
-
-        VerticalLayoutGroup layout = content.gameObject.AddComponent<VerticalLayoutGroup>();
-        layout.padding = new RectOffset(0, 0, 10, 10);
-        layout.spacing = 8f;
-        layout.childControlWidth = true;
-        layout.childControlHeight = true;
-        layout.childForceExpandWidth = true;
-        layout.childForceExpandHeight = false;
-
-        ContentSizeFitter fitter = content.gameObject.AddComponent<ContentSizeFitter>();
-        fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-        scrollRect.viewport = viewport;
-        scrollRect.content = content;
-        scrollRect.verticalScrollbar = CreateScrollbar(scrollRectTransform);
-        scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
-        scrollRect.verticalScrollbarSpacing = 6f;
-        return content;
-    }
-
-    private Scrollbar CreateScrollbar(Transform parent)
-    {
-        RectTransform scrollbarRect = CreateRect("Scrollbar", parent);
-        scrollbarRect.anchorMin = new Vector2(1f, 0f);
-        scrollbarRect.anchorMax = new Vector2(1f, 1f);
-        scrollbarRect.pivot = new Vector2(1f, 0.5f);
-        scrollbarRect.sizeDelta = new Vector2(16f, 0f);
-        scrollbarRect.anchoredPosition = new Vector2(-4f, 0f);
-
-        AddImage(scrollbarRect, ScrollbarTrackColor);
-
-        Scrollbar scrollbar = scrollbarRect.gameObject.AddComponent<Scrollbar>();
-        scrollbar.direction = Scrollbar.Direction.BottomToTop;
-
-        RectTransform slidingArea = CreateRect("SlidingArea", scrollbarRect);
-        Stretch(slidingArea);
-        slidingArea.offsetMin = new Vector2(2f, 2f);
-        slidingArea.offsetMax = new Vector2(-2f, -2f);
-
-        RectTransform handle = CreateRect("Handle", slidingArea);
-        Stretch(handle);
-        Image handleImage = AddImage(handle, ScrollbarHandleColor);
-
-        scrollbar.targetGraphic = handleImage;
-        scrollbar.handleRect = handle;
-        scrollbar.colors = CreateButtonColors(
-            ScrollbarHandleColor,
-            ScrollbarHandleHighlightColor,
-            ScrollbarHandlePressedColor);
-        return scrollbar;
-    }
-
-    private void BuildDetailsPanel(Transform detailsPanel)
-    {
-        RectTransform content = CreateRect("DetailsContent", detailsPanel);
-        LayoutElement contentLayout = content.gameObject.AddComponent<LayoutElement>();
-        contentLayout.flexibleHeight = 1f;
-        contentLayout.minHeight = 0f;
-        contentLayout.minWidth = 0f;
-
-        VerticalLayoutGroup layout = content.gameObject.AddComponent<VerticalLayoutGroup>();
-        layout.padding = new RectOffset(18, 18, 18, 18);
-        layout.spacing = 14f;
-        layout.childControlWidth = true;
-        layout.childControlHeight = true;
-        layout.childForceExpandWidth = true;
-        layout.childForceExpandHeight = false;
-
-        AddImage(content, PanelSoftColor);
-
-        RectTransform iconFrame = CreateRect("IconFrame", content);
-        AddImage(iconFrame, PanelDarkColor);
-        LayoutElement iconFrameLayout = iconFrame.gameObject.AddComponent<LayoutElement>();
-        iconFrameLayout.minHeight = 260f;
-        iconFrameLayout.preferredHeight = 260f;
-        iconFrameLayout.flexibleHeight = 0f;
-
-        detailsIcon = CreateImage("DetailsIcon", iconFrame, Color.white);
-        RectTransform iconRect = detailsIcon.transform as RectTransform;
-        iconRect.anchorMin = new Vector2(0.5f, 0.5f);
-        iconRect.anchorMax = new Vector2(0.5f, 0.5f);
-        iconRect.pivot = new Vector2(0.5f, 0.5f);
-        iconRect.sizeDelta = new Vector2(190f, 190f);
-        iconRect.anchoredPosition = Vector2.zero;
-
-        detailsNameText = CreateText("DetailsNameText", content, "Select an item.", 34f, TextColor, TextAlignmentOptions.Center);
-        LayoutElement nameLayout = detailsNameText.gameObject.AddComponent<LayoutElement>();
-        nameLayout.preferredHeight = 52f;
-
-        detailsDescriptionText = CreateText("DetailsDescriptionText", content, string.Empty, 24f, TextColor, TextAlignmentOptions.TopLeft);
-        detailsDescriptionText.textWrappingMode = TextWrappingModes.Normal;
-        LayoutElement descriptionLayout = detailsDescriptionText.gameObject.AddComponent<LayoutElement>();
-        descriptionLayout.preferredHeight = 150f;
-
-        detailsMetaText = CreateText("DetailsMetaText", content, string.Empty, 26f, GoldColor, TextAlignmentOptions.TopLeft);
-        detailsMetaText.textWrappingMode = TextWrappingModes.Normal;
-        LayoutElement metaLayout = detailsMetaText.gameObject.AddComponent<LayoutElement>();
-        metaLayout.preferredHeight = 74f;
-
-        statusText = CreateText("StatusText", content, string.Empty, 24f, GoldColor, TextAlignmentOptions.Center);
-        LayoutElement statusLayout = statusText.gameObject.AddComponent<LayoutElement>();
-        statusLayout.preferredHeight = 42f;
-
-        RectTransform buttonSpacer = CreateRect("ButtonSpacer", content);
-        LayoutElement spacerLayout = buttonSpacer.gameObject.AddComponent<LayoutElement>();
-        spacerLayout.minHeight = 0f;
-        spacerLayout.flexibleHeight = 10f;
-
-        buyButton = CreateButton("BuyButton", content, "Buy", 30f, BuyButtonColor, BuyButtonHighlightColor, BuyButtonPressedColor);
-        buyButtonText = buyButton.GetComponentInChildren<TMP_Text>();
-        LayoutElement buyLayout = buyButton.gameObject.AddComponent<LayoutElement>();
-        buyLayout.preferredHeight = 62f;
-        buyButton.onClick.AddListener(BuySelected);
-    }
-
     private ShopRowView CreateItemRow(
         Transform parent,
         CardData card,
@@ -984,167 +836,96 @@ public sealed class ShopWindow : MonoBehaviour
         string rightText,
         bool selected,
         bool available,
+        bool rightShowsGoldIcon,
         Action onClick)
     {
-        RectTransform row = CreateRect("ItemRow", parent);
-        Image background = AddImage(row, selected ? SelectedColor : available ? RowColor : DisabledColor);
-        LayoutElement rowLayout = row.gameObject.AddComponent<LayoutElement>();
-        rowLayout.preferredHeight = 92f;
+        RectTransform template = rightShowsGoldIcon ? shopRowTemplate : inventoryRowTemplate;
+        if (template == null || parent == null)
+            return null;
 
-        Button button = row.gameObject.AddComponent<Button>();
-        button.targetGraphic = background;
-        button.interactable = true;
-        button.colors = CreateButtonColors(
-            selected ? SelectedColor : available ? RowColor : DisabledColor,
-            RowHighlightColor,
-            RowPressedColor);
-        button.onClick.AddListener(() => onClick?.Invoke());
+        RectTransform row = Instantiate(template, parent);
+        row.name = "ItemRow";
+        row.gameObject.SetActive(true);
 
-        HorizontalLayoutGroup layout = row.gameObject.AddComponent<HorizontalLayoutGroup>();
-        layout.padding = new RectOffset(12, 12, 10, 10);
-        layout.spacing = 12f;
-        layout.childControlWidth = true;
-        layout.childControlHeight = true;
-        layout.childForceExpandWidth = false;
-        layout.childForceExpandHeight = true;
+        Image background = row.GetComponent<Image>();
+        Button button = row.GetComponent<Button>();
+        Image icon = FindDescendant<Image>(row, "Icon");
+        TMP_Text titleText = FindDescendant<TMP_Text>(row, "Title");
+        TMP_Text subtitleText = FindDescendant<TMP_Text>(row, "Subtitle");
+        TMP_Text right = FindDescendant<TMP_Text>(row, "RightText");
+        Image rightIcon = FindDescendant<Image>(row, "GoldIcon");
 
-        Image icon = CreateImage("Icon", row, new Color(0.18f, 0.12f, 0.1f, 1f));
-        icon.sprite = card != null ? card.Icon : null;
-        icon.enabled = card != null && card.Icon != null;
-        icon.color = icon.enabled ? Color.white : new Color(0.18f, 0.12f, 0.1f, 1f);
-        icon.preserveAspect = false;
-        LayoutElement iconLayout = icon.gameObject.AddComponent<LayoutElement>();
-        iconLayout.minWidth = 66f;
-        iconLayout.preferredWidth = 66f;
-        iconLayout.flexibleWidth = 0f;
-        iconLayout.minHeight = 66f;
-        iconLayout.preferredHeight = 66f;
+        if (button != null)
+        {
+            button.targetGraphic = background;
+            button.interactable = true;
+            button.onClick.RemoveAllListeners();
+            if (onClick != null)
+                button.onClick.AddListener(() => onClick.Invoke());
+        }
 
-        RectTransform textColumn = CreateRect("TextColumn", row);
-        VerticalLayoutGroup textLayout = textColumn.gameObject.AddComponent<VerticalLayoutGroup>();
-        textLayout.spacing = 2f;
-        textLayout.childControlWidth = true;
-        textLayout.childControlHeight = true;
-        textLayout.childForceExpandWidth = true;
-        textLayout.childForceExpandHeight = false;
-        LayoutElement textColumnLayout = textColumn.gameObject.AddComponent<LayoutElement>();
-        textColumnLayout.minWidth = 0f;
-        textColumnLayout.flexibleWidth = 1f;
+        if (titleText != null)
+            titleText.text = title;
 
-        TMP_Text titleText = CreateText("Title", textColumn, title, 24f, available ? TextColor : MutedTextColor, TextAlignmentOptions.Left);
-        titleText.textWrappingMode = TextWrappingModes.NoWrap;
-        titleText.overflowMode = TextOverflowModes.Ellipsis;
-        LayoutElement titleLayout = titleText.gameObject.AddComponent<LayoutElement>();
-        titleLayout.preferredHeight = 34f;
+        if (subtitleText != null)
+        {
+            subtitleText.text = subtitle;
+            subtitleText.gameObject.SetActive(!string.IsNullOrEmpty(subtitle));
+        }
 
-        TMP_Text subtitleText = CreateText("Subtitle", textColumn, subtitle, 18f, available ? MutedTextColor : new Color(0.58f, 0.51f, 0.47f, 1f), TextAlignmentOptions.Left);
-        subtitleText.textWrappingMode = TextWrappingModes.NoWrap;
-        subtitleText.overflowMode = TextOverflowModes.Ellipsis;
-        LayoutElement subtitleLayout = subtitleText.gameObject.AddComponent<LayoutElement>();
-        subtitleLayout.preferredHeight = 28f;
-        subtitleLayout.minWidth = 0f;
-        subtitleLayout.flexibleWidth = 1f;
+        if (right != null)
+            right.text = rightText;
 
-        TMP_Text right = CreateText("RightText", row, rightText, 22f, available ? GoldColor : MutedTextColor, TextAlignmentOptions.MidlineRight);
-        right.textWrappingMode = TextWrappingModes.NoWrap;
-        right.overflowMode = TextOverflowModes.Overflow;
-        LayoutElement rightLayout = right.gameObject.AddComponent<LayoutElement>();
-        rightLayout.minWidth = 86f;
-        rightLayout.preferredWidth = 86f;
-        rightLayout.flexibleWidth = 0f;
+        if (icon != null)
+        {
+            icon.sprite = card != null ? card.Icon : null;
+            icon.enabled = card != null && card.Icon != null;
+            icon.preserveAspect = true;
+        }
 
-        return new ShopRowView(row.gameObject, card, background, button, subtitleText, right, available);
+        if (rightIcon != null)
+            rightIcon.gameObject.SetActive(rightShowsGoldIcon);
+
+        ShopRowView rowView = new(row.gameObject, card, background, button, icon, titleText, subtitleText, right, rightIcon, available);
+        rowView.SetSelected(selected);
+        return rowView;
     }
 
-    private void CreateEmptyText(Transform parent, string text)
+    private static void SetEmptyStateVisible(GameObject emptyState, bool visible)
     {
-        Transform emptyParent = ResolveEmptyTextParent(parent);
-        if (emptyParent == null)
-            return;
-
-        RemoveEmptyText(parent);
-
-        TMP_Text empty = CreateText("EmptyText", emptyParent, text, 24f, EmptyTextColor, TextAlignmentOptions.Center);
-        empty.textWrappingMode = TextWrappingModes.Normal;
-        empty.raycastTarget = false;
-
-        RectTransform rect = empty.transform as RectTransform;
-        Stretch(rect);
-        rect.offsetMin = new Vector2(18f, 0f);
-        rect.offsetMax = new Vector2(-18f, 0f);
-        rect.SetAsLastSibling();
+        if (emptyState != null)
+            emptyState.SetActive(visible);
     }
 
-    private static Transform ResolveEmptyTextParent(Transform content)
+    private static void SetTemplateVisible(RectTransform template, bool visible)
     {
-        return content != null && content.parent != null
-            ? content.parent
-            : content;
+        if (template != null)
+            template.gameObject.SetActive(visible);
     }
 
-    private static RectTransform CreateRect(string name, Transform parent)
+    private static Transform ResolveContentFromEmptyState(GameObject emptyState)
     {
-        GameObject gameObject = new(name, typeof(RectTransform));
-        RectTransform rectTransform = gameObject.transform as RectTransform;
-        rectTransform.SetParent(parent, false);
-        return rectTransform;
+        Transform viewport = emptyState != null ? emptyState.transform.parent : null;
+        return viewport != null ? viewport.Find("Content") : null;
     }
 
-    private static void Stretch(RectTransform rect)
+    private static T FindDescendant<T>(Transform root, string childName) where T : Component
     {
-        rect.anchorMin = Vector2.zero;
-        rect.anchorMax = Vector2.one;
-        rect.offsetMin = Vector2.zero;
-        rect.offsetMax = Vector2.zero;
-    }
+        if (root == null)
+            return null;
 
-    private static Image AddImage(RectTransform rect, Color color)
-    {
-        Image image = rect.gameObject.AddComponent<Image>();
-        image.color = color;
-        image.raycastTarget = true;
-        return image;
-    }
+        for (int i = 0; i < root.childCount; i++)
+        {
+            Transform child = root.GetChild(i);
+            if (child.name == childName && child.TryGetComponent(out T component))
+                return component;
 
-    private static Image CreateImage(string name, Transform parent, Color color)
-    {
-        RectTransform rect = CreateRect(name, parent);
-        Image image = AddImage(rect, color);
-        image.raycastTarget = false;
-        return image;
-    }
+            T nested = FindDescendant<T>(child, childName);
+            if (nested != null)
+                return nested;
+        }
 
-    private static TMP_Text CreateText(string name, Transform parent, string text, float fontSize, Color color, TextAlignmentOptions alignment)
-    {
-        RectTransform rect = CreateRect(name, parent);
-        TMP_Text label = rect.gameObject.AddComponent<TextMeshProUGUI>();
-        label.text = text;
-        label.fontSize = fontSize;
-        label.color = color;
-        label.alignment = alignment;
-        label.raycastTarget = false;
-        label.textWrappingMode = TextWrappingModes.Normal;
-        return label;
-    }
-
-    private static Button CreateButton(
-        string name,
-        Transform parent,
-        string label,
-        float fontSize,
-        Color normal,
-        Color highlighted,
-        Color pressed)
-    {
-        RectTransform rect = CreateRect(name, parent);
-        Image image = AddImage(rect, normal);
-        Button button = rect.gameObject.AddComponent<Button>();
-        button.targetGraphic = image;
-        button.colors = CreateButtonColors(normal, highlighted, pressed);
-
-        TMP_Text text = CreateText("Text", rect, label, fontSize, TextColor, TextAlignmentOptions.Center);
-        Stretch(text.transform as RectTransform);
-        return button;
+        return null;
     }
 
     private static ColorBlock CreateButtonColors(Color normal, Color highlighted, Color pressed)
@@ -1164,13 +945,19 @@ public sealed class ShopWindow : MonoBehaviour
         };
     }
 
-    private static void ClearChildren(Transform parent)
+    private static void ClearChildren(Transform parent, Transform preservedChild = null)
     {
         if (parent == null)
             return;
 
         for (int i = parent.childCount - 1; i >= 0; i--)
-            Destroy(parent.GetChild(i).gameObject);
+        {
+            Transform child = parent.GetChild(i);
+            if (child == preservedChild)
+                continue;
+
+            Destroy(child.gameObject);
+        }
     }
 
     private static string GetCardName(CardData card)
