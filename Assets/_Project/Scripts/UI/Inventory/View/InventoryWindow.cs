@@ -30,6 +30,7 @@ public class InventoryWindow : MonoBehaviour
     [Header("Top Icons")]
     [SerializeField] private List<GameObject> topIconBorders = new();
     [SerializeField] private List<GameObject> pages = new();
+    [SerializeField] private TMP_Text goldBalanceText;
 
     [Header("Pause Menu")]
     [SerializeField] private GameObject pauseOverlay;
@@ -136,6 +137,9 @@ public class InventoryWindow : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerWallet.GoldChanged += HandleGoldChanged;
+        RefreshGoldBalance();
+
         if (playerHPText != null)
             playerHPText.SetTarget(player);
 
@@ -149,10 +153,22 @@ public class InventoryWindow : MonoBehaviour
 
     private void OnDisable()
     {
+        PlayerWallet.GoldChanged -= HandleGoldChanged;
         HideTransferQuantityPrompt();
 
         if (GameStateManager.State == GameState.Inventory)
             GameStateManager.SetState(GameState.Gameplay);
+    }
+
+    private void HandleGoldChanged(int _)
+    {
+        RefreshGoldBalance();
+    }
+
+    private void RefreshGoldBalance()
+    {
+        if (goldBalanceText != null)
+            goldBalanceText.text = PlayerWallet.Gold.ToString();
     }
 
     public void Refresh()
