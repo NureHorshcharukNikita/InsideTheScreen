@@ -51,6 +51,11 @@ public sealed class ShopWindow : MonoBehaviour
     private readonly List<ShopRowView> shopRows = new();
     private QuantitySelectionPrompt quantityPrompt;
     private Coroutine statusToastCoroutine;
+    private TMP_Text goldDeltaText;
+    private CanvasGroup goldDeltaCanvasGroup;
+    private Coroutine goldDeltaCoroutine;
+    private int trackedGold;
+    private bool isGoldTracked;
 
     private int selectedShopIndex = -1;
     private CardData selectedInventoryCard;
@@ -223,6 +228,7 @@ public sealed class ShopWindow : MonoBehaviour
         quantityPrompt ??= QuantitySelectionPrompt.Create(GetOverlayParent(), detailsNameText);
 
         PrepareStatusToast();
+        PrepareGoldDelta();
 
         SetEmptyStateVisible(inventoryEmptyState, false);
         SetEmptyStateVisible(shopEmptyState, false);
@@ -271,6 +277,39 @@ public sealed class ShopWindow : MonoBehaviour
         statusPanel.SetActive(false);
     }
 
+    private void PrepareGoldDelta()
+    {
+        if (goldText == null || goldDeltaText != null)
+            return;
+
+        GameObject deltaObject = new("GoldDelta", typeof(RectTransform), typeof(CanvasRenderer),
+            typeof(TextMeshProUGUI), typeof(CanvasGroup));
+        RectTransform deltaRect = deltaObject.GetComponent<RectTransform>();
+        RectTransform overlayRoot = statusPanel != null
+            ? statusPanel.transform.parent as RectTransform
+            : transform as RectTransform;
+        deltaRect.SetParent(overlayRoot != null ? overlayRoot : transform, false);
+        deltaRect.anchorMin = new Vector2(0.5f, 0.5f);
+        deltaRect.anchorMax = new Vector2(0.5f, 0.5f);
+        deltaRect.pivot = new Vector2(1f, 0.5f);
+        deltaRect.anchoredPosition = Vector2.zero;
+        deltaRect.sizeDelta = new Vector2(190f, 44f);
+
+        goldDeltaText = deltaObject.GetComponent<TMP_Text>();
+        goldDeltaText.font = goldText.font;
+        goldDeltaText.fontSharedMaterial = goldText.fontSharedMaterial;
+        goldDeltaText.fontSize = 30f;
+        goldDeltaText.fontStyle = FontStyles.Bold;
+        goldDeltaText.alignment = TextAlignmentOptions.MidlineRight;
+        goldDeltaText.textWrappingMode = TextWrappingModes.NoWrap;
+        goldDeltaText.raycastTarget = false;
+
+        goldDeltaCanvasGroup = deltaObject.GetComponent<CanvasGroup>();
+        goldDeltaCanvasGroup.interactable = false;
+        goldDeltaCanvasGroup.blocksRaycasts = false;
+        deltaObject.SetActive(false);
+    }
+
     private Transform GetOverlayParent()
     {
         Canvas canvas = GetComponentInParent<Canvas>();
@@ -281,6 +320,8 @@ public sealed class ShopWindow : MonoBehaviour
 
     private void OnEnable()
     {
+        trackedGold = PlayerWallet.Gold;
+        isGoldTracked = true;
         PlayerWallet.GoldChanged += HandleGoldChanged;
         RefreshGold();
     }
@@ -288,6 +329,8 @@ public sealed class ShopWindow : MonoBehaviour
     private void OnDisable()
     {
         PlayerWallet.GoldChanged -= HandleGoldChanged;
+        isGoldTracked = false;
+        HideGoldDelta();
     }
 
     private void OnDestroy()
@@ -377,12 +420,105 @@ public sealed class ShopWindow : MonoBehaviour
             goldText.text = PlayerWallet.Gold.ToString();
     }
 
-    private void HandleGoldChanged(int _)
+    private void HandleGoldChanged(int newGold)
     {
+        int delta = isGoldTracked ? newGold - trackedGold : 0;
+        trackedGold = newGold;
+        isGoldTracked = true;
+
         RefreshGold();
+
+        if (delta != 0)
+            ShowGoldDelta(delta);
 
         if (!suppressGoldChangedDetailsRefresh)
             RefreshDetails();
+    }
+
+    private void ShowGoldDelta(int delta)
+    {
+        if (goldDeltaText == null || goldDeltaCanvasGroup == null)
+            return;
+
+        if (goldDeltaCoroutine != null)
+            StopCoroutine(goldDeltaCoroutine);
+
+        goldDeltaText.text = delta > 0 ? $"+{delta}" : delta.ToString();
+        goldDeltaText.color = delta > 0
+            ? new Color(0.56f, 0.89f, 0.53f, 1f)
+            : new Color(1f, 0.49f, 0.4f, 1f);
+        goldDeltaText.gameObject.SetActive(true);
+        goldDeltaText.transform.SetAsLastSibling();
+        goldDeltaCoroutine = StartCoroutine(AnimateGoldDelta(delta > 0));
+    }
+
+    private IEnumerator AnimateGoldDelta(bool isGain)
+    {
+        RectTransform rect = goldDeltaText.rectTransform;
+        Vector2 goldPosition = GetGoldDeltaStartPosition();
+        Vector2 startPosition = isGain
+            ? goldPosition + Vector2.down * 54f
+            : goldPosition;
+        Vector2 endPosition = isGain
+            ? goldPosition
+            : goldPosition + Vector2.down * 54f;
+        const float duration = 1.05f;
+        const float fadeStart = 0.45f;
+
+        rect.anchoredPosition = startPosition;
+        rect.localScale = Vector3.one * 1.12f;
+        goldDeltaCanvasGroup.alpha = 1f;
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+            float easedProgress = 1f - Mathf.Pow(1f - progress, 3f);
+            rect.anchoredPosition = Vector2.LerpUnclamped(startPosition, endPosition, easedProgress);
+            rect.localScale = Vector3.one * Mathf.Lerp(1.12f, 1f, easedProgress);
+
+            if (progress > fadeStart)
+                goldDeltaCanvasGroup.alpha = 1f - Mathf.InverseLerp(fadeStart, 1f, progress);
+
+            yield return null;
+        }
+
+        goldDeltaCoroutine = null;
+        HideGoldDelta();
+    }
+
+    private Vector2 GetGoldDeltaStartPosition()
+    {
+        RectTransform parentRect = goldDeltaText.rectTransform.parent as RectTransform;
+        if (parentRect == null || goldText == null)
+            return Vector2.zero;
+
+        Canvas.ForceUpdateCanvases();
+        Rect goldRect = goldText.rectTransform.rect;
+        Vector3 worldPosition = goldText.rectTransform.TransformPoint(
+            new Vector3(goldRect.xMax, goldRect.center.y, 0f));
+        Vector3 localPosition = parentRect.InverseTransformPoint(worldPosition);
+        return new Vector2(localPosition.x, localPosition.y);
+    }
+
+    private void HideGoldDelta()
+    {
+        if (goldDeltaCoroutine != null)
+        {
+            StopCoroutine(goldDeltaCoroutine);
+            goldDeltaCoroutine = null;
+        }
+
+        if (goldDeltaCanvasGroup != null)
+            goldDeltaCanvasGroup.alpha = 1f;
+
+        if (goldDeltaText != null)
+        {
+            goldDeltaText.rectTransform.anchoredPosition = Vector2.zero;
+            goldDeltaText.rectTransform.localScale = Vector3.one;
+            goldDeltaText.gameObject.SetActive(false);
+        }
     }
 
     private void RefreshInventory()
