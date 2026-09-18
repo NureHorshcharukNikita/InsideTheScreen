@@ -56,6 +56,7 @@ public sealed class ShopWindow : MonoBehaviour
     private Coroutine goldDeltaCoroutine;
     private int trackedGold;
     private bool isGoldTracked;
+    private bool isPrepared;
 
     private int selectedShopIndex = -1;
     private CardData selectedInventoryCard;
@@ -173,6 +174,12 @@ public sealed class ShopWindow : MonoBehaviour
         if (window == null)
             return false;
 
+        if (!window.isPrepared)
+            window.PreparePrefabState();
+
+        if (!window.isPrepared)
+            return false;
+
         player ??= FindFirstObjectByType<PlayerCharacter>(FindObjectsInactive.Include);
         if (player == null || player.InventoryData == null)
             return false;
@@ -235,8 +242,25 @@ public sealed class ShopWindow : MonoBehaviour
         SetTemplateVisible(inventoryRowTemplate, false);
         SetTemplateVisible(shopRowTemplate, false);
 
-        if (inventoryContent == null || shopContent == null || inventoryRowTemplate == null || shopRowTemplate == null)
-            Debug.LogError("ShopWindow prefab is missing required list content or row template references.", this);
+        isPrepared = inventoryContent != null
+            && shopContent != null
+            && inventoryRowTemplate != null
+            && shopRowTemplate != null
+            && titleText != null
+            && goldText != null
+            && detailsNameText != null
+            && detailsDescriptionText != null
+            && detailsMetaText != null
+            && detailsPriceRow != null
+            && detailsPriceLabelText != null
+            && detailsPriceValueText != null
+            && detailsIcon != null
+            && buyButton != null
+            && buyButtonText != null
+            && quantityPrompt != null;
+
+        if (!isPrepared)
+            Debug.LogError("ShopWindow prefab is missing required UI references.", this);
     }
 
     private void PrepareStatusToast()
@@ -330,6 +354,8 @@ public sealed class ShopWindow : MonoBehaviour
     {
         PlayerWallet.GoldChanged -= HandleGoldChanged;
         isGoldTracked = false;
+        quantityPrompt?.Hide();
+        HideStatusToast();
         HideGoldDelta();
     }
 

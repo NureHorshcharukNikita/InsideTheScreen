@@ -95,11 +95,20 @@ public class InventoryWindow : MonoBehaviour
         EnsurePauseMenuRuntimeFallbacks();
         EnsureTransferQuantityPrompt();
 
-        if (player == null)
-        {
-            Debug.LogError("Player not assigned in InventoryWindow");
-            return;
-        }
+        if (!TryInitializeInventory())
+            Debug.LogError("PlayerCharacter is missing. InventoryWindow could not initialize.");
+
+        ResetPauseMenu();
+    }
+
+    private bool TryInitializeInventory()
+    {
+        if (inventoryScreenController != null)
+            return true;
+
+        player ??= FindFirstObjectByType<PlayerCharacter>(FindObjectsInactive.Include);
+        if (player == null || player.InventoryData == null || player.DeckData == null)
+            return false;
 
         var inventoryStorage = player.InventoryData;
         var deck = player.DeckData;
@@ -126,7 +135,7 @@ public class InventoryWindow : MonoBehaviour
             inventoryCardsContent,
             deckCardsContent);
 
-        ResetPauseMenu();
+        return true;
     }
 
     private void Update()
@@ -139,6 +148,9 @@ public class InventoryWindow : MonoBehaviour
     {
         PlayerWallet.GoldChanged += HandleGoldChanged;
         RefreshGoldBalance();
+
+        if (!TryInitializeInventory())
+            return;
 
         if (playerHPText != null)
             playerHPText.SetTarget(player);
@@ -173,6 +185,9 @@ public class InventoryWindow : MonoBehaviour
 
     public void Refresh()
     {
+        if (inventoryScreenController == null)
+            return;
+
         inventoryScreenController.Refresh(
             inventoryCountText,
             deckCountText);
@@ -213,6 +228,13 @@ public class InventoryWindow : MonoBehaviour
         GameStateManager.SetState(GameState.Inventory);
         gameObject.SetActive(true);
 
+        if (!TryInitializeInventory())
+        {
+            Debug.LogError("InventoryWindow cannot open because PlayerCharacter is missing.");
+            GameStateManager.SetState(GameState.Gameplay);
+            return;
+        }
+
         inventoryScreenController.ClearSelection();
 
         inventoryPreviewPanel.Clear();
@@ -224,7 +246,7 @@ public class InventoryWindow : MonoBehaviour
     public void Close()
     {
         HideTransferQuantityPrompt();
-        inventoryScreenController.ClearSelection();
+        inventoryScreenController?.ClearSelection();
         ResetPauseMenu();
 
         GameStateManager.SetState(GameState.Gameplay);
@@ -291,7 +313,7 @@ public class InventoryWindow : MonoBehaviour
 
     public void SelectTopIcon(int index)
     {
-        if (index < 0 || index >= topIconBorders.Count)
+        if (inventoryScreenController == null || index < 0 || index >= topIconBorders.Count)
             return;
 
         selectedTopIconIndex = index;
