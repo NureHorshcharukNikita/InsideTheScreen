@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b70460a0a86efc14ba06691c92c47257
+guid: e6d7c9f5a7a493346804b4ce95740d1b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3056508215682970982
-    second: AncientEldon_0
+      213: 7201318901495916904
+    second: NormalGarrSteelclad_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AncientEldon_0
+      name: NormalGarrSteelclad_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 1011
-        height: 1536
+        width: 669
+        height: 1177
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 665b8d03706ea6a20800000000000000
-      internalID: 3056508215682970982
+      spriteID: 86968fdf26930f360800000000000000
+      internalID: 7201318901495916904
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AncientEldon_0: 3056508215682970982
+      NormalGarrSteelclad_0: 7201318901495916904
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
