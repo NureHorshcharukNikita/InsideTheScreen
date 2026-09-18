@@ -10,42 +10,59 @@ public static class ShopManager
 
     public static bool Buy(ShopData shop, int itemIndex, InventoryData inventory)
     {
-        if (!TryGetItem(shop, itemIndex, out ShopItemData item) || inventory == null)
-            return false;
+        return Buy(shop, itemIndex, inventory, 1) == 1;
+    }
 
-        if (GetRemainingStock(shop, itemIndex) <= 0)
-            return false;
+    public static int Buy(ShopData shop, int itemIndex, InventoryData inventory, int quantity)
+    {
+        if (!TryGetItem(shop, itemIndex, out ShopItemData item) || inventory == null || quantity <= 0)
+            return 0;
 
+        int remainingStock = GetRemainingStock(shop, itemIndex);
         int price = GetBuyPrice(shop, itemIndex);
-        if (!PlayerWallet.TrySpendGold(price))
-            return false;
+        int affordableQuantity = price > 0 ? PlayerWallet.Gold / price : quantity;
+        int purchasedCount = Math.Min(quantity, Math.Min(remainingStock, affordableQuantity));
+        if (purchasedCount <= 0)
+            return 0;
 
-        inventory.AddCard(item.card);
+        if (!PlayerWallet.TrySpendGold(price * purchasedCount))
+            return 0;
+
+        inventory.AddCards(item.card, purchasedCount);
 
         if (item.HasLimitedStock)
         {
             ShopProgressSaveData progress = GetOrCreateProgress(shop.ShopKey, itemIndex);
-            progress.purchasedCount++;
+            progress.purchasedCount += purchasedCount;
         }
 
         ItemPurchased?.Invoke(shop, item);
         ExplorationPlayerSession.SaveShopProgress();
-        return true;
+        return purchasedCount;
     }
 
     public static bool Sell(ShopData shop, CardData card, InventoryData inventory)
     {
-        if (shop == null || card == null || inventory == null)
-            return false;
+        return Sell(shop, card, inventory, 1) == 1;
+    }
+
+    public static int Sell(ShopData shop, CardData card, InventoryData inventory, int quantity)
+    {
+        if (shop == null || card == null || inventory == null || quantity <= 0)
+            return 0;
 
         int price = GetSellPrice(shop, card);
         if (price <= 0)
-            return false;
+            return 0;
 
-        inventory.RemoveCard(card);
-        PlayerWallet.AddGold(price);
-        ItemSold?.Invoke(shop, card, price);
-        return true;
+        int soldCount = inventory.RemoveCards(card, quantity);
+        if (soldCount <= 0)
+            return 0;
+
+        int totalPrice = price * soldCount;
+        PlayerWallet.AddGold(totalPrice);
+        ItemSold?.Invoke(shop, card, totalPrice);
+        return soldCount;
     }
 
     public static int GetSellPrice(ShopData shop, CardData card)

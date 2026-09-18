@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -34,6 +35,8 @@ public sealed class ShopWindow : MonoBehaviour
     [SerializeField] private TMP_Text detailsPriceLabelText;
     [SerializeField] private TMP_Text detailsPriceValueText;
     [SerializeField] private TMP_Text statusText;
+    [SerializeField] private GameObject statusPanel;
+    [SerializeField] private CanvasGroup statusCanvasGroup;
     [SerializeField] private TMP_Text buyButtonText;
     [SerializeField] private Image detailsIcon;
     [SerializeField] private Button buyButton;
@@ -46,6 +49,8 @@ public sealed class ShopWindow : MonoBehaviour
     private Transform shopContent;
     private readonly List<ShopRowView> inventoryRows = new();
     private readonly List<ShopRowView> shopRows = new();
+    private QuantitySelectionPrompt quantityPrompt;
+    private Coroutine statusToastCoroutine;
 
     private int selectedShopIndex = -1;
     private CardData selectedInventoryCard;
@@ -215,6 +220,10 @@ public sealed class ShopWindow : MonoBehaviour
             buyButton.onClick.AddListener(BuySelected);
         }
 
+        quantityPrompt ??= QuantitySelectionPrompt.Create(GetOverlayParent(), detailsNameText);
+
+        PrepareStatusToast();
+
         SetEmptyStateVisible(inventoryEmptyState, false);
         SetEmptyStateVisible(shopEmptyState, false);
         SetTemplateVisible(inventoryRowTemplate, false);
@@ -222,6 +231,52 @@ public sealed class ShopWindow : MonoBehaviour
 
         if (inventoryContent == null || shopContent == null || inventoryRowTemplate == null || shopRowTemplate == null)
             Debug.LogError("ShopWindow prefab is missing required list content or row template references.", this);
+    }
+
+    private void PrepareStatusToast()
+    {
+        if (statusPanel == null || statusText == null)
+            return;
+
+        RectTransform panelRect = statusPanel.transform as RectTransform;
+        RectTransform textRect = statusText.rectTransform;
+        if (panelRect == null || textRect == null)
+            return;
+
+        panelRect.anchorMin = new Vector2(0.5f, 0.5f);
+        panelRect.anchorMax = new Vector2(0.5f, 0.5f);
+        panelRect.pivot = new Vector2(0.5f, 0.5f);
+        panelRect.anchoredPosition = Vector2.zero;
+        panelRect.sizeDelta = new Vector2(600f, 120f);
+        panelRect.localRotation = Quaternion.identity;
+        panelRect.localScale = Vector3.one;
+
+        textRect.SetParent(panelRect, false);
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.pivot = new Vector2(0.5f, 0.5f);
+        textRect.anchoredPosition = Vector2.zero;
+        textRect.sizeDelta = new Vector2(-32f, -20f);
+        textRect.localRotation = Quaternion.identity;
+        textRect.localScale = Vector3.one;
+        textRect.SetAsLastSibling();
+
+        statusText.alignment = TextAlignmentOptions.Center;
+        statusText.color = TextColor;
+        statusText.enableAutoSizing = true;
+        statusText.fontSizeMin = 18f;
+        statusText.fontSizeMax = 28f;
+        statusText.raycastTarget = false;
+
+        statusPanel.SetActive(false);
+    }
+
+    private Transform GetOverlayParent()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>();
+        return canvas != null && canvas.rootCanvas != null
+            ? canvas.rootCanvas.transform
+            : transform;
     }
 
     private void OnEnable()
@@ -244,7 +299,15 @@ public sealed class ShopWindow : MonoBehaviour
     private void Update()
     {
         if (GameInputSettings.GetKeyDown(GameInputAction.Close))
+        {
+            if (quantityPrompt != null && quantityPrompt.IsOpen)
+            {
+                quantityPrompt.Hide();
+                return;
+            }
+
             Close();
+        }
     }
 
     public void Close()
@@ -259,6 +322,7 @@ public sealed class ShopWindow : MonoBehaviour
         activeInventory = null;
         selectedShopIndex = -1;
         selectedInventoryCard = null;
+        quantityPrompt?.Hide();
 
         if (GameStateManager.State == GameState.Shop)
         {
@@ -487,7 +551,6 @@ public sealed class ShopWindow : MonoBehaviour
         detailsNameText.text = text;
         detailsDescriptionText.text = string.Empty;
         detailsMetaText.text = string.Empty;
-        SetStatusText(string.Empty);
         SetPriceRowVisible(false);
         detailsIcon.sprite = null;
         detailsIcon.enabled = false;
@@ -527,8 +590,83 @@ public sealed class ShopWindow : MonoBehaviour
             return;
 
         bool hasText = !string.IsNullOrEmpty(text);
-        statusText.text = hasText ? text : string.Empty;
-        statusText.gameObject.SetActive(hasText);
+        if (!hasText)
+        {
+            HideStatusToast();
+            return;
+        }
+
+        ShowStatusToast("Notice", text);
+    }
+
+    private void ShowStatusToast(string title, string message)
+    {
+        if (statusText == null || statusPanel == null)
+            return;
+
+        if (statusToastCoroutine != null)
+            StopCoroutine(statusToastCoroutine);
+
+        statusText.text = $"<color=#FFD166><b>{title}</b></color>\n<color=#F7EFE2>{message}</color>";
+        statusPanel.SetActive(true);
+        statusPanel.transform.SetAsLastSibling();
+        statusToastCoroutine = StartCoroutine(AnimateStatusToast());
+    }
+
+    private IEnumerator AnimateStatusToast()
+    {
+        RectTransform rect = statusPanel.transform as RectTransform;
+        const float showDuration = 0.16f;
+        const float holdDuration = 1.9f;
+        const float hideDuration = 0.24f;
+
+        float elapsed = 0f;
+        while (elapsed < showDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = Mathf.Clamp01(elapsed / showDuration);
+            if (statusCanvasGroup != null)
+                statusCanvasGroup.alpha = progress;
+            if (rect != null)
+                rect.localScale = Vector3.one * Mathf.Lerp(0.94f, 1f, progress);
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(holdDuration);
+
+        elapsed = 0f;
+        while (elapsed < hideDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = Mathf.Clamp01(elapsed / hideDuration);
+            if (statusCanvasGroup != null)
+                statusCanvasGroup.alpha = 1f - progress;
+            yield return null;
+        }
+
+        statusToastCoroutine = null;
+        HideStatusToast();
+    }
+
+    private void HideStatusToast()
+    {
+        if (statusToastCoroutine != null)
+        {
+            StopCoroutine(statusToastCoroutine);
+            statusToastCoroutine = null;
+        }
+
+        if (statusCanvasGroup != null)
+            statusCanvasGroup.alpha = 1f;
+
+        if (statusPanel != null)
+        {
+            statusPanel.transform.localScale = Vector3.one;
+            statusPanel.SetActive(false);
+        }
+
+        if (statusText != null)
+            statusText.text = string.Empty;
     }
 
     private void SelectShopItem(int itemIndex)
@@ -558,7 +696,7 @@ public sealed class ShopWindow : MonoBehaviour
 
         if (!selectedFromShop)
         {
-            SellSelected();
+            ShowSellQuantityPrompt();
             return;
         }
 
@@ -567,7 +705,7 @@ public sealed class ShopWindow : MonoBehaviour
 
         if (ShopManager.GetRemainingStock(activeShop, selectedShopIndex) <= 0)
         {
-            SetStatusText("Sold out.");
+            ShowStatusToast("Unable to purchase", "Sold out.");
             RefreshShopRowsData();
             RefreshDetails();
             return;
@@ -576,25 +714,50 @@ public sealed class ShopWindow : MonoBehaviour
         int buyPrice = ShopManager.GetBuyPrice(activeShop, selectedShopIndex);
         if (PlayerWallet.Gold < buyPrice)
         {
-            SetStatusText("Not enough.");
+            ShowStatusToast("Unable to purchase", "Not enough gold.");
             RefreshDetails();
             return;
         }
 
+        int remainingStock = ShopManager.GetRemainingStock(activeShop, selectedShopIndex);
+        int affordableQuantity = buyPrice > 0 ? PlayerWallet.Gold / buyPrice : remainingStock;
+        int maxQuantity = Mathf.Min(remainingStock, affordableQuantity);
+        if (maxQuantity == int.MaxValue)
+            maxQuantity = 999999;
+
+        int itemIndex = selectedShopIndex;
+        quantityPrompt.Show(
+            $"Buy: {GetCardName(item.card)}",
+            "Buy",
+            maxQuantity,
+            quantity => BuySelected(itemIndex, quantity));
+    }
+
+    private void BuySelected(int itemIndex, int quantity)
+    {
+        int buyPrice = ShopManager.GetBuyPrice(activeShop, itemIndex);
         suppressGoldChangedDetailsRefresh = true;
-        bool bought;
+        int purchasedCount;
         try
         {
-            bought = ShopManager.Buy(activeShop, selectedShopIndex, activeInventory);
+            purchasedCount = ShopManager.Buy(activeShop, itemIndex, activeInventory, quantity);
         }
         finally
         {
             suppressGoldChangedDetailsRefresh = false;
         }
 
-        SetStatusText(bought ? "Purchased." : "Can't buy this item.");
+        if (purchasedCount > 0)
+        {
+            CardData card = activeShop.Items[itemIndex].card;
+            ShowStatusToast("Purchased", $"{GetCardName(card)} x{purchasedCount}.");
+        }
+        else
+        {
+            ShowStatusToast("Unable to purchase", "The transaction could not be completed.");
+        }
 
-        if (bought && ShopManager.GetRemainingStock(activeShop, selectedShopIndex) <= 0)
+        if (purchasedCount > 0 && ShopManager.GetRemainingStock(activeShop, itemIndex) <= 0)
             selectedShopIndex = FindFirstAvailableShopIndex();
 
         RefreshAfterTransaction();
@@ -771,26 +934,44 @@ public sealed class ShopWindow : MonoBehaviour
         }
     }
 
-    private void SellSelected()
+    private void ShowSellQuantityPrompt()
     {
         if (selectedInventoryCard == null || activeInventory == null)
             return;
 
-        int sellPrice = ShopManager.GetSellPrice(activeShop, selectedInventoryCard);
+        int ownedCount = activeInventory.Cards.Count(card => card == selectedInventoryCard);
+        CardData card = selectedInventoryCard;
+        quantityPrompt.Show(
+            $"Sell: {GetCardName(card)}",
+            "Sell",
+            ownedCount,
+            quantity => SellSelected(card, quantity));
+    }
+
+    private void SellSelected(CardData card, int quantity)
+    {
+        if (card == null || activeInventory == null)
+            return;
+
+        int sellPrice = ShopManager.GetSellPrice(activeShop, card);
         suppressGoldChangedDetailsRefresh = true;
-        bool sold;
+        int soldCount;
         try
         {
-            sold = ShopManager.Sell(activeShop, selectedInventoryCard, activeInventory);
+            soldCount = ShopManager.Sell(activeShop, card, activeInventory, quantity);
         }
         finally
         {
             suppressGoldChangedDetailsRefresh = false;
         }
 
-        SetStatusText(sold ? $"Sold for {sellPrice}." : "Can't sell this item.");
+        int totalPrice = sellPrice * soldCount;
+        if (soldCount > 0)
+            ShowStatusToast("Sold", $"{GetCardName(card)} x{soldCount}.");
+        else
+            ShowStatusToast("Unable to sell", "The transaction could not be completed.");
 
-        if (activeInventory.Cards == null || !activeInventory.Cards.Contains(selectedInventoryCard))
+        if (activeInventory.Cards == null || !activeInventory.Cards.Contains(card))
             selectedInventoryCard = null;
 
         RefreshAfterTransaction();

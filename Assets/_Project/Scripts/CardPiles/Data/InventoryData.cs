@@ -18,16 +18,39 @@ public class InventoryData : ScriptableObject
 
     public void AddCard(CardData card)
     {
-        if (card == null) return;
-        cards.Add(card);
+        AddCards(card, 1);
+    }
+
+    public int AddCards(CardData card, int count)
+    {
+        if (card == null || count <= 0)
+            return 0;
+
+        for (int i = 0; i < count; i++)
+            cards.Add(card);
+
         ExplorationPlayerSession.SavePersistent();
+        return count;
     }
 
     public void RemoveCard(CardData card)
     {
-        if (card == null) return;
-        cards.Remove(card);
-        ExplorationPlayerSession.SavePersistent();
+        RemoveCards(card, 1);
+    }
+
+    public int RemoveCards(CardData card, int count)
+    {
+        if (card == null || count <= 0)
+            return 0;
+
+        int removed = 0;
+        while (removed < count && cards.Remove(card))
+            removed++;
+
+        if (removed > 0)
+            ExplorationPlayerSession.SavePersistent();
+
+        return removed;
     }
 
     public void Clear()
