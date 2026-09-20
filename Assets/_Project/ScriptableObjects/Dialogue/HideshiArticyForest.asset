@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: HideshiArticyForest
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 1, speakerName: Hideshi, text: "Are you all right?", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Yeah... I think so.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "...Where are we?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "I don't know.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "One thing's certain: this isn't our apartment...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "We're in some kind of forest... Of course we're not home...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "At least we're on our feet. That's something.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "This isn't the time for jokes!", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "I'm quite serious.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Maybe it's some kind of dream...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "It doesn't feel like a dream... It's too real.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "I can feel the cold.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "I don't remember anything... Something happened to the screen...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "I only remember walking up to the TV... I was going to fix the sound, but something went wrong...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "It's as if we were pulled inside.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Looks that way.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Whatever happened, we need to find the locals.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "If there's a forest, there should be a settlement nearby.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "You sound far too calm.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Panicking won't help. We need to act!", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Maybe you're right... But how can anyone stay calm in a situation like this?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "We need to focus on getting home.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "So let's keep our heads for now.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "And it's so quiet here...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Too quiet.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Look, Dad... there's a path.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Great! Let's follow it. Better than standing here.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Look! There are tracks on the ground...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Stay close.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Did you hear that crack?", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "I think something's rustling to our left.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "It's... a wolf!!!", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Keep your distance and do as I say.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "It's charging!", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Get back!", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Go away!", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "It's backing off...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "That wolf was too thin... and wild. It looks like it hasn't seen anyone in a long time.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "It could have killed us...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Dad... are you hurt?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "No. I'm fine.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "But this place is dangerous.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "We have to go!", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Yes. Quickly.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "I can see smoke up ahead.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Maybe there are people there?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Let's get there and find out.", nextLineIndex: -1, endDialogueAfterLine: 1}

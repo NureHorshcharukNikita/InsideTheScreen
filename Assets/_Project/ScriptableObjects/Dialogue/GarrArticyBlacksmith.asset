@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: GarrArticyBlacksmith
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "You again.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Eldon said you could help us.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "Of course he did. It's always easier for him to send someone else.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "We need materials for a crystal.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "Show me.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Here.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "...Hm.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "I know this design.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "You can make it, right?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "I can, but not yet. I'll need materials.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "What kind of materials?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "Iron... not ordinary iron... and a shard... and resin... yes, that's what I need!", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "Here. Take the list.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "Bring me everything, then come back.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "Oh... and one more thing.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "What?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "It's grown more dangerous beyond the village. Be careful.", nextLineIndex: -1, endDialogueAfterLine: 1}

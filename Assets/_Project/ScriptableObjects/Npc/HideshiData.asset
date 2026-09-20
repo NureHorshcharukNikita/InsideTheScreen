@@ -17,7 +17,31 @@ MonoBehaviour:
   maxHealth: 30
   startingArmor: 0
   enableDialogue: 1
-  dialogueEntries: []
+  dialogueEntries:
+  - key: hideshi_settling_in
+    dialogue: {fileID: 11400000, guid: f0d1d4b7585c46af8be2c485c64d8457, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    requireQuestStatus: 0
+    quest: {fileID: 0}
+    questStatus: 1
+    requiredStoryFlag: met_ancient_eldon
+    invertStoryFlag: 0
+  - key: hideshi_leymar
+    dialogue: {fileID: 11400000, guid: 02cce30cf4ac4fa5a0a654b54054a8e6, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    requireQuestStatus: 0
+    quest: {fileID: 0}
+    questStatus: 1
+    requiredStoryFlag: met_ancient_eldon
+    invertStoryFlag: 1
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

@@ -17,7 +17,31 @@ MonoBehaviour:
   maxHealth: 30
   startingArmor: 0
   enableDialogue: 1
-  dialogueEntries: []
+  dialogueEntries:
+  - key: garr_crystal_materials
+    dialogue: {fileID: 11400000, guid: 5dc272d00d4e4a28a648e5daa2091896, type: 2}
+    repeatable: 0
+    talkTiming: 2
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    requireQuestStatus: 0
+    quest: {fileID: 0}
+    questStatus: 1
+    requiredStoryFlag: eldon_echo_crystal_discussed
+    invertStoryFlag: 0
+  - key: garr_next_morning
+    dialogue: {fileID: 11400000, guid: d618490969dd47ed8332cbac14994c63, type: 2}
+    repeatable: 0
+    talkTiming: 1
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    requireQuestStatus: 0
+    quest: {fileID: 0}
+    questStatus: 1
+    requiredStoryFlag: met_ancient_eldon
+    invertStoryFlag: 0
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

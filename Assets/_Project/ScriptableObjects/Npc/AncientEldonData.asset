@@ -18,6 +18,18 @@ MonoBehaviour:
   startingArmor: 0
   enableDialogue: 1
   dialogueEntries:
+  - key: eldon_echo_crystal
+    dialogue: {fileID: 11400000, guid: 787341a7958244d79ece40556d507e1b, type: 2}
+    repeatable: 0
+    talkTiming: 3
+    conversationNumber: 2
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    requireQuestStatus: 0
+    quest: {fileID: 0}
+    questStatus: 1
+    requiredStoryFlag:
+    invertStoryFlag: 0
   - key: eldon_troll_hunt_active
     dialogue: {fileID: 11400000, guid: 916965ba350e4f708003eb10bb2a25c2, type: 2}
     repeatable: 1
@@ -31,7 +43,7 @@ MonoBehaviour:
     requiredStoryFlag:
     invertStoryFlag: 0
   - key: eldon_first_meeting
-    dialogue: {fileID: 11400000, guid: e50c8b9482934314cb78163347b75e3c, type: 2}
+    dialogue: {fileID: 11400000, guid: 6231bb3204594e5cb93bf86e58ce8fd0, type: 2}
     repeatable: 0
     talkTiming: 1
     conversationNumber: 1
