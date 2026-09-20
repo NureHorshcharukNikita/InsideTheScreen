@@ -1,24 +1,18 @@
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))][RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class BoxCollider2DSpriteSync : MonoBehaviour
 {
+    [SerializeField, Tooltip("Collider to resize. If empty, uses the first BoxCollider2D on this object.")]
+    private BoxCollider2D targetCollider;
+
     [Header("Manual Size")]
     [SerializeField] private bool useManualSize;
     [SerializeField] private bool syncWidthToSprite;
     [SerializeField] private bool syncHeightToSprite;
 
-    private void Awake()
-    {
-        Sync();
-    }
-
     private void OnEnable()
-    {
-        Sync();
-    }
-
-    private void Start()
     {
         Sync();
     }
@@ -30,34 +24,41 @@ public class BoxCollider2DSpriteSync : MonoBehaviour
 
     private void Sync()
     {
+        if (useManualSize && !syncWidthToSprite && !syncHeightToSprite)
+            return;
+
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (sr == null || sr.sprite == null)
+        BoxCollider2D box = TargetCollider;
+        if (sr == null || sr.sprite == null || box == null)
             return;
 
         Bounds lb = sr.localBounds;
-
-        foreach (BoxCollider2D box in GetComponents<BoxCollider2D>())
+        if (!useManualSize)
         {
-            Vector2 size = useManualSize ? box.size : (Vector2)lb.size;
-
-            if (useManualSize)
-            {
-                if (syncWidthToSprite)
-                    size.x = lb.size.x;
-
-                if (syncHeightToSprite)
-                    size.y = lb.size.y;
-            }
-
-            size.x = Mathf.Max(0f, size.x);
-            size.y = Mathf.Max(0f, size.y);
-
-            Vector2 center = useManualSize ? (Vector2)lb.min + size * 0.5f : (Vector2)lb.center;
-
-            box.offset = center;
-            box.size = size;
+            box.offset = lb.center;
+            box.size = lb.size;
+            return;
         }
+
+        Vector2 size = box.size;
+        Vector2 offset = box.offset;
+        if (syncWidthToSprite)
+        {
+            size.x = lb.size.x;
+            offset.x = lb.center.x;
+        }
+
+        if (syncHeightToSprite)
+        {
+            size.y = lb.size.y;
+            offset.y = lb.center.y;
+        }
+
+        box.offset = offset;
+        box.size = size;
     }
+
+    private BoxCollider2D TargetCollider => targetCollider != null ? targetCollider : GetComponent<BoxCollider2D>();
 
     public void RefreshFromSprite() => Sync();
 
@@ -67,10 +68,11 @@ public class BoxCollider2DSpriteSync : MonoBehaviour
         syncWidthToSprite = false;
         syncHeightToSprite = false;
 
-        foreach (BoxCollider2D box in GetComponents<BoxCollider2D>())
-        {
-            box.offset = offset;
-            box.size = new Vector2(Mathf.Max(0f, size.x), Mathf.Max(0f, size.y));
-        }
+        BoxCollider2D box = TargetCollider;
+        if (box == null)
+            return;
+
+        box.offset = offset;
+        box.size = new Vector2(Mathf.Max(0f, size.x), Mathf.Max(0f, size.y));
     }
 }
