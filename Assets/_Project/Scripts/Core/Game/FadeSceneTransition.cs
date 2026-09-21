@@ -35,6 +35,26 @@ internal static class FadeSceneTransition
         setFading?.Invoke(false);
     }
 
+    public static IEnumerator FadeToBlackThenAct(
+        FadeOverlayController overlay,
+        float duration,
+        Action onBlack,
+        Action<bool> setFading,
+        Action onComplete)
+    {
+        setFading?.Invoke(true);
+        overlay.ShowForFade();
+
+        yield return FadeAlphaUnscaled(overlay, duration, 0f, 1f);
+        onBlack?.Invoke();
+        yield return null;
+        yield return FadeAlphaUnscaled(overlay, duration, 1f, 0f);
+
+        overlay.Hide();
+        setFading?.Invoke(false);
+        onComplete?.Invoke();
+    }
+
     private static IEnumerator FadeAlphaUnscaled(FadeOverlayController overlay, float duration, float from, float to)
     {
         float elapsed = 0f;

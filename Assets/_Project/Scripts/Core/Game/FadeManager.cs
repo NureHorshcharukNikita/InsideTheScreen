@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -37,6 +38,27 @@ public class FadeManager : MonoBehaviour
     public static void MarkFadeInAfterNextSceneLoad()
     {
         shouldFadeInAfterSceneLoad = true;
+    }
+
+    public static bool TryFadeWithinScene(Action onBlack, Action onComplete)
+    {
+        if (Instance == null || Instance._overlay == null || !Instance._overlay.IsAvailable)
+        {
+            onBlack?.Invoke();
+            onComplete?.Invoke();
+            return true;
+        }
+
+        if (Instance._isFading)
+            return false;
+
+        Instance.StartCoroutine(FadeSceneTransition.FadeToBlackThenAct(
+            Instance._overlay,
+            Instance.fadeDuration,
+            onBlack,
+            value => Instance._isFading = value,
+            onComplete));
+        return true;
     }
 
     private void Awake()
