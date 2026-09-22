@@ -143,7 +143,7 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
             GameInputAction.Interact => "Interact",
             GameInputAction.Inventory => "Inventory",
             GameInputAction.EndTurn => "End Turn",
-            GameInputAction.Close => "Close",
+            GameInputAction.Close => "Pause",
             _ => inputAction.ToString()
         };
     }

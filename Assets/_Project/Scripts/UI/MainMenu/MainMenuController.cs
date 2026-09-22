@@ -18,6 +18,7 @@ public sealed class MainMenuController : MonoBehaviour
     [SerializeField] private Button closeCreditsButton;
 
     [Header("Panels")]
+    [SerializeField] private GameObject menuTitle;
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject creditsPanel;
@@ -113,6 +114,8 @@ public sealed class MainMenuController : MonoBehaviour
     public void ShowSettings()
     {
         ClearSelectedButton();
+        if (menuTitle != null)
+            menuTitle.SetActive(false);
         if (menuPanel != null)
             menuPanel.SetActive(false);
         if (settingsPanel != null)
@@ -124,6 +127,8 @@ public sealed class MainMenuController : MonoBehaviour
         ClearSelectedButton();
         if (settingsPanel != null)
             settingsPanel.SetActive(false);
+        if (menuTitle != null)
+            menuTitle.SetActive(true);
         if (menuPanel != null)
             menuPanel.SetActive(true);
     }

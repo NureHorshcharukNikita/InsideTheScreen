@@ -13,6 +13,7 @@ public enum AudioChannel
 
 public sealed class AudioManager : MonoBehaviour
 {
+    private const float DefaultVolume = 1f;
     private const string MasterVolumeKey = "audio.masterVolume";
     private const string MusicVolumeKey = "audio.musicVolume";
     private const string AmbienceVolumeKey = "audio.ambienceVolume";
@@ -154,6 +155,19 @@ public sealed class AudioManager : MonoBehaviour
                 uiVolume = volume;
                 break;
         }
+
+        ApplyVolumes();
+        SaveVolumes();
+        VolumesChanged?.Invoke();
+    }
+
+    public void ResetVolumes()
+    {
+        masterVolume = DefaultVolume;
+        musicVolume = DefaultVolume;
+        ambienceVolume = DefaultVolume;
+        sfxVolume = DefaultVolume;
+        uiVolume = DefaultVolume;
 
         ApplyVolumes();
         SaveVolumes();
