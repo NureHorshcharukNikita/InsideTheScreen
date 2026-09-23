@@ -64,12 +64,6 @@ public sealed class MainMenuController : MonoBehaviour
 
     public void StartNewGame()
     {
-        if (!ExplorationPlayerSession.HasAnyPersistentSession)
-        {
-            StartNewGameInSlot(0);
-            return;
-        }
-
         ShowSaveSlots(MainMenuSaveSlotMode.NewGame);
     }
 
@@ -109,8 +103,22 @@ public sealed class MainMenuController : MonoBehaviour
     public void HideSaveSlots()
     {
         ClearSelectedButton();
+
+        if (saveSlotsPanel != null && saveSlotsPanel.gameObject.activeSelf)
+        {
+            saveSlotsPanel.PlayExit(CompleteHideSaveSlots);
+            return;
+        }
+
+        CompleteHideSaveSlots();
+    }
+
+    private void CompleteHideSaveSlots()
+    {
         if (saveSlotsPanel != null)
             saveSlotsPanel.gameObject.SetActive(false);
+        if (menuTitle != null)
+            menuTitle.SetActive(true);
         if (menuPanel != null)
             menuPanel.SetActive(true);
     }
@@ -195,6 +203,8 @@ public sealed class MainMenuController : MonoBehaviour
     private void ShowSaveSlots(MainMenuSaveSlotMode mode)
     {
         ClearSelectedButton();
+        if (menuTitle != null)
+            menuTitle.SetActive(false);
         if (menuPanel != null)
             menuPanel.SetActive(false);
         if (saveSlotsPanel != null)
