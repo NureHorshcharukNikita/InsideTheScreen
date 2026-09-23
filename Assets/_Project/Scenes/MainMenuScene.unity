@@ -1198,6 +1198,7 @@ GameObject:
   - component: {fileID: 100202}
   - component: {fileID: 100203}
   - component: {fileID: 100204}
+  - component: {fileID: 100205}
   m_Layer: 5
   m_Name: SettingsPanel
   m_TagString: Untagged
@@ -1271,6 +1272,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100200}
   m_CullTransparentMesh: 1
+--- !u!225 &100205
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100200}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &100204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1314,6 +1327,11 @@ MonoBehaviour:
   resetButtonSprite: {fileID: 21300000, guid: deb3f8071421d474fa443218040b7be2, type: 3}
   controlsScrollRect: {fileID: 900000003}
   audioScrollRect: {fileID: 920000003}
+  animatedPanel: {fileID: 100201}
+  canvasGroup: {fileID: 100205}
+  verticalOffset: 90
+  enterDuration: 0.5
+  exitDuration: 0.5
 --- !u!1 &100300
 GameObject:
   m_ObjectHideFlags: 0

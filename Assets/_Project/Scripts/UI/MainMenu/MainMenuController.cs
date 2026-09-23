@@ -29,6 +29,7 @@ public sealed class MainMenuController : MonoBehaviour
     [SerializeField] private AudioSource menuVideoAudioSource;
 
     private bool menuVideoPausedByFocusLoss;
+    private SettingsInputPanel settingsInputPanel;
 
     private void Awake()
     {
@@ -36,6 +37,9 @@ public sealed class MainMenuController : MonoBehaviour
         GameStateManager.SetState(GameState.Gameplay);
         CacheMenuVideoPlayer();
         ApplyMenuVideoVolume();
+
+        if (settingsPanel != null)
+            settingsInputPanel = settingsPanel.GetComponent<SettingsInputPanel>();
 
         if (settingsPanel != null)
             settingsPanel.SetActive(false);
@@ -125,6 +129,18 @@ public sealed class MainMenuController : MonoBehaviour
     public void HideSettings()
     {
         ClearSelectedButton();
+
+        if (settingsInputPanel != null && settingsPanel != null && settingsPanel.activeSelf)
+        {
+            settingsInputPanel.PlayExit(CompleteHideSettings);
+            return;
+        }
+
+        CompleteHideSettings();
+    }
+
+    private void CompleteHideSettings()
+    {
         if (settingsPanel != null)
             settingsPanel.SetActive(false);
         if (menuTitle != null)
