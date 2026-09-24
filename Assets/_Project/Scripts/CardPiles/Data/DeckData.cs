@@ -36,9 +36,6 @@ public class DeckData : ScriptableObject
             added++;
         }
 
-        if (added > 0)
-            ExplorationPlayerSession.SavePersistent();
-
         return added;
     }
 
@@ -56,16 +53,12 @@ public class DeckData : ScriptableObject
         while (removed < count && cards.Remove(card))
             removed++;
 
-        if (removed > 0)
-            ExplorationPlayerSession.SavePersistent();
-
         return removed;
     }
 
     public void Clear()
     {
         cards.Clear();
-        ExplorationPlayerSession.SavePersistent();
     }
 
     public void ReplaceCards(IEnumerable<CardData> newCards)

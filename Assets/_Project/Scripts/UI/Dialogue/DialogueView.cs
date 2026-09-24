@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,6 +23,9 @@ public sealed class DialogueView : MonoBehaviour
     [SerializeField] private TMP_Text speakerNameText;
     [SerializeField] private TMP_Text dialogueText;
 
+    [Header("Text Reveal")]
+    [SerializeField, Min(1f)] private float charactersPerSecond = 45f;
+
     [Header("Input")]
     [SerializeField] private Button continueButton;
     [SerializeField] private GameObject continueIndicator;
@@ -41,8 +45,13 @@ public sealed class DialogueView : MonoBehaviour
 
     private readonly List<Button> choiceButtons = new();
     private Vector2 dialogueTextDefaultOffsetMin;
+    private IReadOnlyList<DialogueChoice> pendingChoices;
+    private Coroutine textRevealRoutine;
+    private Sprite lastLeftPortrait;
+    private Sprite lastRightPortrait;
     private bool visible;
     private bool showingChoices;
+    private bool revealingText;
 
     private void Awake()
     {
@@ -72,7 +81,7 @@ public sealed class DialogueView : MonoBehaviour
             return;
         }
 
-        if (GameInputSettings.GetKeyDown(GameInputAction.Interact))
+        if (GameInputSettings.GetKeyDown(GameInputAction.Interact) || Input.GetKeyDown(KeyCode.Space))
             RequestContinue();
     }
 
@@ -99,19 +108,28 @@ public sealed class DialogueView : MonoBehaviour
 
         MoveNamePlate(line.speakerSide);
 
-        if (dialogueText != null)
-            dialogueText.text = line.text;
-
         Sprite portrait = line.portraitOverride != null ? line.portraitOverride : fallbackPortrait;
+        if (line.speakerSide == DialogueSpeakerSide.Left)
+            lastLeftPortrait = portrait;
+        else
+            lastRightPortrait = portrait;
+
+        Sprite displayedLeftPortrait = line.speakerSide == DialogueSpeakerSide.Left
+            ? portrait
+            : lastLeftPortrait != null ? lastLeftPortrait : leftFallbackPortrait;
+        Sprite displayedRightPortrait = line.speakerSide == DialogueSpeakerSide.Right
+            ? portrait
+            : lastRightPortrait != null ? lastRightPortrait : rightFallbackPortrait;
+
         SetPortrait(
             leftPortrait,
-            line.speakerSide == DialogueSpeakerSide.Left ? portrait : leftFallbackPortrait,
+            displayedLeftPortrait,
             line.speakerSide == DialogueSpeakerSide.Left,
             false);
 
         SetPortrait(
             rightPortrait,
-            line.speakerSide == DialogueSpeakerSide.Right ? portrait : rightFallbackPortrait,
+            displayedRightPortrait,
             line.speakerSide == DialogueSpeakerSide.Right,
             true);
 
@@ -121,11 +139,14 @@ public sealed class DialogueView : MonoBehaviour
         if (rightSpeakerRoot != null)
             rightSpeakerRoot.SetActive(rightPortrait == null || rightPortrait.sprite != null);
 
-        ShowChoices(choices);
+        StartTextReveal(line.text, choices);
     }
 
     public void Hide()
     {
+        StopTextReveal();
+        lastLeftPortrait = null;
+        lastRightPortrait = null;
         SetVisible(false);
         ClearChoices();
         RestoreDialogueTextLayout();
@@ -134,7 +155,19 @@ public sealed class DialogueView : MonoBehaviour
             speakerNameText.text = string.Empty;
 
         if (dialogueText != null)
+        {
             dialogueText.text = string.Empty;
+            dialogueText.maxVisibleCharacters = int.MaxValue;
+        }
+    }
+
+    public bool TryCompleteTextReveal()
+    {
+        if (!revealingText)
+            return false;
+
+        CompleteTextReveal();
+        return true;
     }
 
     private void WireButton()
@@ -148,6 +181,9 @@ public sealed class DialogueView : MonoBehaviour
 
     private void RequestContinue()
     {
+        if (TryCompleteTextReveal())
+            return;
+
         ContinueRequested?.Invoke();
     }
 
@@ -189,6 +225,82 @@ public sealed class DialogueView : MonoBehaviour
 
         RectTransform rect = dialogueText.rectTransform;
         rect.offsetMin = dialogueTextDefaultOffsetMin;
+    }
+
+    private void StartTextReveal(string text, IReadOnlyList<DialogueChoice> choices)
+    {
+        StopTextReveal();
+        ClearChoices();
+        pendingChoices = choices;
+
+        if (dialogueText == null)
+        {
+            ShowChoices(pendingChoices);
+            pendingChoices = null;
+            return;
+        }
+
+        dialogueText.text = text ?? string.Empty;
+        dialogueText.maxVisibleCharacters = 0;
+        dialogueText.ForceMeshUpdate();
+
+        if (dialogueText.textInfo.characterCount == 0)
+        {
+            CompleteTextReveal();
+            return;
+        }
+
+        revealingText = true;
+        if (continueButton != null)
+            continueButton.gameObject.SetActive(true);
+        if (continueIndicator != null)
+            continueIndicator.SetActive(false);
+
+        textRevealRoutine = StartCoroutine(RevealText());
+    }
+
+    private IEnumerator RevealText()
+    {
+        int characterCount = dialogueText.textInfo.characterCount;
+        float visibleCharacters = 0f;
+
+        while (dialogueText != null && dialogueText.maxVisibleCharacters < characterCount)
+        {
+            visibleCharacters += charactersPerSecond * Time.unscaledDeltaTime;
+            dialogueText.maxVisibleCharacters = Mathf.Min(
+                characterCount,
+                Mathf.FloorToInt(visibleCharacters));
+            yield return null;
+        }
+
+        textRevealRoutine = null;
+        CompleteTextReveal();
+    }
+
+    private void CompleteTextReveal()
+    {
+        if (textRevealRoutine != null)
+            StopCoroutine(textRevealRoutine);
+
+        textRevealRoutine = null;
+        revealingText = false;
+
+        if (dialogueText != null)
+            dialogueText.maxVisibleCharacters = int.MaxValue;
+
+        IReadOnlyList<DialogueChoice> choices = pendingChoices;
+        pendingChoices = null;
+        ShowChoices(choices);
+    }
+
+    private void StopTextReveal()
+    {
+        if (textRevealRoutine != null)
+            StopCoroutine(textRevealRoutine);
+
+        textRevealRoutine = null;
+        pendingChoices = null;
+        revealingText = false;
     }
 
     private void ShowChoices(IReadOnlyList<DialogueChoice> choices)

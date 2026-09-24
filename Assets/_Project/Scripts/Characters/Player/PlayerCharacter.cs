@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerCharacter : Character
@@ -52,6 +53,12 @@ public class PlayerCharacter : Character
         currentActionPoints = playerData.startActionPoints;
 
         ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitForEndOfFrame();
+        ExplorationPlayerSession.TryCreateInitialSave(this);
     }
 
     public bool SpendActionPoints(int amount)

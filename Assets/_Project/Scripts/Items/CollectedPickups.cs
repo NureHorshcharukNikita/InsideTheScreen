@@ -11,7 +11,6 @@ public static class CollectedPickups
             return;
 
         collectedIds.Add(pickupId);
-        ExplorationPlayerSession.SavePersistent();
     }
 
     public static bool IsCollected(string pickupId)
@@ -22,7 +21,6 @@ public static class CollectedPickups
     public static void Clear()
     {
         collectedIds.Clear();
-        ExplorationPlayerSession.SavePersistent();
     }
 
     public static string[] ToArray()

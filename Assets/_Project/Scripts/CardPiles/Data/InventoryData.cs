@@ -29,7 +29,6 @@ public class InventoryData : ScriptableObject
         for (int i = 0; i < count; i++)
             cards.Add(card);
 
-        ExplorationPlayerSession.SavePersistent();
         return count;
     }
 
@@ -47,16 +46,12 @@ public class InventoryData : ScriptableObject
         while (removed < count && cards.Remove(card))
             removed++;
 
-        if (removed > 0)
-            ExplorationPlayerSession.SavePersistent();
-
         return removed;
     }
 
     public void Clear()
     {
         cards.Clear();
-        ExplorationPlayerSession.SavePersistent();
     }
 
     public void ReplaceCards(IEnumerable<CardData> newCards)

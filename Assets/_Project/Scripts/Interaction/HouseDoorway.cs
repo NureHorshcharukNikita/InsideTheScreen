@@ -22,6 +22,14 @@ public sealed class HouseDoorway : MonoBehaviour
 
     private void Awake()
     {
+        if (promptRoot != null)
+        {
+            if (promptCanvasGroup == null)
+                promptCanvasGroup = promptRoot.GetComponent<CanvasGroup>();
+            if (promptText == null)
+                promptText = promptRoot.GetComponentInChildren<TMP_Text>(true);
+        }
+
         if (promptRoot == null || promptCanvasGroup == null || promptText == null)
             Debug.LogWarning($"House doorway {name} has incomplete prompt references.", this);
 

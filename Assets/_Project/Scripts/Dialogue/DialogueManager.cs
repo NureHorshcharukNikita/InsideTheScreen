@@ -19,6 +19,7 @@ public sealed class DialogueManager : MonoBehaviour
     }
 
     private readonly List<DialogueLine> activeLines = new();
+    private readonly List<DialogueAction> deferredQuestActions = new();
     private NpcCharacter activeNpc;
     private NpcDialogueEntry activeDialogueEntry;
     private string activeNpcKey;
@@ -73,12 +74,6 @@ public sealed class DialogueManager : MonoBehaviour
             instance = null;
     }
 
-    private void Update()
-    {
-        if (dialogueActive && Input.GetKeyDown(KeyCode.Space))
-            Continue();
-    }
-
     public bool StartDialogue(NpcCharacter npc)
     {
         if (npc == null || !npc.CanTalk)
@@ -93,6 +88,7 @@ public sealed class DialogueManager : MonoBehaviour
         }
 
         activeLines.Clear();
+        deferredQuestActions.Clear();
         DialogueData dialogue = npc.SelectDialogue(out NpcDialogueEntry selectedEntry);
         AddDialogueDataLines(dialogue);
 
@@ -114,6 +110,9 @@ public sealed class DialogueManager : MonoBehaviour
     public void Continue()
     {
         if (!dialogueActive)
+            return;
+
+        if (view != null && view.TryCompleteTextReveal())
             return;
 
         if (CurrentLineHasChoices())
@@ -196,10 +195,12 @@ public sealed class DialogueManager : MonoBehaviour
         if (activeNpc != null)
             activeNpc.EndInteraction();
 
+        GameStateManager.SetState(previousState);
+        ExecuteDeferredQuestActions();
+
         activeNpc = null;
         activeDialogueEntry = null;
         activeNpcKey = null;
-        GameStateManager.SetState(previousState);
     }
 
     private void ShowCurrentLine()
@@ -225,13 +226,44 @@ public sealed class DialogueManager : MonoBehaviour
             GetValidChoices(line));
     }
 
-    private static void ExecuteActions(IReadOnlyList<DialogueAction> actions, NpcCharacter npc, PlayerCharacter player)
+    private void ExecuteActions(IReadOnlyList<DialogueAction> actions, NpcCharacter npc, PlayerCharacter player)
     {
         if (actions == null)
             return;
 
         for (int i = 0; i < actions.Count; i++)
-            actions[i]?.Execute(npc, player);
+        {
+            DialogueAction action = actions[i];
+            if (action == null)
+                continue;
+
+            if (IsQuestAction(action.type))
+            {
+                deferredQuestActions.Add(action);
+                continue;
+            }
+
+            action.Execute(npc, player);
+        }
+    }
+
+    private void ExecuteDeferredQuestActions()
+    {
+        if (deferredQuestActions.Count == 0)
+            return;
+
+        DialogueAction[] actions = deferredQuestActions.ToArray();
+        deferredQuestActions.Clear();
+
+        for (int i = 0; i < actions.Length; i++)
+            actions[i]?.Execute(activeNpc, activePlayer);
+    }
+
+    private static bool IsQuestAction(DialogueActionType type)
+    {
+        return type == DialogueActionType.StartQuest
+            || type == DialogueActionType.CompleteQuest
+            || type == DialogueActionType.FailQuest;
     }
 
     private bool CurrentLineHasChoices()

@@ -11,6 +11,7 @@ public static class ExplorationPlayerSession
     private static DeckData runtimeDeck;
     private static readonly Dictionary<string, Vector3> npcPositions = new();
     private static bool persistentLoaded;
+    private static bool initialSavePending;
     private static SessionSaveData loadedPersistentData = null;
 
     public static bool HasSession { get; private set; }
@@ -22,7 +23,6 @@ public static class ExplorationPlayerSession
         savedPosition = position;
         hasSavedPosition = true;
         HasSession = true;
-        SavePersistent();
     }
 
     public static bool TryGetSavedPosition(out Vector3 position)
@@ -36,7 +36,6 @@ public static class ExplorationPlayerSession
         savedHealth = health;
         hasSavedHealth = true;
         HasSession = true;
-        SavePersistent();
     }
 
     public static bool TryGetSavedHealth(out int health)
@@ -57,7 +56,6 @@ public static class ExplorationPlayerSession
         }
 
         HasSession = true;
-        SavePersistent();
         return runtimeInventory;
     }
 
@@ -73,7 +71,6 @@ public static class ExplorationPlayerSession
         }
 
         HasSession = true;
-        SavePersistent();
         return runtimeDeck;
     }
 
@@ -88,8 +85,18 @@ public static class ExplorationPlayerSession
         hasSavedHealth = true;
         HasSession = true;
         ContinueSceneName = SceneNames.Exploration;
-        SavePersistent();
+        PersistCurrentSession();
         PersistentSessionSave.CaptureActiveSlotPreview();
+    }
+
+    public static bool TryCreateInitialSave(PlayerCharacter player)
+    {
+        if (!initialSavePending || player == null)
+            return false;
+
+        initialSavePending = false;
+        SavePlayer(player);
+        return true;
     }
 
     public static void SaveBattle(PlayerCharacter player)
@@ -99,18 +106,22 @@ public static class ExplorationPlayerSession
 
         HasSession = true;
         ContinueSceneName = SceneNames.Battle;
-        SavePersistent();
+        PersistCurrentSession();
         PersistentSessionSave.CaptureActiveSlotPreview();
     }
 
     public static void SaveBattle(PlayerCharacter player, EnemyCharacter enemy)
     {
-        SaveBattle(player);
+        if (player != null)
+            SaveHealth(player.CurrentHealth);
 
         if (enemy != null)
             PendingBattleEnemy.SaveCurrentEnemyHealth(enemy.CurrentHealth);
 
-        SavePersistent();
+        HasSession = true;
+        ContinueSceneName = SceneNames.Battle;
+        PersistCurrentSession();
+        PersistentSessionSave.CaptureActiveSlotPreview();
     }
 
     public static void SetContinueScene(string sceneName)
@@ -120,37 +131,31 @@ public static class ExplorationPlayerSession
 
         HasSession = true;
         ContinueSceneName = sceneName;
-        SavePersistent();
     }
 
     public static void SaveQuestProgress()
     {
         HasSession = true;
-        SavePersistent();
     }
 
     public static void SaveDialogueProgress()
     {
         HasSession = true;
-        SavePersistent();
     }
 
     public static void SaveStoryFlags()
     {
         HasSession = true;
-        SavePersistent();
     }
 
     public static void SaveWallet()
     {
         HasSession = true;
-        SavePersistent();
     }
 
     public static void SaveShopProgress()
     {
         HasSession = true;
-        SavePersistent();
     }
 
     public static bool TryGetNpcPosition(string npcKey, out Vector3 position)
@@ -171,7 +176,6 @@ public static class ExplorationPlayerSession
 
         npcPositions[npcKey] = position;
         HasSession = true;
-        SavePersistent();
     }
 
     public static void LoadPersistentSaveIfNeeded()
@@ -188,7 +192,7 @@ public static class ExplorationPlayerSession
         RestoreFrom(data);
     }
 
-    public static void SavePersistent()
+    private static void PersistCurrentSession()
     {
         if (!HasSession)
             return;
@@ -205,6 +209,7 @@ public static class ExplorationPlayerSession
     {
         PersistentSessionSave.SetActiveSlot(slotIndex);
         Clear();
+        initialSavePending = true;
     }
 
     public static bool LoadPersistentSlot(int slotIndex)
@@ -236,6 +241,7 @@ public static class ExplorationPlayerSession
         runtimeInventory = null;
         runtimeDeck = null;
         npcPositions.Clear();
+        initialSavePending = false;
         loadedPersistentData = null;
         HasSession = false;
         ContinueSceneName = SceneNames.Exploration;
