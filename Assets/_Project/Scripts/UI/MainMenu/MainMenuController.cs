@@ -35,6 +35,9 @@ public sealed class MainMenuController : MonoBehaviour
     {
         ExplorationPlayerSession.LoadPersistentSaveIfNeeded();
         GameStateManager.SetState(GameState.Gameplay);
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.StopAmbience();
+
         CacheMenuVideoPlayer();
         ApplyMenuVideoVolume();
 

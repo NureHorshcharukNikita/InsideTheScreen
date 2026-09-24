@@ -12,6 +12,8 @@ public sealed class MainMenuSaveSlotsPanel : MonoBehaviour
     [SerializeField] private Image modeIcon;
     [SerializeField] private Sprite newGameIcon;
     [SerializeField] private Sprite continueIcon;
+    [SerializeField] private float newGameIconPositionX = -180f;
+    [SerializeField] private float continueIconPositionX = -160f;
     [SerializeField] private Sprite backPanelSprite;
     [SerializeField] private Sprite backPanelLightedSprite;
     [SerializeField] private Sprite savePanelSprite;
@@ -109,7 +111,13 @@ public sealed class MainMenuSaveSlotsPanel : MonoBehaviour
             titleText.text = isNewGame ? "Select Slot" : "Continue";
 
         if (modeIcon != null)
+        {
             modeIcon.sprite = isNewGame ? newGameIcon : continueIcon;
+            RectTransform iconTransform = modeIcon.rectTransform;
+            Vector2 iconPosition = iconTransform.anchoredPosition;
+            iconPosition.x = isNewGame ? newGameIconPositionX : continueIconPositionX;
+            iconTransform.anchoredPosition = iconPosition;
+        }
 
         if (rows == null)
             return;

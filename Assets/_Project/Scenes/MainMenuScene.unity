@@ -1434,6 +1434,8 @@ MonoBehaviour:
   modeIcon: {fileID: 1945925572}
   newGameIcon: {fileID: 21300000, guid: 8975874fc581b094aacc74b77b03f8e3, type: 3}
   continueIcon: {fileID: 21300000, guid: 4aa6cc2a618c4a74eaf7526f39c9e4f0, type: 3}
+  newGameIconPositionX: -180
+  continueIconPositionX: -160
   backPanelSprite: {fileID: 21300000, guid: 4a97383fca5bc3b4b8064f2d3b569c86, type: 3}
   backPanelLightedSprite: {fileID: 21300000, guid: fc7a376d8888f8c47bea956f38989cb2, type: 3}
   savePanelSprite: {fileID: 21300000, guid: 6d141784ffaf5b1428c041fc2ba7f460, type: 3}
