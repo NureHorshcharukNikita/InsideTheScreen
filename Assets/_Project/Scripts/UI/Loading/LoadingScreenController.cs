@@ -8,6 +8,7 @@ public sealed class LoadingScreenController : MonoBehaviour
 {
     [SerializeField] private Image progressFill;
     [SerializeField] private RectTransform progressFillRect;
+    [SerializeField] private TMP_Text progressText;
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text tipText;
     [SerializeField] private RectTransform spinner;
@@ -29,6 +30,7 @@ public sealed class LoadingScreenController : MonoBehaviour
         if (progressFillRect == null && progressFill != null)
             progressFillRect = progressFill.rectTransform;
 
+        EnsureProgressText();
         SetProgress(0f);
         ShowNextTip();
     }
@@ -100,7 +102,9 @@ public sealed class LoadingScreenController : MonoBehaviour
     {
         progress = Mathf.Clamp01(progress);
 
-        if (progressFillRect != null)
+        if (progressFill != null)
+            progressFill.fillAmount = progress;
+        else if (progressFillRect != null)
         {
             Vector2 anchorMax = progressFillRect.anchorMax;
             anchorMax.x = progress;
@@ -109,8 +113,40 @@ public sealed class LoadingScreenController : MonoBehaviour
             progressFillRect.offsetMax = Vector2.zero;
         }
 
-        if (progressFill != null)
-            progressFill.fillAmount = progressFillRect != null ? 1f : progress;
+        if (progressText != null)
+            progressText.text = $"{Mathf.RoundToInt(progress * 100f)}%";
+    }
+
+    private void EnsureProgressText()
+    {
+        if (progressText != null)
+            return;
+
+        Transform textParent = progressFillRect != null && progressFillRect.parent != null
+            ? progressFillRect.parent.parent
+            : transform;
+        RectTransform rect = new GameObject("ProgressPercentText", typeof(RectTransform))
+            .GetComponent<RectTransform>();
+        rect.SetParent(textParent, false);
+        rect.anchorMin = new Vector2(0.5f, 0f);
+        rect.anchorMax = new Vector2(0.5f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        rect.anchoredPosition = new Vector2(470f, 44f);
+        rect.sizeDelta = new Vector2(100f, 60f);
+
+        progressText = rect.gameObject.AddComponent<TextMeshProUGUI>();
+        if (titleText != null)
+        {
+            progressText.font = titleText.font;
+            progressText.fontSharedMaterial = titleText.fontSharedMaterial;
+        }
+
+        progressText.fontSize = 32f;
+        progressText.fontStyle = FontStyles.Bold;
+        progressText.color = Color.white;
+        progressText.alignment = TextAlignmentOptions.Center;
+        progressText.textWrappingMode = TextWrappingModes.NoWrap;
+        progressText.raycastTarget = false;
     }
 
     private IEnumerator Fade(float from, float to)
