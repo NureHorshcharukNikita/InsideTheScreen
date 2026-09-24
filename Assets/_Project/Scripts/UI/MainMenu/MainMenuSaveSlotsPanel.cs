@@ -125,6 +125,10 @@ public sealed class MainMenuSaveSlotsPanel : MonoBehaviour
                 backPanelSprite,
                 backPanelLightedSprite,
                 isNewGame ? savePanelSprite : loadPanelSprite);
+
+            if (occupied && PersistentSessionSave.TryLoadPreview(i, out Texture2D preview))
+                rows[i].SetPreview(preview);
+
             rows[i].SetInteractable(isNewGame || occupied);
         }
     }

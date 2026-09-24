@@ -89,6 +89,7 @@ public static class ExplorationPlayerSession
         HasSession = true;
         ContinueSceneName = SceneNames.Exploration;
         SavePersistent();
+        PersistentSessionSave.CaptureActiveSlotPreview();
     }
 
     public static void SaveBattle(PlayerCharacter player)
@@ -99,6 +100,7 @@ public static class ExplorationPlayerSession
         HasSession = true;
         ContinueSceneName = SceneNames.Battle;
         SavePersistent();
+        PersistentSessionSave.CaptureActiveSlotPreview();
     }
 
     public static void SaveBattle(PlayerCharacter player, EnemyCharacter enemy)

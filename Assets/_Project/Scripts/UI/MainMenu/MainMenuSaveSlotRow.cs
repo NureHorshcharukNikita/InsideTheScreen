@@ -16,6 +16,8 @@ public sealed class MainMenuSaveSlotRow : MonoBehaviour,
     [SerializeField, Range(0f, 1f)] private float disabledPanelAlpha = 0.78f;
 
     private bool isSelected;
+    private Texture2D previewTexture;
+    private Sprite previewSprite;
 
     public Button Button => button;
 
@@ -55,10 +57,37 @@ public sealed class MainMenuSaveSlotRow : MonoBehaviour,
         button.image.overrideSprite = null;
         button.image.sprite = backgroundSprite;
 
+        ReleasePreview();
         if (modePanel != null)
+        {
+            modePanel.preserveAspect = false;
             modePanel.sprite = modeSprite;
+        }
 
         ApplyPanelAlpha(false);
+    }
+
+    public void SetPreview(Texture2D texture)
+    {
+        if (texture == null)
+            return;
+
+        if (modePanel == null)
+        {
+            Destroy(texture);
+            return;
+        }
+
+        previewTexture = texture;
+        previewTexture.wrapMode = TextureWrapMode.Clamp;
+        previewTexture.filterMode = FilterMode.Bilinear;
+        previewSprite = Sprite.Create(
+            previewTexture,
+            new Rect(0f, 0f, previewTexture.width, previewTexture.height),
+            new Vector2(0.5f, 0.5f),
+            100f);
+        modePanel.sprite = previewSprite;
+        modePanel.preserveAspect = true;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -90,6 +119,11 @@ public sealed class MainMenuSaveSlotRow : MonoBehaviour,
         ApplyPanelAlpha(false);
     }
 
+    private void OnDestroy()
+    {
+        ReleasePreview();
+    }
+
     private void ApplyPanelAlpha(bool highlighted)
     {
         if (button == null || button.image == null)
@@ -106,5 +140,16 @@ public sealed class MainMenuSaveSlotRow : MonoBehaviour,
             disabledPanelBrightness,
             disabledPanelBrightness,
             disabledPanelAlpha);
+    }
+
+    private void ReleasePreview()
+    {
+        if (previewSprite != null)
+            Destroy(previewSprite);
+        if (previewTexture != null)
+            Destroy(previewTexture);
+
+        previewSprite = null;
+        previewTexture = null;
     }
 }
