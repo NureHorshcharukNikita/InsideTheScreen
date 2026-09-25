@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: d39d556b49598cc43aa84462d5a216fc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4158790081240655002
+    second: AnswerBackPanel_0
+  - first:
+      213: 7692345050551026433
+    second: AnswerBackPanel_1
+  - first:
+      213: -5594130094075407399
+    second: AnswerBackPanel_2
+  - first:
+      213: -8758171839701547413
+    second: AnswerBackPanel_3
+  - first:
+      213: 699673082398791108
+    second: AnswerBackPanel_4
+  - first:
+      213: 9034591832375387255
+    second: AnswerBackPanel_5
+  - first:
+      213: -7042316926438291279
+    second: AnswerBackPanel_6
+  - first:
+      213: -7200183943786802489
+    second: AnswerBackPanel_7
+  - first:
+      213: -566539174182832185
+    second: AnswerBackPanel_8
+  - first:
+      213: 2154540392748314232
+    second: AnswerBackPanel_9
+  - first:
+      213: 2674967187757568697
+    second: AnswerBackPanel_10
+  - first:
+      213: -3987359112610370105
+    second: AnswerBackPanel_11
+  - first:
+      213: 5696220034116127809
+    second: AnswerBackPanel_12
+  - first:
+      213: -6146277753200577373
+    second: AnswerBackPanel_13
+  - first:
+      213: 1336345407691999430
+    second: AnswerBackPanel_14
+  - first:
+      213: -4892635675445276264
+    second: AnswerBackPanel_15
+  - first:
+      213: 1603245281339505220
+    second: AnswerBackPanel_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AnswerBackPanel_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 15
+        width: 2121
+        height: 701
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66b9b3094720946c0800000000000000
+      internalID: -4158790081240655002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_1
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 618
+        width: 84
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10304d35113b0ca60800000000000000
+      internalID: 7692345050551026433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_2
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 610
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d310538158ad52b0800000000000000
+      internalID: -5594130094075407399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_3
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 618
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6682c45d19b47680800000000000000
+      internalID: -8758171839701547413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_4
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 610
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c5584f16fcb5b900800000000000000
+      internalID: 699673082398791108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_5
+      rect:
+        serializedVersion: 2
+        x: 1679
+        y: 608
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 774616b7761516d70800000000000000
+      internalID: 9034591832375387255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_6
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 588
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b8cce3311aa44e90800000000000000
+      internalID: -7042316926438291279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_7
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 592
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c2dd11f9dec31c90800000000000000
+      internalID: -7200183943786802489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_8
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 47
+        width: 24
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c73d7b6f9f3328f0800000000000000
+      internalID: -566539174182832185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_9
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 61
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87e6efb621776ed10800000000000000
+      internalID: 2154540392748314232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_10
+      rect:
+        serializedVersion: 2
+        x: 988
+        y: 55
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b29d141c746f1520800000000000000
+      internalID: 2674967187757568697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_11
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 39
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cd21f4530e0aa8c0800000000000000
+      internalID: -3987359112610370105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_12
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 19
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14c84ffe0f90d0f40800000000000000
+      internalID: 5696220034116127809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_13
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 18
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a4f795a2f804baa0800000000000000
+      internalID: -6146277753200577373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_14
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 23
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c8c4ba6117ab8210800000000000000
+      internalID: 1336345407691999430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_15
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 17
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8915ea586cdd91cb0800000000000000
+      internalID: -4892635675445276264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AnswerBackPanel_16
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 21
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44aff0ac61fdf3610800000000000000
+      internalID: 1603245281339505220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      AnswerBackPanel_0: -4158790081240655002
+      AnswerBackPanel_1: 7692345050551026433
+      AnswerBackPanel_10: 2674967187757568697
+      AnswerBackPanel_11: -3987359112610370105
+      AnswerBackPanel_12: 5696220034116127809
+      AnswerBackPanel_13: -6146277753200577373
+      AnswerBackPanel_14: 1336345407691999430
+      AnswerBackPanel_15: -4892635675445276264
+      AnswerBackPanel_16: 1603245281339505220
+      AnswerBackPanel_2: -5594130094075407399
+      AnswerBackPanel_3: -8758171839701547413
+      AnswerBackPanel_4: 699673082398791108
+      AnswerBackPanel_5: 9034591832375387255
+      AnswerBackPanel_6: -7042316926438291279
+      AnswerBackPanel_7: -7200183943786802489
+      AnswerBackPanel_8: -566539174182832185
+      AnswerBackPanel_9: 2154540392748314232
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

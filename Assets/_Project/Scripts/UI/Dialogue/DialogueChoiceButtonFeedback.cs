@@ -6,19 +6,18 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public sealed class DialogueChoiceButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
-    private static readonly Color NormalBackground = new(0.08f, 0.045f, 0.04f, 0.96f);
-    private static readonly Color HighlightedBackground = new(0.19f, 0.115f, 0.075f, 1f);
-    private static readonly Color NormalOutline = new(0.73f, 0.56f, 0.42f, 0.9f);
-    private static readonly Color HighlightedOutline = new(0.94f, 0.68f, 0.34f, 1f);
     private static readonly Color NormalText = new(0.94f, 0.88f, 0.80f, 1f);
     private static readonly Color HighlightedText = new(1f, 0.91f, 0.68f, 1f);
+    private const float ChoiceTextLeftPadding = 58f;
 
     [SerializeField] private TMP_Text label;
     [SerializeField] private Image background;
     [SerializeField] private Outline outline;
+    [SerializeField] private Image selectionIndicator;
+    [SerializeField] private Sprite normalBackgroundSprite;
+    [SerializeField] private Sprite highlightedBackgroundSprite;
 
     private string normalText = string.Empty;
-    private string hoverPrefix = "> ";
 
     private void Awake()
     {
@@ -32,14 +31,14 @@ public sealed class DialogueChoiceButtonFeedback : MonoBehaviour, IPointerEnterH
         SetHighlighted(false);
     }
 
-    public void Configure(TMP_Text textLabel, string text, string prefix)
+    public void Configure(TMP_Text textLabel, string text)
     {
         ResolveReferences();
         if (textLabel != null)
             label = textLabel;
 
         normalText = text ?? string.Empty;
-        hoverPrefix = string.IsNullOrEmpty(prefix) ? "> " : prefix;
+        ConfigureLabelLayout();
         SetHighlighted(false);
     }
 
@@ -77,14 +76,37 @@ public sealed class DialogueChoiceButtonFeedback : MonoBehaviour, IPointerEnterH
     {
         if (label != null)
         {
-            label.text = highlighted ? hoverPrefix + normalText : normalText;
+            label.text = normalText;
             label.color = highlighted ? HighlightedText : NormalText;
         }
 
         if (background != null)
-            background.color = highlighted ? HighlightedBackground : NormalBackground;
+        {
+            Sprite sprite = highlighted ? highlightedBackgroundSprite : normalBackgroundSprite;
+            if (sprite != null)
+                background.sprite = sprite;
+            background.color = Color.white;
+        }
 
         if (outline != null)
-            outline.effectColor = highlighted ? HighlightedOutline : NormalOutline;
+            outline.enabled = false;
+
+        if (selectionIndicator != null)
+            selectionIndicator.gameObject.SetActive(highlighted);
     }
+
+    private void ConfigureLabelLayout()
+    {
+        if (label == null)
+            return;
+
+        RectTransform rect = label.rectTransform;
+        Vector2 offsetMin = rect.offsetMin;
+        Vector2 offsetMax = rect.offsetMax;
+        offsetMin.x = ChoiceTextLeftPadding;
+        offsetMax.x = -24f;
+        rect.offsetMin = offsetMin;
+        rect.offsetMax = offsetMax;
+    }
+
 }

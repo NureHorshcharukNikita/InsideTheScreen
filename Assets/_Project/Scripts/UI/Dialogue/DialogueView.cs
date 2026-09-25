@@ -28,7 +28,8 @@ public sealed class DialogueView : MonoBehaviour
 
     [Header("Input")]
     [SerializeField] private Button continueButton;
-    [SerializeField] private GameObject continueIndicator;
+    [SerializeField] private Image continueIcon;
+    [SerializeField] private RawImage skipTypingIcon;
 
     [Header("Choices")]
     [SerializeField] private RectTransform choicesRoot;
@@ -41,14 +42,13 @@ public sealed class DialogueView : MonoBehaviour
     private const float DefaultChoiceHorizontalPadding = 44f;
     private const float MinChoiceWidth = 260f;
     private const float MaxChoiceWidth = 860f;
-    private const string ChoiceHoverPrefix = "> ";
-
     private readonly List<Button> choiceButtons = new();
     private Vector2 dialogueTextDefaultOffsetMin;
     private IReadOnlyList<DialogueChoice> pendingChoices;
     private Coroutine textRevealRoutine;
     private Sprite lastLeftPortrait;
     private Sprite lastRightPortrait;
+    private int revealStartedFrame = -1;
     private bool visible;
     private bool showingChoices;
     private bool revealingText;
@@ -57,6 +57,7 @@ public sealed class DialogueView : MonoBehaviour
     {
         WireButton();
         CacheDialogueTextLayout();
+        SetContinueIcon(false);
 
         if (!visible)
             Hide();
@@ -80,6 +81,9 @@ public sealed class DialogueView : MonoBehaviour
             SelectChoiceFromKeyboard();
             return;
         }
+
+        if (revealingText && Time.frameCount == revealStartedFrame)
+            return;
 
         if (GameInputSettings.GetKeyDown(GameInputAction.Interact) || Input.GetKeyDown(KeyCode.Space))
             RequestContinue();
@@ -251,10 +255,10 @@ public sealed class DialogueView : MonoBehaviour
         }
 
         revealingText = true;
+        revealStartedFrame = Time.frameCount;
         if (continueButton != null)
             continueButton.gameObject.SetActive(true);
-        if (continueIndicator != null)
-            continueIndicator.SetActive(false);
+        SetContinueIcon(true);
 
         textRevealRoutine = StartCoroutine(RevealText());
     }
@@ -301,6 +305,7 @@ public sealed class DialogueView : MonoBehaviour
         textRevealRoutine = null;
         pendingChoices = null;
         revealingText = false;
+        revealStartedFrame = -1;
     }
 
     private void ShowChoices(IReadOnlyList<DialogueChoice> choices)
@@ -309,10 +314,9 @@ public sealed class DialogueView : MonoBehaviour
 
         bool hasChoices = choices != null && choices.Count > 0;
         showingChoices = hasChoices;
+        SetContinueIcon(false);
         if (continueButton != null)
             continueButton.gameObject.SetActive(!showingChoices);
-        if (continueIndicator != null)
-            continueIndicator.SetActive(!showingChoices);
 
         if (!hasChoices)
         {
@@ -380,9 +384,8 @@ public sealed class DialogueView : MonoBehaviour
         }
 
         DialogueChoiceButtonFeedback feedback = button.GetComponent<DialogueChoiceButtonFeedback>();
-        if (feedback == null)
-            feedback = button.gameObject.AddComponent<DialogueChoiceButtonFeedback>();
-        feedback.Configure(label, choice.text, ChoiceHoverPrefix);
+        if (feedback != null)
+            feedback.Configure(label, choice.text);
 
         choiceButtons.Add(button);
     }
@@ -436,7 +439,7 @@ public sealed class DialogueView : MonoBehaviour
             if (label == null || string.IsNullOrWhiteSpace(label.text))
                 continue;
 
-            float textWidth = label.GetPreferredValues(ChoiceHoverPrefix + label.text).x;
+            float textWidth = label.GetPreferredValues(label.text).x;
             if (textWidth > maxTextWidth)
                 widestLabel = label;
             maxTextWidth = Mathf.Max(maxTextWidth, textWidth);
@@ -453,6 +456,17 @@ public sealed class DialogueView : MonoBehaviour
         RectTransform textRect = label.rectTransform;
         float padding = textRect.offsetMin.x - textRect.offsetMax.x;
         return padding > 0f ? padding : DefaultChoiceHorizontalPadding;
+    }
+
+    private void SetContinueIcon(bool typing)
+    {
+        if (continueIcon == null)
+            return;
+
+        continueIcon.enabled = !typing || skipTypingIcon == null;
+
+        if (skipTypingIcon != null)
+            skipTypingIcon.gameObject.SetActive(typing);
     }
 
     private void SelectChoiceFromKeyboard()
@@ -498,14 +512,14 @@ public sealed class DialogueView : MonoBehaviour
             speakerNamePlate.anchorMin = new Vector2(1f, 1f);
             speakerNamePlate.anchorMax = new Vector2(1f, 1f);
             speakerNamePlate.pivot = new Vector2(1f, 0.5f);
-            speakerNamePlate.anchoredPosition = new Vector2(-72f, -36f);
+            speakerNamePlate.anchoredPosition = new Vector2(-72f, -12f);
         }
         else
         {
             speakerNamePlate.anchorMin = new Vector2(0f, 1f);
             speakerNamePlate.anchorMax = new Vector2(0f, 1f);
             speakerNamePlate.pivot = new Vector2(0f, 0.5f);
-            speakerNamePlate.anchoredPosition = new Vector2(72f, -36f);
+            speakerNamePlate.anchoredPosition = new Vector2(72f, -12f);
         }
 
         speakerNamePlate.sizeDelta = new Vector2(360f, 72f);
