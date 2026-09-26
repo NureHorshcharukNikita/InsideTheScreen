@@ -9,6 +9,10 @@ public class CategoryButton : MonoBehaviour
     [SerializeField] private TMP_Text label;
     [SerializeField] private Image backgroundImage;
 
+    [Header("Backgrounds")]
+    [SerializeField] private Sprite normalBackgroundSprite;
+    [SerializeField] private Sprite selectedBackgroundSprite;
+
     [Header("Colors")]
     [SerializeField] private Color normalBackgroundColor = new Color32(0xE6, 0xD9, 0xC7, 0xFF);
     [SerializeField] private Color selectedBackgroundColor = new Color32(0x40, 0x66, 0x86, 0xFF);
@@ -32,7 +36,13 @@ public class CategoryButton : MonoBehaviour
     public void SetSelected(bool selected)
     {
         if (backgroundImage != null)
+        {
+            Sprite sprite = selected ? selectedBackgroundSprite : normalBackgroundSprite;
+            if (sprite != null)
+                backgroundImage.sprite = sprite;
+
             backgroundImage.color = selected ? selectedBackgroundColor : normalBackgroundColor;
+        }
 
         if (label != null)
             label.color = selected ? selectedTextColor : normalTextColor;

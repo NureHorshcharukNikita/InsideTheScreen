@@ -1,0 +1,421 @@
+fileFormatVersion: 2
+guid: 6a1e54daa508c254a8ff242231063a50
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 756239217952020608
+    second: CategoryIcons_0
+  - first:
+      213: 3840250402703157857
+    second: CategoryIcons_1
+  - first:
+      213: -3830408875480882456
+    second: CategoryIcons_2
+  - first:
+      213: 2840434215822381419
+    second: CategoryIcons_3
+  - first:
+      213: 1483329706877172796
+    second: CategoryIcons_4
+  - first:
+      213: 7358924250798338397
+    second: CategoryIcons_5
+  - first:
+      213: 1992549108017088590
+    second: CategoryIcons_6
+  - first:
+      213: 1850633002960998927
+    second: CategoryIcons_7
+  - first:
+      213: 5134313205918620032
+    second: CategoryIcons_8
+  - first:
+      213: -1730710450451105710
+    second: CategoryIcons_9
+  - first:
+      213: 6156487946317061824
+    second: CategoryIcons_10
+  - first:
+      213: -3261738485369255825
+    second: CategoryIcons_11
+  - first:
+      213: -7146285809020216556
+    second: CategoryIcons_12
+  - first:
+      213: 4839147850926872905
+    second: CategoryIcons_13
+  - first:
+      213: -1459275345674788544
+    second: CategoryIcons_14
+  - first:
+      213: -8417557737406732953
+    second: CategoryIcons_15
+  - first:
+      213: 8967406596759397496
+    second: CategoryIcons_16
+  - first:
+      213: -7823410110435735559
+    second: CategoryIcons_17
+  - first:
+      213: -2935264186767717143
+    second: CategoryIcons_18
+  - first:
+      213: 6435497797142825024
+    second: CategoryIcons_19
+  - first:
+      213: 6894706459114051154
+    second: CategoryIcons_20
+  - first:
+      213: -2763090267534724150
+    second: CategoryIcons_21
+  - first:
+      213: -7017408483980368778
+    second: CategoryIcons_22
+  - first:
+      213: -8632754341291434696
+    second: CategoryIcons_23
+  - first:
+      213: 7980290006288244113
+    second: CategoryIcons_24
+  - first:
+      213: -861313035973630391
+    second: CategoryIcons_25
+  - first:
+      213: -877674539830417672
+    second: CategoryIcons_26
+  - first:
+      213: -8042564198825804843
+    second: CategoryIcons_27
+  - first:
+      213: 6261055061613085702
+    second: CategoryIcons_28
+  - first:
+      213: -3429070733068763183
+    second: CategoryIcons_29
+  - first:
+      213: -7991442211843084545
+    second: CategoryIcons_30
+  - first:
+      213: 6731300256573140415
+    second: CategoryIcons_31
+  - first:
+      213: 8938880148589394416
+    second: CategoryIcons_32
+  - first:
+      213: 4213256491024107593
+    second: CategoryIcons_33
+  - first:
+      213: -4341787924096183231
+    second: CategoryIcons_34
+  - first:
+      213: -5174711032437528178
+    second: CategoryIcons_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CategoryIcons_0
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 494
+        width: 274
+        height: 264
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 088df3fdf83be7a00800000000000000
+      internalID: 756239217952020608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CategoryIcons_1
+      rect:
+        serializedVersion: 2
+        x: 1401
+        y: 88
+        width: 291
+        height: 327
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16a2cad056f4b4530800000000000000
+      internalID: 3840250402703157857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CategoryIcons_8
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 488
+        width: 307
+        height: 302
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 089506478aeb04740800000000000000
+      internalID: 5134313205918620032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CategoryIcons_10
+      rect:
+        serializedVersion: 2
+        x: 941
+        y: 470
+        width: 328
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ced3303b2d307550800000000000000
+      internalID: 6156487946317061824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CategoryIcons_11
+      rect:
+        serializedVersion: 2
+        x: 1411
+        y: 465
+        width: 270
+        height: 315
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f684855012afbb2d0800000000000000
+      internalID: -3261738485369255825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CategoryIcons_12
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 87
+        width: 262
+        height: 328
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41b5fe95bea43dc90800000000000000
+      internalID: -7146285809020216556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CategoryIcons_14
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 87
+        width: 296
+        height: 323
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 041a19ffdcc9fbbe0800000000000000
+      internalID: -1459275345674788544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CategoryIcons_16
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 75
+        width: 256
+        height: 323
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 874a654d9c0a27c70800000000000000
+      internalID: 8967406596759397496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      CategoryIcons_0: 756239217952020608
+      CategoryIcons_1: 3840250402703157857
+      CategoryIcons_10: 6156487946317061824
+      CategoryIcons_11: -3261738485369255825
+      CategoryIcons_12: -7146285809020216556
+      CategoryIcons_13: 4839147850926872905
+      CategoryIcons_14: -1459275345674788544
+      CategoryIcons_15: -8417557737406732953
+      CategoryIcons_16: 8967406596759397496
+      CategoryIcons_17: -7823410110435735559
+      CategoryIcons_2: -3830408875480882456
+      CategoryIcons_3: 2840434215822381419
+      CategoryIcons_4: 1483329706877172796
+      CategoryIcons_5: 7358924250798338397
+      CategoryIcons_6: 1992549108017088590
+      CategoryIcons_7: 1850633002960998927
+      CategoryIcons_8: 5134313205918620032
+      CategoryIcons_9: -1730710450451105710
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -199,14 +199,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.90188676, g: 0.8526643, b: 0.78106797, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 41dd1a6d2129aef47ae89546f6afc036, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -238,9 +238,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.8792453, g: 0.8792453, b: 0.8792453, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78, g: 0.78, b: 0.78, a: 1}
+    m_PressedColor: {r: 0.62, g: 0.62, b: 0.62, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -275,9 +275,11 @@ MonoBehaviour:
   button: {fileID: 3282445061474305358}
   label: {fileID: 8441247464156354669}
   backgroundImage: {fileID: 8709203980850173055}
-  normalBackgroundColor: {r: 0.9019608, g: 0.8509804, b: 0.78039217, a: 1}
-  selectedBackgroundColor: {r: 0.2509804, g: 0.4, b: 0.5254902, a: 1}
-  normalTextColor: {r: 0, g: 0, b: 0, a: 1}
+  normalBackgroundSprite: {fileID: 21300000, guid: 41dd1a6d2129aef47ae89546f6afc036, type: 3}
+  selectedBackgroundSprite: {fileID: 21300000, guid: 521764ad4a7139243aa4c75174dcd5e3, type: 3}
+  normalBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  normalTextColor: {r: 0.96, g: 0.9, b: 0.82, a: 1}
   selectedTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &6107441103411812617
 MonoBehaviour:
@@ -295,7 +297,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 75
+  m_PreferredHeight: 82
   m_FlexibleWidth: -1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
