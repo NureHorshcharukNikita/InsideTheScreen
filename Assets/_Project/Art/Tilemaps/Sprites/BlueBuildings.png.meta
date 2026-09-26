@@ -145,10 +145,10 @@ TextureImporter:
       name: BlueBuildings_0
       rect:
         serializedVersion: 2
-        x: 264
-        y: 475
-        width: 272
-        height: 262
+        x: 266
+        y: 483
+        width: 273
+        height: 247
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,10 +167,10 @@ TextureImporter:
       name: BlueBuildings_2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 33
-        width: 1339
-        height: 401
+        x: 70
+        y: 482
+        width: 182
+        height: 222
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,6 +181,204 @@ TextureImporter:
       bones: []
       spriteID: fee4f86faac8faf48998bba78d1c2da2
       internalID: 3578708024821604343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_1
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 483
+        width: 315
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c65378e2d3f3f564b8595a54c44f303c
+      internalID: 5467338340264451982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_3
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 484
+        width: 175
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 478ef9e29558a95469382fe2f58b6509
+      internalID: -1123844708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_4
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 483
+        width: 296
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6c4d2aaa2a85774e97ade9a7e44eb80
+      internalID: -1590692519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_5
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 210
+        width: 149
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d174e92a53f0e04d9a870794858d6e9
+      internalID: -1482141458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_6
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 210
+        width: 281
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc2c4525f97176a4b93e293df573015e
+      internalID: 138107646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_7
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 210
+        width: 176
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2c1bfbf9dffaba4fad9893f27abbf64
+      internalID: -1522925183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_8
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 209
+        width: 253
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d79b51c61affcff48b0d9bf8cd1c0240
+      internalID: -1180640516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_9
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 216
+        width: 182
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6346323f597464408df6e35f5420435
+      internalID: -54239761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueBuildings_10
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 216
+        width: 242
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b0acfb468f8ade49820c40d192789b7
+      internalID: 1517259648
       vertices: []
       indices: 
       edges: []
@@ -203,7 +401,15 @@ TextureImporter:
     nameFileIdTable:
       BlueBuildings_0: -8397614819454703915
       BlueBuildings_1: 5467338340264451982
+      BlueBuildings_10: 1517259648
       BlueBuildings_2: 3578708024821604343
+      BlueBuildings_3: -1123844708
+      BlueBuildings_4: -1590692519
+      BlueBuildings_5: -1482141458
+      BlueBuildings_6: 138107646
+      BlueBuildings_7: -1522925183
+      BlueBuildings_8: -1180640516
+      BlueBuildings_9: -54239761
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
