@@ -27,6 +27,10 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private InventoryPreviewPanel inventoryPreviewPanel;
     [SerializeField] private InventoryCategoriesPanel categoriesPanel;
 
+    [Header("Inventory Search")]
+    [SerializeField] private Sprite searchBackgroundSprite;
+    [SerializeField] private Sprite searchIconSprite;
+
     [Header("Top Icons")]
     [SerializeField] private List<GameObject> topIconBorders = new();
     [SerializeField] private List<GameObject> pages = new();
@@ -75,6 +79,9 @@ public class InventoryWindow : MonoBehaviour
     private const float SaveToastHoldDuration = 1.25f;
 
     private InventoryScreenController inventoryScreenController;
+    private GameObject inventorySearchBar;
+    private TMP_InputField inventorySearchInput;
+    private TMP_Text inventorySearchPlaceholder;
     private Coroutine saveToastCoroutine;
     private TMP_Text confirmationTitleText;
     private PendingPauseAction pendingPauseAction;
@@ -94,6 +101,7 @@ public class InventoryWindow : MonoBehaviour
         EnsurePauseMenuReferences();
         EnsurePauseMenuRuntimeFallbacks();
         EnsureTransferQuantityPrompt();
+        EnsureInventorySearch();
 
         if (!TryInitializeInventory())
             Debug.LogError("PlayerCharacter is missing. InventoryWindow could not initialize.");
@@ -149,12 +157,15 @@ public class InventoryWindow : MonoBehaviour
         PlayerWallet.GoldChanged += HandleGoldChanged;
         RefreshGoldBalance();
 
+        EnsureInventorySearch();
+
         if (!TryInitializeInventory())
             return;
 
         if (playerHPText != null)
             playerHPText.SetTarget(player);
 
+        ResetInventorySearch();
         RebuildCategories();
 
         inventoryPreviewPanel.Clear();
@@ -191,6 +202,8 @@ public class InventoryWindow : MonoBehaviour
         inventoryScreenController.Refresh(
             inventoryCountText,
             deckCountText);
+
+        UpdateInventorySearchVisibility();
     }
 
     public void RebuildCategoriesAndRefresh()
@@ -361,6 +374,213 @@ public class InventoryWindow : MonoBehaviour
                 inventoryScreenController.SetCategory(category);
                 Refresh();
             });
+    }
+
+    private void EnsureInventorySearch()
+    {
+        if (inventoryCardsContent == null)
+            return;
+
+        ScrollRect cardsScroll = inventoryCardsContent.GetComponentInParent<ScrollRect>();
+        RectTransform cardsScrollRect = cardsScroll != null
+            ? cardsScroll.transform as RectTransform
+            : null;
+        RectTransform cardsScrollParent = cardsScrollRect != null
+            ? cardsScrollRect.parent as RectTransform
+            : null;
+
+        if (cardsScrollRect == null || cardsScrollParent == null)
+            return;
+
+        RectTransform cardsArea = cardsScrollParent.name == "InventoryCardsArea"
+            ? cardsScrollParent
+            : cardsScrollParent.Find("InventoryCardsArea") as RectTransform;
+        RectTransform searchRow = cardsArea != null
+            ? cardsArea.Find("InventorySearchBar") as RectTransform
+            : null;
+        RectTransform searchField = searchRow != null
+            ? searchRow.Find("SearchField") as RectTransform
+            : null;
+
+        if (cardsArea == null || searchRow == null || searchField == null)
+        {
+            Debug.LogError("Inventory search hierarchy is missing from InventoryWindow prefab.");
+            return;
+        }
+
+        inventorySearchBar = searchRow.gameObject;
+
+        Image searchBackground = searchField.GetComponent<Image>();
+        if (searchBackground == null)
+            searchBackground = searchField.gameObject.AddComponent<Image>();
+
+        searchBackground.sprite = searchBackgroundSprite;
+        searchBackground.type = Image.Type.Sliced;
+        searchBackground.preserveAspect = false;
+
+        Image searchIcon = searchField.Find("SearchIcon")?.GetComponent<Image>();
+        if (searchIcon != null)
+            searchIcon.sprite = searchIconSprite;
+
+        RectTransform textViewport = searchField.Find("Text Area") as RectTransform;
+        if (textViewport == null)
+            textViewport = CreateUIObject("Text Area", searchField);
+
+        textViewport.anchorMin = Vector2.zero;
+        textViewport.anchorMax = Vector2.one;
+        textViewport.offsetMin = new Vector2(80f, 8f);
+        textViewport.offsetMax = new Vector2(-18f, -8f);
+        if (textViewport.GetComponent<RectMask2D>() == null)
+            textViewport.gameObject.AddComponent<RectMask2D>();
+
+        TextMeshProUGUI inputText = textViewport.Find("Text")?.GetComponent<TextMeshProUGUI>();
+        if (inputText == null)
+            inputText = CreateSearchText("Text", textViewport, string.Empty, new Color(0.96f, 0.95f, 0.92f, 1f));
+
+        TextMeshProUGUI placeholder = textViewport.Find("Placeholder")?.GetComponent<TextMeshProUGUI>();
+        if (placeholder == null)
+            placeholder = searchField.Find("Placeholder")?.GetComponent<TextMeshProUGUI>();
+
+        if (placeholder == null)
+        {
+            placeholder = CreateSearchText("Placeholder", textViewport, "Search cards...", new Color(0.68f, 0.68f, 0.68f, 1f));
+        }
+        else
+        {
+            RectTransform placeholderRect = placeholder.rectTransform;
+            placeholderRect.SetParent(textViewport, false);
+            placeholderRect.anchorMin = Vector2.zero;
+            placeholderRect.anchorMax = Vector2.one;
+            placeholderRect.offsetMin = Vector2.zero;
+            placeholderRect.offsetMax = Vector2.zero;
+            placeholder.text = "Search cards...";
+        }
+
+        inventorySearchPlaceholder = placeholder;
+        inventorySearchInput = searchField.GetComponent<TMP_InputField>();
+        if (inventorySearchInput == null)
+            inventorySearchInput = searchField.gameObject.AddComponent<TMP_InputField>();
+
+        inventorySearchInput.onValueChanged.RemoveListener(HandleInventorySearchChanged);
+        inventorySearchInput.onSelect.RemoveListener(HandleInventorySearchSelected);
+        inventorySearchInput.onDeselect.RemoveListener(HandleInventorySearchDeselected);
+
+        // TMP creates its caret in OnEnable, after the text references are assigned.
+        inventorySearchInput.enabled = false;
+        inventorySearchInput.interactable = true;
+        inventorySearchInput.readOnly = false;
+        inventorySearchInput.targetGraphic = searchBackground;
+        inventorySearchInput.textViewport = textViewport;
+        inventorySearchInput.textComponent = inputText;
+        inventorySearchInput.placeholder = placeholder;
+        inventorySearchInput.lineType = TMP_InputField.LineType.SingleLine;
+        inventorySearchInput.contentType = TMP_InputField.ContentType.Standard;
+        inventorySearchInput.characterLimit = 64;
+        inventorySearchInput.customCaretColor = true;
+        inventorySearchInput.caretColor = new Color(0.96f, 0.95f, 0.92f, 1f);
+        inventorySearchInput.caretWidth = 3;
+        inventorySearchInput.caretBlinkRate = 0.65f;
+        inventorySearchInput.selectionColor = new Color(0.76f, 0.55f, 0.18f, 0.45f);
+        inventorySearchInput.onValueChanged.AddListener(HandleInventorySearchChanged);
+        inventorySearchInput.onSelect.AddListener(HandleInventorySearchSelected);
+        inventorySearchInput.onDeselect.AddListener(HandleInventorySearchDeselected);
+        inventorySearchInput.enabled = true;
+        UpdateInventorySearchPlaceholder();
+
+        if (cardsScrollRect.parent != cardsArea)
+        {
+            cardsScrollRect.SetParent(cardsArea, false);
+            cardsScrollRect.SetAsLastSibling();
+        }
+    }
+
+    private TextMeshProUGUI CreateSearchText(string objectName, Transform parent, string value, Color color)
+    {
+        RectTransform textRect = CreateUIObject(objectName, parent);
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
+
+        TextMeshProUGUI text = textRect.gameObject.AddComponent<TextMeshProUGUI>();
+        if (inventoryCountText != null)
+        {
+            text.font = inventoryCountText.font;
+            text.fontMaterial = inventoryCountText.fontMaterial;
+        }
+
+        text.text = value;
+        text.fontSize = 27f;
+        text.color = color;
+        text.alignment = TextAlignmentOptions.MidlineLeft;
+        text.textWrappingMode = TextWrappingModes.NoWrap;
+        text.overflowMode = TextOverflowModes.Overflow;
+        text.raycastTarget = false;
+
+        return text;
+    }
+
+    private void HandleInventorySearchChanged(string query)
+    {
+        UpdateInventorySearchPlaceholder();
+        inventoryScreenController?.SetSearchQuery(query);
+    }
+
+    private void HandleInventorySearchSelected(string _)
+    {
+        UpdateInventorySearchPlaceholder(true);
+    }
+
+    private void HandleInventorySearchDeselected(string _)
+    {
+        UpdateInventorySearchPlaceholder();
+    }
+
+    private void UpdateInventorySearchPlaceholder(bool? focusOverride = null)
+    {
+        if (inventorySearchPlaceholder == null)
+            return;
+
+        bool hasFocus = focusOverride ?? (inventorySearchInput != null && inventorySearchInput.isFocused);
+        bool showPlaceholder = !hasFocus
+            && (inventorySearchInput == null || string.IsNullOrEmpty(inventorySearchInput.text));
+        inventorySearchPlaceholder.gameObject.SetActive(showPlaceholder);
+    }
+
+    private void ResetInventorySearch()
+    {
+        if (inventorySearchInput != null)
+            inventorySearchInput.SetTextWithoutNotify(string.Empty);
+
+        UpdateInventorySearchPlaceholder();
+
+        inventoryScreenController?.SetSearchQuery(string.Empty);
+    }
+
+    private void UpdateInventorySearchVisibility()
+    {
+        if (inventorySearchBar == null)
+            return;
+
+        bool hasCards = player != null
+            && player.InventoryData != null
+            && player.InventoryData.Cards != null
+            && player.InventoryData.Cards.Count > 0;
+
+        inventorySearchBar.SetActive(hasCards);
+
+        if (!hasCards && inventorySearchInput != null && !string.IsNullOrEmpty(inventorySearchInput.text))
+            ResetInventorySearch();
+    }
+
+    private void OnDestroy()
+    {
+        if (inventorySearchInput == null)
+            return;
+
+        inventorySearchInput.onValueChanged.RemoveListener(HandleInventorySearchChanged);
+        inventorySearchInput.onSelect.RemoveListener(HandleInventorySearchSelected);
+        inventorySearchInput.onDeselect.RemoveListener(HandleInventorySearchDeselected);
     }
 
     private static void SetEmptyStateVisible(GameObject emptyState, bool visible)

@@ -12,6 +12,41 @@ public partial class InventoryScreenController
                 .Where(card => CardCategoryUtils.HasCategory(card, currentCategory))
                 .ToList();
         }
+
+        if (!string.IsNullOrEmpty(currentSearchQuery))
+        {
+            filteredCards = filteredCards
+                .Where(CardNameMatchesSearch)
+                .ToList();
+        }
+    }
+
+    public void SetSearchQuery(string query)
+    {
+        string normalizedQuery = query?.Trim() ?? string.Empty;
+        if (string.Equals(currentSearchQuery, normalizedQuery, System.StringComparison.Ordinal))
+            return;
+
+        currentSearchQuery = normalizedQuery;
+
+        if (inventoryStorage == null)
+            return;
+
+        BuildFilteredCards();
+        ValidateSelection();
+        DrawInventory();
+    }
+
+    private bool CardNameMatchesSearch(CardData card)
+    {
+        if (card == null)
+            return false;
+
+        string cardName = string.IsNullOrWhiteSpace(card.CardName)
+            ? card.name
+            : card.CardName;
+
+        return cardName.IndexOf(currentSearchQuery, System.StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
     private void DrawInventory()

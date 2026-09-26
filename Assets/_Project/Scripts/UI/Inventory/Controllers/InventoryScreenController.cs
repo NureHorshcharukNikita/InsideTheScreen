@@ -18,6 +18,7 @@ public partial class InventoryScreenController
     private readonly Action<bool> setDeckEmptyStateVisible;
 
     private CardCategory? currentCategory;
+    private string currentSearchQuery = string.Empty;
     private List<CardData> filteredCards;
 
     private DeckData deckData;

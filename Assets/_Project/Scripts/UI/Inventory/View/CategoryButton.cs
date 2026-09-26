@@ -7,6 +7,7 @@ public class CategoryButton : MonoBehaviour
 {
     [SerializeField] private Button button;
     [SerializeField] private TMP_Text label;
+    [SerializeField] private Image iconImage;
     [SerializeField] private Image backgroundImage;
 
     [Header("Backgrounds")]
@@ -22,10 +23,16 @@ public class CategoryButton : MonoBehaviour
 
     private Action onClick;
 
-    public void Init(string text, Action click, bool selected = false)
+    public void Init(string text, Sprite icon, Action click, bool selected = false)
     {
         label.text = text;
         onClick = click;
+
+        if (iconImage != null)
+        {
+            iconImage.sprite = icon;
+            iconImage.enabled = icon != null;
+        }
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => onClick?.Invoke());

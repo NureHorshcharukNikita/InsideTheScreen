@@ -166,7 +166,7 @@ public partial class CardView
             Destroy(inventoryDragGhost.gameObject);
 
         GameObject ghost = Instantiate(gameObject, canvasRootRect, worldPositionStays: true);
-        ghost.name = $"{name}_DragGhost";
+        ghost.name = "DraggedCardPreview";
         inventoryDragGhost = ghost.transform as RectTransform;
         if (inventoryDragGhost == null)
             return;

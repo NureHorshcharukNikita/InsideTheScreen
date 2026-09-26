@@ -36,10 +36,11 @@ public class CardCollectionDrawer
         RectTransform deckDropArea = null,
         Action<CardData, InventoryCardLocation, InventoryCardLocation> onDrop = null)
     {
-        Clear();
-
         if (cards == null || content == null || cardPrefab == null)
+        {
+            DeactivateUnused(0);
             return;
+        }
 
         Dictionary<CardData, int> counts = cards
             .GroupBy(card => card)
@@ -54,7 +55,7 @@ public class CardCollectionDrawer
         for (int i = 0; i < sortedCards.Count; i++)
         {
             var card = sortedCards[i];
-            var cardView = GetPool();
+            var cardView = GetPool(i);
 
             bool selected = isSelected != null && isSelected(card);
 
@@ -66,6 +67,8 @@ public class CardCollectionDrawer
                 deckDropArea,
                 onDrop);
         }
+
+        DeactivateUnused(sortedCards.Count);
 
         UpdateContentHeight(sortedCards.Count);
     }
@@ -80,20 +83,34 @@ public class CardCollectionDrawer
         }
     }
 
-    private CardView GetPool()
+    private CardView GetPool(int index)
     {
-        for (int i = 0; i < pool.Count; i++)
+        if (index < pool.Count)
         {
-            if (!pool[i].gameObject.activeSelf)
-            {
-                pool[i].gameObject.SetActive(true);
-                return pool[i];
-            }
+            CardView cardView = pool[index];
+            if (!cardView.gameObject.activeSelf)
+                cardView.gameObject.SetActive(true);
+
+            return cardView;
         }
 
         var newCard = UnityEngine.Object.Instantiate(cardPrefab, content);
         pool.Add(newCard);
         return newCard;
+    }
+
+    private void DeactivateUnused(int firstUnusedIndex)
+    {
+        for (int i = firstUnusedIndex; i < pool.Count; i++)
+        {
+            CardView cardView = pool[i];
+            if (!cardView.gameObject.activeSelf)
+                continue;
+
+            cardView.ClearInventoryTransfer();
+            cardView.SetSelected(false);
+            cardView.gameObject.SetActive(false);
+        }
     }
 
     private static RectTransform ResolveDropArea(Transform content)
