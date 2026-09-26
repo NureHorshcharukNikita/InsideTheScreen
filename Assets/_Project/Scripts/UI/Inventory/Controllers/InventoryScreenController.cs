@@ -157,10 +157,19 @@ public partial class InventoryScreenController
 
     private void RefreshAfterCardCollectionChanged()
     {
-        selectedCard = null;
-        selectedFromDeck = false;
-        inventoryPreviewPanel.Clear();
+        if (selectedCard != null && selectedFromDeck && !deckController.IsInDeck(selectedCard))
+            selectedFromDeck = false;
+
         RefreshViewOnly();
+
+        if (selectedCard != null)
+        {
+            if (selectedFromDeck)
+                selectionPresenter.ShowFromDeck(selectedCard);
+            else
+                selectionPresenter.ShowFromInventory(selectedCard);
+        }
+
         RefreshCounters();
     }
 

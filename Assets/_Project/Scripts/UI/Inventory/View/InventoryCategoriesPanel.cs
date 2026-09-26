@@ -15,8 +15,8 @@ public class InventoryCategoriesPanel : MonoBehaviour
 
     public void Build(IEnumerable<CardData> cards, Action<CardCategory?> onCategorySelected)
     {
-        onSelected = onCategorySelected;
         ClearButtons();
+        onSelected = onCategorySelected;
 
         CreateButton("All", null);
 
