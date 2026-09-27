@@ -1,31 +1,52 @@
 fileFormatVersion: 2
-guid: 2cc5368b9c170de40a21d3bc28ae3481
+guid: d084a05070f450448816f24b2464a0f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8133006976237467021
-    second: ButtonQuit_0
+      213: -4402140626585682905
+    second: MenuIcons_0
   - first:
-      213: 6242040739825207044
-    second: ButtonQuit_1
+      213: -6164632888548406558
+    second: MenuIcons_1
   - first:
-      213: -6556153618802061690
-    second: ButtonQuit_2
+      213: -6007933882074063158
+    second: MenuIcons_2
   - first:
-      213: -2555315439721527975
-    second: ButtonQuit_3
+      213: -2998787175973822370
+    second: MenuIcons_3
   - first:
-      213: -1703532666414636586
-    second: ButtonQuit_4
+      213: -4422029217056752472
+    second: MenuIcons_4
   - first:
-      213: 6071064059247123036
-    second: ButtonQuit_5
+      213: -3839748454526802162
+    second: MenuIcons_5
   - first:
-      213: -3360439927642332639
-    second: ButtonQuit_6
+      213: -5470467472286311813
+    second: MenuIcons_6
   - first:
-      213: -1501825105694635385
-    second: ButtonQuit_7
+      213: 2842222533049374579
+    second: MenuIcons_7
+  - first:
+      213: -1422872967592968374
+    second: MenuIcons_8
+  - first:
+      213: -1518093033626474508
+    second: MenuIcons_9
+  - first:
+      213: -5358875827984732129
+    second: MenuIcons_10
+  - first:
+      213: -7105129187760217533
+    second: MenuIcons_11
+  - first:
+      213: -155554196725624738
+    second: MenuIcons_12
+  - first:
+      213: 1830167515994882550
+    second: MenuIcons_13
+  - first:
+      213: -1135402868069635613
+    second: MenuIcons_14
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -67,7 +88,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -121,177 +142,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ButtonQuit_0
+      name: MenuIcons_0
       rect:
         serializedVersion: 2
-        x: 167
-        y: 97
-        width: 1823
-        height: 591
+        x: 77
+        y: 0
+        width: 378
+        height: 392
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 37a8791ee31c12f80800000000000000
-      internalID: -8133006976237467021
+      spriteID: 72c7b057c6478e2c0800000000000000
+      internalID: -4402140626585682905
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ButtonQuit_1
+      name: MenuIcons_1
       rect:
         serializedVersion: 2
-        x: 167
-        y: 401
-        width: 39
-        height: 46
+        x: 509
+        y: 35
+        width: 393
+        height: 322
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4074cca2bfe20a650800000000000000
-      internalID: 6242040739825207044
+      spriteID: 2eac16bac03d27aa0800000000000000
+      internalID: -6164632888548406558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ButtonQuit_2
+      name: MenuIcons_3
       rect:
         serializedVersion: 2
-        x: 1512
-        y: 128
-        width: 7
-        height: 9
+        x: 953
+        y: 35
+        width: 400
+        height: 356
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 68e496a050dd305a0800000000000000
-      internalID: -6556153618802061690
+      spriteID: e506513a3fa2266d0800000000000000
+      internalID: -2998787175973822370
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ButtonQuit_3
+      name: MenuIcons_4
       rect:
         serializedVersion: 2
-        x: 1719
-        y: 136
-        width: 14
-        height: 9
+        x: 1412
+        y: 21
+        width: 270
+        height: 367
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 955c35e6522b98cd0800000000000000
-      internalID: -2555315439721527975
+      spriteID: 8acfee22bdbc1a2c0800000000000000
+      internalID: -4422029217056752472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ButtonQuit_4
+      name: MenuIcons_5
       rect:
         serializedVersion: 2
-        x: 1729
-        y: 129
-        width: 6
-        height: 8
+        x: 1780
+        y: 0
+        width: 282
+        height: 391
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6d1e41bc016db58e0800000000000000
-      internalID: -1703532666414636586
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ButtonQuit_5
-      rect:
-        serializedVersion: 2
-        x: 1732
-        y: 128
-        width: 23
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c5ad0149890c04450800000000000000
-      internalID: 6071064059247123036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ButtonQuit_6
-      rect:
-        serializedVersion: 2
-        x: 1285
-        y: 100
-        width: 11
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 122e6dfa0b15d51d0800000000000000
-      internalID: -3360439927642332639
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ButtonQuit_7
-      rect:
-        serializedVersion: 2
-        x: 1721
-        y: 98
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78ace4cf502782be0800000000000000
-      internalID: -1501825105694635385
+      spriteID: e07231ddf1976bac0800000000000000
+      internalID: -3839748454526802162
       vertices: []
       indices: 
       edges: []
@@ -300,7 +255,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: e008994f892fa664684c487f16b9d1df
     internalID: 0
     vertices: []
     indices: 
@@ -310,14 +265,21 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ButtonQuit_0: -8133006976237467021
-      ButtonQuit_1: 6242040739825207044
-      ButtonQuit_2: -6556153618802061690
-      ButtonQuit_3: -2555315439721527975
-      ButtonQuit_4: -1703532666414636586
-      ButtonQuit_5: 6071064059247123036
-      ButtonQuit_6: -3360439927642332639
-      ButtonQuit_7: -1501825105694635385
+      MenuIcons_0: -4402140626585682905
+      MenuIcons_1: -6164632888548406558
+      MenuIcons_10: -5358875827984732129
+      MenuIcons_11: -7105129187760217533
+      MenuIcons_12: -155554196725624738
+      MenuIcons_13: 1830167515994882550
+      MenuIcons_14: -1135402868069635613
+      MenuIcons_2: -6007933882074063158
+      MenuIcons_3: -2998787175973822370
+      MenuIcons_4: -4422029217056752472
+      MenuIcons_5: -3839748454526802162
+      MenuIcons_6: -5470467472286311813
+      MenuIcons_7: 2842222533049374579
+      MenuIcons_8: -1422872967592968374
+      MenuIcons_9: -1518093033626474508
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

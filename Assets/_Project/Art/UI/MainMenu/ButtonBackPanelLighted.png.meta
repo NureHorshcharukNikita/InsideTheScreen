@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c1fe958ce2d99224497eacab118ec8aa
+guid: 045141a971c4fb047849dbbba53b3689
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2811560169389711602
-    second: ButtonQuitLighted_0
+      213: -7394578132735772089
+    second: ButtonBackPanelLighted_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ButtonQuitLighted_0
+      name: ButtonBackPanelLighted_0
       rect:
         serializedVersion: 2
-        x: 85
-        y: 37
-        width: 2069
-        height: 591
+        x: 0
+        y: 0
+        width: 2006
+        height: 350
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e0f93e61ce45bf8d0800000000000000
-      internalID: -2811560169389711602
+      spriteID: 74ab96ecd5e216990800000000000000
+      internalID: -7394578132735772089
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ButtonQuitLighted_0: -2811560169389711602
+      ButtonBackPanelLighted_0: -7394578132735772089
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

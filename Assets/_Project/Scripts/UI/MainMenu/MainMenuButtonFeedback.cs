@@ -8,6 +8,9 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
     [SerializeField] private RectTransform target;
     [SerializeField] private Selectable selectable;
     [SerializeField] private Graphic background;
+    [SerializeField] private Image icon;
+    [SerializeField] private Sprite normalIcon;
+    [SerializeField] private Sprite selectedIcon;
     [SerializeField] private TMP_Text label;
     [SerializeField] private Color normalBackground = new Color(0.18f, 0.36f, 0.29f, 0.92f);
     [SerializeField] private Color selectedBackground = new Color(0.30f, 0.76f, 0.54f, 0.96f);
@@ -18,6 +21,8 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
     [SerializeField] private float selectedScale = 1.06f;
 
     private bool isSelected;
+    private Vector2 normalSize;
+    private bool hasNormalSize;
 
     private void Awake()
     {
@@ -25,6 +30,7 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
             target = transform as RectTransform;
         if (selectable == null)
             selectable = GetComponent<Selectable>();
+        CacheNormalSize();
         Apply(false);
     }
 
@@ -73,9 +79,20 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
             selected = false;
 
         if (target != null)
-            target.localScale = Vector3.one * (selected ? selectedScale : 1f);
+        {
+            CacheNormalSize();
+            target.localScale = Vector3.one;
+            target.sizeDelta = normalSize * (selected ? selectedScale : 1f);
+        }
         if (background != null)
             background.color = GetBackgroundColor(selected);
+        if (icon != null)
+        {
+            Sprite iconSprite = selected ? selectedIcon : normalIcon;
+            if (iconSprite != null)
+                icon.sprite = iconSprite;
+            icon.color = GetTextColor(selected);
+        }
         if (label != null)
             label.color = GetTextColor(selected);
     }
@@ -99,5 +116,14 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
     private bool IsInteractable()
     {
         return selectable == null || selectable.interactable;
+    }
+
+    private void CacheNormalSize()
+    {
+        if (target == null || hasNormalSize)
+            return;
+
+        normalSize = target.sizeDelta;
+        hasNormalSize = true;
     }
 }
