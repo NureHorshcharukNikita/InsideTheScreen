@@ -15,13 +15,17 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
     private static readonly Color ConfirmButtonPressedColor = new(0.38f, 0.28f, 0.24f, 1f);
     private static readonly Color TextColor = new(0.96f, 0.945f, 0.91f, 1f);
 
-    private TMP_Text titleText;
-    private TMP_Text confirmButtonText;
-    private Slider slider;
-    private TMP_InputField input;
+    [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text confirmButtonText;
+    [SerializeField] private Slider slider;
+    [SerializeField] private TMP_InputField input;
+    [SerializeField] private Button confirmButton;
+    [SerializeField] private Button cancelButton;
+
     private Action<int> pendingConfirm;
     private int maxQuantity = 1;
     private bool updatingValue;
+    private bool listenersBound;
     private TMP_FontAsset font;
     private Material fontMaterial;
 
@@ -45,12 +49,24 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         prompt.font = referenceText != null ? referenceText.font : null;
         prompt.fontMaterial = referenceText != null ? referenceText.fontMaterial : null;
         prompt.Build();
+        prompt.BindListeners();
         prompt.Hide();
         return prompt;
     }
 
+    private void Awake()
+    {
+        BindListeners();
+    }
+
+    private void OnDestroy()
+    {
+        UnbindListeners();
+    }
+
     public void Show(string title, string confirmLabel, int maximum, Action<int> onConfirmed)
     {
+        BindListeners();
         maxQuantity = Mathf.Max(1, maximum);
         pendingConfirm = onConfirmed;
         titleText.text = title;
@@ -98,25 +114,23 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         slider = CreateSlider(panel.transform);
         input = CreateInput(panel.transform);
 
-        Button confirmButton = CreateButton(
+        confirmButton = CreateButton(
             "QuantitySelectionConfirmButton",
             panel.transform,
             "Confirm",
             new Vector2(-115f, -112f),
             new Vector2(180f, 50f),
-            Confirm,
             ConfirmButtonColor,
             ConfirmButtonHighlightedColor,
             ConfirmButtonPressedColor);
         confirmButtonText = confirmButton.GetComponentInChildren<TMP_Text>();
 
-        CreateButton(
+        cancelButton = CreateButton(
             "QuantitySelectionCancelButton",
             panel.transform,
             "Cancel",
             new Vector2(115f, -112f),
             new Vector2(180f, 50f),
-            Hide,
             ButtonColor,
             ButtonHighlightedColor,
             ButtonPressedColor);
@@ -154,7 +168,6 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         quantitySlider.handleRect = handle;
         quantitySlider.targetGraphic = handleImage;
         quantitySlider.direction = Slider.Direction.LeftToRight;
-        quantitySlider.onValueChanged.AddListener(OnSliderChanged);
         return quantitySlider;
     }
 
@@ -177,9 +190,33 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         quantityInput.textViewport = inputRect;
         quantityInput.placeholder = placeholder;
         quantityInput.text = "1";
-        quantityInput.onValueChanged.AddListener(OnInputChanged);
-        quantityInput.onEndEdit.AddListener(OnInputEndEdit);
         return quantityInput;
+    }
+
+    private void BindListeners()
+    {
+        if (listenersBound || slider == null || input == null || confirmButton == null || cancelButton == null)
+            return;
+
+        slider.onValueChanged.AddListener(OnSliderChanged);
+        input.onValueChanged.AddListener(OnInputChanged);
+        input.onEndEdit.AddListener(OnInputEndEdit);
+        confirmButton.onClick.AddListener(Confirm);
+        cancelButton.onClick.AddListener(Hide);
+        listenersBound = true;
+    }
+
+    private void UnbindListeners()
+    {
+        if (!listenersBound)
+            return;
+
+        slider.onValueChanged.RemoveListener(OnSliderChanged);
+        input.onValueChanged.RemoveListener(OnInputChanged);
+        input.onEndEdit.RemoveListener(OnInputEndEdit);
+        confirmButton.onClick.RemoveListener(Confirm);
+        cancelButton.onClick.RemoveListener(Hide);
+        listenersBound = false;
     }
 
     private void Confirm()
@@ -238,7 +275,6 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         string label,
         Vector2 position,
         Vector2 size,
-        UnityEngine.Events.UnityAction onClick,
         Color normalColor,
         Color highlightedColor,
         Color pressedColor)
@@ -261,7 +297,6 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         colors.selectedColor = highlightedColor;
         colors.pressedColor = pressedColor;
         button.colors = colors;
-        button.onClick.AddListener(onClick);
 
         CreateText("Text", rect, label, 26, Vector2.zero, size, TextAlignmentOptions.Center);
         return button;

@@ -26,6 +26,7 @@ public class InventoryWindow : MonoBehaviour
 
     [SerializeField] private InventoryPreviewPanel inventoryPreviewPanel;
     [SerializeField] private InventoryCategoriesPanel categoriesPanel;
+    [SerializeField] private QuantitySelectionPrompt transferQuantityPrompt;
 
     [Header("Inventory Search")]
     [SerializeField] private Sprite searchBackgroundSprite;
@@ -42,8 +43,6 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject confirmationPanel;
     [SerializeField] private RectTransform saveToastRect;
-
-    private QuantitySelectionPrompt transferQuantityPrompt;
 
     private static readonly GameInputAction[] SettingsActions =
     {
@@ -100,7 +99,7 @@ public class InventoryWindow : MonoBehaviour
     {
         EnsurePauseMenuReferences();
         EnsurePauseMenuRuntimeFallbacks();
-        EnsureTransferQuantityPrompt();
+        HideTransferQuantityPrompt();
         EnsureInventorySearch();
 
         if (!TryInitializeInventory())
@@ -746,33 +745,18 @@ public class InventoryWindow : MonoBehaviour
         HideSaveToast();
     }
 
-    private void EnsureTransferQuantityPrompt()
-    {
-        if (transferQuantityPrompt != null)
-            return;
-
-        TMP_Text referenceText = pauseMenuPanel != null
-            ? pauseMenuPanel.GetComponentInChildren<TMP_Text>(true)
-            : inventoryCountText;
-        transferQuantityPrompt = QuantitySelectionPrompt.Create(GetOverlayParent(), referenceText);
-    }
-
-    private Transform GetOverlayParent()
-    {
-        Canvas canvas = GetComponentInParent<Canvas>();
-        if (canvas != null && canvas.rootCanvas != null)
-            return canvas.rootCanvas.transform;
-
-        return transform;
-    }
-
     private void ShowTransferQuantityPrompt(
         CardData card,
         InventoryCardLocation source,
         int maxQuantity,
         Action<int> onConfirmed)
     {
-        EnsureTransferQuantityPrompt();
+        if (transferQuantityPrompt == null)
+        {
+            Debug.LogError("Inventory quantity selection prompt is not assigned.", this);
+            return;
+        }
+
         string action = source == InventoryCardLocation.Inventory ? "Add to deck" : "Remove from deck";
         transferQuantityPrompt.Show($"{action}: {GetCardDisplayName(card)}", "Move", maxQuantity, onConfirmed);
         ClearSelectedButton();
