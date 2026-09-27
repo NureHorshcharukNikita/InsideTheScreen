@@ -16,9 +16,14 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
     private static readonly Color TextColor = new(0.96f, 0.945f, 0.91f, 1f);
 
     [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text itemNameText;
+    [SerializeField] private TMP_Text minQuantityText;
+    [SerializeField] private TMP_Text maxQuantityText;
     [SerializeField] private TMP_Text confirmButtonText;
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_InputField input;
+    [SerializeField] private Button decrementButton;
+    [SerializeField] private Button incrementButton;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
 
@@ -66,11 +71,28 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
 
     public void Show(string title, string confirmLabel, int maximum, Action<int> onConfirmed)
     {
+        Show(title, null, confirmLabel, maximum, onConfirmed);
+    }
+
+    public void Show(string title, string itemName, string confirmLabel, int maximum, Action<int> onConfirmed)
+    {
         BindListeners();
         maxQuantity = Mathf.Max(1, maximum);
         pendingConfirm = onConfirmed;
         titleText.text = title;
         confirmButtonText.text = confirmLabel;
+
+        if (itemNameText != null)
+        {
+            itemNameText.text = itemName ?? string.Empty;
+            itemNameText.gameObject.SetActive(!string.IsNullOrWhiteSpace(itemName));
+        }
+
+        if (minQuantityText != null)
+            minQuantityText.text = "1";
+
+        if (maxQuantityText != null)
+            maxQuantityText.text = maxQuantity.ToString();
 
         slider.minValue = 1f;
         slider.maxValue = maxQuantity;
@@ -203,6 +225,13 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         input.onEndEdit.AddListener(OnInputEndEdit);
         confirmButton.onClick.AddListener(Confirm);
         cancelButton.onClick.AddListener(Hide);
+
+        if (decrementButton != null)
+            decrementButton.onClick.AddListener(Decrement);
+
+        if (incrementButton != null)
+            incrementButton.onClick.AddListener(Increment);
+
         listenersBound = true;
     }
 
@@ -216,7 +245,24 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         input.onEndEdit.RemoveListener(OnInputEndEdit);
         confirmButton.onClick.RemoveListener(Confirm);
         cancelButton.onClick.RemoveListener(Hide);
+
+        if (decrementButton != null)
+            decrementButton.onClick.RemoveListener(Decrement);
+
+        if (incrementButton != null)
+            incrementButton.onClick.RemoveListener(Increment);
+
         listenersBound = false;
+    }
+
+    private void Decrement()
+    {
+        SetValue(GetInputValue() - 1);
+    }
+
+    private void Increment()
+    {
+        SetValue(GetInputValue() + 1);
     }
 
     private void Confirm()
@@ -251,6 +297,12 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         slider.SetValueWithoutNotify(clampedValue);
         input.SetTextWithoutNotify(clampedValue.ToString());
         updatingValue = false;
+
+        if (decrementButton != null)
+            decrementButton.interactable = clampedValue > 1;
+
+        if (incrementButton != null)
+            incrementButton.interactable = clampedValue < maxQuantity;
     }
 
     private int GetInputValue()

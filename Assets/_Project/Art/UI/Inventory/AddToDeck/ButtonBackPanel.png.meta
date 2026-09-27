@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: 5be84ad0683362641869d16ecfe84b7b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2752637127196956645
+    second: ButtonBackPanel_0
+  - first:
+      213: 6339587001435374483
+    second: ButtonBackPanel_1
+  - first:
+      213: -7621366957737282475
+    second: ButtonBackPanel_2
+  - first:
+      213: -8416524336732931426
+    second: ButtonBackPanel_3
+  - first:
+      213: 1210634587157258242
+    second: ButtonBackPanel_4
+  - first:
+      213: 6569475119912783192
+    second: ButtonBackPanel_5
+  - first:
+      213: -9191233924304227078
+    second: ButtonBackPanel_6
+  - first:
+      213: -6422540654030375319
+    second: ButtonBackPanel_7
+  - first:
+      213: 156682579571779961
+    second: ButtonBackPanel_8
+  - first:
+      213: 3840423397376991936
+    second: ButtonBackPanel_9
+  - first:
+      213: 5671057603942052249
+    second: ButtonBackPanel_10
+  - first:
+      213: -8201003167975066993
+    second: ButtonBackPanel_11
+  - first:
+      213: 3289863448950462367
+    second: ButtonBackPanel_12
+  - first:
+      213: -2421361799825502696
+    second: ButtonBackPanel_13
+  - first:
+      213: 1204153420245057204
+    second: ButtonBackPanel_14
+  - first:
+      213: 1269099309810300479
+    second: ButtonBackPanel_15
+  - first:
+      213: -1329002365437607243
+    second: ButtonBackPanel_16
+  - first:
+      213: -1637147735275860922
+    second: ButtonBackPanel_17
+  - first:
+      213: -8234311593571790535
+    second: ButtonBackPanel_18
+  - first:
+      213: -1789154150370505056
+    second: ButtonBackPanel_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ButtonBackPanel_0
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 1060
+        width: 119
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b18afdded1bacc9d0800000000000000
+      internalID: -2752637127196956645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_1
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 1142
+        width: 110
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3934d3b0accbaf750800000000000000
+      internalID: 6339587001435374483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_2
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 1136
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5547b25b1277b3690800000000000000
+      internalID: -7621366957737282475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 55
+        width: 1090
+        height: 1021
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9a7a9955bf723b80800000000000000
+      internalID: -8416524336732931426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_4
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 1050
+        width: 54
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2006f482eb90dc010800000000000000
+      internalID: 1210634587157258242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_5
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 1070
+        width: 48
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85d0b23a0d67b2b50800000000000000
+      internalID: 6569475119912783192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_6
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 1062
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af4b35e617d227080800000000000000
+      internalID: -9191233924304227078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_7
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 809
+        width: 26
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 966b301ad4d8ed6a0800000000000000
+      internalID: -6422540654030375319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_8
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 763
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9792ed9d9f5ac2200800000000000000
+      internalID: 156682579571779961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_9
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 746
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c221c38bbceb4530800000000000000
+      internalID: 3840423397376991936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_10
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 747
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9917ebf18d4a3be40800000000000000
+      internalID: 5671057603942052249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_11
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 714
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f823efac11f203e80800000000000000
+      internalID: -8201003167975066993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_12
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 712
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f97db3a5061f7ad20800000000000000
+      internalID: 3289863448950462367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_13
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 602
+        width: 32
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81e43b0a548956ed0800000000000000
+      internalID: -2421361799825502696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_14
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 680
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4be37c4e72306b010800000000000000
+      internalID: 1204153420245057204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_15
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 519
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f36bfe9291fbc9110800000000000000
+      internalID: 1269099309810300479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_16
+      rect:
+        serializedVersion: 2
+        x: 1125
+        y: 471
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b20076d36f6e8de0800000000000000
+      internalID: -1329002365437607243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_17
+      rect:
+        serializedVersion: 2
+        x: 1149
+        y: 410
+        width: 18
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64c0c0a0fcea749e0800000000000000
+      internalID: -1637147735275860922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_18
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 300
+        width: 42
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 931d54f9b39d9bd80800000000000000
+      internalID: -8234311593571790535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBackPanel_19
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 71
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ae00c297c5ab27e0800000000000000
+      internalID: -1789154150370505056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ButtonBackPanel_0: -2752637127196956645
+      ButtonBackPanel_1: 6339587001435374483
+      ButtonBackPanel_10: 5671057603942052249
+      ButtonBackPanel_11: -8201003167975066993
+      ButtonBackPanel_12: 3289863448950462367
+      ButtonBackPanel_13: -2421361799825502696
+      ButtonBackPanel_14: 1204153420245057204
+      ButtonBackPanel_15: 1269099309810300479
+      ButtonBackPanel_16: -1329002365437607243
+      ButtonBackPanel_17: -1637147735275860922
+      ButtonBackPanel_18: -8234311593571790535
+      ButtonBackPanel_19: -1789154150370505056
+      ButtonBackPanel_2: -7621366957737282475
+      ButtonBackPanel_3: -8416524336732931426
+      ButtonBackPanel_4: 1210634587157258242
+      ButtonBackPanel_5: 6569475119912783192
+      ButtonBackPanel_6: -9191233924304227078
+      ButtonBackPanel_7: -6422540654030375319
+      ButtonBackPanel_8: 156682579571779961
+      ButtonBackPanel_9: 3840423397376991936
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

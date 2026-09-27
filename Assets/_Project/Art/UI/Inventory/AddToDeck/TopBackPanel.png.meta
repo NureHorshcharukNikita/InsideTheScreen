@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: 6c2ffafbfdfedac4ebae5a371185dca7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2872272652365944612
+    second: TopBackPanel_0
+  - first:
+      213: 5399580208990956244
+    second: TopBackPanel_1
+  - first:
+      213: 89977553931853861
+    second: TopBackPanel_2
+  - first:
+      213: -8366036921572962044
+    second: TopBackPanel_3
+  - first:
+      213: 5484519235049733750
+    second: TopBackPanel_4
+  - first:
+      213: -7687096402644974535
+    second: TopBackPanel_5
+  - first:
+      213: -427472982592076037
+    second: TopBackPanel_6
+  - first:
+      213: -8839712278421373385
+    second: TopBackPanel_7
+  - first:
+      213: 2858309091723839475
+    second: TopBackPanel_8
+  - first:
+      213: 3082294630465128605
+    second: TopBackPanel_9
+  - first:
+      213: 7161663926083874328
+    second: TopBackPanel_10
+  - first:
+      213: 6581473705226254351
+    second: TopBackPanel_11
+  - first:
+      213: 502675702092910936
+    second: TopBackPanel_12
+  - first:
+      213: -5942856575167857193
+    second: TopBackPanel_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TopBackPanel_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 242
+        width: 2145
+        height: 394
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd8a8a99d33a328d0800000000000000
+      internalID: -2872272652365944612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_1
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 587
+        width: 34
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4daa22587992fea40800000000000000
+      internalID: 5399580208990956244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_2
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 619
+        width: 126
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 520eddbcb1aaf3100800000000000000
+      internalID: 89977553931853861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 563
+        width: 137
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40157d7bebdd5eb80800000000000000
+      internalID: -8366036921572962044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_4
+      rect:
+        serializedVersion: 2
+        x: 1519
+        y: 611
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ebfe0af2dec1c40800000000000000
+      internalID: 5484519235049733750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_5
+      rect:
+        serializedVersion: 2
+        x: 1768
+        y: 579
+        width: 116
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 934c92ebc82f15590800000000000000
+      internalID: -7687096402644974535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_6
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 582
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf6c581569f411af0800000000000000
+      internalID: -427472982592076037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_7
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 587
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73ef8008488035580800000000000000
+      internalID: -8839712278421373385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_8
+      rect:
+        serializedVersion: 2
+        x: 1471
+        y: 587
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f7087699f0caa720800000000000000
+      internalID: 2858309091723839475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_9
+      rect:
+        serializedVersion: 2
+        x: 1854
+        y: 579
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d98c7fdb2a286ca20800000000000000
+      internalID: 3082294630465128605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_10
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 88
+        width: 2126
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81e65fa8567536360800000000000000
+      internalID: 7161663926083874328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_11
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 210
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f08b59af677165b50800000000000000
+      internalID: 6581473705226254351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_12
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 178
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 851d77443ecd9f600800000000000000
+      internalID: 502675702092910936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopBackPanel_13
+      rect:
+        serializedVersion: 2
+        x: 1822
+        y: 176
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dd76067e6bb68da0800000000000000
+      internalID: -5942856575167857193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TopBackPanel_0: -2872272652365944612
+      TopBackPanel_1: 5399580208990956244
+      TopBackPanel_10: 7161663926083874328
+      TopBackPanel_11: 6581473705226254351
+      TopBackPanel_12: 502675702092910936
+      TopBackPanel_13: -5942856575167857193
+      TopBackPanel_2: 89977553931853861
+      TopBackPanel_3: -8366036921572962044
+      TopBackPanel_4: 5484519235049733750
+      TopBackPanel_5: -7687096402644974535
+      TopBackPanel_6: -427472982592076037
+      TopBackPanel_7: -8839712278421373385
+      TopBackPanel_8: 2858309091723839475
+      TopBackPanel_9: 3082294630465128605
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

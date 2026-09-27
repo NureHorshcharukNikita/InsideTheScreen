@@ -757,8 +757,15 @@ public class InventoryWindow : MonoBehaviour
             return;
         }
 
-        string action = source == InventoryCardLocation.Inventory ? "Add to deck" : "Remove from deck";
-        transferQuantityPrompt.Show($"{action}: {GetCardDisplayName(card)}", "Move", maxQuantity, onConfirmed);
+        bool addingToDeck = source == InventoryCardLocation.Inventory;
+        string action = addingToDeck ? "Add to deck" : "Remove from deck";
+        string confirmLabel = addingToDeck ? "Add" : "Remove";
+        transferQuantityPrompt.Show(
+            action,
+            GetCardDisplayName(card),
+            confirmLabel,
+            maxQuantity,
+            onConfirmed);
         ClearSelectedButton();
     }
 
