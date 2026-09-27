@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 97064f02d6b752c47a4a7ef1d5f4fcbc
+guid: f31a9ce8ec2f4a07b6998d7a4be20763
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 5119595137385551762
-    second: SettingTitle_0
+    second: SettingTitlePanel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SettingTitle_0
+      name: SettingTitlePanel_0
       rect:
         serializedVersion: 2
         x: 0
@@ -135,9 +135,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SettingTitle_0: 5119595137385551762
+      SettingTitlePanel_0: 5119595137385551762
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+
