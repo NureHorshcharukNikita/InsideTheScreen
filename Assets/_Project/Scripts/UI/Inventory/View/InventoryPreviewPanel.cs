@@ -51,9 +51,9 @@ public class InventoryPreviewPanel : MonoBehaviour
         previewCard.gameObject.SetActive(true);
         previewCard.Setup(card, null, 0, null);
 
+        descriptionText.gameObject.SetActive(true);
         descriptionText.text = card.Description;
-
-        Canvas.ForceUpdateCanvases();
+        RebuildDescriptionLayout();
 
         var scrollRect = descriptionText.GetComponentInParent<ScrollRect>();
         if (scrollRect != null)
@@ -79,5 +79,30 @@ public class InventoryPreviewPanel : MonoBehaviour
 
         addButton.interactable = false;
         removeButton.interactable = false;
+    }
+
+    private void RebuildDescriptionLayout()
+    {
+        descriptionText.ForceMeshUpdate();
+        Canvas.ForceUpdateCanvases();
+
+        RectTransform textRect = descriptionText.rectTransform;
+        float availableWidth = Mathf.Max(1f, textRect.rect.width);
+        float preferredHeight = descriptionText
+            .GetPreferredValues(descriptionText.text, availableWidth, Mathf.Infinity)
+            .y;
+
+        textRect.SetSizeWithCurrentAnchors(
+            RectTransform.Axis.Vertical,
+            Mathf.Ceil(preferredHeight));
+        LayoutRebuilder.ForceRebuildLayoutImmediate(textRect);
+
+        if (textRect.parent is RectTransform descriptionContent)
+            LayoutRebuilder.ForceRebuildLayoutImmediate(descriptionContent);
+
+        if (selectedCardContent.transform is RectTransform selectedContent)
+            LayoutRebuilder.ForceRebuildLayoutImmediate(selectedContent);
+
+        Canvas.ForceUpdateCanvases();
     }
 }

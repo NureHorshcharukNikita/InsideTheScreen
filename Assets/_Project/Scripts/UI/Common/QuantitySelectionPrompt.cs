@@ -171,7 +171,9 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
 
         RectTransform background = CreateUIObject("Background", sliderRect);
         StretchToParent(background, 12f, 11f, 12f, 11f);
-        background.gameObject.AddComponent<Image>().color = new Color(0.42f, 0.30f, 0.25f, 1f);
+        Image backgroundImage = background.gameObject.AddComponent<Image>();
+        backgroundImage.color = new Color(0.42f, 0.30f, 0.25f, 1f);
+        backgroundImage.raycastTarget = true;
 
         RectTransform fillArea = CreateUIObject("Fill Area", sliderRect);
         StretchToParent(fillArea, 12f, 11f, 12f, 11f);
@@ -180,9 +182,9 @@ public sealed class QuantitySelectionPrompt : MonoBehaviour
         fill.gameObject.AddComponent<Image>().color = new Color(0.73f, 0.61f, 0.52f, 1f);
 
         RectTransform handleArea = CreateUIObject("Handle Slide Area", sliderRect);
-        StretchToParent(handleArea, 12f, 0f, 12f, 0f);
+        StretchToParent(handleArea, 16f, 0f, 16f, 0f);
         RectTransform handle = CreateUIObject("Handle", handleArea);
-        handle.sizeDelta = new Vector2(26f, 26f);
+        handle.sizeDelta = new Vector2(32f, 26f);
         Image handleImage = handle.gameObject.AddComponent<Image>();
         handleImage.color = TextColor;
 
