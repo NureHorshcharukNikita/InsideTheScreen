@@ -289,11 +289,22 @@ public static class QuestManager
 
     private static void GrantReward(QuestData quest, InventoryData inventory, bool showNotification)
     {
-        if (quest == null || inventory == null || quest.RewardCard == null || quest.RewardCardCount <= 0)
+        if (quest == null || inventory == null)
             return;
 
-        for (int i = 0; i < quest.RewardCardCount; i++)
-            inventory.AddCard(quest.RewardCard);
+        bool grantedAnyReward = false;
+        for (int i = 0; i < quest.RewardCount; i++)
+        {
+            QuestRewardData reward = quest.GetReward(i);
+            if (reward == null || reward.Card == null || reward.CardCount <= 0)
+                continue;
+
+            inventory.AddCards(reward.Card, reward.CardCount);
+            grantedAnyReward = true;
+        }
+
+        if (!grantedAnyReward)
+            return;
 
         QuestRewardGranted?.Invoke(quest);
 

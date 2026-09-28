@@ -22,7 +22,9 @@ public sealed class QuestDataEditor : UnityEditor.Editor
     private SerializedProperty descriptionProp;
     private SerializedProperty statusProp;
     private SerializedProperty objectiveTypeProp;
+    private SerializedProperty objectiveLabelProp;
     private SerializedProperty targetEncounterIdProp;
+    private SerializedProperty rewardsProp;
     private SerializedProperty rewardLabelProp;
     private SerializedProperty rewardIconProp;
     private SerializedProperty rewardCardProp;
@@ -36,7 +38,9 @@ public sealed class QuestDataEditor : UnityEditor.Editor
         descriptionProp = serializedObject.FindProperty("description");
         statusProp = serializedObject.FindProperty("status");
         objectiveTypeProp = serializedObject.FindProperty("objectiveType");
+        objectiveLabelProp = serializedObject.FindProperty("objectiveLabel");
         targetEncounterIdProp = serializedObject.FindProperty("targetEncounterId");
+        rewardsProp = serializedObject.FindProperty("rewards");
         rewardLabelProp = serializedObject.FindProperty("rewardLabel");
         rewardIconProp = serializedObject.FindProperty("rewardIcon");
         rewardCardProp = serializedObject.FindProperty("rewardCard");
@@ -76,6 +80,8 @@ public sealed class QuestDataEditor : UnityEditor.Editor
             ObjectiveLabels,
             ObjectiveValues);
 
+        EditorGUILayout.PropertyField(objectiveLabelProp, new GUIContent("Objective Label"));
+
         QuestObjectiveType objectiveType = (QuestObjectiveType)objectiveTypeProp.enumValueIndex;
         if (objectiveType == QuestObjectiveType.DefeatEncounter)
             EditorGUILayout.PropertyField(targetEncounterIdProp, new GUIContent("Target Encounter Id"));
@@ -83,9 +89,16 @@ public sealed class QuestDataEditor : UnityEditor.Editor
 
     private void DrawRewardSection()
     {
-        EditorGUILayout.PropertyField(rewardLabelProp);
-        EditorGUILayout.PropertyField(rewardIconProp);
-        EditorGUILayout.PropertyField(rewardCardProp);
-        EditorGUILayout.PropertyField(rewardCardCountProp);
+        EditorGUILayout.PropertyField(rewardsProp, new GUIContent("Rewards"), true);
+
+        if (rewardsProp.arraySize > 0)
+            return;
+
+        EditorGUILayout.Space(4f);
+        EditorGUILayout.LabelField("Legacy Reward", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(rewardLabelProp, new GUIContent("Label"));
+        EditorGUILayout.PropertyField(rewardIconProp, new GUIContent("Icon"));
+        EditorGUILayout.PropertyField(rewardCardProp, new GUIContent("Card"));
+        EditorGUILayout.PropertyField(rewardCardCountProp, new GUIContent("Card Count"));
     }
 }

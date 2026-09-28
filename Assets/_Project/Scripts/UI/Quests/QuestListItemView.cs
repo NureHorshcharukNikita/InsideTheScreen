@@ -1,32 +1,45 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public sealed class QuestListItemView : MonoBehaviour
+public sealed class QuestListItemView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Button button;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private Image rewardIcon;
-    [SerializeField] private TMP_Text unreadDotText;
+    [SerializeField] private Image unreadIndicator;
+    [SerializeField] private Sprite selectedBackgroundSprite;
 
     [Header("Colors")]
-    [SerializeField] private Color normalColor = new(0.59607846f, 0.48235294f, 0.44313726f, 0.78f);
-    [SerializeField] private Color selectedColor = new(0.56f, 0.37f, 0.18f, 1f);
-    [SerializeField] private Color completedColor = new(0.36f, 0.28f, 0.2f, 0.96f);
-    [SerializeField] private Color completedSelectedColor = new(0.46f, 0.31f, 0.16f, 1f);
-    [SerializeField] private Color failedColor = new(0.39f, 0.2f, 0.19f, 0.96f);
-    [SerializeField] private Color failedSelectedColor = new(0.54f, 0.26f, 0.24f, 1f);
-    [SerializeField] private Color normalTextColor = Color.black;
+    [SerializeField] private Color hoverColor = new(0.62f, 0.62f, 0.62f, 1f);
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color selectedColor = Color.white;
+    [SerializeField] private Color completedColor = new(0.82f, 0.78f, 0.69f, 1f);
+    [SerializeField] private Color completedSelectedColor = Color.white;
+    [SerializeField] private Color failedColor = new(0.78f, 0.55f, 0.52f, 1f);
+    [SerializeField] private Color failedSelectedColor = Color.white;
+    [SerializeField] private Color normalTextColor = new(0.96f, 0.91f, 0.84f, 1f);
     [SerializeField] private Color selectedTextColor = Color.white;
-    [SerializeField] private Color completedTextColor = new(1f, 0.9f, 0.62f, 1f);
-    [SerializeField] private Color unreadDotColor = new(0.9529412f, 0.78431374f, 0.427451f, 1f);
+    [SerializeField] private Color completedTextColor = new(0.68f, 0.64f, 0.58f, 1f);
 
     private int index;
     private Action<int> onSelected;
     private QuestStatus currentStatus;
     private bool currentSelected;
+    private bool pointerOver;
+    private Sprite normalBackgroundSprite;
+
+    private void Awake()
+    {
+        if (backgroundImage != null)
+            normalBackgroundSprite = backgroundImage.sprite;
+
+        if (button != null)
+            button.transition = Selectable.Transition.None;
+    }
 
     public void Setup(
         QuestData quest,
@@ -38,7 +51,6 @@ public sealed class QuestListItemView : MonoBehaviour
     {
         index = itemIndex;
         onSelected = selectedCallback;
-        EnsureUnreadDot();
 
         if (button != null)
         {
@@ -53,9 +65,7 @@ public sealed class QuestListItemView : MonoBehaviour
         {
             rewardIcon.sprite = quest != null ? quest.RewardIcon : null;
             rewardIcon.enabled = rewardIcon.sprite != null;
-            rewardIcon.color = status == QuestStatus.Completed
-                ? Color.white
-                : new Color(1f, 1f, 1f, 0.72f);
+            rewardIcon.color = Color.white;
         }
 
         SetStatus(status);
@@ -82,12 +92,24 @@ public sealed class QuestListItemView : MonoBehaviour
 
         if (backgroundImage != null)
         {
-            if (completed)
-                backgroundImage.color = currentSelected ? completedSelectedColor : completedColor;
+            backgroundImage.sprite = currentSelected && selectedBackgroundSprite != null
+                ? selectedBackgroundSprite
+                : normalBackgroundSprite;
+
+            if (currentSelected)
+                backgroundImage.color = completed
+                    ? completedSelectedColor
+                    : failed
+                        ? failedSelectedColor
+                        : selectedColor;
+            else if (pointerOver)
+                backgroundImage.color = hoverColor;
+            else if (completed)
+                backgroundImage.color = completedColor;
             else if (failed)
-                backgroundImage.color = currentSelected ? failedSelectedColor : failedColor;
+                backgroundImage.color = failedColor;
             else
-                backgroundImage.color = currentSelected ? selectedColor : normalColor;
+                backgroundImage.color = normalColor;
         }
 
         if (titleText != null)
@@ -103,38 +125,20 @@ public sealed class QuestListItemView : MonoBehaviour
 
     public void SetUnread(bool unread)
     {
-        EnsureUnreadDot();
-
-        if (unreadDotText != null)
-            unreadDotText.gameObject.SetActive(unread);
+        if (unreadIndicator != null)
+            unreadIndicator.gameObject.SetActive(unread);
     }
 
-    private void EnsureUnreadDot()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        if (unreadDotText != null)
-            return;
+        pointerOver = true;
+        ApplyVisualState();
+    }
 
-        GameObject dotObject = new("UnreadDot");
-        dotObject.transform.SetParent(transform, false);
-        dotObject.transform.SetAsFirstSibling();
-
-        unreadDotText = dotObject.AddComponent<TextMeshProUGUI>();
-        unreadDotText.text = "\u2022";
-        unreadDotText.fontSize = 34f;
-        unreadDotText.alignment = TextAlignmentOptions.Center;
-        unreadDotText.color = unreadDotColor;
-        unreadDotText.raycastTarget = false;
-
-        RectTransform rect = unreadDotText.rectTransform;
-        rect.anchorMin = new Vector2(0f, 0.5f);
-        rect.anchorMax = new Vector2(0f, 0.5f);
-        rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.sizeDelta = new Vector2(18f, 36f);
-
-        LayoutElement layoutElement = dotObject.AddComponent<LayoutElement>();
-        layoutElement.minWidth = 18f;
-        layoutElement.preferredWidth = 18f;
-        layoutElement.flexibleWidth = 0f;
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        pointerOver = false;
+        ApplyVisualState();
     }
 
     private void Select()

@@ -8,7 +8,9 @@ public sealed class QuestPageView : MonoBehaviour
     private const int NoSelectionIndex = -1;
     private const string EmptyDetailsMessage = "Select a quest to view details";
     private const string EmptyListMessage = "No quests yet";
-    private static readonly Color DetailsTextColor = new(0.12f, 0.08f, 0.06f, 1f);
+    private const string RewardItemName = "RewardItem";
+    private static readonly Color DetailsTextColor = new(0.96f, 0.91f, 0.84f, 1f);
+    private static readonly Color CompletedObjectiveColor = new(0.62f, 0.58f, 0.53f, 1f);
 
     [SerializeField, HideInInspector] private int hierarchyVersion;
     [SerializeField] private List<QuestData> quests = new();
@@ -22,15 +24,29 @@ public sealed class QuestPageView : MonoBehaviour
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text giverText;
     [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private Image statusBackground;
+    [SerializeField] private TMP_Text statusText;
+    [SerializeField] private GameObject objectivesRoot;
+    [SerializeField] private TMP_Text objectiveText;
+    [SerializeField] private Image objectiveCheckbox;
     [SerializeField] private GameObject detailsContentRoot;
-    [SerializeField] private GameObject rewardRoot;
-    [SerializeField] private TMP_Text rewardLabelText;
-    [SerializeField] private Image rewardIcon;
+    [SerializeField] private GameObject rewardsRoot;
+    [SerializeField] private Transform rewardsContainer;
+    [SerializeField] private QuestRewardItemView rewardItemTemplate;
     [SerializeField] private ScrollRect detailsScroll;
     [SerializeField] private TMP_Text emptyDetailsText;
     [SerializeField] private TMP_Text emptyListText;
 
+    [Header("Quest Art")]
+    [SerializeField] private Sprite availableStatusSprite;
+    [SerializeField] private Sprite activeStatusSprite;
+    [SerializeField] private Sprite completedStatusSprite;
+    [SerializeField] private Sprite failedStatusSprite;
+    [SerializeField] private Sprite uncheckedObjectiveSprite;
+    [SerializeField] private Sprite checkedObjectiveSprite;
+
     private readonly List<QuestListItemView> itemViews = new();
+    private readonly List<QuestRewardItemView> rewardItemViews = new();
     private readonly List<QuestData> receivedQuests = new();
     private int selectedIndex = NoSelectionIndex;
 
@@ -154,37 +170,24 @@ public sealed class QuestPageView : MonoBehaviour
 
         if (giverText != null)
         {
-            string statusText = $"Status: {GetColoredStatusLabel(status)}";
             giverText.text = string.IsNullOrWhiteSpace(quest.GiverName)
-                ? statusText
-                : $"Giver: {quest.GiverName}\n{statusText}";
+                ? string.Empty
+                : $"<color=#9A948C>Giver:</color> {quest.GiverName}";
             giverText.color = DetailsTextColor;
-            giverText.richText = true;
         }
 
         if (descriptionText != null)
+        {
             descriptionText.text = quest.Description;
-
-        bool hasReward = quest.RewardIcon != null || !string.IsNullOrWhiteSpace(quest.RewardLabel);
-        if (rewardRoot != null)
-            rewardRoot.SetActive(hasReward);
-
-        if (rewardLabelText != null)
-        {
-            rewardLabelText.text = status == QuestStatus.Completed && !string.IsNullOrWhiteSpace(quest.RewardLabel)
-                ? $"Reward received: {quest.RewardLabel}"
-                : quest.RewardLabel;
+            descriptionText.color = DetailsTextColor;
         }
 
-        if (rewardIcon != null)
-        {
-            rewardIcon.sprite = quest.RewardIcon;
-            rewardIcon.enabled = quest.RewardIcon != null;
-            rewardIcon.color = status == QuestStatus.Completed
-                ? Color.white
-                : new Color(1f, 1f, 1f, 0.72f);
-        }
+        ApplyStatus(status);
+        ApplyObjective(quest, status);
 
+        ApplyRewards(quest, status);
+
+        RebuildDetailsLayout();
         ResetScrolls();
     }
 
@@ -206,8 +209,16 @@ public sealed class QuestPageView : MonoBehaviour
         if (descriptionText != null)
             descriptionText.text = string.Empty;
 
-        if (rewardRoot != null)
-            rewardRoot.SetActive(false);
+        if (statusBackground != null)
+            statusBackground.gameObject.SetActive(false);
+
+        if (objectivesRoot != null)
+            objectivesRoot.SetActive(false);
+
+        if (rewardsRoot != null)
+            rewardsRoot.SetActive(false);
+        else if (rewardsContainer != null)
+            rewardsContainer.gameObject.SetActive(false);
     }
 
     private void SetDetailsContentVisible(bool visible)
@@ -290,6 +301,15 @@ public sealed class QuestPageView : MonoBehaviour
             listScroll.verticalNormalizedPosition = 1f;
     }
 
+    private void RebuildDetailsLayout()
+    {
+        if (detailsScroll == null || detailsScroll.content == null)
+            return;
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(detailsScroll.content);
+    }
+
     private void RefreshReceivedQuests()
     {
         receivedQuests.Clear();
@@ -301,14 +321,80 @@ public sealed class QuestPageView : MonoBehaviour
         BuildList();
     }
 
-    private static string GetColoredStatusLabel(QuestStatus status)
+    private void ApplyStatus(QuestStatus status)
     {
-        return status switch
+        if (statusBackground != null)
         {
-            QuestStatus.Completed => "<color=#6B4218>Completed</color>",
-            QuestStatus.Failed => "<color=#9A342E>Failed</color>",
-            QuestStatus.Active => "<color=#375D78>Active</color>",
-            _ => "<color=#4B352B>Available</color>"
+            statusBackground.gameObject.SetActive(true);
+            statusBackground.sprite = status switch
+            {
+                QuestStatus.Active => activeStatusSprite,
+                QuestStatus.Completed => completedStatusSprite,
+                QuestStatus.Failed => failedStatusSprite,
+                _ => availableStatusSprite
+            };
+        }
+
+        if (statusText == null)
+            return;
+
+        statusText.text = status.ToString();
+        statusText.color = status switch
+        {
+            QuestStatus.Active => new Color(0.28f, 0.16f, 0.06f, 1f),
+            QuestStatus.Completed => new Color(0.3f, 0.18f, 0.04f, 1f),
+            QuestStatus.Failed => new Color(0.34f, 0.08f, 0.06f, 1f),
+            _ => new Color(0.08f, 0.17f, 0.27f, 1f)
         };
+    }
+
+    private void ApplyObjective(QuestData quest, QuestStatus status)
+    {
+        bool completed = status == QuestStatus.Completed;
+
+        if (objectivesRoot != null)
+            objectivesRoot.SetActive(true);
+
+        if (objectiveText != null)
+        {
+            objectiveText.text = quest.ObjectiveLabel;
+            objectiveText.color = completed ? CompletedObjectiveColor : DetailsTextColor;
+        }
+
+        if (objectiveCheckbox != null)
+            objectiveCheckbox.sprite = completed ? checkedObjectiveSprite : uncheckedObjectiveSprite;
+    }
+
+    private void ApplyRewards(QuestData quest, QuestStatus status)
+    {
+        if (rewardsContainer == null || rewardItemTemplate == null)
+            return;
+
+        int rewardCount = quest != null ? quest.RewardCount : 0;
+        if (rewardsRoot != null)
+            rewardsRoot.SetActive(rewardCount > 0);
+
+        rewardsContainer.gameObject.SetActive(rewardCount > 0);
+        if (rewardCount == 0)
+            return;
+
+        rewardItemTemplate.gameObject.SetActive(false);
+
+        while (rewardItemViews.Count < rewardCount)
+        {
+            QuestRewardItemView item = Instantiate(rewardItemTemplate, rewardsContainer);
+            item.gameObject.name = RewardItemName;
+            rewardItemViews.Add(item);
+        }
+
+        bool received = status == QuestStatus.Completed;
+        for (int i = 0; i < rewardItemViews.Count; i++)
+        {
+            bool visible = i < rewardCount;
+            rewardItemViews[i].gameObject.SetActive(visible);
+
+            if (visible)
+                rewardItemViews[i].Setup(quest.GetReward(i), received);
+        }
     }
 }
