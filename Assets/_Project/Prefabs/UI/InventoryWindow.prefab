@@ -7848,7 +7848,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4825126438813572419}
-  m_Father: {fileID: 585369266782688776}
+  m_Father: {fileID: 950000000000000001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11353,7 +11353,7 @@ RectTransform:
   m_Children:
   - {fileID: 851214881618161812}
   - {fileID: 910000000000000001}
-  m_Father: {fileID: 585369266782688776}
+  m_Father: {fileID: 950000000000000001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -19852,7 +19852,7 @@ RectTransform:
   - {fileID: 6302225910696426164}
   - {fileID: 1147600104997180467}
   - {fileID: 1325247695335836347}
-  m_Father: {fileID: 585369266782688776}
+  m_Father: {fileID: 950000000000000001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -20713,12 +20713,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 585369266782688776}
-  - component: {fileID: 701117678128530753}
-  - component: {fileID: 3693653129188003461}
-  - component: {fileID: 6904524087086573989}
-  - component: {fileID: 813081761483875185}
   m_Layer: 5
-  m_Name: InventoryWindow
+  m_Name: GameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20736,10 +20732,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3900553156432652878}
-  - {fileID: 3069299646123113764}
+  - {fileID: 950000000000000001}
   - {fileID: 900100000000000001}
-  - {fileID: 3944046778521291805}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -20747,13 +20741,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 4, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &950000000000000000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 950000000000000001}
+  - component: {fileID: 701117678128530753}
+  - component: {fileID: 3693653129188003461}
+  - component: {fileID: 6904524087086573989}
+  - component: {fileID: 813081761483875185}
+  m_Layer: 5
+  m_Name: InventoryWindow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &950000000000000001
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950000000000000000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3900553156432652878}
+  - {fileID: 3069299646123113764}
+  - {fileID: 3944046778521291805}
+  m_Father: {fileID: 585369266782688776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &701117678128530753
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627476781124298368}
+  m_GameObject: {fileID: 950000000000000000}
   m_CullTransparentMesh: 1
 --- !u!114 &3693653129188003461
 MonoBehaviour:
@@ -20761,7 +20797,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627476781124298368}
+  m_GameObject: {fileID: 950000000000000000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -20791,7 +20827,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627476781124298368}
+  m_GameObject: {fileID: 950000000000000000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
@@ -20817,7 +20853,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627476781124298368}
+  m_GameObject: {fileID: 950000000000000000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de5d12e2807383049b7d6bf4ccf4615c, type: 3}
@@ -20835,6 +20871,8 @@ MonoBehaviour:
   inventoryPreviewPanel: {fileID: 4493876014535102336}
   categoriesPanel: {fileID: 4554118355335173046}
   transferQuantityPrompt: {fileID: 970762439089787866}
+  inventoryTopBar: {fileID: 8205887886671832529}
+  inventoryContent: {fileID: 4520858517410068223}
   searchBackgroundSprite: {fileID: 21300000, guid: 8ee18100deccb594cb19a3c6871ddedf, type: 3}
   searchIconSprite: {fileID: 21300000, guid: 2bf1e4ec56c3f564f92a5d2067ffa029, type: 3}
   topIconBorders:

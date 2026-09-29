@@ -28,6 +28,10 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private InventoryCategoriesPanel categoriesPanel;
     [SerializeField] private QuantitySelectionPrompt transferQuantityPrompt;
 
+    [Header("Inventory Layout")]
+    [SerializeField] private GameObject inventoryTopBar;
+    [SerializeField] private GameObject inventoryContent;
+
     [Header("Inventory Search")]
     [SerializeField] private Sprite searchBackgroundSprite;
     [SerializeField] private Sprite searchIconSprite;
@@ -85,8 +89,10 @@ public class InventoryWindow : MonoBehaviour
     private TMP_Text confirmationTitleText;
     private PendingPauseAction pendingPauseAction;
     private int selectedTopIconIndex = -1;
+    private Image inventoryBackground;
+    private bool isOpen;
 
-    public bool IsOpen => gameObject.activeSelf;
+    public bool IsOpen => isOpen;
 
     private enum PendingPauseAction
     {
@@ -97,6 +103,7 @@ public class InventoryWindow : MonoBehaviour
 
     private void Awake()
     {
+        inventoryBackground = GetComponent<Image>();
         EnsurePauseMenuReferences();
         EnsurePauseMenuRuntimeFallbacks();
         HideTransferQuantityPrompt();
@@ -106,6 +113,7 @@ public class InventoryWindow : MonoBehaviour
             Debug.LogError("PlayerCharacter is missing. InventoryWindow could not initialize.");
 
         ResetPauseMenu();
+        SetInventoryVisible(false);
     }
 
     private bool TryInitializeInventory()
@@ -147,8 +155,17 @@ public class InventoryWindow : MonoBehaviour
 
     private void Update()
     {
-        if (IsOpen && GameInputSettings.GetKeyDown(GameInputAction.Close))
+        if (!GameInputSettings.GetKeyDown(GameInputAction.Close))
+            return;
+
+        if (IsOpen || (pauseOverlay != null && pauseOverlay.activeSelf))
+        {
             HandleCloseInput();
+            return;
+        }
+
+        if (GameStateManager.CanPause())
+            PauseGame();
     }
 
     private void OnEnable()
@@ -178,7 +195,8 @@ public class InventoryWindow : MonoBehaviour
         PlayerWallet.GoldChanged -= HandleGoldChanged;
         HideTransferQuantityPrompt();
 
-        if (GameStateManager.State == GameState.Inventory)
+        if (GameStateManager.State == GameState.Inventory
+            || GameStateManager.State == GameState.Paused)
             GameStateManager.SetState(GameState.Gameplay);
     }
 
@@ -238,15 +256,21 @@ public class InventoryWindow : MonoBehaviour
             return;
 
         GameStateManager.SetState(GameState.Inventory);
-        gameObject.SetActive(true);
+        SetInventoryVisible(true);
 
         if (!TryInitializeInventory())
         {
             Debug.LogError("InventoryWindow cannot open because PlayerCharacter is missing.");
+            SetInventoryVisible(false);
             GameStateManager.SetState(GameState.Gameplay);
             return;
         }
 
+        if (playerHPText != null)
+            playerHPText.SetTarget(player);
+
+        ResetInventorySearch();
+        RebuildCategories();
         inventoryScreenController.ClearSelection();
 
         inventoryPreviewPanel.Clear();
@@ -261,15 +285,30 @@ public class InventoryWindow : MonoBehaviour
         inventoryScreenController?.ClearSelection();
         ResetPauseMenu();
 
-        GameStateManager.SetState(GameState.Gameplay);
-        gameObject.SetActive(false);
+        SetInventoryVisible(false);
+
+        if (GameStateManager.State == GameState.Inventory)
+            GameStateManager.SetState(GameState.Gameplay);
     }
 
     public void ResumeGame()
     {
         ClearSelectedButton();
         ResetPauseMenu();
-        SelectTopIcon(0);
+
+        if (GameStateManager.State == GameState.Paused)
+            GameStateManager.SetState(GameState.Gameplay);
+    }
+
+    public void PauseGame()
+    {
+        if (IsOpen || pauseOverlay == null || !GameStateManager.CanPause())
+            return;
+
+        ClearSelectedButton();
+        ResetPauseMenu();
+        pauseOverlay.SetActive(true);
+        GameStateManager.SetState(GameState.Paused);
     }
 
     public void ShowOptions()
@@ -803,6 +842,21 @@ public class InventoryWindow : MonoBehaviour
         }
 
         Close();
+    }
+
+    private void SetInventoryVisible(bool visible)
+    {
+        isOpen = visible;
+
+        if (inventoryBackground != null)
+            inventoryBackground.enabled = visible;
+        if (inventoryTopBar != null)
+            inventoryTopBar.SetActive(visible);
+        if (inventoryContent != null)
+            inventoryContent.SetActive(visible);
+
+        if (!visible)
+            HideTransferQuantityPrompt();
     }
 
     private static string GetCardDisplayName(CardData card)

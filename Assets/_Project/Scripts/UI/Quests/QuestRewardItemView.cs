@@ -7,15 +7,10 @@ public sealed class QuestRewardItemView : MonoBehaviour
     [SerializeField] private TMP_Text labelText;
     [SerializeField] private Image iconImage;
 
-    public void Setup(QuestRewardData reward, bool received)
+    public void Setup(QuestRewardData reward)
     {
         if (labelText != null)
-        {
-            string label = reward != null ? reward.Label : string.Empty;
-            labelText.text = received && !string.IsNullOrWhiteSpace(label)
-                ? $"Reward received: {label}"
-                : label;
-        }
+            labelText.text = reward != null ? reward.Label : string.Empty;
 
         if (iconImage == null)
             return;

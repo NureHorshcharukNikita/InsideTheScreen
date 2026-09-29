@@ -185,7 +185,7 @@ public sealed class QuestPageView : MonoBehaviour
         ApplyStatus(status);
         ApplyObjective(quest, status);
 
-        ApplyRewards(quest, status);
+        ApplyRewards(quest);
 
         RebuildDetailsLayout();
         ResetScrolls();
@@ -365,7 +365,7 @@ public sealed class QuestPageView : MonoBehaviour
             objectiveCheckbox.sprite = completed ? checkedObjectiveSprite : uncheckedObjectiveSprite;
     }
 
-    private void ApplyRewards(QuestData quest, QuestStatus status)
+    private void ApplyRewards(QuestData quest)
     {
         if (rewardsContainer == null || rewardItemTemplate == null)
             return;
@@ -387,14 +387,13 @@ public sealed class QuestPageView : MonoBehaviour
             rewardItemViews.Add(item);
         }
 
-        bool received = status == QuestStatus.Completed;
         for (int i = 0; i < rewardItemViews.Count; i++)
         {
             bool visible = i < rewardCount;
             rewardItemViews[i].gameObject.SetActive(visible);
 
             if (visible)
-                rewardItemViews[i].Setup(quest.GetReward(i), received);
+                rewardItemViews[i].Setup(quest.GetReward(i));
         }
     }
 }

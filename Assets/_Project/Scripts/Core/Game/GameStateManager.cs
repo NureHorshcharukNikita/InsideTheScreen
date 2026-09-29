@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 public static class GameStateManager
 {
     public static GameState State = GameState.Gameplay;
+    public static int LastStateChangeFrame { get; private set; } = -1;
 
     public static bool IsGameplay => State == GameState.Gameplay;
     public static bool IsBattleScene => SceneManager.GetActiveScene().name == SceneNames.Battle;
@@ -19,6 +20,11 @@ public static class GameStateManager
         return battleSystem != null && battleSystem.CurrentBattleState == BattleState.Running;
     }
 
+    public static bool CanPause()
+    {
+        return IsGameplay && LastStateChangeFrame != UnityEngine.Time.frameCount;
+    }
+
     public static bool CanEditCardCollections()
     {
         return !IsBattleScene;
@@ -26,8 +32,12 @@ public static class GameStateManager
 
     public static void SetState(GameState state)
     {
+        if (State != state)
+            LastStateChangeFrame = UnityEngine.Time.frameCount;
+
         State = state;
-        UnityEngine.Time.timeScale = state == GameState.Inventory
+        UnityEngine.Time.timeScale = state == GameState.Paused
+            || state == GameState.Inventory
             || state == GameState.Dialogue
             || state == GameState.Shop
             ? 0f
