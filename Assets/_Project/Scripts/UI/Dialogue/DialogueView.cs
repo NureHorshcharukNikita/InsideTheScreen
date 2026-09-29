@@ -30,6 +30,7 @@ public sealed class DialogueView : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Image continueIcon;
     [SerializeField] private RawImage skipTypingIcon;
+    [SerializeField] private Button skipDialogueButton;
 
     [Header("Choices")]
     [SerializeField] private RectTransform choicesRoot;
@@ -38,6 +39,7 @@ public sealed class DialogueView : MonoBehaviour
     public event Action ContinueRequested;
     public event Action<int> ChoiceRequested;
 
+    private const float FastForwardMultiplier = 8f;
     private const float DefaultChoiceButtonHeight = 62f;
     private const float DefaultChoiceHorizontalPadding = 44f;
     private const float MinChoiceWidth = 260f;
@@ -52,10 +54,11 @@ public sealed class DialogueView : MonoBehaviour
     private bool visible;
     private bool showingChoices;
     private bool revealingText;
+    private bool fastForwarding;
 
     private void Awake()
     {
-        WireButton();
+        WireButtons();
         CacheDialogueTextLayout();
         SetContinueIcon(false);
 
@@ -67,6 +70,8 @@ public sealed class DialogueView : MonoBehaviour
     {
         if (continueButton != null)
             continueButton.onClick.RemoveListener(RequestContinue);
+        if (skipDialogueButton != null)
+            skipDialogueButton.onClick.RemoveListener(BeginFastForward);
 
         ClearChoices();
     }
@@ -100,7 +105,7 @@ public sealed class DialogueView : MonoBehaviour
         if (line == null)
             return;
 
-        WireButton();
+        WireButtons();
         SetVisible(true);
 
         string speakerName = !string.IsNullOrWhiteSpace(line.speakerName)
@@ -149,6 +154,7 @@ public sealed class DialogueView : MonoBehaviour
     public void Hide()
     {
         StopTextReveal();
+        fastForwarding = false;
         lastLeftPortrait = null;
         lastRightPortrait = null;
         SetVisible(false);
@@ -174,13 +180,19 @@ public sealed class DialogueView : MonoBehaviour
         return true;
     }
 
-    private void WireButton()
+    private void WireButtons()
     {
-        if (continueButton == null)
-            return;
+        if (continueButton != null)
+        {
+            continueButton.onClick.RemoveListener(RequestContinue);
+            continueButton.onClick.AddListener(RequestContinue);
+        }
 
-        continueButton.onClick.RemoveListener(RequestContinue);
-        continueButton.onClick.AddListener(RequestContinue);
+        if (skipDialogueButton != null)
+        {
+            skipDialogueButton.onClick.RemoveListener(BeginFastForward);
+            skipDialogueButton.onClick.AddListener(BeginFastForward);
+        }
     }
 
     private void RequestContinue()
@@ -189,6 +201,17 @@ public sealed class DialogueView : MonoBehaviour
             return;
 
         ContinueRequested?.Invoke();
+    }
+
+    private void BeginFastForward()
+    {
+        if (!visible || showingChoices || fastForwarding)
+            return;
+
+        fastForwarding = true;
+
+        if (!revealingText)
+            ContinueRequested?.Invoke();
     }
 
     private void RequestChoice(int index)
@@ -258,6 +281,8 @@ public sealed class DialogueView : MonoBehaviour
         revealStartedFrame = Time.frameCount;
         if (continueButton != null)
             continueButton.gameObject.SetActive(true);
+        if (skipDialogueButton != null)
+            skipDialogueButton.gameObject.SetActive(true);
         SetContinueIcon(true);
 
         textRevealRoutine = StartCoroutine(RevealText());
@@ -270,7 +295,8 @@ public sealed class DialogueView : MonoBehaviour
 
         while (dialogueText != null && dialogueText.maxVisibleCharacters < characterCount)
         {
-            visibleCharacters += charactersPerSecond * Time.unscaledDeltaTime;
+            float revealSpeed = charactersPerSecond * (fastForwarding ? FastForwardMultiplier : 1f);
+            visibleCharacters += revealSpeed * Time.unscaledDeltaTime;
             dialogueText.maxVisibleCharacters = Mathf.Min(
                 characterCount,
                 Mathf.FloorToInt(visibleCharacters));
@@ -295,6 +321,9 @@ public sealed class DialogueView : MonoBehaviour
         IReadOnlyList<DialogueChoice> choices = pendingChoices;
         pendingChoices = null;
         ShowChoices(choices);
+
+        if (fastForwarding && !showingChoices)
+            ContinueRequested?.Invoke();
     }
 
     private void StopTextReveal()
@@ -314,9 +343,13 @@ public sealed class DialogueView : MonoBehaviour
 
         bool hasChoices = choices != null && choices.Count > 0;
         showingChoices = hasChoices;
+        if (showingChoices)
+            fastForwarding = false;
         SetContinueIcon(false);
         if (continueButton != null)
             continueButton.gameObject.SetActive(!showingChoices);
+        if (skipDialogueButton != null)
+            skipDialogueButton.gameObject.SetActive(!showingChoices);
 
         if (!hasChoices)
         {
