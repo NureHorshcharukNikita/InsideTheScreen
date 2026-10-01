@@ -93,6 +93,7 @@ public class InventoryWindow : MonoBehaviour
     private bool isOpen;
 
     public bool IsOpen => isOpen;
+    public bool IsPauseShown => pauseOverlay != null && pauseOverlay.activeInHierarchy;
 
     private enum PendingPauseAction
     {
@@ -151,21 +152,6 @@ public class InventoryWindow : MonoBehaviour
             deckCardsContent);
 
         return true;
-    }
-
-    private void Update()
-    {
-        if (!GameInputSettings.GetKeyDown(GameInputAction.Close))
-            return;
-
-        if (IsOpen || (pauseOverlay != null && pauseOverlay.activeSelf))
-        {
-            HandleCloseInput();
-            return;
-        }
-
-        if (GameStateManager.CanPause())
-            PauseGame();
     }
 
     private void OnEnable()
@@ -255,6 +241,9 @@ public class InventoryWindow : MonoBehaviour
         if (!GameStateManager.CanOpenInventory())
             return;
 
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
+
         GameStateManager.SetState(GameState.Inventory);
         SetInventoryVisible(true);
 
@@ -289,6 +278,8 @@ public class InventoryWindow : MonoBehaviour
 
         if (GameStateManager.State == GameState.Inventory)
             GameStateManager.SetState(GameState.Gameplay);
+
+        gameObject.SetActive(false);
     }
 
     public void ResumeGame()
@@ -298,12 +289,19 @@ public class InventoryWindow : MonoBehaviour
 
         if (GameStateManager.State == GameState.Paused)
             GameStateManager.SetState(GameState.Gameplay);
+
+        // Pause can also be opened on top of the inventory; keep the inventory open then.
+        if (!IsOpen)
+            gameObject.SetActive(false);
     }
 
     public void PauseGame()
     {
         if (IsOpen || pauseOverlay == null || !GameStateManager.CanPause())
             return;
+
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
 
         ClearSelectedButton();
         ResetPauseMenu();
@@ -813,7 +811,7 @@ public class InventoryWindow : MonoBehaviour
         transferQuantityPrompt?.Hide();
     }
 
-    private void HandleCloseInput()
+    public void HandleCloseInput()
     {
         ClearSelectedButton();
 

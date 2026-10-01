@@ -9,6 +9,17 @@ public class InventoryInput : MonoBehaviour
         if (inventoryWindow == null)
             return;
 
+        // Handled here because InventoryWindow is inactive while hidden.
+        if (GameInputSettings.GetKeyDown(GameInputAction.Close))
+        {
+            if (inventoryWindow.IsOpen || inventoryWindow.IsPauseShown)
+                inventoryWindow.HandleCloseInput();
+            else if (GameStateManager.CanPause())
+                inventoryWindow.PauseGame();
+
+            return;
+        }
+
         if (!GameInputSettings.GetKeyDown(GameInputAction.Inventory))
             return;
 
