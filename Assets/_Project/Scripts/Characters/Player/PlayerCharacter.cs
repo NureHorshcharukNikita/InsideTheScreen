@@ -2,16 +2,22 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[DefaultExecutionOrder(-100)]
 public class PlayerCharacter : Character
 {
     [SerializeField] private PlayerData playerData;
 
     private int currentActionPoints;
+    private int lastKnownMaxHealth;
     private InventoryData runtimeInventoryData;
     private DeckData runtimeDeckData;
 
-    public override int MaxHealth => playerData != null ? playerData.maxHealth : 0;
-    public override int StartingArmor => playerData != null ? playerData.startingArmor : 0;
+    public override int MaxHealth => playerData != null
+        ? Mathf.Max(1, SkillProgression.ModifyInt(SkillStat.MaxHealth, playerData.maxHealth))
+        : 0;
+    public override int StartingArmor => playerData != null
+        ? Mathf.Max(0, SkillProgression.ModifyInt(SkillStat.StartingArmor, playerData.startingArmor))
+        : 0;
     public override CombatTeam Team => CombatTeam.Player;
 
     public InventoryData InventoryData => runtimeInventoryData;
@@ -22,7 +28,9 @@ public class PlayerCharacter : Character
     public Sprite DialogueSprite => PortraitSprite;
     public int StartHandSize => playerData != null ? playerData.startHandSize : 0;
     public int CardsDrawnPerTurn => playerData != null ? playerData.cardsDrawnPerTurn : 0;
-    public int MaxActionPoints => playerData != null ? playerData.maxActionPoints : 0;
+    public int MaxActionPoints => playerData != null
+        ? Mathf.Max(0, SkillProgression.ModifyInt(SkillStat.MaxActionPoints, playerData.maxActionPoints))
+        : 0;
     public int CurrentActionPoints => currentActionPoints;
 
     public event Action<int, int> ActionPointsChanged;
@@ -47,12 +55,28 @@ public class PlayerCharacter : Character
         runtimeDeckData = ExplorationPlayerSession.GetOrCreateRuntimeDeck(playerData.Deck);
         PlayerWallet.Initialize(playerData.startingGold);
 
+        SkillProgression.Initialize(playerData.startingSkillPoints, playerData.skills);
+        lastKnownMaxHealth = MaxHealth;
+        SetArmor(StartingArmor);
+
         if (ExplorationPlayerSession.TryGetSavedHealth(out int savedHealth))
             SetHealth(savedHealth);
+        else
+            SetFullHealth();
 
-        currentActionPoints = playerData.startActionPoints;
+        currentActionPoints = Mathf.Min(playerData.startActionPoints, MaxActionPoints);
 
         ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
+    }
+
+    private void OnEnable()
+    {
+        SkillProgression.Changed += HandleSkillProgressionChanged;
+    }
+
+    private void OnDisable()
+    {
+        SkillProgression.Changed -= HandleSkillProgressionChanged;
     }
 
     private IEnumerator Start()
@@ -83,6 +107,17 @@ public class PlayerCharacter : Character
 
         currentActionPoints = Mathf.Min(currentActionPoints + playerData.actionPointsPerTurn, MaxActionPoints);
 
+        ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
+    }
+
+    private void HandleSkillProgressionChanged()
+    {
+        int newMaxHealth = MaxHealth;
+        int gainedHealth = Mathf.Max(0, newMaxHealth - lastKnownMaxHealth);
+        lastKnownMaxHealth = newMaxHealth;
+        SetHealth(CurrentHealth + gainedHealth);
+
+        currentActionPoints = Mathf.Min(currentActionPoints, MaxActionPoints);
         ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
     }
 }

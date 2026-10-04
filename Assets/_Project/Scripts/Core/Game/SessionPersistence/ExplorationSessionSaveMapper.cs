@@ -17,6 +17,9 @@ public static class ExplorationSessionSaveMapper
         ShopProgressSaveData[] shopProgress,
         NpcPositionSaveData[] npcPositions,
         NpcDialogueProgressSaveData[] npcDialogueProgress,
+        bool hasSkillProgression,
+        int skillPoints,
+        SkillProgressSaveData[] skillProgression,
         string[] storyFlags)
     {
         SessionSaveData data = new()
@@ -39,6 +42,9 @@ public static class ExplorationSessionSaveMapper
             shopProgress = shopProgress,
             npcPositions = npcPositions,
             npcDialogueProgress = npcDialogueProgress,
+            hasSkillProgression = hasSkillProgression,
+            skillPoints = skillPoints,
+            skillProgression = skillProgression,
             storyFlags = storyFlags
         };
 

@@ -30,6 +30,9 @@ public sealed class SessionSaveData
     public NpcPositionSaveData[] npcPositions;
     public NpcDialogueProgressSaveData[] npcDialogueProgress;
     public string[] storyFlags;
+    public bool hasSkillProgression;
+    public int skillPoints;
+    public SkillProgressSaveData[] skillProgression;
 }
 
 [Serializable]
@@ -63,4 +66,11 @@ public sealed class NpcDialogueProgressSaveData
     public string npcKey;
     public int talkCount;
     public string[] usedDialogueKeys;
+}
+
+[Serializable]
+public sealed class SkillProgressSaveData
+{
+    public string skillId;
+    public int rank;
 }

@@ -28,7 +28,8 @@ public class CardPlayer
         if (!CardResolver.CanResolveAnyTarget(card, context))
             return false;
 
-        if (!player.SpendActionPoints(card.Cost))
+        int actionPointCost = Mathf.Max(0, SkillProgression.ModifyInt(SkillStat.CardActionPointCost, card.Cost));
+        if (!player.SpendActionPoints(actionPointCost))
         {
             DevLog.Log("Not enough action points");
             return false;

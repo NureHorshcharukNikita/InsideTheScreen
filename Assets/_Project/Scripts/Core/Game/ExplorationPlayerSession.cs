@@ -158,6 +158,11 @@ public static class ExplorationPlayerSession
         HasSession = true;
     }
 
+    public static void SaveSkillProgression()
+    {
+        HasSession = true;
+    }
+
     public static bool TryGetNpcPosition(string npcKey, out Vector3 position)
     {
         if (string.IsNullOrWhiteSpace(npcKey))
@@ -251,6 +256,7 @@ public static class ExplorationPlayerSession
         QuestManager.Clear();
         ShopManager.Clear();
         PlayerWallet.Clear();
+        SkillProgression.Clear();
         NpcDialogueProgress.Clear();
         StoryFlagManager.Clear();
     }
@@ -272,6 +278,9 @@ public static class ExplorationPlayerSession
             ShopManager.ToArray(),
             CreateNpcPositionSaveData(),
             NpcDialogueProgress.ToArray(),
+            SkillProgression.IsInitialized,
+            SkillProgression.AvailablePoints,
+            SkillProgression.ToArray(),
             StoryFlagManager.ToArray());
     }
 
@@ -299,6 +308,7 @@ public static class ExplorationPlayerSession
         CollectedPickups.Restore(data.collectedPickupIds);
         QuestManager.Restore(data.questProgress);
         ShopManager.Restore(data.shopProgress);
+        SkillProgression.Restore(data.hasSkillProgression, data.skillPoints, data.skillProgression);
         NpcDialogueProgress.Restore(data.npcDialogueProgress);
         StoryFlagManager.Restore(data.storyFlags);
         RestoreNpcPositions(data.npcPositions);

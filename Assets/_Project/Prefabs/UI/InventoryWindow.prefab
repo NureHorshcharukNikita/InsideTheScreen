@@ -13600,10 +13600,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5548356240114532915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f1cea5ed7080d4cb0ea00c626c9ac8, type: 3}
+  m_Script: {fileID: 11500000, guid: bf34ab37a43043a5854a85c1b9219ec2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHPText
-  hpText: {fileID: 2669948109147121223}
+  m_EditorClassIdentifier: Assembly-CSharp::SkillPointCounterView
+  skillPointText: {fileID: 2669948109147121223}
 --- !u!1 &5564677153739868741
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,10 @@ public class PlayerData : ScriptableObject
     [Header("Currency")]
     public int startingGold = 35;
 
+    [Header("Skills")]
+    [Min(0)] public int startingSkillPoints;
+    public System.Collections.Generic.List<SkillData> skills = new();
+
     public string DisplayName => profile != null ? profile.DisplayName : name;
     public Sprite PortraitSprite => profile != null ? profile.PortraitSprite : null;
 }
