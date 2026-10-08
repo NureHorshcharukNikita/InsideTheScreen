@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7e4b36183843e3b5b67ea2c511e10f, type: 3}
+  m_Name: Planning
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillId: knowledge_planning
+  displayName: Planning
+  category: 1
+  treePage: 1
+  treeOrder: 2
+  icon: {fileID: 8432782635155741704, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
+  description: The first card each turn costs 1 less action point.
+  ranks:
+  - cost: 1
+    description: The first card each turn costs 1 less action point.
+    effects:
+    - kind: 1
+      stat: 0
+      modifierType: 0
+      value: 0
+      passive: 2
+  prerequisites:
+  - skill: {fileID: 11400000, guid: 9eea28a2feef431bb1e32fb85d246fc3, type: 2}
+    requiredRank: 1
+  progressionRequirements: []

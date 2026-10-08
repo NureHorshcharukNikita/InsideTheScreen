@@ -278,7 +278,7 @@ public class ConditionCreatorWindow : EditorWindow
         {
             EditorGUILayout.LabelField("Inspector", EditorStyles.boldLabel);
             _rightScroll = EditorGUILayout.BeginScrollView(_rightScroll, GUI.skin.box);
-            if (_selectedAssetEditor != null)
+            if (_selectedAssetEditor != null && _selectedAssetEditor.target != null)
                 _selectedAssetEditor.OnInspectorGUI();
             else
                 EditorGUILayout.HelpBox("Select a condition, effect, or target profile from the left list.", MessageType.Info);

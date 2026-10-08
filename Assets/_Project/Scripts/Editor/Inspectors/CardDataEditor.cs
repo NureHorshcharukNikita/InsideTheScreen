@@ -18,6 +18,9 @@ public class CardDataEditor : UnityEditor.Editor
 
     private void OnEnable()
     {
+        if (target == null)
+            return;
+
         _cardIdProp = serializedObject.FindProperty("cardID");
         _cardNameProp = serializedObject.FindProperty("cardName");
         _descriptionProp = serializedObject.FindProperty("description");
@@ -33,6 +36,9 @@ public class CardDataEditor : UnityEditor.Editor
 
     public override void OnInspectorGUI()
     {
+        if (target == null)
+            return;
+
         serializedObject.Update();
 
         EditorSectionGUI.DrawSection("Card Identity", DrawIdentitySection, 0f);

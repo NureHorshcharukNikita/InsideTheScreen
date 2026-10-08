@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7e4b36183843e3b5b67ea2c511e10f, type: 3}
+  m_Name: ExtendedAwareness
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillId: knowment_extended_awareness
+  displayName: Extended Awareness
+  category: 4
+  treePage: 1
+  treeOrder: 2
+  icon: {fileID: -4894141499052518315, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
+  description: Buffs last longer.
+  ranks:
+  - cost: 1
+    description: Buff duration +1 turn.
+    effects:
+    - kind: 0
+      stat: 10
+      modifierType: 0
+      value: 1
+      passive: 0
+  - cost: 1
+    description: Buff duration +1 turn (total +2).
+    effects:
+    - kind: 0
+      stat: 10
+      modifierType: 0
+      value: 1
+      passive: 0
+  - cost: 1
+    description: Buff duration +1 turn (total +3).
+    effects:
+    - kind: 0
+      stat: 10
+      modifierType: 0
+      value: 1
+      passive: 0
+  - cost: 1
+    description: Buff duration +1 turn (total +4).
+    effects:
+    - kind: 0
+      stat: 10
+      modifierType: 0
+      value: 1
+      passive: 0
+  prerequisites:
+  - skill: {fileID: 11400000, guid: 9eea28a2feef431bb1e32fb85d246fc3, type: 2}
+    requiredRank: 1
+  - skill: {fileID: 11400000, guid: 201faa5eefa149969312ab1f8592f6c3, type: 2}
+    requiredRank: 1
+  progressionRequirements: []

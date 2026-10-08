@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7e4b36183843e3b5b67ea2c511e10f, type: 3}
+  m_Name: BattleAnalysis
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillId: phyknow_battle_analysis
+  displayName: Battle Analysis
+  category: 3
+  treePage: 1
+  treeOrder: 2
+  icon: {fileID: 3384893568485262794, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
+  description: After every 3rd hit, the hero gains 1 temporary armor and bonus damage on the next card.
+  ranks:
+  - cost: 1
+    description: Every 3rd hit grants 1 temporary armor and next card damage +5%.
+    effects:
+    - kind: 0
+      stat: 13
+      modifierType: 1
+      value: 5
+      passive: 0
+  - cost: 1
+    description: Every 3rd hit grants 1 temporary armor and next card damage +5% (total +10%).
+    effects:
+    - kind: 0
+      stat: 13
+      modifierType: 1
+      value: 5
+      passive: 0
+  - cost: 1
+    description: Every 3rd hit grants 1 temporary armor and next card damage +5% (total +15%).
+    effects:
+    - kind: 0
+      stat: 13
+      modifierType: 1
+      value: 5
+      passive: 0
+  prerequisites:
+  - skill: {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}
+    requiredRank: 1
+  - skill: {fileID: 11400000, guid: 9eea28a2feef431bb1e32fb85d246fc3, type: 2}
+    requiredRank: 1
+  progressionRequirements: []

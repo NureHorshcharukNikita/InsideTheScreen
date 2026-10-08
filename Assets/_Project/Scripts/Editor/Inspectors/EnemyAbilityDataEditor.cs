@@ -18,6 +18,9 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
 
     private void OnEnable()
     {
+        if (target == null)
+            return;
+
         _abilityIdProp = serializedObject.FindProperty("abilityID");
         _displayNameProp = serializedObject.FindProperty("displayName");
         _descriptionProp = serializedObject.FindProperty("description");
@@ -33,6 +36,9 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
 
     public override void OnInspectorGUI()
     {
+        if (target == null)
+            return;
+
         serializedObject.Update();
 
         EditorSectionGUI.DrawSection("Enemy Ability", DrawIdentitySection, 0f);

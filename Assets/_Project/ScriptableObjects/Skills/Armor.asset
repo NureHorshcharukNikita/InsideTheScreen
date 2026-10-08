@@ -15,11 +15,12 @@ MonoBehaviour:
   skillId: physical_armor
   displayName: Armor
   category: 0
+  treePage: 1
   treeOrder: 3
-  icon: {fileID: 0}
+  icon: {fileID: -1322635036702604433, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
   description: Reduces incoming physical damage.
   ranks:
-  - cost: 2
+  - cost: 1
     description: Physical damage taken -5%.
     effects:
     - kind: 0
@@ -27,7 +28,7 @@ MonoBehaviour:
       modifierType: 1
       value: -5
       passive: 0
-  - cost: 3
+  - cost: 1
     description: Physical damage taken -5% (total -10%).
     effects:
     - kind: 0
@@ -35,7 +36,7 @@ MonoBehaviour:
       modifierType: 1
       value: -5
       passive: 0
-  - cost: 4
+  - cost: 1
     description: Physical damage taken -5% (total -15%).
     effects:
     - kind: 0

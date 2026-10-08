@@ -32,6 +32,9 @@ public sealed class QuestDataEditor : UnityEditor.Editor
 
     private void OnEnable()
     {
+        if (target == null)
+            return;
+
         questKeyProp = serializedObject.FindProperty("questKey");
         titleProp = serializedObject.FindProperty("title");
         giverNameProp = serializedObject.FindProperty("giverName");
@@ -49,6 +52,9 @@ public sealed class QuestDataEditor : UnityEditor.Editor
 
     public override void OnInspectorGUI()
     {
+        if (target == null)
+            return;
+
         serializedObject.Update();
 
         EditorSectionGUI.DrawSection("Identity", DrawIdentitySection, 0f);

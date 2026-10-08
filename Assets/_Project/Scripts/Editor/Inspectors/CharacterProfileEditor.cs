@@ -10,6 +10,9 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
 
     private void OnEnable()
     {
+        if (target == null)
+            return;
+
         characterIdProp = serializedObject.FindProperty("characterID");
         displayNameProp = serializedObject.FindProperty("displayName");
         descriptionProp = serializedObject.FindProperty("description");
@@ -18,6 +21,9 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
 
     public override void OnInspectorGUI()
     {
+        if (target == null)
+            return;
+
         serializedObject.Update();
 
         EditorSectionGUI.DrawSection("Identity", DrawIdentitySection, 0f);

@@ -12,6 +12,9 @@ public class EnemyDataEditor : UnityEditor.Editor
 
     private void OnEnable()
     {
+        if (target == null)
+            return;
+
         _profileProp = serializedObject.FindProperty("profile");
         _maxHealthProp = serializedObject.FindProperty("maxHealth");
         _startingArmorProp = serializedObject.FindProperty("startingArmor");
@@ -21,6 +24,9 @@ public class EnemyDataEditor : UnityEditor.Editor
 
     public override void OnInspectorGUI()
     {
+        if (target == null)
+            return;
+
         serializedObject.Update();
 
         EditorSectionGUI.DrawSection("Enemy Profile", DrawProfileSection, 0f);

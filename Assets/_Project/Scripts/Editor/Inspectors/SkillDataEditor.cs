@@ -17,6 +17,9 @@ public sealed class SkillDataEditor : UnityEditor.Editor
 
     private void OnEnable()
     {
+        if (target == null)
+            return;
+
         skillIdProp = serializedObject.FindProperty("skillId");
         displayNameProp = serializedObject.FindProperty("displayName");
         categoryProp = serializedObject.FindProperty("category");
@@ -30,6 +33,9 @@ public sealed class SkillDataEditor : UnityEditor.Editor
 
     public override void OnInspectorGUI()
     {
+        if (target == null)
+            return;
+
         serializedObject.Update();
 
         EditorSectionGUI.DrawSection("Identity", DrawIdentity, 0f);

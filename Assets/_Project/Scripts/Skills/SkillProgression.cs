@@ -133,7 +133,17 @@ public static class SkillProgression
             return;
 
         EnsureInitialized();
-        availablePoints += amount;
+        SetAvailablePoints(availablePoints + amount);
+    }
+
+    public static void SetAvailablePoints(int amount)
+    {
+        EnsureInitialized();
+        int clampedAmount = Mathf.Max(0, amount);
+        if (availablePoints == clampedAmount)
+            return;
+
+        availablePoints = clampedAmount;
         Changed?.Invoke();
         ExplorationPlayerSession.SaveSkillProgression();
     }

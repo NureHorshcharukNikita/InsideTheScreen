@@ -1,0 +1,593 @@
+fileFormatVersion: 2
+guid: f751145e9b6c33642b2f4f74ba7a047f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9153120716560276857
+    second: ArrowParts_0
+  - first:
+      213: 5584242926026283453
+    second: ArrowParts_1
+  - first:
+      213: -5760463576189710408
+    second: ArrowParts_2
+  - first:
+      213: -7555086963637801862
+    second: ArrowParts_3
+  - first:
+      213: -6824960357956357263
+    second: ArrowParts_4
+  - first:
+      213: 7703637930047489375
+    second: ArrowParts_5
+  - first:
+      213: 7240518057010794683
+    second: ArrowParts_6
+  - first:
+      213: -8270856139795235477
+    second: ArrowParts_7
+  - first:
+      213: 4870303827815120599
+    second: ArrowParts_8
+  - first:
+      213: -2009498420864063473
+    second: ArrowParts_9
+  - first:
+      213: -8012896392763789573
+    second: ArrowParts_10
+  - first:
+      213: 6890155358841411437
+    second: ArrowParts_11
+  - first:
+      213: -5291800809163437882
+    second: ArrowParts_12
+  - first:
+      213: -7918911809259389391
+    second: ArrowParts_13
+  - first:
+      213: -1809647210846319051
+    second: ArrowParts_14
+  - first:
+      213: 4607138645405524581
+    second: ArrowParts_15
+  - first:
+      213: -8473662581346659009
+    second: ArrowParts_16
+  - first:
+      213: -5737575753208891226
+    second: ArrowParts_17
+  - first:
+      213: 3429317619906695089
+    second: ArrowParts_18
+  - first:
+      213: -715886563629725524
+    second: ArrowParts_19
+  - first:
+      213: 2324698628510535467
+    second: ArrowParts_20
+  - first:
+      213: 5093540840034773780
+    second: ArrowParts_21
+  - first:
+      213: -6684733618837661704
+    second: ArrowParts_22
+  - first:
+      213: -6136344148144576830
+    second: ArrowParts_23
+  - first:
+      213: -7997644856935614970
+    second: ArrowParts_24
+  - first:
+      213: -1927985783909843932
+    second: ArrowParts_25
+  - first:
+      213: 5099849448257582792
+    second: ArrowParts_26
+  - first:
+      213: -8863245705470423327
+    second: ArrowParts_27
+  - first:
+      213: 3774097926254937363
+    second: ArrowParts_28
+  - first:
+      213: -181570713443590333
+    second: ArrowParts_29
+  - first:
+      213: -6150879741583690444
+    second: ArrowParts_30
+  - first:
+      213: 3139075229971518930
+    second: ArrowParts_31
+  - first:
+      213: 1549277907553302039
+    second: ArrowParts_32
+  - first:
+      213: 4347054744247109189
+    second: ArrowParts_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ArrowParts_0
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 923
+        width: 173
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 10, y: 0, z: 10, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 782e72f143599f080800000000000000
+      internalID: -9153120716560276857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_1
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 613
+        width: 185
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db9d849ca573f7d40800000000000000
+      internalID: 5584242926026283453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_2
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 858
+        width: 30
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bfc2afc5e8be00b0800000000000000
+      internalID: -5760463576189710408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_3
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 617
+        width: 152
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c2f256f60f62790800000000000000
+      internalID: -7555086963637801862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_4
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 605
+        width: 162
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17373e1f6bed841a0800000000000000
+      internalID: -6824960357956357263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_5
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 601
+        width: 193
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f55c4bab1e1d8ea60800000000000000
+      internalID: 7703637930047489375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_6
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 860
+        width: 121
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb01ee99fcc7b7460800000000000000
+      internalID: 7240518057010794683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_7
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 878
+        width: 76
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 62, z: 0, w: 6}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6d75276924083d80800000000000000
+      internalID: -8270856139795235477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_8
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 350
+        width: 164
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7de3525078bc69340800000000000000
+      internalID: 4870303827815120599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_9
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 345
+        width: 185
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0860bf35d3dc14e0800000000000000
+      internalID: -2009498420864063473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_10
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 342
+        width: 230
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfe2e475f297cc090800000000000000
+      internalID: -8012896392763789573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_11
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 367
+        width: 221
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d671ff21bcfbe9f50800000000000000
+      internalID: 6890155358841411437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_12
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 110
+        width: 125
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c840b3833fbf86b0800000000000000
+      internalID: -5291800809163437882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_13
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 88
+        width: 198
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13eb2796aaf5a1290800000000000000
+      internalID: -7918911809259389391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_14
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 83
+        width: 179
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53e8abc1377d2e6e0800000000000000
+      internalID: -1809647210846319051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArrowParts_15
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 84
+        width: 174
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 562ee563038dfef30800000000000000
+      internalID: 4607138645405524581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":264.0,"y":264.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      ArrowParts_0: -9153120716560276857
+      ArrowParts_1: 5584242926026283453
+      ArrowParts_10: -8012896392763789573
+      ArrowParts_11: 6890155358841411437
+      ArrowParts_12: -5291800809163437882
+      ArrowParts_13: -7918911809259389391
+      ArrowParts_14: -1809647210846319051
+      ArrowParts_15: 4607138645405524581
+      ArrowParts_16: -8473662581346659009
+      ArrowParts_17: -5737575753208891226
+      ArrowParts_18: 3429317619906695089
+      ArrowParts_19: -715886563629725524
+      ArrowParts_2: -5760463576189710408
+      ArrowParts_3: -7555086963637801862
+      ArrowParts_4: -6824960357956357263
+      ArrowParts_5: 7703637930047489375
+      ArrowParts_6: 7240518057010794683
+      ArrowParts_7: -8270856139795235477
+      ArrowParts_8: 4870303827815120599
+      ArrowParts_9: -2009498420864063473
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

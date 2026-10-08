@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7e4b36183843e3b5b67ea2c511e10f, type: 3}
+  m_Name: Concentration
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillId: knowledge_concentration
+  displayName: Concentration
+  category: 1
+  treePage: 1
+  treeOrder: 1
+  icon: {fileID: 7799713541556398574, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
+  description: Increases maximum action points.
+  ranks:
+  - cost: 1
+    description: Maximum action points +1.
+    effects:
+    - kind: 0
+      stat: 5
+      modifierType: 0
+      value: 1
+      passive: 0
+  - cost: 1
+    description: Maximum action points +1 (total +2).
+    effects:
+    - kind: 0
+      stat: 5
+      modifierType: 0
+      value: 1
+      passive: 0
+  - cost: 1
+    description: Maximum action points +1 (total +3).
+    effects:
+    - kind: 0
+      stat: 5
+      modifierType: 0
+      value: 1
+      passive: 0
+  prerequisites: []
+  progressionRequirements: []

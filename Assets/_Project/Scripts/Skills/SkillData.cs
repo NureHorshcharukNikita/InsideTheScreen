@@ -9,6 +9,7 @@ public sealed class SkillData : ScriptableObject
     [SerializeField] private string skillId;
     [SerializeField] private string displayName;
     [SerializeField] private SkillCategory category;
+    [SerializeField, Range(1, 5)] private int treePage = 1;
     [SerializeField, Min(1)] private int treeOrder = 1;
     [SerializeField] private Sprite icon;
 
@@ -25,6 +26,7 @@ public sealed class SkillData : ScriptableObject
     public string SkillId => skillId;
     public string DisplayName => string.IsNullOrWhiteSpace(displayName) ? name : displayName;
     public SkillCategory Category => category;
+    public int TreePage => Mathf.Clamp(treePage, 1, 5);
     public int TreeOrder => Mathf.Max(1, treeOrder);
     public Sprite Icon => icon;
     public string Description => description;
@@ -41,6 +43,7 @@ public sealed class SkillData : ScriptableObject
     private void OnValidate()
     {
         skillId = skillId?.Trim();
+        treePage = Mathf.Clamp(treePage, 1, 5);
         treeOrder = Mathf.Max(1, treeOrder);
     }
 }
@@ -137,7 +140,8 @@ public enum SkillStat
     DebuffChance,
     BuffDuration,
     CardRetentionChance,
-    EmotionRepeatChance
+    EmotionRepeatChance,
+    BattleAnalysisDamage
 }
 
 public enum SkillPassive

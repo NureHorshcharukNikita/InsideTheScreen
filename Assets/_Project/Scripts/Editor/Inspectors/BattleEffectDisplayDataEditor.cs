@@ -17,6 +17,9 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
 
     private void OnEnable()
     {
+        if (target == null)
+            return;
+
         _iconProp = serializedObject.FindProperty("icon");
         _badgeModeProp = serializedObject.FindProperty("badgeMode");
         _badgeValueSourceProp = serializedObject.FindProperty("badgeValueSource");
@@ -27,6 +30,9 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
 
     public override void OnInspectorGUI()
     {
+        if (target == null)
+            return;
+
         serializedObject.Update();
 
         EditorSectionGUI.DrawSection("Badge", () =>

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7e4b36183843e3b5b67ea2c511e10f, type: 3}
+  m_Name: InnerUnity
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  skillId: mental_inner_unity
+  displayName: Inner Unity
+  category: 2
+  treePage: 1
+  treeOrder: 4
+  icon: {fileID: 0}
+  description: On Breakdown, there is a chance to enter Superfocus (+20% damage, +1 action point for 2 turns).
+  ranks:
+  - cost: 1
+    description: On Breakdown, chance to enter Superfocus (+20% damage, +1 action point for 2 turns).
+    effects:
+    - kind: 1
+      stat: 0
+      modifierType: 0
+      value: 0
+      passive: 5
+  prerequisites:
+  - skill: {fileID: 11400000, guid: d065e5f504a54953a269ca35ee8b7a19, type: 2}
+    requiredRank: 1
+  progressionRequirements: []
