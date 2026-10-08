@@ -1,0 +1,369 @@
+fileFormatVersion: 2
+guid: 587abcd0a9a864740955189bf3268d1a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2561523098715842191
+    second: ButtonIcons_0
+  - first:
+      213: 9094706479224064107
+    second: ButtonIcons_1
+  - first:
+      213: 4979347514693079059
+    second: ButtonIcons_2
+  - first:
+      213: -8094904025765390864
+    second: ButtonIcons_3
+  - first:
+      213: 2645882919280120587
+    second: ButtonIcons_4
+  - first:
+      213: -8938410513800412855
+    second: ButtonIcons_5
+  - first:
+      213: 2960261866489973910
+    second: ButtonIcons_6
+  - first:
+      213: -6354954710595673306
+    second: ButtonIcons_7
+  - first:
+      213: 6314988040819092876
+    second: ButtonIcons_8
+  - first:
+      213: 2495084998956431569
+    second: ButtonIcons_9
+  - first:
+      213: 5050033242206798723
+    second: ButtonIcons_10
+  - first:
+      213: -6659225495231196942
+    second: ButtonIcons_11
+  - first:
+      213: -912161346730949001
+    second: ButtonIcons_12
+  - first:
+      213: 7680474764172083692
+    second: ButtonIcons_13
+  - first:
+      213: -3036409112592746110
+    second: ButtonIcons_14
+  - first:
+      213: -5331756670792021305
+    second: ButtonIcons_15
+  - first:
+      213: -6396053516017932202
+    second: ButtonIcons_16
+  - first:
+      213: 3185602192799455529
+    second: ButtonIcons_17
+  - first:
+      213: 4326814267851148342
+    second: ButtonIcons_18
+  - first:
+      213: 2955307405490676466
+    second: ButtonIcons_19
+  - first:
+      213: -210295206449879114
+    second: ButtonIcons_20
+  - first:
+      213: 6676067117995887629
+    second: ButtonIcons_21
+  - first:
+      213: 7892486727364624153
+    second: ButtonIcons_22
+  - first:
+      213: -1128954120584575612
+    second: ButtonIcons_23
+  - first:
+      213: -827617079262777250
+    second: ButtonIcons_24
+  - first:
+      213: 6720660703702401688
+    second: ButtonIcons_25
+  - first:
+      213: 1970466245851776561
+    second: ButtonIcons_26
+  - first:
+      213: -2396730049784093450
+    second: ButtonIcons_27
+  - first:
+      213: 5149336803033607064
+    second: ButtonIcons_28
+  - first:
+      213: -7103737380766523183
+    second: ButtonIcons_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ButtonIcons_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 538
+        width: 370
+        height: 405
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17995113054a37cd0800000000000000
+      internalID: -2561523098715842191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonIcons_1
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 522
+        width: 434
+        height: 439
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6808966b53e63e70800000000000000
+      internalID: 9094706479224064107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonIcons_2
+      rect:
+        serializedVersion: 2
+        x: 1046
+        y: 530
+        width: 392
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3105182de223a1540800000000000000
+      internalID: 4979347514693079059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonIcons_3
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 57
+        width: 367
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f5df5d5daf19af80800000000000000
+      internalID: -8094904025765390864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonIcons_4
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 63
+        width: 385
+        height: 436
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0317f02f7018b420800000000000000
+      internalID: 2645882919280120587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonIcons_5
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 75
+        width: 393
+        height: 394
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9414f44def264f380800000000000000
+      internalID: -8938410513800412855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ButtonIcons_0: -2561523098715842191
+      ButtonIcons_1: 9094706479224064107
+      ButtonIcons_10: 5050033242206798723
+      ButtonIcons_11: -6659225495231196942
+      ButtonIcons_12: -912161346730949001
+      ButtonIcons_13: 7680474764172083692
+      ButtonIcons_14: -3036409112592746110
+      ButtonIcons_15: -5331756670792021305
+      ButtonIcons_16: -6396053516017932202
+      ButtonIcons_17: 3185602192799455529
+      ButtonIcons_18: 4326814267851148342
+      ButtonIcons_19: 2955307405490676466
+      ButtonIcons_2: 4979347514693079059
+      ButtonIcons_20: -210295206449879114
+      ButtonIcons_21: 6676067117995887629
+      ButtonIcons_22: 7892486727364624153
+      ButtonIcons_23: -1128954120584575612
+      ButtonIcons_24: -827617079262777250
+      ButtonIcons_25: 6720660703702401688
+      ButtonIcons_26: 1970466245851776561
+      ButtonIcons_27: -2396730049784093450
+      ButtonIcons_28: 5149336803033607064
+      ButtonIcons_29: -7103737380766523183
+      ButtonIcons_3: -8094904025765390864
+      ButtonIcons_4: 2645882919280120587
+      ButtonIcons_5: -8938410513800412855
+      ButtonIcons_6: 2960261866489973910
+      ButtonIcons_7: -6354954710595673306
+      ButtonIcons_8: 6314988040819092876
+      ButtonIcons_9: 2495084998956431569
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

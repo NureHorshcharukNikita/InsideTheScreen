@@ -8,6 +8,9 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
     [SerializeField] private RectTransform target;
     [SerializeField] private Selectable selectable;
     [SerializeField] private Graphic background;
+    // Optional: an Image background switches to the lighted panel while the button is selected.
+    [SerializeField] private Sprite normalBackgroundSprite;
+    [SerializeField] private Sprite selectedBackgroundSprite;
     [SerializeField] private Image icon;
     [SerializeField] private Sprite normalIcon;
     [SerializeField] private Sprite selectedIcon;
@@ -85,7 +88,11 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
             target.sizeDelta = normalSize * (selected ? selectedScale : 1f);
         }
         if (background != null)
+        {
             background.color = GetBackgroundColor(selected);
+            if (background is Image backgroundImage && selectedBackgroundSprite != null)
+                backgroundImage.sprite = selected ? selectedBackgroundSprite : normalBackgroundSprite;
+        }
         if (icon != null)
         {
             Sprite iconSprite = selected ? selectedIcon : normalIcon;

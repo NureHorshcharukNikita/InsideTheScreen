@@ -715,9 +715,8 @@ public class InventoryWindow : MonoBehaviour
     private void EnsurePauseMenuRuntimeFallbacks()
     {
         ApplyOverlayStyle();
-        ApplyPanelStyle(pauseMenuPanel);
+        // The pause menu has its own panel and button art in the prefab; only the options keep the flat style.
         ApplyPanelStyle(optionsPanel);
-        ApplyExistingButtonStyles(pauseMenuPanel);
         ApplyExistingButtonStyles(optionsPanel);
         EnsureSaveToast();
         EnsureConfirmationPanel();
