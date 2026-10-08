@@ -325,6 +325,20 @@ public class InventoryWindow : MonoBehaviour
     public void HideOptions()
     {
         ClearSelectedButton();
+
+        // The main menu settings window plays its exit animation before it closes.
+        if (optionsPanel != null && optionsPanel.activeSelf
+            && optionsPanel.TryGetComponent(out SettingsInputPanel settingsInputPanel))
+        {
+            settingsInputPanel.PlayExit(CompleteHideOptions);
+            return;
+        }
+
+        CompleteHideOptions();
+    }
+
+    private void CompleteHideOptions()
+    {
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
         if (pauseMenuPanel != null)
@@ -715,12 +729,17 @@ public class InventoryWindow : MonoBehaviour
     private void EnsurePauseMenuRuntimeFallbacks()
     {
         ApplyOverlayStyle();
-        // The pause menu has its own panel and button art in the prefab; only the options keep the flat style.
-        ApplyPanelStyle(optionsPanel);
-        ApplyExistingButtonStyles(optionsPanel);
         EnsureSaveToast();
         EnsureConfirmationPanel();
-        EnsureSettingsPanel();
+
+        // The pause menu and the main menu settings window bring their own art from the prefab;
+        // only an old flat options panel still gets the runtime style and binding list.
+        if (optionsPanel != null && !optionsPanel.TryGetComponent(out SettingsInputPanel _))
+        {
+            ApplyPanelStyle(optionsPanel);
+            ApplyExistingButtonStyles(optionsPanel);
+            EnsureSettingsPanel();
+        }
     }
 
     private void ApplyOverlayStyle()

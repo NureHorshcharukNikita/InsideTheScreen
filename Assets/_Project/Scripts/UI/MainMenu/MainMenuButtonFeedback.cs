@@ -53,6 +53,15 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
         if (!IsInteractable())
             return;
 
+        // Hovering selects the button, so the previously selected one is deselected and
+        // only one button is lit at a time for mouse and keyboard alike.
+        EventSystem eventSystem = EventSystem.current;
+        if (eventSystem != null && eventSystem.currentSelectedGameObject != gameObject && !eventSystem.alreadySelecting)
+        {
+            eventSystem.SetSelectedGameObject(gameObject);
+            return;
+        }
+
         Apply(true);
     }
 

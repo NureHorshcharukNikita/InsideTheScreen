@@ -18,6 +18,8 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
     private bool isWaitingForKey;
     private bool skipCurrentFrame;
 
+    public bool IsWaitingForKey => isWaitingForKey;
+
     private void Awake()
     {
         WireRebindButton();
