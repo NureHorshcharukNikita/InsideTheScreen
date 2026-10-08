@@ -19,6 +19,8 @@ public sealed class ShopWindow : MonoBehaviour
     private static readonly Color MutedTextColor = new(0.78f, 0.7f, 0.64f, 1f);
     private static readonly Color GoldColor = new(1f, 0.74f, 0.27f, 1f);
     private const string NoMatchesMessage = "No cards found";
+    private const float GoldDeltaWidth = 230f;
+    private const float GoldDeltaIconSize = 40f;
 
     private ShopData activeShop;
     private NpcCharacter activeNpc;
@@ -46,6 +48,9 @@ public sealed class ShopWindow : MonoBehaviour
     [SerializeField] private GameObject inventoryEmptyState;
     [SerializeField] private GameObject shopEmptyState;
 
+    // The same quantity dialog as the inventory "Add to deck" prompt.
+    [SerializeField] private QuantitySelectionPrompt quantityPrompt;
+
     [Header("Lists")]
     [SerializeField] private Sprite rowSprite;
     [SerializeField] private Sprite selectedRowSprite;
@@ -55,8 +60,8 @@ public sealed class ShopWindow : MonoBehaviour
     private Transform shopContent;
     private readonly List<ShopRowView> inventoryRows = new();
     private readonly List<ShopRowView> shopRows = new();
-    private QuantitySelectionPrompt quantityPrompt;
     private Coroutine statusToastCoroutine;
+    private RectTransform goldDeltaRect;
     private TMP_Text goldDeltaText;
     private CanvasGroup goldDeltaCanvasGroup;
     private Coroutine goldDeltaCoroutine;
@@ -260,7 +265,8 @@ public sealed class ShopWindow : MonoBehaviour
             buyButton.onClick.AddListener(BuySelected);
         }
 
-        quantityPrompt ??= QuantitySelectionPrompt.Create(GetOverlayParent(), detailsNameText);
+        if (quantityPrompt == null)
+            quantityPrompt = QuantitySelectionPrompt.Create(GetOverlayParent(), detailsNameText);
 
         PrepareStatusToast();
         PrepareGoldDelta();
@@ -358,25 +364,48 @@ public sealed class ShopWindow : MonoBehaviour
         statusPanel.SetActive(false);
     }
 
+    // The +N / -N popup is the amount with a gold icon next to it. Its pivot sits on the icon
+    // center, so the popup icon moves straight under the gold icon in the top bar.
     private void PrepareGoldDelta()
     {
-        if (goldText == null || goldDeltaText != null)
+        if (goldText == null || goldDeltaRect != null)
             return;
 
-        GameObject deltaObject = new("GoldDelta", typeof(RectTransform), typeof(CanvasRenderer),
-            typeof(TextMeshProUGUI), typeof(CanvasGroup));
-        RectTransform deltaRect = deltaObject.GetComponent<RectTransform>();
+        GameObject deltaObject = new("GoldDelta", typeof(RectTransform), typeof(CanvasGroup));
+        goldDeltaRect = deltaObject.GetComponent<RectTransform>();
         RectTransform overlayRoot = statusPanel != null
             ? statusPanel.transform.parent as RectTransform
             : transform as RectTransform;
-        deltaRect.SetParent(overlayRoot != null ? overlayRoot : transform, false);
-        deltaRect.anchorMin = new Vector2(0.5f, 0.5f);
-        deltaRect.anchorMax = new Vector2(0.5f, 0.5f);
-        deltaRect.pivot = new Vector2(1f, 0.5f);
-        deltaRect.anchoredPosition = Vector2.zero;
-        deltaRect.sizeDelta = new Vector2(190f, 44f);
+        goldDeltaRect.SetParent(overlayRoot != null ? overlayRoot : transform, false);
+        goldDeltaRect.anchorMin = new Vector2(0.5f, 0.5f);
+        goldDeltaRect.anchorMax = new Vector2(0.5f, 0.5f);
+        goldDeltaRect.pivot = new Vector2((GoldDeltaWidth - GoldDeltaIconSize * 0.5f) / GoldDeltaWidth, 0.5f);
+        goldDeltaRect.anchoredPosition = Vector2.zero;
+        goldDeltaRect.sizeDelta = new Vector2(GoldDeltaWidth, 44f);
 
-        goldDeltaText = deltaObject.GetComponent<TMP_Text>();
+        GameObject textObject = new("Amount", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+        RectTransform textRect = textObject.GetComponent<RectTransform>();
+        textRect.SetParent(goldDeltaRect, false);
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = new Vector2(-(GoldDeltaIconSize + 6f), 0f);
+
+        GameObject iconObject = new("GoldIcon", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        RectTransform iconRect = iconObject.GetComponent<RectTransform>();
+        iconRect.SetParent(goldDeltaRect, false);
+        iconRect.anchorMin = iconRect.anchorMax = new Vector2(1f, 0.5f);
+        iconRect.pivot = new Vector2(1f, 0.5f);
+        iconRect.anchoredPosition = Vector2.zero;
+        iconRect.sizeDelta = new Vector2(GoldDeltaIconSize, GoldDeltaIconSize);
+        Image icon = iconObject.GetComponent<Image>();
+        Image goldIcon = GetGoldIcon();
+        icon.sprite = goldIcon != null ? goldIcon.sprite : null;
+        icon.preserveAspect = true;
+        icon.raycastTarget = false;
+        icon.enabled = icon.sprite != null;
+
+        goldDeltaText = textObject.GetComponent<TMP_Text>();
         goldDeltaText.font = goldText.font;
         goldDeltaText.fontSharedMaterial = goldText.fontSharedMaterial;
         goldDeltaText.fontSize = 30f;
@@ -389,6 +418,11 @@ public sealed class ShopWindow : MonoBehaviour
         goldDeltaCanvasGroup.interactable = false;
         goldDeltaCanvasGroup.blocksRaycasts = false;
         deltaObject.SetActive(false);
+    }
+
+    private Image GetGoldIcon()
+    {
+        return goldText != null ? FindDescendant<Image>(goldText.transform.parent, "GoldIcon") : null;
     }
 
     private Transform GetOverlayParent()
@@ -524,7 +558,7 @@ public sealed class ShopWindow : MonoBehaviour
 
     private void ShowGoldDelta(int delta)
     {
-        if (goldDeltaText == null || goldDeltaCanvasGroup == null)
+        if (goldDeltaRect == null || goldDeltaText == null || goldDeltaCanvasGroup == null)
             return;
 
         if (goldDeltaCoroutine != null)
@@ -534,14 +568,14 @@ public sealed class ShopWindow : MonoBehaviour
         goldDeltaText.color = delta > 0
             ? new Color(0.56f, 0.89f, 0.53f, 1f)
             : new Color(1f, 0.49f, 0.4f, 1f);
-        goldDeltaText.gameObject.SetActive(true);
-        goldDeltaText.transform.SetAsLastSibling();
+        goldDeltaRect.gameObject.SetActive(true);
+        goldDeltaRect.SetAsLastSibling();
         goldDeltaCoroutine = StartCoroutine(AnimateGoldDelta(delta > 0));
     }
 
     private IEnumerator AnimateGoldDelta(bool isGain)
     {
-        RectTransform rect = goldDeltaText.rectTransform;
+        RectTransform rect = goldDeltaRect;
         Vector2 goldPosition = GetGoldDeltaStartPosition();
         Vector2 startPosition = isGain
             ? goldPosition + Vector2.down * 54f
@@ -577,14 +611,18 @@ public sealed class ShopWindow : MonoBehaviour
 
     private Vector2 GetGoldDeltaStartPosition()
     {
-        RectTransform parentRect = goldDeltaText.rectTransform.parent as RectTransform;
+        RectTransform parentRect = goldDeltaRect.parent as RectTransform;
         if (parentRect == null || goldText == null)
             return Vector2.zero;
 
+        // Under the center of the top bar gold icon; without the icon, at the end of the amount.
         Canvas.ForceUpdateCanvases();
-        Rect goldRect = goldText.rectTransform.rect;
-        Vector3 worldPosition = goldText.rectTransform.TransformPoint(
-            new Vector3(goldRect.xMax, goldRect.center.y, 0f));
+        Image goldIcon = GetGoldIcon();
+        RectTransform anchor = goldIcon != null ? goldIcon.rectTransform : goldText.rectTransform;
+        Rect anchorRect = anchor.rect;
+        Vector3 worldPosition = anchor.TransformPoint(goldIcon != null
+            ? (Vector3)anchorRect.center
+            : new Vector3(anchorRect.xMax, anchorRect.center.y, 0f));
         Vector3 localPosition = parentRect.InverseTransformPoint(worldPosition);
         return new Vector2(localPosition.x, localPosition.y);
     }
@@ -600,11 +638,11 @@ public sealed class ShopWindow : MonoBehaviour
         if (goldDeltaCanvasGroup != null)
             goldDeltaCanvasGroup.alpha = 1f;
 
-        if (goldDeltaText != null)
+        if (goldDeltaRect != null)
         {
-            goldDeltaText.rectTransform.anchoredPosition = Vector2.zero;
-            goldDeltaText.rectTransform.localScale = Vector3.one;
-            goldDeltaText.gameObject.SetActive(false);
+            goldDeltaRect.anchoredPosition = Vector2.zero;
+            goldDeltaRect.localScale = Vector3.one;
+            goldDeltaRect.gameObject.SetActive(false);
         }
     }
 
@@ -996,7 +1034,8 @@ public sealed class ShopWindow : MonoBehaviour
 
         int itemIndex = selectedShopIndex;
         quantityPrompt.Show(
-            $"Buy: {GetCardName(item.card)}",
+            "Buy",
+            GetCardName(item.card),
             "Buy",
             maxQuantity,
             quantity => BuySelected(itemIndex, quantity));
@@ -1167,7 +1206,8 @@ public sealed class ShopWindow : MonoBehaviour
         int ownedCount = activeInventory.Cards.Count(card => card == selectedInventoryCard);
         CardData card = selectedInventoryCard;
         quantityPrompt.Show(
-            $"Sell: {GetCardName(card)}",
+            "Sell",
+            GetCardName(card),
             "Sell",
             ownedCount,
             quantity => SellSelected(card, quantity));
