@@ -11,14 +11,14 @@ public sealed class ShopWindow : MonoBehaviour
 {
     private static ShopWindow instance;
 
-    private static readonly Color RowColor = new(0.58f, 0.43f, 0.36f, 1f);
-    private static readonly Color RowHighlightColor = new(0.68f, 0.52f, 0.43f, 1f);
-    private static readonly Color RowPressedColor = new(0.5f, 0.36f, 0.3f, 1f);
-    private static readonly Color SelectedColor = new(0.68f, 0.43f, 0.19f, 1f);
+    // Rows darken on hover like the other sprite buttons; sold out rows stay dimmed.
+    private static readonly Color RowHighlightColor = new(0.82f, 0.82f, 0.82f, 1f);
+    private static readonly Color RowPressedColor = new(0.68f, 0.68f, 0.68f, 1f);
+    private static readonly Color UnavailableRowColor = new(0.62f, 0.62f, 0.62f, 1f);
     private static readonly Color TextColor = new(0.97f, 0.94f, 0.88f, 1f);
     private static readonly Color MutedTextColor = new(0.78f, 0.7f, 0.64f, 1f);
     private static readonly Color GoldColor = new(1f, 0.74f, 0.27f, 1f);
-    private static readonly Color DisabledColor = new(0.4f, 0.34f, 0.31f, 0.9f);
+    private const string NoMatchesMessage = "No cards found";
 
     private ShopData activeShop;
     private NpcCharacter activeNpc;
@@ -45,6 +45,12 @@ public sealed class ShopWindow : MonoBehaviour
     [SerializeField] private RectTransform shopRowTemplate;
     [SerializeField] private GameObject inventoryEmptyState;
     [SerializeField] private GameObject shopEmptyState;
+
+    [Header("Lists")]
+    [SerializeField] private Sprite rowSprite;
+    [SerializeField] private Sprite selectedRowSprite;
+    [SerializeField] private CardSearchField inventorySearch;
+    [SerializeField] private CardSearchField shopSearch;
     private Transform inventoryContent;
     private Transform shopContent;
     private readonly List<ShopRowView> inventoryRows = new();
@@ -57,6 +63,8 @@ public sealed class ShopWindow : MonoBehaviour
     private int trackedGold;
     private bool isGoldTracked;
     private bool isPrepared;
+    private string inventoryEmptyMessage;
+    private string shopEmptyMessage;
 
     private int selectedShopIndex = -1;
     private CardData selectedInventoryCard;
@@ -67,19 +75,23 @@ public sealed class ShopWindow : MonoBehaviour
     {
         private readonly GameObject gameObject;
         private readonly Image background;
-        private readonly Button button;
+        private readonly Sprite normalSprite;
+        private readonly Sprite selectedSprite;
         private readonly Image icon;
         private readonly TMP_Text titleText;
         private readonly TMP_Text subtitleText;
         private readonly TMP_Text rightText;
         private readonly Image rightIcon;
         private bool available;
+        private bool selected;
 
         public ShopRowView(
             GameObject gameObject,
             CardData card,
+            int shopIndex,
             Image background,
-            Button button,
+            Sprite normalSprite,
+            Sprite selectedSprite,
             Image icon,
             TMP_Text titleText,
             TMP_Text subtitleText,
@@ -89,8 +101,10 @@ public sealed class ShopWindow : MonoBehaviour
         {
             this.gameObject = gameObject;
             Card = card;
+            ShopIndex = shopIndex;
             this.background = background;
-            this.button = button;
+            this.normalSprite = normalSprite != null ? normalSprite : background != null ? background.sprite : null;
+            this.selectedSprite = selectedSprite;
             this.icon = icon;
             this.titleText = titleText;
             this.subtitleText = subtitleText;
@@ -101,6 +115,8 @@ public sealed class ShopWindow : MonoBehaviour
         }
 
         public CardData Card { get; }
+        // Index in the shop item list for "For Sale" rows; -1 for inventory rows.
+        public int ShopIndex { get; }
         public RectTransform RectTransform => gameObject != null ? gameObject.transform as RectTransform : null;
 
         public void SetSubtitle(string text)
@@ -119,6 +135,7 @@ public sealed class ShopWindow : MonoBehaviour
         {
             available = value;
             ApplyTextColors();
+            ApplyBackground();
         }
 
         private void ApplyTextColors()
@@ -139,14 +156,20 @@ public sealed class ShopWindow : MonoBehaviour
                 icon.color = available ? Color.white : MutedTextColor;
         }
 
-        public void SetSelected(bool selected)
+        public void SetSelected(bool value)
         {
-            Color normal = selected ? SelectedColor : available ? RowColor : DisabledColor;
-            if (background != null)
-                background.color = normal;
+            selected = value;
+            ApplyBackground();
+        }
 
-            if (button != null)
-                button.colors = CreateButtonColors(normal, RowHighlightColor, RowPressedColor);
+        // The selected row uses the lighted panel; the button tint only darkens it on hover.
+        private void ApplyBackground()
+        {
+            if (background == null)
+                return;
+
+            background.sprite = selected && selectedSprite != null ? selectedSprite : normalSprite;
+            background.color = available || selected ? Color.white : UnavailableRowColor;
         }
 
         public void SetSiblingIndex(int index)
@@ -212,6 +235,11 @@ public sealed class ShopWindow : MonoBehaviour
         instance = this;
         PreparePrefabState();
         EnsureEventSystem();
+
+        // The window may be left open in the editor for layout work. It starts closed in play
+        // mode; when Show activates it for the first time, the shop is already assigned.
+        if (activeShop == null)
+            gameObject.SetActive(false);
     }
 
     private void PreparePrefabState()
@@ -236,6 +264,10 @@ public sealed class ShopWindow : MonoBehaviour
 
         PrepareStatusToast();
         PrepareGoldDelta();
+        PrepareSearch();
+
+        inventoryEmptyMessage ??= GetEmptyStateText(inventoryEmptyState);
+        shopEmptyMessage ??= GetEmptyStateText(shopEmptyState);
 
         SetEmptyStateVisible(inventoryEmptyState, false);
         SetEmptyStateVisible(shopEmptyState, false);
@@ -261,6 +293,31 @@ public sealed class ShopWindow : MonoBehaviour
 
         if (!isPrepared)
             Debug.LogError("ShopWindow prefab is missing required UI references.", this);
+    }
+
+    private void PrepareSearch()
+    {
+        if (inventorySearch != null)
+        {
+            inventorySearch.QueryChanged -= HandleInventorySearchChanged;
+            inventorySearch.QueryChanged += HandleInventorySearchChanged;
+        }
+
+        if (shopSearch != null)
+        {
+            shopSearch.QueryChanged -= HandleShopSearchChanged;
+            shopSearch.QueryChanged += HandleShopSearchChanged;
+        }
+    }
+
+    private void HandleInventorySearchChanged(string _)
+    {
+        RefreshInventory();
+    }
+
+    private void HandleShopSearchChanged(string _)
+    {
+        RefreshShop();
     }
 
     private void PrepareStatusToast()
@@ -429,6 +486,10 @@ public sealed class ShopWindow : MonoBehaviour
         gameObject.SetActive(true);
 
         titleText.text = activeShop.DisplayName;
+        if (inventorySearch != null)
+            inventorySearch.Clear();
+        if (shopSearch != null)
+            shopSearch.Clear();
         RefreshAll();
     }
 
@@ -550,29 +611,11 @@ public sealed class ShopWindow : MonoBehaviour
     private void RefreshInventory()
     {
         ClearChildren(inventoryContent, inventoryRowTemplate);
-        SetEmptyStateVisible(inventoryEmptyState, false);
         inventoryRows.Clear();
 
-        if (activeInventory == null || activeInventory.Cards == null || activeInventory.Cards.Count == 0)
-        {
-            SetEmptyStateVisible(inventoryEmptyState, true);
-            return;
-        }
-
-        Dictionary<CardData, int> counts = activeInventory.Cards
-            .Where(card => card != null)
-            .GroupBy(card => card)
-            .ToDictionary(group => group.Key, group => group.Count());
-
-        List<CardData> cards = counts.Keys
-            .OrderBy(GetCardName)
-            .ToList();
-
-        if (cards.Count == 0)
-        {
-            SetEmptyStateVisible(inventoryEmptyState, true);
-            return;
-        }
+        Dictionary<CardData, int> counts = GetInventoryCounts();
+        List<CardData> cards = GetVisibleInventoryCards(counts);
+        UpdateListState(inventoryEmptyState, inventorySearch, inventoryEmptyMessage, counts.Count > 0, cards.Count > 0);
 
         for (int i = 0; i < cards.Count; i++)
         {
@@ -582,6 +625,7 @@ public sealed class ShopWindow : MonoBehaviour
             ShopRowView row = CreateItemRow(
                 inventoryContent,
                 card,
+                -1,
                 GetCardName(card),
                 card.ShortDescription,
                 $"x{count}",
@@ -594,27 +638,58 @@ public sealed class ShopWindow : MonoBehaviour
         }
     }
 
-    private void RefreshShop()
+    private Dictionary<CardData, int> GetInventoryCounts()
     {
-        ClearChildren(shopContent, shopRowTemplate);
-        SetEmptyStateVisible(shopEmptyState, false);
-        shopRows.Clear();
+        if (activeInventory == null || activeInventory.Cards == null)
+            return new Dictionary<CardData, int>();
 
-        if (activeShop == null || activeShop.Items == null || activeShop.Items.Count == 0)
-        {
-            SetEmptyStateVisible(shopEmptyState, true);
-            return;
-        }
+        return activeInventory.Cards
+            .Where(card => card != null)
+            .GroupBy(card => card)
+            .ToDictionary(group => group.Key, group => group.Count());
+    }
 
-        bool hasAny = false;
+    // Owned cards that pass the inventory search, in name order.
+    private List<CardData> GetVisibleInventoryCards(Dictionary<CardData, int> counts)
+    {
+        string query = inventorySearch != null ? inventorySearch.Query : string.Empty;
+        return counts.Keys
+            .Where(card => CardSearchField.Matches(GetCardName(card), query))
+            .OrderBy(GetCardName)
+            .ToList();
+    }
+
+    // Valid shop items that pass the shop search, in shop order.
+    private List<int> GetVisibleShopIndices()
+    {
+        List<int> indices = new();
+        if (activeShop == null || activeShop.Items == null)
+            return indices;
+
+        string query = shopSearch != null ? shopSearch.Query : string.Empty;
         for (int i = 0; i < activeShop.Items.Count; i++)
         {
             ShopItemData item = activeShop.Items[i];
-            if (item == null || !item.IsValid)
-                continue;
+            if (item != null && item.IsValid && CardSearchField.Matches(GetCardName(item.card), query))
+                indices.Add(i);
+        }
 
-            hasAny = true;
-            int index = i;
+        return indices;
+    }
+
+    private void RefreshShop()
+    {
+        ClearChildren(shopContent, shopRowTemplate);
+        shopRows.Clear();
+
+        List<int> indices = GetVisibleShopIndices();
+        bool hasItems = activeShop != null && activeShop.Items != null
+            && activeShop.Items.Any(item => item != null && item.IsValid);
+        UpdateListState(shopEmptyState, shopSearch, shopEmptyMessage, hasItems, indices.Count > 0);
+
+        foreach (int index in indices)
+        {
+            ShopItemData item = activeShop.Items[index];
             int remainingStock = ShopManager.GetRemainingStock(activeShop, index);
             int buyPrice = ShopManager.GetBuyPrice(activeShop, index);
             bool available = remainingStock > 0;
@@ -626,6 +701,7 @@ public sealed class ShopWindow : MonoBehaviour
             ShopRowView row = CreateItemRow(
                 shopContent,
                 item.card,
+                index,
                 GetCardName(item.card),
                 stockText,
                 buyPrice.ToString(),
@@ -636,9 +712,40 @@ public sealed class ShopWindow : MonoBehaviour
             if (row != null)
                 shopRows.Add(row);
         }
+    }
 
-        if (!hasAny)
-            SetEmptyStateVisible(shopEmptyState, true);
+    // The search bar is hidden while its list has nothing to search. The empty state shows
+    // the list icon when the list is empty and only a short note when the search finds nothing.
+    private static void UpdateListState(GameObject emptyState, CardSearchField search, string emptyMessage,
+        bool hasItems, bool hasVisibleItems)
+    {
+        if (search != null)
+        {
+            if (!hasItems)
+                search.Clear();
+
+            Transform searchBar = search.transform.parent;
+            (searchBar != null ? searchBar : search.transform).gameObject.SetActive(hasItems);
+        }
+
+        if (emptyState == null)
+            return;
+
+        emptyState.SetActive(!hasVisibleItems);
+        if (hasVisibleItems)
+            return;
+
+        if (emptyState.TryGetComponent(out TMP_Text text))
+            text.text = hasItems ? NoMatchesMessage : emptyMessage;
+
+        Transform icon = emptyState.transform.Find("Icon");
+        if (icon != null)
+            icon.gameObject.SetActive(!hasItems);
+    }
+
+    private static string GetEmptyStateText(GameObject emptyState)
+    {
+        return emptyState != null && emptyState.TryGetComponent(out TMP_Text text) ? text.text : string.Empty;
     }
 
     private void RefreshDetails()
@@ -927,34 +1034,11 @@ public sealed class ShopWindow : MonoBehaviour
 
     private void RefreshRowSelectionStates()
     {
-        if (activeInventory != null && activeInventory.Cards != null)
-        {
-            Dictionary<CardData, int> counts = activeInventory.Cards
-                .Where(card => card != null)
-                .GroupBy(card => card)
-                .ToDictionary(group => group.Key, group => group.Count());
+        foreach (ShopRowView row in inventoryRows)
+            row.SetSelected(!selectedFromShop && selectedInventoryCard == row.Card);
 
-            List<CardData> cards = counts.Keys
-                .OrderBy(GetCardName)
-                .ToList();
-
-            for (int i = 0; i < inventoryRows.Count && i < cards.Count; i++)
-                inventoryRows[i].SetSelected(!selectedFromShop && selectedInventoryCard == cards[i]);
-        }
-
-        int rowIndex = 0;
-        if (activeShop?.Items != null)
-        {
-            for (int i = 0; i < activeShop.Items.Count && rowIndex < shopRows.Count; i++)
-            {
-                ShopItemData item = activeShop.Items[i];
-                if (item == null || !item.IsValid)
-                    continue;
-
-                shopRows[rowIndex].SetSelected(selectedFromShop && selectedShopIndex == i);
-                rowIndex++;
-            }
-        }
+        foreach (ShopRowView row in shopRows)
+            row.SetSelected(selectedFromShop && selectedShopIndex == row.ShopIndex);
     }
 
     private void RefreshAfterTransaction()
@@ -975,49 +1059,25 @@ public sealed class ShopWindow : MonoBehaviour
 
     private int CountInventoryGroups()
     {
-        if (activeInventory == null || activeInventory.Cards == null)
-            return 0;
-
-        return activeInventory.Cards
-            .Where(card => card != null)
-            .Distinct()
-            .Count();
+        return GetVisibleInventoryCards(GetInventoryCounts()).Count;
     }
 
     private int CountValidShopItems()
     {
-        if (activeShop == null || activeShop.Items == null)
-            return 0;
-
-        return activeShop.Items.Count(item => item != null && item.IsValid);
+        return GetVisibleShopIndices().Count;
     }
 
     private void RefreshInventoryRowsData()
     {
-        if (activeInventory == null || activeInventory.Cards == null)
-        {
-            ClearInventoryRows();
-            SetEmptyStateVisible(inventoryEmptyState, true);
-            return;
-        }
-
-        Dictionary<CardData, int> counts = activeInventory.Cards
-            .Where(card => card != null)
-            .GroupBy(card => card)
-            .ToDictionary(group => group.Key, group => group.Count());
-
-        List<CardData> cards = counts.Keys
-            .OrderBy(GetCardName)
-            .ToList();
+        Dictionary<CardData, int> counts = GetInventoryCounts();
+        List<CardData> cards = GetVisibleInventoryCards(counts);
+        UpdateListState(inventoryEmptyState, inventorySearch, inventoryEmptyMessage, counts.Count > 0, cards.Count > 0);
 
         if (cards.Count == 0)
         {
             ClearInventoryRows();
-            SetEmptyStateVisible(inventoryEmptyState, true);
             return;
         }
-
-        SetEmptyStateVisible(inventoryEmptyState, false);
 
         Dictionary<CardData, ShopRowView> existingRows = inventoryRows
             .Where(row => row.Card != null)
@@ -1034,6 +1094,7 @@ public sealed class ShopWindow : MonoBehaviour
                 row = CreateItemRow(
                     inventoryContent,
                     card,
+                    -1,
                     GetCardName(card),
                     card.ShortDescription,
                     $"x{counts[card]}",
@@ -1072,12 +1133,15 @@ public sealed class ShopWindow : MonoBehaviour
 
     private void RefreshShopRowsData()
     {
-        int rowIndex = 0;
         if (activeShop?.Items == null)
             return;
 
-        for (int i = 0; i < activeShop.Items.Count && rowIndex < shopRows.Count; i++)
+        foreach (ShopRowView row in shopRows)
         {
+            int i = row.ShopIndex;
+            if (i < 0 || i >= activeShop.Items.Count)
+                continue;
+
             ShopItemData item = activeShop.Items[i];
             if (item == null || !item.IsValid)
                 continue;
@@ -1089,10 +1153,9 @@ public sealed class ShopWindow : MonoBehaviour
                 ? available ? $"Stock {remainingStock}" : "Sold out"
                 : "Unlimited";
 
-            shopRows[rowIndex].SetSubtitle(stockText);
-            shopRows[rowIndex].SetRightText(buyPrice.ToString());
-            shopRows[rowIndex].SetAvailable(available);
-            rowIndex++;
+            row.SetSubtitle(stockText);
+            row.SetRightText(buyPrice.ToString());
+            row.SetAvailable(available);
         }
     }
 
@@ -1174,6 +1237,7 @@ public sealed class ShopWindow : MonoBehaviour
     private ShopRowView CreateItemRow(
         Transform parent,
         CardData card,
+        int shopIndex,
         string title,
         string subtitle,
         string rightText,
@@ -1201,6 +1265,8 @@ public sealed class ShopWindow : MonoBehaviour
         if (button != null)
         {
             button.targetGraphic = background;
+            button.transition = Selectable.Transition.ColorTint;
+            button.colors = CreateButtonColors(Color.white, RowHighlightColor, RowPressedColor);
             button.interactable = true;
             button.onClick.RemoveAllListeners();
             if (onClick != null)
@@ -1229,7 +1295,8 @@ public sealed class ShopWindow : MonoBehaviour
         if (rightIcon != null)
             rightIcon.gameObject.SetActive(rightShowsGoldIcon);
 
-        ShopRowView rowView = new(row.gameObject, card, background, button, icon, titleText, subtitleText, right, rightIcon, available);
+        ShopRowView rowView = new(row.gameObject, card, shopIndex, background, rowSprite, selectedRowSprite,
+            icon, titleText, subtitleText, right, rightIcon, available);
         rowView.SetSelected(selected);
         return rowView;
     }
