@@ -20423,6 +20423,9 @@ MonoBehaviour:
   optionsPanel: {fileID: 7380576675431435309}
   confirmationPanel: {fileID: 0}
   saveToastRect: {fileID: 0}
+  confirmationPanelSprite: {fileID: 21300000, guid: 0498ba70ee955c44589f7c05c7ef0d9f, type: 3}
+  confirmationButtonSprite: {fileID: 21300000, guid: 5dd18157e0e45d64da56602cd5148bf1, type: 3}
+  confirmationDividerSprite: {fileID: 21300000, guid: 5ef0348c1fdcf244f9068660fbe5bce4, type: 3}
 --- !u!1 &8635938380974189311
 GameObject:
   m_ObjectHideFlags: 0

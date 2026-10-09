@@ -48,6 +48,11 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private GameObject confirmationPanel;
     [SerializeField] private RectTransform saveToastRect;
 
+    [Header("Exit Confirmation")]
+    [SerializeField] private Sprite confirmationPanelSprite;
+    [SerializeField] private Sprite confirmationButtonSprite;
+    [SerializeField] private Sprite confirmationDividerSprite;
+
     private static readonly GameInputAction[] SettingsActions =
     {
         GameInputAction.MoveUp,
@@ -65,9 +70,11 @@ public class InventoryWindow : MonoBehaviour
     private static readonly Color ButtonColor = new(0.66f, 0.59f, 0.55f, 1f);
     private static readonly Color ButtonHighlightedColor = new(0.82f, 0.75f, 0.7f, 1f);
     private static readonly Color ButtonPressedColor = new(0.56f, 0.49f, 0.45f, 1f);
-    private static readonly Color ConfirmButtonColor = new(0.48f, 0.37f, 0.32f, 1f);
-    private static readonly Color ConfirmButtonHighlightedColor = new(0.58f, 0.46f, 0.4f, 1f);
-    private static readonly Color ConfirmButtonPressedColor = new(0.38f, 0.28f, 0.24f, 1f);
+    // The framed sprite keeps its own colors at rest and darkens on hover, a bit more on press.
+    private static readonly Color ConfirmButtonColor = Color.white;
+    private static readonly Color ConfirmButtonHighlightedColor = new(0.8f, 0.8f, 0.8f, 1f);
+    private static readonly Color ConfirmButtonPressedColor = new(0.68f, 0.68f, 0.68f, 1f);
+    private static readonly Color ConfirmTitleColor = new(1f, 0.93f, 0.78f, 1f);
     private static readonly Color SettingsRowColor = new(0.39f, 0.29f, 0.25f, 0.94f);
     private static readonly Color SettingsRowHighlightedColor = new(0.49f, 0.38f, 0.33f, 1f);
     private static readonly Color SettingsRowPressedColor = new(0.31f, 0.23f, 0.2f, 1f);
@@ -895,12 +902,34 @@ public class InventoryWindow : MonoBehaviour
             return;
         }
 
-        confirmationPanel = CreatePanel("ConfirmExitPanel", pauseOverlay.transform, new Vector2(560f, 360f));
-        confirmationTitleText = CreateText("ConfirmExitTitle", confirmationPanel.transform, "Exit?", 46, new Vector2(0f, 110f), new Vector2(480f, 62f), TextAlignmentOptions.Center);
-        CreateText("ConfirmExitMessage", confirmationPanel.transform, "Unsaved changes will not be saved.", 28, new Vector2(0f, 38f), new Vector2(500f, 70f), TextAlignmentOptions.Center);
+        // Sizes follow the aspect ratio of the Pause "Exit" sprites so the pixel frames are not stretched.
+        confirmationPanel = CreatePanel("ConfirmExitPanel", pauseOverlay.transform, new Vector2(620f, 360f));
+        if (confirmationPanelSprite != null)
+        {
+            Image panelImage = confirmationPanel.GetComponent<Image>();
+            panelImage.sprite = confirmationPanelSprite;
+            panelImage.color = Color.white;
+        }
 
-        CreateButton("ConfirmExitYesButton", confirmationPanel.transform, "Yes", new Vector2(-115f, -78f), new Vector2(190f, 56f), ConfirmExit, ConfirmButtonColor, ConfirmButtonHighlightedColor, ConfirmButtonPressedColor);
-        CreateButton("ConfirmExitNoButton", confirmationPanel.transform, "No", new Vector2(115f, -78f), new Vector2(190f, 56f), CancelExit, ConfirmButtonColor, ConfirmButtonHighlightedColor, ConfirmButtonPressedColor);
+        confirmationTitleText = CreateText("ConfirmExitTitle", confirmationPanel.transform, "Exit?", 52, new Vector2(0f, 102f), new Vector2(540f, 66f), TextAlignmentOptions.Center);
+        confirmationTitleText.fontStyle = FontStyles.Bold;
+        confirmationTitleText.color = ConfirmTitleColor;
+
+        if (confirmationDividerSprite != null)
+        {
+            RectTransform dividerRect = CreateUIObject("ConfirmExitDivider", confirmationPanel.transform);
+            dividerRect.sizeDelta = new Vector2(400f, 39f);
+            dividerRect.anchoredPosition = new Vector2(0f, 48f);
+
+            Image dividerImage = dividerRect.gameObject.AddComponent<Image>();
+            dividerImage.sprite = confirmationDividerSprite;
+            dividerImage.raycastTarget = false;
+        }
+
+        CreateText("ConfirmExitMessage", confirmationPanel.transform, "Unsaved changes will not be saved.", 28, new Vector2(0f, -2f), new Vector2(540f, 44f), TextAlignmentOptions.Center);
+
+        CreateButton("ConfirmExitYesButton", confirmationPanel.transform, "Yes", new Vector2(-132f, -96f), new Vector2(236f, 60f), ConfirmExit, ConfirmButtonColor, ConfirmButtonHighlightedColor, ConfirmButtonPressedColor);
+        CreateButton("ConfirmExitNoButton", confirmationPanel.transform, "No", new Vector2(132f, -96f), new Vector2(236f, 60f), CancelExit, ConfirmButtonColor, ConfirmButtonHighlightedColor, ConfirmButtonPressedColor);
         StyleConfirmationButtons();
         confirmationPanel.SetActive(false);
     }
@@ -912,7 +941,26 @@ public class InventoryWindow : MonoBehaviour
 
         Button[] buttons = confirmationPanel.GetComponentsInChildren<Button>(true);
         foreach (Button button in buttons)
+        {
+            if (confirmationButtonSprite != null && button.TryGetComponent(out Image image))
+            {
+                image.sprite = confirmationButtonSprite;
+                button.targetGraphic = image;
+            }
+
             ApplyButtonColors(button, ConfirmButtonColor, ConfirmButtonHighlightedColor, ConfirmButtonPressedColor);
+
+            TMP_Text label = button.GetComponentInChildren<TMP_Text>(true);
+            if (label != null)
+            {
+                label.fontSize = 32f;
+                label.fontStyle = FontStyles.Bold;
+            }
+
+            // Same hover behaviour as the pause buttons: hovering selects, so only one button is lit.
+            if (!button.TryGetComponent(out MainMenuButtonFeedback _))
+                button.gameObject.AddComponent<MainMenuButtonFeedback>();
+        }
     }
 
     private void EnsureSettingsPanel()
@@ -1140,9 +1188,11 @@ public class InventoryWindow : MonoBehaviour
         rectTransform.sizeDelta = size;
         rectTransform.anchoredPosition = position;
 
-        rectTransform.gameObject.AddComponent<Image>();
+        Image image = rectTransform.gameObject.AddComponent<Image>();
 
         Button button = rectTransform.gameObject.AddComponent<Button>();
+        // Button.Awake fills targetGraphic only once the object is active; the pause UI is built while hidden.
+        button.targetGraphic = image;
         Navigation navigation = button.navigation;
         navigation.mode = Navigation.Mode.None;
         button.navigation = navigation;
