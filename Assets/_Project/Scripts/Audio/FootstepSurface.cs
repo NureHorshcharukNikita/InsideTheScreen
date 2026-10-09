@@ -1,5 +1,6 @@
 public enum FootstepSurface
 {
     Grass,
-    Path
+    Path,
+    Wood
 }

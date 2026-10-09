@@ -45,6 +45,8 @@ public sealed class FootstepAudio : MonoBehaviour
     [SerializeField] private Tilemap[] grassTilemaps;
     [HideInInspector]
     [SerializeField] private Tilemap[] pathTilemaps;
+    [HideInInspector]
+    [SerializeField] private Tilemap[] woodTilemaps;
     [SerializeField] private SurfaceAudio[] surfaces = CreateDefaultSurfaces();
 
     private PlayerMovement movement;
@@ -86,6 +88,9 @@ public sealed class FootstepAudio : MonoBehaviour
     private FootstepSurface DetectSurface()
     {
         Vector3 samplePosition = transform.position + (Vector3)sampleOffset;
+
+        if (HasTileAt(woodTilemaps, samplePosition))
+            return FootstepSurface.Wood;
 
         if (HasTileAt(pathTilemaps, samplePosition))
             return FootstepSurface.Path;
@@ -137,16 +142,21 @@ public sealed class FootstepAudio : MonoBehaviour
 
         if (pathTilemaps == null || pathTilemaps.Length == 0)
             pathTilemaps = FindTilemapsByName(allTilemaps, "path");
+
+        if (woodTilemaps == null || woodTilemaps.Length == 0)
+            woodTilemaps = FindTilemapsByName(allTilemaps, "bridge", "floor");
     }
 
-    private static Tilemap[] FindTilemapsByName(Tilemap[] tilemaps, string namePart)
+    private static Tilemap[] FindTilemapsByName(Tilemap[] tilemaps, params string[] nameParts)
     {
-        if (tilemaps == null || string.IsNullOrWhiteSpace(namePart))
+        if (tilemaps == null || nameParts == null || nameParts.Length == 0)
             return Array.Empty<Tilemap>();
 
         return Array.FindAll(tilemaps, tilemap =>
             tilemap != null &&
-            tilemap.name.IndexOf(namePart, StringComparison.OrdinalIgnoreCase) >= 0);
+            Array.Exists(nameParts, namePart =>
+                !string.IsNullOrWhiteSpace(namePart) &&
+                tilemap.name.IndexOf(namePart, StringComparison.OrdinalIgnoreCase) >= 0));
     }
 
     private static SurfaceAudio[] CreateDefaultSurfaces()
@@ -154,7 +164,8 @@ public sealed class FootstepAudio : MonoBehaviour
         return new[]
         {
             new SurfaceAudio(FootstepSurface.Grass),
-            new SurfaceAudio(FootstepSurface.Path)
+            new SurfaceAudio(FootstepSurface.Path),
+            new SurfaceAudio(FootstepSurface.Wood)
         };
     }
 }
