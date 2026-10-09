@@ -296,11 +296,20 @@ public static class QuestManager
         for (int i = 0; i < quest.RewardCount; i++)
         {
             QuestRewardData reward = quest.GetReward(i);
-            if (reward == null || reward.Card == null || reward.CardCount <= 0)
+            if (reward == null)
                 continue;
 
-            inventory.AddCards(reward.Card, reward.CardCount);
-            grantedAnyReward = true;
+            if (reward.Card != null && reward.CardCount > 0)
+            {
+                inventory.AddCards(reward.Card, reward.CardCount);
+                grantedAnyReward = true;
+            }
+
+            if (reward.SkillPoints > 0)
+            {
+                SkillProgression.AddPoints(reward.SkillPoints);
+                grantedAnyReward = true;
+            }
         }
 
         if (!grantedAnyReward)

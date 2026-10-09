@@ -106,16 +106,24 @@ public sealed class QuestData : ScriptableObject
 [Serializable]
 public sealed class QuestRewardData
 {
-    [SerializeField] private string label;
-    [SerializeField] private Sprite icon;
+    // Drawn by QuestRewardDataDrawer: only the fields of the chosen type are shown.
+    [SerializeField] private QuestRewardType type = QuestRewardType.Card;
     [SerializeField] private CardData card;
     [SerializeField, Min(1)] private int cardCount = 1;
+    [SerializeField, Min(1)] private int skillPoints = 1;
 
-    public string Label => label;
-    public Sprite Icon => icon;
-    public CardData Card => card;
-    public int CardCount => Mathf.Max(0, cardCount);
-    public bool HasContent => !string.IsNullOrWhiteSpace(label) || icon != null || card != null;
+    // Hidden: the label is built from the reward, the icon comes from the card
+    // (the drawer puts the light bulb on skill point rewards).
+    [SerializeField] private string label;
+    [SerializeField] private Sprite icon;
+
+    public QuestRewardType Type => type;
+    public string Label => string.IsNullOrWhiteSpace(label) ? GetDefaultLabel() : label;
+    public Sprite Icon => icon != null ? icon : Card != null ? Card.Icon : null;
+    public CardData Card => type == QuestRewardType.Card ? card : null;
+    public int CardCount => type == QuestRewardType.Card ? Mathf.Max(0, cardCount) : 0;
+    public int SkillPoints => type == QuestRewardType.SkillPoints ? Mathf.Max(0, skillPoints) : 0;
+    public bool HasContent => !string.IsNullOrWhiteSpace(label) || icon != null || Card != null || SkillPoints > 0;
 
     public QuestRewardData(string label, Sprite icon, CardData card, int cardCount)
     {
@@ -124,6 +132,25 @@ public sealed class QuestRewardData
         this.card = card;
         this.cardCount = cardCount;
     }
+
+    // Used when the label is left empty, e.g. "Meat x1" or "+1 Skill Point".
+    private string GetDefaultLabel()
+    {
+        if (SkillPoints > 0)
+            return $"+{SkillPoints} Skill Point{(SkillPoints > 1 ? "s" : string.Empty)}";
+
+        if (Card == null || CardCount <= 0)
+            return string.Empty;
+
+        string cardName = string.IsNullOrWhiteSpace(Card.CardName) ? Card.name : Card.CardName;
+        return $"{cardName} x{CardCount}";
+    }
+}
+
+public enum QuestRewardType
+{
+    Card,
+    SkillPoints
 }
 
 public enum QuestObjectiveType

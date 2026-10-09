@@ -95,9 +95,16 @@ public sealed class QuestDataEditor : UnityEditor.Editor
 
     private void DrawRewardSection()
     {
+        EditorGUILayout.HelpBox(
+            "Each reward is a Card or Skill Points. Add several rewards to give both.\n" +
+            "No reward: leave the list empty.",
+            MessageType.None);
         EditorGUILayout.PropertyField(rewardsProp, new GUIContent("Rewards"), true);
 
-        if (rewardsProp.arraySize > 0)
+        bool hasLegacyReward = !string.IsNullOrWhiteSpace(rewardLabelProp.stringValue)
+                               || rewardIconProp.objectReferenceValue != null
+                               || rewardCardProp.objectReferenceValue != null;
+        if (rewardsProp.arraySize > 0 || !hasLegacyReward)
             return;
 
         EditorGUILayout.Space(4f);

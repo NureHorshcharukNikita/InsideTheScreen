@@ -21,7 +21,26 @@ MonoBehaviour:
   objectiveType: 1
   objectiveLabel: Defeat the marked troll
   targetEncounterId: leymer_troll
-  rewardLabel: Meat x1
-  rewardIcon: {fileID: 21300000, guid: ea8dea5d6a81e3e449ded34cbd4296cf, type: 3}
-  rewardCard: {fileID: 11400000, guid: d626f537dfd74dd99ce79b53b5151b78, type: 2}
+  rewards:
+  - type: 0
+    card: {fileID: 11400000, guid: d626f537dfd74dd99ce79b53b5151b78, type: 2}
+    cardCount: 1
+    skillPoints: 1
+    label: 
+    icon: {fileID: 0}
+  - type: 0
+    card: {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
+    cardCount: 1
+    skillPoints: 1
+    label: 
+    icon: {fileID: 0}
+  - type: 1
+    card: {fileID: 11400000, guid: d626f537dfd74dd99ce79b53b5151b78, type: 2}
+    cardCount: 1
+    skillPoints: 1
+    label: 
+    icon: {fileID: 21300000, guid: e45fa93a340f6a143917827c1a66b21f, type: 3}
+  rewardLabel: 
+  rewardIcon: {fileID: 0}
+  rewardCard: {fileID: 0}
   rewardCardCount: 1

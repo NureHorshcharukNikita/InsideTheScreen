@@ -18,5 +18,14 @@ MonoBehaviour:
   description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna.
   status: 1
   objectiveLabel: Deliver the parcel for Trader Kim
-  rewardLabel: Health potion
-  rewardIcon: {fileID: 21300000, guid: 23efbe00250c3144cb7e12979f938919, type: 3}
+  rewards:
+  - type: 0
+    card: {fileID: 11400000, guid: dfb0659e0126fc94b9a6bc94cbce7b23, type: 2}
+    cardCount: 1
+    skillPoints: 1
+    label: 
+    icon: {fileID: 0}
+  rewardLabel: 
+  rewardIcon: {fileID: 0}
+  rewardCard: {fileID: 0}
+  rewardCardCount: 1

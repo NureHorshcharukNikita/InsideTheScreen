@@ -18,5 +18,8 @@ MonoBehaviour:
   description: Deliver the small parcel to the marked house before nightfall.
   status: 0
   objectiveLabel: Deliver the parcel to the marked house
+  rewards: []
   rewardLabel: 
   rewardIcon: {fileID: 0}
+  rewardCard: {fileID: 0}
+  rewardCardCount: 1
