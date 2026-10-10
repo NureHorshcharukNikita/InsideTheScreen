@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: ee11e737a6dff12428dc5ed6f15fbcc7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -988243586334748004
+    second: MiniHideshiSprites_0
+  - first:
+      213: 3187081471138122854
+    second: MiniHideshiSprites_1
+  - first:
+      213: -5709115242872987045
+    second: MiniHideshiSprites_2
+  - first:
+      213: -8356034166864180177
+    second: MiniHideshiSprites_3
+  - first:
+      213: -2279040438734950511
+    second: MiniHideshiSprites_4
+  - first:
+      213: 7932079810324206757
+    second: MiniHideshiSprites_5
+  - first:
+      213: 6534792903935661563
+    second: MiniHideshiSprites_6
+  - first:
+      213: -2541822478683950990
+    second: MiniHideshiSprites_7
+  - first:
+      213: -2096028854527859351
+    second: MiniHideshiSprites_8
+  - first:
+      213: 6365005236387093381
+    second: MiniHideshiSprites_9
+  - first:
+      213: 5911087217173207894
+    second: MiniHideshiSprites_10
+  - first:
+      213: -6716354940998257878
+    second: MiniHideshiSprites_11
+  - first:
+      213: 8583364755628028284
+    second: MiniHideshiSprites_12
+  - first:
+      213: -8280625451056110204
+    second: MiniHideshiSprites_13
+  - first:
+      213: -9162165066465537929
+    second: MiniHideshiSprites_14
+  - first:
+      213: 3728279028708460801
+    second: MiniHideshiSprites_15
+  - first:
+      213: -5476108901592022104
+    second: MiniHideshiSprites_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MiniHideshiSprites_0
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 1061
+        width: 136
+        height: 313
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c86d403914b4205bc7e437fe9217c36d
+      internalID: -988243586334748004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_1
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 1063
+        width: 171
+        height: 309
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688d60e37821c7d228aaaa291457137a
+      internalID: 3187081471138122854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_2
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 1063
+        width: 176
+        height: 310
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c866fe95bfc34afe0113b52a6bf68a4
+      internalID: -5709115242872987045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 713
+        width: 163
+        height: 311
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cc9a29cf9bbd5aa3dfa694dc580b3b2
+      internalID: -8356034166864180177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_4
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 717
+        width: 182
+        height: 308
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3dff9cc2b0713c6a5a740a178cceef2
+      internalID: -2279040438734950511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_5
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 717
+        width: 141
+        height: 309
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 636a181dfdcecb3866fc7e538ee465af
+      internalID: 7932079810324206757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_6
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 364
+        width: 158
+        height: 329
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b6ff82657868acabc1fd0a9d8542113
+      internalID: 6534792903935661563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_7
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 361
+        width: 155
+        height: 332
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adead783ccc2a2d8f5ee4935f491c338
+      internalID: -2541822478683950990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_8
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 361
+        width: 154
+        height: 333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5ae5e553d590c8ffdbd476265651189
+      internalID: -2096028854527859351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_9
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 359
+        width: 159
+        height: 334
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c74a56f449f5e80d407a4062441198da
+      internalID: 6365005236387093381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_10
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 359
+        width: 164
+        height: 334
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4793aa7e3a531f10b2855f64c9c5e593
+      internalID: 5911087217173207894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_11
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 43
+        width: 141
+        height: 306
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 750561ac885ff1370116bdd5826ba306
+      internalID: -6716354940998257878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_12
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 42
+        width: 145
+        height: 306
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8342041f5037dca5b6fab7bd25968fbc
+      internalID: 8583364755628028284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_13
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 40
+        width: 154
+        height: 308
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 849b562f9b12bed5e7b3ddf76553a673
+      internalID: -8280625451056110204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_14
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 40
+        width: 148
+        height: 307
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3af3af777a469ac67ed839f17f5b3926
+      internalID: -9162165066465537929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_15
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 39
+        width: 151
+        height: 307
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42c42db2519488276d2e50f57f51759c
+      internalID: 3728279028708460801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniHideshiSprites_16
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 39
+        width: 144
+        height: 310
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfcdc20c2168f93323ba62b0ab089f36
+      internalID: -5476108901592022104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fa5e97f5fd4aa3e074a536d01d501ad7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MiniHideshiSprites_0: -988243586334748004
+      MiniHideshiSprites_1: 3187081471138122854
+      MiniHideshiSprites_10: 5911087217173207894
+      MiniHideshiSprites_11: -6716354940998257878
+      MiniHideshiSprites_12: 8583364755628028284
+      MiniHideshiSprites_13: -8280625451056110204
+      MiniHideshiSprites_14: -9162165066465537929
+      MiniHideshiSprites_15: 3728279028708460801
+      MiniHideshiSprites_16: -5476108901592022104
+      MiniHideshiSprites_2: -5709115242872987045
+      MiniHideshiSprites_3: -8356034166864180177
+      MiniHideshiSprites_4: -2279040438734950511
+      MiniHideshiSprites_5: 7932079810324206757
+      MiniHideshiSprites_6: 6534792903935661563
+      MiniHideshiSprites_7: -2541822478683950990
+      MiniHideshiSprites_8: -2096028854527859351
+      MiniHideshiSprites_9: 6365005236387093381
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
