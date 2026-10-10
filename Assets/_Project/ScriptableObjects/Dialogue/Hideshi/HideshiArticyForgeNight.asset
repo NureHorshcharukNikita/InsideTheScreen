@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: HideshiArticyForgeNight
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Garr says the crystal will be ready tomorrow.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Then we have one more night here.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Dad... what if it doesn't work? What if this crystal doesn't take us home?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Then we'll find another way.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "You always say that.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Because so far it's always been true.", nextLineIndex: -1}
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 0}
+    text: "Get some sleep, Haru. Tomorrow will be a long day."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_crystal_forge_night
+      silent: 1
+      shop: {fileID: 0}
+    choices: []

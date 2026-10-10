@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: GarrArticyAfterAltar
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Boy.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "I heard what happened at the altar.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "I'm no good with words. But your father was a good man. He stood between you and that thing.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "If you need a blade, a repair, or just a roof over your head, the forge is open. Always.", nextLineIndex: -1, endDialogueAfterLine: 1}

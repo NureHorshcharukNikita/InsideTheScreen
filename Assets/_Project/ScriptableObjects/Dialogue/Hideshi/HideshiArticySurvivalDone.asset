@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: HideshiArticySurvivalDone
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Let me see what you've got.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Some cards... This one hits, this one heals. It's strange, but it makes sense.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Every card is an action. Just like in the old games I used to play.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "You played games?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Before you were born. Long before I got too busy for them.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Listen. The wolves at the forest edge won't let us pass. Tomorrow we'll have to face them.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Fight them? With cards?", nextLineIndex: -1}
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 0}
+    text: "With cards. Pick the ones you trust and keep a cool head. I'll be right behind you."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 2
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    - type: 1
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    choices: []

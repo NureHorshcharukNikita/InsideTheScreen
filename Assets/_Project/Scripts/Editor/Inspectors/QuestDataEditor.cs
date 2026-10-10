@@ -25,10 +25,6 @@ public sealed class QuestDataEditor : UnityEditor.Editor
     private SerializedProperty objectiveLabelProp;
     private SerializedProperty targetEncounterIdProp;
     private SerializedProperty rewardsProp;
-    private SerializedProperty rewardLabelProp;
-    private SerializedProperty rewardIconProp;
-    private SerializedProperty rewardCardProp;
-    private SerializedProperty rewardCardCountProp;
 
     private void OnEnable()
     {
@@ -44,10 +40,6 @@ public sealed class QuestDataEditor : UnityEditor.Editor
         objectiveLabelProp = serializedObject.FindProperty("objectiveLabel");
         targetEncounterIdProp = serializedObject.FindProperty("targetEncounterId");
         rewardsProp = serializedObject.FindProperty("rewards");
-        rewardLabelProp = serializedObject.FindProperty("rewardLabel");
-        rewardIconProp = serializedObject.FindProperty("rewardIcon");
-        rewardCardProp = serializedObject.FindProperty("rewardCard");
-        rewardCardCountProp = serializedObject.FindProperty("rewardCardCount");
     }
 
     public override void OnInspectorGUI()
@@ -100,18 +92,5 @@ public sealed class QuestDataEditor : UnityEditor.Editor
             "No reward: leave the list empty.",
             MessageType.None);
         EditorGUILayout.PropertyField(rewardsProp, new GUIContent("Rewards"), true);
-
-        bool hasLegacyReward = !string.IsNullOrWhiteSpace(rewardLabelProp.stringValue)
-                               || rewardIconProp.objectReferenceValue != null
-                               || rewardCardProp.objectReferenceValue != null;
-        if (rewardsProp.arraySize > 0 || !hasLegacyReward)
-            return;
-
-        EditorGUILayout.Space(4f);
-        EditorGUILayout.LabelField("Legacy Reward", EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(rewardLabelProp, new GUIContent("Label"));
-        EditorGUILayout.PropertyField(rewardIconProp, new GUIContent("Icon"));
-        EditorGUILayout.PropertyField(rewardCardProp, new GUIContent("Card"));
-        EditorGUILayout.PropertyField(rewardCardCountProp, new GUIContent("Card Count"));
     }
 }

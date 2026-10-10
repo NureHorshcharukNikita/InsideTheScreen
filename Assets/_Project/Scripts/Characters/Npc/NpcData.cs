@@ -29,6 +29,10 @@ public sealed class NpcData : ScriptableObject
     public bool canMove;
     public float moveSpeed = 2f;
 
+    [Header("Story")]
+    [Tooltip("The NPC disappears once this story flag is set. Empty = always present.")]
+    [StoryFlag] public string hiddenAfterStoryFlag;
+
     public bool CanTalk => enableDialogue && HasAnyDialogueEntry();
     public bool CanShowOverheadLines => enableOverheadSpeech && HasAnyText(overheadLines);
     public bool CanTrade => shop != null && shop.HasItems;

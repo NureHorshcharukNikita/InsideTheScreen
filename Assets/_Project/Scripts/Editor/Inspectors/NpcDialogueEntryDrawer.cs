@@ -29,20 +29,8 @@ public sealed class NpcDialogueEntryDrawer : PropertyDrawer
             DrawProperty(position, ref y, talkTimingProp, "Talk Timing");
             DrawTimingProperties(position, ref y, property, talkTimingProp);
 
-            DrawSection(position, ref y, "Quest Condition");
-            SerializedProperty requireQuestStatusProp = property.FindPropertyRelative("requireQuestStatus");
-            DrawProperty(position, ref y, requireQuestStatusProp, "Require Quest Status");
-            if (requireQuestStatusProp.boolValue)
-            {
-                DrawProperty(position, ref y, property, "quest", "Quest");
-                DrawProperty(position, ref y, property, "questStatus", "Quest Status");
-            }
-
-            DrawSection(position, ref y, "Story Flag Condition");
-            SerializedProperty storyFlagProp = property.FindPropertyRelative("requiredStoryFlag");
-            DrawProperty(position, ref y, storyFlagProp, "Required Story Flag");
-            if (!string.IsNullOrWhiteSpace(storyFlagProp.stringValue))
-                DrawProperty(position, ref y, property, "invertStoryFlag", "Invert Story Flag");
+            DrawSection(position, ref y, "Conditions");
+            DrawProperty(position, ref y, property, "conditions", "All Must Be Met");
 
             EditorGUI.indentLevel--;
         }
@@ -67,19 +55,7 @@ public sealed class NpcDialogueEntryDrawer : PropertyDrawer
             AddTimingHeight(ref height, property, talkTimingProp);
 
             AddSectionHeight(ref height);
-            SerializedProperty requireQuestStatusProp = property.FindPropertyRelative("requireQuestStatus");
-            AddPropertyHeight(ref height, requireQuestStatusProp, "Require Quest Status");
-            if (requireQuestStatusProp.boolValue)
-            {
-                AddPropertyHeight(ref height, property.FindPropertyRelative("quest"), "Quest");
-                AddPropertyHeight(ref height, property.FindPropertyRelative("questStatus"), "Quest Status");
-            }
-
-            AddSectionHeight(ref height);
-            SerializedProperty storyFlagProp = property.FindPropertyRelative("requiredStoryFlag");
-            AddPropertyHeight(ref height, storyFlagProp, "Required Story Flag");
-            if (!string.IsNullOrWhiteSpace(property.FindPropertyRelative("requiredStoryFlag").stringValue))
-                AddPropertyHeight(ref height, property.FindPropertyRelative("invertStoryFlag"), "Invert Story Flag");
+            AddPropertyHeight(ref height, property.FindPropertyRelative("conditions"), "All Must Be Met");
 
             height += BottomPadding;
         }

@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: TraderArticyCampfire
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Hello! Could you tell us...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "Are you travelers?", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Um... yes. You could say that.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "Lost, are you?", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "There's a road over there. Go straight and don't turn off.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Straight ahead?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "There's a settlement half an hour from here. Leymar.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Leymar...?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "An elder leads the place. Ancient Eldon.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Could he help us?", nextLineIndex: -1}
+  - speakerSide: 1
+    speakerName: Trader
+    text: "If anyone can, he can."
+    nextLineIndex: -1
+    choices:
+    - text: "It's dangerous here."
+      nextLineIndex: 12
+      endDialogue: 0
+      actions: []
+    - text: "Stay silent."
+      nextLineIndex: 22
+      endDialogue: 0
+      actions: []
+  - {speakerSide: 0, speakerName: Haru, text: "We saw a wolf. It was rabid.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "I'm not surprised. These woods have always been dangerous. Lately, more than ever.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "What do you mean, more than ever...?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "Everything here has changed.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "People have grown angry. Almost rabid...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "What's wrong with him? It's as if he isn't listening...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "He is strange... It's like he's talking to himself. Let's go.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Thanks for the advice.", nextLineIndex: -1}
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Let's hurry. We need to reach Leymar."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 2
+      quest: {fileID: 11400000, guid: 6b17c5a25c203580afb8005c062b0149, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    - type: 1
+      quest: {fileID: 11400000, guid: 6b0dc17eb6a21d10baa32ec5503067a7, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    choices: []
+  - {speakerSide: 0, speakerName: Haru, text: "...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "Everything here has changed.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "People have grown angry. Almost rabid...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "Things used to be different.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "Now they look at you... as if they see an enemy.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, text: "I suppose I'm stuck in these woods.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Thanks for the advice.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "He's a little strange...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "He is...", nextLineIndex: -1}
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "But let's not waste time. Come on! We need to reach Leymar."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 2
+      quest: {fileID: 11400000, guid: 6b17c5a25c203580afb8005c062b0149, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    - type: 1
+      quest: {fileID: 11400000, guid: 6b0dc17eb6a21d10baa32ec5503067a7, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    choices: []

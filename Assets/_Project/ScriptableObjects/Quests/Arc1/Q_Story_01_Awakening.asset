@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc280dd61f1dae84297761204f0d7b10, type: 3}
+  m_Name: Q_Story_01_Awakening
+  m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  questKey: a1_awakening
+  title: Awakening
+  giverName: 
+  description: The old console pulled you and your father through the screen. You woke up in a strange, silent forest. Take a look around.
+  status: 0
+  objectiveType: 0
+  objectiveLabel: Look around
+  targetEncounterId: 
+  rewards:
+  - type: 1
+    card: {fileID: 0}
+    cardCount: 1
+    skillPoints: 1
+    icon: {fileID: 21300000, guid: e45fa93a340f6a143917827c1a66b21f, type: 3}

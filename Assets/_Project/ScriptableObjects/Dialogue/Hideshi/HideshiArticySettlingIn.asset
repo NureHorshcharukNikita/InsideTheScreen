@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: HideshiArticySettlingIn
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 0, speakerName: Haru, text: "He's strange too, just like the others...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Strange or not, he seems to know more than the others.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "That's why we'll have to listen to him.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Do you trust him?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Not entirely.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Then why are we staying?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Because we don't have another choice.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "I don't like this place.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Neither do I. But right now, we need to get through the night.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Let's find somewhere to sleep first.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Looks like everyone goes to bed early here...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Yes. Almost everything is closed.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "There... that barn looks empty.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "This will do.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "We'll spend the night here and see the old man in the morning.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Dad... do you think we really ended up in another world?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "I've thought about it. After everything we've seen, I want to say yes.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Remember how we were pulled into the screen?", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Yeah...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Then everything went white, and we ended up here.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "It's... too strange. It was just an ordinary game disc.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "You could say we're inside a game... but one that feels far too real.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "You mean we're inside the game?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Maybe we are...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Maybe we aren't.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "But until I find a better explanation, let's assume that's what happened.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "Can we get back?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "We will.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, text: "How do you know?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "Because we aren't going to stay here.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "For now, we need to keep our heads and be careful.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, text: "We'll figure out the rest tomorrow.", nextLineIndex: -1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Good night..."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_spent_night
+      silent: 1
+      shop: {fileID: 0}
+    choices: []

@@ -19,9 +19,10 @@ public sealed class DialogueManager : MonoBehaviour
     }
 
     private readonly List<DialogueLine> activeLines = new();
-    private readonly List<DialogueAction> deferredQuestActions = new();
+    private readonly List<DialogueAction> deferredActions = new();
     private NpcCharacter activeNpc;
     private NpcDialogueEntry activeDialogueEntry;
+    private System.Action activeOnEnded;
     private string activeNpcKey;
     private PlayerCharacter activePlayer;
     private int activeLineIndex;
@@ -74,6 +75,8 @@ public sealed class DialogueManager : MonoBehaviour
             instance = null;
     }
 
+    public bool IsDialogueActive => dialogueActive;
+
     public bool StartDialogue(NpcCharacter npc)
     {
         if (npc == null || !npc.CanTalk)
@@ -88,7 +91,7 @@ public sealed class DialogueManager : MonoBehaviour
         }
 
         activeLines.Clear();
-        deferredQuestActions.Clear();
+        deferredActions.Clear();
         DialogueData dialogue = npc.SelectDialogue(out NpcDialogueEntry selectedEntry);
         AddDialogueDataLines(dialogue);
 
@@ -103,6 +106,47 @@ public sealed class DialogueManager : MonoBehaviour
         previousState = GameStateManager.State;
         GameStateManager.SetState(GameState.Dialogue);
         npc.TryInteract(NpcInteractionType.Talk);
+        ShowCurrentLine();
+        return true;
+    }
+
+    // Story scenes without an NPC (see DialogueStep). Speakers come from the lines themselves;
+    // endActions run after the last line, together with the quest actions of the dialogue,
+    // and onEnded is called after them.
+    public bool StartDialogue(
+        DialogueData dialogue,
+        IReadOnlyList<DialogueAction> endActions = null,
+        System.Action onEnded = null)
+    {
+        if (dialogueActive)
+            return false;
+
+        ResolveView();
+        ResolvePlayer();
+        if (view == null)
+        {
+            Debug.LogError($"{nameof(DialogueView)} is not assigned.", this);
+            return false;
+        }
+
+        activeLines.Clear();
+        deferredActions.Clear();
+        AddDialogueDataLines(dialogue);
+
+        if (activeLines.Count == 0)
+            return false;
+
+        if (endActions != null)
+            deferredActions.AddRange(endActions);
+
+        activeOnEnded = onEnded;
+        activeNpc = null;
+        activeDialogueEntry = null;
+        activeNpcKey = null;
+        activeLineIndex = 0;
+        dialogueActive = true;
+        previousState = GameStateManager.State;
+        GameStateManager.SetState(GameState.Dialogue);
         ShowCurrentLine();
         return true;
     }
@@ -201,6 +245,10 @@ public sealed class DialogueManager : MonoBehaviour
         activeNpc = null;
         activeDialogueEntry = null;
         activeNpcKey = null;
+
+        System.Action onEnded = activeOnEnded;
+        activeOnEnded = null;
+        onEnded?.Invoke();
     }
 
     private void ShowCurrentLine()
@@ -209,8 +257,9 @@ public sealed class DialogueManager : MonoBehaviour
 
         DialogueLine line = activeLines[activeLineIndex];
         bool playerSpeaking = line.speakerSide == DialogueSpeakerSide.Left;
-        string fallbackName = playerSpeaking ? PlayerName : activeNpc.DisplayName;
-        Sprite fallbackPortrait = playerSpeaking ? PlayerPortrait : activeNpc.DialogueSprite;
+        Sprite npcPortrait = activeNpc != null ? activeNpc.DialogueSprite : null;
+        string fallbackName = playerSpeaking ? PlayerName : activeNpc != null ? activeNpc.DisplayName : string.Empty;
+        Sprite fallbackPortrait = playerSpeaking ? PlayerPortrait : npcPortrait;
 
         ExecuteActions(line.actions, activeNpc, activePlayer);
 
@@ -222,7 +271,7 @@ public sealed class DialogueManager : MonoBehaviour
             fallbackName,
             fallbackPortrait,
             PlayerPortrait,
-            activeNpc.DialogueSprite,
+            npcPortrait,
             GetValidChoices(line));
     }
 
@@ -239,7 +288,7 @@ public sealed class DialogueManager : MonoBehaviour
 
             if (IsQuestAction(action.type))
             {
-                deferredQuestActions.Add(action);
+                deferredActions.Add(action);
                 continue;
             }
 
@@ -249,11 +298,11 @@ public sealed class DialogueManager : MonoBehaviour
 
     private void ExecuteDeferredQuestActions()
     {
-        if (deferredQuestActions.Count == 0)
+        if (deferredActions.Count == 0)
             return;
 
-        DialogueAction[] actions = deferredQuestActions.ToArray();
-        deferredQuestActions.Clear();
+        DialogueAction[] actions = deferredActions.ToArray();
+        deferredActions.Clear();
 
         for (int i = 0; i < actions.Length; i++)
             actions[i]?.Execute(activeNpc, activePlayer);

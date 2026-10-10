@@ -18,6 +18,89 @@ MonoBehaviour:
   startingArmor: 0
   enableDialogue: 1
   dialogueEntries:
+  - key: hideshi_forge_night
+    dialogue: {fileID: 11400000, guid: 417b8be1967af6d060377b2721479fc0, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_crystal_forging
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_first_threat_done
+    dialogue: {fileID: 11400000, guid: 514cfeb318ec89ec37822c6b1d6449bd, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
+      invert: 0
+  - key: hideshi_first_threat_reminder
+    dialogue: {fileID: 11400000, guid: bd505f85a9c38fffa576cdcee6816147, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_survival_done
+    dialogue: {fileID: 11400000, guid: d0679b09576d1d39b05b93c3764b795e, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_basic_resources_gathered
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_survival_reminder
+    dialogue: {fileID: 11400000, guid: 1baad398082d96cb2f6e8a0c27173a48, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_survival_basics
+    dialogue: {fileID: 11400000, guid: c66316bc37c72aa8bbcbc79849427aea, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c5a7aeb7b3e7722e75dad7c6b4773d11, type: 2}
+      questStatus: 1
+      invert: 0
   - key: hideshi_settling_in
     dialogue: {fileID: 11400000, guid: f0d1d4b7585c46af8be2c485c64d8457, type: 2}
     repeatable: 0
@@ -25,25 +108,67 @@ MonoBehaviour:
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    requireQuestStatus: 0
-    quest: {fileID: 0}
-    questStatus: 1
-    requiredStoryFlag: met_ancient_eldon
-    invertStoryFlag: 0
-  - key: hideshi_leymar
-    dialogue: {fileID: 11400000, guid: 02cce30cf4ac4fa5a0a654b54054a8e6, type: 2}
-    repeatable: 0
+    conditions:
+    - type: 0
+      storyFlag: met_ancient_eldon
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_road_idle
+    dialogue: {fileID: 11400000, guid: 8ef1b728d1e6e92b0f21f3d5dce5ea87, type: 2}
+    repeatable: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    requireQuestStatus: 0
-    quest: {fileID: 0}
-    questStatus: 1
-    requiredStoryFlag: met_ancient_eldon
-    invertStoryFlag: 1
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 6b0dc17eb6a21d10baa32ec5503067a7, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_smoke_idle
+    dialogue: {fileID: 11400000, guid: 149bd43d8067128af012a1f0470b9b4d, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 6b17c5a25c203580afb8005c062b0149, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_awakening_idle
+    dialogue: {fileID: 11400000, guid: 6740704422080b4ab0340fd2012b2d2f, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 3675c722159f7ed3a5b6e71a669d5c1a, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_idle
+    dialogue: {fileID: 11400000, guid: f522e02d9ce489efd1902abdc8b93617, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_spent_night
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}
   canMove: 0
   moveSpeed: 2
+  hiddenAfterStoryFlag: a1_echo_altar_broken

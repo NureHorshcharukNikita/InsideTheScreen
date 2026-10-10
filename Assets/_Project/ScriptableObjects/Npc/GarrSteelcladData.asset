@@ -18,18 +18,156 @@ MonoBehaviour:
   startingArmor: 0
   enableDialogue: 1
   dialogueEntries:
-  - key: garr_crystal_materials
-    dialogue: {fileID: 11400000, guid: 5dc272d00d4e4a28a648e5daa2091896, type: 2}
+  - key: garr_after_altar
+    dialogue: {fileID: 11400000, guid: a199d814e62d4012e4519a2940360e77, type: 2}
     repeatable: 0
-    talkTiming: 2
+    talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    requireQuestStatus: 0
-    quest: {fileID: 0}
-    questStatus: 1
-    requiredStoryFlag: eldon_echo_crystal_discussed
-    invertStoryFlag: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_echo_altar_broken
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_crystal_ready
+    dialogue: {fileID: 11400000, guid: d954a536b43faf2be396ea5224f1e0ad, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c5a7aeb7b3e7722e75dad7c6b4773d11, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_forge_night
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_not_ready
+    dialogue: {fileID: 11400000, guid: f47fdf9234c433f568836720fc4ad483, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c5a7aeb7b3e7722e75dad7c6b4773d11, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_forging
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_forging
+    dialogue: {fileID: 11400000, guid: d80bb715ed9821dc09cd7f259ea6c380, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: bf7ee36f62767e17c74411adc890bcae, type: 2}
+      questStatus: 2
+      invert: 0
+  - key: garr_ogre_reminder
+    dialogue: {fileID: 11400000, guid: 21ec1ede6ecd6b21d88211847feb13b6, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: bf7ee36f62767e17c74411adc890bcae, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: garr_resin_done
+    dialogue: {fileID: 11400000, guid: de6e7be98478e7bf22a0eb3a1314c604, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 9dfe884defda724adb964098ee19c64c, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_resin_collected
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_resin_reminder
+    dialogue: {fileID: 11400000, guid: 97f182cbc01260b1b6be9a7a6184ef86, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 9dfe884defda724adb964098ee19c64c, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: garr_stone_done
+    dialogue: {fileID: 11400000, guid: 6a259c72c254e98c8719339f7bd6c6b0, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 93ac9dd922f597cff585c5b9b8c3670f, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_root_stone_found
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_stone_reminder
+    dialogue: {fileID: 11400000, guid: 5b1775402bc5901d1a1c32457478f30a, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 93ac9dd922f597cff585c5b9b8c3670f, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: garr_crystal_materials
+    dialogue: {fileID: 11400000, guid: 5dc272d00d4e4a28a648e5daa2091896, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
   - key: garr_next_morning
     dialogue: {fileID: 11400000, guid: d618490969dd47ed8332cbac14994c63, type: 2}
     repeatable: 0
@@ -37,11 +175,25 @@ MonoBehaviour:
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    requireQuestStatus: 0
-    quest: {fileID: 0}
-    questStatus: 1
-    requiredStoryFlag: met_ancient_eldon
-    invertStoryFlag: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_spent_night
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_idle
+    dialogue: {fileID: 11400000, guid: 8c54220ce24fd3278e9cf1996aca6fff, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_met_garr
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

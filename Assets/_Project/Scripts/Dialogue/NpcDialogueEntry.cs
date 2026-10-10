@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -21,14 +22,8 @@ public sealed class NpcDialogueEntry
     [Tooltip("0 means no upper limit.")]
     public int rangeEndConversation;
 
-    [Header("Quest Condition")]
-    public bool requireQuestStatus;
-    public QuestData quest;
-    public QuestStatus questStatus = QuestStatus.Active;
-
-    [Header("Story Flag Condition")]
-    public string requiredStoryFlag;
-    public bool invertStoryFlag;
+    [Tooltip("All of them must be met. Empty = no conditions.")]
+    public List<StoryCondition> conditions = new();
 
     public string Key
     {
@@ -54,20 +49,7 @@ public sealed class NpcDialogueEntry
         if (!repeatable && NpcDialogueProgress.WasDialogueUsed(npcKey, Key))
             return false;
 
-        if (requireQuestStatus)
-        {
-            if (quest == null || QuestManager.GetStatus(quest) != questStatus)
-                return false;
-        }
-
-        if (!string.IsNullOrWhiteSpace(requiredStoryFlag))
-        {
-            bool hasFlag = StoryFlagManager.HasFlag(requiredStoryFlag);
-            if (invertStoryFlag ? hasFlag : !hasFlag)
-                return false;
-        }
-
-        return true;
+        return StoryCondition.AreMet(conditions);
     }
 
     private bool IsTalkTimingAvailable(string npcKey)

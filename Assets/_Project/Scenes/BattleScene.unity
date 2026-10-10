@@ -5809,6 +5809,9 @@ MonoBehaviour:
   enemyIntentView: {fileID: 678215247}
   questCatalog:
   - {fileID: 11400000, guid: ecd4838f76df402b9fb8d76974950286, type: 2}
+  - {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+  - {fileID: 11400000, guid: 212cb845cf2a03e54b60938ba5f249f7, type: 2}
+  - {fileID: 11400000, guid: bf7ee36f62767e17c74411adc890bcae, type: 2}
   enemyIntentTelegraphDuration: 0.5
   enemyIntentHideDuration: 0.15
   enemyActionRecoveryDelay: 0.75

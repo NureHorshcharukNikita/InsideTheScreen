@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -7,9 +6,8 @@ public sealed class HouseDoorway : MonoBehaviour
 {
     [SerializeField] private HouseDoorway destination;
     [SerializeField] private Transform arrivalPoint;
+    [Tooltip("Camera bounds of the area this doorway is in.")]
     [SerializeField] private Collider2D cameraBounds;
-    [SerializeField] private CinemachineConfiner2D mainCameraConfiner;
-    [SerializeField] private CinemachineConfiner2D minimapCameraConfiner;
     [SerializeField] private GameObject minimapRoot;
     [SerializeField] private bool hideMinimap;
     [SerializeField] private GameObject promptRoot;
@@ -46,7 +44,7 @@ public sealed class HouseDoorway : MonoBehaviour
         PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
         if (player != null && cameraBounds != null && cameraBounds.OverlapPoint(player.transform.position))
         {
-            SetCameraBounds(cameraBounds);
+            PlayerTransfer.SetCameraBounds(cameraBounds);
             SetMinimapVisibility();
         }
     }
@@ -139,54 +137,13 @@ public sealed class HouseDoorway : MonoBehaviour
 
     private void TransferPlayer(Transform player)
     {
-        Vector3 oldPosition = player.position;
-        Vector3 newPosition = destination.arrivalPoint.position;
-        newPosition.z = oldPosition.z;
-
-        if (player.TryGetComponent(out Rigidbody2D body))
-        {
-            body.linearVelocity = Vector2.zero;
-            body.position = newPosition;
-        }
-
-        player.position = newPosition;
-        Physics2D.SyncTransforms();
-        SetCameraBounds(destination.cameraBounds);
+        PlayerTransfer.MovePlayer(player, destination.arrivalPoint.position, destination.cameraBounds);
         destination.SetMinimapVisibility();
-
-        CinemachineCamera camera = mainCameraConfiner != null
-            ? mainCameraConfiner.GetComponent<CinemachineCamera>()
-            : null;
-        if (camera != null)
-        {
-            camera.OnTargetObjectWarped(player, newPosition - oldPosition);
-            camera.PreviousStateIsValid = false;
-        }
-
-        ExplorationPlayerSession.SavePosition(newPosition);
     }
 
     private void SetMinimapVisibility()
     {
         if (minimapRoot != null)
             minimapRoot.SetActive(!hideMinimap);
-    }
-
-    private void SetCameraBounds(Collider2D bounds)
-    {
-        SetConfinerBounds(mainCameraConfiner, bounds);
-        SetConfinerBounds(minimapCameraConfiner, bounds);
-    }
-
-    private static void SetConfinerBounds(CinemachineConfiner2D confiner, Collider2D bounds)
-    {
-        if (confiner == null || bounds == null || confiner.BoundingShape2D == bounds)
-            return;
-
-        confiner.BoundingShape2D = bounds;
-        confiner.InvalidateBoundingShapeCache();
-        CinemachineCamera camera = confiner.GetComponent<CinemachineCamera>();
-        if (camera != null)
-            camera.PreviousStateIsValid = false;
     }
 }

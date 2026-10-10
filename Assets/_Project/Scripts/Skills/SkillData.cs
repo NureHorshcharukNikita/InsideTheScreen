@@ -93,7 +93,7 @@ public sealed class SkillPrerequisite
 public sealed class SkillUnlockRequirement
 {
     [SerializeField] private SkillUnlockRequirementType type;
-    [SerializeField] private string storyFlag;
+    [SerializeField, StoryFlag] private string storyFlag;
     [SerializeField] private QuestData quest;
     [SerializeField] private QuestStatus requiredQuestStatus = QuestStatus.Completed;
     [SerializeField] private string encounterId;

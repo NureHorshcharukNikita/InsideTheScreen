@@ -17,7 +17,111 @@ MonoBehaviour:
   maxHealth: 30
   startingArmor: 0
   enableDialogue: 1
-  dialogueEntries: []
+  dialogueEntries:
+  - key: farel_relic_done
+    dialogue: {fileID: 11400000, guid: 39132d6764605824d27fe0b0b9159e8e, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 386111d6135a78632aec687d2f8a530e, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_old_mechanism_found
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: farel_relic_reminder
+    dialogue: {fileID: 11400000, guid: 72259ddf69322577b712cece50b3db0a, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 386111d6135a78632aec687d2f8a530e, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: farel_net_done
+    dialogue: {fileID: 11400000, guid: fd37a6832ddc7ef439d48c9e619c2a78, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: bc1558169922a9de4f8b33c7bd6fcf1d, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_fishing_net_found
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: farel_net_reminder
+    dialogue: {fileID: 11400000, guid: f09395a2aacec3808d648a667e74f012, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: bc1558169922a9de4f8b33c7bd6fcf1d, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: farel_wealth_done
+    dialogue: {fileID: 11400000, guid: d1fc05d337bbc5da2deac1a75f11be68, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 212cb845cf2a03e54b60938ba5f249f7, type: 2}
+      questStatus: 2
+      invert: 0
+  - key: farel_wealth_reminder
+    dialogue: {fileID: 11400000, guid: dcc3a5d617261a11ba64f33af7e1509c, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 212cb845cf2a03e54b60938ba5f249f7, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: farel_first_meeting
+    dialogue: {fileID: 11400000, guid: 5df50a6b1f63d48471c62e4cd1e3c2d8, type: 2}
+    repeatable: 0
+    talkTiming: 1
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions: []
+  - key: farel_idle
+    dialogue: {fileID: 11400000, guid: dbdb2eaea47d9175455c2f894ba092b2, type: 2}
+    repeatable: 1
+    talkTiming: 2
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions: []
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

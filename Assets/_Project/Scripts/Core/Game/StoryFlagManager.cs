@@ -5,6 +5,8 @@ public static class StoryFlagManager
 {
     private static readonly List<string> Flags = new();
 
+    public static event Action Changed;
+
     public static bool HasFlag(string flag)
     {
         if (string.IsNullOrWhiteSpace(flag))
@@ -26,6 +28,7 @@ public static class StoryFlagManager
 
         Flags.Add(flag);
         ExplorationPlayerSession.SaveStoryFlags();
+        Changed?.Invoke();
         return true;
     }
 
@@ -41,6 +44,7 @@ public static class StoryFlagManager
 
             Flags.RemoveAt(i);
             ExplorationPlayerSession.SaveStoryFlags();
+            Changed?.Invoke();
             return true;
         }
 
@@ -65,10 +69,13 @@ public static class StoryFlagManager
             if (!string.IsNullOrWhiteSpace(flags[i]) && !HasFlag(flags[i]))
                 Flags.Add(flags[i]);
         }
+
+        Changed?.Invoke();
     }
 
     public static void Clear()
     {
         Flags.Clear();
+        Changed?.Invoke();
     }
 }

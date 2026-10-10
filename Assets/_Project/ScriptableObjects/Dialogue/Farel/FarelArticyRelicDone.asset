@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: FarelArticyRelicDone
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "We found it. The old mechanism.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "May I?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "...It's ticking. Even after all these years.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "These parts... they look like they came from a watch.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "How did a watch end up in ruins older than this village?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "Maybe someone came from your world long before you.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "I'll keep it safe. Here, the net and the rope, as promised.", nextLineIndex: -1}
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "If you ever pass by the river, my fire is your fire."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 2
+      quest: {fileID: 11400000, guid: 386111d6135a78632aec687d2f8a530e, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    choices: []

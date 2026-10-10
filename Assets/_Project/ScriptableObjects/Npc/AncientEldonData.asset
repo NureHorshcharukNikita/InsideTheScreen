@@ -18,18 +18,154 @@ MonoBehaviour:
   startingArmor: 0
   enableDialogue: 1
   dialogueEntries:
+  - key: eldon_after_altar
+    dialogue: {fileID: 11400000, guid: d77ec6bde37e7916f897de159a2858c1, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_echo_altar_broken
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: eldon_after_altar_idle
+    dialogue: {fileID: 11400000, guid: 4f5bbdb002ea7f762200522b91bd735a, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_echo_altar_broken
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: eldon_altar_reminder
+    dialogue: {fileID: 11400000, guid: 71adc4323151a9a4c7c3cfcda4f03996, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 27ecb32aafcf4084331322d61a41d396, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: eldon_altar_pedestal_reminder
+    dialogue: {fileID: 11400000, guid: 71adc4323151a9a4c7c3cfcda4f03996, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c66f34375861a11b4ff0464e7f5f57c7, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: eldon_crystal_check
+    dialogue: {fileID: 11400000, guid: 4c431c608863f9550ab5b6ac7db40228, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 7a7f7718b50038738bddea073c584a76, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: eldon_barrier_done
+    dialogue: {fileID: 11400000, guid: f49c52fb1a82ca45ccf69dc1129c5d32, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_collected
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: eldon_barrier_reminder
+    dialogue: {fileID: 11400000, guid: 6ae5d770b982004fca41dc788deaa723, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: eldon_barrier_offer
+    dialogue: {fileID: 11400000, guid: 36e49e34429a25f663244b6dc751db21, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c5a7aeb7b3e7722e75dad7c6b4773d11, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: eldon_material_reminder
+    dialogue: {fileID: 11400000, guid: 4ce180b64f3f02579e004042c30309d1, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: a8fcd588209c1818a81368b066c1b279, type: 2}
+      questStatus: 1
+      invert: 0
   - key: eldon_echo_crystal
     dialogue: {fileID: 11400000, guid: 787341a7958244d79ece40556d507e1b, type: 2}
     repeatable: 0
-    talkTiming: 3
-    conversationNumber: 2
+    talkTiming: 0
+    conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    requireQuestStatus: 0
-    quest: {fileID: 0}
-    questStatus: 1
-    requiredStoryFlag:
-    invertStoryFlag: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_met_garr
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: eldon_wait_for_morning
+    dialogue: {fileID: 11400000, guid: 383dc57ecade21ae2625cea9e1c94fe9, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 27d033e25721074234e74e93b432c324, type: 2}
+      questStatus: 1
+      invert: 0
   - key: eldon_troll_hunt_active
     dialogue: {fileID: 11400000, guid: 916965ba350e4f708003eb10bb2a25c2, type: 2}
     repeatable: 1
@@ -37,11 +173,12 @@ MonoBehaviour:
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    requireQuestStatus: 1
-    quest: {fileID: 11400000, guid: ecd4838f76df402b9fb8d76974950286, type: 2}
-    questStatus: 1
-    requiredStoryFlag:
-    invertStoryFlag: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: ecd4838f76df402b9fb8d76974950286, type: 2}
+      questStatus: 1
+      invert: 0
   - key: eldon_first_meeting
     dialogue: {fileID: 11400000, guid: 6231bb3204594e5cb93bf86e58ce8fd0, type: 2}
     repeatable: 0
@@ -49,11 +186,7 @@ MonoBehaviour:
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    requireQuestStatus: 0
-    quest: {fileID: 0}
-    questStatus: 1
-    requiredStoryFlag:
-    invertStoryFlag: 0
+    conditions: []
   - key: eldon_return
     dialogue: {fileID: 11400000, guid: 7c25f03e808f43088ffce6557ff9f157, type: 2}
     repeatable: 1
@@ -61,11 +194,7 @@ MonoBehaviour:
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    requireQuestStatus: 0
-    quest: {fileID: 0}
-    questStatus: 1
-    requiredStoryFlag:
-    invertStoryFlag: 0
+    conditions: []
   enableOverheadSpeech: 1
   overheadLines:
   - The old screen hums again.

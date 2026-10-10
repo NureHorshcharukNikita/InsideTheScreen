@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: FarelArticyFirstMeeting
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "Careful, travelers. The riverbank isn't safe anymore.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Who are you?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "Farel. People call me the Wanderer, though lately I've done more sitting than wandering.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "What happened to the river?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "Creatures. They came out of nowhere and took the whole bank. Angry, hungry, not like the ones I remember.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "I used to fish there every morning. Now I can't even get close.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "We could try to clear them out.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "You'd do that? For a stranger?", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Everyone here is a stranger to us.", nextLineIndex: -1}
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "Ha. Fair enough. Clear the riverbank, and I won't forget it."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 1
+      quest: {fileID: 11400000, guid: 212cb845cf2a03e54b60938ba5f249f7, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    choices: []

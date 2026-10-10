@@ -35,6 +35,21 @@ public class NpcCharacter : Character
     {
         base.Awake();
         RestoreSavedPosition();
+
+        StoryFlagManager.Changed += ApplyStoryVisibility;
+        ApplyStoryVisibility();
+    }
+
+    private void OnDestroy()
+    {
+        StoryFlagManager.Changed -= ApplyStoryVisibility;
+    }
+
+    // E.g. Hideshi is gone after the Echo Altar.
+    private void ApplyStoryVisibility()
+    {
+        if (npcData != null && !string.IsNullOrWhiteSpace(npcData.hiddenAfterStoryFlag))
+            gameObject.SetActive(!StoryFlagManager.HasFlag(npcData.hiddenAfterStoryFlag));
     }
 
     public void ApplyData(NpcData data)
@@ -106,6 +121,31 @@ public class NpcCharacter : Character
     public void SetEnabled(bool enabled)
     {
         SetState(enabled ? NpcState.Idle : NpcState.Disabled);
+    }
+
+    // Story moves (e.g. Hideshi from Haru's home to Leymar); the new position is saved.
+    public void TeleportTo(Vector3 position)
+    {
+        position.z = transform.position.z;
+        if (TryGetComponent(out Rigidbody2D body))
+            body.position = position;
+
+        transform.position = position;
+        ExplorationPlayerSession.SaveNpcPosition(PersistenceKey, position);
+    }
+
+    public static NpcCharacter Find(NpcData data)
+    {
+        if (data == null)
+            return null;
+
+        foreach (NpcCharacter npc in FindObjectsByType<NpcCharacter>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (npc.Data == data)
+                return npc;
+        }
+
+        return null;
     }
 
     private void SetState(NpcState nextState)

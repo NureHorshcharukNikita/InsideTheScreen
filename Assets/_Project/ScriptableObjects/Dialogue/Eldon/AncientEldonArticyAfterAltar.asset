@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: AncientEldonArticyAfterAltar
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Haru.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Don't. I don't want to hear that it'll be fine.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "I will not say that. It would be a lie.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Your father's soul still exists. Its fragments are scattered across Cardland. I felt each one fall.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Then I'll find them. All of them.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "The creatures that drank the most of that energy will hold them. They are stronger now. All of them are.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Krek, portraitOverride: {fileID: 0}, text: "He's right. But you're not alone anymore.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "...Krek. Right.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Rest, and then go. Leymar will be here when you come back.", nextLineIndex: -1, endDialogueAfterLine: 1}
