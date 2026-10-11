@@ -3,9 +3,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+// The talk zone of an NPC. When the player stands in several zones at once, only the focused
+// NPC shows its prompt and answers the Interact key:
+// 1. a companion that follows the player (Hideshi) comes last, so walking together never
+//    blocks talking to others;
+// 2. NPCs in front of the player (where they look) come before the ones beside or behind;
+// 3. then the closest one.
 [RequireComponent(typeof(Collider2D))]
 public sealed class NpcInteraction : MonoBehaviour
 {
+    // cos 60°: an NPC up to 60° away from where the player looks counts as in front.
+    private const float FrontCone = 0.5f;
+
+    private static readonly List<NpcInteraction> Nearby = new();
+    private static Transform player;
+    private static PlayerMovement playerMovement;
+
     [SerializeField] private NpcCharacter npc;
     [SerializeField] private GameObject promptRoot;
     [SerializeField] private CanvasGroup promptCanvasGroup;
@@ -20,6 +33,7 @@ public sealed class NpcInteraction : MonoBehaviour
     private bool overheadPlaying;
     private bool promptReturnPending;
     private Coroutine overheadRoutine;
+    private CompanionFollower companion;
 
     private void Reset()
     {
@@ -34,8 +48,18 @@ public sealed class NpcInteraction : MonoBehaviour
         if (npc == null)
             npc = GetComponent<NpcCharacter>();
 
+        if (npc != null)
+            companion = npc.GetComponent<CompanionFollower>();
+
         ResolveViewReferences();
         HideSpeechRoot();
+    }
+
+    // Hidden or destroyed while the player stands in the zone: no exit message comes then.
+    private void OnDisable()
+    {
+        playerNearby = false;
+        Nearby.Remove(this);
     }
 
     private void ResolveViewReferences()
@@ -61,21 +85,33 @@ public sealed class NpcInteraction : MonoBehaviour
         if (!GameStateManager.IsGameplay)
             return;
 
-        if (!overheadPlaying && !promptReturnPending && promptRoot != null && !promptRoot.activeSelf)
+        bool idle = !overheadPlaying && !promptReturnPending && promptRoot != null;
+        if (GetFocused() != this)
+        {
+            if (idle && promptRoot.activeSelf)
+                HideSpeechRoot();
+            return;
+        }
+
+        if (idle && !promptRoot.activeSelf)
             RefreshPrompt();
 
         if (GameInputSettings.GetKeyDown(GameInputAction.Interact))
             Interact();
     }
 
+    // The prompt itself is shown from Update, once it is clear which NPC has the focus.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player"))
             return;
 
+        player = other.transform;
+        playerMovement = other.GetComponentInParent<PlayerMovement>();
         playerNearby = true;
+        if (!Nearby.Contains(this))
+            Nearby.Add(this);
         StopOverheadRoutine();
-        RefreshPrompt();
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -84,8 +120,50 @@ public sealed class NpcInteraction : MonoBehaviour
             return;
 
         playerNearby = false;
+        Nearby.Remove(this);
         StopOverheadRoutine();
         HideSpeechRoot();
+    }
+
+    private static NpcInteraction GetFocused()
+    {
+        NpcInteraction focused = null;
+        foreach (NpcInteraction candidate in Nearby)
+        {
+            if (candidate != null && candidate.HasAnyInteraction() && (focused == null || candidate.ComesBefore(focused)))
+                focused = candidate;
+        }
+
+        return focused;
+    }
+
+    private bool ComesBefore(NpcInteraction other)
+    {
+        bool following = IsFollowingCompanion;
+        if (following != other.IsFollowingCompanion)
+            return !following;
+
+        bool inFront = IsInFrontOfPlayer();
+        if (inFront != other.IsInFrontOfPlayer())
+            return inFront;
+
+        return DistanceToPlayer() < other.DistanceToPlayer();
+    }
+
+    private bool IsFollowingCompanion => companion != null && companion.IsFollowing;
+
+    private bool IsInFrontOfPlayer()
+    {
+        if (player == null || playerMovement == null)
+            return false;
+
+        Vector2 toNpc = npc.transform.position - player.position;
+        return toNpc.sqrMagnitude > 0.0001f && Vector2.Dot(playerMovement.FacingDirection, toNpc.normalized) >= FrontCone;
+    }
+
+    private float DistanceToPlayer()
+    {
+        return player != null ? Vector2.Distance(player.position, npc.transform.position) : 0f;
     }
 
     private void Interact()

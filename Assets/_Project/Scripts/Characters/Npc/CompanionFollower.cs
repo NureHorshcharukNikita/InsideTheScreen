@@ -20,6 +20,8 @@ public sealed class CompanionFollower : MonoBehaviour
     private Vector2 playerHeading = Vector2.down;
     private bool following;
 
+    public bool IsFollowing => following;
+
     private void Awake()
     {
         npc = GetComponent<NpcCharacter>();

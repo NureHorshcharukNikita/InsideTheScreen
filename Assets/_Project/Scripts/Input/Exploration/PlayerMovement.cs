@@ -18,6 +18,16 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsMoving => GameStateManager.IsGameplay && movement.sqrMagnitude > MovementThreshold;
 
+    // The way the player looks on screen, read from the animator: story events turn the player
+    // there too, without walking.
+    public Vector2 FacingDirection => (PlayerFacingDirection)animator.GetInteger(DirectionParameter) switch
+    {
+        PlayerFacingDirection.Up => Vector2.up,
+        PlayerFacingDirection.Left => Vector2.left,
+        PlayerFacingDirection.Right => Vector2.right,
+        _ => Vector2.down
+    };
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
