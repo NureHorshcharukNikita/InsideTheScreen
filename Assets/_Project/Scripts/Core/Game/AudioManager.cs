@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum AudioChannel
 {
@@ -60,12 +61,22 @@ public sealed class AudioManager : MonoBehaviour
         InitializeSources();
         LoadVolumes();
         ApplyVolumes();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDestroy()
     {
-        if (Instance == this)
-            Instance = null;
+        if (Instance != this)
+            return;
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        Instance = null;
+    }
+
+    // A new scene starts outdoors; its indoor areas mute the ambience again from their own Start.
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SetAmbienceMuted(false);
     }
 
     public static void TryPlaySfx(AudioClip clip, float volumeScale = 1f)
@@ -121,6 +132,13 @@ public sealed class AudioManager : MonoBehaviour
     public void StopAmbience(float fadeDuration = 0f)
     {
         StopLoopingClip(ambienceSource, fadeDuration, ref ambienceFadeRoutine);
+    }
+
+    // Silences the ambience without stopping it (e.g. indoors), so it carries on when unmuted.
+    public void SetAmbienceMuted(bool muted)
+    {
+        if (ambienceSource != null)
+            ambienceSource.mute = muted;
     }
 
     public void PlaySfx(AudioClip clip, float volumeScale = 1f)

@@ -14,6 +14,9 @@ public sealed class HouseDoorway : MonoBehaviour
     [SerializeField] private CanvasGroup promptCanvasGroup;
     [SerializeField] private TMP_Text promptText;
     [SerializeField] private string promptAction = "Enter";
+    [Tooltip("Optional door: Interact opens it, and walking through the open doorway uses this doorway.")]
+    [SerializeField] private Door door;
+    [SerializeField] private string openPromptAction = "Open";
 
     private static bool transitionInProgress;
     private PlayerMovement nearbyPlayer;
@@ -39,6 +42,18 @@ public sealed class HouseDoorway : MonoBehaviour
         GetComponent<BoxCollider2D>().isTrigger = true;
     }
 
+    private void OnEnable()
+    {
+        if (door != null)
+            door.PlayerWalkedThrough += OnPlayerWalkedThroughDoor;
+    }
+
+    private void OnDisable()
+    {
+        if (door != null)
+            door.PlayerWalkedThrough -= OnPlayerWalkedThroughDoor;
+    }
+
     private void Start()
     {
         PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
@@ -51,13 +66,27 @@ public sealed class HouseDoorway : MonoBehaviour
 
     private void Update()
     {
-        bool showPrompt = nearbyPlayer != null && GameStateManager.IsGameplay && !transitionInProgress;
+        bool showPrompt = nearbyPlayer != null && GameStateManager.IsGameplay && !transitionInProgress
+            && (door == null || !door.IsOpen);
         if (showPrompt && promptRoot != null && !promptRoot.activeSelf)
             RefreshPrompt();
         SetPromptVisible(showPrompt);
 
-        if (showPrompt && GameInputSettings.GetKeyDown(GameInputAction.Interact))
+        if (!showPrompt || !GameInputSettings.GetKeyDown(GameInputAction.Interact))
+            return;
+
+        if (door != null)
+            door.Open();
+        else
             EnterHouse();
+    }
+
+    private void OnPlayerWalkedThroughDoor(Transform player)
+    {
+        if (nearbyPlayer == null && player.TryGetComponent(out PlayerMovement movement))
+            nearbyPlayer = movement;
+
+        EnterHouse();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -123,7 +152,7 @@ public sealed class HouseDoorway : MonoBehaviour
     private void RefreshPrompt()
     {
         if (promptText != null)
-            promptText.text = $"{GameInputSettings.GetDisplayName(GameInputAction.Interact)} - {promptAction}";
+            promptText.text = $"{GameInputSettings.GetDisplayName(GameInputAction.Interact)} - {(door != null ? openPromptAction : promptAction)}";
     }
 
     private void SetPromptVisible(bool visible)

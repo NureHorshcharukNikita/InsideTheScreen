@@ -1,7 +1,8 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-// Moves the player within the scene and switches the camera bounds (doorways, story transitions).
+// Moves the player within the scene and switches the camera bounds (doorways, story transitions),
+// silencing the outdoor ambience in indoor areas.
 // Works on every Cinemachine camera in the scene (the main one and the minimap's), so callers only
 // say which area the player goes to. Inactive ones count too: the minimap is hidden in houses.
 public static class PlayerTransfer
@@ -40,6 +41,10 @@ public static class PlayerTransfer
     {
         if (bounds == null)
             return;
+
+        // No birds or wind indoors.
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetAmbienceMuted(bounds.TryGetComponent(out IndoorArea _));
 
         foreach (CinemachineConfiner2D confiner in Object.FindObjectsByType<CinemachineConfiner2D>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             SetConfinerBounds(confiner, bounds);

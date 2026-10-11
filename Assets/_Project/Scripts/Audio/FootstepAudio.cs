@@ -2,9 +2,15 @@ using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(PlayerMovement))]
+// Plays a footstep from the walk animations' PlayFootstep events. Works on the player and on
+// characters walked by code (a following companion), which take their sounds from the player.
 public sealed class FootstepAudio : MonoBehaviour
 {
+    private static readonly int IsMovingParameter = Animator.StringToHash("IsMoving");
+
+    // NPCs (a following companion included) step half as loud as the player.
+    private const float NpcVolumeScale = 0.5f;
+
     [Serializable]
     private sealed class SurfaceAudio
     {
@@ -48,13 +54,31 @@ public sealed class FootstepAudio : MonoBehaviour
     [HideInInspector]
     [SerializeField] private Tilemap[] woodTilemaps;
     [SerializeField] private SurfaceAudio[] surfaces = CreateDefaultSurfaces();
+    [Tooltip("Use the player's footstep sounds instead of the ones above (e.g. for a companion).")]
+    [SerializeField] private bool sameSoundsAsPlayer;
 
     private PlayerMovement movement;
+    private Animator animator;
+
+    private bool IsWalking => movement != null
+        ? movement.IsMoving
+        : GameStateManager.IsGameplay && animator != null && animator.GetBool(IsMovingParameter);
 
     private void Awake()
     {
         movement = GetComponent<PlayerMovement>();
+        animator = GetComponent<Animator>();
         AutoFillTilemaps();
+    }
+
+    private void Start()
+    {
+        if (!sameSoundsAsPlayer)
+            return;
+
+        PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
+        if (player != null && player.TryGetComponent(out FootstepAudio playerFootsteps) && playerFootsteps != this)
+            surfaces = playerFootsteps.surfaces;
     }
 
     private void Reset()
@@ -70,7 +94,7 @@ public sealed class FootstepAudio : MonoBehaviour
 
     public void PlayFootstep()
     {
-        if (movement == null || !movement.IsMoving)
+        if (!IsWalking)
             return;
 
         FootstepSurface surface = DetectSurface();
@@ -82,7 +106,8 @@ public sealed class FootstepAudio : MonoBehaviour
         if (clip == null)
             return;
 
-        AudioManager.TryPlaySfx(clip, surfaceAudio.VolumeScale);
+        float volume = surfaceAudio.VolumeScale * (movement != null ? 1f : NpcVolumeScale);
+        AudioManager.TryPlaySfx(clip, volume);
     }
 
     private FootstepSurface DetectSurface()
