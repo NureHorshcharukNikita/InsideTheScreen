@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: 4e0b0494a8ef9fe0c7e0b6c9332fa7a2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 923968417121530268
+    second: Door_Front_Closed
+  - first:
+      213: 985522371225221171
+    second: Door_Front_Ajar
+  - first:
+      213: -6384408263011079890
+    second: Door_Front_Open
+  - first:
+      213: -3599248387019041127
+    second: Door_SideL_Swing_0
+  - first:
+      213: -3872196401684774553
+    second: Door_SideL_Swing_1
+  - first:
+      213: -8041486243559441995
+    second: Door_SideL_Swing_2
+  - first:
+      213: -8060532485176780686
+    second: Door_SideL_Swing_3
+  - first:
+      213: -1359576457432497614
+    second: Door_SideL_Swing_4
+  - first:
+      213: -3514000626878344446
+    second: Door_SideR_Swing_0
+  - first:
+      213: -6504083476014899978
+    second: Door_SideR_Swing_1
+  - first:
+      213: 2903987348292343550
+    second: Door_SideR_Swing_2
+  - first:
+      213: 6310465658378263974
+    second: Door_SideR_Swing_3
+  - first:
+      213: 6583901214519789360
+    second: Door_SideR_Swing_4
+  - first:
+      213: -1166297243454623931
+    second: Door_SideL_Closed
+  - first:
+      213: 2378647770309969221
+    second: Door_SideL_Open
+  - first:
+      213: -7047394310851857210
+    second: Door_SideR_Closed
+  - first:
+      213: -7840018015155665967
+    second: Door_SideR_Open
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 70
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Door_Front_Closed
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 914
+        width: 185
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5027027, y: 0.1171875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e0b0494a8ef9fe0c7e0b6c9332fa7a2
+      internalID: 923968417121530268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_Front_Ajar
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 914
+        width: 185
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5027027, y: 0.1171875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4635719cf0dcbaff189bfaac564f5317
+      internalID: 985522371225221171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_Front_Open
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 914
+        width: 185
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5027027, y: 0.1171875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47c77d159539cf8220aa157d8cd29861
+      internalID: -6384408263011079890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideL_Swing_0
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 643
+        width: 163
+        height: 251
+      alignment: 9
+      pivot: {x: 0.2331288, y: 0.07968127}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb941ef2be3dc7a3e3d84261aca88008
+      internalID: -3599248387019041127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideL_Swing_1
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 643
+        width: 163
+        height: 251
+      alignment: 9
+      pivot: {x: 0.2331288, y: 0.07968127}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f17db816f3c9048dad476007147833
+      internalID: -3872196401684774553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideL_Swing_2
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 643
+        width: 163
+        height: 251
+      alignment: 9
+      pivot: {x: 0.2331288, y: 0.07968127}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58dab343671a53098955d7371ac69c02
+      internalID: -8041486243559441995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideL_Swing_3
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 643
+        width: 163
+        height: 251
+      alignment: 9
+      pivot: {x: 0.2331288, y: 0.07968127}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e2518a527660682c627e92eba9ab4be
+      internalID: -8060532485176780686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideL_Swing_4
+      rect:
+        serializedVersion: 2
+        x: 1046
+        y: 644
+        width: 163
+        height: 251
+      alignment: 9
+      pivot: {x: 0.2331288, y: 0.07968127}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e32a5fd0cba0dc29b5fe36afa71753
+      internalID: -1359576457432497614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideR_Swing_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 362
+        width: 163
+        height: 247
+      alignment: 9
+      pivot: {x: 0.7668712, y: 0.07692308}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e0ce6a961551699f37a3951b74b8718
+      internalID: -3514000626878344446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideR_Swing_1
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 361
+        width: 163
+        height: 247
+      alignment: 9
+      pivot: {x: 0.7668712, y: 0.07692308}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab8bc6b95482fa7c8ffe2c862a241435
+      internalID: -6504083476014899978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideR_Swing_2
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 361
+        width: 163
+        height: 247
+      alignment: 9
+      pivot: {x: 0.7668712, y: 0.07692308}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b7c5ddf7ad1306b4a4331e371088167
+      internalID: 2903987348292343550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideR_Swing_3
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 362
+        width: 163
+        height: 247
+      alignment: 9
+      pivot: {x: 0.7668712, y: 0.07692308}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1066e6ddfa72f9b5b535d6b3da54832f
+      internalID: 6310465658378263974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideR_Swing_4
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 362
+        width: 163
+        height: 247
+      alignment: 9
+      pivot: {x: 0.7668712, y: 0.07692308}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b5c3a8047f2856716d450830077780
+      internalID: 6583901214519789360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideL_Closed
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 74
+        width: 71
+        height: 241
+      alignment: 9
+      pivot: {x: 0.4225352, y: 0.01244813}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51c082321078aff010233c69488a9872
+      internalID: -1166297243454623931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideL_Open
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 74
+        width: 196
+        height: 241
+      alignment: 9
+      pivot: {x: 0.1581633, y: 0.01244813}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f3bc30c3e6a930247ea20186d21d06a
+      internalID: 2378647770309969221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideR_Closed
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 74
+        width: 72
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5694444, y: 0.01244813}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fed048e25bcda89e6a4dcf65b93f500
+      internalID: -7047394310851857210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door_SideR_Open
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 74
+        width: 198
+        height: 241
+      alignment: 9
+      pivot: {x: 0.8434343, y: 0.01244813}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 332a76e0466309e9a84d091b773196fe
+      internalID: -7840018015155665967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d7934714fef01da6cb35fb5d38e9d156
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Door_Front_Closed: 923968417121530268
+      Door_Front_Ajar: 985522371225221171
+      Door_Front_Open: -6384408263011079890
+      Door_SideL_Swing_0: -3599248387019041127
+      Door_SideL_Swing_1: -3872196401684774553
+      Door_SideL_Swing_2: -8041486243559441995
+      Door_SideL_Swing_3: -8060532485176780686
+      Door_SideL_Swing_4: -1359576457432497614
+      Door_SideR_Swing_0: -3514000626878344446
+      Door_SideR_Swing_1: -6504083476014899978
+      Door_SideR_Swing_2: 2903987348292343550
+      Door_SideR_Swing_3: 6310465658378263974
+      Door_SideR_Swing_4: 6583901214519789360
+      Door_SideL_Closed: -1166297243454623931
+      Door_SideL_Open: 2378647770309969221
+      Door_SideR_Closed: -7047394310851857210
+      Door_SideR_Open: -7840018015155665967
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
