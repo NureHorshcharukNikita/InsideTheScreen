@@ -35,6 +35,7 @@ public class EnemyEncounter : MonoBehaviour
         {
             isTriggered = true;
             ExplorationPlayerSession.SavePosition(GetPlayerReturnPosition(other.transform));
+            ExplorationPlayerSession.SaveNpcPositions();
 
             PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
 

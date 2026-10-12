@@ -316,7 +316,7 @@ public static class ExplorationPlayerSession
 
     private static NpcPositionSaveData[] CreateNpcPositionSaveData()
     {
-        CaptureNpcPositionsFromScene();
+        SaveNpcPositions();
 
         NpcPositionSaveData[] result = new NpcPositionSaveData[npcPositions.Count];
         int index = 0;
@@ -335,7 +335,9 @@ public static class ExplorationPlayerSession
         return result;
     }
 
-    private static void CaptureNpcPositionsFromScene()
+    // Remembers where every NPC in the scene stands, e.g. before a battle, so they are back there
+    // (the companion next to the player) when the scene loads again.
+    public static void SaveNpcPositions()
     {
         NpcCharacter[] npcs = Object.FindObjectsByType<NpcCharacter>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         for (int i = 0; i < npcs.Length; i++)

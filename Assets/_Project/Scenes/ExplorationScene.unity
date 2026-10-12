@@ -162451,12 +162451,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8979bf58b01d44839d3cfb0862ab1e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplorationEndGameController
-  victoryStoryFlag: occultist_defeated
+  demoCompleteFlag: demo_complete
   endGamePanel: {fileID: 1167343152}
   titleText: {fileID: 1495117110}
   messageText: {fileID: 1416795916}
-  title: You saved the town!
-  message: The Occult Guardian has fallen. The town is safe.
+  title: End of Demo
+  message: Thank you for playing!<br>Haru's story will continue...
   clearSaveOnReturnToMenu: 1
 --- !u!4 &1150594375
 Transform:
@@ -184248,7 +184248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: All monsters have been defeated.
+  m_text: Thank you for playing!<br>Haru's story will continue...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -702332,7 +702332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You saved the town!
+  m_text: End of Demo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -768146,8 +768146,118 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8800000000000000002}
+  - {fileID: 8800000000000000201}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8800000000000000200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800000000000000201}
+  - component: {fileID: 8800000000000000202}
+  m_Layer: 0
+  m_Name: DemoFinale
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8800000000000000201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000200}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8800000000000000101}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8800000000000000202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b36d6f0a034308a70a7a3693b00d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryEvent
+  doneFlag: demo_complete
+  start: 0
+  conditions:
+  - type: 0
+    storyFlag: occultist_defeated
+    quest: {fileID: 0}
+    questStatus: 1
+    invert: 0
+  steps:
+  - rid: 2001
+  - rid: 2002
+  - rid: 2003
+  - rid: 2004
+  - rid: 2005
+  - rid: 2006
+  - rid: 2007
+  references:
+    version: 2
+    RefIds:
+    - rid: 2001
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.75
+    - rid: 2002
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 2003
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 2004
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 2005
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 983184b95dc249d29c4f2a9e9b2695b8, type: 2}
+    - rid: 2006
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.5
+    - rid: 2007
+      type: {class: EndOfDemoStep, ns: , asm: Assembly-CSharp}
+      data:
+        fadeToBlackDuration: 1.5
+        blackHoldDuration: 1
+        textFadeDuration: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

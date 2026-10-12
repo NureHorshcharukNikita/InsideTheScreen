@@ -44,7 +44,7 @@ public sealed class DialogueAction
         }
     }
 
-    // Like walking into an enemy on the map: the player comes back to where they stood.
+    // Like walking into an enemy on the map: the player and the NPCs come back to where they stood.
     private void StartBattle()
     {
         if (enemy == null)
@@ -60,6 +60,8 @@ public sealed class DialogueAction
             movement.StopMovement();
             movement.enabled = false;
         }
+
+        ExplorationPlayerSession.SaveNpcPositions();
 
         PendingBattleEnemy.RegisterEncounterStart(enemy, string.IsNullOrWhiteSpace(encounterId) ? enemy.name : encounterId);
         FadeManager.TryFadeToScene(SceneNames.Battle);
