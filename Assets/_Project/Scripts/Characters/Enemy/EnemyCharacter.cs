@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// A fighter the game controls (EnemyBrain): an enemy, or an ally at the player's side such as
+// Hideshi, who is the same kind of fighter after JoinPlayerSide.
 public class EnemyCharacter : Character
 {
     [SerializeField] private EnemyData enemyData;
     private EnemyBrain brain;
     private Vector3 baseScale;
+    private CombatTeam team = CombatTeam.Enemy;
 
     protected override void Awake()
     {
@@ -16,11 +19,17 @@ public class EnemyCharacter : Character
 
     public override int MaxHealth => enemyData != null ? enemyData.maxHealth : 0;
     public override int StartingArmor => enemyData != null ? enemyData.startingArmor : 0;
-    public override CombatTeam Team => CombatTeam.Enemy;
+    public override CombatTeam Team => team;
+    public override string DisplayName => enemyData != null ? enemyData.DisplayName : name;
 
     public EnemyData Data => enemyData;
     public EnemyBrain Brain => brain;
     public int ActionPointsPerTurn => enemyData != null ? Mathf.Max(1, enemyData.actionPointsPerTurn) : 1;
+
+    public void JoinPlayerSide()
+    {
+        team = CombatTeam.Player;
+    }
 
     public void ApplyStartingStatuses()
     {

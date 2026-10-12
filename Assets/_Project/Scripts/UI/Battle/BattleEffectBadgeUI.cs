@@ -28,7 +28,7 @@ public sealed class BattleEffectBadgeUI : MonoBehaviour, IPointerEnterHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        BattleEffectTooltipUI.Show(tooltipTitle, tooltipBody, eventData.position);
+        BattleEffectTooltipUI.Show(tooltipTitle, tooltipBody, eventData.position, this);
     }
 
     public void OnPointerExit(PointerEventData eventData)

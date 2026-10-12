@@ -23,7 +23,7 @@ public class PlayerCharacter : Character
     public InventoryData InventoryData => runtimeInventoryData;
     public DeckData DeckData => runtimeDeckData;
     public PlayerData Data => playerData;
-    public string DisplayName => playerData != null ? playerData.DisplayName : name;
+    public override string DisplayName => playerData != null ? playerData.DisplayName : name;
     public Sprite PortraitSprite => playerData != null ? playerData.PortraitSprite : null;
     public Sprite DialogueSprite => PortraitSprite;
     public int StartHandSize => playerData != null ? playerData.startHandSize : 0;

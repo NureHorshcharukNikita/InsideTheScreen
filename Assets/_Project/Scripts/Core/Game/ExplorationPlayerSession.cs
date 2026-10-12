@@ -110,13 +110,19 @@ public static class ExplorationPlayerSession
         PersistentSessionSave.CaptureActiveSlotPreview();
     }
 
-    public static void SaveBattle(PlayerCharacter player, EnemyCharacter enemy)
+    public static void SaveBattle(PlayerCharacter player, IReadOnlyList<EnemyCharacter> enemies)
     {
         if (player != null)
             SaveHealth(player.CurrentHealth);
 
-        if (enemy != null)
-            PendingBattleEnemy.SaveCurrentEnemyHealth(enemy.CurrentHealth);
+        if (enemies != null && enemies.Count > 0)
+        {
+            int[] healths = new int[enemies.Count];
+            for (int i = 0; i < enemies.Count; i++)
+                healths[i] = enemies[i] != null ? enemies[i].CurrentHealth : 0;
+
+            PendingBattleEnemy.SaveCurrentEnemyHealths(healths);
+        }
 
         HasSession = true;
         ContinueSceneName = SceneNames.Battle;
@@ -299,10 +305,10 @@ public static class ExplorationPlayerSession
 
         PlayerWallet.Restore(data.hasGold, data.gold);
 
-        PendingBattleEnemy.RestoreSession(
-            data.pendingEncounterId,
-            data.hasEnemyHealth,
-            data.enemyHealth);
+        int[] enemyHealths = data.enemyHealths != null && data.enemyHealths.Length > 0
+            ? data.enemyHealths
+            : data.hasEnemyHealth ? new[] { data.enemyHealth } : null;
+        PendingBattleEnemy.RestoreSession(data.pendingEncounterId, enemyHealths);
 
         DefeatedEncounters.Restore(data.defeatedEncounterIds);
         CollectedPickups.Restore(data.collectedPickupIds);

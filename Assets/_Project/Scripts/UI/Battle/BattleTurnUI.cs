@@ -13,6 +13,7 @@ public class BattleTurnUI : MonoBehaviour
     [Header("Labels")]
     [SerializeField] private string playerTurnLabel = "YOUR TURN";
     [SerializeField] private string enemyTurnLabel = "ENEMY TURN";
+    [SerializeField] private string allyTurnLabel = "ALLY TURN";
 
     [Header("Timing")]
     [SerializeField] private float slideInDuration = 0.45f;
@@ -73,6 +74,12 @@ public class BattleTurnUI : MonoBehaviour
         string label = owner == TurnOwner.Player ? playerTurnLabel : enemyTurnLabel;
         float holdDuration = owner == TurnOwner.Enemy ? enemyHoldDuration : playerHoldDuration;
         yield return PlayAnnouncement(label, holdDuration, shouldSkip);
+    }
+
+    // The allies (e.g. Hideshi) act after the player, still in the player's turn, before the enemies.
+    public IEnumerator PlayAllyTurnAnnouncement(Func<bool> shouldSkip = null)
+    {
+        yield return PlayAnnouncement(allyTurnLabel, enemyHoldDuration, shouldSkip);
     }
 
     public IEnumerator PlayAnnouncement(string label, Func<bool> shouldSkip = null)

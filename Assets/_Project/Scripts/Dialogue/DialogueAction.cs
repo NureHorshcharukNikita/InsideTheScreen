@@ -63,7 +63,10 @@ public sealed class DialogueAction
 
         ExplorationPlayerSession.SaveNpcPositions();
 
-        PendingBattleEnemy.RegisterEncounterStart(enemy, string.IsNullOrWhiteSpace(encounterId) ? enemy.name : encounterId);
+        PendingBattleEnemy.RegisterEncounterStart(
+            new[] { enemy },
+            CompanionFollower.CollectBattleAllies(),
+            string.IsNullOrWhiteSpace(encounterId) ? enemy.name : encounterId);
         FadeManager.TryFadeToScene(SceneNames.Battle);
     }
 

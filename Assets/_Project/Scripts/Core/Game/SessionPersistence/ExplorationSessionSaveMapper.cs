@@ -48,10 +48,12 @@ public static class ExplorationSessionSaveMapper
             storyFlags = storyFlags
         };
 
-        if (PendingBattleEnemy.TryGetCurrentEnemyHealth(out int enemyHealth))
+        int[] enemyHealths = PendingBattleEnemy.CurrentEnemyHealths;
+        if (enemyHealths != null && enemyHealths.Length > 0)
         {
+            data.enemyHealths = enemyHealths;
             data.hasEnemyHealth = true;
-            data.enemyHealth = enemyHealth;
+            data.enemyHealth = enemyHealths[0];
         }
 
         return data;

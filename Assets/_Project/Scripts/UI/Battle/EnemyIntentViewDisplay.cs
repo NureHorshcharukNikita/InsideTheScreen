@@ -26,6 +26,11 @@ internal sealed class EnemyIntentDisplay
             ? brain.CurrentPlan.GetIntentLabel()
             : NoPlanPlaceholder;
 
+        // Who it will hit (plain ASCII: the label font has no arrow glyph).
+        string targetName = brain.CurrentPlan.HasAbility ? brain.GetIntentTargetName() : null;
+        if (!string.IsNullOrWhiteSpace(targetName))
+            text += " -> " + targetName;
+
         Sprite icon = brain.CurrentPlan.Ability != null ? brain.CurrentPlan.Ability.icon : null;
         presenter.ShowIntent(text, icon, keepVisualHidden);
     }

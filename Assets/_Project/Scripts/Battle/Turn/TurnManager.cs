@@ -1,16 +1,35 @@
-﻿using System;
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
+// Whose turn it is and what happens at the start and end of each. The player's side moves first:
+// the player plays cards, then each ally acts, then each enemy; BattleSystem plays the fighters'
+// turns one by one (BeginAiTurn, ExecuteAiAbility, EndAiTurn) to animate them.
 public class TurnManager
 {
     private PlayerCharacter player;
-    private EnemyCharacter enemy;
+    private readonly IReadOnlyList<EnemyCharacter> allies;
+    private readonly IReadOnlyList<EnemyCharacter> enemies;
     private DeckManager deckManager;
 
-    public event Action AfterEnemyActed;
-
     public TurnOwner CurrentTurn { get; private set; }
+
+    public IReadOnlyList<EnemyCharacter> Allies => allies;
+    public IReadOnlyList<EnemyCharacter> Enemies => enemies;
+
+    public bool AllEnemiesDefeated
+    {
+        get
+        {
+            foreach (EnemyCharacter enemy in enemies)
+            {
+                if (enemy != null && enemy.IsAlive)
+                    return false;
+            }
+
+            return true;
+        }
+    }
 
     public BattleTargetingContext BuildTargetingContext(ICombatant self, ICombatant selectedTarget)
     {
@@ -24,10 +43,15 @@ public class TurnManager
         return BattleActionContext.CreateDefault();
     }
 
-    public TurnManager(PlayerCharacter player, EnemyCharacter enemy, DeckManager deckManager)
+    public TurnManager(
+        PlayerCharacter player,
+        IReadOnlyList<EnemyCharacter> allies,
+        IReadOnlyList<EnemyCharacter> enemies,
+        DeckManager deckManager)
     {
         this.player = player;
-        this.enemy = enemy;
+        this.allies = allies ?? Array.Empty<EnemyCharacter>();
+        this.enemies = enemies ?? Array.Empty<EnemyCharacter>();
         this.deckManager = deckManager;
     }
 
@@ -43,13 +67,14 @@ public class TurnManager
 
         CurrentTurn = TurnOwner.Player;
 
-        enemy?.ApplyStartingStatuses();
-
-        if (enemy?.Brain != null)
+        foreach (EnemyCharacter fighter in GetAiFighters())
         {
-            enemy.Brain.BindOpponent(player);
-            enemy.Brain.PlanNextAction();
+            fighter.ApplyStartingStatuses();
+            if (fighter.Brain != null)
+                fighter.Brain.BindBattle(this);
         }
+
+        PlanNextAiActions();
     }
 
     public void DrawStartingHand()
@@ -83,75 +108,87 @@ public class TurnManager
         return true;
     }
 
-    // The whole enemy turn at once; BattleSystem runs it in parts to animate each ability.
-    public void ExecuteEnemyTurn()
+    // Allies first, then enemies: the order they act in.
+    public List<EnemyCharacter> GetAiFighters()
     {
-        BeginEnemyTurn();
-
-        if (enemy?.Brain != null)
+        var fighters = new List<EnemyCharacter>(allies.Count + enemies.Count);
+        foreach (EnemyCharacter ally in allies)
         {
-            foreach (EnemyAbilityData ability in enemy.Brain.CurrentPlan.Abilities)
-                ExecuteEnemyAbility(ability);
+            if (ally != null)
+                fighters.Add(ally);
         }
 
-        EndEnemyTurn();
+        foreach (EnemyCharacter enemy in enemies)
+        {
+            if (enemy != null)
+                fighters.Add(enemy);
+        }
+
+        return fighters;
     }
 
-    public void BeginEnemyTurn()
+    public void BeginAiTurn(EnemyCharacter fighter)
     {
-        DevLog.Log("Enemy turn");
-        TickStatus(enemy, BattleStatusTiming.TurnStart);
+        DevLog.Log($"{fighter.DisplayName}'s turn");
+        TickStatus(fighter, BattleStatusTiming.TurnStart);
     }
 
-    public bool ExecuteEnemyAbility(EnemyAbilityData ability)
+    public bool ExecuteAiAbility(EnemyCharacter fighter, EnemyAbilityData ability)
     {
-        if (enemy?.Brain == null || ability == null || !enemy.IsAlive || player == null || !player.IsAlive)
+        if (fighter?.Brain == null || ability == null || !fighter.IsAlive || player == null || !player.IsAlive
+            || GetEnemiesOf(fighter).Count == 0)
             return false;
 
-        enemy.Brain.ExecuteAbility(ability);
+        fighter.Brain.ExecuteAbility(ability);
         return true;
     }
 
-    public void EndEnemyTurn()
+    public void EndAiTurn(EnemyCharacter fighter)
     {
-        if (enemy?.Brain == null)
+        if (fighter?.Brain == null)
             return;
 
-        enemy.Brain.FinishTurn();
-        TickStatus(enemy, BattleStatusTiming.TurnEnd);
-        AfterEnemyActed?.Invoke();
+        fighter.Brain.FinishTurn();
+        TickStatus(fighter, BattleStatusTiming.TurnEnd);
     }
 
-    public void PlanNextEnemyAction()
+    public void PlanNextAiActions()
     {
-        if (enemy?.Brain != null)
-            enemy.Brain.PlanNextAction();
+        foreach (EnemyCharacter fighter in GetAiFighters())
+        {
+            if (fighter.IsAlive && fighter.Brain != null)
+                fighter.Brain.PlanNextAction();
+        }
     }
 
-    private IReadOnlyList<ICombatant> GetAlliesOf(ICombatant self)
+    public IReadOnlyList<ICombatant> GetAlliesOf(ICombatant self)
+    {
+        return GetTeam(self, sameTeam: true);
+    }
+
+    public IReadOnlyList<ICombatant> GetEnemiesOf(ICombatant self)
+    {
+        return GetTeam(self, sameTeam: false);
+    }
+
+    // The living fighters on self's side, or on the other side.
+    private IReadOnlyList<ICombatant> GetTeam(ICombatant self, bool sameTeam)
     {
         if (self == null)
-            return System.Array.Empty<ICombatant>();
+            return Array.Empty<ICombatant>();
 
-        var allies = new List<ICombatant>(2);
-        if (player != null && player.Team == self.Team && player.IsAlive)
-            allies.Add(player);
-        if (enemy != null && enemy.Team == self.Team && enemy.IsAlive)
-            allies.Add(enemy);
-        return allies;
+        var team = new List<ICombatant>(PendingBattleEnemy.MaxPerSide);
+        AddIfOnTeam(team, player, self, sameTeam);
+        foreach (EnemyCharacter fighter in GetAiFighters())
+            AddIfOnTeam(team, fighter, self, sameTeam);
+
+        return team;
     }
 
-    private IReadOnlyList<ICombatant> GetEnemiesOf(ICombatant self)
+    private static void AddIfOnTeam(List<ICombatant> team, Character fighter, ICombatant self, bool sameTeam)
     {
-        if (self == null)
-            return System.Array.Empty<ICombatant>();
-
-        var enemies = new List<ICombatant>(2);
-        if (player != null && player.Team != self.Team && player.IsAlive)
-            enemies.Add(player);
-        if (enemy != null && enemy.Team != self.Team && enemy.IsAlive)
-            enemies.Add(enemy);
-        return enemies;
+        if (fighter != null && fighter.IsAlive && (fighter.Team == self.Team) == sameTeam)
+            team.Add(fighter);
     }
 
     private void TickStatus(ICombatant combatant, BattleStatusTiming timing)

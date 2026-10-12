@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Plans and plays the turns of a fighter the game controls, enemy or ally. Each turn it aims at
+// one opponent picked at random; should that one fall first, it turns to another.
 [DisallowMultipleComponent]
 public class EnemyBrain : MonoBehaviour
 {
-    [SerializeField] private PlayerCharacter opponent;
-
     private EnemyCharacter self;
+    private TurnManager battle;
+    private Character chosenTarget;
     private readonly EnemyAbilityStateTracker abilityStates = new();
     private readonly List<EnemyAbilityData> usedThisTurn = new();
 
@@ -22,28 +24,46 @@ public class EnemyBrain : MonoBehaviour
             DevLog.Log($"{nameof(EnemyBrain)} requires {nameof(EnemyCharacter)} on the same object.");
     }
 
-    public void BindOpponent(PlayerCharacter player)
+    public void BindBattle(TurnManager turnManager)
     {
-        opponent = player;
+        battle = turnManager;
+        chosenTarget = null;
         abilityStates.Clear();
         usedThisTurn.Clear();
     }
 
+    // Who the planned turn aims at, for the intent; null when it only affects the fighter itself.
+    public string GetIntentTargetName()
+    {
+        Character target = CurrentPlan.PrimaryTargetForUi;
+        return target != null && target != self ? target.DisplayName : null;
+    }
+
     private BattleTargetingContext CreateTargetingContext()
     {
-        if (self == null || opponent == null)
+        if (self == null || battle == null)
             return new BattleTargetingContext(null, null, null, null);
 
-        return new BattleTargetingContext(
-            self,
-            opponent,
-            new ICombatant[] { self },
-            new ICombatant[] { opponent }
-            );
+        IReadOnlyList<ICombatant> opponents = battle.GetEnemiesOf(self);
+        return new BattleTargetingContext(self, ResolveTarget(opponents), battle.GetAlliesOf(self), opponents);
+    }
+
+    // The chosen opponent while they still stand, otherwise another one at random.
+    private Character ResolveTarget(IReadOnlyList<ICombatant> opponents)
+    {
+        if (chosenTarget != null && BattleTargetingTeams.Contains(chosenTarget, opponents))
+            return chosenTarget;
+
+        chosenTarget = opponents.Count > 0
+            ? opponents[UnityEngine.Random.Range(0, opponents.Count)] as Character
+            : null;
+        return chosenTarget;
     }
 
     public void PlanNextAction()
     {
+        // A new turn, a new target.
+        chosenTarget = null;
         SetPlan(CreateNextPlan());
     }
 

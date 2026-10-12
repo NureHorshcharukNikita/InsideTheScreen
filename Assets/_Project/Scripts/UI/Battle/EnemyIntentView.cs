@@ -133,6 +133,17 @@ public class EnemyIntentView : MonoBehaviour
             Refresh();
     }
 
+    // Another view like this one, for another fighter.
+    public EnemyIntentView CreateCopy(string copyName)
+    {
+        EnsureInitialized();
+        EnemyIntentView copy = Instantiate(this, transform.parent);
+        copy.name = copyName;
+        copy.EnsureInitialized();
+        copy.presenter.CopyBaseColors(presenter);
+        return copy;
+    }
+
     private void Awake()
     {
         EnsureInitialized();

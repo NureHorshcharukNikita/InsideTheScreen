@@ -4,7 +4,8 @@ using UnityEngine;
 // Makes an NPC walk after the player once a story flag is set, e.g. Hideshi travelling with
 // Haru through Arc 1. The companion moves with physics, so walls and furniture stop him, finds
 // a way around obstacles on a small grid, and jumps next to the player when left far behind
-// (doorways, story teleports). He never bumps into the player.
+// (doorways, story teleports). He never bumps into the player. While following, he also fights
+// at the player's side (battleData).
 [RequireComponent(typeof(NpcCharacter))]
 public sealed class CompanionFollower : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public sealed class CompanionFollower : MonoBehaviour
     [SerializeField, Min(1f)] private float teleportDistance = 12f;
     [Tooltip("Feet collider while following: no wider than the player's, so he fits through the same doorways.")]
     [SerializeField] private Vector2 followColliderSize = new(1f, 0.5f);
+
+    [Header("Battle")]
+    [Tooltip("How he fights at the player's side while following: health, abilities, battle sprite. Empty = stays out of battles.")]
+    [SerializeField] private EnemyData battleData;
 
     [Header("Pathfinding")]
     [SerializeField, Min(0.1f)] private float cellSize = 0.5f;
@@ -70,6 +75,20 @@ public sealed class CompanionFollower : MonoBehaviour
     private readonly Dictionary<Collider2D, bool> doorPartCache = new();
 
     public bool IsFollowing => following;
+
+    // The companions following the player right now, as they join a battle at the player's side.
+    public static List<EnemyData> CollectBattleAllies()
+    {
+        var allies = new List<EnemyData>();
+        foreach (CompanionFollower follower in FindObjectsByType<CompanionFollower>(FindObjectsSortMode.None))
+        {
+            if (follower.battleData != null && follower.isActiveAndEnabled
+                && StoryFlagManager.HasFlag(follower.followAfterStoryFlag))
+                allies.Add(follower.battleData);
+        }
+
+        return allies;
+    }
 
     private void Awake()
     {

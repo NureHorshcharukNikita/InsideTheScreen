@@ -19,6 +19,7 @@ public class Character : MonoBehaviour, ICombatant
         ? statusController.Statuses
         : Array.Empty<ActiveBattleStatus>();
     public virtual CombatTeam Team => CombatTeam.Neutral;
+    public virtual string DisplayName => name;
     public bool IsAlive => CurrentHealth > 0;
 
     public event Action<int, int> HealthChanged;

@@ -14,7 +14,7 @@ public class NpcCharacter : Character
 
     public NpcData Data => npcData;
     public NpcState State => state;
-    public string DisplayName => npcData != null ? npcData.DisplayName : name;
+    public override string DisplayName => npcData != null ? npcData.DisplayName : name;
     public NpcDisposition Disposition => npcData != null ? npcData.disposition : NpcDisposition.Neutral;
     public Sprite PortraitSprite => npcData != null ? npcData.PortraitSprite : null;
     public Sprite DialogueSprite => PortraitSprite;

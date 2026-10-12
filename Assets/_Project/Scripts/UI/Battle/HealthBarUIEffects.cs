@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public partial class HealthBarUI
 {
+    private const string EffectsRootName = "EffectBadges";
     private const float EffectCellWidth = 55f;
     private const float EffectCellHeight = 49f;
     private static readonly Vector2 EffectSpacing = new(6f, 5f);
@@ -37,8 +38,19 @@ public partial class HealthBarUI
         if (effectsRoot != null)
             return;
 
-        GameObject root = new("EffectBadges", typeof(RectTransform));
-        root.transform.SetParent(background != null ? background : _rect, false);
+        // A copy of an HP bar made in battle (for an extra enemy or an ally) brings the
+        // original's root along: use it instead of adding a second one.
+        Transform parent = background != null ? background : _rect;
+        Transform copiedRoot = parent.Find(EffectsRootName);
+        if (copiedRoot != null && copiedRoot.TryGetComponent(out GridLayoutGroup copiedGrid))
+        {
+            effectsRoot = (RectTransform)copiedRoot;
+            effectsGrid = copiedGrid;
+            return;
+        }
+
+        GameObject root = new(EffectsRootName, typeof(RectTransform));
+        root.transform.SetParent(parent, false);
 
         effectsRoot = (RectTransform)root.transform;
         effectsRoot.anchorMin = new Vector2(0f, 0f);

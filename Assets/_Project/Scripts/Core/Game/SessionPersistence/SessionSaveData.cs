@@ -18,6 +18,9 @@ public sealed class SessionSaveData
     public int gold;
 
     public string pendingEncounterId;
+    // One per enemy of a battle saved halfway. hasEnemyHealth and enemyHealth: the first one, as
+    // saves made before battles had several enemies have it.
+    public int[] enemyHealths;
     public bool hasEnemyHealth;
     public int enemyHealth;
 

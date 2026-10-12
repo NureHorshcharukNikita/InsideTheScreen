@@ -8,6 +8,8 @@ public sealed class BattleEffectTooltipUI : MonoBehaviour
     private const float MinHeight = 92f;
     private const float Padding = 12f;
     private const float CursorOffset = 18f;
+    // Over the rest of the UI.
+    private const int SortingOrder = 500;
 
     private static BattleEffectTooltipUI instance;
 
@@ -29,9 +31,10 @@ public sealed class BattleEffectTooltipUI : MonoBehaviour
         SetPosition(Input.mousePosition);
     }
 
-    public static void Show(string title, string body, Vector2 screenPosition)
+    // source: the badge hovered; the tooltip's text is scaled like the UI it is on.
+    public static void Show(string title, string body, Vector2 screenPosition, Component source)
     {
-        BattleEffectTooltipUI tooltip = EnsureInstance();
+        BattleEffectTooltipUI tooltip = EnsureInstance(source);
         tooltip.gameObject.SetActive(true);
         tooltip.titleText.text = title;
         tooltip.bodyText.text = body;
@@ -45,20 +48,41 @@ public sealed class BattleEffectTooltipUI : MonoBehaviour
             instance.gameObject.SetActive(false);
     }
 
-    private static BattleEffectTooltipUI EnsureInstance()
+    // On a canvas of its own, covering the screen: the badges sit on several canvases (the HP bars
+    // of the fighters standing behind are on one drawn among the sprites, each bar a canvas of its
+    // own), and on one of those the tooltip would be placed against an HP bar, not the screen.
+    private static BattleEffectTooltipUI EnsureInstance(Component source)
     {
         if (instance != null)
             return instance;
 
-        Canvas canvas = FindAnyObjectByType<Canvas>();
+        GameObject canvasObject = new("BattleEffectTooltipCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
+        Canvas canvas = canvasObject.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = SortingOrder;
+        CopyScaling(source, canvasObject.GetComponent<CanvasScaler>());
+
         GameObject tooltipObject = new("BattleEffectTooltip", typeof(RectTransform));
-        if (canvas != null)
-            tooltipObject.transform.SetParent(canvas.transform, false);
+        tooltipObject.transform.SetParent(canvasObject.transform, false);
 
         BattleEffectTooltipUI tooltip = tooltipObject.AddComponent<BattleEffectTooltipUI>();
         tooltip.Build();
         tooltip.gameObject.SetActive(false);
         return tooltip;
+    }
+
+    private static void CopyScaling(Component source, CanvasScaler scaler)
+    {
+        Canvas sourceCanvas = source != null ? source.GetComponentInParent<Canvas>() : null;
+        if (sourceCanvas == null || !sourceCanvas.rootCanvas.TryGetComponent(out CanvasScaler sourceScaler))
+            return;
+
+        scaler.uiScaleMode = sourceScaler.uiScaleMode;
+        scaler.referenceResolution = sourceScaler.referenceResolution;
+        scaler.screenMatchMode = sourceScaler.screenMatchMode;
+        scaler.matchWidthOrHeight = sourceScaler.matchWidthOrHeight;
+        scaler.referencePixelsPerUnit = sourceScaler.referencePixelsPerUnit;
+        scaler.scaleFactor = sourceScaler.scaleFactor;
     }
 
     private void Build()

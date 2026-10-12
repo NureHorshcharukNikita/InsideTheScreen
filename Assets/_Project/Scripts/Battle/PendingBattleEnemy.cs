@@ -1,55 +1,70 @@
+using System.Collections.Generic;
+
+// The fight about to start, or being fought: its enemies (one to three), the allies fighting at
+// the player's side (up to two, three a side with the player) and the encounter it belongs to.
+// Kept for a retry; enemy health is kept for a battle saved halfway.
 public static class PendingBattleEnemy
 {
-    private static EnemyData _enemyData;
-    private static EnemyData _currentEnemyData;
-    private static int _currentEnemyHealth;
-    private static bool _hasCurrentEnemyHealth;
+    public const int MaxPerSide = 3;
+
+    private static readonly List<EnemyData> enemies = new();
+    private static readonly List<EnemyData> allies = new();
+    private static int[] currentEnemyHealths;
 
     public static string EncounterId { get; private set; }
+    public static IReadOnlyList<EnemyData> Enemies => enemies;
+    public static IReadOnlyList<EnemyData> Allies => allies;
+    public static int[] CurrentEnemyHealths => currentEnemyHealths;
 
-    public static void RegisterEncounterStart(EnemyData enemyData, string encounterId)
+    public static void RegisterEncounterStart(
+        IEnumerable<EnemyData> encounterEnemies,
+        IEnumerable<EnemyData> encounterAllies,
+        string encounterId)
     {
-        _enemyData = enemyData;
-        _currentEnemyData = enemyData;
-        _currentEnemyHealth = default;
-        _hasCurrentEnemyHealth = false;
+        Fill(enemies, encounterEnemies, MaxPerSide);
+        Fill(allies, encounterAllies, MaxPerSide - 1);
+        currentEnemyHealths = null;
         EncounterId = encounterId;
     }
 
-    public static EnemyData ConsumeEnemyData()
+    public static void SaveCurrentEnemyHealths(int[] healths)
     {
-        EnemyData data = _enemyData != null ? _enemyData : _currentEnemyData;
-        _enemyData = null;
-        return data;
+        currentEnemyHealths = healths;
     }
 
-    public static void SaveCurrentEnemyHealth(int health)
+    public static bool TryGetCurrentEnemyHealth(int index, out int health)
     {
-        _currentEnemyHealth = health;
-        _hasCurrentEnemyHealth = true;
+        bool hasHealth = currentEnemyHealths != null && index >= 0 && index < currentEnemyHealths.Length;
+        health = hasHealth ? currentEnemyHealths[index] : default;
+        return hasHealth;
     }
 
-    public static bool TryGetCurrentEnemyHealth(out int health)
+    public static void RestoreSession(string encounterId, int[] enemyHealths)
     {
-        health = _currentEnemyHealth;
-        return _hasCurrentEnemyHealth;
-    }
-
-    public static void RestoreSession(string encounterId, bool hasEnemyHealth, int enemyHealth)
-    {
-        _enemyData = null;
-        _currentEnemyData = null;
+        enemies.Clear();
+        allies.Clear();
         EncounterId = encounterId;
-        _hasCurrentEnemyHealth = hasEnemyHealth;
-        _currentEnemyHealth = enemyHealth;
+        currentEnemyHealths = enemyHealths;
     }
 
     public static void ClearSession()
     {
-        _enemyData = null;
-        _currentEnemyData = null;
-        _currentEnemyHealth = default;
-        _hasCurrentEnemyHealth = false;
+        enemies.Clear();
+        allies.Clear();
+        currentEnemyHealths = null;
         EncounterId = null;
+    }
+
+    private static void Fill(List<EnemyData> list, IEnumerable<EnemyData> source, int max)
+    {
+        list.Clear();
+        if (source == null)
+            return;
+
+        foreach (EnemyData data in source)
+        {
+            if (data != null && list.Count < max)
+                list.Add(data);
+        }
     }
 }

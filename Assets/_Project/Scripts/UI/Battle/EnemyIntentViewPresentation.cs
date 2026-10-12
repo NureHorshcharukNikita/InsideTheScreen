@@ -101,6 +101,16 @@ internal sealed class EnemyIntentPresenter
         intentContainer.SetActive(active);
     }
 
+    // For a copy of the view: the original's own colours. The original may be faded out when it
+    // is copied, and the copy would otherwise take those faded colours as its own.
+    public void CopyBaseColors(EnemyIntentPresenter original)
+    {
+        original.CaptureBaseColorsIfNeeded();
+        labelBaseColor = original.labelBaseColor;
+        iconBaseColor = original.iconBaseColor;
+        capturedBaseColors = true;
+    }
+
     private void CaptureBaseColorsIfNeeded()
     {
         if (capturedBaseColors)

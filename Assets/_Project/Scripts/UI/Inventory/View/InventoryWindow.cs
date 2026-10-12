@@ -1344,7 +1344,7 @@ public class InventoryWindow : MonoBehaviour
     {
         PlayerCharacter currentPlayer = FindFirstObjectByType<PlayerCharacter>();
         if (SceneManager.GetActiveScene().name == SceneNames.Battle)
-            ExplorationPlayerSession.SaveBattle(currentPlayer, FindFirstObjectByType<EnemyCharacter>());
+            ExplorationPlayerSession.SaveBattle(currentPlayer, FindFirstObjectByType<BattleSystem>()?.Enemies);
         else
             ExplorationPlayerSession.SavePlayer(currentPlayer);
     }
