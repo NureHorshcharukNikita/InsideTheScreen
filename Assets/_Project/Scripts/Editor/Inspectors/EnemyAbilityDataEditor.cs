@@ -10,6 +10,7 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
     private SerializedProperty _iconProp;
     private SerializedProperty _selectionWeightProp;
     private SerializedProperty _intentSummaryProp;
+    private SerializedProperty _actionPointCostProp;
     private SerializedProperty _cooldownTurnsProp;
     private SerializedProperty _maxUsesProp;
     private SerializedProperty _conditionsProp;
@@ -27,6 +28,7 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
         _iconProp = serializedObject.FindProperty("icon");
         _selectionWeightProp = serializedObject.FindProperty("selectionWeight");
         _intentSummaryProp = serializedObject.FindProperty("intentSummary");
+        _actionPointCostProp = serializedObject.FindProperty("actionPointCost");
         _cooldownTurnsProp = serializedObject.FindProperty("cooldownTurns");
         _maxUsesProp = serializedObject.FindProperty("maxUses");
         _conditionsProp = serializedObject.FindProperty("conditions");
@@ -64,6 +66,7 @@ public class EnemyAbilityDataEditor : UnityEditor.Editor
     private void DrawSelectionRulesSection()
     {
         EditorGUILayout.PropertyField(_selectionWeightProp);
+        EditorGUILayout.PropertyField(_actionPointCostProp);
         EditorGUILayout.PropertyField(_cooldownTurnsProp);
         EditorGUILayout.PropertyField(_maxUsesProp);
     }

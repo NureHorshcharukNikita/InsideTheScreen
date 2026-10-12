@@ -1,12 +1,18 @@
+using System.Collections.Generic;
+
+// What the enemy will do on its next turn: one or more abilities, paid for with its action points.
 public readonly struct PlannedEnemyAction
 {
-    public PlannedEnemyAction(EnemyAbilityData ability, Character primaryTargetForUi)
+    private readonly EnemyAbilityData[] abilities;
+
+    public PlannedEnemyAction(IReadOnlyList<EnemyAbilityData> abilities, Character primaryTargetForUi)
     {
-        Ability = ability;
+        this.abilities = abilities != null ? new List<EnemyAbilityData>(abilities).ToArray() : null;
         PrimaryTargetForUi = primaryTargetForUi;
     }
 
-    public EnemyAbilityData Ability { get; }
+    public IReadOnlyList<EnemyAbilityData> Abilities => abilities ?? System.Array.Empty<EnemyAbilityData>();
+    public EnemyAbilityData Ability => abilities != null && abilities.Length > 0 ? abilities[0] : null;
     public Character PrimaryTargetForUi { get; }
     public bool HasAbility => Ability != null;
 
@@ -15,12 +21,24 @@ public readonly struct PlannedEnemyAction
         if (!HasAbility)
             return "";
 
-        if (!string.IsNullOrWhiteSpace(Ability.IntentSummary))
-            return Ability.IntentSummary.Trim();
+        var labels = new List<string>(abilities.Length);
+        foreach (EnemyAbilityData ability in abilities)
+        {
+            if (ability != null)
+                labels.Add(GetLabel(ability));
+        }
 
-        if (!string.IsNullOrWhiteSpace(Ability.displayName))
-            return Ability.displayName.Trim();
+        return string.Join(" + ", labels);
+    }
 
-        return Ability.name;
+    private static string GetLabel(EnemyAbilityData ability)
+    {
+        if (!string.IsNullOrWhiteSpace(ability.IntentSummary))
+            return ability.IntentSummary.Trim();
+
+        if (!string.IsNullOrWhiteSpace(ability.displayName))
+            return ability.displayName.Trim();
+
+        return ability.name;
     }
 }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a851618bc3aa477694b76657b194c0a3, type: 3}
+  m_Name: StunnedStatus
+  m_EditorClassIdentifier: Assembly-CSharp::StunStatus
+  statusID: stunned
+  statusName: Stunned
+  displayData: {fileID: 11400000, guid: 35f7a07d04bc4c1b8d199a6b2191c6f9, type: 2}
+  reapplyMode: 0
+  expirationMode: 0
+  permanent: 0

@@ -22,6 +22,8 @@ public class Character : MonoBehaviour, ICombatant
     public bool IsAlive => CurrentHealth > 0;
 
     public event Action<int, int> HealthChanged;
+    // A status kept this character alive at 0 health (e.g. Seal of Immortality).
+    public event Action<BattleStatus> DeathPrevented;
     public event Action StatusesChanged
     {
         add
@@ -65,8 +67,21 @@ public class Character : MonoBehaviour, ICombatant
         if (amount < 0)
             return;
 
-        currentHealth = Mathf.Max(currentHealth - amount, 0);
+        int health = Mathf.Max(currentHealth - amount, 0);
+        if (health == 0 && currentHealth > 0 && statusController != null
+            && statusController.TryPreventDeath(this, out BattleStatus preventedBy))
+        {
+            DeathPrevented?.Invoke(preventedBy);
+            return;
+        }
+
+        currentHealth = health;
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);
+    }
+
+    public bool HasStatus(BattleStatus status)
+    {
+        return statusController != null && statusController.HasStatus(status);
     }
 
     public void Heal(int amount)

@@ -2,13 +2,17 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+// Shows the end-of-game panel once the victory condition is met: a story flag set by the final
+// fight (the Occult Guardian sets occultist_defeated when he falls).
 public sealed class ExplorationEndGameController : MonoBehaviour
 {
+    [Tooltip("The game is won once this story flag is set.")]
+    [SerializeField, StoryFlag] private string victoryStoryFlag = "occultist_defeated";
     [SerializeField] private GameObject endGamePanel;
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text messageText;
     [SerializeField] private string title = "You saved the town!";
-    [SerializeField] private string message = "All monsters have been defeated.";
+    [SerializeField] private string message = "The Occult Guardian has fallen. The town is safe.";
     [SerializeField] private bool clearSaveOnReturnToMenu = true;
 
     private bool endGameShown;
@@ -37,11 +41,7 @@ public sealed class ExplorationEndGameController : MonoBehaviour
 
     private void TryShowEndGame()
     {
-        if (endGameShown || !DefeatedEncounters.HasAny())
-            return;
-
-        EnemyEncounter[] remainingEnemies = FindObjectsByType<EnemyEncounter>(FindObjectsSortMode.None);
-        if (remainingEnemies.Length > 0)
+        if (endGameShown || string.IsNullOrWhiteSpace(victoryStoryFlag) || !StoryFlagManager.HasFlag(victoryStoryFlag))
             return;
 
         endGameShown = true;

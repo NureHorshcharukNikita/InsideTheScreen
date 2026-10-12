@@ -100,6 +100,16 @@ public class PlayerCharacter : Character
         return amount >= 0 && currentActionPoints >= amount;
     }
 
+    // Taken away by effects such as Stun, never below zero.
+    public void LoseActionPoints(int amount)
+    {
+        if (amount <= 0 || currentActionPoints == 0)
+            return;
+
+        currentActionPoints = Mathf.Max(0, currentActionPoints - amount);
+        ActionPointsChanged?.Invoke(CurrentActionPoints, MaxActionPoints);
+    }
+
     public void RestoreActionPoints()
     {
         if (playerData == null)

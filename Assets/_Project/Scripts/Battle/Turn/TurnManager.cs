@@ -43,6 +43,8 @@ public class TurnManager
 
         CurrentTurn = TurnOwner.Player;
 
+        enemy?.ApplyStartingStatuses();
+
         if (enemy?.Brain != null)
         {
             enemy.Brain.BindOpponent(player);
@@ -64,8 +66,9 @@ public class TurnManager
 
         DevLog.Log("New player turn started");
 
-        TickStatus(player, BattleStatusTiming.TurnStart);
+        // Points first, so turn-start statuses such as Stun can take some of them away.
         player.RestoreActionPoints();
+        TickStatus(player, BattleStatusTiming.TurnStart);
         deckManager.DrawCards(player.CardsDrawnPerTurn);
     }
 
@@ -80,20 +83,43 @@ public class TurnManager
         return true;
     }
 
+    // The whole enemy turn at once; BattleSystem runs it in parts to animate each ability.
     public void ExecuteEnemyTurn()
     {
-        DevLog.Log("Enemy turn");
-
-        TickStatus(enemy, BattleStatusTiming.TurnStart);
+        BeginEnemyTurn();
 
         if (enemy?.Brain != null)
         {
-            if (enemy.IsAlive && enemy.Brain.CurrentPlan.HasAbility)
-                enemy.Brain.ExecutePlanned();
-
-            TickStatus(enemy, BattleStatusTiming.TurnEnd);
-            AfterEnemyActed?.Invoke();
+            foreach (EnemyAbilityData ability in enemy.Brain.CurrentPlan.Abilities)
+                ExecuteEnemyAbility(ability);
         }
+
+        EndEnemyTurn();
+    }
+
+    public void BeginEnemyTurn()
+    {
+        DevLog.Log("Enemy turn");
+        TickStatus(enemy, BattleStatusTiming.TurnStart);
+    }
+
+    public bool ExecuteEnemyAbility(EnemyAbilityData ability)
+    {
+        if (enemy?.Brain == null || ability == null || !enemy.IsAlive || player == null || !player.IsAlive)
+            return false;
+
+        enemy.Brain.ExecuteAbility(ability);
+        return true;
+    }
+
+    public void EndEnemyTurn()
+    {
+        if (enemy?.Brain == null)
+            return;
+
+        enemy.Brain.FinishTurn();
+        TickStatus(enemy, BattleStatusTiming.TurnEnd);
+        AfterEnemyActed?.Invoke();
     }
 
     public void PlanNextEnemyAction()

@@ -19,6 +19,8 @@ public class BattleTurnUI : MonoBehaviour
     [SerializeField] private float slideOutDuration = 0.4f;
     [SerializeField] private float playerHoldDuration = 1f;
     [SerializeField] private float enemyHoldDuration = 0.6f;
+    [Tooltip("How long other announcements (e.g. an enemy rising again) stay on screen.")]
+    [SerializeField] private float announcementHoldDuration = 1.4f;
     [SerializeField] private float slideOvershoot = 80f;
 
     private Vector2 restPosition;
@@ -68,6 +70,18 @@ public class BattleTurnUI : MonoBehaviour
 
     public IEnumerator PlayTurnAnnouncement(TurnOwner owner, Func<bool> shouldSkip = null)
     {
+        string label = owner == TurnOwner.Player ? playerTurnLabel : enemyTurnLabel;
+        float holdDuration = owner == TurnOwner.Enemy ? enemyHoldDuration : playerHoldDuration;
+        yield return PlayAnnouncement(label, holdDuration, shouldSkip);
+    }
+
+    public IEnumerator PlayAnnouncement(string label, Func<bool> shouldSkip = null)
+    {
+        yield return PlayAnnouncement(label, announcementHoldDuration, shouldSkip);
+    }
+
+    private IEnumerator PlayAnnouncement(string label, float holdDuration, Func<bool> shouldSkip)
+    {
         EnsureInitialized();
         if (panelRect == null || turnText == null)
             yield break;
@@ -78,14 +92,13 @@ public class BattleTurnUI : MonoBehaviour
         if (IsSkipped(shouldSkip))
             yield break;
 
-        turnText.text = owner == TurnOwner.Player ? playerTurnLabel : enemyTurnLabel;
+        turnText.text = label;
         ShowPanelObjects();
         Canvas.ForceUpdateCanvases();
 
         float offscreenOffset = panelRect.rect.width + slideOvershoot;
         Vector2 hiddenLeft = restPosition + Vector2.left * offscreenOffset;
         Vector2 hiddenRight = restPosition + Vector2.right * offscreenOffset;
-        float holdDuration = owner == TurnOwner.Enemy ? enemyHoldDuration : playerHoldDuration;
 
         panelRect.anchoredPosition = hiddenLeft;
         Canvas.ForceUpdateCanvases();

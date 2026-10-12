@@ -18,6 +18,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   selectionWeight: 20
   intentSummary: Howl (Heal {value})
+  actionPointCost: 1
   cooldownTurns: 1
   maxUses: -1
   conditions:

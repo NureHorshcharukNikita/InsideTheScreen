@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: TrollData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   profile: {fileID: 11400000, guid: 5e33b77416334b0e8df182c52f28944d, type: 2}
+  battleScale: 1
   maxHealth: 80
   startingArmor: 0
+  actionPointsPerTurn: 1
   abilities:
   - {fileID: 11400000, guid: 3737b7d5e36f4dfa9c643726bd059fda, type: 2}
   - {fileID: 11400000, guid: 4a7c0524886b44c4a19e0a2da08b8854, type: 2}
+  startingStatuses: []
   lootDrops:
   - card: {fileID: 11400000, guid: 9f160466ce994e57a7ba56f18fc17a5e, type: 2}
     dropChancePercent: 60
@@ -31,3 +34,4 @@ MonoBehaviour:
     dropChancePercent: 25
     minAmount: 1
     maxAmount: 1
+  storyFlagOnDefeat: 

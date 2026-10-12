@@ -10,6 +10,11 @@ public sealed class DialogueAction
     public bool silent;
     public ShopData shop;
 
+    [Tooltip("Start Battle: the enemy to fight once the dialogue closes.")]
+    public EnemyData enemy;
+    [Tooltip("Start Battle: remembers that this fight was won. Use a unique id.")]
+    public string encounterId;
+
     public void Execute(NpcCharacter npc = null, PlayerCharacter player = null)
     {
         switch (type)
@@ -33,7 +38,31 @@ public sealed class DialogueAction
             case DialogueActionType.OpenShop:
                 OpenShop(npc, player);
                 break;
+            case DialogueActionType.StartBattle:
+                StartBattle();
+                break;
         }
+    }
+
+    // Like walking into an enemy on the map: the player comes back to where they stood.
+    private void StartBattle()
+    {
+        if (enemy == null)
+        {
+            Debug.LogWarning("Start Battle dialogue action has no enemy.");
+            return;
+        }
+
+        PlayerMovement movement = UnityEngine.Object.FindFirstObjectByType<PlayerMovement>();
+        if (movement != null)
+        {
+            ExplorationPlayerSession.SavePosition(movement.transform.position);
+            movement.StopMovement();
+            movement.enabled = false;
+        }
+
+        PendingBattleEnemy.RegisterEncounterStart(enemy, string.IsNullOrWhiteSpace(encounterId) ? enemy.name : encounterId);
+        FadeManager.TryFadeToScene(SceneNames.Battle);
     }
 
     private void OpenShop(NpcCharacter npc, PlayerCharacter player)
@@ -57,5 +86,6 @@ public enum DialogueActionType
     FailQuest,
     SetStoryFlag,
     ClearStoryFlag,
-    OpenShop
+    OpenShop,
+    StartBattle
 }

@@ -12,9 +12,12 @@ public sealed class CharacterProfile : ScriptableObject
 
     [Header("Portrait")]
     public Sprite portraitSprite;
+    [Tooltip("Which way the portrait art looks. In battle it is mirrored as needed so everyone faces their opponent.")]
+    public SpriteFacing portraitFacing = SpriteFacing.Left;
 
     public string CharacterID => !string.IsNullOrWhiteSpace(characterID) ? characterID : name;
     public string DisplayName => !string.IsNullOrWhiteSpace(displayName) ? displayName : name;
     public string Description => description;
     public Sprite PortraitSprite => portraitSprite;
+    public SpriteFacing PortraitFacing => portraitFacing;
 }

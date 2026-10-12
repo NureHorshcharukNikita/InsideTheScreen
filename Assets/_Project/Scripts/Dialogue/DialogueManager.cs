@@ -286,7 +286,7 @@ public sealed class DialogueManager : MonoBehaviour
             if (action == null)
                 continue;
 
-            if (IsQuestAction(action.type))
+            if (IsDeferredAction(action.type))
             {
                 deferredActions.Add(action);
                 continue;
@@ -308,11 +308,13 @@ public sealed class DialogueManager : MonoBehaviour
             actions[i]?.Execute(activeNpc, activePlayer);
     }
 
-    private static bool IsQuestAction(DialogueActionType type)
+    // Run once the dialogue has closed: quests, and a battle, which must not cut a line short.
+    private static bool IsDeferredAction(DialogueActionType type)
     {
         return type == DialogueActionType.StartQuest
             || type == DialogueActionType.CompleteQuest
-            || type == DialogueActionType.FailQuest;
+            || type == DialogueActionType.FailQuest
+            || type == DialogueActionType.StartBattle;
     }
 
     private bool CurrentLineHasChoices()

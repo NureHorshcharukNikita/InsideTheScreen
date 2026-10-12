@@ -9,6 +9,7 @@ public class EnemyBrain : MonoBehaviour
 
     private EnemyCharacter self;
     private readonly EnemyAbilityStateTracker abilityStates = new();
+    private readonly List<EnemyAbilityData> usedThisTurn = new();
 
     public PlannedEnemyAction CurrentPlan { get; private set; }
 
@@ -25,6 +26,7 @@ public class EnemyBrain : MonoBehaviour
     {
         opponent = player;
         abilityStates.Clear();
+        usedThisTurn.Clear();
     }
 
     private BattleTargetingContext CreateTargetingContext()
@@ -33,9 +35,9 @@ public class EnemyBrain : MonoBehaviour
             return new BattleTargetingContext(null, null, null, null);
 
         return new BattleTargetingContext(
-            self, 
-            opponent, 
-            new ICombatant[] { self }, 
+            self,
+            opponent,
+            new ICombatant[] { self },
             new ICombatant[] { opponent }
             );
     }
@@ -45,16 +47,44 @@ public class EnemyBrain : MonoBehaviour
         SetPlan(CreateNextPlan());
     }
 
-    public void ExecutePlanned()
+    // One ability of the planned turn; FinishTurn closes the turn once they are all done.
+    public void ExecuteAbility(EnemyAbilityData ability)
     {
         BattleTargetingContext context = CreateTargetingContext();
-
-        if (context.Self == null || !CurrentPlan.HasAbility)
+        if (context.Self == null || ability == null)
             return;
 
-        EnemyAbilityData ability = CurrentPlan.Ability;
         EnemyAbilityExecutor.ApplyAbility(ability, context);
-        abilityStates.RecordUsed(ability, GetAbilities());
+        usedThisTurn.Add(ability);
+    }
+
+    public void FinishTurn()
+    {
+        abilityStates.RecordTurn(usedThisTurn, GetAbilities());
+        usedThisTurn.Clear();
+    }
+
+    public Character GetPrimaryTarget(EnemyAbilityData ability)
+    {
+        return EnemyAbilityTargetPreview.FindPrimaryTarget(ability, CreateTargetingContext());
+    }
+
+    // Stun and the like: drops planned abilities from the end of the turn until enough action
+    // points are gone. A two-point ritual is lost to a single lost point.
+    public void LoseActionPoints(int points)
+    {
+        if (points <= 0 || !CurrentPlan.HasAbility)
+            return;
+
+        var remaining = new List<EnemyAbilityData>(CurrentPlan.Abilities);
+        int lost = 0;
+        while (remaining.Count > 0 && lost < points)
+        {
+            lost += GetCost(remaining[remaining.Count - 1]);
+            remaining.RemoveAt(remaining.Count - 1);
+        }
+
+        SetPlan(new PlannedEnemyAction(remaining, FindPrimaryTarget(remaining, CreateTargetingContext())));
     }
 
     private PlannedEnemyAction CreateNextPlan()
@@ -64,12 +94,48 @@ public class EnemyBrain : MonoBehaviour
             return default;
 
         BattleTargetingContext context = CreateTargetingContext();
-        EnemyAbilityData ability = EnemyAbilityPicker.PickWeighted(abilities, context, abilityStates);
-        if (ability == null)
-            return default;
+        var planned = new List<EnemyAbilityData>();
+        int pointsLeft = self != null ? self.ActionPointsPerTurn : 1;
 
-        Character primaryTarget = EnemyAbilityTargetPreview.FindPrimaryTarget(ability, context);
-        return new PlannedEnemyAction(ability, primaryTarget);
+        while (pointsLeft > 0)
+        {
+            int available = pointsLeft;
+            EnemyAbilityData ability = EnemyAbilityPicker.PickWeighted(
+                abilities,
+                context,
+                abilityStates,
+                candidate => GetCost(candidate) <= available && abilityStates.CanPlanAgain(candidate, planned));
+            if (ability == null)
+                break;
+
+            planned.Add(ability);
+            pointsLeft -= GetCost(ability);
+        }
+
+        return planned.Count > 0
+            ? new PlannedEnemyAction(planned, FindPrimaryTarget(planned, context))
+            : default;
+    }
+
+    // The target the intent points at: the first one that is not the enemy itself.
+    private Character FindPrimaryTarget(IReadOnlyList<EnemyAbilityData> abilities, BattleTargetingContext context)
+    {
+        Character fallback = null;
+        foreach (EnemyAbilityData ability in abilities)
+        {
+            Character target = EnemyAbilityTargetPreview.FindPrimaryTarget(ability, context);
+            if (target != null && target != self)
+                return target;
+
+            fallback ??= target;
+        }
+
+        return fallback;
+    }
+
+    private static int GetCost(EnemyAbilityData ability)
+    {
+        return ability != null ? Mathf.Max(1, ability.actionPointCost) : 1;
     }
 
     private IReadOnlyList<EnemyAbilityData> GetAbilities()

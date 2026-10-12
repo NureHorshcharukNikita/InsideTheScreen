@@ -27,6 +27,8 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private float enemyIntentTelegraphDuration = 0.5f;
     [SerializeField] private float enemyIntentHideDuration = 0.15f;
     [SerializeField] private float enemyActionRecoveryDelay = 0.75f;
+    [Tooltip("Pause between two abilities of the same enemy turn.")]
+    [SerializeField] private float enemyActionGapDelay = 0.3f;
 
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
@@ -81,6 +83,10 @@ public class BattleSystem : MonoBehaviour
             value => selectedCardIndex = value);
         intentBinder = new BattleSystemIntentBinder(enemyIntentView);
 
+        BattleFacing.FaceTowards(player, player.Data != null ? player.Data.profile : null, enemy.transform);
+        BattleFacing.FaceTowards(enemy, enemy.Data != null ? enemy.Data.profile : null, player.transform);
+
+        enemy.DeathPrevented += HandleEnemyDeathPrevented;
         turnManager.StartBattle();
         intentBinder.WireForBattleStart(turnManager, enemy);
         StartCoroutine(StartBattleRoutine());
@@ -246,6 +252,10 @@ public class BattleSystem : MonoBehaviour
 
         List<CardData> droppedLoot = RollAndCollectEnemyLoot();
 
+        string defeatFlag = enemy != null && enemy.Data != null ? enemy.Data.storyFlagOnDefeat : null;
+        if (!string.IsNullOrWhiteSpace(defeatFlag))
+            StoryFlagManager.SetFlag(defeatFlag);
+
         ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
         DefeatedEncounters.MarkDefeated(PendingBattleEnemy.EncounterId);
         QuestManager.HandleEncounterDefeated(PendingBattleEnemy.EncounterId, player.InventoryData);
@@ -289,32 +299,63 @@ public class BattleSystem : MonoBehaviour
 
     private IEnumerator PlayEnemyActionAnimation()
     {
-        if (turnManager == null || enemy?.Brain == null || !enemy.Brain.CurrentPlan.HasAbility)
+        if (turnManager == null || enemy?.Brain == null)
         {
             turnManager?.ExecuteEnemyTurn();
             yield break;
         }
 
+        turnManager.BeginEnemyTurn();
+
+        // Read after the turn has started: a stun may have just cut the plan short.
+        var abilities = new List<EnemyAbilityData>(enemy.Brain.CurrentPlan.Abilities);
         enemy.TryGetComponent(out EnemyAttackLungeAnimation animation);
-        Character target = enemy.Brain.CurrentPlan.PrimaryTargetForUi;
-        bool executed = false;
 
-        void ExecuteOnce()
+        for (int i = 0; i < abilities.Count; i++)
         {
-            if (executed)
-                return;
+            if (!enemy.IsAlive || !player.IsAlive)
+                break;
 
-            executed = true;
-            turnManager.ExecuteEnemyTurn();
+            if (i > 0)
+                yield return WaitSkippable(enemyActionGapDelay);
+
+            EnemyAbilityData ability = abilities[i];
+            Character target = enemy.Brain.GetPrimaryTarget(ability);
+            bool executed = false;
+
+            void ExecuteOnce()
+            {
+                if (executed)
+                    return;
+
+                executed = true;
+                turnManager.ExecuteEnemyAbility(ability);
+            }
+
+            if (animation != null)
+                yield return animation.Play(enemy, target, ExecuteOnce, ShouldSkipTurnTransition);
+            else
+                ExecuteOnce();
+
+            if (!executed)
+                ExecuteOnce();
         }
 
-        if (animation != null)
-            yield return animation.Play(enemy, target, ExecuteOnce, ShouldSkipTurnTransition);
-        else
-            ExecuteOnce();
+        turnManager.EndEnemyTurn();
+    }
 
-        if (!executed)
-            ExecuteOnce();
+    // E.g. Seal of Immortality: announce it, and since the enemy may now fight differently
+    // (a second phase), show what it will really do next.
+    private void HandleEnemyDeathPrevented(BattleStatus preventedBy)
+    {
+        if (preventedBy is DeathWardStatus ward && battleTurnUI != null && !string.IsNullOrWhiteSpace(ward.Announcement))
+            StartCoroutine(battleTurnUI.PlayAnnouncement(ward.Announcement));
+
+        if (turnManager != null && turnManager.CurrentTurn == TurnOwner.Player)
+        {
+            turnManager.PlanNextEnemyAction();
+            enemyIntentView?.RevealCurrentPlan();
+        }
     }
 
     public void SelectCard(int index)
@@ -330,6 +371,8 @@ public class BattleSystem : MonoBehaviour
     private void OnDestroy()
     {
         intentBinder?.Unwire();
+        if (enemy != null)
+            enemy.DeathPrevented -= HandleEnemyDeathPrevented;
     }
 
     private void NotifyHandChanged()

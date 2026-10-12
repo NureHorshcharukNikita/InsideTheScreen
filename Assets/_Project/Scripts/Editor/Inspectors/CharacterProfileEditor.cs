@@ -7,6 +7,7 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
     private SerializedProperty displayNameProp;
     private SerializedProperty descriptionProp;
     private SerializedProperty portraitSpriteProp;
+    private SerializedProperty portraitFacingProp;
 
     private void OnEnable()
     {
@@ -17,6 +18,7 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
         displayNameProp = serializedObject.FindProperty("displayName");
         descriptionProp = serializedObject.FindProperty("description");
         portraitSpriteProp = serializedObject.FindProperty("portraitSprite");
+        portraitFacingProp = serializedObject.FindProperty("portraitFacing");
     }
 
     public override void OnInspectorGUI()
@@ -42,5 +44,6 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
     private void DrawPortraitSection()
     {
         EditorGUILayout.PropertyField(portraitSpriteProp);
+        EditorGUILayout.PropertyField(portraitFacingProp);
     }
 }

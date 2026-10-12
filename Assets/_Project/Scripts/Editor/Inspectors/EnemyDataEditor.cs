@@ -5,10 +5,14 @@ using UnityEngine;
 public class EnemyDataEditor : UnityEditor.Editor
 {
     private SerializedProperty _profileProp;
+    private SerializedProperty _battleScaleProp;
     private SerializedProperty _maxHealthProp;
     private SerializedProperty _startingArmorProp;
+    private SerializedProperty _actionPointsPerTurnProp;
     private SerializedProperty _abilitiesProp;
+    private SerializedProperty _startingStatusesProp;
     private SerializedProperty _lootDropsProp;
+    private SerializedProperty _storyFlagOnDefeatProp;
 
     private void OnEnable()
     {
@@ -16,10 +20,14 @@ public class EnemyDataEditor : UnityEditor.Editor
             return;
 
         _profileProp = serializedObject.FindProperty("profile");
+        _battleScaleProp = serializedObject.FindProperty("battleScale");
         _maxHealthProp = serializedObject.FindProperty("maxHealth");
         _startingArmorProp = serializedObject.FindProperty("startingArmor");
+        _actionPointsPerTurnProp = serializedObject.FindProperty("actionPointsPerTurn");
         _abilitiesProp = serializedObject.FindProperty("abilities");
+        _startingStatusesProp = serializedObject.FindProperty("startingStatuses");
         _lootDropsProp = serializedObject.FindProperty("lootDrops");
+        _storyFlagOnDefeatProp = serializedObject.FindProperty("storyFlagOnDefeat");
     }
 
     public override void OnInspectorGUI()
@@ -32,7 +40,9 @@ public class EnemyDataEditor : UnityEditor.Editor
         EditorSectionGUI.DrawSection("Enemy Profile", DrawProfileSection, 0f);
         EditorSectionGUI.DrawSection("Enemy Stats", DrawStatsSection);
         EditorSectionGUI.DrawSection("Abilities", DrawAbilitiesSection);
+        EditorSectionGUI.DrawSection("Passives", DrawPassivesSection);
         EditorSectionGUI.DrawSection("Loot Drops", DrawLootSection);
+        EditorSectionGUI.DrawSection("Story", DrawStorySection);
         EditorSectionGUI.DrawSection("Validation", DrawValidation);
         serializedObject.ApplyModifiedProperties();
     }
@@ -40,12 +50,14 @@ public class EnemyDataEditor : UnityEditor.Editor
     private void DrawProfileSection()
     {
         EditorGUILayout.PropertyField(_profileProp);
+        EditorGUILayout.PropertyField(_battleScaleProp);
     }
 
     private void DrawStatsSection()
     {
         EditorGUILayout.PropertyField(_maxHealthProp);
         EditorGUILayout.PropertyField(_startingArmorProp);
+        EditorGUILayout.PropertyField(_actionPointsPerTurnProp);
     }
 
     private void DrawAbilitiesSection()
@@ -53,9 +65,19 @@ public class EnemyDataEditor : UnityEditor.Editor
         EditorGUILayout.PropertyField(_abilitiesProp, true);
     }
 
+    private void DrawPassivesSection()
+    {
+        EditorGUILayout.PropertyField(_startingStatusesProp, true);
+    }
+
     private void DrawLootSection()
     {
         EditorGUILayout.PropertyField(_lootDropsProp, true);
+    }
+
+    private void DrawStorySection()
+    {
+        EditorGUILayout.PropertyField(_storyFlagOnDefeatProp);
     }
 
     private void DrawValidation()

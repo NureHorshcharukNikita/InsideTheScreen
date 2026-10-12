@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: OccultistConfrontation
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 1, speakerName: Occultist, portraitOverride: {fileID: 0}, text: "Another seeker climbs these steps...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Occultist, portraitOverride: {fileID: 0}, text: "The books are not for you, child. Turn back.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "I'm not here for your books.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Occultist, portraitOverride: {fileID: 0}, text: "They all say that. Then their hands reach for the shelves.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Occultist, portraitOverride: {fileID: 0}, text: "I swore to keep them safe. The voice in the dark gave me the strength to keep that vow.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "...You're not alone in there, are you?", nextLineIndex: -1}
+  - speakerSide: 1
+    speakerName: Occultist
+    portraitOverride: {fileID: 0}
+    text: "Leave. Or stay among the pages forever."
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices:
+    - text: "Step back."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []
+    - text: "I'm not leaving."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 7
+        quest: {fileID: 0}
+        storyFlag:
+        silent: 0
+        shop: {fileID: 0}
+        enemy: {fileID: 11400000, guid: 22a6f27f9af941b8a3adb78dad9ff899, type: 2}
+        encounterId: occult_guardian

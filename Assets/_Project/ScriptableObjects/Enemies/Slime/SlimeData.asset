@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: SlimeData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   profile: {fileID: 11400000, guid: e7d093ff654d42b4b895c99a3242188f, type: 2}
+  battleScale: 1
   maxHealth: 40
   startingArmor: 0
+  actionPointsPerTurn: 1
   abilities:
   - {fileID: 11400000, guid: beb9137195494bca908e461f5b3ac3e7, type: 2}
   - {fileID: 11400000, guid: 6974bf61b11b4ba190190d0bfd28cca5, type: 2}
+  startingStatuses: []
   lootDrops:
   - card: {fileID: 11400000, guid: a1cca249e28e4ccbb8eb23f44e92b462, type: 2}
     dropChancePercent: 75
@@ -27,3 +30,4 @@ MonoBehaviour:
     dropChancePercent: 20
     minAmount: 1
     maxAmount: 1
+  storyFlagOnDefeat: 

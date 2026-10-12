@@ -18,6 +18,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   selectionWeight: 22
   intentSummary: Regenerate (Heal {value})
+  actionPointCost: 1
   cooldownTurns: 2
   maxUses: -1
   conditions:

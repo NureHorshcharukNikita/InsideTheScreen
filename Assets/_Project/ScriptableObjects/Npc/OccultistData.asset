@@ -17,9 +17,18 @@ MonoBehaviour:
   maxHealth: 100
   startingArmor: 0
   enableDialogue: 1
-  dialogueEntries: []
+  dialogueEntries:
+  - key: occultist_confrontation
+    dialogue: {fileID: 11400000, guid: b4ad18c3951e4d1bba8a9b407eb07756, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions: []
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}
   canMove: 0
   moveSpeed: 2
+  hiddenAfterStoryFlag: occultist_defeated

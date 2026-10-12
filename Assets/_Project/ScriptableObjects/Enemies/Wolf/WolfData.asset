@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: WolfData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   profile: {fileID: 11400000, guid: 2953ce566631410694175b6bc9accc0d, type: 2}
+  battleScale: 1
   maxHealth: 60
   startingArmor: 0
+  actionPointsPerTurn: 1
   abilities:
   - {fileID: 11400000, guid: e0cd9b7507de5e945abcb227a38f70bc, type: 2}
   - {fileID: 11400000, guid: 06f3d8ac8b7c8b146b909ecab77725fe, type: 2}
+  startingStatuses: []
   lootDrops:
   - card: {fileID: 11400000, guid: 27f76cbd394f4854b5b69607e76670cf, type: 2}
     dropChancePercent: 65
@@ -31,3 +34,4 @@ MonoBehaviour:
     dropChancePercent: 30
     minAmount: 1
     maxAmount: 1
+  storyFlagOnDefeat: 

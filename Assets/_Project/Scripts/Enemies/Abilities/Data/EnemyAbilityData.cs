@@ -20,6 +20,10 @@ public class EnemyAbilityData : ScriptableObject
 
     public string intentSummary;
 
+    [Tooltip("Action points this ability takes out of the enemy's turn.")]
+    [Min(1)]
+    public int actionPointCost = 1;
+
     [Min(0)]
     public int cooldownTurns = 0;
 

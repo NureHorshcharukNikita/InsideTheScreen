@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
+  m_Name: OccultGuardianData
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  profile: {fileID: 11400000, guid: 0aaa5677de9e420c89211344292e34f9, type: 2}
+  battleScale: 0.75
+  maxHealth: 35
+  startingArmor: 0
+  actionPointsPerTurn: 2
+  abilities:
+  - {fileID: 11400000, guid: b99b369c9fb943ad821a25971176b093, type: 2}
+  - {fileID: 11400000, guid: 1fc662846e5142569758e1c97a3780c9, type: 2}
+  - {fileID: 11400000, guid: 3663e528ef3c4427ab86474b0a4c58d3, type: 2}
+  - {fileID: 11400000, guid: 73a3c785f3c24b5ca7a7917f3bfd3fd5, type: 2}
+  - {fileID: 11400000, guid: 8036c3dfc197472bb233c0f958efe49c, type: 2}
+  - {fileID: 11400000, guid: ddca3922e914432090e0f34ea1a6890a, type: 2}
+  startingStatuses:
+  - status: {fileID: 11400000, guid: d9e92cebff2b47fdb028cf0c1d7582b1, type: 2}
+    value: 50
+    duration: 0
+    stacks: 1
+  lootDrops: []
+  storyFlagOnDefeat: occultist_defeated

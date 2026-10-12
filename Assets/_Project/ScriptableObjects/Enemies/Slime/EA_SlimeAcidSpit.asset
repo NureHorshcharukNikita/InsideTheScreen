@@ -18,6 +18,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   selectionWeight: 48
   intentSummary: Acid Spit {value}
+  actionPointCost: 1
   cooldownTurns: 0
   maxUses: -1
   conditions: []
