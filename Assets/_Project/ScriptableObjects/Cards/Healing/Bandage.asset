@@ -21,11 +21,11 @@ MonoBehaviour:
   cost: 1
   baseGoldValue: 3
   conditions:
-  - {fileID: 11400000, guid: 4ac03d3897771f54886308ac65401a50, type: 2}
+  - {fileID: 11400000, guid: e3b9f0e075b9496ca7c8f299d995fca8, type: 2}
   instantEffects: []
   statusApplications:
   - status: {fileID: 11400000, guid: c6d4d53bb01b431da3b985a6dca4b51e, type: 2}
-    targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
+    targeting: {fileID: 11400000, guid: 1cf1f3f92de14d2fa0b4a3ed189fd371, type: 2}
     value: 4
     duration: 2
     stacks: 1
