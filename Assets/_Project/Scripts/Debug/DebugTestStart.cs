@@ -3,7 +3,8 @@ using UnityEngine;
 
 // Editor-only testing shortcut: tick "Use Test Start", drag this object where you want to test
 // and press Play. The player starts here, the listed story flags are set (a1_home_intro skips
-// the home intro) and the listed quests are started. Does nothing in builds or when unticked.
+// the home intro) and the listed quests are started, once per Play (not again on returning from a
+// battle). Does nothing in builds or when unticked.
 // Runs before other scripts so the intro and the camera bounds already see the new state.
 [DefaultExecutionOrder(-1000)]
 public sealed class DebugTestStart : MonoBehaviour
@@ -13,10 +14,22 @@ public sealed class DebugTestStart : MonoBehaviour
     [SerializeField] private List<QuestData> startQuests = new();
 
 #if UNITY_EDITOR
+    // Once per Play: coming back from a battle must leave the player where they were, not send
+    // them here again.
+    private static bool applied;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetSessionState()
+    {
+        applied = false;
+    }
+
     private void Start()
     {
-        if (!useTestStart)
+        if (!useTestStart || applied)
             return;
+
+        applied = true;
 
         foreach (string flag in storyFlags)
             StoryFlagManager.SetFlag(flag);

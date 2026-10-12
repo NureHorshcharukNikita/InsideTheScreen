@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524f23d01e6f4becb97444afcfbba595, type: 3}
   m_Name: PoisonDisplay
   m_EditorClassIdentifier: Assembly-CSharp::BattleEffectDisplayData
-  icon: {fileID: 21300000, guid: 0174ca577792c654a97950ff8d946f93, type: 3}
+  useCategoryIcon: 1
+  iconCategory: 4
+  icon: {fileID: 0}
   badgeMode: 1
   badgeValueSource: 1
   badgeValueFormat: '{total}/{duration}'

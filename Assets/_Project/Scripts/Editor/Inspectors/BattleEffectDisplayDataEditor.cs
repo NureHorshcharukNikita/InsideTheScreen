@@ -4,6 +4,8 @@ using UnityEngine;
 [CustomEditor(typeof(BattleEffectDisplayData))]
 public class BattleEffectDisplayDataEditor : UnityEditor.Editor
 {
+    private SerializedProperty _useCategoryIconProp;
+    private SerializedProperty _iconCategoryProp;
     private SerializedProperty _iconProp;
     private SerializedProperty _badgeModeProp;
     private SerializedProperty _badgeValueSourceProp;
@@ -20,6 +22,8 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
         if (target == null)
             return;
 
+        _useCategoryIconProp = serializedObject.FindProperty("useCategoryIcon");
+        _iconCategoryProp = serializedObject.FindProperty("iconCategory");
         _iconProp = serializedObject.FindProperty("icon");
         _badgeModeProp = serializedObject.FindProperty("badgeMode");
         _badgeValueSourceProp = serializedObject.FindProperty("badgeValueSource");
@@ -37,7 +41,7 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
 
         EditorSectionGUI.DrawSection("Badge", () =>
         {
-            EditorGUILayout.PropertyField(_iconProp);
+            DrawIcon();
             EditorGUILayout.PropertyField(_badgeModeProp);
 
             BattleEffectBadgeMode badgeMode = (BattleEffectBadgeMode)_badgeModeProp.enumValueIndex;
@@ -58,6 +62,27 @@ public class BattleEffectDisplayDataEditor : UnityEditor.Editor
         });
 
         serializedObject.ApplyModifiedProperties();
+    }
+
+    private void DrawIcon()
+    {
+        EditorGUILayout.PropertyField(_useCategoryIconProp);
+        if (!_useCategoryIconProp.boolValue)
+        {
+            EditorGUILayout.PropertyField(_iconProp);
+            return;
+        }
+
+        EditorGUILayout.PropertyField(_iconCategoryProp);
+        if (((BattleEffectDisplayData)target).CategoryIcon == null)
+        {
+            EditorGUILayout.HelpBox(
+                $"Category {_iconCategoryProp.enumDisplayNames[_iconCategoryProp.enumValueIndex]} has no icon in " +
+                $"Resources/{CardCategoryIcons.ResourceName}; the fallback icon is shown instead.",
+                MessageType.Info);
+        }
+
+        EditorGUILayout.PropertyField(_iconProp, new GUIContent("Fallback Icon"));
     }
 
     private void DrawTemplateHelp()

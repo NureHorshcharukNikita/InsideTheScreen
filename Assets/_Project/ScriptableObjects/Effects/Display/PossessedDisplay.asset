@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524f23d01e6f4becb97444afcfbba595, type: 3}
   m_Name: PossessedDisplay
   m_EditorClassIdentifier: Assembly-CSharp::BattleEffectDisplayData
+  useCategoryIcon: 0
+  iconCategory: 0
   icon: {fileID: 21300000, guid: 2cf6c829648f3a947809b5b8b236040a, type: 3}
   badgeMode: 1
   badgeValueSource: 0

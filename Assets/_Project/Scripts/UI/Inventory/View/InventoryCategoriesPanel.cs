@@ -4,21 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Category icons come from CardCategoryIcons, shared with the battle effect badges.
 public class InventoryCategoriesPanel : MonoBehaviour
 {
-    [Serializable]
-    private sealed class CategoryIconEntry
-    {
-        public CardCategory category = default;
-        public Sprite icon = null;
-    }
-
     [SerializeField] private CategoryButton buttonPrefab;
     [SerializeField] private Transform container;
-
-    [Header("Category Icons")]
-    [SerializeField] private Sprite allCategoryIcon;
-    [SerializeField] private List<CategoryIconEntry> categoryIcons = new();
 
     private Action<CardCategory?> onSelected;
     private readonly List<(CardCategory? category, CategoryButton button)> buttons = new();
@@ -96,18 +86,13 @@ public class InventoryCategoriesPanel : MonoBehaviour
         buttons.Add((category, button));
     }
 
-    private Sprite GetCategoryIcon(CardCategory? category)
+    private static Sprite GetCategoryIcon(CardCategory? category)
     {
-        if (!category.HasValue)
-            return allCategoryIcon;
+        CardCategoryIcons icons = CardCategoryIcons.Instance;
+        if (icons == null)
+            return null;
 
-        foreach (CategoryIconEntry entry in categoryIcons)
-        {
-            if (entry != null && entry.category == category.Value)
-                return entry.icon;
-        }
-
-        return null;
+        return category.HasValue ? icons.GetIcon(category.Value) : icons.AllIcon;
     }
 
     public void ResetToAll()

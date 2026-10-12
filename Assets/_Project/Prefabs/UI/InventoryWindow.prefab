@@ -19252,30 +19252,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryCategoriesPanel
   buttonPrefab: {fileID: 8496114574922709202, guid: 44f6bcbea831e0b4993bb0f382bbcc64, type: 3}
   container: {fileID: 7486946113388800957}
-  allCategoryIcon: {fileID: 756239217952020608, guid: 6a1e54daa508c254a8ff242231063a50, type: 3}
-  categoryIcons:
-  - category: 0
-    icon: {fileID: 5134313205918620032, guid: 6a1e54daa508c254a8ff242231063a50, type: 3}
-  - category: 1
-    icon: {fileID: 6156487946317061824, guid: 6a1e54daa508c254a8ff242231063a50, type: 3}
-  - category: 2
-    icon: {fileID: -3261738485369255825, guid: 6a1e54daa508c254a8ff242231063a50, type: 3}
-  - category: 3
-    icon: {fileID: -7146285809020216556, guid: 6a1e54daa508c254a8ff242231063a50, type: 3}
-  - category: 4
-    icon: {fileID: 8967406596759397496, guid: 6a1e54daa508c254a8ff242231063a50, type: 3}
-  - category: 5
-    icon: {fileID: 0}
-  - category: 6
-    icon: {fileID: -1459275345674788544, guid: 6a1e54daa508c254a8ff242231063a50, type: 3}
-  - category: 7
-    icon: {fileID: 0}
-  - category: 8
-    icon: {fileID: 0}
-  - category: 9
-    icon: {fileID: 0}
-  - category: 10
-    icon: {fileID: 0}
 --- !u!1 &8128648559045734276
 GameObject:
   m_ObjectHideFlags: 0

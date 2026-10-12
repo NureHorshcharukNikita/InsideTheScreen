@@ -4,6 +4,10 @@ using UnityEngine;
 public class BattleEffectDisplayData : ScriptableObject
 {
     [Header("Badge")]
+    [Tooltip("Show the icon of a card category (from CardCategoryIcons, the same one the inventory shows).")]
+    [SerializeField] private bool useCategoryIcon;
+    [SerializeField] private CardCategory iconCategory;
+    [Tooltip("Used when the effect has no category icon.")]
     [SerializeField] private Sprite icon;
     [SerializeField] private BattleEffectBadgeMode badgeMode = BattleEffectBadgeMode.ValueSource;
     [SerializeField] private BattleEffectBadgeValueSource badgeValueSource = BattleEffectBadgeValueSource.Value;
@@ -15,7 +19,11 @@ public class BattleEffectDisplayData : ScriptableObject
     [TextArea(2, 5)]
     [SerializeField] private string tooltipFormat;
 
-    public Sprite Icon => icon;
+    public Sprite Icon => CategoryIcon != null ? CategoryIcon : icon;
+
+    public Sprite CategoryIcon => useCategoryIcon && CardCategoryIcons.Instance != null
+        ? CardCategoryIcons.Instance.GetIcon(iconCategory)
+        : null;
 
     public BattleEffectDisplayEntry CreateEntry(
         string fallbackTitle,
@@ -27,7 +35,7 @@ public class BattleEffectDisplayData : ScriptableObject
         string displayTitle = string.IsNullOrWhiteSpace(title) ? fallbackTitle : title;
         string tooltipTemplate = string.IsNullOrWhiteSpace(tooltipFormat) ? fallbackTooltip : tooltipFormat;
         return new BattleEffectDisplayEntry(
-            icon,
+            Icon,
             CreateFallbackLabel(displayTitle),
             CreateBadgeValue(value, duration, stacks),
             displayTitle,
