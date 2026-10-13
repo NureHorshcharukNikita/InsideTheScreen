@@ -85,6 +85,12 @@ public sealed class MainMenuButtonFeedback : MonoBehaviour, IPointerEnterHandler
         Apply(false);
     }
 
+    // After the button is turned on or off from code: the disabled look comes and goes.
+    public void RefreshState()
+    {
+        Apply(isSelected);
+    }
+
     private void Apply(bool selected)
     {
         if (!IsInteractable())

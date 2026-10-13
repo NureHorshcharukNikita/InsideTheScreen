@@ -138,6 +138,8 @@ public class EnemyIntentView : MonoBehaviour
     {
         EnsureInitialized();
         EnemyIntentView copy = Instantiate(this, transform.parent);
+        // Next to this one, not last: the UI after it on the canvas (the inventory, menus) stays on top.
+        copy.transform.SetSiblingIndex(transform.GetSiblingIndex() + 1);
         copy.name = copyName;
         copy.EnsureInitialized();
         copy.presenter.CopyBaseColors(presenter);

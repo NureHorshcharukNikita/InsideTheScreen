@@ -93,6 +93,8 @@ internal sealed class BattleEncounterResolver
     private static T CopyUi<T>(T template, Character fighter) where T : Component
     {
         T copy = Object.Instantiate(template, template.transform.parent);
+        // Next to the template, not last: the UI after it on the canvas (the inventory, menus) stays on top.
+        copy.transform.SetSiblingIndex(template.transform.GetSiblingIndex() + 1);
         copy.name = $"{template.name} ({fighter.name})";
         return copy;
     }

@@ -11,6 +11,8 @@ public class EnemyEncounter : MonoBehaviour
     public const int SameEnemy = -1;
 
     private const int MaxExtraEnemies = PendingBattleEnemy.MaxPerSide - 1;
+    // How far (world units) the touch zone reaches past the feet collider on every side.
+    private const float TouchMargin = 0.25f;
 
     [SerializeField] private EnemyData enemyData;
 
@@ -44,7 +46,39 @@ public class EnemyEncounter : MonoBehaviour
     private void Start()
     {
         if (DefeatedEncounters.IsDefeated(encounterId))
+        {
             Destroy(gameObject);
+            return;
+        }
+
+        GrowTouchZone();
+    }
+
+    // The trigger that starts the battle reaches a little past the feet collider. The same size or
+    // smaller, it never fires: the player and an enemy running at them press against each other's
+    // feet colliders and stop there, without ever overlapping.
+    // In Start, after BoxCollider2DSpriteSync has fitted the feet collider to the sprite.
+    private void GrowTouchZone()
+    {
+        BoxCollider2D feet = null;
+        BoxCollider2D touchZone = null;
+        foreach (BoxCollider2D box in GetComponents<BoxCollider2D>())
+        {
+            if (box.isTrigger)
+                touchZone ??= box;
+            else
+                feet ??= box;
+        }
+
+        if (touchZone == null || feet == null)
+            return;
+
+        Vector3 scale = transform.lossyScale;
+        Vector2 margin = new(
+            TouchMargin * 2f / Mathf.Max(0.0001f, Mathf.Abs(scale.x)),
+            TouchMargin * 2f / Mathf.Max(0.0001f, Mathf.Abs(scale.y)));
+        touchZone.offset = feet.offset;
+        touchZone.size = feet.size + margin;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

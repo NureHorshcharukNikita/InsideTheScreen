@@ -99,37 +99,6 @@ public static class ExplorationPlayerSession
         return true;
     }
 
-    public static void SaveBattle(PlayerCharacter player)
-    {
-        if (player != null)
-            SaveHealth(player.CurrentHealth);
-
-        HasSession = true;
-        ContinueSceneName = SceneNames.Battle;
-        PersistCurrentSession();
-        PersistentSessionSave.CaptureActiveSlotPreview();
-    }
-
-    public static void SaveBattle(PlayerCharacter player, IReadOnlyList<EnemyCharacter> enemies)
-    {
-        if (player != null)
-            SaveHealth(player.CurrentHealth);
-
-        if (enemies != null && enemies.Count > 0)
-        {
-            int[] healths = new int[enemies.Count];
-            for (int i = 0; i < enemies.Count; i++)
-                healths[i] = enemies[i] != null ? enemies[i].CurrentHealth : 0;
-
-            PendingBattleEnemy.SaveCurrentEnemyHealths(healths);
-        }
-
-        HasSession = true;
-        ContinueSceneName = SceneNames.Battle;
-        PersistCurrentSession();
-        PersistentSessionSave.CaptureActiveSlotPreview();
-    }
-
     public static void SetContinueScene(string sceneName)
     {
         if (string.IsNullOrEmpty(sceneName))

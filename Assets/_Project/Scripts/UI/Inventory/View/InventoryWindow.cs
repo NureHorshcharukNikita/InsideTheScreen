@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -93,6 +92,7 @@ public class InventoryWindow : MonoBehaviour
     private TMP_InputField inventorySearchInput;
     private TMP_Text inventorySearchPlaceholder;
     private Coroutine saveToastCoroutine;
+    private Button saveButton;
     private TMP_Text confirmationTitleText;
     private PendingPauseAction pendingPauseAction;
     private int selectedTopIconIndex = -1;
@@ -113,6 +113,9 @@ public class InventoryWindow : MonoBehaviour
     {
         inventoryBackground = GetComponent<Image>();
         EnsurePauseMenuReferences();
+        // Once for the scene, so it holds however the pause menu is opened: Esc, or the
+        // inventory's settings button, which turns the menu on directly.
+        SetSaveButtonInteractable(!IsInBattle);
         EnsurePauseMenuRuntimeFallbacks();
         HideTransferQuantityPrompt();
         EnsureInventorySearch();
@@ -315,6 +318,20 @@ public class InventoryWindow : MonoBehaviour
         GameStateManager.SetState(GameState.Paused);
     }
 
+    // Each scene has its own window, so the scene it is in tells.
+    private bool IsInBattle => gameObject.scene.name == SceneNames.Battle;
+
+    // No saving in battle: the Save button stays in the menu, greyed out.
+    private void SetSaveButtonInteractable(bool interactable)
+    {
+        if (saveButton == null)
+            return;
+
+        saveButton.interactable = interactable;
+        if (saveButton.TryGetComponent(out MainMenuButtonFeedback feedback))
+            feedback.RefreshState();
+    }
+
     public void ShowOptions()
     {
         ClearSelectedButton();
@@ -354,6 +371,9 @@ public class InventoryWindow : MonoBehaviour
     public void SaveGame()
     {
         ClearSelectedButton();
+        if (IsInBattle)
+            return;
+
         SaveCurrentSession();
         ShowSaveToast();
     }
@@ -721,6 +741,8 @@ public class InventoryWindow : MonoBehaviour
 
         if (pauseMenuPanel == null)
             pauseMenuPanel = pauseOverlay.transform.Find("PausePanel")?.gameObject;
+        if (saveButton == null && pauseMenuPanel != null)
+            saveButton = pauseMenuPanel.transform.Find("ButtonsContainer/SaveButton")?.GetComponent<Button>();
         if (optionsPanel == null)
             optionsPanel = pauseOverlay.transform.Find("OptionsPanel")?.gameObject;
         if (confirmationPanel == null)
@@ -1340,11 +1362,7 @@ public class InventoryWindow : MonoBehaviour
 
     private void SaveCurrentSession()
     {
-        PlayerCharacter currentPlayer = FindFirstObjectByType<PlayerCharacter>();
-        if (SceneManager.GetActiveScene().name == SceneNames.Battle)
-            ExplorationPlayerSession.SaveBattle(currentPlayer, FindFirstObjectByType<BattleSystem>()?.Enemies);
-        else
-            ExplorationPlayerSession.SavePlayer(currentPlayer);
+        ExplorationPlayerSession.SavePlayer(FindFirstObjectByType<PlayerCharacter>());
     }
 
     private void ResetPauseMenu()

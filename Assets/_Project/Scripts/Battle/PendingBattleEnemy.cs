@@ -2,7 +2,8 @@ using System.Collections.Generic;
 
 // The fight about to start, or being fought: its enemies (one to three), the allies fighting at
 // the player's side (up to two, three a side with the player) and the encounter it belongs to.
-// Kept for a retry; enemy health is kept for a battle saved halfway.
+// Kept for a retry. Enemy health only comes from saves made halfway through a battle, before
+// saving in battle was turned off.
 public static class PendingBattleEnemy
 {
     public const int MaxPerSide = 3;
@@ -25,11 +26,6 @@ public static class PendingBattleEnemy
         Fill(allies, encounterAllies, MaxPerSide - 1);
         currentEnemyHealths = null;
         EncounterId = encounterId;
-    }
-
-    public static void SaveCurrentEnemyHealths(int[] healths)
-    {
-        currentEnemyHealths = healths;
     }
 
     public static bool TryGetCurrentEnemyHealth(int index, out int health)

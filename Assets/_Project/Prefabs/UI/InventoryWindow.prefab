@@ -2362,7 +2362,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.85, g: 0.85, b: 0.85, a: 1}
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+      m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -45166,7 +45166,7 @@ MonoBehaviour:
   label: {fileID: 900100000000000153}
   normalBackground: {r: 1, g: 1, b: 1, a: 1}
   selectedBackground: {r: 1, g: 1, b: 1, a: 1}
-  disabledBackground: {r: 1, g: 1, b: 1, a: 0.6}
+  disabledBackground: {r: 1, g: 1, b: 1, a: 1}
   normalText: {r: 0.96, g: 0.945, b: 0.91, a: 1}
   selectedText: {r: 1, g: 1, b: 1, a: 1}
   disabledText: {r: 0.96, g: 0.945, b: 0.91, a: 0.42}
