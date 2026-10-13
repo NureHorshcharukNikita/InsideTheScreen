@@ -152,7 +152,8 @@ public class InventoryWindow : MonoBehaviour
             deckDrawer,
             ShowTransferQuantityPrompt,
             visible => SetEmptyStateVisible(inventoryEmptyState, visible),
-            visible => SetEmptyStateVisible(deckEmptyState, visible));
+            visible => SetEmptyStateVisible(deckEmptyState, visible),
+            SetInventorySearchVisible);
 
         InventoryViewUtils.Cleanup(
             inventoryCardsContent,
@@ -212,8 +213,6 @@ public class InventoryWindow : MonoBehaviour
         inventoryScreenController.Refresh(
             inventoryCountText,
             deckCountText);
-
-        UpdateInventorySearchVisibility();
     }
 
     public void RebuildCategoriesAndRefresh()
@@ -438,7 +437,8 @@ public class InventoryWindow : MonoBehaviour
         if (inventoryCardsContent == null)
             return;
 
-        ScrollRect cardsScroll = inventoryCardsContent.GetComponentInParent<ScrollRect>();
+        // Inactive included: this runs in Awake and OnEnable, before the inventory page is shown.
+        ScrollRect cardsScroll = inventoryCardsContent.GetComponentInParent<ScrollRect>(true);
         RectTransform cardsScrollRect = cardsScroll != null
             ? cardsScroll.transform as RectTransform
             : null;
@@ -614,17 +614,15 @@ public class InventoryWindow : MonoBehaviour
         inventoryScreenController?.SetSearchQuery(string.Empty);
     }
 
-    private void UpdateInventorySearchVisibility()
+    // On every redraw of the inventory (InventoryScreenController), not only when the window opens:
+    // its last cards can go to the deck, be sold or be used up while it is open.
+    private void SetInventorySearchVisible(bool hasCards)
     {
         if (inventorySearchBar == null)
             return;
 
-        bool hasCards = player != null
-            && player.InventoryData != null
-            && player.InventoryData.Cards != null
-            && player.InventoryData.Cards.Count > 0;
-
-        inventorySearchBar.SetActive(hasCards);
+        if (inventorySearchBar.activeSelf != hasCards)
+            inventorySearchBar.SetActive(hasCards);
 
         if (!hasCards && inventorySearchInput != null && !string.IsNullOrEmpty(inventorySearchInput.text))
             ResetInventorySearch();

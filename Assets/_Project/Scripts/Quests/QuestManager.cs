@@ -169,12 +169,18 @@ public static class QuestManager
         return true;
     }
 
+    // Newest first: Quests holds them in the order they were received, and so do the saves.
     public static List<QuestData> GetReceivedQuests(IReadOnlyList<QuestData> questCatalog)
     {
         List<QuestData> received = new();
         RegisterQuests(questCatalog);
-        AddReceivedQuests(received, questCatalog);
-        AddReceivedQuests(received, KnownQuests);
+        for (int i = Quests.Count - 1; i >= 0; i--)
+        {
+            QuestData quest = FindKnownQuest(Quests[i].questKey);
+            if (quest != null && !ContainsQuest(received, quest.QuestKey))
+                received.Add(quest);
+        }
+
         return received;
     }
 
@@ -244,19 +250,15 @@ public static class QuestManager
         KnownQuests.Clear();
     }
 
-    private static void AddReceivedQuests(List<QuestData> received, IReadOnlyList<QuestData> questCatalog)
+    private static QuestData FindKnownQuest(string questKey)
     {
-        if (questCatalog == null)
-            return;
-
-        for (int i = 0; i < questCatalog.Count; i++)
+        for (int i = 0; i < KnownQuests.Count; i++)
         {
-            QuestData quest = questCatalog[i];
-            if (quest == null || !HasQuest(quest) || ContainsQuest(received, quest.QuestKey))
-                continue;
-
-            received.Add(quest);
+            if (KnownQuests[i] != null && KnownQuests[i].QuestKey == questKey)
+                return KnownQuests[i];
         }
+
+        return null;
     }
 
     private static bool ContainsQuest(IReadOnlyList<QuestData> quests, string questKey)

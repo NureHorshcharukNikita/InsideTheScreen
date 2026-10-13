@@ -64,6 +64,7 @@ public partial class InventoryScreenController
             OnInventoryCardDropped);
 
         setInventoryEmptyStateVisible?.Invoke(filteredCards.Count == 0);
+        setInventorySearchVisible?.Invoke(inventoryStorage.Cards.Count > 0);
     }
 
     private void DrawDeck()

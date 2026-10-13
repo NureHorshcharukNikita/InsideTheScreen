@@ -16,6 +16,8 @@ public partial class InventoryScreenController
     private readonly Action<CardData, InventoryCardLocation, int, Action<int>> requestTransferQuantity;
     private readonly Action<bool> setInventoryEmptyStateVisible;
     private readonly Action<bool> setDeckEmptyStateVisible;
+    // Whether the inventory holds any card at all, filters aside: with none there is nothing to search.
+    private readonly Action<bool> setInventorySearchVisible;
 
     private CardCategory? currentCategory;
     private string currentSearchQuery = string.Empty;
@@ -36,7 +38,8 @@ public partial class InventoryScreenController
         CardCollectionDrawer deckDrawer,
         Action<CardData, InventoryCardLocation, int, Action<int>> requestTransferQuantity = null,
         Action<bool> setInventoryEmptyStateVisible = null,
-        Action<bool> setDeckEmptyStateVisible = null)
+        Action<bool> setDeckEmptyStateVisible = null,
+        Action<bool> setInventorySearchVisible = null)
     {
         inventoryStorage = storage;
         deckData = deck;
@@ -46,6 +49,7 @@ public partial class InventoryScreenController
         this.requestTransferQuantity = requestTransferQuantity;
         this.setInventoryEmptyStateVisible = setInventoryEmptyStateVisible;
         this.setDeckEmptyStateVisible = setDeckEmptyStateVisible;
+        this.setInventorySearchVisible = setInventorySearchVisible;
 
         deckController = new InventoryDeckController(inventoryStorage, deckData);
 

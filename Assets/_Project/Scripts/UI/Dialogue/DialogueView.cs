@@ -486,6 +486,10 @@ public sealed class DialogueView : MonoBehaviour
         if (label == null)
             return DefaultChoiceHorizontalPadding;
 
+        // Its text moves right when hovered: room for that, or the widest choice is cut off then.
+        if (label.GetComponentInParent<DialogueChoiceButtonFeedback>() != null)
+            return DialogueChoiceButtonFeedback.HorizontalPadding;
+
         RectTransform textRect = label.rectTransform;
         float padding = textRect.offsetMin.x - textRect.offsetMax.x;
         return padding > 0f ? padding : DefaultChoiceHorizontalPadding;
