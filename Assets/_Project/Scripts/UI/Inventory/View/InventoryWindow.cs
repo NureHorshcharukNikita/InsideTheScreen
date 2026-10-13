@@ -1321,7 +1321,7 @@ public class InventoryWindow : MonoBehaviour
     private IEnumerator AnimateSaveToast()
     {
         yield return SlideSaveToast(SaveToastHiddenPosition, SaveToastVisiblePosition);
-        yield return new WaitForSecondsRealtime(SaveToastHoldDuration);
+        yield return new WaitForGameSeconds(SaveToastHoldDuration);
         yield return SlideSaveToast(SaveToastVisiblePosition, SaveToastHiddenPosition);
 
         saveToastRect.gameObject.SetActive(false);
@@ -1335,7 +1335,7 @@ public class InventoryWindow : MonoBehaviour
 
         while (elapsed < SaveToastSlideDuration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float t = Mathf.Clamp01(elapsed / SaveToastSlideDuration);
             t = 1f - Mathf.Pow(1f - t, 3f);
             saveToastRect.anchoredPosition = Vector2.LerpUnclamped(from, to, t);

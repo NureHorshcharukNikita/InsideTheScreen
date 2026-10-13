@@ -49,7 +49,7 @@ public sealed class ExplorationEndGameController : MonoBehaviour
         Show(false);
         StopAmbience(fadeToBlackDuration);
         yield return Fade(screenGroup, fadeToBlackDuration);
-        yield return new WaitForSecondsRealtime(blackHoldDuration);
+        yield return new WaitForGameSeconds(blackHoldDuration);
         yield return Fade(panelGroup, textFadeDuration);
 
         if (panelGroup != null)
@@ -137,7 +137,7 @@ public sealed class ExplorationEndGameController : MonoBehaviour
         if (group == null)
             yield break;
 
-        for (float elapsed = 0f; elapsed < duration; elapsed += Time.unscaledDeltaTime)
+        for (float elapsed = 0f; elapsed < duration; elapsed += GameClock.DeltaTime)
         {
             group.alpha = elapsed / duration;
             yield return null;

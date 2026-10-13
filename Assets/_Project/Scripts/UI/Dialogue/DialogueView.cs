@@ -305,7 +305,7 @@ public sealed class DialogueView : MonoBehaviour
         while (dialogueText != null && dialogueText.maxVisibleCharacters < characterCount)
         {
             float revealSpeed = charactersPerSecond * (fastForwarding ? FastForwardMultiplier : 1f);
-            visibleCharacters += revealSpeed * Time.unscaledDeltaTime;
+            visibleCharacters += revealSpeed * GameClock.DeltaTime;
             dialogueText.maxVisibleCharacters = Mathf.Min(
                 characterCount,
                 Mathf.FloorToInt(visibleCharacters));

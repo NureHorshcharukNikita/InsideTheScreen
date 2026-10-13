@@ -209,7 +209,7 @@ public sealed class QuestNotificationToast : MonoBehaviour
             yield return null;
 
         if (CanShowInCurrentScene())
-            yield return new WaitForSecondsRealtime(ExplorationSceneToastDelay);
+            yield return new WaitForGameSeconds(ExplorationSceneToastDelay);
 
         delayedStartCoroutine = null;
         TryStartQueue();
@@ -223,13 +223,13 @@ public sealed class QuestNotificationToast : MonoBehaviour
             Show(payload);
 
             yield return Slide(HiddenPosition, VisiblePosition);
-            yield return new WaitForSecondsRealtime(HoldDuration);
+            yield return new WaitForGameSeconds(HoldDuration);
             yield return Slide(VisiblePosition, HiddenPosition);
 
             toastRect.gameObject.SetActive(false);
 
             if (queuedToasts.Count > 0)
-                yield return new WaitForSecondsRealtime(BetweenToastDelay);
+                yield return new WaitForGameSeconds(BetweenToastDelay);
         }
 
         toastCoroutine = null;
@@ -259,7 +259,7 @@ public sealed class QuestNotificationToast : MonoBehaviour
 
         while (elapsed < SlideDuration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float t = Mathf.Clamp01(elapsed / SlideDuration);
             t = 1f - Mathf.Pow(1f - t, 3f);
             toastRect.anchoredPosition = Vector2.LerpUnclamped(from, to, t);

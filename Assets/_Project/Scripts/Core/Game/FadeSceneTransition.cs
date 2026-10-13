@@ -60,7 +60,7 @@ internal static class FadeSceneTransition
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float t = Mathf.Clamp01(elapsed / duration);
             overlay.SetAlpha(Mathf.Lerp(from, to, t));
             yield return null;

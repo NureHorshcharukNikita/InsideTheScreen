@@ -224,7 +224,7 @@ public sealed class MainMenuSaveSlotsPanel : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float progress = Mathf.Clamp01(elapsed / duration);
             float easedProgress = easeOut
                 ? 1f - Mathf.Pow(1f - progress, 3f)

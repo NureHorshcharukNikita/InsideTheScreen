@@ -60,7 +60,7 @@ public sealed class MainMenuIntroAnimation : MonoBehaviour
 
         while (elapsed < totalDuration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
 
             float titleProgress = Mathf.Clamp01(elapsed / titleDuration);
             float easedTitleProgress = 1f - Mathf.Pow(1f - titleProgress, 3f);

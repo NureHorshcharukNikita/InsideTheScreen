@@ -315,7 +315,7 @@ public sealed class AudioManager : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             source.volume = Mathf.Lerp(from, to, Mathf.Clamp01(elapsed / duration));
             yield return null;
         }

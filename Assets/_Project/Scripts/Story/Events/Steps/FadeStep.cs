@@ -28,7 +28,7 @@ public sealed class FadeStep : StoryStep
         float to = toBlack ? 1f : 0f;
 
         overlay.ShowForFade();
-        for (float elapsed = 0f; elapsed < duration; elapsed += Time.unscaledDeltaTime)
+        for (float elapsed = 0f; elapsed < duration; elapsed += GameClock.DeltaTime)
         {
             overlay.SetAlpha(Mathf.Lerp(from, to, elapsed / duration));
             yield return null;

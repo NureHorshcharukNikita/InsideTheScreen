@@ -8,6 +8,9 @@ using Object = UnityEngine.Object;
 // control and the effects that last over several steps. Release() puts everything back.
 public sealed class StoryEventContext
 {
+    // The characters story events are moving right now, all events together.
+    private static readonly HashSet<Transform> ControlledActors = new();
+
     private readonly MonoBehaviour runner;
     private readonly Dictionary<Transform, ActorState> actors = new();
     private readonly List<Component> effects = new();
@@ -81,7 +84,16 @@ public sealed class StoryEventContext
     public void TakeControl(Transform actor)
     {
         if (actor != null && !actors.ContainsKey(actor))
+        {
             actors.Add(actor, new ActorState(actor));
+            ControlledActors.Add(actor);
+        }
+    }
+
+    // E.g. a door opens for them even where the player has to press Interact (Door).
+    public static bool IsControlledByStory(Transform actor)
+    {
+        return actor != null && ControlledActors.Contains(actor);
     }
 
     // Normal size and colour again after an effect such as Pull Into Screen.
@@ -130,8 +142,11 @@ public sealed class StoryEventContext
 
     public void Release()
     {
-        foreach (ActorState state in actors.Values)
-            state.Release();
+        foreach (KeyValuePair<Transform, ActorState> actor in actors)
+        {
+            actor.Value.Release();
+            ControlledActors.Remove(actor.Key);
+        }
         actors.Clear();
         Physics2D.SyncTransforms();
 

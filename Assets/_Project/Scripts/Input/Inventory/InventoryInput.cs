@@ -26,4 +26,12 @@ public class InventoryInput : MonoBehaviour
         if (inventoryWindow.IsOpen || GameStateManager.CanOpenInventory())
             inventoryWindow.Toggle();
     }
+
+    // Switching to another window in the middle of play opens the pause menu. Not during a story
+    // event or a dialogue: those wait where they are (GameClock) and go on when the game is back.
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus && inventoryWindow != null && GameStateManager.CanPause())
+            inventoryWindow.PauseGame();
+    }
 }

@@ -9,7 +9,7 @@ public sealed class WaitStep : StoryStep
 
     public override IEnumerator Run(StoryEventContext context)
     {
-        yield return new WaitForSecondsRealtime(seconds);
+        yield return new WaitForGameSeconds(seconds);
     }
 
     public override string ToString()

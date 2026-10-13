@@ -432,7 +432,7 @@ public partial class CardView
             Vector3 to = inventoryDragWorldPosition;
             float duration = Mathf.Max(1e-4f, returnAnimationDuration);
 
-            for (float t = 0f; t < 1f; t += Time.unscaledDeltaTime / duration)
+            for (float t = 0f; t < 1f; t += GameClock.DeltaTime / duration)
             {
                 float eased = EaseOutCubic(Mathf.Clamp01(t));
                 dragRect.position = Vector3.LerpUnclamped(from, to, eased);

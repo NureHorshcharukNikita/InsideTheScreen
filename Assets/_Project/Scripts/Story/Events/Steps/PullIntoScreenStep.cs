@@ -35,7 +35,7 @@ public sealed class PullIntoScreenStep : StoryStep
         Vector3 startScale = target.localScale;
         Color startColor = sprite != null ? sprite.color : Color.white;
 
-        for (float elapsed = 0f; elapsed < leanDuration; elapsed += Time.unscaledDeltaTime)
+        for (float elapsed = 0f; elapsed < leanDuration; elapsed += GameClock.DeltaTime)
         {
             float t = elapsed / leanDuration;
             target.position = Vector3.Lerp(startPosition, leanPosition, t * t) + Jitter(0.04f);
@@ -49,7 +49,7 @@ public sealed class PullIntoScreenStep : StoryStep
             screenStatic.SetGlow(glowAtEnd, pullDuration);
         }
 
-        for (float elapsed = 0f; elapsed < pullDuration; elapsed += Time.unscaledDeltaTime)
+        for (float elapsed = 0f; elapsed < pullDuration; elapsed += GameClock.DeltaTime)
         {
             float t = elapsed / pullDuration;
             float eased = t * t * t;

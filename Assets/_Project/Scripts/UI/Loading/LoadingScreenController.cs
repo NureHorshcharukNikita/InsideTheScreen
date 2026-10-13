@@ -45,7 +45,7 @@ public sealed class LoadingScreenController : MonoBehaviour
     private void Update()
     {
         if (spinner != null)
-            spinner.Rotate(0f, 0f, spinnerDegreesPerSecond * Time.unscaledDeltaTime);
+            spinner.Rotate(0f, 0f, spinnerDegreesPerSecond * GameClock.DeltaTime);
     }
 
     private IEnumerator LoadTargetScene()
@@ -61,13 +61,13 @@ public sealed class LoadingScreenController : MonoBehaviour
 
         operation.allowSceneActivation = false;
 
-        float startedAt = Time.unscaledTime;
+        float startedAt = GameClock.Now;
         float displayedProgress = 0f;
         bool activationStarted = false;
 
         while (!operation.isDone)
         {
-            float elapsed = Time.unscaledTime - startedAt;
+            float elapsed = GameClock.Now - startedAt;
             float realProgress = Mathf.Clamp01(operation.progress / 0.9f);
             float timeProgress = minimumLoadingTime > 0f
                 ? Mathf.Clamp01(elapsed / minimumLoadingTime) * minimumTimeProgressLimit
@@ -81,7 +81,7 @@ public sealed class LoadingScreenController : MonoBehaviour
             displayedProgress = Mathf.MoveTowards(
                 displayedProgress,
                 targetProgress,
-                progressFillSpeed * Time.unscaledDeltaTime);
+                progressFillSpeed * GameClock.DeltaTime);
 
             SetProgress(displayedProgress);
 
@@ -167,7 +167,7 @@ public sealed class LoadingScreenController : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < fadeDuration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             SetFadeAlpha(Mathf.Lerp(from, to, elapsed / fadeDuration));
             yield return null;
         }
@@ -196,7 +196,7 @@ public sealed class LoadingScreenController : MonoBehaviour
 
         while (true)
         {
-            yield return new WaitForSecondsRealtime(tipChangeInterval);
+            yield return new WaitForGameSeconds(tipChangeInterval);
             ShowNextTip();
         }
     }
@@ -217,7 +217,7 @@ public sealed class LoadingScreenController : MonoBehaviour
             };
 
             titleFrameIndex = (titleFrameIndex + 1) % 4;
-            yield return new WaitForSecondsRealtime(titleAnimationInterval);
+            yield return new WaitForGameSeconds(titleAnimationInterval);
         }
     }
 

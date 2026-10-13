@@ -150,7 +150,7 @@ public class BattleEndUI : MonoBehaviour
 
     private IEnumerator PlayVictoryLootReveal()
     {
-        yield return new WaitForSecondsRealtime(VictoryCenterHoldSeconds);
+        yield return new WaitForGameSeconds(VictoryCenterHoldSeconds);
 
         RectTransform resultRect = resultText != null ? resultText.transform as RectTransform : null;
         Vector2 resultStart = resultRect != null ? resultRect.anchoredPosition : _resultTextStartPosition;
@@ -159,7 +159,7 @@ public class BattleEndUI : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < LootRevealSeconds)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float t = Mathf.Clamp01(elapsed / LootRevealSeconds);
             float eased = Mathf.SmoothStep(0f, 1f, t);
             if (resultRect != null)

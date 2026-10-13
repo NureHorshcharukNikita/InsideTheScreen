@@ -64,7 +64,7 @@ internal sealed class EnemyIntentRevealAnimator
         float elapsed = 0f;
         while (elapsed < wait)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             yield return null;
         }
 
@@ -78,7 +78,7 @@ internal sealed class EnemyIntentRevealAnimator
         float fade = Mathf.Max(0.01f, RevealFadeInSeconds);
         while (elapsed < fade)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             setVisualAlpha(Mathf.SmoothStep(0f, 1f, elapsed / fade));
             yield return null;
         }
@@ -89,7 +89,7 @@ internal sealed class EnemyIntentRevealAnimator
         elapsed = 0f;
         while (elapsed < pulse)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float wobble = 1f - 0.12f * Mathf.Sin((elapsed / pulse) * Mathf.PI);
             setVisualAlpha(wobble);
             yield return null;

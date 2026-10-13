@@ -270,9 +270,24 @@ public sealed class DialogueManager : MonoBehaviour
             line,
             fallbackName,
             fallbackPortrait,
-            PlayerPortrait,
-            npcPortrait,
+            GetListenerPortrait(DialogueSpeakerSide.Left, PlayerPortrait),
+            GetListenerPortrait(DialogueSpeakerSide.Right, npcPortrait),
             GetValidChoices(line));
+    }
+
+    // Who sits on a side while the other one talks, before anyone has spoken there: the one who
+    // speaks on that side in this dialogue (e.g. Hideshi on the left in the home intro), else the
+    // player on the left and the NPC on the right. A story event's dialogue has no NPC: a side
+    // nobody speaks on then stays empty.
+    private Sprite GetListenerPortrait(DialogueSpeakerSide side, Sprite defaultPortrait)
+    {
+        foreach (DialogueLine line in activeLines)
+        {
+            if (line != null && line.speakerSide == side && !string.IsNullOrWhiteSpace(line.text))
+                return line.portraitOverride != null ? line.portraitOverride : defaultPortrait;
+        }
+
+        return defaultPortrait;
     }
 
     private void ExecuteActions(IReadOnlyList<DialogueAction> actions, NpcCharacter npc, PlayerCharacter player)

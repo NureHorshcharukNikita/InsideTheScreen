@@ -33,7 +33,7 @@ public sealed class ScreenStaticStep : StoryStep
         overlay.SetGlow(glow, duration);
 
         if (waitUntilDone)
-            yield return new WaitForSecondsRealtime(duration);
+            yield return new WaitForGameSeconds(duration);
     }
 
     public override string ToString()

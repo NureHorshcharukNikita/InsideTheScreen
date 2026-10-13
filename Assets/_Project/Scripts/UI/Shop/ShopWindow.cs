@@ -593,7 +593,7 @@ public sealed class ShopWindow : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float progress = Mathf.Clamp01(elapsed / duration);
             float easedProgress = 1f - Mathf.Pow(1f - progress, 3f);
             rect.anchoredPosition = Vector2.LerpUnclamped(startPosition, endPosition, easedProgress);
@@ -930,7 +930,7 @@ public sealed class ShopWindow : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < showDuration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float progress = Mathf.Clamp01(elapsed / showDuration);
             if (statusCanvasGroup != null)
                 statusCanvasGroup.alpha = progress;
@@ -939,12 +939,12 @@ public sealed class ShopWindow : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSecondsRealtime(holdDuration);
+        yield return new WaitForGameSeconds(holdDuration);
 
         elapsed = 0f;
         while (elapsed < hideDuration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += GameClock.DeltaTime;
             float progress = Mathf.Clamp01(elapsed / hideDuration);
             if (statusCanvasGroup != null)
                 statusCanvasGroup.alpha = 1f - progress;

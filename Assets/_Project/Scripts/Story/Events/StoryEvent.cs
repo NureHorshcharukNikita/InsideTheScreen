@@ -17,7 +17,7 @@ public enum StoryEventStart
 //   (found the root stone, reached the altar).
 // It happens once: doneFlag is set at the end, so it does not run again and dialogues or other
 // events can check it. While the steps run, the game is in the Dialogue state: the player has no
-// control and Time.timeScale is 0, so steps run on unscaled time. An event made only of instant
+// control and Time.timeScale is 0, so steps run on the GameClock. An event made only of instant
 // steps (actions, sounds...) runs at once instead.
 public sealed class StoryEvent : MonoBehaviour
 {

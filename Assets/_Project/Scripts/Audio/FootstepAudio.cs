@@ -60,9 +60,13 @@ public sealed class FootstepAudio : MonoBehaviour
     private PlayerMovement movement;
     private Animator animator;
 
-    private bool IsWalking => movement != null
-        ? movement.IsMoving
-        : GameStateManager.IsGameplay && animator != null && animator.GetBool(IsMovingParameter);
+    // A story event walking the character counts too: the game is not in Gameplay then, and the
+    // walk animation is all there is to go by.
+    private bool IsWalking => StoryEventContext.IsControlledByStory(transform)
+        ? animator != null && animator.GetBool(IsMovingParameter)
+        : movement != null
+            ? movement.IsMoving
+            : GameStateManager.IsGameplay && animator != null && animator.GetBool(IsMovingParameter);
 
     private void Awake()
     {

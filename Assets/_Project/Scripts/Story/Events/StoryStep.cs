@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-// One step of a StoryEvent: walk, turn, talk, wait... Run() is a coroutine on unscaled time
+// One step of a StoryEvent: walk, turn, talk, wait... Run() is a coroutine on the GameClock
 // (the game is paused while a story event plays). A new kind of step is a [Serializable] subclass
 // with a [SubclassMenu] path: it then shows up in the step dropdown of every StoryEvent.
 // ToString() is the step's title in the inspector list.

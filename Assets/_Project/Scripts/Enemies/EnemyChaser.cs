@@ -19,8 +19,6 @@ public sealed class EnemyChaser : MonoBehaviour
     // On the way back, how often it looks again for a shorter way, as new shortcuts open up.
     private const float ReturnRepathInterval = 0.3f;
     private const float FacingThreshold = 0.2f;
-    private const float AlertMarkFontSize = 15f;
-    private const float AlertMarkGap = 0.3f;
 
     [Tooltip("How far from its edge it sees the player. Walls block its view.")]
     [SerializeField, Min(0f)] private float sightRadius = 4f;
@@ -370,37 +368,10 @@ public sealed class EnemyChaser : MonoBehaviour
             if (!show)
                 return;
 
-            alertMark = CreateAlertMark();
+            alertMark = AlertMark.Create(transform);
         }
 
         if (alertMark.gameObject.activeSelf != show)
             alertMark.gameObject.SetActive(show);
-    }
-
-    private TMP_Text CreateAlertMark()
-    {
-        var markObject = new GameObject("AlertMark");
-        markObject.transform.SetParent(transform, false);
-
-        float top = spriteRenderer != null ? spriteRenderer.bounds.max.y : transform.position.y;
-        markObject.transform.position = new Vector3(transform.position.x, top + AlertMarkGap, transform.position.z);
-
-        TextMeshPro mark = markObject.AddComponent<TextMeshPro>();
-        mark.text = "!";
-        mark.fontSize = AlertMarkFontSize / Mathf.Max(0.01f, Mathf.Abs(transform.lossyScale.y));
-        mark.fontStyle = FontStyles.Bold;
-        mark.alignment = TextAlignmentOptions.Bottom;
-        mark.textWrappingMode = TextWrappingModes.NoWrap;
-        mark.color = new Color(1f, 0.85f, 0.2f);
-        mark.outlineWidth = 0.25f;
-        mark.outlineColor = Color.black;
-
-        if (spriteRenderer != null)
-        {
-            mark.sortingLayerID = spriteRenderer.sortingLayerID;
-            mark.sortingOrder = spriteRenderer.sortingOrder + 1;
-        }
-
-        return mark;
     }
 }

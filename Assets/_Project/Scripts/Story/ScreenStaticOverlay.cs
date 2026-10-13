@@ -4,7 +4,7 @@ using UnityEngine.UI;
 // TV static for the intro: soft-tinted CRT noise with scanlines over the whole screen and a
 // pulsing glow on the TV itself. Built from code, so the scene needs no extra assets.
 // Story event steps (Screen Static, Pull Into Screen) set where the noise and glow should go;
-// they ease there on unscaled time (the Dialogue game state pauses Time.timeScale).
+// they ease there on the GameClock (the Dialogue game state pauses Time.timeScale).
 public sealed class ScreenStaticOverlay : MonoBehaviour
 {
     private const int NoiseSize = 256;
@@ -51,7 +51,7 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
 
     private void Update()
     {
-        float deltaTime = Time.unscaledDeltaTime;
+        float deltaTime = GameClock.DeltaTime;
         noiseAlpha = Mathf.MoveTowards(noiseAlpha, noiseTarget, noiseSpeed * deltaTime);
         glowStrength = Mathf.MoveTowards(glowStrength, glowTarget, glowSpeed * deltaTime);
 
@@ -68,7 +68,7 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
         float flicker = Random.Range(-0.05f, 0.05f) * Mathf.Min(1f, noiseAlpha * 3f);
         noise.color = new Color(1f, 1f, 1f, Mathf.Clamp01(noiseAlpha + flicker));
 
-        float pulse = 1f + Mathf.Sin(Time.unscaledTime * 14f) * 0.07f;
+        float pulse = 1f + Mathf.Sin(GameClock.Now * 14f) * 0.07f;
         glow.color = new Color(tint.r, tint.g, tint.b, glowStrength * 0.8f);
         glow.transform.localScale = Vector3.one * (Mathf.Lerp(0.8f, 3.5f, glowStrength) * pulse);
     }
