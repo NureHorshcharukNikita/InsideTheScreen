@@ -14,6 +14,8 @@ public sealed class WalkToStep : StoryStep
     [SerializeField, Min(0.1f)] private float speed = 2f;
     [Tooltip("Steps back: faces away from where it walks, e.g. backing away from the TV while watching it.")]
     [SerializeField] private bool backwards;
+    [Tooltip("No footsteps, e.g. walking up outside, out of view, before coming in.")]
+    [SerializeField] private bool silent;
 
     public override IEnumerator Run(StoryEventContext context)
     {
@@ -24,6 +26,13 @@ public sealed class WalkToStep : StoryStep
 
         context.TakeControl(walker);
         Animator animator = StoryEventContext.GetAnimator(walker);
+        FootstepAudio footsteps = silent ? walker.GetComponentInChildren<FootstepAudio>() : null;
+        if (footsteps != null)
+        {
+            footsteps.Muted = true;
+            // Heard again also if the event stops halfway.
+            context.OnRelease(() => Unmute(footsteps));
+        }
 
         Vector3 end = target.position + (Vector3)offset;
         end.z = walker.position.z;
@@ -41,11 +50,21 @@ public sealed class WalkToStep : StoryStep
         }
 
         CharacterWalkAnimation.Apply(animator, false, facing);
+        Unmute(footsteps);
         context.SavePosition(walker);
+    }
+
+    private static void Unmute(FootstepAudio footsteps)
+    {
+        if (footsteps != null)
+            footsteps.Muted = false;
     }
 
     public override string ToString()
     {
-        return backwards ? $"{actor} backs away to {destination}" : $"{actor} walks to {destination}";
+        string quietly = silent ? " quietly" : string.Empty;
+        return backwards
+            ? $"{actor} backs away{quietly} to {destination}"
+            : $"{actor} walks{quietly} to {destination}";
     }
 }

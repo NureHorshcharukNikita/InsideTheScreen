@@ -10,19 +10,24 @@ public static class GameStateManager
 
     public static bool CanOpenInventory()
     {
-        if (!IsGameplay)
-            return false;
-
-        if (!IsBattleScene)
-            return true;
-
-        BattleSystem battleSystem = UnityEngine.Object.FindFirstObjectByType<BattleSystem>();
-        return battleSystem != null && battleSystem.CurrentBattleState == BattleState.Running;
+        return IsGameplay && !IsBattleOver();
     }
 
+    // Esc and losing the window's focus alike.
     public static bool CanPause()
     {
-        return IsGameplay && LastStateChangeFrame != UnityEngine.Time.frameCount;
+        return IsGameplay && LastStateChangeFrame != UnityEngine.Time.frameCount && !IsBattleOver();
+    }
+
+    // Won or lost: the battle end panel is up, and neither the pause menu nor the inventory opens
+    // over it.
+    private static bool IsBattleOver()
+    {
+        if (!IsBattleScene)
+            return false;
+
+        BattleSystem battleSystem = UnityEngine.Object.FindFirstObjectByType<BattleSystem>();
+        return battleSystem == null || battleSystem.CurrentBattleState != BattleState.Running;
     }
 
     public static bool CanEditCardCollections()

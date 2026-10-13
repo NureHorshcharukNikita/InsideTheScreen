@@ -60,6 +60,9 @@ public sealed class FootstepAudio : MonoBehaviour
     private PlayerMovement movement;
     private Animator animator;
 
+    // Set by a story event walking the character unheard, e.g. outside, out of view (WalkToStep).
+    public bool Muted { get; set; }
+
     // A story event walking the character counts too: the game is not in Gameplay then, and the
     // walk animation is all there is to go by.
     private bool IsWalking => StoryEventContext.IsControlledByStory(transform)
@@ -98,7 +101,7 @@ public sealed class FootstepAudio : MonoBehaviour
 
     public void PlayFootstep()
     {
-        if (!IsWalking)
+        if (Muted || !IsWalking)
             return;
 
         FootstepSurface surface = DetectSurface();

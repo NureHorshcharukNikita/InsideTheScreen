@@ -474,17 +474,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
---- !u!1 &252743984 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2538070006598882795, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
-  m_PrefabInstance: {fileID: 252743983}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &252743986 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8689903142421614453, guid: 95bd6d40ed5618748ae1dd26f529be65, type: 3}
   m_PrefabInstance: {fileID: 252743983}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252743984}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdcf4ba830f953e42a765ae012f045e7, type: 3}
@@ -1124,6 +1119,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 950000000000000000, guid: 7c9244323f34a5a4995599721133818c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1147600104997180467, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1478,7 +1477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2562524387976976152, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 275
+      value: 302.5
       objectReference: {fileID: 0}
     - target: {fileID: 2562524387976976152, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1670,7 +1669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3256232571280166834, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 275
+      value: 302.5
       objectReference: {fileID: 0}
     - target: {fileID: 3256232571280166834, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1938,7 +1937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4404161518580226481, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 275
+      value: 302.5
       objectReference: {fileID: 0}
     - target: {fileID: 4404161518580226481, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2274,7 +2273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5911678085358071304, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 275
+      value: 302.5
       objectReference: {fileID: 0}
     - target: {fileID: 5911678085358071304, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2706,7 +2705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7798866656347190195, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 275
+      value: 302.5
       objectReference: {fileID: 0}
     - target: {fileID: 7798866656347190195, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2830,7 +2829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8362453652377643774, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.9999444
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8465723264084328460, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2950,7 +2949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8904497726414766695, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 275
+      value: 302.5
       objectReference: {fileID: 0}
     - target: {fileID: 8904497726414766695, guid: 7c9244323f34a5a4995599721133818c, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3941,10 +3940,12 @@ MonoBehaviour:
   turnText: {fileID: 48910650}
   playerTurnLabel: YOUR TURN
   enemyTurnLabel: ENEMY TURN
+  allyTurnLabel: ALLY TURN
   slideInDuration: 0.45
   slideOutDuration: 0.4
   playerHoldDuration: 1
   enemyHoldDuration: 0.6
+  announcementHoldDuration: 1.4
   slideOvershoot: 80
 --- !u!1 &942480744
 GameObject:
@@ -5708,6 +5709,9 @@ MonoBehaviour:
   enemyIntentTelegraphDuration: 0.5
   enemyIntentHideDuration: 0.15
   enemyActionRecoveryDelay: 0.75
+  enemyActionGapDelay: 0.3
+  defeatFadeDuration: 0.4
+  regroupDuration: 0.5
 --- !u!4 &1995241972
 Transform:
   m_ObjectHideFlags: 0
