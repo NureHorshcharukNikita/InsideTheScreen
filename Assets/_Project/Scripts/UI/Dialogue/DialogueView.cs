@@ -186,13 +186,22 @@ public sealed class DialogueView : MonoBehaviour
         {
             continueButton.onClick.RemoveListener(RequestContinue);
             continueButton.onClick.AddListener(RequestContinue);
+            EnsureHoverDarken(continueButton);
         }
 
         if (skipDialogueButton != null)
         {
             skipDialogueButton.onClick.RemoveListener(BeginFastForward);
             skipDialogueButton.onClick.AddListener(BeginFastForward);
+            EnsureHoverDarken(skipDialogueButton);
         }
+    }
+
+    // The arrows darken while hovered.
+    private static void EnsureHoverDarken(Button button)
+    {
+        if (!button.TryGetComponent(out HoverDarken _))
+            button.gameObject.AddComponent<HoverDarken>();
     }
 
     private void RequestContinue()
