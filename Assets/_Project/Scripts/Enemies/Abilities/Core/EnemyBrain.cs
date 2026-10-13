@@ -33,10 +33,10 @@ public class EnemyBrain : MonoBehaviour
     }
 
     // Who the planned turn aims at, for the intent; null when it only affects the fighter itself.
-    public string GetIntentTargetName()
+    public Character GetIntentTarget()
     {
         Character target = CurrentPlan.PrimaryTargetForUi;
-        return target != null && target != self ? target.DisplayName : null;
+        return target != null && target != self ? target : null;
     }
 
     private BattleTargetingContext CreateTargetingContext()

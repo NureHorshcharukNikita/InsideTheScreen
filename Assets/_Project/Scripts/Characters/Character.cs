@@ -20,6 +20,8 @@ public class Character : MonoBehaviour, ICombatant
         : Array.Empty<ActiveBattleStatus>();
     public virtual CombatTeam Team => CombatTeam.Neutral;
     public virtual string DisplayName => name;
+    // Shown in battle in place of DisplayName when there is one (CharacterProfile.battleIcon).
+    public virtual Sprite BattleIcon => null;
     public bool IsAlive => CurrentHealth > 0;
 
     public event Action<int, int> HealthChanged;

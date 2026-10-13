@@ -26,12 +26,14 @@ internal sealed class EnemyIntentDisplay
             ? brain.CurrentPlan.GetIntentLabel()
             : NoPlanPlaceholder;
 
-        // Who it will hit (plain ASCII: the label font has no arrow glyph).
-        string targetName = brain.CurrentPlan.HasAbility ? brain.GetIntentTargetName() : null;
-        if (!string.IsNullOrWhiteSpace(targetName))
-            text += " -> " + targetName;
+        // Who it will hit: their battle icon after the arrow, or else their name (plain ASCII: the
+        // label font has no arrow glyph).
+        Character target = brain.CurrentPlan.HasAbility ? brain.GetIntentTarget() : null;
+        Sprite targetIcon = target != null ? target.BattleIcon : null;
+        if (target != null)
+            text += targetIcon != null ? " ->" : " -> " + target.DisplayName;
 
         Sprite icon = brain.CurrentPlan.Ability != null ? brain.CurrentPlan.Ability.icon : null;
-        presenter.ShowIntent(text, icon, keepVisualHidden);
+        presenter.ShowIntent(text, icon, targetIcon, keepVisualHidden);
     }
 }

@@ -4,11 +4,18 @@ using UnityEngine.UI;
 
 internal sealed class EnemyIntentPresenter
 {
+    private const string TargetIconName = "TargetIcon";
+    private const float TargetIconGap = 8f;
+    // The target icon's size, as a share of the label's font size.
+    private const float TargetIconScale = 2f;
+
     private readonly GameObject owner;
     private readonly TMP_Text intentLabel;
     private readonly Image intentIcon;
     private readonly GameObject intentContainer;
+    private readonly Vector4 labelBaseMargin;
 
+    private Image targetIcon;
     private Color labelBaseColor = Color.white;
     private Color iconBaseColor = Color.white;
     private bool capturedBaseColors;
@@ -19,6 +26,7 @@ internal sealed class EnemyIntentPresenter
         this.intentLabel = intentLabel;
         this.intentIcon = intentIcon;
         this.intentContainer = intentContainer;
+        labelBaseMargin = intentLabel != null ? intentLabel.margin : Vector4.zero;
     }
 
     public bool HasLabel => intentLabel != null;
@@ -33,10 +41,12 @@ internal sealed class EnemyIntentPresenter
 
         SetContainerActive(false);
         ClearIcon();
+        SetTargetIcon(null, false);
         SetVisualAlpha(1f);
     }
 
-    public void ShowIntent(string text, Sprite icon, bool keepVisualHidden)
+    // targetSprite: the battle icon of the one it will hit, shown after the text; null = none.
+    public void ShowIntent(string text, Sprite icon, Sprite targetSprite, bool keepVisualHidden)
     {
         CaptureBaseColorsIfNeeded();
 
@@ -49,6 +59,7 @@ internal sealed class EnemyIntentPresenter
 
         SetContainerActive(show);
         SetIcon(icon, show);
+        SetTargetIcon(targetSprite, show);
         SetVisualAlpha(keepVisualHidden ? 0f : 1f);
     }
 
@@ -70,6 +81,61 @@ internal sealed class EnemyIntentPresenter
             iconColor.a = iconBaseColor.a * alpha;
             intentIcon.color = iconColor;
         }
+
+        if (targetIcon != null)
+            targetIcon.color = new Color(1f, 1f, 1f, alpha);
+    }
+
+    // Right after the text, in place of the target's name. The label keeps that much room free on
+    // its right, so the centred text moves left and text and icon stay centred together.
+    private void SetTargetIcon(Sprite sprite, bool show)
+    {
+        if (intentLabel == null)
+            return;
+
+        if (!show || sprite == null)
+        {
+            if (targetIcon != null)
+                targetIcon.enabled = false;
+            intentLabel.margin = labelBaseMargin;
+            return;
+        }
+
+        Image image = EnsureTargetIcon();
+        float size = intentLabel.fontSize * TargetIconScale;
+        image.sprite = sprite;
+        image.enabled = true;
+        image.rectTransform.sizeDelta = new Vector2(size, size);
+
+        intentLabel.margin = labelBaseMargin + new Vector4(0f, 0f, TargetIconGap + size, 0f);
+        intentLabel.ForceMeshUpdate();
+        Bounds textBounds = intentLabel.textBounds;
+        image.rectTransform.anchoredPosition = new Vector2(textBounds.max.x + TargetIconGap + size * 0.5f, textBounds.center.y);
+    }
+
+    private Image EnsureTargetIcon()
+    {
+        if (targetIcon != null)
+            return targetIcon;
+
+        // A copy of the view (for an extra enemy or an ally) brings the original's icon along.
+        Transform copied = intentLabel.transform.Find(TargetIconName);
+        if (copied != null && copied.TryGetComponent(out targetIcon))
+            return targetIcon;
+
+        var iconObject = new GameObject(TargetIconName, typeof(RectTransform), typeof(Image));
+        iconObject.transform.SetParent(intentLabel.transform, false);
+
+        targetIcon = iconObject.GetComponent<Image>();
+        targetIcon.preserveAspect = true;
+        targetIcon.raycastTarget = false;
+
+        // Placed from the label's pivot, where the text's own coordinates start.
+        RectTransform rect = targetIcon.rectTransform;
+        rect.anchorMin = intentLabel.rectTransform.pivot;
+        rect.anchorMax = intentLabel.rectTransform.pivot;
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        return targetIcon;
     }
 
     private void SetIcon(Sprite icon, bool show)

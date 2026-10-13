@@ -32,4 +32,5 @@ public class PlayerData : ScriptableObject
 
     public string DisplayName => profile != null ? profile.DisplayName : name;
     public Sprite PortraitSprite => profile != null ? profile.PortraitSprite : null;
+    public Sprite BattleIcon => profile != null ? profile.BattleIcon : null;
 }

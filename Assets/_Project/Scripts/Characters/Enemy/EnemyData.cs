@@ -36,6 +36,7 @@ public class EnemyData : ScriptableObject
     public string Description => profile != null ? profile.Description : string.Empty;
     public Sprite PortraitSprite => profile != null ? profile.PortraitSprite : null;
     public Sprite BattleSprite => PortraitSprite;
+    public Sprite BattleIcon => profile != null ? profile.BattleIcon : null;
     public IReadOnlyList<EnemyLootDrop> LootDrops => lootDrops;
 
     private void OnValidate()

@@ -21,6 +21,7 @@ public class EnemyCharacter : Character
     public override int StartingArmor => enemyData != null ? enemyData.startingArmor : 0;
     public override CombatTeam Team => team;
     public override string DisplayName => enemyData != null ? enemyData.DisplayName : name;
+    public override Sprite BattleIcon => enemyData != null ? enemyData.BattleIcon : null;
 
     public EnemyData Data => enemyData;
     public EnemyBrain Brain => brain;
