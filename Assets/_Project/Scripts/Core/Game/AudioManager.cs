@@ -40,6 +40,11 @@ public sealed class AudioManager : MonoBehaviour
     [Header("Persistence")]
     [SerializeField] private bool saveVolumes = true;
 
+    // Dialogue voices (DialogueVoice) take these in turn: every blip sets its own pitch, and the
+    // one before fades out on its own instead of being cut off with a click.
+    private const int VoiceSourceCount = 3;
+    private readonly AudioSource[] voiceSources = new AudioSource[VoiceSourceCount];
+    private int nextVoiceSource;
     private Coroutine musicFadeRoutine;
     private Coroutine ambienceFadeRoutine;
 
@@ -89,6 +94,12 @@ public sealed class AudioManager : MonoBehaviour
     {
         if (Instance != null)
             Instance.PlayUi(clip, volumeScale);
+    }
+
+    public static void TryPlayVoice(AudioClip clip, float pitch, float volumeScale = 1f)
+    {
+        if (Instance != null)
+            Instance.PlayVoice(clip, pitch, volumeScale);
     }
 
     public static void TryPlaySfxAtPosition(AudioClip clip, Vector3 position, float volumeScale = 1f)
@@ -149,6 +160,20 @@ public sealed class AudioManager : MonoBehaviour
     public void PlayUi(AudioClip clip, float volumeScale = 1f)
     {
         PlayOneShot(uiSource, clip, volumeScale);
+    }
+
+    // Counts as sound effects for the volume.
+    public void PlayVoice(AudioClip clip, float pitch, float volumeScale = 1f)
+    {
+        AudioSource source = voiceSources[nextVoiceSource];
+        if (source == null || clip == null)
+            return;
+
+        nextVoiceSource = (nextVoiceSource + 1) % VoiceSourceCount;
+        source.clip = clip;
+        source.pitch = pitch;
+        source.volume = GetOutputVolume(AudioChannel.Sfx) * Mathf.Clamp01(volumeScale);
+        source.Play();
     }
 
     public void SetVolume(AudioChannel channel, float volume)
@@ -216,6 +241,8 @@ public sealed class AudioManager : MonoBehaviour
         ambienceSource = EnsureSource(ambienceSource, "Ambience Source", true);
         sfxSource = EnsureSource(sfxSource, "SFX Source", false);
         uiSource = EnsureSource(uiSource, "UI Source", false);
+        for (int i = 0; i < VoiceSourceCount; i++)
+            voiceSources[i] = EnsureSource(voiceSources[i], "Voice Source", false);
     }
 
     private AudioSource EnsureSource(AudioSource source, string sourceName, bool loop)

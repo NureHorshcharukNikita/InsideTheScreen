@@ -50,6 +50,8 @@ public sealed class DialogueView : MonoBehaviour
     private Coroutine textRevealRoutine;
     private Sprite lastLeftPortrait;
     private Sprite lastRightPortrait;
+    private DialogueVoice voice;
+    private int lettersUntilBlip;
     private int revealStartedFrame = -1;
     private bool visible;
     private bool showingChoices;
@@ -100,6 +102,7 @@ public sealed class DialogueView : MonoBehaviour
         Sprite fallbackPortrait,
         Sprite leftFallbackPortrait,
         Sprite rightFallbackPortrait,
+        DialogueVoice speakerVoice,
         IReadOnlyList<DialogueChoice> choices = null)
     {
         if (line == null)
@@ -107,6 +110,7 @@ public sealed class DialogueView : MonoBehaviour
 
         WireButtons();
         SetVisible(true);
+        voice = speakerVoice;
 
         string speakerName = !string.IsNullOrWhiteSpace(line.speakerName)
             ? line.speakerName
@@ -157,6 +161,7 @@ public sealed class DialogueView : MonoBehaviour
         fastForwarding = false;
         lastLeftPortrait = null;
         lastRightPortrait = null;
+        voice = null;
         SetVisible(false);
         ClearChoices();
         RestoreDialogueTextLayout();
@@ -288,6 +293,7 @@ public sealed class DialogueView : MonoBehaviour
 
         revealingText = true;
         revealStartedFrame = Time.frameCount;
+        lettersUntilBlip = 0;
         if (continueButton != null)
             continueButton.gameObject.SetActive(true);
         if (skipDialogueButton != null)
@@ -306,14 +312,44 @@ public sealed class DialogueView : MonoBehaviour
         {
             float revealSpeed = charactersPerSecond * (fastForwarding ? FastForwardMultiplier : 1f);
             visibleCharacters += revealSpeed * GameClock.DeltaTime;
+            int shownBefore = dialogueText.maxVisibleCharacters;
             dialogueText.maxVisibleCharacters = Mathf.Min(
                 characterCount,
                 Mathf.FloorToInt(visibleCharacters));
+            Speak(shownBefore, dialogueText.maxVisibleCharacters);
             yield return null;
         }
 
         textRevealRoutine = null;
         CompleteTextReveal();
+    }
+
+    // The speaker's voice: a blip on the first letter and then every few letters, at most one a
+    // frame. Spaces and punctuation stay silent, which gives it the rhythm of the words. Quiet
+    // while the dialogue is being skipped.
+    private void Speak(int from, int to)
+    {
+        if (voice == null || fastForwarding)
+            return;
+
+        TMP_CharacterInfo[] characters = dialogueText.textInfo.characterInfo;
+        bool blip = false;
+        for (int i = from; i < to; i++)
+        {
+            if (!char.IsLetterOrDigit(characters[i].character))
+                continue;
+
+            if (lettersUntilBlip <= 0)
+            {
+                blip = true;
+                lettersUntilBlip = voice.LettersPerBlip;
+            }
+
+            lettersUntilBlip--;
+        }
+
+        if (blip)
+            voice.PlayBlip();
     }
 
     private void CompleteTextReveal()

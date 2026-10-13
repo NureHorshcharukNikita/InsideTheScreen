@@ -31,6 +31,12 @@ public sealed class DialogueManager : MonoBehaviour
 
     private Sprite PlayerPortrait => activePlayer != null ? activePlayer.DialogueSprite : null;
 
+    private CharacterProfile PlayerProfile =>
+        activePlayer != null && activePlayer.Data != null ? activePlayer.Data.profile : null;
+
+    private CharacterProfile NpcProfile =>
+        activeNpc != null && activeNpc.Data != null ? activeNpc.Data.profile : null;
+
     private string PlayerName => activePlayer != null ? activePlayer.DisplayName : "Player";
 
     private void Awake()
@@ -272,7 +278,44 @@ public sealed class DialogueManager : MonoBehaviour
             fallbackPortrait,
             GetListenerPortrait(DialogueSpeakerSide.Left, PlayerPortrait),
             GetListenerPortrait(DialogueSpeakerSide.Right, npcPortrait),
+            GetVoice(line),
             GetValidChoices(line));
+    }
+
+    private DialogueVoice GetVoice(DialogueLine line)
+    {
+        CharacterProfile speaker = GetSpeaker(line);
+        return speaker != null ? speaker.Voice : null;
+    }
+
+    // Whose line it is: the one named on it (story dialogues name everyone, e.g. Hideshi and Haru
+    // at home), else the player on the left and the NPC on the right.
+    private CharacterProfile GetSpeaker(DialogueLine line)
+    {
+        if (string.IsNullOrWhiteSpace(line.speakerName))
+            return line.speakerSide == DialogueSpeakerSide.Left ? PlayerProfile : NpcProfile;
+
+        string speakerName = line.speakerName.Trim();
+        if (IsNamed(PlayerProfile, speakerName))
+            return PlayerProfile;
+
+        if (IsNamed(NpcProfile, speakerName))
+            return NpcProfile;
+
+        // Anyone else: the profiles of the characters in the scene are loaded.
+        foreach (CharacterProfile profile in Resources.FindObjectsOfTypeAll<CharacterProfile>())
+        {
+            if (IsNamed(profile, speakerName))
+                return profile;
+        }
+
+        return null;
+    }
+
+    private static bool IsNamed(CharacterProfile profile, string speakerName)
+    {
+        return profile != null
+            && string.Equals(profile.DisplayName, speakerName, System.StringComparison.OrdinalIgnoreCase);
     }
 
     // Who sits on a side while the other one talks, before anyone has spoken there: the one who

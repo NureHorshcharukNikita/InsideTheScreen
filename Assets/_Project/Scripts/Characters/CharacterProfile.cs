@@ -17,10 +17,15 @@ public sealed class CharacterProfile : ScriptableObject
     [Tooltip("Small picture shown in battle in place of the name, e.g. where an enemy's intent points. Empty = the name.")]
     public Sprite battleIcon;
 
+    [Header("Dialogue")]
+    [Tooltip("How their lines sound while they type out. Empty = silent.")]
+    public DialogueVoice voice;
+
     public string CharacterID => !string.IsNullOrWhiteSpace(characterID) ? characterID : name;
     public string DisplayName => !string.IsNullOrWhiteSpace(displayName) ? displayName : name;
     public string Description => description;
     public Sprite PortraitSprite => portraitSprite;
     public SpriteFacing PortraitFacing => portraitFacing;
     public Sprite BattleIcon => battleIcon;
+    public DialogueVoice Voice => voice;
 }
