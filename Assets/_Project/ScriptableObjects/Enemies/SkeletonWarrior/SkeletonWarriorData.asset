@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
+  m_Name: SkeletonWarriorData
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  profile: {fileID: 11400000, guid: 723059234f9e4327a9e6259dfebc053d, type: 2}
+  battleScale: 1
+  maxHealth: 45
+  startingArmor: 4
+  actionPointsPerTurn: 1
+  abilities:
+  - {fileID: 11400000, guid: 926378a851ee4809a9175b449883ee90, type: 2}
+  - {fileID: 11400000, guid: d0ecb2fbd2ad49b6b8a4d042b654f6b4, type: 2}
+  - {fileID: 11400000, guid: ed4c69bfb07a4a85ac5e9475c4dc2ba7, type: 2}
+  startingStatuses: 
+  - status: {fileID: 11400000, guid: 4494ec4d35784279befefac2848dd498, type: 2}
+    value: 40
+    duration: 0
+    stacks: 1
+  lootDrops:
+  - card: {fileID: 11400000, guid: f743d7d94274492bb18abb1b4dce09ac, type: 2}
+    dropChancePercent: 45
+    minAmount: 1
+    maxAmount: 1
+  - card: {fileID: 11400000, guid: e23a6e3ebe43a304c96ac0c3f0fb73a9, type: 2}
+    dropChancePercent: 30
+    minAmount: 1
+    maxAmount: 1
+  - card: {fileID: 11400000, guid: dd3f327d1454407aba588a77421064f4, type: 2}
+    dropChancePercent: 15
+    minAmount: 1
+    maxAmount: 1
+  storyFlagOnDefeat:

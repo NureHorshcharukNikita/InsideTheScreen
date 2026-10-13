@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
+  m_Name: BlackWormData
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  profile: {fileID: 11400000, guid: 61e94265877a4e65adf0d3c0dee8fb8a, type: 2}
+  battleScale: 1
+  maxHealth: 70
+  startingArmor: 6
+  actionPointsPerTurn: 1
+  abilities:
+  - {fileID: 11400000, guid: 65cbaa55889f4fd39d7c2ef0bdf2acf8, type: 2}
+  - {fileID: 11400000, guid: 890d1bf268404737adadd7fae8e26c8a, type: 2}
+  - {fileID: 11400000, guid: 58800cf4f525496c8b415c7b245ff15c, type: 2}
+  startingStatuses: []
+  lootDrops:
+  - card: {fileID: 11400000, guid: 0a552e86b7ba4e3fa05f96b132bcd22e, type: 2}
+    dropChancePercent: 50
+    minAmount: 1
+    maxAmount: 2
+  - card: {fileID: 11400000, guid: ce0ac4164e324f708f96aa22b67feb5b, type: 2}
+    dropChancePercent: 40
+    minAmount: 1
+    maxAmount: 1
+  - card: {fileID: 11400000, guid: 23c8905197c649329d0864b1b02d4ee9, type: 2}
+    dropChancePercent: 20
+    minAmount: 1
+    maxAmount: 1
+  storyFlagOnDefeat:

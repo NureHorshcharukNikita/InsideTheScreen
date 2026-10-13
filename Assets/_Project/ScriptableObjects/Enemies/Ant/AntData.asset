@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea635166c472294cb0b241bb75431ed, type: 3}
+  m_Name: AntData
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  profile: {fileID: 11400000, guid: 7c827cdd7aa945b58a3972bb4bc04132, type: 2}
+  battleScale: 1
+  maxHealth: 22
+  startingArmor: 0
+  actionPointsPerTurn: 1
+  abilities:
+  - {fileID: 11400000, guid: ea606672000d4b84b3388d2d30246f3c, type: 2}
+  - {fileID: 11400000, guid: c66ccdc8b6314faca1c909941645ec58, type: 2}
+  - {fileID: 11400000, guid: 0ff12323f1584eaca78e9353f3a86d21, type: 2}
+  startingStatuses: []
+  lootDrops:
+  - card: {fileID: 11400000, guid: 7668e87e8808462684f1925bcb62ef1f, type: 2}
+    dropChancePercent: 50
+    minAmount: 1
+    maxAmount: 1
+  - card: {fileID: 11400000, guid: dcb2e2dd2c6043198b3e56e2138e8367, type: 2}
+    dropChancePercent: 25
+    minAmount: 1
+    maxAmount: 1
+  storyFlagOnDefeat:
