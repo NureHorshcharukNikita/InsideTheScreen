@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7000000000000000101}
   - component: {fileID: 4718293655012847364}
   - component: {fileID: 7000000000000000102}
+  - component: {fileID: 7000000000000000103}
   m_Layer: 0
   m_Name: ExplorationEnemyBase
   m_TagString: Enemy
@@ -217,3 +218,22 @@ MonoBehaviour:
   enemyData: {fileID: 0}
   encounterId:
   playerReturnOffset: 1.25
+--- !u!114 &7000000000000000103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307414355194484910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425cc61f0c544da9a25756f1d922d6c0, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyChaser
+  sightRadius: 4
+  leashRadius: 12
+  chaseSpeed: 4
+  returnSpeed: 3
+  noticeDelay: 0.4
+  giveUpTime: 1.5
+  spriteFacesLeft: 1
