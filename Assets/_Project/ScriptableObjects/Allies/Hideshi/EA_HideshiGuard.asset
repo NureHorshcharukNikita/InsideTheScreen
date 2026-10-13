@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
   abilityID: hideshi_guard
   displayName: Guard
-  description: Gains {value} armor.
+  description: Gives {value} armor to the most wounded ally, himself included.
   icon: {fileID: 0}
   selectionWeight: 15
   intentSummary: Armor +{value}
@@ -24,7 +24,7 @@ MonoBehaviour:
   conditions: []
   instantEffects:
   - effect: {fileID: 11400000, guid: 972dbff6f90eee24eb0ca5c32880a20c, type: 2}
-    targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
+    targeting: {fileID: 11400000, guid: e8d28a9e192f441ea509ccb53a244a55, type: 2}
     value: 4
     applyChance: 1
     conditions: []

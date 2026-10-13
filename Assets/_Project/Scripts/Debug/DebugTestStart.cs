@@ -48,7 +48,7 @@ public sealed class DebugTestStart : MonoBehaviour
 
         player.transform.position = position;
         Physics2D.SyncTransforms();
-        Debug.Log($"Test start: player moved to {position}.", this);
+        DevLog.Log($"Test start: player moved to {position}.");
     }
 
     private void OnDrawGizmos()

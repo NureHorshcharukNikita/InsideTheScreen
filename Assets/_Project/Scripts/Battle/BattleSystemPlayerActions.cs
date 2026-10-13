@@ -9,8 +9,6 @@ internal sealed class BattleSystemPlayerActions
     private readonly Action afterAction;
     private readonly Action notifyHandChanged;
     private readonly Action requestEndPlayerTurn;
-    private readonly Func<int?> getSelectedCardIndex;
-    private readonly Action<int?> setSelectedCardIndex;
 
     public BattleSystemPlayerActions(
         Func<DeckManager> getDeckManager,
@@ -19,9 +17,7 @@ internal sealed class BattleSystemPlayerActions
         Func<bool> canPlay,
         Action afterAction,
         Action notifyHandChanged,
-        Action requestEndPlayerTurn,
-        Func<int?> getSelectedCardIndex,
-        Action<int?> setSelectedCardIndex)
+        Action requestEndPlayerTurn)
     {
         this.getDeckManager = getDeckManager;
         this.getCardPlayer = getCardPlayer;
@@ -30,20 +26,6 @@ internal sealed class BattleSystemPlayerActions
         this.afterAction = afterAction;
         this.notifyHandChanged = notifyHandChanged;
         this.requestEndPlayerTurn = requestEndPlayerTurn;
-        this.getSelectedCardIndex = getSelectedCardIndex;
-        this.setSelectedCardIndex = setSelectedCardIndex;
-    }
-
-    public void OnTargetClicked(ICombatant target)
-    {
-        if (!canPlay())
-            return;
-
-        int? selectedCardIndex = getSelectedCardIndex();
-        if (selectedCardIndex == null)
-            return;
-
-        TryPlayCardFromHand(selectedCardIndex.Value, target);
     }
 
     public bool TryPlayCardFromHand(int index, ICombatant target)
@@ -63,12 +45,6 @@ internal sealed class BattleSystemPlayerActions
 
         if (cardPlayer.TryPlayCard(index, card, target))
         {
-            DevLog.Log("Played: " + card.CardName);
-
-            BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
-            BattleDebugPrinter.PrintCards("Discard", deckManager.DiscardPile.Cards);
-
-            setSelectedCardIndex(null);
             afterAction();
             notifyHandChanged();
             return true;
@@ -91,31 +67,5 @@ internal sealed class BattleSystemPlayerActions
             return;
 
         requestEndPlayerTurn?.Invoke();
-    }
-
-    public void SelectCard(int index)
-    {
-        if (!canPlay())
-            return;
-
-        DeckManager deckManager = getDeckManager();
-        if (deckManager == null)
-            return;
-
-        if (index < 0 || index >= deckManager.Hand.Count)
-            return;
-
-        setSelectedCardIndex(index);
-
-        DevLog.Log("Selected card: " + deckManager.Hand.Cards[index].CardName);
-    }
-
-    public void DeselectCard()
-    {
-        if (getSelectedCardIndex() == null)
-            return;
-
-        setSelectedCardIndex(null);
-        DevLog.Log("Card deselected");
     }
 }

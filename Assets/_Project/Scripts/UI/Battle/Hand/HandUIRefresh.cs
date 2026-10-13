@@ -6,13 +6,12 @@ using UnityEngine.UI;
 
 public partial class HandUI
 {
-    private void RefreshHand(DeckManager deckManager, int? selectedCardIndex)
+    private void RefreshHand(DeckManager deckManager)
     {
         if (battleSystem == null)
             return;
 
         _lastDeckManager = deckManager;
-        _lastSelectedCardIndex = selectedCardIndex;
 
         if (deckManager == null || deckManager.Hand == null)
         {

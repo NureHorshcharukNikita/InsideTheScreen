@@ -38,7 +38,8 @@ public static class HandCardViewCollection
             int index = i;
 
             CardView cardView = Object.Instantiate(cardPrefab, handPanel);
-            cardView.Setup(cardData, index, battleSystem.SelectCard, battleSystem, selected: false);
+            // Cards are played by dragging them onto a fighter; a click does nothing.
+            cardView.Setup(cardData, index, onSelect: null, battleSystem, selected: false);
             spawnedViews.Add(cardView);
         }
     }

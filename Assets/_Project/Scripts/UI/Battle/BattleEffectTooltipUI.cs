@@ -17,6 +17,7 @@ public sealed class BattleEffectTooltipUI : MonoBehaviour
     private Canvas canvas;
     private TMP_Text titleText;
     private TMP_Text bodyText;
+    private Component shownFor;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public sealed class BattleEffectTooltipUI : MonoBehaviour
     {
         BattleEffectTooltipUI tooltip = EnsureInstance(source);
         tooltip.gameObject.SetActive(true);
+        tooltip.shownFor = source;
         tooltip.titleText.text = title;
         tooltip.bodyText.text = body;
         tooltip.UpdateSize();
@@ -44,8 +46,18 @@ public sealed class BattleEffectTooltipUI : MonoBehaviour
 
     public static void Hide()
     {
-        if (instance != null)
-            instance.gameObject.SetActive(false);
+        if (instance == null)
+            return;
+
+        instance.shownFor = null;
+        instance.gameObject.SetActive(false);
+    }
+
+    // Another badge's tooltip, shown since, stays.
+    public static void HideFor(Component source)
+    {
+        if (instance != null && instance.shownFor == source)
+            Hide();
     }
 
     // On a canvas of its own, covering the screen: the badges sit on several canvases (the HP bars

@@ -27,7 +27,6 @@ public partial class HandUI : MonoBehaviour
     private Coroutine _flyRoutine;
     private bool _wasGameplayState = true;
     private DeckManager _lastDeckManager;
-    private int? _lastSelectedCardIndex;
 
     public bool IsAnimatingCards => _flyRoutine != null;
 
@@ -152,7 +151,7 @@ public partial class HandUI : MonoBehaviour
         if (_lastDeckManager == null || _lastDeckManager.Hand == null)
             return;
 
-        RefreshHand(_lastDeckManager, _lastSelectedCardIndex);
+        RefreshHand(_lastDeckManager);
     }
 
     private void NotifyDrawCardStarted()

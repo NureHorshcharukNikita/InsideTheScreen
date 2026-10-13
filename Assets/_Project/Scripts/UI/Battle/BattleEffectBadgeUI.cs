@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+// The HP bars of the fighters standing behind sit on a canvas drawn among the sprites, and the
+// battle UI canvas takes the pointer first wherever it has a raycast target: its decorative
+// images (the dark band, the hand panel, the HP bars) are no raycast targets, so the badges
+// there still get pointer enter and exit.
 public sealed class BattleEffectBadgeUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Image iconImage;
@@ -33,7 +37,14 @@ public sealed class BattleEffectBadgeUI : MonoBehaviour, IPointerEnterHandler, I
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        BattleEffectTooltipUI.Hide();
+        BattleEffectTooltipUI.HideFor(this);
+    }
+
+    // The badge going away under the cursor (rebuilt on an armor or status change, or its HP bar
+    // hidden) gets no pointer exit, so it takes its tooltip along here.
+    private void OnDisable()
+    {
+        BattleEffectTooltipUI.HideFor(this);
     }
 
     private void CreateIcon(Sprite icon, string fallbackLabel)

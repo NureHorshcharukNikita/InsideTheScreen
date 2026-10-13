@@ -12,7 +12,7 @@ public class BattleSystem : MonoBehaviour
 {
     public BattleState CurrentBattleState { get; private set; } = BattleState.Running;
 
-    public event Action<DeckManager, int?> HandChanged;
+    public event Action<DeckManager> HandChanged;
 
     [Header("Characters")]
     [Tooltip("The first enemy. Copies of it make the other enemies and the allies.")]
@@ -66,7 +66,6 @@ public class BattleSystem : MonoBehaviour
     private const float MinRegroupMove = 1.5f;
     private const float MinRegroupResize = 0.06f;
 
-    private int? selectedCardIndex = null;
     private bool turnTransitionInProgress;
     private bool skipTurnTransitionRequested;
     private bool victoryHandled;
@@ -100,8 +99,6 @@ public class BattleSystem : MonoBehaviour
         deckManager = new DeckManager();
         deckManager.Initialize(player.DeckData);
 
-        BattleDebugPrinter.PrintCards("Starting deck", deckManager.Deck.Cards);
-
         deckUI.Bind(deckManager.Deck);
 
         turnManager = new TurnManager(player, encounter.Allies, encounter.Enemies, deckManager);
@@ -113,9 +110,7 @@ public class BattleSystem : MonoBehaviour
             CanPlay,
             AfterAction,
             NotifyHandChanged,
-            RequestEndPlayerTurn,
-            () => selectedCardIndex,
-            value => selectedCardIndex = value);
+            RequestEndPlayerTurn);
 
         ArrangeFighters();
         foreach (EnemyCharacter fighter in turnManager.GetAiFighters())
@@ -202,7 +197,6 @@ public class BattleSystem : MonoBehaviour
             yield break;
 
         BeginTurnTransition();
-        selectedCardIndex = null;
         actedThisRound.Clear();
 
         // The player's side first, if any ally is still standing.
@@ -224,7 +218,6 @@ public class BattleSystem : MonoBehaviour
 
         yield return WaitSkippable(enemyActionRecoveryDelay);
 
-        BattleDebugPrinter.PrintCards("Hand", deckManager.Hand.Cards);
         AfterAction();
 
         if (CurrentBattleState != BattleState.Running)
@@ -241,7 +234,6 @@ public class BattleSystem : MonoBehaviour
         turnManager.StartNextPlayerTurn();
         turnManager.PlanNextAiActions();
         RevealIntents();
-        selectedCardIndex = null;
         NotifyHandChanged();
 
         EndTurnTransition();
@@ -423,11 +415,6 @@ public class BattleSystem : MonoBehaviour
             player.InventoryData.AddCard(droppedLoot[i]);
 
         return droppedLoot;
-    }
-
-    public void OnTargetClicked(ICombatant target)
-    {
-        playerActions?.OnTargetClicked(target);
     }
 
     public bool TryPlayCardFromHand(int index, ICombatant target)
@@ -873,16 +860,6 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    public void SelectCard(int index)
-    {
-        playerActions?.SelectCard(index);
-    }
-
-    public void DeselectCard()
-    {
-        playerActions?.DeselectCard();
-    }
-
     private void OnDestroy()
     {
         foreach (Action unsubscribe in unsubscribers)
@@ -892,6 +869,6 @@ public class BattleSystem : MonoBehaviour
 
     private void NotifyHandChanged()
     {
-        HandChanged?.Invoke(deckManager, selectedCardIndex);
+        HandChanged?.Invoke(deckManager);
     }
 }

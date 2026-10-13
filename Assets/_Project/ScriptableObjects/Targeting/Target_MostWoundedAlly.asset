@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c05200c62b248239614a746f394eada, type: 3}
+  m_Name: Target_MostWoundedAlly
+  m_EditorClassIdentifier: Assembly-CSharp::BattleTargetMostWoundedAllyProfile
+  targetingID: most_wounded_ally
+  displayName: Most Wounded Ally
+  description: Picks the living ally of the source, the source included, with the lowest share of health left.

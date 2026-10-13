@@ -20,11 +20,7 @@ public class DeckManager
             var card = Deck.Draw();
 
             if (card != null)
-            {
                 Hand.Add(card);
-                DevLog.Log("Draw card: " + card.CardName);
-                DevLog.Log("Deck Count: " + Deck.Count);
-            }
         }
     }
 
@@ -50,14 +46,10 @@ public class DeckManager
         if (DiscardPile.Count == 0)
             return;
 
-        DevLog.Log("Reshuffling discard pile");
-
         foreach (var card in DiscardPile.Cards)
             Deck.Add(card);
 
         DiscardPile.Clear();
         Deck.Shuffle();
-
-        BattleDebugPrinter.PrintCards("Deck order", Deck.Cards);
     }
 }

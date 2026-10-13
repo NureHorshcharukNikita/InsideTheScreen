@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc625fd46a8ad164fb33cd1fa290477c, type: 3}
+  m_Name: EA_HideshiTendWounds
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAbilityData
+  abilityID: hideshi_tend_wounds
+  displayName: Tend Wounds
+  description: Restores {value} health to the most wounded ally, himself included.
+  icon: {fileID: 0}
+  selectionWeight: 50
+  intentSummary: Heal +{value}
+  actionPointCost: 1
+  cooldownTurns: 2
+  maxUses: -1
+  conditions:
+  - {fileID: 11400000, guid: e6c8f37310794b988d6d17c29dbdbb84, type: 2}
+  instantEffects:
+  - effect: {fileID: 11400000, guid: 4e276ddc1412eb14fa444ccefcd693db, type: 2}
+    targeting: {fileID: 11400000, guid: e8d28a9e192f441ea509ccb53a244a55, type: 2}
+    value: 5
+    applyChance: 1
+    conditions: []
+  statusApplications: []
