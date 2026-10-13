@@ -75,6 +75,7 @@ public sealed class MainMenuController : MonoBehaviour
         ExplorationPlayerSession.StartNewPersistentSlot(slotIndex);
         PendingBattleEnemy.ClearSession();
         DefeatedEncounters.Clear();
+        EncounterGroups.Clear();
         EnemyEncounter.ResetEncounterIds();
         GameStateManager.SetState(GameState.Gameplay);
         LoadingScreenRequest.SetTargetScene(SceneNames.Exploration);

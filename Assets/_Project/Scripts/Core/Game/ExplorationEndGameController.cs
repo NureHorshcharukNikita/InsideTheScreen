@@ -63,6 +63,7 @@ public sealed class ExplorationEndGameController : MonoBehaviour
             ExplorationPlayerSession.Clear();
             PendingBattleEnemy.ClearSession();
             DefeatedEncounters.Clear();
+            EncounterGroups.Clear();
             EnemyEncounter.ResetEncounterIds();
         }
 

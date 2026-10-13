@@ -258,6 +258,7 @@ public static class ExplorationPlayerSession
         ContinueSceneName = SceneNames.Exploration;
         PendingBattleEnemy.ClearSession();
         DefeatedEncounters.Clear();
+        EncounterGroups.Clear();
         CollectedPickups.Clear();
         QuestManager.Clear();
         ShopManager.Clear();
@@ -311,6 +312,7 @@ public static class ExplorationPlayerSession
         PendingBattleEnemy.RestoreSession(data.pendingEncounterId, enemyHealths);
 
         DefeatedEncounters.Restore(data.defeatedEncounterIds);
+        EncounterGroups.Restore(data.encounterGroups);
         CollectedPickups.Restore(data.collectedPickupIds);
         QuestManager.Restore(data.questProgress);
         ShopManager.Restore(data.shopProgress);

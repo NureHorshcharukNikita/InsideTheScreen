@@ -27,6 +27,7 @@ public sealed class SessionSaveData
     public string[] inventoryCardIds;
     public string[] deckCardIds;
     public string[] defeatedEncounterIds;
+    public EncounterGroupSaveData[] encounterGroups;
     public string[] collectedPickupIds;
     public QuestProgressSaveData[] questProgress;
     public ShopProgressSaveData[] shopProgress;
@@ -36,6 +37,13 @@ public sealed class SessionSaveData
     public bool hasSkillProgression;
     public int skillPoints;
     public SkillProgressSaveData[] skillProgression;
+}
+
+[Serializable]
+public sealed class EncounterGroupSaveData
+{
+    public string encounterId;
+    public int[] extraEnemies;
 }
 
 [Serializable]

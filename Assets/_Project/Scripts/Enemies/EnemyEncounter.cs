@@ -1,17 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// An enemy on the map: walking into it starts a battle against it, and against whoever happens to
-// be with it this time: a few more enemies may join, rolled anew for every battle. The map only
-// ever shows this one. Companions following the player fight at the player's side.
+// An enemy on the map: walking into it starts a battle against it, and against whoever is with it:
+// a few more enemies may join, rolled at the first battle and the same ones every time after
+// (EncounterGroups). The map only ever shows this one. Companions following the player fight at
+// the player's side.
 public class EnemyEncounter : MonoBehaviour
 {
+    // In a saved group: one more of the enemy itself, not one of Possible Extra Enemies.
+    public const int SameEnemy = -1;
+
     private const int MaxExtraEnemies = PendingBattleEnemy.MaxPerSide - 1;
 
     [SerializeField] private EnemyData enemyData;
 
     [Header("Group")]
-    [Tooltip("How many more enemies join it at least, rolled for every battle.")]
+    [Tooltip("How many more enemies join it at least, rolled at the first battle.")]
     [SerializeField, Range(0, MaxExtraEnemies)] private int minExtraEnemies;
     [Tooltip("How many more enemies join it at most (three a side).")]
     [SerializeField, Range(0, MaxExtraEnemies)] private int maxExtraEnemies;
@@ -61,7 +65,7 @@ public class EnemyEncounter : MonoBehaviour
                 playerMovement.enabled = false;
             }
 
-            PendingBattleEnemy.RegisterEncounterStart(RollEnemies(), CompanionFollower.CollectBattleAllies(), encounterId);
+            PendingBattleEnemy.RegisterEncounterStart(GetEnemies(), CompanionFollower.CollectBattleAllies(), encounterId);
             FadeManager.TryFadeToScene(SceneNames.Battle);
         }
     }
@@ -71,21 +75,45 @@ public class EnemyEncounter : MonoBehaviour
         maxExtraEnemies = Mathf.Max(maxExtraEnemies, minExtraEnemies);
     }
 
-    // The one on the map first, then whoever joins it this time.
-    private List<EnemyData> RollEnemies()
+    // The one on the map first, then its group: rolled at the first battle, the same one after.
+    private List<EnemyData> GetEnemies()
     {
+        if (!EncounterGroups.TryGet(encounterId, out int[] extraEnemies))
+        {
+            extraEnemies = RollExtraEnemies();
+            EncounterGroups.Remember(encounterId, extraEnemies);
+        }
+
         var enemies = new List<EnemyData> { enemyData };
-        int extraCount = Random.Range(minExtraEnemies, Mathf.Max(minExtraEnemies, maxExtraEnemies) + 1);
-        for (int i = 0; i < extraCount; i++)
-            enemies.Add(PickExtraEnemy());
+        foreach (int extraEnemy in extraEnemies)
+            enemies.Add(GetExtraEnemy(extraEnemy));
 
         return enemies;
     }
 
-    private EnemyData PickExtraEnemy()
+    private int[] RollExtraEnemies()
     {
-        List<EnemyData> candidates = possibleExtraEnemies.FindAll(candidate => candidate != null);
-        return candidates.Count > 0 ? candidates[Random.Range(0, candidates.Count)] : enemyData;
+        var candidates = new List<int>();
+        for (int i = 0; i < possibleExtraEnemies.Count; i++)
+        {
+            if (possibleExtraEnemies[i] != null)
+                candidates.Add(i);
+        }
+
+        int extraCount = Random.Range(minExtraEnemies, Mathf.Max(minExtraEnemies, maxExtraEnemies) + 1);
+        var extraEnemies = new int[extraCount];
+        for (int i = 0; i < extraCount; i++)
+            extraEnemies[i] = candidates.Count > 0 ? candidates[Random.Range(0, candidates.Count)] : SameEnemy;
+
+        return extraEnemies;
+    }
+
+    // One no longer in the list (it was edited after the group was rolled): the enemy itself.
+    private EnemyData GetExtraEnemy(int index)
+    {
+        return index >= 0 && index < possibleExtraEnemies.Count && possibleExtraEnemies[index] != null
+            ? possibleExtraEnemies[index]
+            : enemyData;
     }
 
     private Vector3 GetPlayerReturnPosition(Transform player)
