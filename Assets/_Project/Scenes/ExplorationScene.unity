@@ -51092,7 +51092,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6525223900783983244, guid: 3f7fc5a92994f32448f27b2ab66c5f0c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8800000000000000401}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f7fc5a92994f32448f27b2ab66c5f0c, type: 3}
 --- !u!4 &909913746 stripped
@@ -210874,7 +210877,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -3, y: 25, z: 0}
@@ -210924,7 +210927,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -6, y: 26, z: 0}
@@ -210974,7 +210977,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -8, y: 27, z: 0}
@@ -211014,7 +211017,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -3, y: 27, z: 0}
@@ -211024,7 +211027,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 3, y: 27, z: 0}
@@ -211134,7 +211137,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 0, y: 31, z: 0}
@@ -211144,7 +211147,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -10, y: 32, z: 0}
@@ -211184,7 +211187,7 @@ Tilemap:
       - {fileID: 362091619, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -2100235770, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1025487730, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -2, y: 32, z: 0}
@@ -211254,7 +211257,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -4, y: 33, z: 0}
@@ -227795,7 +227798,7 @@ Tilemap:
       - {fileID: -328078012, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -278892832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1770453980, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -7, y: -92, z: 0}
@@ -227835,7 +227838,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -6, y: -91, z: 0}
@@ -227845,7 +227848,7 @@ Tilemap:
       - {fileID: -1776644167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -17921544, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 509198745, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -5, y: -91, z: 0}
@@ -227885,7 +227888,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -6, y: -90, z: 0}
@@ -228015,7 +228018,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -37, y: -87, z: 0}
@@ -228155,7 +228158,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -7, y: -86, z: 0}
@@ -228195,7 +228198,7 @@ Tilemap:
       - {fileID: -1776644167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -17921544, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 509198745, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -33, y: -85, z: 0}
@@ -228295,7 +228298,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -44, y: -84, z: 0}
@@ -228345,7 +228348,7 @@ Tilemap:
       - {fileID: -328078012, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -278892832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1770453980, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -15, y: -84, z: 0}
@@ -228535,7 +228538,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -11, y: -83, z: 0}
@@ -228555,7 +228558,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 111, y: -83, z: 0}
@@ -228605,7 +228608,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -28, y: -82, z: 0}
@@ -228625,7 +228628,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -26, y: -82, z: 0}
@@ -228695,7 +228698,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -18, y: -82, z: 0}
@@ -228735,7 +228738,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -12, y: -82, z: 0}
@@ -228785,7 +228788,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -48, y: -81, z: 0}
@@ -228805,7 +228808,7 @@ Tilemap:
       - {fileID: 362091619, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -2100235770, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1025487730, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -39, y: -81, z: 0}
@@ -228945,7 +228948,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -48, y: -80, z: 0}
@@ -229135,7 +229138,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -17, y: -79, z: 0}
@@ -229265,7 +229268,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -23, y: -78, z: 0}
@@ -229385,7 +229388,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -47, y: -76, z: 0}
@@ -229495,7 +229498,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -42, y: -74, z: 0}
@@ -229505,7 +229508,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 112, y: -74, z: 0}
@@ -229525,7 +229528,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -47, y: -73, z: 0}
@@ -229755,7 +229758,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -41, y: -69, z: 0}
@@ -229775,7 +229778,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 117, y: -69, z: 0}
@@ -229885,7 +229888,7 @@ Tilemap:
       - {fileID: -1776644167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -17921544, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 509198745, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 118, y: -67, z: 0}
@@ -229945,7 +229948,7 @@ Tilemap:
       - {fileID: -6275705036050363631, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1424727137, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 25083689, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -46, y: -65, z: 0}
@@ -229995,7 +229998,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -46, y: -64, z: 0}
@@ -230095,7 +230098,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 119, y: -63, z: 0}
@@ -230185,7 +230188,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 116, y: -61, z: 0}
@@ -230315,7 +230318,7 @@ Tilemap:
       - {fileID: -6275705036050363631, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1424727137, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 25083689, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -43, y: -58, z: 0}
@@ -230355,7 +230358,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 119, y: -58, z: 0}
@@ -230425,7 +230428,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -41, y: -56, z: 0}
@@ -230505,7 +230508,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 116, y: -55, z: 0}
@@ -230545,7 +230548,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -35, y: -54, z: 0}
@@ -230625,7 +230628,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 119, y: -53, z: 0}
@@ -230635,7 +230638,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -38, y: -52, z: 0}
@@ -230685,7 +230688,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 118, y: -52, z: 0}
@@ -230705,7 +230708,7 @@ Tilemap:
       - {fileID: 1917475231, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 689000062, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1759789191, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -37, y: -51, z: 0}
@@ -230745,7 +230748,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 115, y: -51, z: 0}
@@ -230855,7 +230858,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 115, y: -49, z: 0}
@@ -230945,7 +230948,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -30, y: -47, z: 0}
@@ -230985,7 +230988,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 118, y: -47, z: 0}
@@ -231055,7 +231058,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -25, y: -46, z: 0}
@@ -231155,7 +231158,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -32, y: -44, z: 0}
@@ -231265,7 +231268,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -27, y: -43, z: 0}
@@ -231275,7 +231278,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -22, y: -43, z: 0}
@@ -231305,7 +231308,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -27, y: -42, z: 0}
@@ -231385,7 +231388,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 117, y: -41, z: 0}
@@ -231395,7 +231398,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -26, y: -40, z: 0}
@@ -231485,7 +231488,7 @@ Tilemap:
       - {fileID: 362091619, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -2100235770, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1025487730, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 117, y: -39, z: 0}
@@ -231745,7 +231748,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 5, y: -30, z: 0}
@@ -231815,7 +231818,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 10, y: -29, z: 0}
@@ -231975,7 +231978,7 @@ Tilemap:
       - {fileID: -6275705036050363631, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1424727137, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 25083689, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 9, y: -26, z: 0}
@@ -232145,7 +232148,7 @@ Tilemap:
       - {fileID: -1776644167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -17921544, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 509198745, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 15, y: -23, z: 0}
@@ -232155,7 +232158,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 113, y: -23, z: 0}
@@ -232205,7 +232208,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 116, y: -22, z: 0}
@@ -232495,7 +232498,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 117, y: -16, z: 0}
@@ -232515,7 +232518,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 15, y: -15, z: 0}
@@ -232555,7 +232558,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 15, y: -14, z: 0}
@@ -232605,7 +232608,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 15, y: -13, z: 0}
@@ -232665,7 +232668,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 14, y: -12, z: 0}
@@ -232715,7 +232718,7 @@ Tilemap:
       - {fileID: -328078012, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -278892832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1770453980, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 11, y: -11, z: 0}
@@ -232725,7 +232728,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 14, y: -11, z: 0}
@@ -232735,7 +232738,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 115, y: -11, z: 0}
@@ -232765,7 +232768,7 @@ Tilemap:
       - {fileID: -328078012, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -278892832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1770453980, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 9, y: -10, z: 0}
@@ -232855,7 +232858,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 13, y: -9, z: 0}
@@ -232895,7 +232898,7 @@ Tilemap:
       - {fileID: -1776644167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -17921544, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 509198745, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 119, y: -9, z: 0}
@@ -232905,7 +232908,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 10, y: -8, z: 0}
@@ -232915,7 +232918,7 @@ Tilemap:
       - {fileID: -6275705036050363631, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1424727137, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 25083689, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 11, y: -8, z: 0}
@@ -233005,7 +233008,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 119, y: -7, z: 0}
@@ -233035,7 +233038,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 14, y: -6, z: 0}
@@ -233045,7 +233048,7 @@ Tilemap:
       - {fileID: -1776644167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -17921544, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 509198745, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 15, y: -6, z: 0}
@@ -233115,7 +233118,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 120, y: -5, z: 0}
@@ -233145,7 +233148,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 15, y: -4, z: 0}
@@ -233285,7 +233288,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 12, y: -1, z: 0}
@@ -233495,7 +233498,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 11, y: 3, z: 0}
@@ -233615,7 +233618,7 @@ Tilemap:
       - {fileID: 1917475231, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 689000062, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1759789191, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 10, y: 5, z: 0}
@@ -233625,7 +233628,7 @@ Tilemap:
       - {fileID: -328078012, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -278892832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1770453980, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 11, y: 5, z: 0}
@@ -234045,7 +234048,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 12, y: 16, z: 0}
@@ -234055,7 +234058,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -5, y: 17, z: 0}
@@ -234075,7 +234078,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 11, y: 17, z: 0}
@@ -234125,7 +234128,7 @@ Tilemap:
       - {fileID: -6275705036050363631, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1424727137, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 25083689, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -4, y: 19, z: 0}
@@ -234285,7 +234288,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -2, y: 21, z: 0}
@@ -234475,7 +234478,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 14, y: 25, z: 0}
@@ -234615,7 +234618,7 @@ Tilemap:
       - {fileID: -6275705036050363631, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1424727137, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 25083689, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 13, y: 28, z: 0}
@@ -234645,7 +234648,7 @@ Tilemap:
       - {fileID: -328078012, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -278892832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1770453980, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 48, y: 28, z: 0}
@@ -234705,7 +234708,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 51, y: 29, z: 0}
@@ -234825,7 +234828,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 49, y: 31, z: 0}
@@ -235005,7 +235008,7 @@ Tilemap:
       - {fileID: -890479319, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1780623714, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 407868263, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 47, y: 34, z: 0}
@@ -235195,7 +235198,7 @@ Tilemap:
       - {fileID: -1873323123, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -762768005, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1878487767, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 46, y: 36, z: 0}
@@ -235205,7 +235208,7 @@ Tilemap:
       - {fileID: -1233319365, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1890732912, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -518756015, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 16, y: 37, z: 0}
@@ -235245,7 +235248,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 21, y: 37, z: 0}
@@ -235255,7 +235258,7 @@ Tilemap:
       - {fileID: 442194994, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -674332676, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 1081163295, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 30, y: 37, z: 0}
@@ -235385,7 +235388,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 24, y: 38, z: 0}
@@ -235425,7 +235428,7 @@ Tilemap:
       - {fileID: -894259167, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1628287901, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 583692832, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 28, y: 38, z: 0}
@@ -235515,7 +235518,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 38, y: 39, z: 0}
@@ -235565,7 +235568,7 @@ Tilemap:
       - {fileID: 362091619, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -2100235770, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1025487730, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 45, y: 39, z: 0}
@@ -235605,7 +235608,7 @@ Tilemap:
       - {fileID: -961437569, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1714264126, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 712506448, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 30, y: 40, z: 0}
@@ -235625,7 +235628,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 32, y: 40, z: 0}
@@ -235635,7 +235638,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 33, y: 40, z: 0}
@@ -235695,7 +235698,7 @@ Tilemap:
       - {fileID: 1917475231, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 689000062, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1759789191, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 41, y: 40, z: 0}
@@ -235715,7 +235718,7 @@ Tilemap:
       - {fileID: 362091619, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -2100235770, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1025487730, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 44, y: 40, z: 0}
@@ -235745,7 +235748,7 @@ Tilemap:
       - {fileID: -2099925814, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: -1968722735, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
       - {fileID: 94225494, guid: d3bd4e1ceb358b4428cb9f61fc4e4b41, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 22, y: 41, z: 0}
@@ -757490,7 +757493,6 @@ Transform:
   - {fileID: 1210768431}
   - {fileID: 14800320}
   - {fileID: 335114669}
-  - {fileID: 8800000000000000401}
   m_Father: {fileID: 1900253010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1491055944
@@ -870958,6 +870960,8 @@ Transform:
   - {fileID: 8800000000000000071}
   - {fileID: 8800000000000000041}
   - {fileID: 8800000000000000031}
+  - {fileID: 8800000000000000501}
+  - {fileID: 8800000000000000511}
   - {fileID: 8800000000000000301}
   m_Father: {fileID: 8800000000000000101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -871137,15 +871141,6 @@ MonoBehaviour:
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
         seconds: 1.5
-    - rid: 1109
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
-        continueDialogue: 0
-    - rid: 1110
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 1
     - rid: 1003
       type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
       data:
@@ -871160,6 +871155,7 @@ MonoBehaviour:
         offset: {x: 0, y: 0}
         speed: 2
         backwards: 0
+        sideways: 0
         silent: 0
     - rid: 1004
       type: {class: FaceStep, ns: , asm: Assembly-CSharp}
@@ -871206,34 +871202,6 @@ MonoBehaviour:
           type: 2
           npc: {fileID: 0}
           sceneObject: {fileID: 8800000000000000071}
-    - rid: 1082
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.4
-    - rid: 1083
-      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        destination:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000071}
-        offset: {x: -1.6, y: -0.9}
-        speed: 2
-        backwards: 0
-        silent: 0
-    - rid: 1084
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 1
-    - rid: 1085
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
-        continueDialogue: 1
     - rid: 1009
       type: {class: ScreenNoiseStep, ns: , asm: Assembly-CSharp}
       data:
@@ -871245,58 +871213,6 @@ MonoBehaviour:
         glow: 0.2
         duration: 2
         waitUntilDone: 0
-    - rid: 1117
-      type: {class: TugTowardsScreenStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        screen: {fileID: 8800000000000000071}
-        distance: 0.04
-        tint: 0.15
-        shake: 0.015
-        duration: 1.2
-    - rid: 1118
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.5
-    - rid: 1119
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.8
-    - rid: 1120
-      type: {class: ScreenNoiseStep, ns: , asm: Assembly-CSharp}
-      data:
-        screen: {fileID: 8800000000000000071}
-        tint: {r: 0.62, g: 0.78, b: 0.8, a: 1}
-        sound: {fileID: 0}
-        soundVolume: 0.3
-        noise: 0.08
-        glow: 0.6
-        duration: 1
-        waitUntilDone: 0
-    - rid: 1121
-      type: {class: TugTowardsScreenStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        screen: {fileID: 8800000000000000071}
-        distance: 0.1
-        tint: 0.35
-        shake: 0.035
-        duration: 1
-    - rid: 1122
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.3
-    - rid: 1123
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
-        continueDialogue: 1
     - rid: 1010
       type: {class: PullIntoScreenStep, ns: , asm: Assembly-CSharp}
       data:
@@ -871372,10 +871288,482 @@ MonoBehaviour:
       data:
         screen: {fileID: 8800000000000000071}
         tint: {r: 0.62, g: 0.78, b: 0.8, a: 1}
+        sound: {fileID: 0}
+        soundVolume: 0.3
         noise: 0
         glow: 0
         duration: 0.3
         waitUntilDone: 0
+    - rid: 1019
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000061}
+        offset: {x: -5.8, y: -0.47}
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 1020
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1021
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 1022
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
+        continueDialogue: 1
+    - rid: 1023
+      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        seconds: 0.8
+        hop: 1
+        hopHeight: 0.35
+        hopDuration: 0.25
+    - rid: 1024
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 1025
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1026
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000071}
+        offset: {x: -1.6, y: -0.9}
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 1027
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 1
+        target:
+          type: 1
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1028
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 1029
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
+        continueDialogue: 1
+    - rid: 1030
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 2
+        target:
+          type: 1
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1031
+      type: {class: DoorStep, ns: , asm: Assembly-CSharp}
+      data:
+        door: {fileID: 7000000000000003002}
+        action: 0
+        waitUntilDone: 1
+    - rid: 1032
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 1033
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 1
+        target:
+          type: 1
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1034
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000071}
+        offset: {x: 1.65, y: -0.8}
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 1035
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000301}
+    - rid: 1036
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 1037
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
+        continueDialogue: 1
+    - rid: 1038
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 1039
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1040
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.6
+    - rid: 1041
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 1
+        target:
+          type: 1
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1042
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 1
+        target:
+          type: 1
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1043
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 1045
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 1046
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000071}
+        offset: {x: 1.1, y: -1.7}
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 1048
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000061}
+        offset: {x: -9.3, y: -0.64}
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 1
+    - rid: 1049
+      type: {class: LieDownStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        action: 0
+        head: 0
+        getUpDuration: 0.45
+    - rid: 1050
+      type: {class: LieDownStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        action: 0
+        head: 1
+        getUpDuration: 0.45
+    - rid: 1051
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 1
+    - rid: 1052
+      type: {class: LieDownStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        action: 1
+        head: 0
+        getUpDuration: 0.45
+    - rid: 1053
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 1054
+      type: {class: LieDownStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        action: 1
+        head: 0
+        getUpDuration: 0.45
+    - rid: 1055
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1056
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 1057
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.6
+    - rid: 1058
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 1059
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000301}
+    - rid: 1061
+      type: {class: SetActiveStep, ns: , asm: Assembly-CSharp}
+      data:
+        target: {fileID: 8800000000000000310}
+        active: 1
+    - rid: 1062
+      type: {class: SoundStep, ns: , asm: Assembly-CSharp}
+      data:
+        channel: 0
+        clip: {fileID: 8300000, guid: 34637a7a63e46694c973cdaefd34204f, type: 3}
+        volume: 1
+        fadeDuration: 1
+    - rid: 1063
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.35
+    - rid: 1065
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000071}
+        offset: {x: -2.2, y: -0.95}
+        speed: 1.2
+        backwards: 1
+        sideways: 0
+        silent: 0
+    - rid: 1066
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 1067
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
+        continueDialogue: 1
+    - rid: 1068
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000071}
+        offset: {x: -1.1, y: -1.7}
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 1069
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 1
+        target:
+          type: 1
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1072
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 1
+        target:
+          type: 1
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 1073
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 1034
+        - rid: 1068
+    - rid: 1074
+      type: {class: SoundStep, ns: , asm: Assembly-CSharp}
+      data:
+        channel: 0
+        clip: {fileID: 8300000, guid: 3b1a3ddf978e2ca42b4c2a61b9aee03d, type: 3}
+        volume: 1
+        fadeDuration: 1
+    - rid: 1075
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 1.5
+    - rid: 1076
+      type: {class: SoundStep, ns: , asm: Assembly-CSharp}
+      data:
+        channel: 0
+        clip: {fileID: 8300000, guid: 5c2b888bc5367874f88a45cac64d3761, type: 3}
+        volume: 1
+        fadeDuration: 1
+    - rid: 1077
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 1.2
+    - rid: 1078
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
+        continueDialogue: 1
     - rid: 1079
       type: {class: FadeStep, ns: , asm: Assembly-CSharp}
       data:
@@ -871385,6 +871773,35 @@ MonoBehaviour:
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
         seconds: 2
+    - rid: 1082
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 1083
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000071}
+        offset: {x: -1.6, y: -0.9}
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 1084
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 1
+    - rid: 1085
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
+        continueDialogue: 1
     - rid: 1086
       type: {class: HearingStep, ns: , asm: Assembly-CSharp}
       data:
@@ -871491,100 +871908,6 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    - rid: 1019
-      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        destination:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000061}
-        offset: {x: -5.8, y: -0.47}
-        speed: 2
-        backwards: 0
-        silent: 0
-    - rid: 1020
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 4
-        target:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1021
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.3
-    - rid: 1022
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
-        continueDialogue: 1
-    - rid: 1023
-      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        seconds: 0.8
-        hop: 1
-        hopHeight: 0.35
-        hopDuration: 0.25
-    - rid: 1024
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.3
-    - rid: 1025
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 4
-        target:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1026
-      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        destination:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000071}
-        offset: {x: -1.6, y: -0.9}
-        speed: 2
-        backwards: 0
-        silent: 0
-    - rid: 1027
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 1
-        target:
-          type: 1
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1028
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.4
     - rid: 1091
       type: {class: FaceStep, ns: , asm: Assembly-CSharp}
       data:
@@ -871629,6 +871952,34 @@ MonoBehaviour:
           type: 1
           npc: {fileID: 0}
           sceneObject: {fileID: 0}
+    - rid: 1095
+      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        seconds: 0.8
+        hop: 1
+        hopHeight: 0.35
+        hopDuration: 0.25
+    - rid: 1096
+      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        seconds: 0.8
+        hop: 1
+        hopHeight: 0.35
+        hopDuration: 0.25
+    - rid: 1097
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 1095
+        - rid: 1096
     - rid: 1098
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
@@ -871658,137 +872009,40 @@ MonoBehaviour:
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
         seconds: 0.6
-    - rid: 1029
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+    - rid: 1104
+      type: {class: SetActiveStep, ns: , asm: Assembly-CSharp}
       data:
-        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
-        continueDialogue: 1
-    - rid: 1030
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+        target: {fileID: 8800000000000000400}
+        active: 0
+    - rid: 1106
+      type: {class: PlayAnimationStep, ns: , asm: Assembly-CSharp}
       data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 2
-        target:
-          type: 1
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1031
-      type: {class: DoorStep, ns: , asm: Assembly-CSharp}
-      data:
-        door: {fileID: 7000000000000003002}
-        action: 0
-        waitUntilDone: 1
-    - rid: 1032
+        animator: {fileID: 8800000000000000403}
+        state: Noise
+    - rid: 1107
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
         seconds: 0.3
-    - rid: 1033
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        facing: 1
-        target:
-          type: 1
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1034
-      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        destination:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000071}
-        offset: {x: 1.65, y: -0.8}
-        speed: 2
-        backwards: 0
-        silent: 0
-    - rid: 1035
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        facing: 4
-        target:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000301}
-    - rid: 1036
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.3
-    - rid: 1037
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
-        continueDialogue: 1
-    - rid: 1038
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        facing: 4
-        target:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-    - rid: 1039
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 4
-        target:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1040
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.6
-    - rid: 1041
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        facing: 1
-        target:
-          type: 1
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1042
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 1
-        target:
-          type: 1
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1043
+    - rid: 1108
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
         seconds: 0.4
+    - rid: 1109
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
+        continueDialogue: 0
+    - rid: 1110
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 1
+    - rid: 1111
+      type: {class: SoundStep, ns: , asm: Assembly-CSharp}
+      data:
+        channel: 0
+        clip: {fileID: 8300000, guid: 90699056261fefe4f90a92ebdac599e6, type: 3}
+        volume: 1
+        fadeDuration: 1
     - rid: 1113
       type: {class: PlayAnimationStep, ns: , asm: Assembly-CSharp}
       data:
@@ -871807,293 +872061,54 @@ MonoBehaviour:
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
         seconds: 1
-    - rid: 1045
+    - rid: 1117
+      type: {class: TugTowardsScreenStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        screen: {fileID: 8800000000000000071}
+        distance: 0.04
+        tint: 0.15
+        shake: 0.015
+        duration: 1.2
+    - rid: 1118
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.5
+    - rid: 1119
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.8
+    - rid: 1120
+      type: {class: ScreenNoiseStep, ns: , asm: Assembly-CSharp}
+      data:
+        screen: {fileID: 8800000000000000071}
+        tint: {r: 0.62, g: 0.78, b: 0.8, a: 1}
+        sound: {fileID: 0}
+        soundVolume: 0.3
+        noise: 0.08
+        glow: 0.6
+        duration: 1
+        waitUntilDone: 0
+    - rid: 1121
+      type: {class: TugTowardsScreenStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        screen: {fileID: 8800000000000000071}
+        distance: 0.1
+        tint: 0.35
+        shake: 0.035
+        duration: 1
+    - rid: 1122
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
         seconds: 0.3
-    - rid: 1046
-      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        destination:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000071}
-        offset: {x: 1.1, y: -1.7}
-        speed: 2
-        backwards: 0
-        silent: 0
-    - rid: 1048
-      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        destination:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000061}
-        offset: {x: -9.3, y: -0.64}
-        speed: 2
-        backwards: 0
-        silent: 1
-    - rid: 1049
-      type: {class: LieDownStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        action: 0
-        head: 0
-        getUpDuration: 0.45
-    - rid: 1050
-      type: {class: LieDownStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        action: 0
-        head: 1
-        getUpDuration: 0.45
-    - rid: 1051
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 1
-    - rid: 1052
-      type: {class: LieDownStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        action: 1
-        head: 0
-        getUpDuration: 0.45
-    - rid: 1053
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.4
-    - rid: 1054
-      type: {class: LieDownStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        action: 1
-        head: 0
-        getUpDuration: 0.45
-    - rid: 1055
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 4
-        target:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1056
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        facing: 4
-        target:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-    - rid: 1057
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.6
-    - rid: 1058
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.4
-    - rid: 1059
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 4
-        target:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000301}
-    - rid: 1061
-      type: {class: SetActiveStep, ns: , asm: Assembly-CSharp}
-      data:
-        target: {fileID: 8800000000000000310}
-        active: 1
-    - rid: 1062
-      type: {class: SoundStep, ns: , asm: Assembly-CSharp}
-      data:
-        channel: 0
-        clip: {fileID: 8300000, guid: 34637a7a63e46694c973cdaefd34204f, type: 3}
-        volume: 1
-        fadeDuration: 1
-    - rid: 1107
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.3
-    - rid: 1108
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.4
-    - rid: 1104
-      type: {class: SetActiveStep, ns: , asm: Assembly-CSharp}
-      data:
-        target: {fileID: 8800000000000000400}
-        active: 0
-    - rid: 1111
-      type: {class: SoundStep, ns: , asm: Assembly-CSharp}
-      data:
-        channel: 0
-        clip: {fileID: 8300000, guid: 90699056261fefe4f90a92ebdac599e6, type: 3}
-        volume: 1
-        fadeDuration: 1
-    - rid: 1106
-      type: {class: PlayAnimationStep, ns: , asm: Assembly-CSharp}
-      data:
-        animator: {fileID: 8800000000000000403}
-        state: Noise
-    - rid: 1063
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.35
-    - rid: 1065
-      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        destination:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000071}
-        offset: {x: -2.2, y: -0.95}
-        speed: 1.2
-        backwards: 1
-        silent: 0
-    - rid: 1066
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.4
-    - rid: 1067
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
-        continueDialogue: 1
-    - rid: 1068
-      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        destination:
-          type: 2
-          npc: {fileID: 0}
-          sceneObject: {fileID: 8800000000000000071}
-        offset: {x: -1.1, y: -1.7}
-        speed: 2
-        backwards: 0
-        silent: 0
-    - rid: 1069
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 1
-        target:
-          type: 1
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1072
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        facing: 1
-        target:
-          type: 1
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-    - rid: 1073
-      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
-      data:
-        steps:
-        - rid: 1034
-        - rid: 1068
-    - rid: 1074
-      type: {class: SoundStep, ns: , asm: Assembly-CSharp}
-      data:
-        channel: 0
-        clip: {fileID: 8300000, guid: 3b1a3ddf978e2ca42b4c2a61b9aee03d, type: 3}
-        volume: 1
-        fadeDuration: 1
-    - rid: 1075
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 1.5
-    - rid: 1076
-      type: {class: SoundStep, ns: , asm: Assembly-CSharp}
-      data:
-        channel: 0
-        clip: {fileID: 8300000, guid: 5c2b888bc5367874f88a45cac64d3761, type: 3}
-        volume: 1
-        fadeDuration: 1
-    - rid: 1077
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 1.2
-    - rid: 1095
-      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        seconds: 0.8
-        hop: 1
-        hopHeight: 0.35
-        hopDuration: 0.25
-    - rid: 1096
-      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        seconds: 0.8
-        hop: 1
-        hopHeight: 0.35
-        hopDuration: 0.25
-    - rid: 1097
-      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
-      data:
-        steps:
-        - rid: 1095
-        - rid: 1096
-    - rid: 1078
+    - rid: 1123
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         dialogue: {fileID: 11400000, guid: 1ea1b8bc23204560946038f16981d845, type: 2}
@@ -872172,10 +872187,14 @@ Transform:
   m_GameObject: {fileID: 8800000000000000030}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -92.3, y: -66.54, z: 0}
+  m_LocalPosition: {x: -83.66, y: -65.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8800000000000000521}
+  - {fileID: 8800000000000000523}
+  - {fileID: 8800000000000000525}
+  - {fileID: 8800000000000000527}
   m_Father: {fileID: 8800000000000000002}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8800000000000000032
@@ -872212,7 +872231,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -1.5661316}
+  m_Offset: {x: 0, y: -1.9520779}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -872222,7 +872241,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4.3056564, y: 15.850327}
+  m_Size: {x: 4.3056564, y: 16.930973}
   m_EdgeRadius: 0
 --- !u!114 &8800000000000000033
 MonoBehaviour:
@@ -872245,15 +872264,802 @@ MonoBehaviour:
     questStatus: 1
     invert: 0
   steps:
+  - rid: 12
+  - rid: 13
   - rid: 1
+  - rid: 5
+  - rid: 14
+  - rid: 15
+  - rid: 8
+  - rid: 9
+  - rid: 19
+  - rid: 2
+  - rid: 3
+  - rid: 4
+  - rid: 32
+  - rid: 33
+  - rid: 34
+  - rid: 35
+  - rid: 36
   references:
     version: 2
     RefIds:
+    - rid: 12
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 3
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000527}
+    - rid: 13
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 3
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000527}
+    - rid: 14
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 0
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 15
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.5
+    - rid: 19
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 20
+        - rid: 21
+    - rid: 20
+      type: {class: LookAroundStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        glances: 3
+        startRight: 1
+        interval: 0.4
+        faceAtEnd: {fileID: 0}
+    - rid: 21
+      type: {class: LookAroundStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        glances: 2
+        startRight: 0
+        interval: 0.5
+        faceAtEnd: {fileID: 0}
     - rid: 1
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
         continueDialogue: 0
+    - rid: 5
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 6
+        - rid: 7
+    - rid: 6
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000527}
+        offset: {x: 0, y: 0}
+        maxDistance: 2.5
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 7
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000527}
+        offset: {x: -1.2, y: 0.6}
+        maxDistance: 2.5
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 8
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 9
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 10
+        - rid: 11
+    - rid: 10
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000527}
+        offset: {x: 0, y: 0}
+        maxDistance: 2.5
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 11
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000527}
+        offset: {x: -1.2, y: 0.6}
+        maxDistance: 2.5
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 2
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.2
+    - rid: 3
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 4
+      type: {class: PlayerAboveOrBelowStep, ns: , asm: Assembly-CSharp}
+      data:
+        point: {fileID: 8800000000000000521}
+        whenBelow:
+        - rid: 100
+        - rid: 101
+        - rid: 102
+        - rid: 103
+        - rid: 104
+        - rid: 105
+        - rid: 106
+        - rid: 109
+        - rid: 112
+        - rid: 113
+        - rid: 114
+        - rid: 115
+        - rid: 116
+        - rid: 117
+        - rid: 118
+        - rid: 121
+        - rid: 122
+        - rid: 123
+        - rid: 124
+        - rid: 125
+        - rid: 126
+        whenAbove:
+        - rid: 200
+        - rid: 201
+        - rid: 202
+        - rid: 203
+        - rid: 204
+        - rid: 205
+        - rid: 206
+        - rid: 209
+        - rid: 212
+        - rid: 213
+        - rid: 214
+        - rid: 215
+        - rid: 216
+        - rid: 217
+        - rid: 218
+        - rid: 221
+        - rid: 222
+        - rid: 223
+        - rid: 224
+        - rid: 225
+        - rid: 226
+    - rid: 32
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.6
+    - rid: 33
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 34
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 35
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 36
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 100
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 1
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 101
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 1
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 102
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.6
+    - rid: 103
+      type: {class: TeleportStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000523}
+        offset: {x: 0, y: 1.5}
+    - rid: 104
+      type: {class: SetActiveStep, ns: , asm: Assembly-CSharp}
+      data:
+        target: {fileID: 8800000000000000510}
+        active: 1
+    - rid: 105
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        offset: {x: -0.3, y: 3.5}
+        speed: 6
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 106
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 107
+        - rid: 108
+    - rid: 107
+      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        seconds: 0.8
+        hop: 1
+        hopHeight: 0.35
+        hopDuration: 0.25
+    - rid: 108
+      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        seconds: 0.8
+        hop: 1
+        hopHeight: 0.35
+        hopDuration: 0.25
+    - rid: 109
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 110
+        - rid: 111
+    - rid: 110
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        offset: {x: 0, y: 1.2}
+        speed: 5
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 111
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        offset: {x: 0, y: -1}
+        speed: 2
+        backwards: 1
+        sideways: 0
+        silent: 0
+    - rid: 112
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+    - rid: 113
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 114
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 115
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 116
+      type: {class: StandoffStep, ns: , asm: Assembly-CSharp}
+      data:
+        attacker:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        defender:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        duration: 2.4
+        snap: 0.5
+        scare: 0.35
+        pace: 1.25
+    - rid: 117
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 118
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 119
+        - rid: 120
+    - rid: 119
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        offset: {x: 0, y: 0.4}
+        speed: 4
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 120
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        offset: {x: 0, y: 0.8}
+        speed: 4
+        backwards: 1
+        sideways: 0
+        silent: 0
+    - rid: 121
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 122
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 123
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        offset: {x: 0, y: 1}
+        speed: 1.2
+        backwards: 1
+        sideways: 0
+        silent: 0
+    - rid: 124
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 125
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000523}
+        offset: {x: 0, y: 1.5}
+        speed: 7
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 126
+      type: {class: SetActiveStep, ns: , asm: Assembly-CSharp}
+      data:
+        target: {fileID: 8800000000000000510}
+        active: 0
+    - rid: 200
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 0
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 201
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 0
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 202
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.6
+    - rid: 203
+      type: {class: TeleportStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000525}
+        offset: {x: 0, y: -1.5}
+    - rid: 204
+      type: {class: SetActiveStep, ns: , asm: Assembly-CSharp}
+      data:
+        target: {fileID: 8800000000000000510}
+        active: 1
+    - rid: 205
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        offset: {x: -0.3, y: -4.2}
+        speed: 6
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 206
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 207
+        - rid: 208
+    - rid: 207
+      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        seconds: 0.8
+        hop: 1
+        hopHeight: 0.35
+        hopDuration: 0.25
+    - rid: 208
+      type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        seconds: 0.8
+        hop: 1
+        hopHeight: 0.35
+        hopDuration: 0.25
+    - rid: 209
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 210
+        - rid: 211
+    - rid: 210
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        offset: {x: 0, y: -1.2}
+        speed: 5
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 211
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        offset: {x: 0, y: 1}
+        speed: 2
+        backwards: 1
+        sideways: 0
+        silent: 0
+    - rid: 212
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+    - rid: 213
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 214
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.4
+    - rid: 215
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 216
+      type: {class: StandoffStep, ns: , asm: Assembly-CSharp}
+      data:
+        attacker:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        defender:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        duration: 2.4
+        snap: 0.5
+        scare: 0.35
+        pace: 1.25
+    - rid: 217
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 218
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 219
+        - rid: 220
+    - rid: 219
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        offset: {x: 0, y: -0.4}
+        speed: 4
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 220
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        offset: {x: 0, y: -0.8}
+        speed: 4
+        backwards: 1
+        sideways: 0
+        silent: 0
+    - rid: 221
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 222
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 223
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        offset: {x: 0, y: -1}
+        speed: 1.2
+        backwards: 1
+        sideways: 0
+        silent: 0
+    - rid: 224
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
+        continueDialogue: 1
+    - rid: 225
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000525}
+        offset: {x: 0, y: -1.5}
+        speed: 7
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 226
+      type: {class: SetActiveStep, ns: , asm: Assembly-CSharp}
+      data:
+        target: {fileID: 8800000000000000510}
+        active: 0
 --- !u!1 &8800000000000000040
 GameObject:
   m_ObjectHideFlags: 0
@@ -872480,7 +873286,7 @@ Transform:
   m_GameObject: {fileID: 8800000000000000090}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -147.71, y: 2.61, z: 0}
+  m_LocalPosition: {x: -102.84, y: -66.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -872498,7 +873304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493cf967a6f21d2cf29d863e37561852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebugTestStart
-  useTestStart: 0
+  useTestStart: 1
   storyFlags:
   - a1_home_intro
   - a1_forest_wakeup
@@ -872810,12 +873616,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8800000000000000400}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.61821747, y: 9.999, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0010004044, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1487113974}
+  m_Father: {fileID: 909913746}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8800000000000000402
 SpriteRenderer:
@@ -872898,6 +873704,422 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &8800000000000000500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800000000000000501}
+  - component: {fileID: 8800000000000000502}
+  - component: {fileID: 8800000000000000503}
+  - component: {fileID: 8800000000000000504}
+  m_Layer: 0
+  m_Name: Trigger_BrokenBridge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8800000000000000501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000500}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -43.5, y: -69.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8800000000000000002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &8800000000000000502
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000500}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -6, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 5, y: 6}
+  m_EdgeRadius: 0
+--- !u!61 &8800000000000000503
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000500}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 6, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 5, y: 6}
+  m_EdgeRadius: 0
+--- !u!114 &8800000000000000504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b36d6f0a034308a70a7a3693b00d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryEvent
+  doneFlag: a1_broken_bridge
+  start: 1
+  conditions:
+  - type: 0
+    storyFlag: a1_forest_wakeup
+    quest: {fileID: 0}
+    questStatus: 1
+    invert: 0
+  steps:
+  - rid: 1
+  - rid: 2
+  - rid: 3
+  - rid: 4
+  references:
+    version: 2
+    RefIds:
+    - rid: 1
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 2
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 3
+      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
+      data:
+        seconds: 0.3
+    - rid: 4
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        dialogue: {fileID: 11400000, guid: 94945537a93f403da2dd57c85b84973a, type: 2}
+        continueDialogue: 0
+--- !u!1 &8800000000000000510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800000000000000511}
+  - component: {fileID: 8800000000000000512}
+  - component: {fileID: 8800000000000000513}
+  m_Layer: 0
+  m_Name: StoryWolf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8800000000000000511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000510}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -100, y: -66.5, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8800000000000000002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &8800000000000000512
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000510}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: 22c2c4f974c8876429c286979b202856, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 9.02, y: 5.43}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 1
+--- !u!114 &8800000000000000513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd65c8924db5441d87010f94028378c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlipSpriteToFace
+  spriteFacesLeft: 1
+--- !u!1 &8800000000000000520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800000000000000521}
+  m_Layer: 0
+  m_Name: WolfZoneMiddle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8800000000000000521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000520}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.5661316, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8800000000000000031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8800000000000000522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800000000000000523}
+  m_Layer: 0
+  m_Name: WolfZoneTopEdge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8800000000000000523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000522}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 6.359032, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8800000000000000031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8800000000000000524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800000000000000525}
+  m_Layer: 0
+  m_Name: WolfZoneBottomEdge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8800000000000000525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000524}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -9.491295, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8800000000000000031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8800000000000000526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800000000000000527}
+  m_Layer: 0
+  m_Name: WolfPathAhead
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8800000000000000527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800000000000000526}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.16, y: 2.39, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8800000000000000031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

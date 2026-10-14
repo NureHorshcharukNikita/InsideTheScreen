@@ -83,8 +83,18 @@ public sealed class NpcInteraction : MonoBehaviour
         if (!playerNearby || npc == null)
             return;
 
+        // Nothing to press while a dialogue, a story event or a menu has the game: the prompt and
+        // any overhead line go, and the prompt comes back after.
         if (!GameStateManager.IsGameplay)
+        {
+            if (promptRoot != null && (PromptShown || overheadPlaying || promptReturnPending))
+            {
+                StopOverheadRoutine();
+                HideSpeechRoot();
+            }
+
             return;
+        }
 
         bool idle = !overheadPlaying && !promptReturnPending && promptRoot != null;
         if (GetFocused() != this)

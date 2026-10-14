@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Look, Dad... there's a path.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Great. Let's follow it. Better than standing here.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Great. Let's follow it. Better than standing here.", nextLineIndex: -1, endDialogueAfterLine: 1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "There are tracks on the ground...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Stay close.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Stay close.", nextLineIndex: -1, endDialogueAfterLine: 1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Did you hear that crack?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Something's rustling to our left.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Something's rustling in the bushes ahead.", nextLineIndex: -1, endDialogueAfterLine: 1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It's... a wolf!", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Keep your distance and do as I say.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It's charging!", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Get back!", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Go away!", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It's backing off...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Keep your distance and do as I say.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It's charging!", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Get back!", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Go away!", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It's backing off...", nextLineIndex: -1, endDialogueAfterLine: 1}
   - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "That wolf was too thin... and wild. It looks like it hasn't seen anyone in a long time.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It could have killed us...", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Dad... are you hurt?", nextLineIndex: -1}

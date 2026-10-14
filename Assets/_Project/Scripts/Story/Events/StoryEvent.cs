@@ -90,6 +90,7 @@ public sealed class StoryEvent : MonoBehaviour
 
         hasControl = true;
         GameStateManager.SetState(GameState.Dialogue);
+        context.KeepCamerasMoving();
         StartCoroutine(PlaySteps());
     }
 

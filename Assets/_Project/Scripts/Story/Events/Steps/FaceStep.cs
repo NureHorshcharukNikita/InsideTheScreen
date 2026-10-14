@@ -34,6 +34,7 @@ public sealed class FaceStep : StoryStep
 
         context.TakeControl(turner);
         CharacterWalkAnimation.Apply(StoryEventContext.GetAnimator(turner), false, direction);
+        FlipSpriteToFace.Apply(turner, direction);
     }
 
     private Vector2 GetDirection(StoryEventContext context, Transform turner)

@@ -12,6 +12,8 @@ public sealed class WalkToStep : StoryStep
     [SerializeField] private StoryTarget destination = new(StoryTargetType.SceneObject);
     [Tooltip("Added to the destination, e.g. to stop next to a character instead of on top of them.")]
     [SerializeField] private Vector2 offset;
+    [Tooltip("Stops after this far on the way, in units; 0 = goes all the way. E.g. a few steps towards a path, wherever they start.")]
+    [SerializeField, Min(0f)] private float maxDistance;
     [SerializeField, Min(0.1f)] private float speed = 2f;
     [Tooltip("Steps back: faces away from where it walks, e.g. backing away from the TV while watching it.")]
     [SerializeField] private bool backwards;
@@ -39,9 +41,13 @@ public sealed class WalkToStep : StoryStep
 
         Vector3 end = target.position + (Vector3)offset;
         end.z = walker.position.z;
+        if (maxDistance > 0f && (end - walker.position).magnitude > maxDistance)
+            end = walker.position + (end - walker.position).normalized * maxDistance;
         Vector2 facing = end - walker.position;
         if (backwards)
             facing = -facing;
+        if (!sideways)
+            FlipSpriteToFace.Apply(walker, facing);
 
         while ((walker.position - end).sqrMagnitude > 0.0001f)
         {

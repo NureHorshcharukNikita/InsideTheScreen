@@ -17,6 +17,8 @@ public sealed class DialogueLine
     public string text;
 
     [Header("Flow")]
+    [Tooltip("Said only when all of these are met; otherwise the dialogue goes on as if the line were not there. Empty = always said.")]
+    public List<StoryCondition> conditions = new();
     [Tooltip("Line to show after this line. -1 continues to the next line.")]
     public int nextLineIndex = -1;
     public bool endDialogueAfterLine;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,6 +11,9 @@ public sealed class StoryEventContext
 {
     // The characters story events are moving right now, all events together.
     private static readonly HashSet<Transform> ControlledActors = new();
+    // Cameras kept moving by the events playing (see KeepCamerasMoving), with how they were before.
+    private static readonly Dictionary<CinemachineBrain, bool> HeldCameras = new();
+    private static int camerasHeldBy;
 
     private readonly MonoBehaviour runner;
     private readonly Dictionary<Transform, ActorState> actors = new();
@@ -17,6 +21,7 @@ public sealed class StoryEventContext
     private readonly List<Action> cleanups = new();
     private readonly Dictionary<DialogueData, int> dialogueStops = new();
     private Transform player;
+    private bool holdsCameras;
 
     public StoryEventContext(MonoBehaviour runner)
     {
@@ -174,6 +179,44 @@ public sealed class StoryEventContext
         foreach (Action cleanup in cleanups)
             cleanup();
         cleanups.Clear();
+
+        ReleaseCameras();
+    }
+
+    // The game is paused while an event plays (Time.timeScale 0), and so would be the cameras: they
+    // follow on unscaled time meanwhile, keeping up with the characters the event walks. Put back
+    // when the last event playing is released.
+    public void KeepCamerasMoving()
+    {
+        if (holdsCameras)
+            return;
+
+        holdsCameras = true;
+        if (camerasHeldBy++ > 0)
+            return;
+
+        foreach (CinemachineBrain brain in Object.FindObjectsByType<CinemachineBrain>(FindObjectsSortMode.None))
+        {
+            HeldCameras[brain] = brain.IgnoreTimeScale;
+            brain.IgnoreTimeScale = true;
+        }
+    }
+
+    private void ReleaseCameras()
+    {
+        if (!holdsCameras)
+            return;
+
+        holdsCameras = false;
+        if (--camerasHeldBy > 0)
+            return;
+
+        foreach (KeyValuePair<CinemachineBrain, bool> held in HeldCameras)
+        {
+            if (held.Key != null)
+                held.Key.IgnoreTimeScale = held.Value;
+        }
+        HeldCameras.Clear();
     }
 
     public static Animator GetAnimator(Transform actor)

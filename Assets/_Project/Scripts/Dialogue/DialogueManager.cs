@@ -104,13 +104,14 @@ public sealed class DialogueManager : MonoBehaviour
         DialogueData dialogue = npc.SelectDialogue(out NpcDialogueEntry selectedEntry);
         AddDialogueDataLines(dialogue);
 
-        if (activeLines.Count == 0)
+        int firstLine = SkipUnsaidLines(0);
+        if (firstLine < 0 || firstLine >= activeLines.Count)
             return false;
 
         activeNpc = npc;
         activeDialogueEntry = selectedEntry;
         activeNpcKey = npc.PersistenceKey;
-        activeLineIndex = 0;
+        activeLineIndex = firstLine;
         CollectReachableLines();
         dialogueActive = true;
         previousState = GameStateManager.State;
@@ -148,6 +149,10 @@ public sealed class DialogueManager : MonoBehaviour
         if (startLine < 0 || startLine >= activeLines.Count)
             return false;
 
+        int firstLine = SkipUnsaidLines(startLine);
+        if (firstLine < 0 || firstLine >= activeLines.Count)
+            return false;
+
         if (endActions != null)
             deferredActions.AddRange(endActions);
 
@@ -155,7 +160,7 @@ public sealed class DialogueManager : MonoBehaviour
         activeNpc = null;
         activeDialogueEntry = null;
         activeNpcKey = null;
-        activeLineIndex = startLine;
+        activeLineIndex = firstLine;
         CollectReachableLines();
         dialogueActive = true;
         previousState = GameStateManager.State;
@@ -216,6 +221,7 @@ public sealed class DialogueManager : MonoBehaviour
 
     private void GoToLine(int lineIndex)
     {
+        lineIndex = SkipUnsaidLines(lineIndex);
         if (lineIndex < 0 || lineIndex >= activeLines.Count)
         {
             EndDialogue(lineIndex);
@@ -239,12 +245,34 @@ public sealed class DialogueManager : MonoBehaviour
         return choice.nextLineIndex < 0 ? GetNextLineIndex(lineIndex) : choice.nextLineIndex;
     }
 
+    // A line whose conditions are not met is passed over as if it were not there, e.g. a hint
+    // that only makes sense until a quest is done.
+    private static bool IsSaid(DialogueLine line)
+    {
+        return line != null && StoryCondition.AreMet(line.conditions);
+    }
+
+    // The line itself, or the first one after it that is said. Out of range: no more lines.
+    private int SkipUnsaidLines(int lineIndex)
+    {
+        for (int skipped = 0; skipped <= activeLines.Count; skipped++)
+        {
+            if (lineIndex < 0 || lineIndex >= activeLines.Count || IsSaid(activeLines[lineIndex]))
+                return lineIndex;
+
+            lineIndex = GetNextLineIndex(lineIndex);
+        }
+
+        return -1;
+    }
+
     // Follows the flow from the first line (next lines and choices) until the lines that end the
     // dialogue.
     private void CollectReachableLines()
     {
         reachableLines.Clear();
         bool[] reached = new bool[activeLines.Count];
+        bool[] said = new bool[activeLines.Count];
         Stack<int> pending = new();
         pending.Push(activeLineIndex);
 
@@ -255,6 +283,13 @@ public sealed class DialogueManager : MonoBehaviour
                 continue;
 
             reached[index] = true;
+            if (!IsSaid(activeLines[index]))
+            {
+                pending.Push(GetNextLineIndex(index));
+                continue;
+            }
+
+            said[index] = true;
             List<DialogueChoice> choices = GetValidChoices(activeLines[index]);
             if (choices.Count > 0)
             {
@@ -270,9 +305,9 @@ public sealed class DialogueManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < reached.Length; i++)
+        for (int i = 0; i < said.Length; i++)
         {
-            if (reached[i])
+            if (said[i])
                 reachableLines.Add(activeLines[i]);
         }
     }

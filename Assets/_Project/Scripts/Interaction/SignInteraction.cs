@@ -17,6 +17,7 @@ public sealed class SignInteraction : MonoBehaviour
     private InteractionPrompt promptView;
     private bool playerNearby;
     private bool messageVisible;
+    private bool hiddenWhileBusy;
     private Coroutine fadeRoutine;
 
     private void Reset()
@@ -32,8 +33,27 @@ public sealed class SignInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (!playerNearby || !GameStateManager.IsGameplay)
+        if (!playerNearby)
             return;
+
+        // Nothing to press while a dialogue, a story event or a menu has the game: the prompt
+        // goes and comes back after.
+        if (!GameStateManager.IsGameplay)
+        {
+            if (!hiddenWhileBusy)
+            {
+                hiddenWhileBusy = true;
+                SetPromptVisible(false);
+            }
+
+            return;
+        }
+
+        if (hiddenWhileBusy)
+        {
+            hiddenWhileBusy = false;
+            ShowReadPrompt();
+        }
 
         if (GameInputSettings.GetKeyDown(GameInputAction.Interact))
             ShowMessage();
@@ -51,6 +71,24 @@ public sealed class SignInteraction : MonoBehaviour
             return;
 
         playerNearby = true;
+        hiddenWhileBusy = !GameStateManager.IsGameplay;
+        if (!hiddenWhileBusy)
+            ShowReadPrompt();
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+            return;
+
+        playerNearby = false;
+        messageVisible = false;
+        hiddenWhileBusy = false;
+        SetPromptVisible(false);
+    }
+
+    private void ShowReadPrompt()
+    {
         messageVisible = false;
         string keyName = GameInputSettings.GetDisplayName(GameInputAction.Interact);
         if (PromptView != null)
@@ -62,16 +100,6 @@ public sealed class SignInteraction : MonoBehaviour
         {
             ShowPromptText($"{keyName} - {readAction}");
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (!other.CompareTag("Player"))
-            return;
-
-        playerNearby = false;
-        messageVisible = false;
-        SetPromptVisible(false);
     }
 
     private void ShowMessage()
