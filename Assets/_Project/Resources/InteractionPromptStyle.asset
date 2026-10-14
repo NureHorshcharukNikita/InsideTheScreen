@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e280bf4c034d238132cbe296d80b0e, type: 3}
+  m_Name: InteractionPromptStyle
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionPromptStyle
+  keySprite: {fileID: 21300000, guid: 134a618b629fa0e439583a59d6e1556c, type: 3}
+  keyHeight: 60
+  keyFontSize: 34
+  keyTextColor: {r: 0.95, g: 0.93, b: 0.86, a: 1}
+  keyTextPadding: 18
+  panelSprite: {fileID: 21300000, guid: f911fa9878fb41dfabc2b565dd58c152, type: 3}
+  panelColor: {r: 1, g: 1, b: 1, a: 1}
+  panelHeight: 46
+  textGap: 10
+  panelPadding: 20
+  messagePadding: 10
+  fontSize: 32
+  textColor: {r: 1, g: 0.95, b: 0.82, a: 1}
+  actionFormat: '- {0}'
+  showDuration: 0.32
+  hideDuration: 0.24

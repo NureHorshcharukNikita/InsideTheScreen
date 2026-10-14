@@ -10,10 +10,11 @@ public sealed class SignInteraction : MonoBehaviour
     [SerializeField] private CanvasGroup promptCanvasGroup;
     [SerializeField] private SpriteRenderer signSprite;
     [SerializeField] private Vector2 promptOffset = new(0f, 0.25f);
-    [SerializeField] private string interactHintTemplate = "{0} - Read";
+    [SerializeField] private string readAction = "Read";
     [SerializeField] private string message = "Sign text";
     [SerializeField] private float fadeDuration = 0.2f;
 
+    private InteractionPrompt promptView;
     private bool playerNearby;
     private bool messageVisible;
     private Coroutine fadeRoutine;
@@ -51,9 +52,16 @@ public sealed class SignInteraction : MonoBehaviour
 
         playerNearby = true;
         messageVisible = false;
-        ShowPromptText(string.Format(
-            interactHintTemplate,
-            GameInputSettings.GetDisplayName(GameInputAction.Interact)));
+        string keyName = GameInputSettings.GetDisplayName(GameInputAction.Interact);
+        if (PromptView != null)
+        {
+            PromptView.ShowAction(keyName, readAction);
+            ShowPrompt();
+        }
+        else
+        {
+            ShowPromptText($"{keyName} - {readAction}");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -72,20 +80,43 @@ public sealed class SignInteraction : MonoBehaviour
             return;
 
         messageVisible = true;
-        ShowPromptText(message);
+        if (PromptView != null)
+        {
+            PromptView.ShowMessage(message);
+            ShowPrompt();
+        }
+        else
+        {
+            ShowPromptText(message);
+        }
     }
+
+    private InteractionPrompt PromptView => promptView != null ? promptView : promptView = InteractionPrompt.For(promptText);
 
     private void ShowPromptText(string text)
     {
         if (promptText != null)
             promptText.text = text;
 
-        SetPromptVisible(true);
-        PlayFade(0f, 1f);
+        ShowPrompt();
     }
 
+    private void ShowPrompt()
+    {
+        SetPromptVisible(true);
+        if (PromptView == null)
+            PlayFade(0f, 1f);
+    }
+
+    // The prompt plays its way in and out itself (InteractionPrompt); a plain text prompt fades in.
     private void SetPromptVisible(bool visible)
     {
+        if (PromptView != null)
+        {
+            PromptView.SetShown(visible);
+            return;
+        }
+
         if (prompt == null)
             return;
 
@@ -138,6 +169,17 @@ public sealed class SignInteraction : MonoBehaviour
         Vector3 position = prompt.transform.position;
 
         prompt.transform.position = position;
+
+        // The key cap and panel stand on top of the sign, centred.
+        if (PromptView != null)
+        {
+            Bounds shown = PromptView.GetWorldBounds();
+            prompt.transform.position += new Vector3(
+                bounds.center.x + promptOffset.x - shown.center.x,
+                bounds.max.y + promptOffset.y - shown.min.y,
+                0f);
+            return;
+        }
 
         if (promptText == null)
         {

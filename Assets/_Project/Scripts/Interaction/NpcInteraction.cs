@@ -29,6 +29,7 @@ public sealed class NpcInteraction : MonoBehaviour
     [SerializeField] private float overheadLineDuration = 2f;
     [SerializeField] private float promptReturnDelay = 0.45f;
 
+    private InteractionPrompt prompt;
     private bool playerNearby;
     private bool overheadPlaying;
     private bool promptReturnPending;
@@ -88,12 +89,12 @@ public sealed class NpcInteraction : MonoBehaviour
         bool idle = !overheadPlaying && !promptReturnPending && promptRoot != null;
         if (GetFocused() != this)
         {
-            if (idle && promptRoot.activeSelf)
+            if (idle && PromptShown)
                 HideSpeechRoot();
             return;
         }
 
-        if (idle && !promptRoot.activeSelf)
+        if (idle && !PromptShown)
             RefreshPrompt();
 
         if (GameInputSettings.GetKeyDown(GameInputAction.Interact))
@@ -192,16 +193,26 @@ public sealed class NpcInteraction : MonoBehaviour
 
     private void RefreshPrompt()
     {
-        if (promptText != null)
-        {
-            promptText.text = string.Format(
-                interactHintTemplate,
-                GameInputSettings.GetDisplayName(GameInputAction.Interact),
-                GetPromptActionName());
-        }
+        string keyName = GameInputSettings.GetDisplayName(GameInputAction.Interact);
+        string action = GetPromptActionName();
+        if (Prompt != null)
+            Prompt.ShowAction(keyName, action);
+        else if (promptText != null)
+            promptText.text = string.Format(interactHintTemplate, keyName, action);
 
         SetPromptVisible(HasAnyInteraction());
     }
+
+    // An overhead line: on the prompt's panel, without the key.
+    private void ShowLine(string line)
+    {
+        if (Prompt != null)
+            Prompt.ShowMessage(line);
+        else if (promptText != null)
+            promptText.text = line;
+    }
+
+    private InteractionPrompt Prompt => prompt != null ? prompt : prompt = InteractionPrompt.For(promptText);
 
     private bool HasAnyInteraction()
     {
@@ -246,8 +257,7 @@ public sealed class NpcInteraction : MonoBehaviour
             if (string.IsNullOrWhiteSpace(lines[i]))
                 continue;
 
-            if (promptText != null)
-                promptText.text = lines[i];
+            ShowLine(lines[i]);
 
             yield return new WaitForSeconds(overheadLineDuration);
         }
@@ -276,8 +286,15 @@ public sealed class NpcInteraction : MonoBehaviour
         promptReturnPending = false;
     }
 
+    // The prompt plays its way in and out itself (InteractionPrompt).
     private void SetPromptVisible(bool visible)
     {
+        if (Prompt != null)
+        {
+            Prompt.SetShown(visible);
+            return;
+        }
+
         if (promptRoot != null)
             promptRoot.SetActive(visible);
 
@@ -285,9 +302,13 @@ public sealed class NpcInteraction : MonoBehaviour
             promptCanvasGroup.alpha = visible ? 1f : 0f;
     }
 
+    // Shown, or on its way in.
+    private bool PromptShown => Prompt != null ? Prompt.IsShown : promptRoot.activeSelf;
+
     private void HideSpeechRoot()
     {
-        if (promptText != null)
+        // Its text stays while it slides out.
+        if (Prompt == null && promptText != null)
             promptText.text = string.Empty;
 
         SetPromptVisible(false);

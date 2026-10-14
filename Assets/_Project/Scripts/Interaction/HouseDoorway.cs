@@ -20,6 +20,7 @@ public sealed class HouseDoorway : MonoBehaviour
 
     private static bool transitionInProgress;
     private PlayerMovement nearbyPlayer;
+    private InteractionPrompt prompt;
 
     private void Awake()
     {
@@ -68,7 +69,7 @@ public sealed class HouseDoorway : MonoBehaviour
     {
         bool showPrompt = nearbyPlayer != null && GameStateManager.IsGameplay && !transitionInProgress
             && (door == null || !door.IsOpen);
-        if (showPrompt && promptRoot != null && !promptRoot.activeSelf)
+        if (showPrompt && !PromptShown)
             RefreshPrompt();
         SetPromptVisible(showPrompt);
 
@@ -151,12 +152,28 @@ public sealed class HouseDoorway : MonoBehaviour
 
     private void RefreshPrompt()
     {
-        if (promptText != null)
-            promptText.text = $"{GameInputSettings.GetDisplayName(GameInputAction.Interact)} - {(door != null ? openPromptAction : promptAction)}";
+        string keyName = GameInputSettings.GetDisplayName(GameInputAction.Interact);
+        string action = door != null ? openPromptAction : promptAction;
+        if (Prompt != null)
+            Prompt.ShowAction(keyName, action);
+        else if (promptText != null)
+            promptText.text = $"{keyName} - {action}";
     }
 
+    private InteractionPrompt Prompt => prompt != null ? prompt : prompt = InteractionPrompt.For(promptText);
+
+    // Shown, or on its way in.
+    private bool PromptShown => Prompt != null ? Prompt.IsShown : promptRoot != null && promptRoot.activeSelf;
+
+    // The prompt plays its way in and out itself (InteractionPrompt).
     private void SetPromptVisible(bool visible)
     {
+        if (Prompt != null)
+        {
+            Prompt.SetShown(visible);
+            return;
+        }
+
         if (promptRoot != null && promptRoot.activeSelf != visible)
             promptRoot.SetActive(visible);
 
