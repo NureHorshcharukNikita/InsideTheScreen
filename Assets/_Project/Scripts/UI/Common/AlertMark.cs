@@ -1,51 +1,66 @@
-using TMPro;
 using UnityEngine;
 
-// The yellow "!" over a character who notices something: an enemy spotting the player
-// (EnemyChaser), a character in a story event (ExclaimStep). A child of the character, just above
-// its sprite, drawn over it.
-public static class AlertMark
+// The "!" over a character who notices something: an enemy spotting the player (EnemyChaser), a
+// character in a story event (ExclaimStep). The ExclamationMark sprite, as a child of the
+// character just above its sprite, drawn over it. Kept in Resources so both find the sprite
+// without each holding a reference.
+[CreateAssetMenu(menuName = "Game/UI/Alert Mark", fileName = ResourceName)]
+public sealed class AlertMark : ScriptableObject
 {
-    // About 1.5 world units tall, whatever the character's scale.
-    private const float FontSize = 15f;
+    public const string ResourceName = "AlertMark";
+
     // Between the top of the head and the bottom of the "!": about 5 pixels on screen.
     private const float Gap = 0.05f;
 
-    public static TMP_Text Create(Transform character)
+    [SerializeField] private Sprite sprite;
+    [Tooltip("Height of the \"!\" in world units, whatever the character's scale.")]
+    [SerializeField, Min(0.1f)] private float height = 1f;
+
+    private static AlertMark instance;
+
+    private static AlertMark Instance =>
+        instance != null ? instance : instance = Resources.Load<AlertMark>(ResourceName);
+
+    public static GameObject Create(Transform character)
     {
-        SpriteRenderer sprite = character.GetComponentInChildren<SpriteRenderer>();
+        var markObject = new GameObject("AlertMark");
+        Transform markTransform = markObject.transform;
+        markTransform.SetParent(character, false);
 
-        var markObject = new GameObject("AlertMark", typeof(RectTransform));
-        var rect = (RectTransform)markObject.transform;
-        rect.SetParent(character, false);
-        // Pivot at the bottom: the mark grows upwards from just above the head. Centred, the text
-        // box (5 units tall) would put the bottom-aligned "!" inside the character.
-        rect.pivot = new Vector2(0.5f, 0f);
-
-        float top = sprite != null ? sprite.bounds.max.y : character.position.y;
-        rect.position = new Vector3(character.position.x, top + Gap, character.position.z);
-
-        TextMeshPro mark = markObject.AddComponent<TextMeshPro>();
-        mark.text = "!";
-        mark.fontSize = FontSize / Mathf.Max(0.01f, Mathf.Abs(character.lossyScale.y));
-        mark.fontStyle = FontStyles.Bold;
-        mark.alignment = TextAlignmentOptions.Bottom;
-        mark.textWrappingMode = TextWrappingModes.NoWrap;
-        mark.color = new Color(1f, 0.85f, 0.2f);
-        mark.outlineWidth = 0.25f;
-        mark.outlineColor = Color.black;
-
-        if (sprite != null)
+        AlertMark settings = Instance;
+        if (settings == null || settings.sprite == null)
         {
-            mark.sortingLayerID = sprite.sortingLayerID;
-            mark.sortingOrder = sprite.sortingOrder + 1;
+            Debug.LogWarning($"No \"!\" sprite: assign it on Resources/{ResourceName}.", settings);
+            return markObject;
         }
 
-        // The font leaves room under the line for letters like "g": lower the mark by that much,
-        // so the drawn "!" itself starts Gap above the head.
-        mark.ForceMeshUpdate();
-        rect.localPosition -= new Vector3(0f, mark.textBounds.min.y, 0f);
+        SpriteRenderer characterSprite = character.GetComponentInChildren<SpriteRenderer>();
+        SpriteRenderer mark = markObject.AddComponent<SpriteRenderer>();
+        mark.sprite = settings.sprite;
+        if (characterSprite != null)
+        {
+            mark.sortingLayerID = characterSprite.sortingLayerID;
+            mark.sortingOrder = characterSprite.sortingOrder + 1;
+        }
 
-        return mark;
+        // The same size on screen whatever the character's scale, and never mirrored with it.
+        Bounds shape = settings.sprite.bounds;
+        float size = settings.height / shape.size.y;
+        Vector3 characterScale = character.lossyScale;
+        markTransform.localScale = new Vector3(size / NonZero(characterScale.x), size / NonZero(characterScale.y), 1f);
+
+        // Centred over the character, its bottom Gap above the head, wherever the sprite's pivot is.
+        float top = characterSprite != null ? characterSprite.bounds.max.y : character.position.y;
+        markTransform.position = new Vector3(
+            character.position.x - shape.center.x * size,
+            top + Gap - shape.min.y * size,
+            character.position.z);
+
+        return markObject;
+    }
+
+    private static float NonZero(float value)
+    {
+        return Mathf.Approximately(value, 0f) ? 1f : value;
     }
 }

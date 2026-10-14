@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 // Makes an enemy on the map notice the player and run after them, then walk back to its spot once
@@ -41,7 +40,7 @@ public sealed class EnemyChaser : MonoBehaviour
     private Rigidbody2D body;
     private SpriteRenderer spriteRenderer;
     private Collider2D feet;
-    private TMP_Text alertMark;
+    private GameObject alertMark;
     private ContactFilter2D obstacleFilter;
     private PlayerMovement player;
     private Collider2D playerCollider;
@@ -371,7 +370,7 @@ public sealed class EnemyChaser : MonoBehaviour
             alertMark = AlertMark.Create(transform);
         }
 
-        if (alertMark.gameObject.activeSelf != show)
-            alertMark.gameObject.SetActive(show);
+        if (alertMark.activeSelf != show)
+            alertMark.SetActive(show);
     }
 }

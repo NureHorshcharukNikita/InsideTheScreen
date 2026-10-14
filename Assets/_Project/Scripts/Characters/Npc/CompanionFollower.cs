@@ -120,9 +120,10 @@ public sealed class CompanionFollower : MonoBehaviour
 
         if (!GameStateManager.IsGameplay)
         {
-            // Once, so a story event walking the companion is not overridden every frame.
+            // Once, so a story event walking the companion is not overridden every frame. Only stops
+            // the walk: he keeps looking where he looks, e.g. where a story event turned him.
             if (wasGameplay)
-                CharacterWalkAnimation.Apply(animator, false, facing);
+                CharacterWalkAnimation.Apply(animator, false, Vector2.zero);
             wasGameplay = false;
             return;
         }

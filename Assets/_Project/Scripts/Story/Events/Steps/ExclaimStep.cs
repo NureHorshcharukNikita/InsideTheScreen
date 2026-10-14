@@ -23,7 +23,7 @@ public sealed class ExclaimStep : StoryStep
             yield break;
 
         context.TakeControl(character);
-        GameObject mark = AlertMark.Create(character).gameObject;
+        GameObject mark = AlertMark.Create(character);
         // Also gone if the event stops halfway.
         context.OnRelease(() => Remove(mark));
 

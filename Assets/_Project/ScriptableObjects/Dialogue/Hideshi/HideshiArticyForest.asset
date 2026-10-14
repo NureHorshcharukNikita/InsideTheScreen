@@ -13,32 +13,32 @@ MonoBehaviour:
   m_Name: HideshiArticyForest
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Are you all right?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "Yeah... I think so.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "...Where are we?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I don't know.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "One thing's certain: this isn't our apartment...", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "We're in some kind of forest... Of course we're not home...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "At least we're on our feet. That's something.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "This isn't the time for jokes!", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I'm quite serious.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Maybe it's some kind of dream...", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "It doesn't feel like a dream... It's too real.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "I can feel the cold.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "I don't remember anything... Something happened to the screen...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I only remember walking up to the TV... I was going to fix the sound, but something went wrong...", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "It's as if we were pulled inside.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Looks that way.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Whatever happened, we need to find the locals.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "If there's a forest, there should be a settlement nearby.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "You sound far too calm.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Panicking won't help. We need to act!", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "Maybe you're right... But how can anyone stay calm in a situation like this?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "We need to focus on getting home.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "So let's keep our heads for now.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "And it's so quiet here...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Too quiet.", nextLineIndex: -1}
-  - speakerSide: 1
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Are you all right?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Yeah... I think so.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "...Where are we?", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I don't know.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "One thing's certain: this isn't our apartment...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "We're in some kind of forest... Of course we're not home...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "At least we're on our feet. That's something.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "This isn't the time for jokes!", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I'm quite serious.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Maybe it's some kind of dream...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "It doesn't feel like a dream... It's too real.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "I can feel the cold.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "I don't remember anything... Something happened to the screen...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I only remember walking up to the TV... I was going to fix the sound, but something went wrong...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "It's as if we were pulled inside.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Looks that way.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Whatever happened, we need to find the locals.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "If there's a forest, there should be a settlement nearby.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "You sound far too calm.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Panicking won't help. We need to act!", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Maybe you're right... But how can anyone stay calm in a situation like this?", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "We need to focus on getting home.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "So let's keep our heads for now.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "And it's so quiet here...", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Too quiet.", nextLineIndex: -1}
+  - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Let's take a look around first. Carefully."
