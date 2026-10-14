@@ -872273,8 +872273,13 @@ MonoBehaviour:
   - rid: 8
   - rid: 9
   - rid: 19
+  - rid: 22
+  - rid: 23
   - rid: 2
   - rid: 3
+  - rid: 24
+  - rid: 25
+  - rid: 26
   - rid: 4
   - rid: 32
   - rid: 33
@@ -872315,7 +872320,7 @@ MonoBehaviour:
           type: 0
           npc: {fileID: 0}
           sceneObject: {fileID: 0}
-        facing: 0
+        facing: 4
         target:
           type: 1
           npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
@@ -872323,7 +872328,7 @@ MonoBehaviour:
     - rid: 15
       type: {class: WaitStep, ns: , asm: Assembly-CSharp}
       data:
-        seconds: 0.5
+        seconds: 0.3
     - rid: 19
       type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
       data:
@@ -872338,7 +872343,8 @@ MonoBehaviour:
           npc: {fileID: 0}
           sceneObject: {fileID: 0}
         glances: 3
-        startRight: 1
+        axis: 1
+        otherWayFirst: 1
         interval: 0.4
         faceAtEnd: {fileID: 0}
     - rid: 21
@@ -872349,7 +872355,8 @@ MonoBehaviour:
           npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
           sceneObject: {fileID: 0}
         glances: 2
-        startRight: 0
+        axis: 1
+        otherWayFirst: 0
         interval: 0.5
         faceAtEnd: {fileID: 0}
     - rid: 1
@@ -872456,13 +872463,11 @@ MonoBehaviour:
       data:
         point: {fileID: 8800000000000000521}
         whenBelow:
-        - rid: 100
-        - rid: 101
-        - rid: 102
         - rid: 103
         - rid: 104
-        - rid: 105
-        - rid: 106
+        - rid: 130
+        - rid: 131
+        - rid: 132
         - rid: 109
         - rid: 112
         - rid: 113
@@ -872478,13 +872483,11 @@ MonoBehaviour:
         - rid: 125
         - rid: 126
         whenAbove:
-        - rid: 200
-        - rid: 201
-        - rid: 202
         - rid: 203
         - rid: 204
-        - rid: 205
-        - rid: 206
+        - rid: 230
+        - rid: 231
+        - rid: 232
         - rid: 209
         - rid: 212
         - rid: 213
@@ -872536,34 +872539,6 @@ MonoBehaviour:
       data:
         dialogue: {fileID: 11400000, guid: 3d27bf87494e63e0e9d0b7e3af068c5e, type: 2}
         continueDialogue: 1
-    - rid: 100
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        facing: 1
-        target:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-    - rid: 101
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 1
-        target:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-    - rid: 102
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.6
     - rid: 103
       type: {class: TeleportStep, ns: , asm: Assembly-CSharp}
       data:
@@ -872597,12 +872572,6 @@ MonoBehaviour:
         backwards: 0
         sideways: 0
         silent: 0
-    - rid: 106
-      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
-      data:
-        steps:
-        - rid: 107
-        - rid: 108
     - rid: 107
       type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
       data:
@@ -872798,34 +872767,6 @@ MonoBehaviour:
       data:
         target: {fileID: 8800000000000000510}
         active: 0
-    - rid: 200
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 0
-          npc: {fileID: 0}
-          sceneObject: {fileID: 0}
-        facing: 0
-        target:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-    - rid: 201
-      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
-      data:
-        actor:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-        facing: 0
-        target:
-          type: 1
-          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
-          sceneObject: {fileID: 0}
-    - rid: 202
-      type: {class: WaitStep, ns: , asm: Assembly-CSharp}
-      data:
-        seconds: 0.6
     - rid: 203
       type: {class: TeleportStep, ns: , asm: Assembly-CSharp}
       data:
@@ -872859,12 +872800,6 @@ MonoBehaviour:
         backwards: 0
         sideways: 0
         silent: 0
-    - rid: 206
-      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
-      data:
-        steps:
-        - rid: 207
-        - rid: 208
     - rid: 207
       type: {class: ExclaimStep, ns: , asm: Assembly-CSharp}
       data:
@@ -873060,6 +872995,156 @@ MonoBehaviour:
       data:
         target: {fileID: 8800000000000000510}
         active: 0
+    - rid: 22
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 23
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+    - rid: 24
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 3
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 25
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 3
+        target:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+    - rid: 26
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 27
+        - rid: 28
+    - rid: 27
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000527}
+        offset: {x: 0, y: 0}
+        maxDistance: 1.2
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 28
+      type: {class: WalkToStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        destination:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000527}
+        offset: {x: -1.2, y: 0.6}
+        maxDistance: 1.2
+        speed: 2
+        backwards: 0
+        sideways: 0
+        silent: 0
+    - rid: 130
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 105
+        - rid: 107
+        - rid: 108
+    - rid: 131
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+    - rid: 132
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+    - rid: 230
+      type: {class: ParallelStep, ns: , asm: Assembly-CSharp}
+      data:
+        steps:
+        - rid: 205
+        - rid: 207
+        - rid: 208
+    - rid: 231
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 0
+          npc: {fileID: 0}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
+    - rid: 232
+      type: {class: FaceStep, ns: , asm: Assembly-CSharp}
+      data:
+        actor:
+          type: 1
+          npc: {fileID: 11400000, guid: 848c036c895a136498976c79a4addb83, type: 2}
+          sceneObject: {fileID: 0}
+        facing: 4
+        target:
+          type: 2
+          npc: {fileID: 0}
+          sceneObject: {fileID: 8800000000000000511}
 --- !u!1 &8800000000000000040
 GameObject:
   m_ObjectHideFlags: 0
