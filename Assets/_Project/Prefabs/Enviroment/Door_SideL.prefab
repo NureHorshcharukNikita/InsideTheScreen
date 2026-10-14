@@ -158,6 +158,9 @@ MonoBehaviour:
   - {fileID: -8041486243559441995, guid: 4e0b0494a8ef9fe0c7e0b6c9332fa7a2, type: 3}
   frameDuration: 0.08
   blocker: {fileID: 2111143701490217983}
+  openSound: {fileID: 8300000, guid: c5a06dfc7fb40fc4d848c83c9cf0e8e1, type: 3}
+  closeSound: {fileID: 8300000, guid: 1e926320e64279b42856563baccfe9c0, type: 3}
+  soundVolume: 0.7
 --- !u!1 &4176635708622355972
 GameObject:
   m_ObjectHideFlags: 0

@@ -114,9 +114,15 @@ public sealed class CompanionFollower : MonoBehaviour
 
     private void Update()
     {
+        bool wasFollowing = following;
         SetFollowing(StoryFlagManager.HasFlag(followAfterStoryFlag));
         if (!following || !TryFindPlayer())
             return;
+
+        // Sets off far from the player, e.g. a debug start inside the house while he stands outside,
+        // or a loaded save: at their side at once, before the frame is drawn, not a physics step later.
+        if (!wasFollowing && Vector2.Distance(FeetCenter, PlayerFeetCenter) > teleportDistance)
+            TeleportNearPlayer();
 
         if (!GameStateManager.IsGameplay)
         {

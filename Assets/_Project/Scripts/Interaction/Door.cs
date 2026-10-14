@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Swings open by flipping through sprite frames from fully closed to fully open, and closes once
-// everyone has left its trigger area. Either opens by itself when someone walks up, or waits for
+// Swings open by flipping through sprite frames from fully closed to fully open, and closes a moment
+// after everyone has left its trigger area, so someone right behind (Hideshi following Haru) finds
+// it still open. Either opens by itself when someone walks up, or waits for
 // Open() (e.g. a doorway asking the player to press Interact first). A character a story event is
 // walking opens it either way: they cannot press Interact.
 // Someone is the player or any NPC, the companion included. Checked by position every frame rather
@@ -22,6 +23,18 @@ public sealed class Door : MonoBehaviour
     [SerializeField] private bool opensAutomatically = true;
     [Tooltip("How far (in units) the player's center must get past the doorway's near edge before walking through counts.")]
     [SerializeField] private float walkThroughDepth = 1f;
+    [Tooltip("How long it stays open after everyone has left. Someone walking up meanwhile keeps it open.")]
+    [SerializeField, Min(0f)] private float closeDelay = 0.6f;
+
+    [Header("Sound")]
+    [Tooltip("Played when a shut door starts opening, while the door is on screen.")]
+    [SerializeField] private AudioClip openSound;
+    [Tooltip("Played when a fully open door starts closing. Empty = the open sound.")]
+    [SerializeField] private AudioClip closeSound;
+    [SerializeField, Range(0f, 1f)] private float soundVolume = 0.7f;
+
+    // How far off screen a door is still heard, as a share of the screen.
+    private const float HeardOffScreen = 0.1f;
 
     // Raised once per opening when the player steps deep enough into the open doorway (the blocker area).
     public event Action<Transform> PlayerWalkedThrough;
@@ -32,6 +45,8 @@ public sealed class Door : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D area;
+    // Its own, so a closing sound can be cut short when someone catches the door.
+    private AudioSource audioSource;
     private Coroutine swingRoutine;
     private int currentFrame;
     private Collider2D playerBody;
@@ -43,6 +58,9 @@ public sealed class Door : MonoBehaviour
     private bool walkThroughReported;
     // Which side of the doorway the player approached from (+1/-1 along its thin axis); 0 until known.
     private int entrySide;
+    // Everyone has left: closes at closeAt (GameClock) unless someone comes back first.
+    private bool closePending;
+    private float closeAt;
 
     private void Reset()
     {
@@ -63,6 +81,10 @@ public sealed class Door : MonoBehaviour
         currentFrame = 0;
         spriteRenderer.sprite = frames[0];
         SetPassable(false);
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f;
     }
 
     private void Start()
@@ -98,10 +120,22 @@ public sealed class Door : MonoBehaviour
         if (!someoneNear)
             heldShut = false;
 
+        if (someoneNear)
+            closePending = false;
+        else if (someoneWasNear)
+        {
+            closePending = true;
+            closeAt = GameClock.Now + closeDelay;
+        }
+
         if (someoneOpens && !heldShut)
             Open();
-        else if (!someoneNear && someoneWasNear)
+        else if (closePending && GameClock.Now >= closeAt)
+        {
+            closePending = false;
             Close();
+        }
+
         someoneWasNear = someoneNear;
 
         TrackWalkThrough();
@@ -113,6 +147,7 @@ public sealed class Door : MonoBehaviour
     public void Shut()
     {
         heldShut = true;
+        closePending = false;
         Close();
     }
 
@@ -167,7 +202,50 @@ public sealed class Door : MonoBehaviour
         walkThroughReported = false;
         entrySide = 0;
         SetPassable(IsOpen);
+        PlaySwingSound();
         swingRoutine = StartCoroutine(Swing(targetFrame));
+    }
+
+    // Only a whole swing sounds. Opening: from shut, once its closing sound is over; caught while
+    // closing, it never shut, so it opens quietly and the closing sound stops. Closing: from fully
+    // open; caught while still opening, it closes quietly.
+    private void PlaySwingSound()
+    {
+        if (IsOpen)
+        {
+            if (currentFrame != 0)
+                audioSource.Stop();
+            else if (!audioSource.isPlaying)
+                PlaySound(openSound);
+        }
+        else if (currentFrame == frames.Length - 1)
+        {
+            PlaySound(closeSound != null ? closeSound : openSound);
+        }
+    }
+
+    // Doors far away, e.g. an NPC walking through one elsewhere in the village, stay quiet.
+    // Counts as sound effects for the volume.
+    private void PlaySound(AudioClip sound)
+    {
+        if (sound == null || !IsOnScreen())
+            return;
+
+        AudioManager manager = AudioManager.Instance;
+        audioSource.volume = soundVolume * (manager != null ? manager.GetOutputVolume(AudioChannel.Sfx) : 1f);
+        audioSource.clip = sound;
+        audioSource.Play();
+    }
+
+    private bool IsOnScreen()
+    {
+        Camera view = Camera.main;
+        if (view == null)
+            return true;
+
+        Vector3 point = view.WorldToViewportPoint(transform.position);
+        return point.x > -HeardOffScreen && point.x < 1f + HeardOffScreen
+            && point.y > -HeardOffScreen && point.y < 1f + HeardOffScreen;
     }
 
     // On the GameClock: it also swings during story events, while the game is paused.
