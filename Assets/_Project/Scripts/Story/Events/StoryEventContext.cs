@@ -15,6 +15,7 @@ public sealed class StoryEventContext
     private readonly Dictionary<Transform, ActorState> actors = new();
     private readonly List<Component> effects = new();
     private readonly List<Action> cleanups = new();
+    private readonly Dictionary<DialogueData, int> dialogueStops = new();
     private Transform player;
 
     public StoryEventContext(MonoBehaviour runner)
@@ -131,6 +132,19 @@ public sealed class StoryEventContext
         }
 
         return null;
+    }
+
+    // A dialogue played in parts (Dialogue steps with Continue): the line the next part starts
+    // from, 0 before the first part.
+    public int GetDialogueStop(DialogueData dialogue)
+    {
+        return dialogue != null && dialogueStops.TryGetValue(dialogue, out int line) ? line : 0;
+    }
+
+    public void SetDialogueStop(DialogueData dialogue, int line)
+    {
+        if (dialogue != null)
+            dialogueStops[dialogue] = line;
     }
 
     // Runs when the event ends, e.g. to clear a fade the steps left on screen.

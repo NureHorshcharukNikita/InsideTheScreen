@@ -47,6 +47,7 @@ public sealed class PullIntoScreenStep : StoryStep
         {
             screenStatic.SetNoise(noiseAtEnd, pullDuration);
             screenStatic.SetGlow(glowAtEnd, pullDuration);
+            screenStatic.Whoosh(pullDuration);
         }
 
         for (float elapsed = 0f; elapsed < pullDuration; elapsed += GameClock.DeltaTime)

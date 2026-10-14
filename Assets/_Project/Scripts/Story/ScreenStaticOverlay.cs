@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // TV static for the intro: soft-tinted CRT noise with scanlines over the whole screen and a
-// pulsing glow on the TV itself. Built from code, so the scene needs no extra assets.
-// Story event steps (Screen Static, Pull Into Screen) set where the noise and glow should go;
-// they ease there on the GameClock (the Dialogue game state pauses Time.timeScale).
+// pulsing glow on the TV itself, and optionally a looping hiss. Built from code, so the scene
+// needs no extra assets. Story event steps (Screen Static, Pull Into Screen) set where the noise
+// and glow should go; they ease there on the GameClock (the Dialogue game state pauses
+// Time.timeScale). The hiss is as loud as the stronger of the two, so it grows and fades with them.
 public sealed class ScreenStaticOverlay : MonoBehaviour
 {
     private const int NoiseSize = 256;
@@ -13,9 +14,16 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
     private const float NoiseFrameTime = 0.045f;
     private const int GlowSize = 64;
     private const float GlowPixelsPerUnit = 32f;
+    // A whoosh (see Whoosh): the hiss rises to this pitch and gets this much louder, then drops
+    // back in WhooshRelease seconds.
+    private const float WhooshPitch = 2.2f;
+    private const float WhooshBoost = 1.8f;
+    private const float WhooshRelease = 0.35f;
 
     private RawImage noise;
     private SpriteRenderer glow;
+    private AudioSource sound;
+    private float soundVolume;
     private Color tint;
 
     private float noiseAlpha;
@@ -25,6 +33,10 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
     private float glowTarget;
     private float glowSpeed;
     private float noiseTimer;
+    private float whoosh;
+    private float whooshFrom;
+    private float whooshTime;
+    private float whooshDuration;
 
     public Color Tint => tint;
 
@@ -49,6 +61,35 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
         glowSpeed = Mathf.Abs(glowTarget - glowStrength) / Mathf.Max(0.01f, duration);
     }
 
+    // volume: how loud the hiss is at full static.
+    public void PlaySound(AudioClip clip, float volume)
+    {
+        if (clip == null)
+            return;
+
+        if (sound == null)
+        {
+            sound = gameObject.AddComponent<AudioSource>();
+            sound.playOnAwake = false;
+            sound.loop = true;
+            sound.spatialBlend = 0f;
+        }
+
+        soundVolume = Mathf.Clamp01(volume);
+        sound.clip = clip;
+        sound.volume = 0f;
+        sound.Play();
+    }
+
+    // The hiss sweeps up while a character is pulled in (Pull Into Screen), faster towards the
+    // end, and drops back right after.
+    public void Whoosh(float duration)
+    {
+        whooshFrom = whoosh;
+        whooshTime = 0f;
+        whooshDuration = Mathf.Max(0.01f, duration);
+    }
+
     private void Update()
     {
         float deltaTime = GameClock.DeltaTime;
@@ -71,6 +112,33 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
         float pulse = 1f + Mathf.Sin(GameClock.Now * 14f) * 0.07f;
         glow.color = new Color(tint.r, tint.g, tint.b, glowStrength * 0.8f);
         glow.transform.localScale = Vector3.one * (Mathf.Lerp(0.8f, 3.5f, glowStrength) * pulse);
+
+        UpdateWhoosh(deltaTime);
+        if (sound != null)
+        {
+            float sfxVolume = AudioManager.Instance != null ? AudioManager.Instance.GetOutputVolume(AudioChannel.Sfx) : 1f;
+            float loudness = Mathf.Max(noiseAlpha, glowStrength) * Mathf.Lerp(1f, WhooshBoost, whoosh);
+            sound.volume = Mathf.Clamp01(soundVolume * loudness) * sfxVolume;
+            sound.pitch = Mathf.Lerp(1f, WhooshPitch, whoosh);
+        }
+    }
+
+    private void UpdateWhoosh(float deltaTime)
+    {
+        if (whooshDuration <= 0f)
+            return;
+
+        whooshTime += deltaTime;
+        if (whooshTime < whooshDuration)
+        {
+            float t = whooshTime / whooshDuration;
+            whoosh = Mathf.Lerp(whooshFrom, 1f, t * t);
+            return;
+        }
+
+        whoosh = Mathf.Clamp01(1f - (whooshTime - whooshDuration) / WhooshRelease);
+        if (whoosh <= 0f)
+            whooshDuration = 0f;
     }
 
     private void OnDestroy()

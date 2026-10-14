@@ -19,10 +19,13 @@ public sealed class DialogueManager : MonoBehaviour
     }
 
     private readonly List<DialogueLine> activeLines = new();
+    // The lines that can show from where the dialogue started, up to where it ends. A dialogue
+    // played in parts (see DialogueStep) only has the people of the part in its portraits.
+    private readonly List<DialogueLine> reachableLines = new();
     private readonly List<DialogueAction> deferredActions = new();
     private NpcCharacter activeNpc;
     private NpcDialogueEntry activeDialogueEntry;
-    private System.Action activeOnEnded;
+    private System.Action<int> activeOnEnded;
     private string activeNpcKey;
     private PlayerCharacter activePlayer;
     private int activeLineIndex;
@@ -108,6 +111,7 @@ public sealed class DialogueManager : MonoBehaviour
         activeDialogueEntry = selectedEntry;
         activeNpcKey = npc.PersistenceKey;
         activeLineIndex = 0;
+        CollectReachableLines();
         dialogueActive = true;
         previousState = GameStateManager.State;
         GameStateManager.SetState(GameState.Dialogue);
@@ -118,11 +122,13 @@ public sealed class DialogueManager : MonoBehaviour
 
     // Story scenes without an NPC (see DialogueStep). Speakers come from the lines themselves;
     // endActions run after the last line, together with the quest actions of the dialogue,
-    // and onEnded is called after them.
+    // and onEnded is called after them. A dialogue can be played in parts: onEnded gets the line
+    // the next part starts from, which is passed back as startLine.
     public bool StartDialogue(
         DialogueData dialogue,
+        int startLine = 0,
         IReadOnlyList<DialogueAction> endActions = null,
-        System.Action onEnded = null)
+        System.Action<int> onEnded = null)
     {
         if (dialogueActive)
             return false;
@@ -139,7 +145,7 @@ public sealed class DialogueManager : MonoBehaviour
         deferredActions.Clear();
         AddDialogueDataLines(dialogue);
 
-        if (activeLines.Count == 0)
+        if (startLine < 0 || startLine >= activeLines.Count)
             return false;
 
         if (endActions != null)
@@ -149,7 +155,8 @@ public sealed class DialogueManager : MonoBehaviour
         activeNpc = null;
         activeDialogueEntry = null;
         activeNpcKey = null;
-        activeLineIndex = 0;
+        activeLineIndex = startLine;
+        CollectReachableLines();
         dialogueActive = true;
         previousState = GameStateManager.State;
         GameStateManager.SetState(GameState.Dialogue);
@@ -171,11 +178,11 @@ public sealed class DialogueManager : MonoBehaviour
         DialogueLine line = activeLines[activeLineIndex];
         if (line.endDialogueAfterLine)
         {
-            EndDialogue();
+            EndDialogue(GetNextLineIndex(activeLineIndex));
             return;
         }
 
-        GoToLine(GetNextLineIndex(line));
+        GoToLine(GetNextLineIndex(activeLineIndex));
     }
 
     public void Choose(int choiceIndex)
@@ -197,15 +204,12 @@ public sealed class DialogueManager : MonoBehaviour
         if (!dialogueActive)
             return;
 
+        int nextLineIndex = GetChoiceTarget(choice, activeLineIndex);
         if (choice.endDialogue)
         {
-            EndDialogue();
+            EndDialogue(nextLineIndex);
             return;
         }
-
-        int nextLineIndex = choice.nextLineIndex < 0
-            ? GetNextLineIndex(line)
-            : choice.nextLineIndex;
 
         GoToLine(nextLineIndex);
     }
@@ -214,7 +218,7 @@ public sealed class DialogueManager : MonoBehaviour
     {
         if (lineIndex < 0 || lineIndex >= activeLines.Count)
         {
-            EndDialogue();
+            EndDialogue(lineIndex);
             return;
         }
 
@@ -222,20 +226,71 @@ public sealed class DialogueManager : MonoBehaviour
         ShowCurrentLine();
     }
 
-    private int GetNextLineIndex(DialogueLine line)
+    private int GetNextLineIndex(int lineIndex)
     {
+        DialogueLine line = activeLines[lineIndex];
         return line != null && line.nextLineIndex >= 0
             ? line.nextLineIndex
-            : activeLineIndex + 1;
+            : lineIndex + 1;
+    }
+
+    private int GetChoiceTarget(DialogueChoice choice, int lineIndex)
+    {
+        return choice.nextLineIndex < 0 ? GetNextLineIndex(lineIndex) : choice.nextLineIndex;
+    }
+
+    // Follows the flow from the first line (next lines and choices) until the lines that end the
+    // dialogue.
+    private void CollectReachableLines()
+    {
+        reachableLines.Clear();
+        bool[] reached = new bool[activeLines.Count];
+        Stack<int> pending = new();
+        pending.Push(activeLineIndex);
+
+        while (pending.Count > 0)
+        {
+            int index = pending.Pop();
+            if (index < 0 || index >= reached.Length || reached[index])
+                continue;
+
+            reached[index] = true;
+            List<DialogueChoice> choices = GetValidChoices(activeLines[index]);
+            if (choices.Count > 0)
+            {
+                foreach (DialogueChoice choice in choices)
+                {
+                    if (!choice.endDialogue)
+                        pending.Push(GetChoiceTarget(choice, index));
+                }
+            }
+            else if (!activeLines[index].endDialogueAfterLine)
+            {
+                pending.Push(GetNextLineIndex(index));
+            }
+        }
+
+        for (int i = 0; i < reached.Length; i++)
+        {
+            if (reached[i])
+                reachableLines.Add(activeLines[i]);
+        }
     }
 
     public void EndDialogue()
+    {
+        EndDialogue(activeLineIndex + 1);
+    }
+
+    // nextLineIndex: where the dialogue would have gone on, for a later part of it.
+    private void EndDialogue(int nextLineIndex)
     {
         if (!dialogueActive)
             return;
 
         dialogueActive = false;
         activeLines.Clear();
+        reachableLines.Clear();
 
         if (view != null)
             view.Hide();
@@ -252,9 +307,9 @@ public sealed class DialogueManager : MonoBehaviour
         activeDialogueEntry = null;
         activeNpcKey = null;
 
-        System.Action onEnded = activeOnEnded;
+        System.Action<int> onEnded = activeOnEnded;
         activeOnEnded = null;
-        onEnded?.Invoke();
+        onEnded?.Invoke(nextLineIndex);
     }
 
     private void ShowCurrentLine()
@@ -319,12 +374,12 @@ public sealed class DialogueManager : MonoBehaviour
     }
 
     // Who sits on a side while the other one talks, before anyone has spoken there: the one who
-    // speaks on that side in this dialogue (e.g. Hideshi on the left in the home intro), else the
-    // player on the left and the NPC on the right. A story event's dialogue has no NPC: a side
-    // nobody speaks on then stays empty.
+    // speaks on that side in this dialogue, or in this part of it (e.g. Hideshi on the left in the
+    // home intro), else the player on the left and the NPC on the right. A story event's dialogue
+    // has no NPC: a side nobody speaks on then stays empty.
     private Sprite GetListenerPortrait(DialogueSpeakerSide side, Sprite defaultPortrait)
     {
-        foreach (DialogueLine line in activeLines)
+        foreach (DialogueLine line in reachableLines)
         {
             if (line != null && line.speakerSide == side && !string.IsNullOrWhiteSpace(line.text))
                 return line.portraitOverride != null ? line.portraitOverride : defaultPortrait;

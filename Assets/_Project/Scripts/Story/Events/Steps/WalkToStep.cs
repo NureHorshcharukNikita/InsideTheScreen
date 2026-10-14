@@ -4,6 +4,7 @@ using UnityEngine;
 
 // Walks a character in a straight line (no pathfinding) to a point or to another character.
 // It stops facing the way it walked (or, backwards, the other way), and the new position is saved.
+// Sideways slides it there in the pose it has, without turning or stepping.
 [Serializable, SubclassMenu("Characters/Walk To")]
 public sealed class WalkToStep : StoryStep
 {
@@ -14,6 +15,8 @@ public sealed class WalkToStep : StoryStep
     [SerializeField, Min(0.1f)] private float speed = 2f;
     [Tooltip("Steps back: faces away from where it walks, e.g. backing away from the TV while watching it.")]
     [SerializeField] private bool backwards;
+    [Tooltip("Slides over in the pose it has, without turning or stepping, e.g. shuffling aside with the back to the camera.")]
+    [SerializeField] private bool sideways;
     [Tooltip("No footsteps, e.g. walking up outside, out of view, before coming in.")]
     [SerializeField] private bool silent;
 
@@ -45,11 +48,13 @@ public sealed class WalkToStep : StoryStep
             walker.position = Vector3.MoveTowards(walker.position, end, speed * GameClock.DeltaTime);
 
             // Every frame: PlayerMovement resets IsMoving while the game is not in Gameplay.
-            CharacterWalkAnimation.Apply(animator, true, facing);
+            if (!sideways)
+                CharacterWalkAnimation.Apply(animator, true, facing);
             yield return null;
         }
 
-        CharacterWalkAnimation.Apply(animator, false, facing);
+        if (!sideways)
+            CharacterWalkAnimation.Apply(animator, false, facing);
         Unmute(footsteps);
         context.SavePosition(walker);
     }
@@ -63,6 +68,9 @@ public sealed class WalkToStep : StoryStep
     public override string ToString()
     {
         string quietly = silent ? " quietly" : string.Empty;
+        if (sideways)
+            return $"{actor} slides{quietly} to {destination}";
+
         return backwards
             ? $"{actor} backs away{quietly} to {destination}"
             : $"{actor} walks{quietly} to {destination}";
