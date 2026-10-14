@@ -24,6 +24,10 @@ public sealed class PullIntoScreenStep : StoryStep
             yield break;
 
         context.TakeControl(target);
+        // Tugged at before (Tug Towards Screen): the pull starts where the tug left them.
+        if (target.TryGetComponent(out ScreenTug tug))
+            ScreenTug.Stop(tug);
+
         SpriteRenderer sprite = StoryEventContext.GetSprite(target);
         ScreenNoiseOverlay screenNoise = context.GetEffect<ScreenNoiseOverlay>();
         Color tint = screenNoise != null ? screenNoise.Tint : Color.white;

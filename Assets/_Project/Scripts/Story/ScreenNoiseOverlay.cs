@@ -17,12 +17,16 @@ public sealed class ScreenNoiseOverlay : MonoBehaviour
     // A whoosh (see Whoosh): the hiss rises to this pitch and gets this much louder, then drops
     // back in WhooshRelease seconds.
     private const float WhooshPitch = 2.2f;
-    private const float WhooshBoost = 1.8f;
+    private const float WhooshBoost = 1.5f;
     private const float WhooshRelease = 0.35f;
+    // The hiss is softened by cutting its highest, harshest part; a whoosh opens it up a little.
+    private const float HissCutoff = 3500f;
+    private const float WhooshCutoff = 7000f;
 
     private RawImage noise;
     private SpriteRenderer glow;
     private AudioSource sound;
+    private AudioLowPassFilter soundFilter;
     private float soundVolume;
     private Color tint;
 
@@ -73,6 +77,8 @@ public sealed class ScreenNoiseOverlay : MonoBehaviour
             sound.playOnAwake = false;
             sound.loop = true;
             sound.spatialBlend = 0f;
+            soundFilter = gameObject.AddComponent<AudioLowPassFilter>();
+            soundFilter.cutoffFrequency = HissCutoff;
         }
 
         soundVolume = Mathf.Clamp01(volume);
@@ -120,6 +126,7 @@ public sealed class ScreenNoiseOverlay : MonoBehaviour
             float loudness = Mathf.Max(noiseAlpha, glowStrength) * Mathf.Lerp(1f, WhooshBoost, whoosh);
             sound.volume = Mathf.Clamp01(soundVolume * loudness) * sfxVolume;
             sound.pitch = Mathf.Lerp(1f, WhooshPitch, whoosh);
+            soundFilter.cutoffFrequency = Mathf.Lerp(HissCutoff, WhooshCutoff, whoosh);
         }
     }
 

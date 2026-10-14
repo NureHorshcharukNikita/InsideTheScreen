@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine;
 
 // Switches an object's Animator to one of its states, e.g. the TV screen from the news to noise.
-// The object must be active: show it first with a Set Active step if it is hidden. Does not wait.
+// A hidden object is shown first. The first frame of the state is applied at once, so the frame
+// the object was left on (e.g. the news on a TV switched off) never flashes up. Does not wait.
 [Serializable, SubclassMenu("Scene/Play Animation")]
 public sealed class PlayAnimationStep : StoryStep
 {
@@ -15,10 +16,14 @@ public sealed class PlayAnimationStep : StoryStep
 
     public override IEnumerator Run(StoryEventContext context)
     {
-        if (animator != null && !string.IsNullOrWhiteSpace(state))
-            animator.Play(state, 0, 0f);
+        if (animator == null || string.IsNullOrWhiteSpace(state))
+            yield break;
 
-        yield break;
+        if (!animator.gameObject.activeSelf)
+            animator.gameObject.SetActive(true);
+
+        animator.Play(state, 0, 0f);
+        animator.Update(0f);
     }
 
     public override string ToString()

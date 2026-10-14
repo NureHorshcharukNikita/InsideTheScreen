@@ -378,9 +378,9 @@ public sealed class DialogueManager : MonoBehaviour
 
     // Who sits on a side while the other one talks, before anyone has spoken there: the one who
     // speaks on that side in this dialogue, or in this part of it (e.g. Hideshi on the left in the
-    // home intro), else the player on the left and the NPC on the right. A story event's dialogue
-    // has no NPC: a side nobody speaks on then stays empty. Lines without a portrait (the TV) do not
-    // count.
+    // home intro), else the player on the left and the NPC on the right. In a story event's dialogue
+    // (no NPC) a side nobody speaks on stays empty: the player often speaks on the other side there.
+    // Lines without a portrait (the TV) do not count.
     private Sprite GetListenerPortrait(DialogueSpeakerSide side, Sprite defaultPortrait)
     {
         foreach (DialogueLine line in reachableLines)
@@ -389,7 +389,7 @@ public sealed class DialogueManager : MonoBehaviour
                 return line.portraitOverride != null ? line.portraitOverride : defaultPortrait;
         }
 
-        return defaultPortrait;
+        return activeNpc != null ? defaultPortrait : null;
     }
 
     private void ExecuteActions(IReadOnlyList<DialogueAction> actions, NpcCharacter npc, PlayerCharacter player)
