@@ -116,7 +116,7 @@ public sealed class StoryEventContext
             ExplorationPlayerSession.SaveNpcPosition(npc.PersistenceKey, actor.position);
     }
 
-    // An effect several steps work with, e.g. the TV static. Destroyed when the event ends.
+    // An effect several steps work with, e.g. the TV noise. Destroyed when the event ends.
     public void AddEffect(Component effect)
     {
         if (effect != null)

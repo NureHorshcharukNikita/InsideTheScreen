@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: 46ea8547f7289e94799541150b1fd51b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7017438498010927063
+    second: TvScreen_News_0
+  - first:
+      213: 9035665845523881762
+    second: TvScreen_News_1
+  - first:
+      213: -2912282368057889852
+    second: TvScreen_News_2
+  - first:
+      213: 7159557893838082492
+    second: TvScreen_News_3
+  - first:
+      213: -2469221837141481515
+    second: TvScreen_News_4
+  - first:
+      213: -2540866985102752680
+    second: TvScreen_News_5
+  - first:
+      213: 5963904534497428945
+    second: TvScreen_News_6
+  - first:
+      213: -2414026460985094598
+    second: TvScreen_News_7
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 512
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 351.33334
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 1
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TvScreen_News_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 392
+        width: 527
+        height: 308
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a53267d32e35478383955c0e23ce0666
+      internalID: -7017438498010927063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_News_1
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 392
+        width: 527
+        height: 308
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5d0e518ef174e1194e9e21a5a2ee83c
+      internalID: 9035665845523881762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_News_2
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 392
+        width: 527
+        height: 308
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2e1b27866894b6c8bd9fc95cfc8a7a4
+      internalID: -2912282368057889852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_News_3
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 392
+        width: 527
+        height: 308
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49038a5976c447c39af6d99282685123
+      internalID: 7159557893838082492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_News_4
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 30
+        width: 527
+        height: 308
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57cf4693a5c24e5aa8c1e6070c1c84c0
+      internalID: -2469221837141481515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_News_5
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 30
+        width: 527
+        height: 308
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5c800fa33f74f3b93cb81485224e4b6
+      internalID: -2540866985102752680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_News_6
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 30
+        width: 527
+        height: 308
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2b8bd81baf041b28c6ff6d28223d07d
+      internalID: 5963904534497428945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_News_7
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 30
+        width: 527
+        height: 308
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517521}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dddf93ef01c347ff88ce73a826113135
+      internalID: -2414026460985094598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TvScreen_News_0: -7017438498010927063
+      TvScreen_News_1: 9035665845523881762
+      TvScreen_News_2: -2912282368057889852
+      TvScreen_News_3: 7159557893838082492
+      TvScreen_News_4: -2469221837141481515
+      TvScreen_News_5: -2540866985102752680
+      TvScreen_News_6: 5963904534497428945
+      TvScreen_News_7: -2414026460985094598
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

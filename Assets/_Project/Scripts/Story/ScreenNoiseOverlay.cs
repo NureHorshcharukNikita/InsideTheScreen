@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// TV static for the intro: soft-tinted CRT noise with scanlines over the whole screen and a
+// TV noise for the intro: soft-tinted CRT grain with scanlines over the whole screen and a
 // pulsing glow on the TV itself, and optionally a looping hiss. Built from code, so the scene
-// needs no extra assets. Story event steps (Screen Static, Pull Into Screen) set where the noise
+// needs no extra assets. Story event steps (Screen Noise, Pull Into Screen) set where the noise
 // and glow should go; they ease there on the GameClock (the Dialogue game state pauses
 // Time.timeScale). The hiss is as loud as the stronger of the two, so it grows and fades with them.
-public sealed class ScreenStaticOverlay : MonoBehaviour
+public sealed class ScreenNoiseOverlay : MonoBehaviour
 {
     private const int NoiseSize = 256;
     // Part of the noise texture shown at once (vertically): smaller = bigger grains.
@@ -40,9 +40,9 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
 
     public Color Tint => tint;
 
-    public static ScreenStaticOverlay Create(Vector3 screenPosition, Color tint, SpriteRenderer sortingReference)
+    public static ScreenNoiseOverlay Create(Vector3 screenPosition, Color tint, SpriteRenderer sortingReference)
     {
-        ScreenStaticOverlay overlay = new GameObject("IntroScreenStatic").AddComponent<ScreenStaticOverlay>();
+        ScreenNoiseOverlay overlay = new GameObject("IntroScreenNoise").AddComponent<ScreenNoiseOverlay>();
         overlay.tint = tint;
         overlay.noise = CreateNoise(overlay.transform, tint);
         overlay.glow = CreateGlow(overlay.transform, screenPosition, tint, sortingReference);
@@ -61,7 +61,7 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
         glowSpeed = Mathf.Abs(glowTarget - glowStrength) / Mathf.Max(0.01f, duration);
     }
 
-    // volume: how loud the hiss is at full static.
+    // volume: how loud the hiss is at full noise.
     public void PlaySound(AudioClip clip, float volume)
     {
         if (clip == null)
@@ -96,7 +96,7 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
         noiseAlpha = Mathf.MoveTowards(noiseAlpha, noiseTarget, noiseSpeed * deltaTime);
         glowStrength = Mathf.MoveTowards(glowStrength, glowTarget, glowSpeed * deltaTime);
 
-        // A new random window into the noise texture every few frames reads as live static.
+        // A new random window into the noise texture every few frames reads as live noise.
         noiseTimer -= deltaTime;
         if (noiseTimer <= 0f)
         {
@@ -105,7 +105,7 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
             noise.uvRect = new Rect(Random.value, Random.value, NoiseScale * aspect, NoiseScale);
         }
 
-        // Flicker scales with the noise, so faint static stays faint.
+        // Flicker scales with the noise, so faint noise stays faint.
         float flicker = Random.Range(-0.05f, 0.05f) * Mathf.Min(1f, noiseAlpha * 3f);
         noise.color = new Color(1f, 1f, 1f, Mathf.Clamp01(noiseAlpha + flicker));
 
@@ -154,7 +154,7 @@ public sealed class ScreenStaticOverlay : MonoBehaviour
 
     private static RawImage CreateNoise(Transform parent, Color tint)
     {
-        GameObject canvasObject = new("Static", typeof(Canvas));
+        GameObject canvasObject = new("NoiseCanvas", typeof(Canvas));
         canvasObject.transform.SetParent(parent, false);
         Canvas canvas = canvasObject.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;

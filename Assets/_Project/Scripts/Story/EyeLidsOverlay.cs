@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 // The view through opening eyes (Open Eyes step): black around an eye-shaped opening with soft
 // edges, and the scene blurred until the eyes are open. Above the black of a fade, so it can take
-// over from it while closed. Built from code, like the screen static. The blur is a second
+// over from it while closed. Built from code, like the screen noise. The blur is a second
 // camera that draws the scene into a small texture, shown stretched over the screen.
 public sealed class EyeLidsOverlay : MonoBehaviour
 {

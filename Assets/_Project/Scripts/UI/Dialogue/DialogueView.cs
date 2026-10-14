@@ -121,7 +121,9 @@ public sealed class DialogueView : MonoBehaviour
 
         MoveNamePlate(line.speakerSide);
 
-        Sprite portrait = line.portraitOverride != null ? line.portraitOverride : fallbackPortrait;
+        Sprite portrait = line.hidePortrait
+            ? null
+            : line.portraitOverride != null ? line.portraitOverride : fallbackPortrait;
         if (line.speakerSide == DialogueSpeakerSide.Left)
             lastLeftPortrait = portrait;
         else

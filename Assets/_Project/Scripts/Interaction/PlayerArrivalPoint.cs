@@ -9,7 +9,7 @@ public sealed class PlayerArrivalPoint : MonoBehaviour
     [SerializeField] private GameObject minimapRoot;
     [SerializeField] private bool hideMinimap;
 
-    // No fade of its own: the caller covers the jump (the intro uses TV static).
+    // No fade of its own: the caller covers the jump (the intro uses TV noise).
     public void MovePlayer(Transform player, Vector2 offset = default)
     {
         Vector3 position = transform.position + (Vector3)offset;

@@ -1,0 +1,273 @@
+fileFormatVersion: 2
+guid: f0cde60c1fe10b04db0a3e715b0ae8aa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -214662011567355990
+    second: TvScreen_Noise_0
+  - first:
+      213: -8005096637367166594
+    second: TvScreen_Noise_1
+  - first:
+      213: 6158135949906653480
+    second: TvScreen_Noise_2
+  - first:
+      213: 8178033925398986350
+    second: TvScreen_Noise_3
+  - first:
+      213: 5597267668675134024
+    second: TvScreen_Noise_4
+  - first:
+      213: -5237044070905789355
+    second: TvScreen_Noise_5
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 1024
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 229.33333
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 1
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TvScreen_Noise_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 19
+        width: 344
+        height: 201
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517762}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57a2d3ef078e4ff184d91dbbc7a80b95
+      internalID: -214662011567355990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_Noise_1
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 19
+        width: 344
+        height: 201
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517762}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84cc06599a4e489886dcea97a79f086c
+      internalID: -8005096637367166594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_Noise_2
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 19
+        width: 344
+        height: 201
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517762}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a17c9410e76543deacd536a494ccf084
+      internalID: 6158135949906653480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_Noise_3
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 19
+        width: 344
+        height: 201
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517762}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1ed9296021e4f9fa43ffa9fa7f1012d
+      internalID: 8178033925398986350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_Noise_4
+      rect:
+        serializedVersion: 2
+        x: 1452
+        y: 19
+        width: 344
+        height: 201
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517762}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24a1ecc134194ff89b9770bece0af176
+      internalID: 5597267668675134024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TvScreen_Noise_5
+      rect:
+        serializedVersion: 2
+        x: 1812
+        y: 19
+        width: 344
+        height: 201
+      alignment: 9
+      pivot: {x: 0.7083333, y: -0.517762}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78d1b73fafda4004bcc7e1d6a0380014
+      internalID: -5237044070905789355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TvScreen_Noise_0: -214662011567355990
+      TvScreen_Noise_1: -8005096637367166594
+      TvScreen_Noise_2: 6158135949906653480
+      TvScreen_Noise_3: 8178033925398986350
+      TvScreen_Noise_4: 5597267668675134024
+      TvScreen_Noise_5: -5237044070905789355
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

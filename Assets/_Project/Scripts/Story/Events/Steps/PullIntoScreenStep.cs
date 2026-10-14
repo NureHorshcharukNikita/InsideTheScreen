@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 // The screen pulls a character in: a short lean towards it, shaking as if resisting, then a
-// fast stretch into the glow while the sprite takes the static's colour and fades out.
+// fast stretch into the glow while the sprite takes the noise's colour and fades out.
 // The character stays hidden until a Restore Look step or the end of the event.
 [Serializable, SubclassMenu("Effects/Pull Into Screen")]
 public sealed class PullIntoScreenStep : StoryStep
@@ -13,7 +13,7 @@ public sealed class PullIntoScreenStep : StoryStep
     [SerializeField] private Transform screen;
     [SerializeField, Min(0f)] private float leanDuration = 0.5f;
     [SerializeField, Min(0.1f)] private float pullDuration = 0.8f;
-    [Tooltip("Strength the Screen Static reaches while the character is pulled in.")]
+    [Tooltip("Strength the Screen Noise reaches while the character is pulled in.")]
     [SerializeField, Range(0f, 1f)] private float noiseAtEnd = 1f;
     [SerializeField, Range(0f, 1f)] private float glowAtEnd = 1f;
 
@@ -25,8 +25,8 @@ public sealed class PullIntoScreenStep : StoryStep
 
         context.TakeControl(target);
         SpriteRenderer sprite = StoryEventContext.GetSprite(target);
-        ScreenStaticOverlay screenStatic = context.GetEffect<ScreenStaticOverlay>();
-        Color tint = screenStatic != null ? screenStatic.Tint : Color.white;
+        ScreenNoiseOverlay screenNoise = context.GetEffect<ScreenNoiseOverlay>();
+        Color tint = screenNoise != null ? screenNoise.Tint : Color.white;
 
         Vector3 startPosition = target.position;
         Vector3 endPosition = screen.position;
@@ -43,11 +43,11 @@ public sealed class PullIntoScreenStep : StoryStep
             yield return null;
         }
 
-        if (screenStatic != null)
+        if (screenNoise != null)
         {
-            screenStatic.SetNoise(noiseAtEnd, pullDuration);
-            screenStatic.SetGlow(glowAtEnd, pullDuration);
-            screenStatic.Whoosh(pullDuration);
+            screenNoise.SetNoise(noiseAtEnd, pullDuration);
+            screenNoise.SetGlow(glowAtEnd, pullDuration);
+            screenNoise.Whoosh(pullDuration);
         }
 
         for (float elapsed = 0f; elapsed < pullDuration; elapsed += GameClock.DeltaTime)
