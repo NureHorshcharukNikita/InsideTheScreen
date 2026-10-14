@@ -14,18 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Hello! Could you tell us...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "Are you travelers?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "Are you travelers?", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Um... yes. You could say that.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "Lost, are you?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "Lost, are you?", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "There's a road over there. Go straight and don't turn off.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "There's a road over there. Go straight and don't turn off.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Straight ahead?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "There's a settlement half an hour from here. Leymar.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "There's a settlement half an hour from here. Leymar.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Leymar...?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "An elder leads the place. Ancient Eldon.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "An elder leads the place. Ancient Eldon.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Could he help us?", nextLineIndex: -1}
   - speakerSide: 1
     speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
     text: "If anyone can, he can."
     nextLineIndex: -1
     choices:
@@ -38,10 +39,10 @@ MonoBehaviour:
       endDialogue: 0
       actions: []
   - {speakerSide: 0, speakerName: Haru, text: "We saw a wolf. It was rabid.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "I'm not surprised. These woods have always been dangerous. Lately, more than ever.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "I'm not surprised. These woods have always been dangerous. Lately, more than ever.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, text: "What do you mean, more than ever...?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "Everything here has changed.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "People have grown angry. Almost rabid...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "Everything here has changed.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "People have grown angry. Almost rabid...", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, text: "What's wrong with him? It's as if he isn't listening...", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "He is strange... It's like he's talking to himself. Let's go.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "...", nextLineIndex: -1}
@@ -65,11 +66,11 @@ MonoBehaviour:
       shop: {fileID: 0}
     choices: []
   - {speakerSide: 0, speakerName: Haru, text: "...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "Everything here has changed.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "People have grown angry. Almost rabid...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "Things used to be different.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "Now they look at you... as if they see an enemy.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, text: "I suppose I'm stuck in these woods.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "Everything here has changed.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "People have grown angry. Almost rabid...", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "Things used to be different.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "Now they look at you... as if they see an enemy.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}, text: "I suppose I'm stuck in these woods.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "...", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Thanks for the advice.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, text: "He's a little strange...", nextLineIndex: -1}

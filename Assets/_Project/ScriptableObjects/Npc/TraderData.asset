@@ -25,11 +25,16 @@ MonoBehaviour:
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
-    conditions: []
+    conditions:
+    - type: 0
+      storyFlag: a1_met_trader
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
   - key: trader_idle
     dialogue: {fileID: 11400000, guid: 1de705470d881f71be94828f91e33b62, type: 2}
     repeatable: 1
-    talkTiming: 2
+    talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0

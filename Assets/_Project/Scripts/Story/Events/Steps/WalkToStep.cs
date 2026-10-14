@@ -19,6 +19,8 @@ public sealed class WalkToStep : StoryStep
     [SerializeField] private bool backwards;
     [Tooltip("Slides over in the pose it has, without turning or stepping, e.g. shuffling aside with the back to the camera.")]
     [SerializeField] private bool sideways;
+    [Tooltip("Walks facing up or down whenever it goes up or down at all, also at a slant that is mostly sideways, e.g. walking up to a camp ahead.")]
+    [SerializeField] private bool preferUpDown;
     [Tooltip("No footsteps, e.g. walking up outside, out of view, before coming in.")]
     [SerializeField] private bool silent;
 
@@ -44,6 +46,8 @@ public sealed class WalkToStep : StoryStep
         if (maxDistance > 0f && (end - walker.position).magnitude > maxDistance)
             end = walker.position + (end - walker.position).normalized * maxDistance;
         Vector2 facing = end - walker.position;
+        if (preferUpDown && Mathf.Abs(facing.y) > 0.01f)
+            facing = new Vector2(0f, Mathf.Sign(facing.y));
         if (backwards)
             facing = -facing;
         if (!sideways)
