@@ -13,42 +13,222 @@ MonoBehaviour:
   m_Name: HideshiArticyHome
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 0, speakerName: TV, portraitOverride: {fileID: 0}, hidePortrait: 1, voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}, text: "...and the new bridge on the east side finally opened today, a whole month behind schedule.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: TV, portraitOverride: {fileID: 0}, hidePortrait: 1, voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}, text: "Drivers should expect heavy traffic there for the rest of the week.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Great. Dad drives that way.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: TV, portraitOverride: {fileID: 0}, hidePortrait: 1, voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}, text: "Police are asking residents for help with an unusual case.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: TV, portraitOverride: {fileID: 0}, hidePortrait: 1, voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}, text: "Over the past month, several people have gone missing from their own homes.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: TV, portraitOverride: {fileID: 0}, hidePortrait: 1, voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}, text: "There were no signs of a break-in, and their belongings were left untouched.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: TV, portraitOverride: {fileID: 0}, hidePortrait: 1, voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}, text: "Investigators say they still can't explain what happened.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Gone from their own homes...?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: TV, portraitOverride: {fileID: 0}, hidePortrait: 1, voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}, text: "And now, the weather. Light rain tonight, clearing up by morning.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Where's Dad? He should've been home by now.", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Hey, I'm home.", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Oh, Dad. You're late today.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I am. But I brought something interesting. Look!", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "A disc? It's old... scratched... and doesn't even have a case.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "A real rarity. They say only a handful of copies are left.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "It doesn't even have a title.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "What did you expect from something this old?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Maybe that's intentional. Let's boot it up and see.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Can we even run it?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I've got an old console. Remember?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Seriously? It still works?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Don't joke. Those things are built to last. You'll see.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "It should work just fine!", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "All right... let's try it.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Here, take the disc. I'll get the console!", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Okay...", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Haru, move over a bit.", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Ahem... Right... This goes here...", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Done! Put the disc in!", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "It actually worked... There's even a menu...", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Told you.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "But it all looks so strange... almost like...", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Whoa... what's that noise?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Step away from the screen. I'll fix...", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "What's happening?! It's pulling you in!", nextLineIndex: -1, endDialogueAfterLine: 1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Dad!!", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Haru, portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}, text: "Take my hand!", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Haru! Stay back!", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 0
+    speakerName: TV
+    portraitOverride: {fileID: 0}
+    hidePortrait: 1
+    voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}
+    text: "...and the new bridge on the east side finally opened today, a whole month behind schedule."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: TV
+    portraitOverride: {fileID: 0}
+    hidePortrait: 1
+    voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}
+    text: "Drivers should expect heavy traffic there for the rest of the week."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Great. Dad drives that way."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: TV
+    portraitOverride: {fileID: 0}
+    hidePortrait: 1
+    voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}
+    text: "Police are asking residents for help with an unusual case."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: TV
+    portraitOverride: {fileID: 0}
+    hidePortrait: 1
+    voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}
+    text: "Over the past month, several people have gone missing from their own homes."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: TV
+    portraitOverride: {fileID: 0}
+    hidePortrait: 1
+    voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}
+    text: "There were no signs of a break-in, and their belongings were left untouched."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: TV
+    portraitOverride: {fileID: 0}
+    hidePortrait: 1
+    voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}
+    text: "Investigators say they still can't explain what happened."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Gone from their own homes...?"
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: TV
+    portraitOverride: {fileID: 0}
+    hidePortrait: 1
+    voiceOverride: {fileID: 11400000, guid: 2eb1bdf854274df7a1558485c9e154e9, type: 2}
+    text: "And now, the weather. Light rain tonight, clearing up by morning."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Where's Dad? He should've been home by now."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Hey, I'm home."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Oh, Dad. You're late today."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "I am. But I brought something interesting. Look!"
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "A disc? It's old... scratched... and doesn't even have a case."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "A real rarity. They say only a handful of copies are left."
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "..."
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "It doesn't even have a title."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "What did you expect from something this old?"
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Maybe that's intentional. Let's boot it up and see."
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Can we even run it?"
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "I've got an old console. Remember?"
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Seriously? It still works?"
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Don't joke. Those things are built to last. You'll see."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "It should work just fine!"
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "All right... let's try it."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Here, take the disc. I'll get the console!"
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Okay..."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Haru, move over a bit."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Ahem... Right... This goes here..."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Done! Put the disc in!"
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "It actually worked... There's even a menu..."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Told you."
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "But it all looks so strange... almost like..."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Whoa... what's that noise?"
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Step away from the screen. I'll fix..."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "What's happening?! It's pulling you in!"
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Dad!!"
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Haru
+    portraitOverride: {fileID: 21300000, guid: f2881b5c4e5572e43b739c7b2f89f654, type: 3}
+    text: "Take my hand!"
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Haru! Stay back!"
+    nextLineIndex: -1
+    endDialogueAfterLine: 1

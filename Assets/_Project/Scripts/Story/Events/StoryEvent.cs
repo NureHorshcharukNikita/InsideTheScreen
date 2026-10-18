@@ -18,7 +18,8 @@ public enum StoryEventStart
 // It happens once: doneFlag is set at the end, so it does not run again and dialogues or other
 // events can check it. While the steps run, the game is in the Dialogue state: the player has no
 // control and Time.timeScale is 0, so steps run on the GameClock. An event made only of instant
-// steps (actions, sounds...) runs at once instead.
+// steps (actions, sounds...) runs at once instead. The camera stands still meanwhile, unless
+// cameraFollows is on.
 public sealed class StoryEvent : MonoBehaviour
 {
     [Tooltip("Story flag set when the event is over. Also prevents it from happening twice. Empty = happens again every time the scene loads.")]
@@ -27,6 +28,8 @@ public sealed class StoryEvent : MonoBehaviour
     [SerializeField] private StoryEventStart start = StoryEventStart.Automatically;
     [Tooltip("All of them must be met. Empty = no conditions.")]
     [SerializeField] private List<StoryCondition> conditions = new();
+    [Tooltip("The camera keeps following the player while the event plays (they walk somewhere together). Off = the camera stays where it is.")]
+    [SerializeField] private bool cameraFollows;
 
     [Header("Steps")]
     [SerializeReference, SubclassPicker] private List<StoryStep> steps = new();
@@ -90,7 +93,8 @@ public sealed class StoryEvent : MonoBehaviour
 
         hasControl = true;
         GameStateManager.SetState(GameState.Dialogue);
-        context.KeepCamerasMoving();
+        if (cameraFollows)
+            context.KeepCamerasMoving();
         StartCoroutine(PlaySteps());
     }
 

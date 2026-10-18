@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Makes an NPC walk after the player once a story flag is set, e.g. Hideshi travelling with
-// Haru through Arc 1. The companion moves with physics, so walls and furniture stop him, finds
-// a way around obstacles on a small grid, and jumps next to the player when left far behind
-// (doorways, story teleports). He never bumps into the player. While following, he also fights
-// at the player's side (battleData).
+// Haru through Arc 1. With Stays Put on he stands where he is like any other NPC. The companion
+// moves with physics, so walls and furniture stop him, finds a way around obstacles on a small
+// grid, and jumps next to the player when left far behind (doorways, story teleports). He never
+// bumps into the player. While following, he also fights at the player's side (battleData).
 [RequireComponent(typeof(NpcCharacter))]
 public sealed class CompanionFollower : MonoBehaviour
 {
@@ -18,6 +18,8 @@ public sealed class CompanionFollower : MonoBehaviour
     private const float RepathPlayerMoveDistance = 0.5f;
 
     [SerializeField, StoryFlag] private string followAfterStoryFlag = "a1_home_intro";
+    [Tooltip("Stays where he is like any other NPC instead of following. Can be switched in Play mode too.")]
+    [SerializeField] private bool staysPut;
     [Tooltip("Keep it just outside the NPC talk zone, so the Talk prompt is not shown all the time.")]
     [SerializeField, Min(0.1f)] private float followDistance = 2.8f;
     [Tooltip("How much further than Follow Distance the player must get before the companion sets off again. " +
@@ -82,13 +84,14 @@ public sealed class CompanionFollower : MonoBehaviour
         var allies = new List<EnemyData>();
         foreach (CompanionFollower follower in FindObjectsByType<CompanionFollower>(FindObjectsSortMode.None))
         {
-            if (follower.battleData != null && follower.isActiveAndEnabled
-                && StoryFlagManager.HasFlag(follower.followAfterStoryFlag))
+            if (follower.battleData != null && follower.isActiveAndEnabled && follower.ShouldFollow)
                 allies.Add(follower.battleData);
         }
 
         return allies;
     }
+
+    private bool ShouldFollow => !staysPut && StoryFlagManager.HasFlag(followAfterStoryFlag);
 
     private void Awake()
     {
@@ -115,7 +118,7 @@ public sealed class CompanionFollower : MonoBehaviour
     private void Update()
     {
         bool wasFollowing = following;
-        SetFollowing(StoryFlagManager.HasFlag(followAfterStoryFlag));
+        SetFollowing(ShouldFollow);
         if (!following || !TryFindPlayer())
             return;
 

@@ -4,9 +4,9 @@
 // Warnings and errors about a broken setup go straight to Debug and stay on.
 public static class DevLog
 {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
     private static readonly bool Enabled = false;
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
     public static void Log(object message)
     {
         if (Enabled)

@@ -27,8 +27,12 @@ public sealed class MainMenuController : MonoBehaviour
     [Header("Video")]
     [SerializeField] private VideoPlayer menuVideoPlayer;
     [SerializeField] private AudioSource menuVideoAudioSource;
+    [Tooltip("The menu sound rises from silence to its volume over this time whenever the menu opens (game start, back from the game), so it does not hit the ears at once. 0 = full volume at once.")]
+    [SerializeField, Min(0f)] private float menuSoundFadeInDuration = 3f;
 
     private bool menuVideoPausedByFocusLoss;
+    // 0..1 of the way through the fade-in.
+    private float menuSoundFade = 1f;
     private SettingsInputPanel settingsInputPanel;
 
     private void Awake()
@@ -39,6 +43,10 @@ public sealed class MainMenuController : MonoBehaviour
             AudioManager.Instance.StopAmbience();
 
         CacheMenuVideoPlayer();
+        menuSoundFade = menuSoundFadeInDuration > 0f ? 0f : 1f;
+        // Silent even if the AudioManager is not up yet and the volume below is skipped.
+        if (menuVideoAudioSource != null && menuSoundFade < 1f)
+            menuVideoAudioSource.volume = 0f;
         ApplyMenuVideoVolume();
 
         if (settingsPanel != null)
@@ -63,6 +71,16 @@ public sealed class MainMenuController : MonoBehaviour
     private void OnDisable()
     {
         AudioManager.VolumesChanged -= ApplyMenuVideoVolume;
+    }
+
+    // The fade-in starts once the video plays: it waits for its first frame, and the sound with it.
+    private void Update()
+    {
+        if (menuSoundFade >= 1f || (menuVideoPlayer != null && !menuVideoPlayer.isPlaying))
+            return;
+
+        menuSoundFade = Mathf.MoveTowards(menuSoundFade, 1f, Time.unscaledDeltaTime / menuSoundFadeInDuration);
+        ApplyMenuVideoVolume();
     }
 
     public void StartNewGame()
@@ -231,7 +249,8 @@ public sealed class MainMenuController : MonoBehaviour
         if (menuVideoAudioSource == null || AudioManager.Instance == null)
             return;
 
-        menuVideoAudioSource.volume = AudioManager.Instance.GetOutputVolume(AudioChannel.Music);
+        // Squared: the ear hears a linear rise as a jump at the start.
+        menuVideoAudioSource.volume = AudioManager.Instance.GetOutputVolume(AudioChannel.Music) * menuSoundFade * menuSoundFade;
     }
 
     private void SetMenuVideoFocusState(bool hasFocus)
