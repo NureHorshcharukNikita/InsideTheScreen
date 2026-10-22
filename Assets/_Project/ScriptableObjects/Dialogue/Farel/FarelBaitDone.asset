@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: FarelBaitDone
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Two pieces of meat. Fresh... mostly."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "Fresh enough for fish. Here, the herbs I promised. And a few coins."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "If you ever pass by the river, my fire is your fire."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 2
+      quest: {fileID: 11400000, guid: 155832db8248499ab94dcfcf2c729fe9, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []

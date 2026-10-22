@@ -15,6 +15,11 @@ public sealed class DialogueAction
     [Tooltip("Start Battle: remembers that this fight was won. Use a unique id.")]
     public string encounterId;
 
+    [Tooltip("Give Cards: the card put into the inventory, e.g. berries picked from a bush.")]
+    public CardData card;
+    [Tooltip("Give Cards: how many.")]
+    [Min(1)] public int count = 1;
+
     public void Execute(NpcCharacter npc = null, PlayerCharacter player = null)
     {
         switch (type)
@@ -41,7 +46,21 @@ public sealed class DialogueAction
             case DialogueActionType.StartBattle:
                 StartBattle();
                 break;
+            case DialogueActionType.GiveCards:
+                GiveCards(player);
+                break;
         }
+    }
+
+    private void GiveCards(PlayerCharacter player)
+    {
+        player ??= UnityEngine.Object.FindFirstObjectByType<PlayerCharacter>();
+        InventoryData inventory = player != null ? player.InventoryData : ExplorationPlayerSession.RuntimeInventory;
+        if (card == null || inventory == null)
+            return;
+
+        inventory.AddCards(card, Mathf.Max(1, count));
+        ExplorationPlayerSession.AddToDeckIfRoom(card, Mathf.Max(1, count));
     }
 
     // Like walking into an enemy on the map: the player and the NPCs come back to where they stood.
@@ -92,5 +111,6 @@ public enum DialogueActionType
     SetStoryFlag,
     ClearStoryFlag,
     OpenShop,
-    StartBattle
+    StartBattle,
+    GiveCards
 }

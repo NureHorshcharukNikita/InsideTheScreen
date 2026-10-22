@@ -6,8 +6,9 @@ public sealed class QuestRewardDataDrawer : PropertyDrawer
 {
     private const float LineGap = 2f;
 
-    // Art/Inventory/SkillPoint.png, looked up by GUID so moving the file does not break it.
+    // Art/Inventory/SkillPoint.png and Gold.png, looked up by GUID so moving the files does not break it.
     private const string SkillPointIconGuid = "e45fa93a340f6a143917827c1a66b21f";
+    private const string GoldIconGuid = "9f7d23e22527dc148997f9a29ed64ff3";
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -17,10 +18,11 @@ public sealed class QuestRewardDataDrawer : PropertyDrawer
         SerializedProperty cardProp = property.FindPropertyRelative("card");
         SerializedProperty cardCountProp = property.FindPropertyRelative("cardCount");
         SerializedProperty skillPointsProp = property.FindPropertyRelative("skillPoints");
+        SerializedProperty goldProp = property.FindPropertyRelative("gold");
         QuestRewardType type = (QuestRewardType)typeProp.enumValueIndex;
 
         Rect line = new(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
-        property.isExpanded = EditorGUI.Foldout(line, property.isExpanded, GetSummary(type, cardProp, cardCountProp, skillPointsProp), true);
+        property.isExpanded = EditorGUI.Foldout(line, property.isExpanded, GetSummary(type, cardProp, cardCountProp, skillPointsProp, goldProp), true);
 
         if (property.isExpanded)
         {
@@ -41,13 +43,13 @@ public sealed class QuestRewardDataDrawer : PropertyDrawer
             else
             {
                 line.y += EditorGUIUtility.singleLineHeight + LineGap;
-                EditorGUI.PropertyField(line, skillPointsProp, new GUIContent("Amount"));
+                EditorGUI.PropertyField(line, type == QuestRewardType.Gold ? goldProp : skillPointsProp, new GUIContent("Amount"));
             }
 
             EditorGUI.indentLevel--;
         }
 
-        ApplySkillPointIcon(property, type);
+        ApplyRewardIcon(property, type);
         EditorGUI.EndProperty();
     }
 
@@ -67,10 +69,14 @@ public sealed class QuestRewardDataDrawer : PropertyDrawer
         QuestRewardType type,
         SerializedProperty cardProp,
         SerializedProperty cardCountProp,
-        SerializedProperty skillPointsProp)
+        SerializedProperty skillPointsProp,
+        SerializedProperty goldProp)
     {
         if (type == QuestRewardType.SkillPoints)
             return $"Skill Points: +{skillPointsProp.intValue}";
+
+        if (type == QuestRewardType.Gold)
+            return $"Gold: +{goldProp.intValue}";
 
         Object card = cardProp.objectReferenceValue;
         return card != null
@@ -78,18 +84,23 @@ public sealed class QuestRewardDataDrawer : PropertyDrawer
             : "Card: (none)";
     }
 
-    // The icon field is hidden: skill point rewards get the light bulb, card rewards keep it
-    // empty so the card's own icon is shown.
-    private static void ApplySkillPointIcon(SerializedProperty property, QuestRewardType type)
+    // The icon field is hidden: skill point rewards get the light bulb, gold rewards the coin, card
+    // rewards keep it empty so the card's own icon is shown.
+    private static void ApplyRewardIcon(SerializedProperty property, QuestRewardType type)
     {
         Sprite skillPointIcon = AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GUIDToAssetPath(SkillPointIconGuid));
-        if (skillPointIcon == null)
-            return;
+        Sprite goldIcon = AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GUIDToAssetPath(GoldIconGuid));
+        Sprite wanted = type switch
+        {
+            QuestRewardType.SkillPoints => skillPointIcon,
+            QuestRewardType.Gold => goldIcon,
+            _ => null
+        };
 
         SerializedProperty iconProp = property.FindPropertyRelative("icon");
-        if (type == QuestRewardType.SkillPoints && iconProp.objectReferenceValue == null)
-            iconProp.objectReferenceValue = skillPointIcon;
-        else if (type == QuestRewardType.Card && iconProp.objectReferenceValue == skillPointIcon)
-            iconProp.objectReferenceValue = null;
+        Object current = iconProp.objectReferenceValue;
+        bool isRewardIcon = current == null || current == skillPointIcon || current == goldIcon;
+        if (isRewardIcon && current != wanted)
+            iconProp.objectReferenceValue = wanted;
     }
 }

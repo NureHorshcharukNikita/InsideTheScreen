@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: AncientEldonHalfDream
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "You came. Good."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Garr said you were waiting for us."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "I was. The world answered me last night. But only halfway."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Halfway?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "I saw a light inside a stone. Then the dream fell apart, as if something drowned it out."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Leymar is protected by a barrier. Since you arrived, it has grown thin, and through it the forest whispers louder than the world."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "So if the barrier holds, you'll hear the rest?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Yes. There is an old standing stone at the crossroads, south of the tower. Its dust still remembers how to hold. Bring me some."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "And take this letter to Garr. It concerns him more than he will like."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "What's in it?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Things a blacksmith should hear before a stranger asks him for them."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "One more thing, Hideshi. Wherever this dream leads, it will lead beyond the village."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Make sure your son can stand on his own before then."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "He will."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_eldon_morning
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    - type: 2
+      quest: {fileID: 11400000, guid: 27d033e25721074234e74e93b432c324, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    - type: 1
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    - type: 1
+      quest: {fileID: 11400000, guid: ef021cc4b7414e6fa16bfe4c00a826a1, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []

@@ -22,6 +22,7 @@ public static partial class HandDrawDeckFlyAnimationDotween
 
         RestoreCardsToHand(context, preparedFlyData);
         context.FlyingBuffer.Clear();
+        HandCardViewCollection.SetLayoutFrozen(context.HandPanel, false);
         LayoutRebuilder.ForceRebuildLayoutImmediate(context.HandRect);
         HandCardSequence.CopySnapshot(context.DeckManager.Hand.Cards, context.SnapshotDestination);
     }

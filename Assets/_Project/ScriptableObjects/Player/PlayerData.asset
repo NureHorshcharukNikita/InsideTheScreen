@@ -16,13 +16,19 @@ MonoBehaviour:
   maxHealth: 30
   startingArmor: 0
   maxActionPoints: 5
-  startActionPoints: 4
+  startActionPoints: 3
   actionPointsPerTurn: 2
   Deck: {fileID: 11400000, guid: 46108576a1274c34083b3a4f796618f0, type: 2}
   startHandSize: 5
-  cardsDrawnPerTurn: 1
+  cardsDrawnPerTurn: 2
+  baseCards:
+  - card: {fileID: 11400000, guid: 56f2d3bf3b6242bea2c0955e67e32fb7, type: 2}
+    count: 3
+  - card: {fileID: 11400000, guid: 795bbe50af1c4c2ba89bdf5855ae408c, type: 2}
+    count: 2
+  minimumBattleDeckSize: 5
   Inventory: {fileID: 11400000, guid: a5eb58870111e944bb81aff9b9d78960, type: 2}
-  startingGold: 0
+  startingGold: 20
   startingSkillPoints: 0
   skills:
   - {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}
@@ -33,13 +39,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9eea28a2feef431bb1e32fb85d246fc3, type: 2}
   - {fileID: 11400000, guid: 38d25af9b5e3467b9164d3ee7577194d, type: 2}
   - {fileID: 11400000, guid: 0996728d1bcf4f068b8479e2698da41f, type: 2}
+  - {fileID: 11400000, guid: 3cf21cc125b646c38d0dc6cf82ec7eaf, type: 2}
+  - {fileID: 11400000, guid: 4dc47efaf471447b8dcac17f00c35811, type: 2}
+  - {fileID: 11400000, guid: 94617e08790843099005e4cc2ffa7be7, type: 2}
   - {fileID: 11400000, guid: 201faa5eefa149969312ab1f8592f6c3, type: 2}
   - {fileID: 11400000, guid: b926abf0434849289b6d70c217e414e7, type: 2}
   - {fileID: 11400000, guid: d065e5f504a54953a269ca35ee8b7a19, type: 2}
   - {fileID: 11400000, guid: 7d5e9760226344478466c855924e3308, type: 2}
-  - {fileID: 11400000, guid: 3cf21cc125b646c38d0dc6cf82ec7eaf, type: 2}
-  - {fileID: 11400000, guid: 4dc47efaf471447b8dcac17f00c35811, type: 2}
-  - {fileID: 11400000, guid: 94617e08790843099005e4cc2ffa7be7, type: 2}
   - {fileID: 11400000, guid: 77fce76284144fd6bbff8e374c3f22a9, type: 2}
   - {fileID: 11400000, guid: b79bd9305f98456792008293ad76fc55, type: 2}
   - {fileID: 11400000, guid: 995f33870d3744c1abf5e14f79bc13df, type: 2}

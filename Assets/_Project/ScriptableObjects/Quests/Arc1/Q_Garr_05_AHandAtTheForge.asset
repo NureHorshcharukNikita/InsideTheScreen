@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc280dd61f1dae84297761204f0d7b10, type: 3}
+  m_Name: Q_Garr_05_AHandAtTheForge
+  m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  questKey: a1_hand_at_the_forge
+  title: A Hand at the Forge
+  giverName: Garr Steelclad
+  description: "Garr's bellows boy ran off, so your father stayed at the forge to work the bellows. Garr needs four globs of slime to quench his iron - slimes live at the forest edge."
+  status: 0
+  objectiveType: 3
+  objectiveLabel: "Bring Garr four globs of slime"
+  targetEncounterId: 
+  targetEnemy: {fileID: 0}
+  targetCard: {fileID: 11400000, guid: a1cca249e28e4ccbb8eb23f44e92b462, type: 2}
+  targetCount: 4
+  rewards:
+  - type: 0
+    card: {fileID: 11400000, guid: 9466bc51d4784fd1a8c1ffd7d5e584e3, type: 2}
+    cardCount: 2
+    skillPoints: 1
+    gold: 10
+    icon: {fileID: 0}
+  - type: 2
+    card: {fileID: 0}
+    cardCount: 1
+    skillPoints: 1
+    gold: 15
+    icon: {fileID: 21300000, guid: 9f7d23e22527dc148997f9a29ed64ff3, type: 3}

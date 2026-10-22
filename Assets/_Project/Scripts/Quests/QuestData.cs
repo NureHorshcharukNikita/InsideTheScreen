@@ -20,6 +20,12 @@ public sealed class QuestData : ScriptableObject
     [SerializeField] private QuestObjectiveType objectiveType = QuestObjectiveType.Manual;
     [SerializeField] private string objectiveLabel;
     [SerializeField] private string targetEncounterId;
+    [Tooltip("Defeat Enemies: the kind of enemy that counts (also others with the same profile).")]
+    [SerializeField] private EnemyData targetEnemy;
+    [Tooltip("Collect Cards: the card to bring.")]
+    [SerializeField] private CardData targetCard;
+    [Tooltip("Defeat Enemies: how many. Collect Cards: how many to bring.")]
+    [SerializeField, Min(1)] private int targetCount = 1;
 
     [Header("Reward")]
     [SerializeField] private List<QuestRewardData> rewards = new();
@@ -34,6 +40,9 @@ public sealed class QuestData : ScriptableObject
         ? GetDefaultObjectiveLabel()
         : objectiveLabel;
     public string TargetEncounterId => targetEncounterId;
+    public EnemyData TargetEnemy => targetEnemy;
+    public CardData TargetCard => targetCard;
+    public int TargetCount => Mathf.Max(1, targetCount);
     public int RewardCount
     {
         get
@@ -79,11 +88,27 @@ public sealed class QuestData : ScriptableObject
         return null;
     }
 
+    // Known as soon as anything that uses it is loaded (an NPC's dialogue, a story event), so a
+    // battle can count for it also after a save is loaded.
+    private void OnEnable()
+    {
+        QuestManager.RegisterQuest(this);
+    }
+
     private string GetDefaultObjectiveLabel()
     {
-        return objectiveType == QuestObjectiveType.DefeatEncounter
-            ? "Defeat the marked enemy"
-            : "Complete the requested task";
+        return objectiveType switch
+        {
+            QuestObjectiveType.DefeatEncounter => "Defeat the marked enemy",
+            QuestObjectiveType.DefeatEnemies when targetEnemy != null => $"Defeat {TargetCount}x {targetEnemy.DisplayName}",
+            QuestObjectiveType.CollectCards when targetCard != null => $"Bring {TargetCount}x {GetCardName(targetCard)}",
+            _ => "Complete the requested task"
+        };
+    }
+
+    private static string GetCardName(CardData card)
+    {
+        return string.IsNullOrWhiteSpace(card.CardName) ? card.name : card.CardName;
     }
 }
 
@@ -95,6 +120,7 @@ public sealed class QuestRewardData
     [SerializeField] private CardData card;
     [SerializeField, Min(1)] private int cardCount = 1;
     [SerializeField, Min(1)] private int skillPoints = 1;
+    [SerializeField, Min(1)] private int gold = 10;
 
     // Hidden: set by the drawer to the light bulb for skill point rewards.
     // Card rewards leave it empty and show the card's own icon.
@@ -106,13 +132,17 @@ public sealed class QuestRewardData
     public CardData Card => type == QuestRewardType.Card ? card : null;
     public int CardCount => type == QuestRewardType.Card ? Mathf.Max(0, cardCount) : 0;
     public int SkillPoints => type == QuestRewardType.SkillPoints ? Mathf.Max(0, skillPoints) : 0;
-    public bool HasContent => Card != null || SkillPoints > 0;
+    public int Gold => type == QuestRewardType.Gold ? Mathf.Max(0, gold) : 0;
+    public bool HasContent => Card != null || SkillPoints > 0 || Gold > 0;
 
-    // E.g. "Meat x1" or "+1 Skill Point".
+    // E.g. "Meat x1", "+1 Skill Point" or "+20 Gold".
     private string GetLabel()
     {
         if (SkillPoints > 0)
             return $"+{SkillPoints} Skill Point{(SkillPoints > 1 ? "s" : string.Empty)}";
+
+        if (Gold > 0)
+            return $"+{Gold} Gold";
 
         if (Card == null || CardCount <= 0)
             return string.Empty;
@@ -125,11 +155,16 @@ public sealed class QuestRewardData
 public enum QuestRewardType
 {
     Card,
-    SkillPoints
+    SkillPoints,
+    Gold
 }
 
 public enum QuestObjectiveType
 {
     Manual,
-    DefeatEncounter
+    DefeatEncounter,
+    // Defeat a number of enemies of one kind, anywhere: completes itself at the count.
+    DefeatEnemies,
+    // Bring a number of one card: done when the inventory has them; completing the quest takes them.
+    CollectCards
 }

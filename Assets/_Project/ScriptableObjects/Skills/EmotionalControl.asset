@@ -18,39 +18,23 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 3
   icon: {fileID: 4881087265581258116, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Reduces the chance to receive debuffs.
+  description: Haru steadies his breath every turn.
   ranks:
-  - cost: 1
-    description: Debuff chance -10%.
+  - cost: 2
+    description: Heal 1 health at the start of each of your turns.
     effects:
     - kind: 0
-      stat: 9
-      modifierType: 1
-      value: -10
+      stat: 8
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Debuff chance -10% (total -20%).
+  - cost: 3
+    description: Heal 2 health at the start of each of your turns.
     effects:
     - kind: 0
-      stat: 9
-      modifierType: 1
-      value: -10
-      passive: 0
-  - cost: 1
-    description: Debuff chance -10% (total -30%).
-    effects:
-    - kind: 0
-      stat: 9
-      modifierType: 1
-      value: -10
-      passive: 0
-  - cost: 1
-    description: Debuff chance -10% (total -40%).
-    effects:
-    - kind: 0
-      stat: 9
-      modifierType: 1
-      value: -10
+      stat: 8
+      modifierType: 0
+      value: 1
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: b926abf0434849289b6d70c217e414e7, type: 2}

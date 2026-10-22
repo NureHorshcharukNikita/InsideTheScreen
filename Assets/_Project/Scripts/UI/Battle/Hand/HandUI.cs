@@ -93,6 +93,7 @@ public partial class HandUI : MonoBehaviour
         StopCoroutine(_flyRoutine);
         _flyRoutine = null;
         _currentlyFlying.Clear();
+        HandCardViewCollection.SetLayoutFrozen(handPanel, false);
         deckUi?.EndDeckCountFlyStagger();
     }
 
@@ -105,6 +106,7 @@ public partial class HandUI : MonoBehaviour
         }
 
         HandCardViewCollection.SnapFlyingCardsToHand(handPanel, _currentlyFlying);
+        HandCardViewCollection.SetLayoutFrozen(handPanel, false);
 
         _currentlyFlying.Clear();
 

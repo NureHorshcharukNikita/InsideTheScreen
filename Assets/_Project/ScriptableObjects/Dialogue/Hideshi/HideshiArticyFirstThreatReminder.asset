@@ -13,6 +13,47 @@ MonoBehaviour:
   m_Name: HideshiArticyFirstThreatReminder
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "The wolves are waiting at the forest edge.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "What if they're stronger than us?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Then we'll learn something. But I don't think they are. Remember: one card, one action.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "That wolf is still out there, Haru. It won't leave us alone."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "What if it's stronger than us?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Then we'll learn something. Remember: one card, one action."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices:
+    - text: "Let's face it again."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 7
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 0}
+        enemy: {fileID: 11400000, guid: d1d2e2db8a7f6dc4e87b3af2e78481bb, type: 2}
+        encounterId: a1_forest_wolves
+        card: {fileID: 0}
+        count: 1
+    - text: "Not yet."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []

@@ -10,6 +10,7 @@ public sealed class QuestNotificationToast : MonoBehaviour
     private const string QuestAddedMessage = "Quest added";
     private const string QuestCompletedMessage = "Quest completed";
     private const string RewardReceivedMessage = "Reward received";
+    private const string QuestProgressMessage = "Quest progress";
     private static readonly Color PanelColor = new(0.31f, 0.23f, 0.2f, 0.98f);
     private static readonly Color BorderColor = new(0.94f, 0.68f, 0.34f, 1f);
     private static readonly Color TextColor = new(1f, 0.91f, 0.68f, 1f);
@@ -53,6 +54,17 @@ public sealed class QuestNotificationToast : MonoBehaviour
         EnsureInstance();
         if (instance != null)
             instance.Enqueue(QuestCompletedMessage, null);
+    }
+
+    // E.g. "Quest progress 2/3" after a battle that counted for a Defeat Enemies quest.
+    public static void ShowQuestProgress(QuestData quest, int current, int target)
+    {
+        if (quest == null)
+            return;
+
+        EnsureInstance();
+        if (instance != null)
+            instance.Enqueue($"{QuestProgressMessage} {current}/{target}", null);
     }
 
     public static void ShowRewardReceived(QuestData quest)

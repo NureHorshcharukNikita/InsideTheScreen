@@ -17,6 +17,8 @@ public static class ExplorationPlayerSession
     public static bool HasSession { get; private set; }
     public static string ContinueSceneName { get; private set; } = SceneNames.Exploration;
     public static bool HasAnyPersistentSession => PersistentSessionSave.HasAnySlot();
+    // The player's inventory this session; null before the player was first set up.
+    public static InventoryData RuntimeInventory => runtimeInventory;
 
     public static void SavePosition(Vector3 position)
     {
@@ -57,6 +59,48 @@ public static class ExplorationPlayerSession
 
         HasSession = true;
         return runtimeInventory;
+    }
+
+    // New battle cards (given, earned, bought, looted) join the deck while it has room, so Haru never
+    // walks into a fight with an empty deck. Cards without battle effects (materials, keepsakes)
+    // stay in the inventory only. Call after adding them to the inventory.
+    public static void AddToDeckIfRoom(CardData card, int count)
+    {
+        if (runtimeDeck == null || card == null || count <= 0)
+            return;
+
+        bool hasEffects = (card.InstantEffects?.Count ?? 0) > 0 || (card.StatusApplications?.Count ?? 0) > 0;
+        if (hasEffects)
+            runtimeDeck.AddCards(card, count);
+    }
+
+    // The deck is picked from the inventory: after cards leave the inventory (sold, handed in for a
+    // quest) the deck may not hold more copies of a card than the inventory still has.
+    public static void TrimDeckToInventory()
+    {
+        if (runtimeDeck == null || runtimeInventory == null)
+            return;
+
+        var owned = new Dictionary<CardData, int>();
+        foreach (CardData card in runtimeInventory.Cards)
+        {
+            if (card != null)
+                owned[card] = owned.TryGetValue(card, out int count) ? count + 1 : 1;
+        }
+
+        var inDeck = new Dictionary<CardData, int>();
+        foreach (CardData card in runtimeDeck.Cards)
+        {
+            if (card != null)
+                inDeck[card] = inDeck.TryGetValue(card, out int count) ? count + 1 : 1;
+        }
+
+        foreach (KeyValuePair<CardData, int> entry in inDeck)
+        {
+            int extra = entry.Value - (owned.TryGetValue(entry.Key, out int count) ? count : 0);
+            if (extra > 0)
+                runtimeDeck.RemoveCards(entry.Key, extra);
+        }
     }
 
     public static DeckData GetOrCreateRuntimeDeck(DeckData template)
@@ -280,7 +324,7 @@ public static class ExplorationPlayerSession
             : data.hasEnemyHealth ? new[] { data.enemyHealth } : null;
         PendingBattleEnemy.RestoreSession(data.pendingEncounterId, enemyHealths);
 
-        DefeatedEncounters.Restore(data.defeatedEncounterIds);
+        DefeatedEncounters.Restore(data.defeatedEncounterIds, data.defeatedAtBattle, data.battlesWon);
         EncounterGroups.Restore(data.encounterGroups);
         CollectedPickups.Restore(data.collectedPickupIds);
         QuestManager.Restore(data.questProgress);

@@ -18,16 +18,16 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 4
   icon: {fileID: 0}
-  description: On Breakdown, there is a chance to enter Superfocus (+20% damage, +1 action point for 2 turns).
+  description: Haru enters every fight ready.
   ranks:
-  - cost: 1
-    description: On Breakdown, chance to enter Superfocus (+20% damage, +1 action point for 2 turns).
+  - cost: 2
+    description: Start every battle with 1 more action point.
     effects:
-    - kind: 1
-      stat: 0
+    - kind: 0
+      stat: 12
       modifierType: 0
-      value: 0
-      passive: 5
+      value: 1
+      passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: d065e5f504a54953a269ca35ee8b7a19, type: 2}
     requiredRank: 1

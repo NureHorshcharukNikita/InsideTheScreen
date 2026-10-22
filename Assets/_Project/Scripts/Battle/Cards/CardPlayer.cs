@@ -28,7 +28,7 @@ public class CardPlayer
         if (!CardResolver.CanResolveAnyTarget(card, context))
             return false;
 
-        int actionPointCost = Mathf.Max(0, SkillProgression.ModifyInt(SkillStat.CardActionPointCost, card.Cost));
+        int actionPointCost = player.GetActionPointCost(card);
         if (!player.SpendActionPoints(actionPointCost))
         {
             DevLog.Log("Not enough action points");
@@ -39,6 +39,7 @@ public class CardPlayer
         CardResolver.Resolve(card, context, actionContext);
 
         deckManager.DiscardByIndexFromHand(index);
+        player.NoteCardPlayed();
 
         return true;
     }

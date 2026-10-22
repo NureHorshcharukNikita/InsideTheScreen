@@ -18,31 +18,23 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 3
   icon: {fileID: 0}
-  description: Chance not to spend a card when it is played.
+  description: Haru starts every fight with more options.
   ranks:
   - cost: 1
-    description: Chance to keep a played card +5%.
+    description: Start every battle with 1 more card in hand (total +1).
     effects:
     - kind: 0
       stat: 11
-      modifierType: 1
-      value: 5
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Chance to keep a played card +5% (total +10%).
+  - cost: 2
+    description: Start every battle with 1 more card in hand (total +2).
     effects:
     - kind: 0
       stat: 11
-      modifierType: 1
-      value: 5
-      passive: 0
-  - cost: 1
-    description: Chance to keep a played card +5% (total +15%).
-    effects:
-    - kind: 0
-      stat: 11
-      modifierType: 1
-      value: 5
+      modifierType: 0
+      value: 1
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: 77fce76284144fd6bbff8e374c3f22a9, type: 2}

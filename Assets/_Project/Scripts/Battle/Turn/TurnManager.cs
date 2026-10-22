@@ -93,6 +93,7 @@ public class TurnManager
 
         // Points first, so turn-start statuses such as Stun can take some of them away.
         player.RestoreActionPoints();
+        player.ApplyTurnStartSkills();
         TickStatus(player, BattleStatusTiming.TurnStart);
         deckManager.DrawCards(player.CardsDrawnPerTurn);
     }

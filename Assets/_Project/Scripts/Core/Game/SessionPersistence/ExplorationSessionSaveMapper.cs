@@ -37,6 +37,8 @@ public static class ExplorationSessionSaveMapper
             inventoryCardIds = SessionCardSaveMapper.ToIds(runtimeInventory?.Cards),
             deckCardIds = SessionCardSaveMapper.ToIds(runtimeDeck?.Cards),
             defeatedEncounterIds = DefeatedEncounters.ToArray(),
+            defeatedAtBattle = DefeatedEncounters.DefeatedAtToArray(),
+            battlesWon = DefeatedEncounters.BattlesWon,
             encounterGroups = EncounterGroups.ToArray(),
             collectedPickupIds = CollectedPickups.ToArray(),
             questProgress = questProgress,

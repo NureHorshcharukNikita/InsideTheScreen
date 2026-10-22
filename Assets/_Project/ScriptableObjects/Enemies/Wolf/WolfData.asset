@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   profile: {fileID: 11400000, guid: 2953ce566631410694175b6bc9accc0d, type: 2}
   battleScale: 1
-  maxHealth: 60
+  maxHealth: 30
   startingArmor: 0
   actionPointsPerTurn: 1
   abilities:
@@ -27,7 +27,7 @@ MonoBehaviour:
     minAmount: 1
     maxAmount: 1
   - card: {fileID: 11400000, guid: 72d41a12baee418493bd6c6ab72a1d64, type: 2}
-    dropChancePercent: 45
+    dropChancePercent: 55
     minAmount: 1
     maxAmount: 1
   - card: {fileID: 11400000, guid: d626f537dfd74dd99ce79b53b5151b78, type: 2}

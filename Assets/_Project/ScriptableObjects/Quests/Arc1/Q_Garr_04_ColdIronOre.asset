@@ -15,19 +15,30 @@ MonoBehaviour:
   questKey: a1_cold_iron_ore
   title: Cold Iron Ore
   giverName: Garr Steelclad
-  description: The last material is cold iron. An ogre guards the cave where it can be found. Defeat it and bring Garr the ore.
+  description: "The last material is cold iron. An ogre guards the cave past the riverbank where it can be found. Defeat it and bring Garr the ore."
   status: 0
   objectiveType: 1
-  objectiveLabel: Defeat the Ogre and collect 3x Cold Iron
+  objectiveLabel: "Defeat the ogre in the cave past the riverbank"
   targetEncounterId: a1_cold_iron_ogre
+  targetEnemy: {fileID: 0}
+  targetCard: {fileID: 0}
+  targetCount: 1
   rewards:
   - type: 0
     card: {fileID: 11400000, guid: f0686cc36fe8495a9ec504be6d05f936, type: 2}
     cardCount: 1
     skillPoints: 1
+    gold: 10
     icon: {fileID: 0}
   - type: 1
     card: {fileID: 0}
     cardCount: 1
     skillPoints: 2
+    gold: 10
     icon: {fileID: 21300000, guid: e45fa93a340f6a143917827c1a66b21f, type: 3}
+  - type: 2
+    card: {fileID: 0}
+    cardCount: 1
+    skillPoints: 1
+    gold: 20
+    icon: {fileID: 21300000, guid: 9f7d23e22527dc148997f9a29ed64ff3, type: 3}

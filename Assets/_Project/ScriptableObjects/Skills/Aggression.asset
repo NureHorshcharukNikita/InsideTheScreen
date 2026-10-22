@@ -18,31 +18,23 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 4
   icon: {fileID: 0}
-  description: Increases damage while health is below 30%.
+  description: Cornered, Haru fights harder.
   ranks:
   - cost: 1
-    description: Damage below 30% health +10%.
+    description: At 30% health or less, every hit deals +2 damage (total +2).
     effects:
     - kind: 0
       stat: 4
-      modifierType: 1
-      value: 10
+      modifierType: 0
+      value: 2
       passive: 0
-  - cost: 1
-    description: Damage below 30% health +10% (total +20%).
+  - cost: 2
+    description: At 30% health or less, every hit deals +2 damage (total +4).
     effects:
     - kind: 0
       stat: 4
-      modifierType: 1
-      value: 10
-      passive: 0
-  - cost: 1
-    description: Damage below 30% health +10% (total +30%).
-    effects:
-    - kind: 0
-      stat: 4
-      modifierType: 1
-      value: 10
+      modifierType: 0
+      value: 2
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: dbfff9daa9fd437c9690090f6db962ee, type: 2}

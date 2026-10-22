@@ -13,4 +13,29 @@ MonoBehaviour:
   m_Name: GarrArticyIdle
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "If you need something repaired, I'm here. If you need anything else, I'm busy.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 1
+    speakerName: Garr Steelclad
+    portraitOverride: {fileID: 0}
+    text: "If you need something repaired, I'm here. If you need anything else, I'm busy."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices:
+    - text: "Show me what you've got."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 0}
+        enemy: {fileID: 0}
+        encounterId: 
+        card: {fileID: 0}
+        count: 1
+    - text: "Never mind."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []

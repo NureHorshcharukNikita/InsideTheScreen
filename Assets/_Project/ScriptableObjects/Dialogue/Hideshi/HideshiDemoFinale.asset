@@ -13,15 +13,129 @@ MonoBehaviour:
   m_Name: HideshiDemoFinale
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Haru! Are you hurt?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "I'm okay, Dad. My hands won't stop shaking, though.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Mine neither. You were incredible back there.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "He wasn't evil, was he? He only wanted to protect the books.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I know. Whatever was speaking through him is gone now. He can finally rest.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "Do you think the way home is somewhere in those books?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "If it is, we'll find it. Together.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "...Dad?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Hm?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, text: "Thanks for not leaving me alone in this world.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Never. Not in this world, not in any other.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Come on. Let's go home.", nextLineIndex: -1}
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Haru! Are you hurt?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "I'm okay, Dad. My hands won't stop shaking, though."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Mine neither. You were incredible back there."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "He wasn't evil, was he? He only wanted to keep the altar asleep."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Maybe he knew something we don't. Whatever spoke through him is gone now."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "The pedestal... There's the hollow for the crystal."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Eldon is holding the barrier open. We won't get a second chance."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Together?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Together."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Here goes."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "The light... it's getting brighter!"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Dad... it's turning black!"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Haru, get behind me!"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 2
+      quest: {fileID: 11400000, guid: c66f34375861a11b4ff0464e7f5f57c7, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []

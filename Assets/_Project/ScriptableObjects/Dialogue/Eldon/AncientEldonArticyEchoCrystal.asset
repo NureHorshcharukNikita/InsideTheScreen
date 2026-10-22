@@ -16,7 +16,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: I've been waiting for you.
+    text: "There you are."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -24,7 +25,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: We came, just as you asked.
+    text: "Did the dust help?"
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -32,7 +34,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: Last night, I dreamed of something useful.
+    text: "It did. The barrier holds, and last night the dream finally came clear."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -40,7 +43,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: After that, I knew what we should try.
+    text: "Now I know what we should try."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -48,7 +52,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: Try what, exactly?
+    text: "Try what, exactly?"
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -56,7 +61,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: Build a crystal.
+    text: "Build a crystal."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -64,7 +70,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: A crystal?
+    text: "A crystal?"
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -72,7 +79,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: It is not very complicated. But I don't have the materials.
+    text: "An echo crystal. It is not very complicated. But I don't have the materials."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -80,7 +88,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: So what do you suggest?
+    text: "So what do you suggest?"
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -88,7 +97,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: You will have to gather them. If you want to go home, there is no other way.
+    text: "You will have to gather them. If you want to go home, there is no other way."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -96,7 +106,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: What do we need?
+    text: "What do we need?"
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -104,7 +115,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: Some of the materials can be found in Leymar. The rest lie beyond the settlement.
+    text: "Some of the materials can be found near Leymar. The rest lie beyond the settlement."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -112,7 +124,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: Is it dangerous?
+    text: "Is it dangerous?"
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -120,7 +133,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: Quite. But without them, you will be trapped here.
+    text: "Quite. But without them, you will be trapped here."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -128,7 +142,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: Can anyone help us find the materials?
+    text: "Can anyone help us find them?"
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -136,7 +151,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: Garr Steelclad is a blacksmith. He knows what you need and where to find it.
+    text: "Garr Steelclad. He knows what you need and where to find it."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -144,7 +160,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: Give him this.
+    text: "Give him this recipe. After my letter, he will be expecting it."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -152,7 +169,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: When the crystal is ready, come back. Then I'll tell you what to do next.
+    text: "When the crystal is ready, come back. Then I'll tell you what to do next."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -160,7 +178,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: All right, but we still don't understand what happened to us.
+    text: "All right, but we still don't understand what happened to us."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -168,7 +187,8 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: That is not what you need to focus on right now. You have something more important - the crystal!
+    text: "That is not what you need to focus on right now. You have something more important - the crystal!"
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -176,7 +196,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: All right...
+    text: "All right..."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -184,7 +205,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: Come on, Haru.
+    text: "Come on, Haru."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -192,7 +214,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: Yeah...
+    text: "Yeah..."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -200,7 +223,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: Why do they keep avoiding our questions?.. It's as if they can't see beyond their own little world...
+    text: "Why do they keep avoiding our questions?.. It's as if they can't see beyond their own little world..."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -208,7 +232,8 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: Everyone here is so strange...
+    text: "Everyone here is so strange..."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:
@@ -216,12 +241,27 @@ MonoBehaviour:
       quest: {fileID: 0}
       storyFlag: eldon_echo_crystal_discussed
       silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     - type: 2
       quest: {fileID: 11400000, guid: 27d033e25721074234e74e93b432c324, type: 2}
       storyFlag: 
       silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     - type: 1
       quest: {fileID: 11400000, guid: a8fcd588209c1818a81368b066c1b279, type: 2}
       storyFlag: 
       silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

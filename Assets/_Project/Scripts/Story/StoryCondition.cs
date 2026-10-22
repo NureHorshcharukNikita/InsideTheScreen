@@ -5,12 +5,14 @@ using UnityEngine;
 public enum StoryConditionType
 {
     StoryFlag,
-    QuestStatus
+    QuestStatus,
+    QuestObjectiveDone
 }
 
 // One requirement of an NPC dialogue entry or a story event: a story flag is set,
-// or a quest is in a given status. Invert turns it around (the flag is not set, the quest is not
-// in that status). A list of conditions is met when all of them are; an empty list always is.
+// or a quest is in a given status, or a Defeat Enemies / Collect Cards quest is active and has
+// reached its count (the player can hand it in). Invert turns it around (the flag is not set, the
+// quest is not in that status). A list of conditions is met when all of them are; an empty list always is.
 [Serializable]
 public sealed class StoryCondition
 {
@@ -26,6 +28,9 @@ public sealed class StoryCondition
     {
         if (type == StoryConditionType.QuestStatus)
             return quest == null || (QuestManager.GetStatus(quest) == questStatus) != invert;
+
+        if (type == StoryConditionType.QuestObjectiveDone)
+            return quest == null || QuestManager.IsObjectiveDone(quest) != invert;
 
         return string.IsNullOrWhiteSpace(storyFlag) || StoryFlagManager.HasFlag(storyFlag) != invert;
     }

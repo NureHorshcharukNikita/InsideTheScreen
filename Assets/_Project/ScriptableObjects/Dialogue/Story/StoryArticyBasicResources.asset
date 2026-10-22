@@ -13,5 +13,57 @@ MonoBehaviour:
   m_Name: StoryArticyBasicResources
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Berries... a stick... a stone. And they all turned into cards.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "I should show Dad.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Berries... a stick... a stone. And they all turned into cards."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 8
+      quest: {fileID: 0}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 11400000, guid: 7668e87e8808462684f1925bcb62ef1f, type: 2}
+      count: 2
+    - type: 8
+      quest: {fileID: 0}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 11400000, guid: 1d2fd7ff5942449bae8c2047a54c3ef4, type: 2}
+      count: 2
+    - type: 8
+      quest: {fileID: 0}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 11400000, guid: ce0ac4164e324f708f96aa22b67feb5b, type: 2}
+      count: 2
+    - type: 8
+      quest: {fileID: 0}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 11400000, guid: 050024cdfc2440cba309c2ceb9b9d2f4, type: 2}
+      count: 1
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "I should show Dad."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []

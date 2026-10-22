@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0147e070ff104519a75ad83ebfbaa424, type: 3}
+  m_Name: BalanceConfig
+  m_EditorClassIdentifier: Assembly-CSharp::BalanceConfig
+  goldPerDamage: 1
+  goldPerArmor: 0.8
+  goldPerHeal: 1.2
+  goldPerDamageOverTime: 0.8
+  goldPerRegeneration: 1
+  goldPerStunnedPoint: 6
+  pierceBonus: 0.5
+  allTargetsMultiplier: 1.8
+  goldPerExtraActionPoint: 2
+  minimumCardValue: 1
+  valueWithoutEffects: 2
+  buyMarkup: 1.5
+  sellShare: 0.5
+  unsellableCategories:
+  - 7
+  enemyHealthMultiplier: 1
+  healthInGroupOfTwo: 0.85
+  healthInGroupOfThree: 0.75
+  healthWhenFatherFights: 1.2
+  lowHealthThreshold: 0.3
+  willToLiveHealthShare: 0.2
+  counterattackDamage: 2
+  firstCardDiscount: 1
+  referenceBuild:
+  - {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}
+  - {fileID: 11400000, guid: 9eea28a2feef431bb1e32fb85d246fc3, type: 2}
+  - {fileID: 11400000, guid: 201faa5eefa149969312ab1f8592f6c3, type: 2}
+  - {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}
+  - {fileID: 11400000, guid: f3411ec4378e4bda8e94f19f5c99e71f, type: 2}
+  - {fileID: 11400000, guid: 3cf21cc125b646c38d0dc6cf82ec7eaf, type: 2}
+  - {fileID: 11400000, guid: 201faa5eefa149969312ab1f8592f6c3, type: 2}
+  - {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}
+  - {fileID: 11400000, guid: 38d25af9b5e3467b9164d3ee7577194d, type: 2}
+  - {fileID: 11400000, guid: b926abf0434849289b6d70c217e414e7, type: 2}
+  - {fileID: 11400000, guid: f3411ec4378e4bda8e94f19f5c99e71f, type: 2}
+  - {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}
+  - {fileID: 11400000, guid: dbfff9daa9fd437c9690090f6db962ee, type: 2}
+  - {fileID: 11400000, guid: 4dc47efaf471447b8dcac17f00c35811, type: 2}
+  - {fileID: 11400000, guid: 0996728d1bcf4f068b8479e2698da41f, type: 2}
+  targetTurnsStandard: 4
+  targetHealthLost: 0.25
+  referenceDecks:
+  - name: Start (no items yet, fists and legs only)
+    cards: []
+  - name: Early (first fights past the gate)
+    cards:
+    - {fileID: 11400000, guid: 1d2fd7ff5942449bae8c2047a54c3ef4, type: 2}
+    - {fileID: 11400000, guid: 1d2fd7ff5942449bae8c2047a54c3ef4, type: 2}
+    - {fileID: 11400000, guid: ce0ac4164e324f708f96aa22b67feb5b, type: 2}
+    - {fileID: 11400000, guid: ce0ac4164e324f708f96aa22b67feb5b, type: 2}
+    - {fileID: 11400000, guid: f6eabeb4b5ef4b94bc86b8fd62f5ad47, type: 2}
+    - {fileID: 11400000, guid: 7668e87e8808462684f1925bcb62ef1f, type: 2}
+    - {fileID: 11400000, guid: 050024cdfc2440cba309c2ceb9b9d2f4, type: 2}
+    - {fileID: 11400000, guid: dcb2e2dd2c6043198b3e56e2138e8367, type: 2}
+  - name: Mid (Garr's spear, road and river)
+    cards:
+    - {fileID: 11400000, guid: 725b2ac5b8564e7e91bba163f2d040af, type: 2}
+    - {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
+    - {fileID: 11400000, guid: 4088e7462f5d423aa9b7c0d62aba79fe, type: 2}
+    - {fileID: 11400000, guid: ce0ac4164e324f708f96aa22b67feb5b, type: 2}
+    - {fileID: 11400000, guid: 519e1baf61a24ab49e64bdef31bd5fea, type: 2}
+    - {fileID: 11400000, guid: b0506889cbd748349718475beb780336, type: 2}
+    - {fileID: 11400000, guid: 9bf52ab079b445c5baa48f0f9213c4c9, type: 2}
+    - {fileID: 11400000, guid: f743d7d94274492bb18abb1b4dce09ac, type: 2}
+    - {fileID: 11400000, guid: dcb2e2dd2c6043198b3e56e2138e8367, type: 2}
+    - {fileID: 11400000, guid: 6da7af145c7a4a669d8f1ac375aca5c2, type: 2}
+    - {fileID: 11400000, guid: 8012d6dac9ec1854f9c9ca003b3f4db0, type: 2}
+    - {fileID: 11400000, guid: e23a6e3ebe43a304c96ac0c3f0fb73a9, type: 2}
+    - {fileID: 11400000, guid: 9ab102bd20f9486083039b148b5a23fa, type: 2}
+  - name: Late (cave, north road, the altar)
+    cards:
+    - {fileID: 11400000, guid: e90ebb6468e36cc4a927b6668a4b435e, type: 2}
+    - {fileID: 11400000, guid: dd3f327d1454407aba588a77421064f4, type: 2}
+    - {fileID: 11400000, guid: 5e82138ffc404c80b4874d282cda2e4a, type: 2}
+    - {fileID: 11400000, guid: 6bac821cfeb3d604ea75eee60ec996b6, type: 2}
+    - {fileID: 11400000, guid: 4088e7462f5d423aa9b7c0d62aba79fe, type: 2}
+    - {fileID: 11400000, guid: 725b2ac5b8564e7e91bba163f2d040af, type: 2}
+    - {fileID: 11400000, guid: 9466bc51d4784fd1a8c1ffd7d5e584e3, type: 2}
+    - {fileID: 11400000, guid: 9466bc51d4784fd1a8c1ffd7d5e584e3, type: 2}
+    - {fileID: 11400000, guid: de95a9968f2198749bac82515afe5c3f, type: 2}
+    - {fileID: 11400000, guid: b0506889cbd748349718475beb780336, type: 2}
+    - {fileID: 11400000, guid: 04e859e21da64969b6aee7f1f2464d12, type: 2}
+    - {fileID: 11400000, guid: 442fed74c6c741a38916a82c41291104, type: 2}
+    - {fileID: 11400000, guid: 8012d6dac9ec1854f9c9ca003b3f4db0, type: 2}
+    - {fileID: 11400000, guid: e23a6e3ebe43a304c96ac0c3f0fb73a9, type: 2}
+    - {fileID: 11400000, guid: 450a0aabde604934bd1e4bf51706e083, type: 2}

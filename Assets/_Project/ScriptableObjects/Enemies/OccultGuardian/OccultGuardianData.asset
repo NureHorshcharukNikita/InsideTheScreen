@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   profile: {fileID: 11400000, guid: 0aaa5677de9e420c89211344292e34f9, type: 2}
   battleScale: 0.75
-  maxHealth: 35
+  maxHealth: 66
   startingArmor: 0
   actionPointsPerTurn: 2
   abilities:
@@ -29,5 +29,17 @@ MonoBehaviour:
     value: 50
     duration: 0
     stacks: 1
-  lootDrops: []
+  lootDrops:
+  - card: {fileID: 11400000, guid: c36ca136aafd4b3687225b572b6847ba, type: 2}
+    dropChancePercent: 100
+    minAmount: 1
+    maxAmount: 1
+  - card: {fileID: 11400000, guid: d8d34aa1977744d9a800b3b38de74b38, type: 2}
+    dropChancePercent: 60
+    minAmount: 1
+    maxAmount: 2
+  - card: {fileID: 11400000, guid: b51fdba974604caabfe75fc586b70942, type: 2}
+    dropChancePercent: 25
+    minAmount: 1
+    maxAmount: 1
   storyFlagOnDefeat: occultist_defeated

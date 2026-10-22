@@ -18,10 +18,10 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 5
   icon: {fileID: 1668292771105042877, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Once per battle, survive a lethal blow and restore 20% health.
+  description: Haru refuses to fall.
   ranks:
-  - cost: 1
-    description: Once per battle, survive a lethal blow and restore 20% health.
+  - cost: 3
+    description: Once a battle, a lethal blow leaves Haru standing with 20% of his health.
     effects:
     - kind: 1
       stat: 0

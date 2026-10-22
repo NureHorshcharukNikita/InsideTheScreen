@@ -78,8 +78,17 @@ public class Character : MonoBehaviour, ICombatant
             return;
         }
 
+        if (health == 0 && currentHealth > 0 && TryCheatDeath())
+            return;
+
         currentHealth = health;
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);
+    }
+
+    // A last chance before a lethal blow lands, e.g. Haru's Will to Live. True = still alive.
+    protected virtual bool TryCheatDeath()
+    {
+        return false;
     }
 
     public bool HasStatus(BattleStatus status)

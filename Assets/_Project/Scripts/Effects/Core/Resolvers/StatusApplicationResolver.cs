@@ -38,13 +38,22 @@ public static class StatusApplicationResolver
                     context.Self,
                     target,
                     resolved.Spec.Status,
-                    resolved.Spec.Duration,
+                    GetDuration(context.Self, target, resolved.Spec.Duration),
                     Mathf.Max(resolved.Spec.Stacks, 1),
                     resolved.Spec.Value,
                     ResolveReapplyMode(resolved.Spec),
                     runtime);
             }
         }
+    }
+
+    // Extended Awareness: what Haru puts on his own side (regeneration...) lasts longer.
+    private static int GetDuration(ICombatant source, ICombatant target, int duration)
+    {
+        if (duration <= 0 || source is not PlayerCharacter || target == null || target.Team != CombatTeam.Player)
+            return duration;
+
+        return Mathf.Max(duration, SkillProgression.ModifyInt(SkillStat.BuffDuration, duration));
     }
 
     private static BattleStatusReapplyMode ResolveReapplyMode(IStatusApplicationSpec spec)

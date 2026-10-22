@@ -29,6 +29,7 @@ public static class ShopManager
             return 0;
 
         inventory.AddCards(item.card, purchasedCount);
+        ExplorationPlayerSession.AddToDeckIfRoom(item.card, purchasedCount);
 
         if (item.HasLimitedStock)
         {
@@ -58,6 +59,8 @@ public static class ShopManager
         int soldCount = inventory.RemoveCards(card, quantity);
         if (soldCount <= 0)
             return 0;
+
+        ExplorationPlayerSession.TrimDeckToInventory();
 
         int totalPrice = price * soldCount;
         PlayerWallet.AddGold(totalPrice);

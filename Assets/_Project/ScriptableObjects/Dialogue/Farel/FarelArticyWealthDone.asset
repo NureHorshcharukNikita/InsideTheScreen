@@ -13,23 +13,120 @@ MonoBehaviour:
   m_Name: FarelArticyWealthDone
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "It's quiet down by the river. You actually did it.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "They didn't want to leave.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "No one ever does.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "There's one more problem, though. My net.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Your net?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "I left it at the fishing farm when the creatures came. Without it, a clear river doesn't help me much.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "We'll look for it.", nextLineIndex: -1}
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "It's quiet down by the river. You actually did it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "They didn't want to leave."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "No one ever does."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "There's one more problem, though. My net."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Your net?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "I left it at the fishing farm upstream when the creatures came. Without it, a clear river doesn't help me much."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "And my boat... those things chewed it full of holes."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Boats I can handle. Haru, can you find the net on your own? I'll help Farel patch this thing."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Upstream, at the fishing farm. Got it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Farel Wanderer
     portraitOverride: {fileID: 0}
     text: "You're good people. Strange, but good."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: hideshi_stays_behind
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_hideshi_at_farel
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     - type: 1
       quest: {fileID: 11400000, guid: bc1558169922a9de4f8b33c7bd6fcf1d, type: 2}
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

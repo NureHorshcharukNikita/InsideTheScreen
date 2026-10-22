@@ -18,34 +18,18 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 2
   icon: {fileID: -4894141499052518315, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Buffs last longer.
+  description: What Haru does for his side lasts longer.
   ranks:
   - cost: 1
-    description: Buff duration +1 turn.
+    description: Statuses Haru puts on his side last +1 turn (total +1).
     effects:
     - kind: 0
       stat: 10
       modifierType: 0
       value: 1
       passive: 0
-  - cost: 1
-    description: Buff duration +1 turn (total +2).
-    effects:
-    - kind: 0
-      stat: 10
-      modifierType: 0
-      value: 1
-      passive: 0
-  - cost: 1
-    description: Buff duration +1 turn (total +3).
-    effects:
-    - kind: 0
-      stat: 10
-      modifierType: 0
-      value: 1
-      passive: 0
-  - cost: 1
-    description: Buff duration +1 turn (total +4).
+  - cost: 2
+    description: Statuses Haru puts on his side last +1 turn (total +2).
     effects:
     - kind: 0
       stat: 10

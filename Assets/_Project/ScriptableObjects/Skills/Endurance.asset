@@ -18,47 +18,39 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 1
   icon: {fileID: -6448586153675407955, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Increases maximum health.
+  description: Haru gets tougher with every fight he survives.
   ranks:
   - cost: 1
-    description: Maximum health +10.
+    description: Max health +3 (total +3).
     effects:
     - kind: 0
       stat: 0
       modifierType: 0
-      value: 10
+      value: 3
       passive: 0
   - cost: 1
-    description: Maximum health +10 (total +20).
+    description: Max health +3 (total +6).
     effects:
     - kind: 0
       stat: 0
       modifierType: 0
-      value: 10
+      value: 3
       passive: 0
-  - cost: 1
-    description: Maximum health +10 (total +30).
+  - cost: 2
+    description: Max health +3 (total +9).
     effects:
     - kind: 0
       stat: 0
       modifierType: 0
-      value: 10
+      value: 3
       passive: 0
-  - cost: 1
-    description: Maximum health +10 (total +40).
+  - cost: 2
+    description: Max health +3 (total +12).
     effects:
     - kind: 0
       stat: 0
       modifierType: 0
-      value: 10
-      passive: 0
-  - cost: 1
-    description: Maximum health +10 (total +50).
-    effects:
-    - kind: 0
-      stat: 0
-      modifierType: 0
-      value: 10
+      value: 3
       passive: 0
   prerequisites: []
   progressionRequirements: []

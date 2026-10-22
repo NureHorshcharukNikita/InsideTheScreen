@@ -18,31 +18,15 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 3
   icon: {fileID: -8019134311771341605, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Reduces the action point cost of cards.
+  description: Haru thinks a step ahead every turn.
   ranks:
-  - cost: 1
-    description: Card action point cost -5%.
+  - cost: 4
+    description: +1 action point every turn.
     effects:
     - kind: 0
       stat: 6
-      modifierType: 1
-      value: -5
-      passive: 0
-  - cost: 1
-    description: Card action point cost -5% (total -10%).
-    effects:
-    - kind: 0
-      stat: 6
-      modifierType: 1
-      value: -5
-      passive: 0
-  - cost: 1
-    description: Card action point cost -5% (total -15%).
-    effects:
-    - kind: 0
-      stat: 6
-      modifierType: 1
-      value: -5
+      modifierType: 0
+      value: 1
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: 38d25af9b5e3467b9164d3ee7577194d, type: 2}

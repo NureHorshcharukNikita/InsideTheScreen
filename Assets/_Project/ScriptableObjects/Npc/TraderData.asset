@@ -31,6 +31,37 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 1
+  - key: trader_horn_done
+    dialogue: {fileID: 11400000, guid: 85ccdc4d3e584210bd7f65877ca45b3d, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 2
+      storyFlag: 
+      quest: {fileID: 11400000, guid: f7777e2cf4214d218366733c9ae3d845, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: trader_horn_offer
+    dialogue: {fileID: 11400000, guid: 7cf6f90c63e94d0fa809a628c46268e8, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_left_leymar
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: f7777e2cf4214d218366733c9ae3d845, type: 2}
+      questStatus: 0
+      invert: 0
   - key: trader_idle
     dialogue: {fileID: 11400000, guid: 1de705470d881f71be94828f91e33b62, type: 2}
     repeatable: 1
@@ -41,6 +72,6 @@ MonoBehaviour:
     conditions: []
   enableOverheadSpeech: 0
   overheadLines: []
-  shop: {fileID: 0}
+  shop: {fileID: 11400000, guid: 1b8d49705ccd48f5a08a59c038af3341, type: 2}
   canMove: 0
   moveSpeed: 2

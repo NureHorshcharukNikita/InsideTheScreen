@@ -97,7 +97,8 @@ public class BattleSystem : MonoBehaviour
         encounter.Resolve(enemy, FindHpBar(enemy), enemyIntentView);
 
         deckManager = new DeckManager();
-        deckManager.Initialize(player.DeckData);
+        // Too few cards in the deck: Haru's fists and legs make up the rest (PlayerData).
+        deckManager.Initialize(player.DeckData, player.BaseCardsInFillOrder, player.MinimumBattleDeckSize);
 
         deckUI.Bind(deckManager.Deck);
 
@@ -391,12 +392,28 @@ public class BattleSystem : MonoBehaviour
                 StoryFlagManager.SetFlag(defeatFlag);
         }
 
+        // Health carries over to the next fight as it is: winning heals nothing.
         ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
         DefeatedEncounters.MarkDefeated(PendingBattleEnemy.EncounterId);
+
+        // Battles pay only in loot: gold, skill points and the like come from quests.
         QuestManager.HandleEncounterDefeated(PendingBattleEnemy.EncounterId, player.InventoryData);
+        QuestManager.HandleEnemiesDefeated(GetDefeatedEnemyData(), player.InventoryData);
 
         handUI?.ReleaseAllBattleCardDrags();
         battleEndUI?.ShowVictory(droppedLoot);
+    }
+
+    private List<EnemyData> GetDefeatedEnemyData()
+    {
+        var defeatedData = new List<EnemyData>();
+        foreach (EnemyCharacter defeated in Enemies)
+        {
+            if (defeated != null && defeated.Data != null)
+                defeatedData.Add(defeated.Data);
+        }
+
+        return defeatedData;
     }
 
     private List<CardData> RollAndCollectEnemyLoot()
@@ -412,7 +429,10 @@ public class BattleSystem : MonoBehaviour
             return droppedLoot;
 
         for (int i = 0; i < droppedLoot.Count; i++)
+        {
             player.InventoryData.AddCard(droppedLoot[i]);
+            ExplorationPlayerSession.AddToDeckIfRoom(droppedLoot[i], 1);
+        }
 
         return droppedLoot;
     }

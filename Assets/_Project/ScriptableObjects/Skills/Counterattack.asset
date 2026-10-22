@@ -18,10 +18,10 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 3
   icon: {fileID: 7710886840564298841, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: After taking physical damage from an enemy, 20% chance to strike back for 50% damage.
+  description: Whoever hits Haru pays for it.
   ranks:
-  - cost: 1
-    description: 20% chance to strike back for 50% damage after taking physical damage.
+  - cost: 2
+    description: An enemy that hits Haru takes 2 damage back.
     effects:
     - kind: 1
       stat: 0

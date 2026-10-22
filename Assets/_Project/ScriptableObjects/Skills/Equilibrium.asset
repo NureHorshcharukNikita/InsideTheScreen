@@ -18,39 +18,23 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 2
   icon: {fileID: -7789033462181584718, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Reduces the loss of soul stability.
+  description: Haru heals with a steady hand.
   ranks:
   - cost: 1
-    description: Soul stability loss -10%.
+    description: Every heal Haru gives restores +1 health (total +1).
     effects:
     - kind: 0
-      stat: 8
-      modifierType: 1
-      value: -10
+      stat: 7
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Soul stability loss -10% (total -20%).
+  - cost: 2
+    description: Every heal Haru gives restores +1 health (total +2).
     effects:
     - kind: 0
-      stat: 8
-      modifierType: 1
-      value: -10
-      passive: 0
-  - cost: 1
-    description: Soul stability loss -10% (total -30%).
-    effects:
-    - kind: 0
-      stat: 8
-      modifierType: 1
-      value: -10
-      passive: 0
-  - cost: 1
-    description: Soul stability loss -10% (total -40%).
-    effects:
-    - kind: 0
-      stat: 8
-      modifierType: 1
-      value: -10
+      stat: 7
+      modifierType: 0
+      value: 1
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: 201faa5eefa149969312ab1f8592f6c3, type: 2}

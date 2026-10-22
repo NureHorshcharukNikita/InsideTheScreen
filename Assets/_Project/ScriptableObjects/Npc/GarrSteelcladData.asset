@@ -80,9 +80,9 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: bf7ee36f62767e17c74411adc890bcae, type: 2}
       questStatus: 2
       invert: 0
-  - key: garr_ogre_reminder
-    dialogue: {fileID: 11400000, guid: 21ec1ede6ecd6b21d88211847feb13b6, type: 2}
-    repeatable: 1
+  - key: garr_letter
+    dialogue: {fileID: 11400000, guid: 7cf9ce9cd5084596961515d5caadd10a, type: 2}
+    repeatable: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -90,7 +90,38 @@ MonoBehaviour:
     conditions:
     - type: 1
       storyFlag: 
-      quest: {fileID: 11400000, guid: bf7ee36f62767e17c74411adc890bcae, type: 2}
+      quest: {fileID: 11400000, guid: ef021cc4b7414e6fa16bfe4c00a826a1, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_letter_delivered
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: garr_hand_done
+    dialogue: {fileID: 11400000, guid: 1f457838bffd446abe6b7f6bb9e1d77e, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 2
+      storyFlag: 
+      quest: {fileID: 11400000, guid: d5c90be81c154b6ca237839b40101ec8, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: garr_hides_done
+    dialogue: {fileID: 11400000, guid: 3f712a89667d4ca9a3937313d851eec5, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 2
+      storyFlag: 
+      quest: {fileID: 11400000, guid: beae17b99fea4a6bb6dc78a9f7248295, type: 2}
       questStatus: 1
       invert: 0
   - key: garr_resin_done
@@ -111,19 +142,6 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
-  - key: garr_resin_reminder
-    dialogue: {fileID: 11400000, guid: 97f182cbc01260b1b6be9a7a6184ef86, type: 2}
-    repeatable: 1
-    talkTiming: 0
-    conversationNumber: 1
-    rangeStartConversation: 1
-    rangeEndConversation: 0
-    conditions:
-    - type: 1
-      storyFlag: 
-      quest: {fileID: 11400000, guid: 9dfe884defda724adb964098ee19c64c, type: 2}
-      questStatus: 1
-      invert: 0
   - key: garr_stone_done
     dialogue: {fileID: 11400000, guid: 6a259c72c254e98c8719339f7bd6c6b0, type: 2}
     repeatable: 0
@@ -142,6 +160,99 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+  - key: garr_blacksmith
+    dialogue: {fileID: 11400000, guid: 5dc272d00d4e4a28a648e5daa2091896, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_hand_offer
+    dialogue: {fileID: 11400000, guid: e28dc4f12b914c859f7087efebe3d347, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 93ac9dd922f597cff585c5b9b8c3670f, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: d5c90be81c154b6ca237839b40101ec8, type: 2}
+      questStatus: 0
+      invert: 0
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: garr_hides_offer
+    dialogue: {fileID: 11400000, guid: 06269155143547bc89d888ae02298a94, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: d5c90be81c154b6ca237839b40101ec8, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: beae17b99fea4a6bb6dc78a9f7248295, type: 2}
+      questStatus: 0
+      invert: 0
+  - key: garr_hand_reminder
+    dialogue: {fileID: 11400000, guid: feea0f85f50e40b0baaec69510b84015, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: d5c90be81c154b6ca237839b40101ec8, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: garr_ogre_reminder
+    dialogue: {fileID: 11400000, guid: 21ec1ede6ecd6b21d88211847feb13b6, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: bf7ee36f62767e17c74411adc890bcae, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: garr_resin_reminder
+    dialogue: {fileID: 11400000, guid: 97f182cbc01260b1b6be9a7a6184ef86, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 9dfe884defda724adb964098ee19c64c, type: 2}
+      questStatus: 1
+      invert: 0
   - key: garr_stone_reminder
     dialogue: {fileID: 11400000, guid: 5b1775402bc5901d1a1c32457478f30a, type: 2}
     repeatable: 1
@@ -155,17 +266,17 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: 93ac9dd922f597cff585c5b9b8c3670f, type: 2}
       questStatus: 1
       invert: 0
-  - key: garr_crystal_materials
-    dialogue: {fileID: 11400000, guid: 5dc272d00d4e4a28a648e5daa2091896, type: 2}
-    repeatable: 0
+  - key: garr_hides_reminder
+    dialogue: {fileID: 11400000, guid: 1b8311e6bec6488781a19f311073f743, type: 2}
+    repeatable: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions:
-    - type: 0
-      storyFlag: eldon_echo_crystal_discussed
-      quest: {fileID: 0}
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: beae17b99fea4a6bb6dc78a9f7248295, type: 2}
       questStatus: 1
       invert: 0
   - key: garr_next_morning
@@ -196,6 +307,6 @@ MonoBehaviour:
       invert: 0
   enableOverheadSpeech: 1
   overheadLines: []
-  shop: {fileID: 0}
+  shop: {fileID: 11400000, guid: 3548538ebb704d738f84e745f3a1d99f, type: 2}
   canMove: 0
   moveSpeed: 2

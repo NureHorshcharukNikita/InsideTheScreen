@@ -18,16 +18,16 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 4
   icon: {fileID: 289842180045339578, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Playing 3 different card types in a row (attack, buff, influence) grants +1 action point.
+  description: Haru always has one more option.
   ranks:
-  - cost: 1
-    description: Playing 3 different card types in a row grants +1 action point.
+  - cost: 4
+    description: Draw 1 more card every turn.
     effects:
-    - kind: 1
-      stat: 0
+    - kind: 0
+      stat: 14
       modifierType: 0
-      value: 0
-      passive: 4
+      value: 1
+      passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: 4dc47efaf471447b8dcac17f00c35811, type: 2}
     requiredRank: 1

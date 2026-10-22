@@ -13,7 +13,29 @@ MonoBehaviour:
   m_Name: TraderArticyIdle
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 0}, text: "Still here? The road to Leymar is right there. Straight ahead, don't turn off.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Why don't you come with us?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 0}, text: "Me? In Leymar they look at me as if I were one of the wolves now.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Trader, portraitOverride: {fileID: 0}, text: "No. The forest is my home. Whatever is left of it.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
+    text: "Travelers! Still alive, I see. Good for business."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices:
+    - text: "Let's trade."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 0}
+        enemy: {fileID: 0}
+        encounterId: 
+        card: {fileID: 0}
+        count: 1
+    - text: "Just passing by."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []

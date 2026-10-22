@@ -10,6 +10,7 @@ public static class QuestManager
     public static event Action<QuestData> QuestStarted;
     public static event Action<QuestData> QuestCompleted;
     public static event Action<QuestData> QuestRewardGranted;
+    public static event Action<QuestData> QuestProgressChanged;
 
     public static bool StartQuest(QuestData quest, bool showNotification = true)
     {
@@ -36,6 +37,12 @@ public static class QuestManager
             QuestNotificationToast.ShowQuestAdded(quest);
 
         ExplorationPlayerSession.SaveQuestProgress();
+
+        // The marked enemy was beaten before anyone asked: done at once.
+        if (quest.ObjectiveType == QuestObjectiveType.DefeatEncounter
+            && DefeatedEncounters.IsDefeated(quest.TargetEncounterId))
+            CompleteQuest(quest, null, showNotification);
+
         return true;
     }
 
@@ -48,6 +55,13 @@ public static class QuestManager
     {
         if (!SetStatusInternal(quest, QuestStatus.Completed, showNotification))
             return false;
+
+        inventory ??= ExplorationPlayerSession.RuntimeInventory;
+        if (quest.ObjectiveType == QuestObjectiveType.CollectCards && inventory != null)
+        {
+            inventory.RemoveCards(quest.TargetCard, quest.TargetCount);
+            ExplorationPlayerSession.TrimDeckToInventory();
+        }
 
         GrantReward(quest, inventory, showNotification);
         return true;
@@ -111,6 +125,79 @@ public static class QuestManager
         }
 
         return completedAny;
+    }
+
+    // After a won battle, with every enemy of it: Defeat Enemies quests that are active count the
+    // ones of their kind, and complete at their count.
+    public static void HandleEnemiesDefeated(IReadOnlyList<EnemyData> enemies, InventoryData inventory)
+    {
+        if (enemies == null || enemies.Count == 0)
+            return;
+
+        for (int i = 0; i < KnownQuests.Count; i++)
+        {
+            QuestData quest = KnownQuests[i];
+            if (quest == null
+                || quest.ObjectiveType != QuestObjectiveType.DefeatEnemies
+                || quest.TargetEnemy == null
+                || GetStatus(quest) != QuestStatus.Active)
+                continue;
+
+            int defeated = 0;
+            for (int e = 0; e < enemies.Count; e++)
+            {
+                if (IsSameEnemy(enemies[e], quest.TargetEnemy))
+                    defeated++;
+            }
+
+            if (defeated == 0)
+                continue;
+
+            QuestProgressSaveData progress = GetProgress(quest.QuestKey);
+            progress.progress = Math.Min(quest.TargetCount, progress.progress + defeated);
+
+            if (progress.progress >= quest.TargetCount)
+            {
+                CompleteQuest(quest, inventory);
+                continue;
+            }
+
+            QuestProgressChanged?.Invoke(quest);
+            QuestNotificationToast.ShowQuestProgress(quest, progress.progress, quest.TargetCount);
+            ExplorationPlayerSession.SaveQuestProgress();
+        }
+    }
+
+    // How far a Defeat Enemies or Collect Cards quest has got, e.g. 2 of 3. False for other quests.
+    public static bool TryGetObjectiveProgress(QuestData quest, out int current, out int target)
+    {
+        current = 0;
+        target = quest != null ? quest.TargetCount : 0;
+        if (quest == null)
+            return false;
+
+        QuestStatus status = GetStatus(quest);
+        switch (quest.ObjectiveType)
+        {
+            case QuestObjectiveType.DefeatEnemies:
+                current = status == QuestStatus.Completed ? target : GetProgress(quest.QuestKey)?.progress ?? 0;
+                return true;
+            case QuestObjectiveType.CollectCards:
+                current = status == QuestStatus.Completed ? target : CountCards(quest.TargetCard);
+                current = Math.Min(current, target);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    // A Defeat Enemies or Collect Cards quest that is active and has reached its count: time to
+    // go back to whoever gave it.
+    public static bool IsObjectiveDone(QuestData quest)
+    {
+        return GetStatus(quest) == QuestStatus.Active
+            && TryGetObjectiveProgress(quest, out int current, out int target)
+            && current >= target;
     }
 
     public static bool HasQuest(QuestData quest)
@@ -216,7 +303,8 @@ public static class QuestManager
             {
                 questKey = Quests[i].questKey,
                 status = Quests[i].status,
-                wasOpened = Quests[i].wasOpened
+                wasOpened = Quests[i].wasOpened,
+                progress = Quests[i].progress
             };
         }
 
@@ -239,15 +327,38 @@ public static class QuestManager
             {
                 questKey = savedQuest.questKey,
                 status = savedQuest.status,
-                wasOpened = savedQuest.wasOpened
+                wasOpened = savedQuest.wasOpened,
+                progress = savedQuest.progress
             });
         }
     }
 
+    // KnownQuests stays: it lists what quests exist, not anyone's progress, and quests register
+    // themselves only once, when they are loaded.
     public static void Clear()
     {
         Quests.Clear();
-        KnownQuests.Clear();
+    }
+
+    private static bool IsSameEnemy(EnemyData enemy, EnemyData target)
+    {
+        return enemy != null && (enemy == target || enemy.CharacterID == target.CharacterID);
+    }
+
+    private static int CountCards(CardData card)
+    {
+        InventoryData inventory = ExplorationPlayerSession.RuntimeInventory;
+        if (card == null || inventory == null)
+            return 0;
+
+        int count = 0;
+        foreach (CardData owned in inventory.Cards)
+        {
+            if (owned == card)
+                count++;
+        }
+
+        return count;
     }
 
     private static QuestData FindKnownQuest(string questKey)
@@ -304,12 +415,19 @@ public static class QuestManager
             if (reward.Card != null && reward.CardCount > 0)
             {
                 inventory.AddCards(reward.Card, reward.CardCount);
+                ExplorationPlayerSession.AddToDeckIfRoom(reward.Card, reward.CardCount);
                 grantedAnyReward = true;
             }
 
             if (reward.SkillPoints > 0)
             {
                 SkillProgression.AddPoints(reward.SkillPoints);
+                grantedAnyReward = true;
+            }
+
+            if (reward.Gold > 0)
+            {
+                PlayerWallet.AddGold(reward.Gold);
                 grantedAnyReward = true;
             }
         }

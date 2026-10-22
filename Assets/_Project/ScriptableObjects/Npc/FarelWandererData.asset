@@ -36,19 +36,6 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
-  - key: farel_relic_reminder
-    dialogue: {fileID: 11400000, guid: 72259ddf69322577b712cece50b3db0a, type: 2}
-    repeatable: 1
-    talkTiming: 0
-    conversationNumber: 1
-    rangeStartConversation: 1
-    rangeEndConversation: 0
-    conditions:
-    - type: 1
-      storyFlag: 
-      quest: {fileID: 11400000, guid: 386111d6135a78632aec687d2f8a530e, type: 2}
-      questStatus: 1
-      invert: 0
   - key: farel_net_done
     dialogue: {fileID: 11400000, guid: fd37a6832ddc7ef439d48c9e619c2a78, type: 2}
     repeatable: 0
@@ -67,17 +54,17 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
-  - key: farel_net_reminder
-    dialogue: {fileID: 11400000, guid: f09395a2aacec3808d648a667e74f012, type: 2}
-    repeatable: 1
+  - key: farel_bait_done
+    dialogue: {fileID: 11400000, guid: 69d113d201774407aa2dcd7aae4f1168, type: 2}
+    repeatable: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions:
-    - type: 1
+    - type: 2
       storyFlag: 
-      quest: {fileID: 11400000, guid: bc1558169922a9de4f8b33c7bd6fcf1d, type: 2}
+      quest: {fileID: 11400000, guid: 155832db8248499ab94dcfcf2c729fe9, type: 2}
       questStatus: 1
       invert: 0
   - key: farel_wealth_done
@@ -93,6 +80,55 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: 212cb845cf2a03e54b60938ba5f249f7, type: 2}
       questStatus: 2
       invert: 0
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: farel_bait_offer
+    dialogue: {fileID: 11400000, guid: 4bdadee9d0c1489c9aa6d763fd757457, type: 2}
+    repeatable: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: bc1558169922a9de4f8b33c7bd6fcf1d, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 155832db8248499ab94dcfcf2c729fe9, type: 2}
+      questStatus: 0
+      invert: 0
+  - key: farel_relic_reminder
+    dialogue: {fileID: 11400000, guid: 72259ddf69322577b712cece50b3db0a, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 386111d6135a78632aec687d2f8a530e, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: farel_net_reminder
+    dialogue: {fileID: 11400000, guid: f09395a2aacec3808d648a667e74f012, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: bc1558169922a9de4f8b33c7bd6fcf1d, type: 2}
+      questStatus: 1
+      invert: 0
   - key: farel_wealth_reminder
     dialogue: {fileID: 11400000, guid: dcc3a5d617261a11ba64f33af7e1509c, type: 2}
     repeatable: 1
@@ -104,6 +140,19 @@ MonoBehaviour:
     - type: 1
       storyFlag: 
       quest: {fileID: 11400000, guid: 212cb845cf2a03e54b60938ba5f249f7, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: farel_bait_reminder
+    dialogue: {fileID: 11400000, guid: 56e786d64742416ebf4f2eb1193d2449, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 155832db8248499ab94dcfcf2c729fe9, type: 2}
       questStatus: 1
       invert: 0
   - key: farel_first_meeting

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbec006949d548ec89f376318e206610, type: 3}
+  m_Name: GarrForgeShop
+  m_EditorClassIdentifier: Assembly-CSharp::ShopData
+  shopKey: garr_forge_shop
+  displayName: Garr's Forge
+  items:
+  - card: {fileID: 11400000, guid: 725b2ac5b8564e7e91bba163f2d040af, type: 2}
+    buyPriceMode: 0
+    buyPrice: 1
+    stockMode: 1
+    stock: 1
+    sellPriceMode: 0
+    sellPrice: 1
+  - card: {fileID: 11400000, guid: 9bf52ab079b445c5baa48f0f9213c4c9, type: 2}
+    buyPriceMode: 0
+    buyPrice: 1
+    stockMode: 1
+    stock: 2
+    sellPriceMode: 0
+    sellPrice: 1
+  - card: {fileID: 11400000, guid: 9466bc51d4784fd1a8c1ffd7d5e584e3, type: 2}
+    buyPriceMode: 0
+    buyPrice: 1
+    stockMode: 1
+    stock: 4
+    sellPriceMode: 0
+    sellPrice: 1
+  - card: {fileID: 11400000, guid: 9ab102bd20f9486083039b148b5a23fa, type: 2}
+    buyPriceMode: 0
+    buyPrice: 1
+    stockMode: 1
+    stock: 2
+    sellPriceMode: 0
+    sellPrice: 1
+  - card: {fileID: 11400000, guid: f35c09a36f734e3f88594377c0751172, type: 2}
+    buyPriceMode: 0
+    buyPrice: 1
+    stockMode: 1
+    stock: 2
+    sellPriceMode: 0
+    sellPrice: 1
+  - card: {fileID: 11400000, guid: e23a6e3ebe43a304c96ac0c3f0fb73a9, type: 2}
+    buyPriceMode: 0
+    buyPrice: 1
+    stockMode: 1
+    stock: 2
+    sellPriceMode: 0
+    sellPrice: 1
+  - card: {fileID: 11400000, guid: dd3f327d1454407aba588a77421064f4, type: 2}
+    buyPriceMode: 0
+    buyPrice: 1
+    stockMode: 1
+    stock: 1
+    sellPriceMode: 0
+    sellPrice: 1
+  buyMultiplier: 1
+  sellMultiplier: 1

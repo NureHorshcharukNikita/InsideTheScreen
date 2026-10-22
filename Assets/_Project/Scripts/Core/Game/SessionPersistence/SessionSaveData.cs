@@ -27,6 +27,10 @@ public sealed class SessionSaveData
     public string[] inventoryCardIds;
     public string[] deckCardIds;
     public string[] defeatedEncounterIds;
+    // After how many won battles each of defeatedEncounterIds was beaten, and battles won in all:
+    // for enemies that respawn.
+    public int[] defeatedAtBattle;
+    public int battlesWon;
     public EncounterGroupSaveData[] encounterGroups;
     public string[] collectedPickupIds;
     public QuestProgressSaveData[] questProgress;
@@ -52,6 +56,8 @@ public sealed class QuestProgressSaveData
     public string questKey;
     public QuestStatus status;
     public bool wasOpened;
+    // Defeat Enemies quests: how many are defeated so far.
+    public int progress;
 }
 
 [Serializable]

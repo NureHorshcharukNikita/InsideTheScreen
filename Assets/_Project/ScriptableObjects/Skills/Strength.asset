@@ -18,47 +18,31 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 2
   icon: {fileID: -4216535019544190110, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Increases physical damage dealt.
+  description: Every blow Haru lands hits harder.
   ranks:
-  - cost: 1
-    description: Physical damage +5%.
+  - cost: 2
+    description: Every hit deals +1 damage (total +1).
     effects:
     - kind: 0
       stat: 2
-      modifierType: 1
-      value: 5
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Physical damage +5% (total +10%).
+  - cost: 3
+    description: Every hit deals +1 damage (total +2).
     effects:
     - kind: 0
       stat: 2
-      modifierType: 1
-      value: 5
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Physical damage +5% (total +15%).
+  - cost: 4
+    description: Every hit deals +1 damage (total +3).
     effects:
     - kind: 0
       stat: 2
-      modifierType: 1
-      value: 5
-      passive: 0
-  - cost: 1
-    description: Physical damage +5% (total +20%).
-    effects:
-    - kind: 0
-      stat: 2
-      modifierType: 1
-      value: 5
-      passive: 0
-  - cost: 1
-    description: Physical damage +5% (total +25%).
-    effects:
-    - kind: 0
-      stat: 2
-      modifierType: 1
-      value: 5
+      modifierType: 0
+      value: 1
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}

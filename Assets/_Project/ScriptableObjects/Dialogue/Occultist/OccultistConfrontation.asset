@@ -13,16 +13,65 @@ MonoBehaviour:
   m_Name: OccultistConfrontation
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Occultist, portraitOverride: {fileID: 0}, text: "Another seeker climbs these steps...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Occultist, portraitOverride: {fileID: 0}, text: "The books are not for you, child. Turn back.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "I'm not here for your books.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Occultist, portraitOverride: {fileID: 0}, text: "They all say that. Then their hands reach for the shelves.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Occultist, portraitOverride: {fileID: 0}, text: "I swore to keep them safe. The voice in the dark gave me the strength to keep that vow.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "...You're not alone in there, are you?", nextLineIndex: -1}
   - speakerSide: 1
     speakerName: Occultist
     portraitOverride: {fileID: 0}
-    text: "Leave. Or stay among the pages forever."
+    text: "Another seeker comes to the altar..."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Occultist
+    portraitOverride: {fileID: 0}
+    text: "And you carry a voice in a stone. I can hear it singing."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Step aside. We only need the pedestal."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Occultist
+    portraitOverride: {fileID: 0}
+    text: "The altar sleeps for a reason, child. Wake it, and something will answer that you did not call."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "We'll take that chance."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Occultist
+    portraitOverride: {fileID: 0}
+    text: "I swore to keep it sleeping. The voice in the dark gave me the strength to keep that vow."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Occultist
+    portraitOverride: {fileID: 0}
+    text: "Leave. Or stay here forever, like all the others."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -31,14 +80,16 @@ MonoBehaviour:
       nextLineIndex: -1
       endDialogue: 1
       actions: []
-    - text: "I'm not leaving."
+    - text: "We're not leaving."
       nextLineIndex: -1
       endDialogue: 1
       actions:
       - type: 7
         quest: {fileID: 0}
-        storyFlag:
+        storyFlag: 
         silent: 0
         shop: {fileID: 0}
         enemy: {fileID: 11400000, guid: 22a6f27f9af941b8a3adb78dad9ff899, type: 2}
-        encounterId: occult_guardian
+        encounterId: a1_altar_guardian
+        card: {fileID: 0}
+        count: 1

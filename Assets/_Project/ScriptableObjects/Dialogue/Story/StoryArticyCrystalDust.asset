@@ -13,5 +13,21 @@ MonoBehaviour:
   m_Name: StoryArticyCrystalDust
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "The stones around the old well are covered in glittering dust.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Three handfuls for Eldon.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "The old stone at the crossroads is covered in glittering dust."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Three handfuls for Eldon."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []

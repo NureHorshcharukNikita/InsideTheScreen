@@ -26,13 +26,13 @@ MonoBehaviour:
   instantEffects:
   - effect: {fileID: 11400000, guid: 972dbff6f90eee24eb0ca5c32880a20c, type: 2}
     targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
-    value: 8
+    value: 6
     applyChance: 1
     conditions: []
   statusApplications: 
   - status: {fileID: 11400000, guid: c6d4d53bb01b431da3b985a6dca4b51e, type: 2}
     targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
-    value: 3
+    value: 2
     duration: 2
     stacks: 1
     applyChance: 1

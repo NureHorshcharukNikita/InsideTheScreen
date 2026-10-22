@@ -12,6 +12,6 @@ public class PeriodicDamageStatus : BattleStatus
             return;
 
         int damage = status.Value * Mathf.Max(status.Stacks, 1);
-        actionContext.Damage.ApplyDamage(status.Source, target, damage);
+        actionContext.Damage.ApplyDamageOverTime(status.Source, target, damage);
     }
 }

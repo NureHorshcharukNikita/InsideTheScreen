@@ -13,18 +13,56 @@ MonoBehaviour:
   m_Name: StoryArticyAltarArrival
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Dad... this place...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I know. Even the air feels different.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It's so quiet. Not a single bird.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "There's the pedestal. And a hollow for the crystal.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "They say a forgotten creature wanders here. Once in a thousand years.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Then we're lucky. We only need a minute.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "What if Eldon is wrong? What if it's not a way home?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Then we'll find another way. But if this is the exit, we won't get a second chance.", nextLineIndex: -1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Dad... this place..."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Stay behind me."
+    text: "I know. Even the air feels different."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "It's so quiet. Not a single bird."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "There's the pedestal. And someone standing in front of it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "The guardian Eldon warned us about..."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Stay behind me. And keep the crystal safe."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:
@@ -33,9 +71,17 @@ MonoBehaviour:
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     - type: 1
       quest: {fileID: 11400000, guid: c66f34375861a11b4ff0464e7f5f57c7, type: 2}
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

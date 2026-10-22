@@ -13,19 +13,92 @@ MonoBehaviour:
   m_Name: HideshiArticySurvivalBasics
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Haru, wait a moment.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "What is it?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Garr said it's grown dangerous beyond the village. I believe him. That wolf was only the beginning.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "So what, we just stay here?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "No. But before we go out there, I want to be sure you can take care of yourself.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Have you noticed? Everything here turns into cards. Berries, stones, even a stick.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Yeah... just like in a game.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Then let's play by its rules. Gather whatever you can find around the village and see what cards you get.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "And then?", nextLineIndex: -1}
   - speakerSide: 1
     speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Haru, wait a moment."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
     portraitOverride: {fileID: 0}
+    text: "What is it?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Eldon is right. Whatever he saw, it's out there, beyond the village. And that wolf was only the beginning."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "So what, we just stay here?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "No. But before we go out there, I want to be sure you can take care of yourself."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Have you noticed? Everything here turns into cards. Berries, stones, even a stick."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Yeah... just like in a game."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Then let's play by its rules. The apple bushes by the tower - gather whatever you can find there and see what cards you get."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "And then?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Then we'll know what we're working with. Go on, I'll be right here."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:
@@ -34,4 +107,8 @@ MonoBehaviour:
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

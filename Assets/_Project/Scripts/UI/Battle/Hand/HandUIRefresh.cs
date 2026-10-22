@@ -128,6 +128,7 @@ public partial class HandUI
         }
         finally
         {
+            HandCardViewCollection.SetLayoutFrozen(handPanel, false);
             deckUi?.EndDeckCountFlyStagger();
             _flyRoutine = null;
             if (completedCleanly)

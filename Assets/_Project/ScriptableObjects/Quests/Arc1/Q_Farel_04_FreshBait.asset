@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc280dd61f1dae84297761204f0d7b10, type: 3}
+  m_Name: Q_Farel_04_FreshBait
+  m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  questKey: a1_fresh_bait
+  title: Fresh Bait
+  giverName: Farel Wanderer
+  description: "The fish are back in the river, but they only bite on meat. Farel asked for two pieces - boar is best, wolf will do."
+  status: 0
+  objectiveType: 3
+  objectiveLabel: "Bring Farel two pieces of meat"
+  targetEncounterId: 
+  targetEnemy: {fileID: 0}
+  targetCard: {fileID: 11400000, guid: d626f537dfd74dd99ce79b53b5151b78, type: 2}
+  targetCount: 2
+  rewards:
+  - type: 0
+    card: {fileID: 11400000, guid: 442fed74c6c741a38916a82c41291104, type: 2}
+    cardCount: 2
+    skillPoints: 1
+    gold: 10
+    icon: {fileID: 0}
+  - type: 2
+    card: {fileID: 0}
+    cardCount: 1
+    skillPoints: 1
+    gold: 15
+    icon: {fileID: 21300000, guid: 9f7d23e22527dc148997f9a29ed64ff3, type: 3}

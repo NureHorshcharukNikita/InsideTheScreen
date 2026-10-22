@@ -18,26 +18,18 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 1
   icon: {fileID: 7799713541556398574, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Increases maximum action points.
+  description: Haru keeps more action points for the right moment.
   ranks:
   - cost: 1
-    description: Maximum action points +1.
+    description: Max action points +1 (total +1).
     effects:
     - kind: 0
       stat: 5
       modifierType: 0
       value: 1
       passive: 0
-  - cost: 1
-    description: Maximum action points +1 (total +2).
-    effects:
-    - kind: 0
-      stat: 5
-      modifierType: 0
-      value: 1
-      passive: 0
-  - cost: 1
-    description: Maximum action points +1 (total +3).
+  - cost: 2
+    description: Max action points +1 (total +2).
     effects:
     - kind: 0
       stat: 5

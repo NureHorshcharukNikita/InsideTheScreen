@@ -21,6 +21,12 @@ MonoBehaviour:
   Deck: {fileID: 11400000, guid: e3ed5f0a7aafe844e225e1c63cc410c5, type: 2}
   startHandSize: 5
   cardsDrawnPerTurn: 1
+  baseCards:
+  - card: {fileID: 11400000, guid: 56f2d3bf3b6242bea2c0955e67e32fb7, type: 2}
+    count: 3
+  - card: {fileID: 11400000, guid: 795bbe50af1c4c2ba89bdf5855ae408c, type: 2}
+    count: 2
+  minimumBattleDeckSize: 5
   Inventory: {fileID: 11400000, guid: 79494683e3917a358cc669c37e17080e, type: 2}
   startingGold: 35
   startingSkillPoints: 0

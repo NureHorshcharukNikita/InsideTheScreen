@@ -357,7 +357,9 @@ public sealed class QuestPageView : MonoBehaviour
 
         if (objectiveText != null)
         {
-            objectiveText.text = quest.ObjectiveLabel;
+            objectiveText.text = QuestManager.TryGetObjectiveProgress(quest, out int current, out int target)
+                ? $"{quest.ObjectiveLabel} ({current}/{target})"
+                : quest.ObjectiveLabel;
             objectiveText.color = completed ? CompletedObjectiveColor : DetailsTextColor;
         }
 

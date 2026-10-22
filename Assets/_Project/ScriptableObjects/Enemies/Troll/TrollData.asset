@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   profile: {fileID: 11400000, guid: 5e33b77416334b0e8df182c52f28944d, type: 2}
   battleScale: 1
-  maxHealth: 80
+  maxHealth: 72
   startingArmor: 0
   actionPointsPerTurn: 1
   abilities:

@@ -20,6 +20,7 @@ public static partial class HandDrawDeckFlyAnimationDotween
         var views = new CardView[actualDrawCount];
 
         Vector3 stackStartWorld = ResolveStackStartWorld(context);
+        HandCardViewCollection.SetLayoutFrozen(context.HandPanel, true);
 
         for (int index = 0; index < actualDrawCount; index++)
             PrepareFlyingCard(context, firstDrawIndex + index, index, stackStartWorld, targetsWorld, layoutElements, views);

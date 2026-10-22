@@ -16,7 +16,7 @@ public enum StoryEventStart
 // - When Player Enters: when the player stands in this object's trigger collider
 //   (found the root stone, reached the altar).
 // It happens once: doneFlag is set at the end, so it does not run again and dialogues or other
-// events can check it. While the steps run, the game is in the Dialogue state: the player has no
+// events can check it. Unless everyTime is on: then it happens whenever it can start (a closed exit). While the steps run, the game is in the Dialogue state: the player has no
 // control and Time.timeScale is 0, so steps run on the GameClock. An event made only of instant
 // steps (actions, sounds...) runs at once instead. The camera stands still meanwhile, unless
 // cameraFollows is on.
@@ -30,6 +30,8 @@ public sealed class StoryEvent : MonoBehaviour
     [SerializeField] private List<StoryCondition> conditions = new();
     [Tooltip("The camera keeps following the player while the event plays (they walk somewhere together). Off = the camera stays where it is.")]
     [SerializeField] private bool cameraFollows;
+    [Tooltip("Happens again every time it can start, e.g. turning the player back at an exit that is not open yet (Done Flag is then ignored). With When Player Enters, a step must take the player out of the trigger, or it starts over at once.")]
+    [SerializeField] private bool everyTime;
 
     [Header("Steps")]
     [SerializeReference, SubclassPicker] private List<StoryStep> steps = new();
@@ -40,9 +42,9 @@ public sealed class StoryEvent : MonoBehaviour
 
     public bool IsPlaying => context != null;
 
-    public bool IsDone => string.IsNullOrWhiteSpace(doneFlag)
+    public bool IsDone => !everyTime && (string.IsNullOrWhiteSpace(doneFlag)
         ? playedThisScene
-        : StoryFlagManager.HasFlag(doneFlag);
+        : StoryFlagManager.HasFlag(doneFlag));
 
     private void Awake()
     {

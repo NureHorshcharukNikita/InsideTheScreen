@@ -44,6 +44,31 @@ public class Deck
         NotifyDeckChanged();
     }
 
+    // A card new to the battle, e.g. a base card topping up a short deck: it goes in at a random
+    // place and counts towards the deck's size from now on.
+    public void Insert(CardData card)
+    {
+        if (card == null)
+            return;
+
+        MaxCount++;
+        cards.Insert(UnityEngine.Random.Range(0, cards.Count + 1), card);
+
+        NotifyDeckChanged();
+    }
+
+    // A card that left the battle for good (broken, used up) no longer counts towards the deck's
+    // size, wherever it was (hand or discard pile).
+    public void Shrink()
+    {
+        if (MaxCount == 0)
+            return;
+
+        MaxCount--;
+
+        NotifyDeckChanged();
+    }
+
     public void Remove(CardData card)
     {
         if (card == null)

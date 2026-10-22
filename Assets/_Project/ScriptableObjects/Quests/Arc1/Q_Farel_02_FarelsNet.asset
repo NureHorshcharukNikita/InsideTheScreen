@@ -15,14 +15,18 @@ MonoBehaviour:
   questKey: a1_farels_net
   title: Farel's Net
   giverName: Farel Wanderer
-  description: Farel lost his fishing net somewhere near the fishing farm. Find it and bring it back.
+  description: "Farel lost his fishing net at the fishing farm upstream. Your father stayed behind to help Farel patch his boat while you look for it."
   status: 0
   objectiveType: 0
-  objectiveLabel: Find the fishing net and return it to Farel
+  objectiveLabel: "Find the net at the fishing farm upstream and bring it to Farel"
   targetEncounterId: 
+  targetEnemy: {fileID: 0}
+  targetCard: {fileID: 0}
+  targetCount: 1
   rewards:
   - type: 1
     card: {fileID: 0}
     cardCount: 1
     skillPoints: 1
+    gold: 10
     icon: {fileID: 21300000, guid: e45fa93a340f6a143917827c1a66b21f, type: 3}

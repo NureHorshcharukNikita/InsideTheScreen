@@ -85,6 +85,7 @@ public class RandomCardPickup : MonoBehaviour
         {
             CardData card = availableCards[Random.Range(0, availableCards.Count)];
             player.InventoryData.AddCard(card);
+            ExplorationPlayerSession.AddToDeckIfRoom(card, 1);
             pickedCards.Add(card);
         }
 

@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-// One line per condition: the kind, then the story flag or the quest and its status, then Invert.
+// One line per condition: the kind, then the story flag or the quest (and its status), then Invert.
 [CustomPropertyDrawer(typeof(StoryCondition))]
 public sealed class StoryConditionDrawer : PropertyDrawer
 {
@@ -37,6 +37,10 @@ public sealed class StoryConditionDrawer : PropertyDrawer
             Rect statusRect = new(valueRect.x + questWidth, valueRect.y, valueRect.width - questWidth, valueRect.height);
             EditorGUI.PropertyField(questRect, property.FindPropertyRelative("quest"), GUIContent.none);
             EditorGUI.PropertyField(statusRect, property.FindPropertyRelative("questStatus"), GUIContent.none);
+        }
+        else if ((StoryConditionType)typeProp.enumValueIndex == StoryConditionType.QuestObjectiveDone)
+        {
+            EditorGUI.PropertyField(valueRect, property.FindPropertyRelative("quest"), GUIContent.none);
         }
         else
         {

@@ -17,7 +17,11 @@ public class EnemyCharacter : Character
         baseScale = transform.localScale;
     }
 
-    public override int MaxHealth => enemyData != null ? enemyData.maxHealth : 0;
+    // Enemies get the Balance Config's health for this fight (groups, the father fighting too);
+    // allies keep their own.
+    public override int MaxHealth => enemyData == null ? 0
+        : team == CombatTeam.Enemy ? Balance.EnemyMaxHealth(enemyData.maxHealth)
+        : enemyData.maxHealth;
     public override int StartingArmor => enemyData != null ? enemyData.startingArmor : 0;
     public override CombatTeam Team => team;
     public override string DisplayName => enemyData != null ? enemyData.DisplayName : name;
@@ -30,6 +34,7 @@ public class EnemyCharacter : Character
     public void JoinPlayerSide()
     {
         team = CombatTeam.Player;
+        SetFullHealth();
     }
 
     public void ApplyStartingStatuses()

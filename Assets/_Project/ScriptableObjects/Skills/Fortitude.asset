@@ -18,47 +18,31 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 1
   icon: {fileID: -6510633457368282797, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Reduces mental damage taken.
+  description: A calm mind is a guarded one.
   ranks:
   - cost: 1
-    description: Mental damage taken -5%.
+    description: Start every battle with 1 armor.
     effects:
     - kind: 0
-      stat: 7
-      modifierType: 1
-      value: -5
+      stat: 1
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Mental damage taken -5% (total -10%).
+  - cost: 2
+    description: Start every battle with 2 armor.
     effects:
     - kind: 0
-      stat: 7
-      modifierType: 1
-      value: -5
+      stat: 1
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Mental damage taken -5% (total -15%).
+  - cost: 2
+    description: Start every battle with 3 armor.
     effects:
     - kind: 0
-      stat: 7
-      modifierType: 1
-      value: -5
-      passive: 0
-  - cost: 1
-    description: Mental damage taken -5% (total -20%).
-    effects:
-    - kind: 0
-      stat: 7
-      modifierType: 1
-      value: -5
-      passive: 0
-  - cost: 1
-    description: Mental damage taken -5% (total -25%).
-    effects:
-    - kind: 0
-      stat: 7
-      modifierType: 1
-      value: -5
+      stat: 1
+      modifierType: 0
+      value: 1
       passive: 0
   prerequisites: []
   progressionRequirements: []

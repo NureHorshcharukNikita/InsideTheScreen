@@ -126,32 +126,35 @@ public enum SkillModifierType
     Percent
 }
 
+// What a skill rank changes, all in flat amounts (Flat modifier): small battle numbers make
+// percentages round away to nothing. Saved as numbers, so the order must stay.
 public enum SkillStat
 {
-    MaxHealth,
-    StartingArmor,
-    PhysicalDamage,
-    PhysicalDamageTaken,
-    LowHealthDamage,
-    MaxActionPoints,
-    CardActionPointCost,
-    MentalDamageTaken,
-    StabilityLoss,
-    DebuffChance,
-    BuffDuration,
-    CardRetentionChance,
-    EmotionRepeatChance,
-    BattleAnalysisDamage
+    MaxHealth,             // + max health
+    StartingArmor,         // armor at the start of every battle
+    PhysicalDamage,        // + damage on every hit Haru deals (not on burning, poison, bleeding)
+    PhysicalDamageTaken,   // + damage on every hit Haru takes: negative = less, never below 0
+    LowHealthDamage,       // + damage on every hit while Haru is low on health (Balance Config)
+    MaxActionPoints,       // + action points Haru can hold
+    ActionPointsPerTurn,   // + action points every turn
+    HealingDone,           // + health on every heal Haru gives
+    HealthPerTurn,         // health back at the start of each of Haru's turns
+    DamageOverTimeDone,    // + damage on every tick of the burning, poison, bleeding Haru causes
+    BuffDuration,          // + turns on statuses Haru puts on his own side (regeneration...)
+    StartingHandSize,      // + cards in the opening hand
+    StartingActionPoints,  // + action points at the start of a battle
+    ArmorEveryThirdCard,   // armor after every third card Haru plays in a battle
+    CardsDrawnPerTurn      // + cards drawn every turn
 }
 
 public enum SkillPassive
 {
     None,
-    WillToLive,
-    FirstCardDiscount,
-    Counterattack,
-    TacticalThinking,
-    Superfocus
+    WillToLive,            // once a battle, a lethal blow leaves Haru on a share of his health
+    FirstCardDiscount,     // the first card each turn costs less (Balance Config)
+    Counterattack,         // an enemy that hits Haru takes damage back (Balance Config)
+    TacticalThinking,      // not used: the skill draws an extra card instead (CardsDrawnPerTurn)
+    Superfocus             // not used: the skill gives starting action points instead
 }
 
 public enum SkillUnlockRequirementType

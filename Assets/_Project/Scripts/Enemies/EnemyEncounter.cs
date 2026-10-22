@@ -28,6 +28,11 @@ public class EnemyEncounter : MonoBehaviour
     [SerializeField] private string encounterId;
     [SerializeField] private float playerReturnOffset = 1.25f;
 
+    [Header("Respawn")]
+    [Tooltip("Comes back after the player has won Respawn After Battles other battles, so there is always something to hunt for loot and quests. Off for bosses and quest enemies: they stay beaten.")]
+    [SerializeField] private bool respawns;
+    [SerializeField, Min(1)] private int respawnAfterBattles = 3;
+
     private static int nextEncounterId = 1;
 
     private bool isTriggered = false;
@@ -47,8 +52,15 @@ public class EnemyEncounter : MonoBehaviour
     {
         if (DefeatedEncounters.IsDefeated(encounterId))
         {
-            Destroy(gameObject);
-            return;
+            if (!respawns || DefeatedEncounters.BattlesSince(encounterId) < respawnAfterBattles)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            // Back again: a new group is rolled, like at the first meeting.
+            DefeatedEncounters.Forget(encounterId);
+            EncounterGroups.Forget(encounterId);
         }
 
         GrowTouchZone();

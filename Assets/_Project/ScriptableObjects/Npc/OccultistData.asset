@@ -25,6 +25,19 @@ MonoBehaviour:
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c66f34375861a11b4ff0464e7f5f57c7, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: occultist_not_yet
+    dialogue: {fileID: 11400000, guid: 61dda4c859ce4c97962db916e9ba80a9, type: 2}
+    repeatable: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
     conditions: []
   enableOverheadSpeech: 1
   overheadLines: []

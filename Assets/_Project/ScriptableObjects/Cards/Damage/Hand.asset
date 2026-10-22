@@ -19,7 +19,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 25d4ac7835b46c94abb95dd83b69be78, type: 3}
   categories: 00000000
   cost: 1
-  baseGoldValue: 2
+  baseGoldValue: 0
   conditions: []
   instantEffects:
   - effect: {fileID: 11400000, guid: 6e0d7f8cf16b15d408f403403cce48a3, type: 2}

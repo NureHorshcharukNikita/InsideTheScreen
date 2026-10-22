@@ -13,42 +13,228 @@ MonoBehaviour:
   m_Name: AncientEldonArticyCrystalCheck
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "You brought it.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Yes. This is the crystal from my dream.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "So what now?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Now you can go. Take it to the Echo Altar in the dark forest.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Place it in the pedestal. Then the world will answer.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Answer how?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "What happens next will be decided there.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Are you coming with us?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "No. I will not go.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Why not?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Because at that moment I must stay here.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Leymar is protected by a barrier. It holds all the time. The altar has its own barrier too.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "While it is active, the altar will not open. You could place the crystal in the pedestal, and nothing would happen.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "I must lower that barrier, and keep it lowered while you are there.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "And you can't come with us because...", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Because if I leave, the barrier will rise again. And the way will close.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Is it dangerous?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Yes. While the barrier is down, the altar can be used. By anyone.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "You take the crystal. You go to the altar. You place it in the pedestal.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Then we'll manage on our own.", nextLineIndex: -1}
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "Exactly."
+    text: "You brought it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "..."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Yes. This is the crystal from my dream."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "But it is empty. A crystal without a voice is only cold glass."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Hold it out. Both of you. Hands on the stone."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "It's... warm."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "It's glowing."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Now it carries Leymar's echo. The altar will hear it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "So what now?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Now you can go. Take it to the Echo Altar - north, beyond the river, in the dark forest."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Place it in the pedestal. Then the world will answer."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Answer how?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "What happens next will be decided there."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Are you coming with us?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "No. The altar has its own barrier, and I must hold it open while you are there."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "If I leave, it will rise again, and the way will close."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "One more thing. The altar is not unguarded."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Long ago a cult kept watch over it. One of them never left. Whatever he serves now, it is not the world."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "So we'll have to fight him."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "If he will not step aside. Do not let him touch the crystal."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Then we'll manage on our own."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Exactly. Go. And come back to me, both of you."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_crystal_charged
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     - type: 2
       quest: {fileID: 11400000, guid: 7a7f7718b50038738bddea073c584a76, type: 2}
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     - type: 1
       quest: {fileID: 11400000, guid: 27ecb32aafcf4084331322d61a41d396, type: 2}
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

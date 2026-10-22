@@ -19,6 +19,13 @@ public static class EncounterGroups
             groups[encounterId] = extraEnemies;
     }
 
+    // A respawned enemy rolls a new group.
+    public static void Forget(string encounterId)
+    {
+        if (!string.IsNullOrEmpty(encounterId))
+            groups.Remove(encounterId);
+    }
+
     public static void Clear()
     {
         groups.Clear();

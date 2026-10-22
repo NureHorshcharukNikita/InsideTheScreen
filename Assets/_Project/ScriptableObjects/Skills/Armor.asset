@@ -18,31 +18,23 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 3
   icon: {fileID: -1322635036702604433, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: Reduces incoming physical damage.
+  description: Haru learns to roll with the blows.
   ranks:
-  - cost: 1
-    description: Physical damage taken -5%.
+  - cost: 3
+    description: Every hit taken deals 1 less damage (total -1).
     effects:
     - kind: 0
       stat: 3
-      modifierType: 1
-      value: -5
+      modifierType: 0
+      value: -1
       passive: 0
-  - cost: 1
-    description: Physical damage taken -5% (total -10%).
+  - cost: 4
+    description: Every hit taken deals 1 less damage (total -2).
     effects:
     - kind: 0
       stat: 3
-      modifierType: 1
-      value: -5
-      passive: 0
-  - cost: 1
-    description: Physical damage taken -5% (total -15%).
-    effects:
-    - kind: 0
-      stat: 3
-      modifierType: 1
-      value: -5
+      modifierType: 0
+      value: -1
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}

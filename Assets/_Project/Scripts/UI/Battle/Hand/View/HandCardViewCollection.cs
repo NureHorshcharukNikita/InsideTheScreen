@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class HandCardViewCollection
 {
@@ -9,7 +10,7 @@ public static class HandCardViewCollection
         {
             CardView cardView = spawnedViews[i];
             if (cardView != null)
-                Object.Destroy(cardView.gameObject);
+                DestroyCardView(cardView);
         }
 
         spawnedViews.Clear();
@@ -18,8 +19,24 @@ public static class HandCardViewCollection
         {
             CardView cardView = handPanel.GetChild(i).GetComponent<CardView>();
             if (cardView != null)
-                Object.Destroy(cardView.gameObject);
+                DestroyCardView(cardView);
         }
+    }
+
+    // Destroy only takes effect at the end of the frame, but the new hand is laid out in this same
+    // frame: hidden right away, the old card no longer takes a place in it.
+    private static void DestroyCardView(CardView cardView)
+    {
+        cardView.gameObject.SetActive(false);
+        Object.Destroy(cardView.gameObject);
+    }
+
+    // While cards fly in from the deck the hand's layout holds still: the cards already in hand
+    // keep their places instead of closing up, and each flying card lands on the place left for it.
+    public static void SetLayoutFrozen(Transform handPanel, bool frozen)
+    {
+        if (handPanel != null && handPanel.TryGetComponent(out LayoutGroup layout))
+            layout.enabled = !frozen;
     }
 
     public static void CreateCardViews(
@@ -66,6 +83,9 @@ public static class HandCardViewCollection
 
             if (flyingCard.parent != handPanel)
                 flyingCard.SetParent(handPanel, worldPositionStays: true);
+
+            if (flyingCard.TryGetComponent(out LayoutElement layoutElement))
+                layoutElement.ignoreLayout = false;
 
             HandCardFlyTween.SetCardFlyVisible(flyingCard, true);
         }

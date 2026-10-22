@@ -15,14 +15,18 @@ MonoBehaviour:
   questKey: a1_survival_basics
   title: Survival Basics
   giverName: Hideshi
-  description: Before you go beyond Leymar, your father wants to be sure you can take care of yourself. Gather basic resources and turn them into your first cards.
+  description: "Before you go beyond Leymar, your father wants to be sure you can take care of yourself. Gather what you can by the apple bushes near the tower and see what cards it gives you."
   status: 0
   objectiveType: 0
-  objectiveLabel: Gather basic resources and craft your first cards
+  objectiveLabel: "Gather by the apple bushes near the tower, then show your father"
   targetEncounterId: 
+  targetEnemy: {fileID: 0}
+  targetCard: {fileID: 0}
+  targetCount: 1
   rewards:
   - type: 1
     card: {fileID: 0}
     cardCount: 1
     skillPoints: 1
+    gold: 10
     icon: {fileID: 21300000, guid: e45fa93a340f6a143917827c1a66b21f, type: 3}

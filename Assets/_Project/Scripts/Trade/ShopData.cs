@@ -14,8 +14,10 @@ public sealed class ShopData : ScriptableObject
     [SerializeField] private List<ShopItemData> items = new();
 
     [Header("Economy")]
-    [SerializeField] private float buyMultiplier = 1.2f;
-    [SerializeField] private float sellMultiplier = 0.6f;
+    [Tooltip("This shop's prices compared to the standard ones (Balance Config): 1 = standard, 1.2 = 20% dearer.")]
+    [SerializeField] private float buyMultiplier = 1f;
+    [Tooltip("What this shop pays compared to the standard (Balance Config): 1 = standard, 0.8 = 20% less.")]
+    [SerializeField] private float sellMultiplier = 1f;
 
     public string ShopKey => string.IsNullOrWhiteSpace(shopKey) ? name : shopKey;
     public string DisplayName => string.IsNullOrWhiteSpace(displayName) ? name : displayName;
@@ -48,7 +50,7 @@ public sealed class ShopData : ScriptableObject
         if (item.HasBuyPriceOverride)
             return item.BuyPriceOverride;
 
-        return RoundGold(GetBaseGoldValue(item.card) * BuyMultiplier);
+        return Balance.BuyPrice(item.card, BuyMultiplier);
     }
 
     public int GetSellPrice(ShopItemData item)
@@ -57,30 +59,15 @@ public sealed class ShopData : ScriptableObject
             return 0;
 
         if (item.HasSellPriceOverride)
-            return item.SellPriceOverride;
+            return Balance.CanSell(item.card) ? item.SellPriceOverride : 0;
 
         return GetSellPrice(item.card);
     }
 
+    // Nothing for cards that can't be sold, e.g. the father's keepsakes.
     public int GetSellPrice(CardData card)
     {
-        if (card == null)
-            return 0;
-
-        return RoundGold(GetBaseGoldValue(card) * SellMultiplier);
-    }
-
-    private int GetBaseGoldValue(CardData card)
-    {
-        return card != null ? card.BaseGoldValue : 0;
-    }
-
-    private static int RoundGold(float value)
-    {
-        if (value <= 0f)
-            return 0;
-
-        return Mathf.Max(1, Mathf.FloorToInt(value + 0.5f));
+        return Balance.SellPrice(card, SellMultiplier);
     }
 }
 

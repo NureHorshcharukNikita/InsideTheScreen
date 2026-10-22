@@ -18,10 +18,10 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 2
   icon: {fileID: 8432782635155741704, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: The first card each turn costs 1 less action point.
+  description: A plan makes the first move cheaper.
   ranks:
-  - cost: 1
-    description: The first card each turn costs 1 less action point.
+  - cost: 3
+    description: The first card each turn costs 1 action point less.
     effects:
     - kind: 1
       stat: 0

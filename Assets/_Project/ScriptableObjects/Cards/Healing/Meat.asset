@@ -20,12 +20,12 @@ MonoBehaviour:
     to yourself / {status0.duration} turns ({status0.chance}).
   icon: {fileID: 21300000, guid: ea8dea5d6a81e3e449ded34cbd4296cf, type: 3}
   categories: 0100000004000000
-  cost: 2
+  cost: 1
   conditions: []
   instantEffects:
   - effect: {fileID: 11400000, guid: 4e276ddc1412eb14fa444ccefcd693db, type: 2}
     targeting: {fileID: 11400000, guid: 1cf1f3f92de14d2fa0b4a3ed189fd371, type: 2}
-    value: 5
+    value: 6
     applyChance: 1
     conditions: []
   statusApplications:
@@ -34,6 +34,7 @@ MonoBehaviour:
     value: 2
     duration: 2
     stacks: 1
-    applyChance: 0.75
+    applyChance: 0.25
     reapplyMode: 0
     conditions: []
+  baseGoldValue: 0

@@ -7,13 +7,17 @@ public sealed class QuestDataEditor : UnityEditor.Editor
     private static readonly GUIContent[] ObjectiveLabels =
     {
         new GUIContent("Dialogue / Script"),
-        new GUIContent("Defeat Encounter")
+        new GUIContent("Defeat Encounter"),
+        new GUIContent("Defeat Enemies"),
+        new GUIContent("Collect Cards")
     };
 
     private static readonly int[] ObjectiveValues =
     {
         (int)QuestObjectiveType.Manual,
-        (int)QuestObjectiveType.DefeatEncounter
+        (int)QuestObjectiveType.DefeatEncounter,
+        (int)QuestObjectiveType.DefeatEnemies,
+        (int)QuestObjectiveType.CollectCards
     };
 
     private SerializedProperty questKeyProp;
@@ -24,6 +28,9 @@ public sealed class QuestDataEditor : UnityEditor.Editor
     private SerializedProperty objectiveTypeProp;
     private SerializedProperty objectiveLabelProp;
     private SerializedProperty targetEncounterIdProp;
+    private SerializedProperty targetEnemyProp;
+    private SerializedProperty targetCardProp;
+    private SerializedProperty targetCountProp;
     private SerializedProperty rewardsProp;
 
     private void OnEnable()
@@ -39,6 +46,9 @@ public sealed class QuestDataEditor : UnityEditor.Editor
         objectiveTypeProp = serializedObject.FindProperty("objectiveType");
         objectiveLabelProp = serializedObject.FindProperty("objectiveLabel");
         targetEncounterIdProp = serializedObject.FindProperty("targetEncounterId");
+        targetEnemyProp = serializedObject.FindProperty("targetEnemy");
+        targetCardProp = serializedObject.FindProperty("targetCard");
+        targetCountProp = serializedObject.FindProperty("targetCount");
         rewardsProp = serializedObject.FindProperty("rewards");
     }
 
@@ -81,8 +91,29 @@ public sealed class QuestDataEditor : UnityEditor.Editor
         EditorGUILayout.PropertyField(objectiveLabelProp, new GUIContent("Objective Label"));
 
         QuestObjectiveType objectiveType = (QuestObjectiveType)objectiveTypeProp.enumValueIndex;
-        if (objectiveType == QuestObjectiveType.DefeatEncounter)
-            EditorGUILayout.PropertyField(targetEncounterIdProp, new GUIContent("Target Encounter Id"));
+        switch (objectiveType)
+        {
+            case QuestObjectiveType.DefeatEncounter:
+                EditorGUILayout.PropertyField(targetEncounterIdProp, new GUIContent("Target Encounter Id"));
+                break;
+            case QuestObjectiveType.DefeatEnemies:
+                EditorGUILayout.PropertyField(targetEnemyProp, new GUIContent("Enemy"));
+                EditorGUILayout.PropertyField(targetCountProp, new GUIContent("Count"));
+                EditorGUILayout.HelpBox(
+                    "Counts every enemy of this kind defeated while the quest is active, anywhere, and " +
+                    "completes the quest at the count. The giver can thank the player with a dialogue " +
+                    "for the quest being Completed.",
+                    MessageType.None);
+                break;
+            case QuestObjectiveType.CollectCards:
+                EditorGUILayout.PropertyField(targetCardProp, new GUIContent("Card"));
+                EditorGUILayout.PropertyField(targetCountProp, new GUIContent("Count"));
+                EditorGUILayout.HelpBox(
+                    "Done once the inventory holds this many: the giver's dialogue checks it with a " +
+                    "Quest Objective Done condition, and its Complete Quest action takes the cards.",
+                    MessageType.None);
+                break;
+        }
     }
 
     private void DrawRewardSection()

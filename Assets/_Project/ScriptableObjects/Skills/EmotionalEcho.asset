@@ -18,23 +18,23 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 4
   icon: {fileID: 0}
-  description: Chance to trigger an emotional card again.
+  description: The pain Haru leaves behind lingers.
   ranks:
   - cost: 1
-    description: Emotional card repeat chance +5%.
+    description: Burning, poison and bleeding Haru causes deal +1 damage per turn (total +1).
     effects:
     - kind: 0
-      stat: 12
-      modifierType: 1
-      value: 5
+      stat: 9
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Emotional card repeat chance +5% (total +10%).
+  - cost: 2
+    description: Burning, poison and bleeding Haru causes deal +1 damage per turn (total +2).
     effects:
     - kind: 0
-      stat: 12
-      modifierType: 1
-      value: 5
+      stat: 9
+      modifierType: 0
+      value: 1
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: b79bd9305f98456792008293ad76fc55, type: 2}

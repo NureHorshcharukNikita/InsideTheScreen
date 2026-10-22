@@ -24,7 +24,8 @@ public class CardData : ScriptableObject
     [SerializeField] private List<CardStatusApplicationEntry> statusApplications = new();
 
     [Header("Economy")]
-    [SerializeField] private int baseGoldValue = 1;
+    [Tooltip("What the card is worth in gold; shops buy and sell from it (Balance Config). 0 = worked out from its effects.")]
+    [SerializeField, Min(0)] private int baseGoldValue;
 
     public string CardID => cardID;
     public string CardName => cardName;
@@ -45,7 +46,7 @@ public class CardData : ScriptableObject
     public Sprite Icon => icon;
     public IReadOnlyList<CardCategory> Categories => categories;
     public int Cost => cost;
-    public int BaseGoldValue => baseGoldValue > 0 ? baseGoldValue : Mathf.Max(1, cost * 2);
+    public int BaseGoldValue => baseGoldValue > 0 ? baseGoldValue : Balance.CardValue(this);
     public IReadOnlyList<BattleCondition> Conditions => conditions;
     public IReadOnlyList<CardInstantEffectEntry> InstantEffects => instantEffects;
     public IReadOnlyList<CardStatusApplicationEntry> StatusApplications => statusApplications;

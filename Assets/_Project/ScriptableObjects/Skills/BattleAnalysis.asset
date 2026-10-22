@@ -18,31 +18,31 @@ MonoBehaviour:
   treePage: 1
   treeOrder: 2
   icon: {fileID: 3384893568485262794, guid: f5bde2cbc37603f41b092b0100cbf805, type: 3}
-  description: After every 3rd hit, the hero gains 1 temporary armor and bonus damage on the next card.
+  description: Haru reads the fight as it goes.
   ranks:
   - cost: 1
-    description: Every 3rd hit grants 1 temporary armor and next card damage +5%.
+    description: Every third card Haru plays in a battle gives him 1 armor.
     effects:
     - kind: 0
       stat: 13
-      modifierType: 1
-      value: 5
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Every 3rd hit grants 1 temporary armor and next card damage +5% (total +10%).
+  - cost: 2
+    description: Every third card Haru plays in a battle gives him 2 armor.
     effects:
     - kind: 0
       stat: 13
-      modifierType: 1
-      value: 5
+      modifierType: 0
+      value: 1
       passive: 0
-  - cost: 1
-    description: Every 3rd hit grants 1 temporary armor and next card damage +5% (total +15%).
+  - cost: 2
+    description: Every third card Haru plays in a battle gives him 3 armor.
     effects:
     - kind: 0
       stat: 13
-      modifierType: 1
-      value: 5
+      modifierType: 0
+      value: 1
       passive: 0
   prerequisites:
   - skill: {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}

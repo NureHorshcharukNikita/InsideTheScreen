@@ -25,7 +25,7 @@ MonoBehaviour:
   instantEffects:
   - effect: {fileID: 11400000, guid: 0ae3d7f0d7764b19a00d8ff758724fe2, type: 2}
     targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
-    value: 6
+    value: 5
     applyChance: 1
     conditions: []
   statusApplications: []

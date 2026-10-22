@@ -13,27 +13,111 @@ MonoBehaviour:
   m_Name: FarelArticyNetDone
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Is this your net?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "That's it. A bit torn, but I can fix it.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "Listen... while you were gone, I remembered something.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "Upstream there are old ruins. Long ago I saw a strange mechanism there. Gears, springs, nothing like what anyone here makes.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Gears and springs? Dad, that sounds like...", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Like something from our world.", nextLineIndex: -1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Is this your net?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "That's it. A bit torn, but I can fix it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "And the boat floats again. Mostly."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "Listen... while you were gone, I remembered something."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "Upstream there are old ruins. Long ago I saw a strange mechanism there. Gears, springs, nothing like what anyone here makes."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Gears and springs? Dad, that sounds like..."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Like something from our world."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Farel Wanderer
     portraitOverride: {fileID: 0}
     text: "Your world? ...Never mind. Bring it to me, and I'll give you my spare net and some good rope."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:
+    - type: 5
+      quest: {fileID: 0}
+      storyFlag: hideshi_stays_behind
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    - type: 5
+      quest: {fileID: 0}
+      storyFlag: a1_hideshi_at_farel
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     - type: 2
       quest: {fileID: 11400000, guid: bc1558169922a9de4f8b33c7bd6fcf1d, type: 2}
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     - type: 1
       quest: {fileID: 11400000, guid: 386111d6135a78632aec687d2f8a530e, type: 2}
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []
