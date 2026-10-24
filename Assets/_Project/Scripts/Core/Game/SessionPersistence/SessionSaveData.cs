@@ -31,6 +31,10 @@ public sealed class SessionSaveData
     // for enemies that respawn.
     public int[] defeatedAtBattle;
     public int battlesWon;
+    // When each of defeatedEncounterIds was beaten, and how long the world has been explored in all
+    // (WorldClock): for enemies and things on the ground that come back after a while.
+    public float[] defeatedAtSeconds;
+    public float playSeconds;
     public EncounterGroupSaveData[] encounterGroups;
     public string[] collectedPickupIds;
     public QuestProgressSaveData[] questProgress;

@@ -104,7 +104,21 @@ public sealed class FootstepAudio : MonoBehaviour
         if (Muted || !IsWalking)
             return;
 
-        FootstepSurface surface = DetectSurface();
+        PlayStep(transform.position, movement != null ? 1f : NpcVolumeScale);
+    }
+
+    // A step of a character without walk animations or footsteps of their own, e.g. Garr walked by
+    // a story event: the player's sound for the ground under them, as loud as an NPC's.
+    public static void PlayStepFor(Transform walker)
+    {
+        PlayerMovement player = walker != null ? FindFirstObjectByType<PlayerMovement>() : null;
+        if (player != null && player.TryGetComponent(out FootstepAudio playerFootsteps))
+            playerFootsteps.PlayStep(walker.position, NpcVolumeScale);
+    }
+
+    private void PlayStep(Vector3 position, float volumeScale)
+    {
+        FootstepSurface surface = DetectSurface(position);
         SurfaceAudio surfaceAudio = GetSurfaceAudio(surface) ?? GetSurfaceAudio(FootstepSurface.Grass);
         if (surfaceAudio == null)
             return;
@@ -113,13 +127,12 @@ public sealed class FootstepAudio : MonoBehaviour
         if (clip == null)
             return;
 
-        float volume = surfaceAudio.VolumeScale * (movement != null ? 1f : NpcVolumeScale);
-        AudioManager.TryPlaySfx(clip, volume);
+        AudioManager.TryPlaySfx(clip, surfaceAudio.VolumeScale * volumeScale);
     }
 
-    private FootstepSurface DetectSurface()
+    private FootstepSurface DetectSurface(Vector3 position)
     {
-        Vector3 samplePosition = transform.position + (Vector3)sampleOffset;
+        Vector3 samplePosition = position + (Vector3)sampleOffset;
 
         if (HasTileAt(woodTilemaps, samplePosition))
             return FootstepSurface.Wood;

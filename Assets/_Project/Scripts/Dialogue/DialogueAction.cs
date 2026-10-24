@@ -52,6 +52,28 @@ public sealed class DialogueAction
         }
     }
 
+    // What Execute leaves behind, without notifications, battles or shops: a dialogue or story
+    // event skipped instead of played (Debug Test Start).
+    public void ExecuteSkipped(PlayerCharacter player = null)
+    {
+        switch (type)
+        {
+            case DialogueActionType.StartQuest:
+                QuestManager.StartQuest(quest, false);
+                break;
+            case DialogueActionType.CompleteQuest:
+                player ??= UnityEngine.Object.FindFirstObjectByType<PlayerCharacter>();
+                QuestManager.CompleteQuest(quest, player != null ? player.InventoryData : null, false);
+                break;
+            case DialogueActionType.OpenShop:
+            case DialogueActionType.StartBattle:
+                break;
+            default:
+                Execute(null, player);
+                break;
+        }
+    }
+
     private void GiveCards(PlayerCharacter player)
     {
         player ??= UnityEngine.Object.FindFirstObjectByType<PlayerCharacter>();

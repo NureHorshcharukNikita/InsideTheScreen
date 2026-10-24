@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-// The encounters the player has beaten, and after how many won battles: an enemy that respawns
-// comes back once the player has won enough other battles since (EnemyEncounter).
+// The encounters the player has beaten, after how many won battles and when (WorldClock): an enemy
+// that respawns comes back once the player has won enough other battles since, or a while has
+// passed (EnemyEncounter).
 public static class DefeatedEncounters
 {
     private static readonly HashSet<string> defeatedIds = new();
     private static readonly Dictionary<string, int> defeatedAtBattle = new();
+    private static readonly Dictionary<string, float> defeatedAtSeconds = new();
 
     // Battles won this game, counting every victory.
     public static int BattlesWon { get; private set; }
@@ -19,6 +21,7 @@ public static class DefeatedEncounters
 
         defeatedIds.Add(encounterId);
         defeatedAtBattle[encounterId] = BattlesWon;
+        defeatedAtSeconds[encounterId] = WorldClock.PlaySeconds;
     }
 
     public static bool IsDefeated(string encounterId)
@@ -34,6 +37,21 @@ public static class DefeatedEncounters
             : int.MaxValue;
     }
 
+    // How long the player has explored since this encounter was beaten.
+    public static float SecondsSince(string encounterId)
+    {
+        return defeatedAtSeconds.TryGetValue(encounterId ?? string.Empty, out float seconds)
+            ? WorldClock.PlaySeconds - seconds
+            : float.MaxValue;
+    }
+
+    // Encounters that came and went, e.g. ambushes on the forest roads: beaten ones are not kept.
+    public static void ForgetAll(string idPrefix)
+    {
+        foreach (string encounterId in defeatedIds.Where(id => id.StartsWith(idPrefix)).ToArray())
+            Forget(encounterId);
+    }
+
     // The encounter is back on the map, as if never beaten.
     public static void Forget(string encounterId)
     {
@@ -42,6 +60,7 @@ public static class DefeatedEncounters
 
         defeatedIds.Remove(encounterId);
         defeatedAtBattle.Remove(encounterId);
+        defeatedAtSeconds.Remove(encounterId);
     }
 
     public static bool HasAny()
@@ -53,6 +72,7 @@ public static class DefeatedEncounters
     {
         defeatedIds.Clear();
         defeatedAtBattle.Clear();
+        defeatedAtSeconds.Clear();
         BattlesWon = 0;
     }
 
@@ -67,15 +87,22 @@ public static class DefeatedEncounters
         return defeatedIds.Select(id => defeatedAtBattle.TryGetValue(id, out int battle) ? battle : 0).ToArray();
     }
 
-    public static void Restore(IEnumerable<string> encounterIds)
+    // When each of ToArray's encounters was beaten, in WorldClock seconds.
+    public static float[] DefeatedAtSecondsToArray()
     {
-        Restore(encounterIds, null, 0);
+        return defeatedIds.Select(id => defeatedAtSeconds.TryGetValue(id, out float seconds) ? seconds : 0f).ToArray();
     }
 
-    public static void Restore(IEnumerable<string> encounterIds, int[] defeatedAt, int battlesWon)
+    public static void Restore(IEnumerable<string> encounterIds)
+    {
+        Restore(encounterIds, null, 0, null);
+    }
+
+    public static void Restore(IEnumerable<string> encounterIds, int[] defeatedAt, int battlesWon, float[] defeatedAtTime)
     {
         defeatedIds.Clear();
         defeatedAtBattle.Clear();
+        defeatedAtSeconds.Clear();
         BattlesWon = battlesWon;
 
         if (encounterIds == null)
@@ -88,6 +115,7 @@ public static class DefeatedEncounters
             {
                 defeatedIds.Add(encounterId);
                 defeatedAtBattle[encounterId] = defeatedAt != null && index < defeatedAt.Length ? defeatedAt[index] : 0;
+                defeatedAtSeconds[encounterId] = defeatedAtTime != null && index < defeatedAtTime.Length ? defeatedAtTime[index] : 0f;
             }
 
             index++;

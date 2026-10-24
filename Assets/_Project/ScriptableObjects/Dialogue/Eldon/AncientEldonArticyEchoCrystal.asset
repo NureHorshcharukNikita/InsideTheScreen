@@ -34,7 +34,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "It did. The barrier holds, and last night the dream finally came clear."
+    text: "It did. The barrier holds, and the dream has finally come clear."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -241,15 +241,6 @@ MonoBehaviour:
       quest: {fileID: 0}
       storyFlag: eldon_echo_crystal_discussed
       silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    - type: 2
-      quest: {fileID: 11400000, guid: 27d033e25721074234e74e93b432c324, type: 2}
-      storyFlag: 
-      silent: 0
       shop: {fileID: 0}
       enemy: {fileID: 0}
       encounterId: 

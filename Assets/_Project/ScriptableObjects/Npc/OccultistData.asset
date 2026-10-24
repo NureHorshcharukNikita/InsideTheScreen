@@ -21,6 +21,7 @@ MonoBehaviour:
   - key: occultist_confrontation
     dialogue: {fileID: 11400000, guid: b4ad18c3951e4d1bba8a9b407eb07756, type: 2}
     repeatable: 1
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -34,11 +35,13 @@ MonoBehaviour:
   - key: occultist_not_yet
     dialogue: {fileID: 11400000, guid: 61dda4c859ce4c97962db916e9ba80a9, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions: []
+  companionAwayDialogue: {fileID: 11400000, guid: c12e3ad59c454aa59e37a1de0988671a, type: 2}
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

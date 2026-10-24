@@ -42,6 +42,12 @@ public sealed class StoryEvent : MonoBehaviour
 
     public bool IsPlaying => context != null;
 
+    public string DoneFlag => doneFlag;
+
+    public bool HappensEveryTime => everyTime;
+
+    public IReadOnlyList<StoryCondition> Conditions => conditions;
+
     public bool IsDone => !everyTime && (string.IsNullOrWhiteSpace(doneFlag)
         ? playedThisScene
         : StoryFlagManager.HasFlag(doneFlag));
@@ -98,6 +104,32 @@ public sealed class StoryEvent : MonoBehaviour
         if (cameraFollows)
             context.KeepCamerasMoving();
         StartCoroutine(PlaySteps());
+    }
+
+    // As if it had played, without playing it: what its steps leave behind (quests, flags, objects
+    // shown or hidden) and its done flag. Its conditions are not checked. For Debug Test Start.
+    public void Skip()
+    {
+        StoryEventContext skipping = new(this);
+        foreach (StoryStep step in steps)
+            step?.Skip(skipping);
+
+        playedThisScene = true;
+        if (!string.IsNullOrWhiteSpace(doneFlag))
+            StoryFlagManager.SetFlag(doneFlag);
+    }
+
+    // The quest and flag actions its steps can run, on any branch of its dialogues.
+    public IEnumerable<DialogueAction> GetActions()
+    {
+        foreach (StoryStep step in steps)
+        {
+            if (step == null)
+                continue;
+
+            foreach (DialogueAction action in step.GetActions())
+                yield return action;
+        }
     }
 
     private bool CanStart()

@@ -10,6 +10,9 @@ public sealed class NpcDialogueEntry
     public DialogueData dialogue;
     public bool repeatable = true;
 
+    [Tooltip("Hideshi speaks in it. While he is not with Haru (he stays behind somewhere else), the NPC says its Companion Away dialogue instead.")]
+    public bool needsCompanion;
+
     [Header("Talk Timing")]
     public NpcDialogueTalkTiming talkTiming = NpcDialogueTalkTiming.AnyTime;
 

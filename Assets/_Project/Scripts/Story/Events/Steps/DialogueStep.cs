@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 // Plays a dialogue and waits until it is closed. There is no NPC behind it: names and
@@ -33,6 +34,20 @@ public sealed class DialogueStep : StoryStep
 
         // The dialogue gives back the state it started in; keep the event in control.
         GameStateManager.SetState(GameState.Dialogue);
+    }
+
+    public override void Skip(StoryEventContext context)
+    {
+        if (dialogue == null)
+            return;
+
+        int startLine = continueDialogue ? context.GetDialogueStop(dialogue) : 0;
+        context.SetDialogueStop(dialogue, dialogue.Skip(startLine));
+    }
+
+    public override IEnumerable<DialogueAction> GetActions()
+    {
+        return dialogue != null ? dialogue.GetActions() : Array.Empty<DialogueAction>();
     }
 
     public override string ToString()

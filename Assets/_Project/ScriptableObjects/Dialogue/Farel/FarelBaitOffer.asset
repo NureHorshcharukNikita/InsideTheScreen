@@ -43,18 +43,51 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Boar meat. Noted."
+    text: "Farel, if you'll teach me to fish, Haru can hunt the bait."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "A man who wants to learn! Sit, sit. The river doesn't bite. Much."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "So I'm hunting boar on my own."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "You've done harder things. I'll be right here, on the bank."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: hideshi_stays_behind
+      silent: 1
+      shop: {fileID: 0}
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_hideshi_fishing
+      silent: 1
+      shop: {fileID: 0}
     - type: 1
       quest: {fileID: 11400000, guid: 155832db8248499ab94dcfcf2c729fe9, type: 2}
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
     choices: []

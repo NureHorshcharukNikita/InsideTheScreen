@@ -18,22 +18,10 @@ MonoBehaviour:
   startingArmor: 0
   enableDialogue: 1
   dialogueEntries:
-  - key: hideshi_forge_night
-    dialogue: {fileID: 11400000, guid: 417b8be1967af6d060377b2721479fc0, type: 2}
-    repeatable: 0
-    talkTiming: 0
-    conversationNumber: 1
-    rangeStartConversation: 1
-    rangeEndConversation: 0
-    conditions:
-    - type: 0
-      storyFlag: a1_crystal_forging
-      quest: {fileID: 0}
-      questStatus: 1
-      invert: 0
   - key: hideshi_stand_done
     dialogue: {fileID: 11400000, guid: 912ae3b23bd840b08277b0c65acfc533, type: 2}
     repeatable: 0
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -52,6 +40,7 @@ MonoBehaviour:
   - key: hideshi_stand_waiting
     dialogue: {fileID: 11400000, guid: c775bc1fc90d4d33bc35fb522acdf393, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -65,6 +54,7 @@ MonoBehaviour:
   - key: hideshi_at_forge
     dialogue: {fileID: 11400000, guid: 6e8e2a0f83ad425a9c293628439f0a51, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -78,6 +68,7 @@ MonoBehaviour:
   - key: hideshi_at_farel
     dialogue: {fileID: 11400000, guid: 5105aec913d94f61a69a78fba499b280, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -88,9 +79,104 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+  - key: hideshi_fishing
+    dialogue: {fileID: 11400000, guid: 6a5681e7a70f4ab3b261083e47639f40, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_hideshi_fishing
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_walk_alone_done
+    dialogue: {fileID: 11400000, guid: 7b23bf4650cb45b3a93ce63e43b2b169, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_hideshi_in_village
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 80a8edc72b664963b66869b9fc91c9ab, type: 2}
+      questStatus: 2
+      invert: 0
+  - key: hideshi_walk_alone_waiting
+    dialogue: {fileID: 11400000, guid: 6185463b7f3c4a18b052df25991e7985, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_hideshi_in_village
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_ward_done
+    dialogue: {fileID: 11400000, guid: c89cec286264463eafc64cb10e0b1ded, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_hideshi_at_tower
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: a11b6f7dcd41451c9feb65d064d189b8, type: 2}
+      questStatus: 2
+      invert: 0
+  - key: hideshi_at_tower
+    dialogue: {fileID: 11400000, guid: a637d1970dc84db5bdefacde1e8fd252, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_hideshi_at_tower
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_forge_night_reminder
+    dialogue: {fileID: 11400000, guid: 3760d0b450424f5b9b82745ecd8a3857, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: e465155277af475da7575e369311844b, type: 2}
+      questStatus: 1
+      invert: 0
   - key: hideshi_first_threat_done
     dialogue: {fileID: 11400000, guid: 514cfeb318ec89ec37822c6b1d6449bd, type: 2}
     repeatable: 0
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -104,6 +190,7 @@ MonoBehaviour:
   - key: hideshi_stand_offer
     dialogue: {fileID: 11400000, guid: 5b0e25c6532440f9b84b4834e56c1b5c, type: 2}
     repeatable: 0
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -127,6 +214,7 @@ MonoBehaviour:
   - key: hideshi_first_threat_reminder
     dialogue: {fileID: 11400000, guid: bd505f85a9c38fffa576cdcee6816147, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -140,6 +228,7 @@ MonoBehaviour:
   - key: hideshi_survival_done
     dialogue: {fileID: 11400000, guid: d0679b09576d1d39b05b93c3764b795e, type: 2}
     repeatable: 0
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -158,6 +247,7 @@ MonoBehaviour:
   - key: hideshi_survival_reminder
     dialogue: {fileID: 11400000, guid: 1baad398082d96cb2f6e8a0c27173a48, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -171,6 +261,7 @@ MonoBehaviour:
   - key: hideshi_survival
     dialogue: {fileID: 11400000, guid: c66316bc37c72aa8bbcbc79849427aea, type: 2}
     repeatable: 0
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -181,22 +272,24 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
-  - key: hideshi_settling_in
-    dialogue: {fileID: 11400000, guid: f0d1d4b7585c46af8be2c485c64d8457, type: 2}
-    repeatable: 0
+  - key: hideshi_find_shelter
+    dialogue: {fileID: 11400000, guid: bf084b6a99c147a5b4b53892743db020, type: 2}
+    repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions:
-    - type: 0
-      storyFlag: met_ancient_eldon
-      quest: {fileID: 0}
+    - type: 1
+      storyFlag:
+      quest: {fileID: 11400000, guid: d9aac8c1da9447e8ae1458d02b3acfaa, type: 2}
       questStatus: 1
       invert: 0
   - key: hideshi_road_idle
     dialogue: {fileID: 11400000, guid: 8ef1b728d1e6e92b0f21f3d5dce5ea87, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -210,6 +303,7 @@ MonoBehaviour:
   - key: hideshi_smoke_idle
     dialogue: {fileID: 11400000, guid: 149bd43d8067128af012a1f0470b9b4d, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -223,6 +317,7 @@ MonoBehaviour:
   - key: hideshi_awakening_idle
     dialogue: {fileID: 11400000, guid: 6740704422080b4ab0340fd2012b2d2f, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -233,9 +328,68 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: 3675c722159f7ed3a5b6e71a669d5c1a, type: 2}
       questStatus: 1
       invert: 0
+  - key: hideshi_walk_alone_offer
+    dialogue: {fileID: 11400000, guid: 6030254fa9f64467a168e7c2a5f27742, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 74e9d4fa792242b798924285e6984110, type: 2}
+      questStatus: 0
+      invert: 0
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: a1_walk_alone_declined
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: hideshi_walk_alone_again
+    dialogue: {fileID: 11400000, guid: c4116d1b5041475ca11aa6bcc2af9c86, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 74e9d4fa792242b798924285e6984110, type: 2}
+      questStatus: 0
+      invert: 0
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: a1_walk_alone_declined
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
   - key: hideshi_idle
     dialogue: {fileID: 11400000, guid: f522e02d9ce489efd1902abdc8b93617, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -246,6 +400,7 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+  companionAwayDialogue: {fileID: 0}
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

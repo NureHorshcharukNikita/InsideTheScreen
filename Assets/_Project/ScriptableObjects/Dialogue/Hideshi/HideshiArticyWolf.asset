@@ -18,7 +18,7 @@ MonoBehaviour:
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "There are tracks on the ground...", nextLineIndex: -1}
   - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Stay close.", nextLineIndex: -1, endDialogueAfterLine: 1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Did you hear that crack?", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Something's rustling in the bushes ahead.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Something's rustling in the bushes.", nextLineIndex: -1, endDialogueAfterLine: 1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It's... a wolf!", nextLineIndex: -1}
   - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Keep your distance and do as I say.", nextLineIndex: -1, endDialogueAfterLine: 1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "It's charging!", nextLineIndex: -1, endDialogueAfterLine: 1}
@@ -32,6 +32,7 @@ MonoBehaviour:
   - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "I hope there's more than wolves living here.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Look. Smoke, over the trees.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Maybe there are people there?", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "It's getting dark, too. We'd better hurry.", nextLineIndex: -1}
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}

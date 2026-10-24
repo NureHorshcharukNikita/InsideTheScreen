@@ -136,6 +136,9 @@ public sealed class NpcInteraction : MonoBehaviour
         HideSpeechRoot();
     }
 
+    // An NPC answers the Interact key right now: things on the ground let it go first (ForagePickup).
+    public static bool AnyInRange => GameStateManager.IsGameplay && GetFocused() != null;
+
     private static NpcInteraction GetFocused()
     {
         NpcInteraction focused = null;

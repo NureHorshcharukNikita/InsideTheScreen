@@ -20,6 +20,12 @@ public sealed class SetActiveStep : StoryStep
         yield break;
     }
 
+    public override void Skip(StoryEventContext context)
+    {
+        if (target != null)
+            target.SetActive(active);
+    }
+
     public override string ToString()
     {
         return $"{(active ? "Show" : "Hide")} {(target != null ? target.name : "(object)")}";

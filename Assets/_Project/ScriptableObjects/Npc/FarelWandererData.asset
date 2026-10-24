@@ -21,6 +21,7 @@ MonoBehaviour:
   - key: farel_relic_done
     dialogue: {fileID: 11400000, guid: 39132d6764605824d27fe0b0b9159e8e, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -39,6 +40,7 @@ MonoBehaviour:
   - key: farel_net_done
     dialogue: {fileID: 11400000, guid: fd37a6832ddc7ef439d48c9e619c2a78, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -57,6 +59,7 @@ MonoBehaviour:
   - key: farel_bait_done
     dialogue: {fileID: 11400000, guid: 69d113d201774407aa2dcd7aae4f1168, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -70,6 +73,7 @@ MonoBehaviour:
   - key: farel_wealth_done
     dialogue: {fileID: 11400000, guid: d1fc05d337bbc5da2deac1a75f11be68, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -88,6 +92,7 @@ MonoBehaviour:
   - key: farel_bait_offer
     dialogue: {fileID: 11400000, guid: 4bdadee9d0c1489c9aa6d763fd757457, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -103,9 +108,15 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: 155832db8248499ab94dcfcf2c729fe9, type: 2}
       questStatus: 0
       invert: 0
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
   - key: farel_relic_reminder
     dialogue: {fileID: 11400000, guid: 72259ddf69322577b712cece50b3db0a, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -119,6 +130,7 @@ MonoBehaviour:
   - key: farel_net_reminder
     dialogue: {fileID: 11400000, guid: f09395a2aacec3808d648a667e74f012, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -132,6 +144,7 @@ MonoBehaviour:
   - key: farel_wealth_reminder
     dialogue: {fileID: 11400000, guid: dcc3a5d617261a11ba64f33af7e1509c, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -145,6 +158,7 @@ MonoBehaviour:
   - key: farel_bait_reminder
     dialogue: {fileID: 11400000, guid: 56e786d64742416ebf4f2eb1193d2449, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -158,6 +172,7 @@ MonoBehaviour:
   - key: farel_first_meeting
     dialogue: {fileID: 11400000, guid: 5df50a6b1f63d48471c62e4cd1e3c2d8, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 1
     conversationNumber: 1
     rangeStartConversation: 1
@@ -166,11 +181,13 @@ MonoBehaviour:
   - key: farel_idle
     dialogue: {fileID: 11400000, guid: dbdb2eaea47d9175455c2f894ba092b2, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 2
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions: []
+  companionAwayDialogue: {fileID: 11400000, guid: d85adac48ea04b90a1e50d2e670c6309, type: 2}
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

@@ -25,6 +25,24 @@ public sealed class ParallelStep : StoryStep
             yield return routine;
     }
 
+    public override void Skip(StoryEventContext context)
+    {
+        foreach (StoryStep step in steps)
+            step?.Skip(context);
+    }
+
+    public override IEnumerable<DialogueAction> GetActions()
+    {
+        foreach (StoryStep step in steps)
+        {
+            if (step == null)
+                continue;
+
+            foreach (DialogueAction action in step.GetActions())
+                yield return action;
+        }
+    }
+
     public override string ToString()
     {
         return $"Parallel ({steps.Count} steps)";

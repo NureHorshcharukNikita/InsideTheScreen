@@ -19,6 +19,7 @@ public static class ExplorationPlayerSession
     public static bool HasAnyPersistentSession => PersistentSessionSave.HasAnySlot();
     // The player's inventory this session; null before the player was first set up.
     public static InventoryData RuntimeInventory => runtimeInventory;
+    public static DeckData RuntimeDeck => runtimeDeck;
 
     public static void SavePosition(Vector3 position)
     {
@@ -271,6 +272,7 @@ public static class ExplorationPlayerSession
         ContinueSceneName = SceneNames.Exploration;
         PendingBattleEnemy.ClearSession();
         DefeatedEncounters.Clear();
+        WorldClock.Clear();
         EncounterGroups.Clear();
         CollectedPickups.Clear();
         QuestManager.Clear();
@@ -324,7 +326,8 @@ public static class ExplorationPlayerSession
             : data.hasEnemyHealth ? new[] { data.enemyHealth } : null;
         PendingBattleEnemy.RestoreSession(data.pendingEncounterId, enemyHealths);
 
-        DefeatedEncounters.Restore(data.defeatedEncounterIds, data.defeatedAtBattle, data.battlesWon);
+        WorldClock.Restore(data.playSeconds);
+        DefeatedEncounters.Restore(data.defeatedEncounterIds, data.defeatedAtBattle, data.battlesWon, data.defeatedAtSeconds);
         EncounterGroups.Restore(data.encounterGroups);
         CollectedPickups.Restore(data.collectedPickupIds);
         QuestManager.Restore(data.questProgress);

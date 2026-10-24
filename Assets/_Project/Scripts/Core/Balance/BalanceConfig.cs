@@ -55,6 +55,20 @@ public sealed class BalanceConfig : ScriptableObject
     [Tooltip("Enemy health when the father fights alongside Haru: his blows and the hits he takes make the fight easier.")]
     [Min(0.1f)] public float healthWhenFatherFights = 1.2f;
 
+    [Header("Ambushes on the roads")]
+    [Tooltip("Haru's power from each skill point he has earned, spent or not.")]
+    [Min(0f)] public float powerPerSkillPoint = 1f;
+    [Tooltip("Haru's power from every this much gold his battle deck is worth (the card values above).")]
+    [Min(1f)] public float deckGoldPerPower = 40f;
+    [Tooltip("Haru's power from which an ambush brings two enemies.")]
+    [Min(0f)] public float powerForTwoEnemies = 4f;
+    [Tooltip("Haru's power from which an ambush brings three enemies.")]
+    [Min(0f)] public float powerForThreeEnemies = 9f;
+    [Tooltip("Added to the size of the next ambush, one step per won battle, over and over: -1 a breather, 0 as usual, +1 a hard one. Roads go easy, harder, hardest, and ease off again.")]
+    public List<int> ambushRhythm = new() { -1, 0, 0, 1, -1, 0, 1, 1 };
+    [Tooltip("Seconds of exploring between two ambushes at least, on any road.")]
+    [Min(0f)] public float secondsBetweenAmbushes = 75f;
+
     [Header("Skills")]
     [Tooltip("Health share at or below which Haru counts as low on health (Aggression).")]
     [Range(0f, 1f)] public float lowHealthThreshold = 0.3f;

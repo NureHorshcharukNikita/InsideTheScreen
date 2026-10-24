@@ -21,6 +21,7 @@ MonoBehaviour:
   - key: trader_campfire
     dialogue: {fileID: 11400000, guid: 9319ec15686f4fe48c9f530e5c1b7837, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -31,9 +32,90 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 1
+  - key: trader_pack_done
+    dialogue: {fileID: 11400000, guid: 42c719fa089d4839ba919175b0018b44, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 80a8edc72b664963b66869b9fc91c9ab, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_trader_pack_found
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: trader_pack_offer
+    dialogue: {fileID: 11400000, guid: ce8bd0404a0f4056b9e225a562aedcc7, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 74e9d4fa792242b798924285e6984110, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: trader_pack_reminder
+    dialogue: {fileID: 11400000, guid: d6bb96f2a6634e6c8bcdf67d2cce7f05, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 80a8edc72b664963b66869b9fc91c9ab, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: trader_whispers_done
+    dialogue: {fileID: 11400000, guid: 5edbb08bf37a40d19b08c729cabc99e8, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: a11b6f7dcd41451c9feb65d064d189b8, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_trader_ward_given
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: trader_whispers_reminder
+    dialogue: {fileID: 11400000, guid: 6fb99c10f3a0482baa311efcb82aba2b, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: a11b6f7dcd41451c9feb65d064d189b8, type: 2}
+      questStatus: 1
+      invert: 0
   - key: trader_horn_done
     dialogue: {fileID: 11400000, guid: 85ccdc4d3e584210bd7f65877ca45b3d, type: 2}
     repeatable: 0
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -44,9 +126,101 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: f7777e2cf4214d218366733c9ae3d845, type: 2}
       questStatus: 1
       invert: 0
+  - key: trader_whispers_offer
+    dialogue: {fileID: 11400000, guid: 037a4b4b4fe94e30bacd0aba0e92e36b, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: f7777e2cf4214d218366733c9ae3d845, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 0
+      storyFlag: a1_left_leymar
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: a11b6f7dcd41451c9feb65d064d189b8, type: 2}
+      questStatus: 0
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_forging
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: trader_east_done
+    dialogue: {fileID: 11400000, guid: 0c3e078bb6074b22927aaede7840df9d, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: fa4dbdc35fa942d8b4c966526e620c99, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_east_satchel_found
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: trader_east_reminder
+    dialogue: {fileID: 11400000, guid: e3d8a97939b44e348f5b9cd7f030834e, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: fa4dbdc35fa942d8b4c966526e620c99, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: trader_east_offer
+    dialogue: {fileID: 11400000, guid: cdd45b8c886b4a55b2c6f2adc324fb93, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: f7777e2cf4214d218366733c9ae3d845, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 0
+      storyFlag: a1_left_leymar
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: fa4dbdc35fa942d8b4c966526e620c99, type: 2}
+      questStatus: 0
+      invert: 0
+    - type: 0
+      storyFlag: a1_echo_altar_broken
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
   - key: trader_horn_offer
     dialogue: {fileID: 11400000, guid: 7cf6f90c63e94d0fa809a628c46268e8, type: 2}
     repeatable: 0
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -65,11 +239,13 @@ MonoBehaviour:
   - key: trader_idle
     dialogue: {fileID: 11400000, guid: 1de705470d881f71be94828f91e33b62, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions: []
+  companionAwayDialogue: {fileID: 0}
   enableOverheadSpeech: 0
   overheadLines: []
   shop: {fileID: 11400000, guid: 1b8d49705ccd48f5a08a59c038af3341, type: 2}

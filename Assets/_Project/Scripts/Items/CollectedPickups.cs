@@ -18,6 +18,12 @@ public static class CollectedPickups
         return !string.IsNullOrEmpty(pickupId) && collectedIds.Contains(pickupId);
     }
 
+    // E.g. the spots of a ForageSpawner from before its things grew back.
+    public static void ForgetWhere(System.Predicate<string> match)
+    {
+        collectedIds.RemoveWhere(match);
+    }
+
     public static void Clear()
     {
         collectedIds.Clear();

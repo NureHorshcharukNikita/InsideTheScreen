@@ -31,10 +31,28 @@ MonoBehaviour:
     endDialogueAfterLine: 0
     actions: []
     choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "And look - I caught one. A small one."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Farel Wanderer
     portraitOverride: {fileID: 0}
-    text: "If you ever pass by the river, my fire is your fire."
+    text: "Small ones count. Your father has patient hands, boy."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "Come back when the fish are fat. I'll cook."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
@@ -48,4 +66,14 @@ MonoBehaviour:
       encounterId: 
       card: {fileID: 0}
       count: 1
+    - type: 5
+      quest: {fileID: 0}
+      storyFlag: hideshi_stays_behind
+      silent: 1
+      shop: {fileID: 0}
+    - type: 5
+      quest: {fileID: 0}
+      storyFlag: a1_hideshi_fishing
+      silent: 1
+      shop: {fileID: 0}
     choices: []

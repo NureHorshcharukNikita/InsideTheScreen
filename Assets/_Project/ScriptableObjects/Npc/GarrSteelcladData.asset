@@ -21,6 +21,7 @@ MonoBehaviour:
   - key: garr_after_altar
     dialogue: {fileID: 11400000, guid: a199d814e62d4012e4519a2940360e77, type: 2}
     repeatable: 0
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -34,6 +35,7 @@ MonoBehaviour:
   - key: garr_crystal_ready
     dialogue: {fileID: 11400000, guid: d954a536b43faf2be396ea5224f1e0ad, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -52,6 +54,7 @@ MonoBehaviour:
   - key: garr_not_ready
     dialogue: {fileID: 11400000, guid: f47fdf9234c433f568836720fc4ad483, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -70,6 +73,7 @@ MonoBehaviour:
   - key: garr_forging
     dialogue: {fileID: 11400000, guid: d80bb715ed9821dc09cd7f259ea6c380, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -83,6 +87,7 @@ MonoBehaviour:
   - key: garr_letter
     dialogue: {fileID: 11400000, guid: 7cf9ce9cd5084596961515d5caadd10a, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -101,6 +106,7 @@ MonoBehaviour:
   - key: garr_hand_done
     dialogue: {fileID: 11400000, guid: 1f457838bffd446abe6b7f6bb9e1d77e, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -114,6 +120,7 @@ MonoBehaviour:
   - key: garr_hides_done
     dialogue: {fileID: 11400000, guid: 3f712a89667d4ca9a3937313d851eec5, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -127,6 +134,7 @@ MonoBehaviour:
   - key: garr_resin_done
     dialogue: {fileID: 11400000, guid: de6e7be98478e7bf22a0eb3a1314c604, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -145,6 +153,7 @@ MonoBehaviour:
   - key: garr_stone_done
     dialogue: {fileID: 11400000, guid: 6a259c72c254e98c8719339f7bd6c6b0, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -163,6 +172,7 @@ MonoBehaviour:
   - key: garr_blacksmith
     dialogue: {fileID: 11400000, guid: 5dc272d00d4e4a28a648e5daa2091896, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -176,6 +186,7 @@ MonoBehaviour:
   - key: garr_hand_offer
     dialogue: {fileID: 11400000, guid: e28dc4f12b914c859f7087efebe3d347, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -199,6 +210,7 @@ MonoBehaviour:
   - key: garr_hides_offer
     dialogue: {fileID: 11400000, guid: 06269155143547bc89d888ae02298a94, type: 2}
     repeatable: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -217,6 +229,7 @@ MonoBehaviour:
   - key: garr_hand_reminder
     dialogue: {fileID: 11400000, guid: feea0f85f50e40b0baaec69510b84015, type: 2}
     repeatable: 1
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -230,6 +243,7 @@ MonoBehaviour:
   - key: garr_ogre_reminder
     dialogue: {fileID: 11400000, guid: 21ec1ede6ecd6b21d88211847feb13b6, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -243,6 +257,7 @@ MonoBehaviour:
   - key: garr_resin_reminder
     dialogue: {fileID: 11400000, guid: 97f182cbc01260b1b6be9a7a6184ef86, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -256,6 +271,7 @@ MonoBehaviour:
   - key: garr_stone_reminder
     dialogue: {fileID: 11400000, guid: 5b1775402bc5901d1a1c32457478f30a, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -269,6 +285,7 @@ MonoBehaviour:
   - key: garr_hides_reminder
     dialogue: {fileID: 11400000, guid: 1b8311e6bec6488781a19f311073f743, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -279,22 +296,10 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: beae17b99fea4a6bb6dc78a9f7248295, type: 2}
       questStatus: 1
       invert: 0
-  - key: garr_next_morning
-    dialogue: {fileID: 11400000, guid: d618490969dd47ed8332cbac14994c63, type: 2}
-    repeatable: 0
-    talkTiming: 1
-    conversationNumber: 1
-    rangeStartConversation: 1
-    rangeEndConversation: 0
-    conditions:
-    - type: 0
-      storyFlag: a1_spent_night
-      quest: {fileID: 0}
-      questStatus: 1
-      invert: 0
   - key: garr_idle
     dialogue: {fileID: 11400000, guid: 8c54220ce24fd3278e9cf1996aca6fff, type: 2}
     repeatable: 1
+    needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
@@ -305,8 +310,17 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+  companionAwayDialogue: {fileID: 11400000, guid: 58499b57d5014afc8e56338db17b463b, type: 2}
   enableOverheadSpeech: 1
-  overheadLines: []
+  overheadLines:
+  - Hm? It's late, strangers.
+  - The forge is cold till morning.
   shop: {fileID: 11400000, guid: 3548538ebb704d738f84e745f3a1d99f, type: 2}
+  tradeConditions:
+  - type: 0
+    storyFlag: a1_met_garr
+    quest: {fileID: 0}
+    questStatus: 1
+    invert: 0
   canMove: 0
   moveSpeed: 2

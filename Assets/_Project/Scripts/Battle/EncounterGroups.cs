@@ -26,6 +26,19 @@ public static class EncounterGroups
             groups.Remove(encounterId);
     }
 
+    public static void ForgetAll(string idPrefix)
+    {
+        var ids = new List<string>();
+        foreach (string encounterId in groups.Keys)
+        {
+            if (encounterId.StartsWith(idPrefix))
+                ids.Add(encounterId);
+        }
+
+        foreach (string encounterId in ids)
+            groups.Remove(encounterId);
+    }
+
     public static void Clear()
     {
         groups.Clear();

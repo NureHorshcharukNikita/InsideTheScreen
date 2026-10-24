@@ -16,7 +16,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: Two strangers in the middle of the night... Come closer.
+    text: "Two strangers in the middle of the night... Come closer."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -24,7 +24,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: We're looking for answers. We don't know how we got here.
+    text: "We're looking for answers. We don't know how we got here."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -32,7 +32,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: I can sense it... You do not belong to these lands.
+    text: "I can sense it... You do not belong to these lands."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -40,7 +40,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: So... this is another world?
+    text: "So... this is another world?"
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -48,7 +48,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: I'm not sure I can call it another world.
+    text: "I'm not sure I can call it another world."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -56,7 +56,47 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: But I know one thing for certain - you are strangers here.
+    text: "But I know one thing for certain - you are strangers here."
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "The world has opened again."
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "And someone has crossed the boundary."
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "The boundary...?"
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Your souls do not belong to this place."
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "The energy of your souls has already touched this world."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -64,7 +104,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: We're looking for answers. We don't know how we ended up here.
+    text: "What are we supposed to do now?"
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -72,7 +112,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: The world has opened again.
+    text: "I need time."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -80,7 +120,15 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: And someone has crossed the boundary.
+    text: "The world does not speak to me directly."
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "It answers through dreams."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -88,7 +136,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: The boundary...?
+    text: "So you don't know?"
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -96,7 +144,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: Your souls do not belong to this place.
+    text: "For now, I know only what I've told you."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -104,15 +152,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: The energy of your souls has already touched this world.
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: What are we supposed to do now?
+    text: "But I will find out more."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -120,7 +160,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: I need time.
+    text: "Get settled in Leymar."
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -128,55 +168,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: The world does not speak to me directly.
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: It answers through dreams.
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: So you don't know?
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: For now, I know only what I've told you.
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: But I will find out more.
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: Get settled in Leymar.
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: Come back tomorrow, when the sun rises above the tower.
+    text: "Come back tomorrow, when the sun rises above the tower."
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:

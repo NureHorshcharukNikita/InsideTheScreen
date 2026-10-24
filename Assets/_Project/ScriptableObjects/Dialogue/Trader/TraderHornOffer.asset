@@ -24,6 +24,20 @@ MonoBehaviour:
     choices: []
   - speakerSide: 1
     speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "You found my pack once. Maybe you can find me something else."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 80a8edc72b664963b66869b9fc91c9ab, type: 2}
+      questStatus: 2
+      invert: 0
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
     portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
     text: "A boar's horn. Carve it right, and a lord in the east will drink from it and pay me in silver."
     conditions: []

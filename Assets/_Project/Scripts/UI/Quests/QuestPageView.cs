@@ -168,11 +168,12 @@ public sealed class QuestPageView : MonoBehaviour
         if (titleText != null)
             titleText.text = quest.Title;
 
+        // No giver (story quests): the line is gone, not an empty gap under the title.
         if (giverText != null)
         {
-            giverText.text = string.IsNullOrWhiteSpace(quest.GiverName)
-                ? string.Empty
-                : $"<color=#9A948C>Giver:</color> {quest.GiverName}";
+            bool hasGiver = !string.IsNullOrWhiteSpace(quest.GiverName);
+            giverText.gameObject.SetActive(hasGiver);
+            giverText.text = hasGiver ? $"<color=#9A948C>Giver:</color> {quest.GiverName}" : string.Empty;
             giverText.color = DetailsTextColor;
         }
 
@@ -204,7 +205,10 @@ public sealed class QuestPageView : MonoBehaviour
             titleText.text = string.Empty;
 
         if (giverText != null)
+        {
             giverText.text = string.Empty;
+            giverText.gameObject.SetActive(false);
+        }
 
         if (descriptionText != null)
             descriptionText.text = string.Empty;

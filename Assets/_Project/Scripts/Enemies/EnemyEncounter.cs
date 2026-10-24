@@ -1,10 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // An enemy on the map: walking into it starts a battle against it, and against whoever is with it:
 // a few more enemies may join, rolled at the first battle and the same ones every time after
 // (EncounterGroups). The map only ever shows this one. Companions following the player fight at
-// the player's side.
+// the player's side. One that respawns waits out of sight once beaten and comes back on its own:
+// after a few won battles, or after a while of exploring, so a cleared forest fills up again.
 public class EnemyEncounter : MonoBehaviour
 {
     // In a saved group: one more of the enemy itself, not one of Possible Extra Enemies.
@@ -29,13 +31,22 @@ public class EnemyEncounter : MonoBehaviour
     [SerializeField] private float playerReturnOffset = 1.25f;
 
     [Header("Respawn")]
-    [Tooltip("Comes back after the player has won Respawn After Battles other battles, so there is always something to hunt for loot and quests. Off for bosses and quest enemies: they stay beaten.")]
+    [Tooltip("Comes back after the player has won Respawn After Battles other battles or explored for Respawn After Seconds, so there is always something to hunt for loot and quests. Off for bosses and quest enemies: they stay beaten.")]
     [SerializeField] private bool respawns;
     [SerializeField, Min(1)] private int respawnAfterBattles = 3;
+    [Tooltip("Seconds of exploring (WorldClock, not counting battles and menus) after which it comes back even without other battles.")]
+    [SerializeField, Min(10f)] private float respawnAfterSeconds = 180f;
 
     private static int nextEncounterId = 1;
 
+    // It does not come back right next to the player.
+    private const float ComeBackDistance = 6f;
+    private const float ComeBackCheckInterval = 1f;
+    private const float ComeBackFadeSeconds = 0.6f;
+
     private bool isTriggered = false;
+    private bool away;
+    private float nextComeBackCheck;
 
     public static void ResetEncounterIds()
     {
@@ -52,9 +63,15 @@ public class EnemyEncounter : MonoBehaviour
     {
         if (DefeatedEncounters.IsDefeated(encounterId))
         {
-            if (!respawns || DefeatedEncounters.BattlesSince(encounterId) < respawnAfterBattles)
+            if (!respawns)
             {
                 Destroy(gameObject);
+                return;
+            }
+
+            if (!IsDueBack())
+            {
+                SetAway(true);
                 return;
             }
 
@@ -64,6 +81,77 @@ public class EnemyEncounter : MonoBehaviour
         }
 
         GrowTouchZone();
+    }
+
+    private void Update()
+    {
+        if (!away || Time.unscaledTime < nextComeBackCheck)
+            return;
+
+        nextComeBackCheck = Time.unscaledTime + ComeBackCheckInterval;
+        if (IsDueBack() && GameStateManager.IsGameplay && !PlayerIsNear())
+            StartCoroutine(ComeBack());
+    }
+
+    // An enemy that sprang out of the bushes on a forest road (AmbushZone): its own id, and who is
+    // with it, already picked. It does not come back once beaten.
+    public void SetUpAmbush(string id, IReadOnlyList<EnemyData> group)
+    {
+        encounterId = id;
+        respawns = false;
+        possibleExtraEnemies = new List<EnemyData>(group);
+        int[] extraEnemies = new int[possibleExtraEnemies.Count];
+        for (int i = 0; i < extraEnemies.Length; i++)
+            extraEnemies[i] = i;
+
+        EncounterGroups.Remember(id, extraEnemies);
+    }
+
+    public EnemyData Data => enemyData;
+
+    private bool IsDueBack()
+    {
+        return DefeatedEncounters.BattlesSince(encounterId) >= respawnAfterBattles
+            || DefeatedEncounters.SecondsSince(encounterId) >= respawnAfterSeconds;
+    }
+
+    private bool PlayerIsNear()
+    {
+        PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
+        return player != null && Vector2.Distance(player.transform.position, transform.position) < ComeBackDistance;
+    }
+
+    // Beaten: out of sight and out of the way until it comes back.
+    private void SetAway(bool isAway)
+    {
+        away = isAway;
+        foreach (Renderer part in GetComponentsInChildren<Renderer>(true))
+            part.enabled = !isAway;
+        foreach (Collider2D part in GetComponentsInChildren<Collider2D>(true))
+            part.enabled = !isAway;
+        if (TryGetComponent(out EnemyChaser chaser))
+            chaser.enabled = !isAway;
+    }
+
+    private IEnumerator ComeBack()
+    {
+        DefeatedEncounters.Forget(encounterId);
+        EncounterGroups.Forget(encounterId);
+        SetAway(false);
+        GrowTouchZone();
+
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        if (sprite == null)
+            yield break;
+
+        Color shown = sprite.color;
+        for (float elapsed = 0f; elapsed < ComeBackFadeSeconds; elapsed += Time.deltaTime)
+        {
+            sprite.color = new Color(shown.r, shown.g, shown.b, shown.a * elapsed / ComeBackFadeSeconds);
+            yield return null;
+        }
+
+        sprite.color = shown;
     }
 
     // The trigger that starts the battle reaches a little past the feet collider. The same size or

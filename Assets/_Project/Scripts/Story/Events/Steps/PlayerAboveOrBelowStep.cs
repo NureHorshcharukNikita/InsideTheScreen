@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // Runs one of two lists of steps, depending on whether the player is below or above a point when
@@ -18,10 +19,33 @@ public sealed class PlayerAboveOrBelowStep : StoryStep
 
     public override IEnumerator Run(StoryEventContext context)
     {
+        foreach (StoryStep step in Branch(context))
+            yield return context.Run(step);
+    }
+
+    public override void Skip(StoryEventContext context)
+    {
+        foreach (StoryStep step in Branch(context))
+            step?.Skip(context);
+    }
+
+    public override IEnumerable<DialogueAction> GetActions()
+    {
+        foreach (StoryStep step in whenBelow.Concat(whenAbove))
+        {
+            if (step == null)
+                continue;
+
+            foreach (DialogueAction action in step.GetActions())
+                yield return action;
+        }
+    }
+
+    private List<StoryStep> Branch(StoryEventContext context)
+    {
         Transform player = context.Player;
         bool above = player != null && point != null && player.position.y > point.position.y;
-        foreach (StoryStep step in above ? whenAbove : whenBelow)
-            yield return context.Run(step);
+        return above ? whenAbove : whenBelow;
     }
 
     public override string ToString()

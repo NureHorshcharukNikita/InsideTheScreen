@@ -330,7 +330,9 @@ public sealed class DialogueManager : MonoBehaviour
         if (view != null)
             view.Hide();
 
-        NpcDialogueProgress.RecordDialogueFinished(activeNpcKey, activeDialogueEntry?.Key);
+        // Not a Companion Away dialogue (no entry): it does not count as a talk.
+        if (activeDialogueEntry != null)
+            NpcDialogueProgress.RecordDialogueFinished(activeNpcKey, activeDialogueEntry.Key);
 
         if (activeNpc != null)
             activeNpc.EndInteraction();

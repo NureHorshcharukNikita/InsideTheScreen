@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-// Walks a character (no pathfinding) to a point or to another character: in a straight line, or
-// first across and then up or down (or the other way round, or up/down-across-up/down), turning
-// at the corners.
+// Walks a character to a point or to another character: in a straight line, or first across and
+// then up or down (or the other way round, or up/down-across-up/down), turning at the corners.
+// With Avoid Obstacles it goes around a well, a lamp post or a house in the way (StoryPath).
 // It stops facing the way it walked (or, backwards, the other way), and the new position is saved.
-// Sideways slides it there in the pose it has, without turning or stepping.
+// Sideways slides it there in the pose it has, without turning or stepping. Bob gives a character
+// drawn as one sprite (Garr) a step it can be seen and heard taking.
 [Serializable, SubclassMenu("Characters/Walk To")]
 public sealed class WalkToStep : StoryStep
 {
@@ -37,6 +39,13 @@ public sealed class WalkToStep : StoryStep
     [SerializeField] private bool preferUpDown;
     [Tooltip("No footsteps, e.g. walking up outside, out of view, before coming in.")]
     [SerializeField] private bool silent;
+    [Tooltip("Bobs up and down with every step and is heard stepping, for a character drawn as one sprite without walk animations (e.g. Garr).")]
+    [SerializeField] private bool bob;
+    [Tooltip("Goes around walls, props and people in the way instead of through them. Straight where nothing is in the way.")]
+    [SerializeField] private bool avoidObstacles;
+
+    private const float BobStepLength = 0.5f;
+    private const float BobHeight = 0.08f;
 
     public override IEnumerator Run(StoryEventContext context)
     {
@@ -77,18 +86,33 @@ public sealed class WalkToStep : StoryStep
         };
 
         Vector2 facing = FacingTowards(end - start);
-        foreach (Vector3 point in points)
+        // Where the feet are, without the bob.
+        Vector3 position = start;
+        float walked = 0f;
+        foreach (Vector3 point in Legs(points, start))
         {
-            if ((walker.position - point).sqrMagnitude <= 0.0001f)
+            if ((position - point).sqrMagnitude <= 0.0001f)
                 continue;
 
-            facing = FacingTowards(point - walker.position);
+            facing = FacingTowards(point - position);
             if (!sideways)
                 FlipSpriteToFace.Apply(walker, facing);
 
-            while ((walker.position - point).sqrMagnitude > 0.0001f)
+            while ((position - point).sqrMagnitude > 0.0001f)
             {
-                walker.position = Vector3.MoveTowards(walker.position, point, speed * GameClock.DeltaTime);
+                Vector3 next = Vector3.MoveTowards(position, point, speed * GameClock.DeltaTime);
+                int stepsBefore = Mathf.FloorToInt(walked / BobStepLength);
+                walked += Vector3.Distance(position, next);
+                position = next;
+                walker.position = position;
+
+                // Up and down once per step, landing as the next step is heard.
+                if (bob)
+                {
+                    walker.position += Vector3.up * (BobHeight * Mathf.Abs(Mathf.Sin(walked / BobStepLength * Mathf.PI)));
+                    if (!silent && Mathf.FloorToInt(walked / BobStepLength) > stepsBefore)
+                        FootstepAudio.PlayStepFor(walker);
+                }
 
                 // Every frame: PlayerMovement resets IsMoving while the game is not in Gameplay.
                 if (!sideways)
@@ -97,10 +121,32 @@ public sealed class WalkToStep : StoryStep
             }
         }
 
+        walker.position = position;
         if (!sideways)
             CharacterWalkAnimation.Apply(animator, false, facing);
         Unmute(footsteps);
         context.SavePosition(walker);
+    }
+
+    // The route's corners, with the way around anything in between when avoiding obstacles.
+    private IEnumerable<Vector3> Legs(Vector3[] corners, Vector3 start)
+    {
+        Vector3 from = start;
+        foreach (Vector3 corner in corners)
+        {
+            List<Vector2> around = avoidObstacles ? StoryPath.Find(from, corner) : null;
+            if (around != null)
+            {
+                foreach (Vector2 point in around)
+                    yield return new Vector3(point.x, point.y, start.z);
+            }
+            else
+            {
+                yield return corner;
+            }
+
+            from = corner;
+        }
     }
 
     private Vector2 FacingTowards(Vector2 direction)

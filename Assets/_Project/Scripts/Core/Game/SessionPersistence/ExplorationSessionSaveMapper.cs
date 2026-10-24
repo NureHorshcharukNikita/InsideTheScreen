@@ -39,6 +39,8 @@ public static class ExplorationSessionSaveMapper
             defeatedEncounterIds = DefeatedEncounters.ToArray(),
             defeatedAtBattle = DefeatedEncounters.DefeatedAtToArray(),
             battlesWon = DefeatedEncounters.BattlesWon,
+            defeatedAtSeconds = DefeatedEncounters.DefeatedAtSecondsToArray(),
+            playSeconds = WorldClock.PlaySeconds,
             encounterGroups = EncounterGroups.ToArray(),
             collectedPickupIds = CollectedPickups.ToArray(),
             questProgress = questProgress,

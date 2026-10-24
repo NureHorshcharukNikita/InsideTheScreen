@@ -17,6 +17,8 @@ public sealed class CompanionFollower : MonoBehaviour
     private const float StuckTeleportTime = 3f;
     private const int MaxSearchNodes = 4000;
     private const float RepathPlayerMoveDistance = 0.5f;
+    // Staying behind this close to an NPC (about half a screen), he is there for their talk (IsPresentAt).
+    private const float PresentDistance = 12f;
 
     [SerializeField, StoryFlag] private string followAfterStoryFlag = "a1_home_intro";
     [Tooltip("Stays where he is like any other NPC instead of following. Can be switched in Play mode too.")]
@@ -80,6 +82,21 @@ public sealed class CompanionFollower : MonoBehaviour
     private readonly Dictionary<Collider2D, bool> doorPartCache = new();
 
     public bool IsFollowing => following;
+
+    // Whether a companion takes part in a talk at this spot: walking with the player, or staying
+    // behind right here (e.g. Hideshi working the bellows while Haru talks to Garr). Not when he
+    // waits somewhere else, or after he has left the story.
+    public static bool IsPresentAt(Vector3 spot)
+    {
+        foreach (CompanionFollower follower in FindObjectsByType<CompanionFollower>(FindObjectsSortMode.None))
+        {
+            if (follower.isActiveAndEnabled
+                && (follower.ShouldFollow || Vector2.Distance(follower.transform.position, spot) <= PresentDistance))
+                return true;
+        }
+
+        return false;
+    }
 
     // The companions following the player right now, as they join a battle at the player's side.
     public static List<EnemyData> CollectBattleAllies()

@@ -22,6 +22,18 @@ public sealed class ActionsStep : StoryStep
         yield break;
     }
 
+    public override void Skip(StoryEventContext context)
+    {
+        PlayerCharacter player = Object.FindFirstObjectByType<PlayerCharacter>();
+        foreach (DialogueAction action in actions)
+            action?.ExecuteSkipped(player);
+    }
+
+    public override IEnumerable<DialogueAction> GetActions()
+    {
+        return actions;
+    }
+
     public override string ToString()
     {
         List<string> parts = new();

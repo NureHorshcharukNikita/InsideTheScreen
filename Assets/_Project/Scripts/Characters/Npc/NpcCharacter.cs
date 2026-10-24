@@ -79,7 +79,9 @@ public class NpcCharacter : Character
     public DialogueData SelectDialogue(out NpcDialogueEntry selectedEntry)
     {
         selectedEntry = null;
-        return npcData != null ? npcData.SelectDialogue(PersistenceKey, out selectedEntry) : null;
+        return npcData != null
+            ? npcData.SelectDialogue(PersistenceKey, out selectedEntry, CompanionFollower.IsPresentAt(transform.position))
+            : null;
     }
 
     public bool TryInteract(NpcInteractionType interaction)

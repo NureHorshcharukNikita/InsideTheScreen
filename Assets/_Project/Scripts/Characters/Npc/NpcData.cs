@@ -16,6 +16,9 @@ public sealed class NpcData : ScriptableObject
     public bool enableDialogue = true;
     public List<NpcDialogueEntry> dialogueEntries = new();
 
+    [Tooltip("Said instead of a dialogue that needs Hideshi while he is not with Haru, e.g. \"Where's your father?\". Empty = such dialogues wait and the next one is said.")]
+    public DialogueData companionAwayDialogue;
+
     [Header("Overhead Speech")]
     public bool enableOverheadSpeech = true;
 
@@ -24,6 +27,9 @@ public sealed class NpcData : ScriptableObject
 
     [Header("Trade")]
     public ShopData shop;
+
+    [Tooltip("Trading straight away, when the NPC has nothing to say, only once all of these are met, e.g. Garr not before he has met Haru. A dialogue can still open the shop. Empty = always.")]
+    public List<StoryCondition> tradeConditions = new();
 
     [Header("Movement")]
     public bool canMove;
@@ -35,7 +41,7 @@ public sealed class NpcData : ScriptableObject
 
     public bool CanTalk => enableDialogue && HasAnyDialogueEntry();
     public bool CanShowOverheadLines => enableOverheadSpeech && HasAnyText(overheadLines);
-    public bool CanTrade => shop != null && shop.HasItems;
+    public bool CanTrade => shop != null && shop.HasItems && StoryCondition.AreMet(tradeConditions);
     public ShopData Shop => shop;
     public string CharacterID => profile != null ? profile.CharacterID : name;
     public string DisplayName => profile != null ? profile.DisplayName : name;
@@ -47,7 +53,9 @@ public sealed class NpcData : ScriptableObject
         return SelectDialogue(npcKey, out _) != null;
     }
 
-    public DialogueData SelectDialogue(string npcKey, out NpcDialogueEntry selectedEntry)
+    // The first entry that can be said. One that needs Hideshi while he is away gives the Companion
+    // Away dialogue instead (selectedEntry stays null: it does not count as a talk).
+    public DialogueData SelectDialogue(string npcKey, out NpcDialogueEntry selectedEntry, bool companionPresent = true)
     {
         selectedEntry = null;
         if (!enableDialogue)
@@ -60,6 +68,14 @@ public sealed class NpcData : ScriptableObject
                 NpcDialogueEntry entry = dialogueEntries[i];
                 if (entry == null || !entry.IsAvailable(npcKey))
                     continue;
+
+                if (entry.needsCompanion && !companionPresent)
+                {
+                    if (companionAwayDialogue != null && companionAwayDialogue.HasLines)
+                        return companionAwayDialogue;
+
+                    continue;
+                }
 
                 selectedEntry = entry;
                 return entry.dialogue;
