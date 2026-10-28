@@ -15,6 +15,8 @@ public class CardDataEditor : UnityEditor.Editor
     private SerializedProperty _conditionsProp;
     private SerializedProperty _effectsProp;
     private SerializedProperty _statusEffectsProp;
+    private SerializedProperty _needsInHandProp;
+    private SerializedProperty _heldInHandProp;
 
     private void OnEnable()
     {
@@ -32,6 +34,8 @@ public class CardDataEditor : UnityEditor.Editor
         _conditionsProp = serializedObject.FindProperty("conditions");
         _effectsProp = serializedObject.FindProperty("instantEffects");
         _statusEffectsProp = serializedObject.FindProperty("statusApplications");
+        _needsInHandProp = serializedObject.FindProperty("needsInHand");
+        _heldInHandProp = serializedObject.FindProperty("heldInHand");
     }
 
     public override void OnInspectorGUI()
@@ -68,6 +72,8 @@ public class CardDataEditor : UnityEditor.Editor
         EditorGUILayout.PropertyField(_conditionsProp, true);
         EditorGUILayout.PropertyField(_effectsProp, true);
         EditorGUILayout.PropertyField(_statusEffectsProp, true);
+        EditorGUILayout.PropertyField(_needsInHandProp);
+        EditorGUILayout.PropertyField(_heldInHandProp);
     }
 
     private void DrawEconomySection()
@@ -98,7 +104,7 @@ public class CardDataEditor : UnityEditor.Editor
         if (string.IsNullOrWhiteSpace(_cardNameProp.stringValue))
             EditorGUILayout.HelpBox("Card Name is empty. UI will fall back to asset name.", MessageType.Info);
 
-        if (_effectsProp.arraySize == 0 && _statusEffectsProp.arraySize == 0)
+        if (_effectsProp.arraySize == 0 && _statusEffectsProp.arraySize == 0 && !_heldInHandProp.boolValue)
         {
             EditorGUILayout.HelpBox(
                 "Card has no instant effects or status applications. CardResolver will not apply anything when this card is played.",

@@ -20,7 +20,9 @@ public static class ExplorationSessionSaveMapper
         bool hasSkillProgression,
         int skillPoints,
         SkillProgressSaveData[] skillProgression,
-        string[] storyFlags)
+        string[] storyFlags,
+        string[] obtainedCardIds,
+        string[] openedRecipeKeys)
     {
         SessionSaveData data = new()
         {
@@ -50,7 +52,9 @@ public static class ExplorationSessionSaveMapper
             hasSkillProgression = hasSkillProgression,
             skillPoints = skillPoints,
             skillProgression = skillProgression,
-            storyFlags = storyFlags
+            storyFlags = storyFlags,
+            obtainedCardIds = obtainedCardIds,
+            openedRecipeKeys = openedRecipeKeys
         };
 
         int[] enemyHealths = PendingBattleEnemy.CurrentEnemyHealths;

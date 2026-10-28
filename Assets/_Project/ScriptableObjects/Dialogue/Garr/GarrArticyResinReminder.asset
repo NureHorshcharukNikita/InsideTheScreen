@@ -13,4 +13,25 @@ MonoBehaviour:
   m_Name: GarrArticyResinReminder
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Fresh resin. Ten pieces. The marked trees at the forest edge.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 1
+    speakerName: Garr Steelclad
+    portraitOverride: {fileID: 0}
+    text: "Fresh resin. Ten pieces. The marked trees at the forest edge."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices:
+    - text: "Show me what you've got."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 0}
+    - text: "We're on it."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []

@@ -29,6 +29,8 @@ public class InventoryData : ScriptableObject
         for (int i = 0; i < count; i++)
             cards.Add(card);
 
+        // Found, bought, crafted or won: the crafting tab learns what it is used for.
+        CraftingProgress.NoteObtained(card);
         return count;
     }
 

@@ -37,19 +37,34 @@ public class NpcCharacter : Character
         RestoreSavedPosition();
 
         StoryFlagManager.Changed += ApplyStoryVisibility;
+        QuestManager.QuestChanged += ApplyStoryVisibilityForQuest;
         ApplyStoryVisibility();
     }
 
     private void OnDestroy()
     {
         StoryFlagManager.Changed -= ApplyStoryVisibility;
+        QuestManager.QuestChanged -= ApplyStoryVisibilityForQuest;
     }
 
-    // E.g. Hideshi is gone after the Echo Altar.
+    private void ApplyStoryVisibilityForQuest(QuestData quest, QuestStatus status)
+    {
+        ApplyStoryVisibility();
+    }
+
+    // E.g. Hideshi is gone after the Echo Altar, Garr is at home for the night. Left alone by an
+    // NPC with neither, so a story event can show or hide it (Set Active).
     private void ApplyStoryVisibility()
     {
-        if (npcData != null && !string.IsNullOrWhiteSpace(npcData.hiddenAfterStoryFlag))
-            gameObject.SetActive(!StoryFlagManager.HasFlag(npcData.hiddenAfterStoryFlag));
+        if (npcData == null)
+            return;
+
+        bool hasHiddenFlag = !string.IsNullOrWhiteSpace(npcData.hiddenAfterStoryFlag);
+        if (!hasHiddenFlag && (npcData.awayWhile == null || npcData.awayWhile.Count == 0))
+            return;
+
+        bool gone = hasHiddenFlag && StoryFlagManager.HasFlag(npcData.hiddenAfterStoryFlag);
+        gameObject.SetActive(!gone && !npcData.IsAway);
     }
 
     public void ApplyData(NpcData data)

@@ -21,6 +21,32 @@ public static class CharacterWalkAnimation
         }
     }
 
+    // The way the animator shows the character looking, e.g. where a story event turned them.
+    // False without a Direction parameter.
+    public static bool TryGetFacing(Animator animator, out Vector2 facing)
+    {
+        facing = Vector2.zero;
+        if (animator == null || animator.runtimeAnimatorController == null)
+            return false;
+
+        foreach (AnimatorControllerParameter parameter in animator.parameters)
+        {
+            if (parameter.nameHash != DirectionParameter)
+                continue;
+
+            facing = animator.GetInteger(DirectionParameter) switch
+            {
+                1 => Vector2.up,
+                2 => Vector2.left,
+                3 => Vector2.right,
+                _ => Vector2.down
+            };
+            return true;
+        }
+
+        return false;
+    }
+
     // Same values as PlayerMovement: 0 down, 1 up, 2 left, 3 right.
     private static int GetDirection(Vector2 direction)
     {

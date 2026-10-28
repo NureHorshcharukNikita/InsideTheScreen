@@ -296,6 +296,49 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: beae17b99fea4a6bb6dc78a9f7248295, type: 2}
       questStatus: 1
       invert: 0
+  - key: garr_morning_no_trade
+    dialogue: {fileID: 11400000, guid: f798d2c5fc944beca5da02a63befecbb, type: 2}
+    repeatable: 0
+    needsCompanion: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_met_garr
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_eldon_morning
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: garr_trade_open
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: garr_not_trading_yet
+    dialogue: {fileID: 11400000, guid: f512cdfeb52946ac87d2391e885d9266, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_met_garr
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: garr_trade_open
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
   - key: garr_idle
     dialogue: {fileID: 11400000, guid: 8c54220ce24fd3278e9cf1996aca6fff, type: 2}
     repeatable: 1
@@ -310,6 +353,11 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+    - type: 0
+      storyFlag: garr_trade_open
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
   companionAwayDialogue: {fileID: 11400000, guid: 58499b57d5014afc8e56338db17b463b, type: 2}
   enableOverheadSpeech: 1
   overheadLines:
@@ -318,9 +366,21 @@ MonoBehaviour:
   shop: {fileID: 11400000, guid: 3548538ebb704d738f84e745f3a1d99f, type: 2}
   tradeConditions:
   - type: 0
-    storyFlag: a1_met_garr
+    storyFlag: garr_trade_open
     quest: {fileID: 0}
     questStatus: 1
     invert: 0
   canMove: 0
   moveSpeed: 2
+  hiddenAfterStoryFlag: 
+  awayWhile:
+  - type: 0
+    storyFlag: a1_garr_home
+    quest: {fileID: 0}
+    questStatus: 1
+    invert: 0
+  - type: 0
+    storyFlag: a1_leymar_morning
+    quest: {fileID: 0}
+    questStatus: 1
+    invert: 1

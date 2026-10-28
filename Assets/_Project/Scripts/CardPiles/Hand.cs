@@ -23,6 +23,11 @@ public class Hand
         cards.Remove(card);
     }
 
+    public bool Contains(CardData card)
+    {
+        return card != null && cards.Contains(card);
+    }
+
     public void RemoveAt(int index)
     {
         if (index < 0 || index >= cards.Count)

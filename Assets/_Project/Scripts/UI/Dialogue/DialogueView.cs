@@ -98,7 +98,7 @@ public sealed class DialogueView : MonoBehaviour
 
     public void ShowLine(
         DialogueLine line,
-        string fallbackSpeakerName,
+        string speakerName,
         Sprite fallbackPortrait,
         Sprite leftFallbackPortrait,
         Sprite rightFallbackPortrait,
@@ -111,10 +111,6 @@ public sealed class DialogueView : MonoBehaviour
         WireButtons();
         SetVisible(true);
         voice = speakerVoice;
-
-        string speakerName = !string.IsNullOrWhiteSpace(line.speakerName)
-            ? line.speakerName
-            : fallbackSpeakerName;
 
         if (speakerNameText != null)
             speakerNameText.text = speakerName;

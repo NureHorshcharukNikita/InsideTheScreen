@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: GarrMorningApology
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Mister Garr... I'm sorry about this morning. About your barn.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Hm. Don't worry about it, lad.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "What's done is done. You slept, the barn's still standing. No harm in that.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Still, thank you for letting it go.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Go on, then. Eldon is already waiting for you.", nextLineIndex: -1, endDialogueAfterLine: 1}

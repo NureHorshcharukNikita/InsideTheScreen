@@ -5,21 +5,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// "New quest: Survival Basics" and the like, in the bottom right corner, one after another. Quests
+// mostly start and end in the middle of a talk or a cutscene: the toasts wait until the player has
+// control again, so they do not slide in under the dialogue box, unread.
 public sealed class QuestNotificationToast : MonoBehaviour
 {
-    private const string QuestAddedMessage = "Quest added";
-    private const string QuestCompletedMessage = "Quest completed";
+    private const string QuestAddedMessage = "New quest:";
+    private const string QuestCompletedMessage = "Quest completed:";
     private const string RewardReceivedMessage = "Reward received";
-    private const string QuestProgressMessage = "Quest progress";
     private static readonly Color PanelColor = new(0.31f, 0.23f, 0.2f, 0.98f);
     private static readonly Color BorderColor = new(0.94f, 0.68f, 0.34f, 1f);
     private static readonly Color TextColor = new(1f, 0.91f, 0.68f, 1f);
     private static readonly Vector2 VisiblePosition = new(-34f, 34f);
     private static readonly Vector2 HiddenPosition = new(390f, 34f);
+    // As wide as the text needs, the quest's name included, within these.
+    private const float MinWidth = 360f;
+    private const float MaxWidth = 760f;
     private const float SlideDuration = 0.22f;
-    private const float HoldDuration = 2.35f;
+    private const float HoldDuration = 3f;
     private const float BetweenToastDelay = 0.28f;
     private const float ExplorationSceneToastDelay = 0.5f;
+    // After a talk or a cutscene, before the first toast: the dialogue box is gone by then.
+    private const float AfterDialogueDelay = 0.4f;
 
     private static QuestNotificationToast instance;
 
@@ -43,7 +50,7 @@ public sealed class QuestNotificationToast : MonoBehaviour
 
         EnsureInstance();
         if (instance != null)
-            instance.Enqueue(QuestAddedMessage, null);
+            instance.Enqueue($"{QuestAddedMessage} {quest.Title}", null);
     }
 
     public static void ShowQuestCompleted(QuestData quest)
@@ -53,10 +60,10 @@ public sealed class QuestNotificationToast : MonoBehaviour
 
         EnsureInstance();
         if (instance != null)
-            instance.Enqueue(QuestCompletedMessage, null);
+            instance.Enqueue($"{QuestCompletedMessage} {quest.Title}", null);
     }
 
-    // E.g. "Quest progress 2/3" after a battle that counted for a Defeat Enemies quest.
+    // E.g. "Wolf Hunt 2/3" after a battle that counted for a Defeat Enemies quest.
     public static void ShowQuestProgress(QuestData quest, int current, int target)
     {
         if (quest == null)
@@ -64,7 +71,7 @@ public sealed class QuestNotificationToast : MonoBehaviour
 
         EnsureInstance();
         if (instance != null)
-            instance.Enqueue($"{QuestProgressMessage} {current}/{target}", null);
+            instance.Enqueue($"{quest.Title} {current}/{target}", null);
     }
 
     public static void ShowRewardReceived(QuestData quest)
@@ -231,12 +238,20 @@ public sealed class QuestNotificationToast : MonoBehaviour
     {
         while (queuedToasts.Count > 0)
         {
-            ToastPayload payload = queuedToasts.Dequeue();
-            Show(payload);
+            if (!CanShowNow())
+            {
+                while (!CanShowNow())
+                    yield return null;
 
-            yield return Slide(HiddenPosition, VisiblePosition);
+                yield return new WaitForGameSeconds(AfterDialogueDelay);
+            }
+
+            ToastPayload payload = queuedToasts.Dequeue();
+            Vector2 hidden = Show(payload);
+
+            yield return Slide(hidden, VisiblePosition);
             yield return new WaitForGameSeconds(HoldDuration);
-            yield return Slide(VisiblePosition, HiddenPosition);
+            yield return Slide(VisiblePosition, hidden);
 
             toastRect.gameObject.SetActive(false);
 
@@ -247,7 +262,8 @@ public sealed class QuestNotificationToast : MonoBehaviour
         toastCoroutine = null;
     }
 
-    private void Show(ToastPayload payload)
+    // Returns where it hides, just past the right edge of the screen at its width.
+    private Vector2 Show(ToastPayload payload)
     {
         toastText.text = payload.Message;
         toastRect.gameObject.SetActive(true);
@@ -259,9 +275,14 @@ public sealed class QuestNotificationToast : MonoBehaviour
             toastIcon.gameObject.SetActive(hasIcon);
         }
 
+        float textLeft = hasIcon ? 76f : 22f;
         RectTransform textRect = toastText.rectTransform;
-        textRect.offsetMin = new Vector2(hasIcon ? 76f : 22f, 0f);
+        textRect.offsetMin = new Vector2(textLeft, 0f);
         textRect.offsetMax = new Vector2(-22f, 0f);
+
+        float width = Mathf.Clamp(textLeft + toastText.GetPreferredValues(payload.Message).x + 22f, MinWidth, MaxWidth);
+        toastRect.sizeDelta = new Vector2(width, toastRect.sizeDelta.y);
+        return new Vector2(width + 30f, HiddenPosition.y);
     }
 
     private IEnumerator Slide(Vector2 from, Vector2 to)
@@ -284,6 +305,13 @@ public sealed class QuestNotificationToast : MonoBehaviour
     private static bool CanShowInCurrentScene()
     {
         return SceneManager.GetActiveScene().name == SceneNames.Exploration;
+    }
+
+    // The player has control in the exploration scene: no talk, cutscene or open window, no fade.
+    private static bool CanShowNow()
+    {
+        return CanShowInCurrentScene() && GameStateManager.IsGameplay
+            && (FadeManager.Instance == null || !FadeManager.Instance.IsFading);
     }
 
     private void HideToast()

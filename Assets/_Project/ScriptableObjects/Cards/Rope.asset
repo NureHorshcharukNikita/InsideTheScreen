@@ -14,11 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: rope
   cardName: Rope
-  description: 
+  description: 'Tie a foe up: {status0.status} for {status0.duration} turn.'
+  shortDescription: '{status0.status} for {status0.duration} turn.'
   icon: {fileID: 21300000, guid: 87e1967a0b3668747bb0ea07bf1579ad, type: 3}
-  categories: 
+  categories:
+  - 10
   cost: 1
   conditions: []
   instantEffects: []
-  statusApplications: []
+  statusApplications:
+  - status: {fileID: 11400000, guid: 956b8ccbe6a1494fb5d3f8e4263ec397, type: 2}
+    targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
+    value: 3
+    duration: 1
+    stacks: 1
+    applyChance: 1
+    reapplyMode: 0
+    conditions: []
+  needsInHand: {fileID: 0}
+  heldInHand: 0
   baseGoldValue: 3

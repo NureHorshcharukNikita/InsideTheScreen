@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,6 +32,8 @@ public sealed class DialogueManager : MonoBehaviour
     private int activeLineIndex;
     private GameState previousState;
     private bool dialogueActive;
+    // While Hideshi steps up in front for a talk he leads, before its first line.
+    private StoryEventContext leadContext;
 
     private Sprite PlayerPortrait => activePlayer != null ? activePlayer.DialogueSprite : null;
 
@@ -76,6 +79,8 @@ public sealed class DialogueManager : MonoBehaviour
             view.ContinueRequested -= Continue;
             view.ChoiceRequested -= Choose;
         }
+
+        ReleaseLead();
     }
 
     private void OnDestroy()
@@ -117,8 +122,43 @@ public sealed class DialogueManager : MonoBehaviour
         previousState = GameStateManager.State;
         GameStateManager.SetState(GameState.Dialogue);
         npc.TryInteract(NpcInteractionType.Talk);
-        ShowCurrentLine();
+        if (!TryLetCompanionLead(npc, selectedEntry))
+            ShowCurrentLine();
         return true;
+    }
+
+    // A talk Hideshi leads (NpcData.companionLeadsTalks), one he speaks in: he steps up in front
+    // first, and the first line shows once both stand (CompanionStepsForward).
+    private bool TryLetCompanionLead(NpcCharacter npc, NpcDialogueEntry entry)
+    {
+        if (entry == null || !entry.needsCompanion || npc.Data == null || !npc.Data.companionLeadsTalks
+            || activePlayer == null)
+            return false;
+
+        CompanionFollower companion = CompanionFollower.FindFollowing();
+        if (companion == null || !CompanionStepsForward.CanPlay(npc.transform, activePlayer.transform, companion.transform))
+            return false;
+
+        leadContext = new StoryEventContext(this);
+        StartCoroutine(LetCompanionLead(npc.transform, companion.transform));
+        return true;
+    }
+
+    private IEnumerator LetCompanionLead(Transform npc, Transform companion)
+    {
+        yield return CompanionStepsForward.Play(leadContext, npc, companion);
+        ReleaseLead();
+        if (dialogueActive)
+            ShowCurrentLine();
+    }
+
+    private void ReleaseLead()
+    {
+        if (leadContext == null)
+            return;
+
+        leadContext.Release();
+        leadContext = null;
     }
 
     // Story scenes without an NPC (see DialogueStep). Speakers come from the lines themselves;
@@ -171,7 +211,7 @@ public sealed class DialogueManager : MonoBehaviour
 
     public void Continue()
     {
-        if (!dialogueActive)
+        if (!dialogueActive || leadContext != null)
             return;
 
         if (view != null && view.TryCompleteTextReveal())
@@ -192,7 +232,7 @@ public sealed class DialogueManager : MonoBehaviour
 
     public void Choose(int choiceIndex)
     {
-        if (!dialogueActive)
+        if (!dialogueActive || leadContext != null)
             return;
 
         DialogueLine line = activeLines[activeLineIndex];
@@ -356,7 +396,9 @@ public sealed class DialogueManager : MonoBehaviour
         DialogueLine line = activeLines[activeLineIndex];
         bool playerSpeaking = line.speakerSide == DialogueSpeakerSide.Left;
         Sprite npcPortrait = activeNpc != null ? activeNpc.DialogueSprite : null;
-        string fallbackName = playerSpeaking ? PlayerName : activeNpc != null ? activeNpc.DisplayName : string.Empty;
+        string speakerName = !string.IsNullOrWhiteSpace(line.speakerName)
+            ? line.speakerName
+            : playerSpeaking ? PlayerName : activeNpc != null ? activeNpc.DisplayName : string.Empty;
         Sprite fallbackPortrait = playerSpeaking ? PlayerPortrait : npcPortrait;
 
         ExecuteActions(line.actions, activeNpc, activePlayer);
@@ -366,12 +408,15 @@ public sealed class DialogueManager : MonoBehaviour
 
         view.ShowLine(
             line,
-            fallbackName,
+            KnownNames.Shown(GetSpeaker(line), speakerName),
             fallbackPortrait,
             GetListenerPortrait(DialogueSpeakerSide.Left, PlayerPortrait),
             GetListenerPortrait(DialogueSpeakerSide.Right, npcPortrait),
             GetVoice(line),
             GetValidChoices(line));
+
+        // After the name plate: a name said on this line shows from the next one on.
+        KnownNames.Hear(line.text);
     }
 
     private DialogueVoice GetVoice(DialogueLine line)

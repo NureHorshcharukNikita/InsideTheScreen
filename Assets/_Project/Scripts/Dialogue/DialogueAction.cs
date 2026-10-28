@@ -82,7 +82,6 @@ public sealed class DialogueAction
             return;
 
         inventory.AddCards(card, Mathf.Max(1, count));
-        ExplorationPlayerSession.AddToDeckIfRoom(card, Mathf.Max(1, count));
     }
 
     // Like walking into an enemy on the map: the player and the NPCs come back to where they stood.

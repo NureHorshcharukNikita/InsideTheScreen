@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1cb6093454f4698a8699405323a6721, type: 3}
+  m_Name: Recipe_Torch
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  result: {fileID: 11400000, guid: 6d0493fcac2f4a5bb39f5c11f2fdc083, type: 2}
+  resultCount: 1
+  ingredients:
+  - card: {fileID: 11400000, guid: 1d2fd7ff5942449bae8c2047a54c3ef4, type: 2}
+    count: 1
+    tool: 0
+    orInstead: {fileID: 0}
+    orInsteadIsTool: 0
+  - card: {fileID: 11400000, guid: fd6b14d5b6bc47c4888400c708df9068, type: 2}
+    count: 1
+    tool: 0
+    orInstead: {fileID: 0}
+    orInsteadIsTool: 0
+  - card: {fileID: 11400000, guid: ce0ac4164e324f708f96aa22b67feb5b, type: 2}
+    count: 1
+    tool: 0
+    orInstead: {fileID: 11400000, guid: de95a9968f2198749bac82515afe5c3f, type: 2}
+    orInsteadIsTool: 1

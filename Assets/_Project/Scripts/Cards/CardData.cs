@@ -23,6 +23,12 @@ public class CardData : ScriptableObject
     [SerializeField] private List<CardInstantEffectEntry> instantEffects = new();
     [SerializeField] private List<CardStatusApplicationEntry> statusApplications = new();
 
+    [Header("Held Together")]
+    [Tooltip("Can only be played while a card of this kind is in hand, e.g. an Arrow needs a Bow.")]
+    [SerializeField] private CardData needsInHand;
+    [Tooltip("Never played itself: it stays in hand so other cards can be, e.g. a Bow for Arrows.")]
+    [SerializeField] private bool heldInHand;
+
     [Header("Economy")]
     [Tooltip("What the card is worth in gold; shops buy and sell from it (Balance Config). 0 = worked out from its effects.")]
     [SerializeField, Min(0)] private int baseGoldValue;
@@ -50,4 +56,12 @@ public class CardData : ScriptableObject
     public IReadOnlyList<BattleCondition> Conditions => conditions;
     public IReadOnlyList<CardInstantEffectEntry> InstantEffects => instantEffects;
     public IReadOnlyList<CardStatusApplicationEntry> StatusApplications => statusApplications;
+    public CardData NeedsInHand => needsInHand;
+    public bool IsHeldInHand => heldInHand;
+
+    // Something to do in a battle: effects, or held for others (a Bow). Materials and keepsakes
+    // have neither.
+    public bool IsUsedInBattle => heldInHand
+        || (instantEffects?.Count ?? 0) > 0
+        || (statusApplications?.Count ?? 0) > 0;
 }

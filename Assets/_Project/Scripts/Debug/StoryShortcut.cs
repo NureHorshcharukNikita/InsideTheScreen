@@ -8,7 +8,8 @@ using Object = UnityEngine.Object;
 // flag, the event or the talk that sets it is skipped instead of played, so the quests it starts
 // and completes, their rewards and its other flags come with it. What that event or talk waits
 // for (an earlier flag, a quest that must be active or done) is reached the same way first, so
-// the last flag alone brings everything before it. Before a quest is completed it is started and
+// the last flag alone brings everything before it. A flag set by picking something up (ForageSpot)
+// comes with the thing picked up, card and all. Before a quest is completed it is started and
 // the events that happen while it is active (the places it sends the player to) are skipped too.
 // A quest nothing in the scene starts or completes (a battle quest) is set directly. Battles and
 // shops are left out.
@@ -16,6 +17,7 @@ public sealed class StoryShortcut
 {
     private readonly List<StoryEvent> events = new();
     private readonly List<NpcCharacter> npcs = new();
+    private readonly List<ForageSpot> spots = new();
     // Flags, quests, events and talks already dealt with: no going round in circles.
     private readonly HashSet<object> reached = new();
 
@@ -29,6 +31,7 @@ public sealed class StoryShortcut
         }
 
         npcs.AddRange(Object.FindObjectsByType<NpcCharacter>(FindObjectsInactive.Include, FindObjectsSortMode.None));
+        spots.AddRange(Object.FindObjectsByType<ForageSpot>(FindObjectsInactive.Include, FindObjectsSortMode.None));
     }
 
     public void ReachFlag(string flag)
@@ -37,8 +40,11 @@ public sealed class StoryShortcut
             return;
 
         StoryEvent setter = events.Find(storyEvent => storyEvent.DoneFlag == flag);
+        ForageSpot gathered = spots.Find(spot => spot.SetsFlag(flag));
         if (setter != null)
             SkipEvent(setter);
+        else if (gathered != null)
+            gathered.Skip();
         else
             SkipWhatDoes(action => action.type == DialogueActionType.SetStoryFlag && action.storyFlag == flag);
 

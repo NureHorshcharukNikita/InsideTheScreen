@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: HideshiArticySurvivalBasics
+  m_Name: HideshiArticyGroundLesson
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerSide: 1
@@ -58,10 +58,28 @@ MonoBehaviour:
     endDialogueAfterLine: 0
     actions: []
     choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "How?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Have you noticed? Everything here turns into cards. Berries, stones, even a stick."
+    text: "Come with me. There's something I want to show you."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Here. Look at the ground, Haru. Do you notice anything?"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -70,7 +88,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "Yeah... just like in a game."
+    text: "Grass. Dirt. A few bushes... What am I supposed to see?"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -79,7 +97,34 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Then let's play by its rules. The apple bushes by the tower - gather whatever you can find there and see what cards you get."
+    text: "Don't just look. Focus. Like when you search for something you dropped."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "In a world like this, there's always something lying around. You just have to see it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Wait... those weren't there a second ago!"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Maybe they always were. You just didn't know how to look."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -88,7 +133,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "And then?"
+    text: "How did you know they'd be here?"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -97,7 +142,16 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Then we'll know what we're working with. Go on, I'll be right here."
+    text: "I didn't. I just looked longer than you did."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Go on. Gather what you can find around here, and let's see what you get."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1

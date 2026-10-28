@@ -40,7 +40,9 @@ public class TurnManager
 
     public BattleActionContext BuildActionContext()
     {
-        return BattleActionContext.CreateDefault();
+        BattleActionContext context = BattleActionContext.CreateDefault();
+        context.DrawCards = amount => deckManager?.DrawCards(amount);
+        return context;
     }
 
     public TurnManager(

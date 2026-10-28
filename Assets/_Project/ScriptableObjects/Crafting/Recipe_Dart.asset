@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1cb6093454f4698a8699405323a6721, type: 3}
+  m_Name: Recipe_Dart
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  result: {fileID: 11400000, guid: 2efa9d947bc047eaace2382e4890b5ff, type: 2}
+  resultCount: 1
+  ingredients:
+  - card: {fileID: 11400000, guid: 27f76cbd394f4854b5b69607e76670cf, type: 2}
+    count: 1
+    tool: 0
+    orInstead: {fileID: 0}
+    orInsteadIsTool: 0
+  - card: {fileID: 11400000, guid: a66226a6f7dd4dee889e64007f9defe7, type: 2}
+    count: 1
+    tool: 0
+    orInstead: {fileID: 0}
+    orInsteadIsTool: 0

@@ -14,11 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: ash
   cardName: Ash
-  description: 
+  description: 'Throw it in their eyes: all foes {status0.status} for {status0.duration} turn.'
+  shortDescription: 'All foes {status0.status}.'
   icon: {fileID: 21300000, guid: e000d6c8bb8d1d3458eb183c52f88a22, type: 3}
-  categories: 
-  cost: 1
+  categories:
+  - 10
+  cost: 2
   conditions: []
   instantEffects: []
-  statusApplications: []
+  statusApplications:
+  - status: {fileID: 11400000, guid: 956b8ccbe6a1494fb5d3f8e4263ec397, type: 2}
+    targeting: {fileID: 11400000, guid: 10502f8a3fcf4dd7872af19f7955a6d1, type: 2}
+    value: 3
+    duration: 1
+    stacks: 1
+    applyChance: 1
+    reapplyMode: 0
+    conditions: []
+  needsInHand: {fileID: 0}
+  heldInHand: 0
   baseGoldValue: 1

@@ -14,11 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: arrow
   cardName: Arrow
-  description: 
+  description: 'Needs a Bow in hand. Deal {instant0.value} Damage (2 more to a burning foe) and Apply {status0.value} {status0.status} for 1 turn, {status1.chance} chance of 2.'
+  shortDescription: 'Needs a Bow. {instant0.value} Damage, {status0.status}.'
   icon: {fileID: 21300000, guid: cb9f614ddde53b24795c1cef4f470cc8, type: 3}
-  categories: 
+  categories:
+  - 0
+  - 5
   cost: 1
   conditions: []
-  instantEffects: []
-  statusApplications: []
+  instantEffects:
+  - effect: {fileID: 11400000, guid: 86db23d9a09f498fae35242ac5292fdd, type: 2}
+    targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
+    value: 7
+    applyChance: 1
+    conditions: []
+  statusApplications:
+  - status: {fileID: 11400000, guid: 58e732c8756043f9920d9fa6787246a9, type: 2}
+    targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
+    value: 1
+    duration: 1
+    stacks: 1
+    applyChance: 1
+    reapplyMode: 0
+    conditions: []
+  - status: {fileID: 11400000, guid: 58e732c8756043f9920d9fa6787246a9, type: 2}
+    targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
+    value: 1
+    duration: 1
+    stacks: 1
+    applyChance: 0.35
+    reapplyMode: 2
+    conditions: []
+  needsInHand: {fileID: 11400000, guid: d54cabfebcbd40cd90043540bf9b8163, type: 2}
+  heldInHand: 0
   baseGoldValue: 2

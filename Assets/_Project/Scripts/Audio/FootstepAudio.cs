@@ -59,6 +59,9 @@ public sealed class FootstepAudio : MonoBehaviour
 
     private PlayerMovement movement;
     private Animator animator;
+    // One step a frame. Story events run the animator on unscaled time, so the first frame back
+    // from a minimized window makes up for all the time away and fires every step of it at once.
+    private int lastStepFrame = -1;
 
     // Set by a story event walking the character unheard, e.g. outside, out of view (WalkToStep).
     public bool Muted { get; set; }
@@ -101,9 +104,10 @@ public sealed class FootstepAudio : MonoBehaviour
 
     public void PlayFootstep()
     {
-        if (Muted || !IsWalking)
+        if (Muted || !IsWalking || Time.frameCount == lastStepFrame)
             return;
 
+        lastStepFrame = Time.frameCount;
         PlayStep(transform.position, movement != null ? 1f : NpcVolumeScale);
     }
 

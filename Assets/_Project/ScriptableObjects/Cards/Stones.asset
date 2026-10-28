@@ -14,11 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: stones
   cardName: Stones
-  description: 
+  description: 'Needs a Wood Slingshot in hand. Deal {instant0.value} Damage, 1 more to a burning foe.'
+  shortDescription: 'Needs a Slingshot. {instant0.value} Damage.'
   icon: {fileID: 21300000, guid: 3d52363e5702b354ca41f3976bc75240, type: 3}
-  categories: 
-  cost: 1
+  categories:
+  - 0
+  cost: 0
   conditions: []
-  instantEffects: []
+  instantEffects:
+  - effect: {fileID: 11400000, guid: 2c1b79dedafc42209efd72c6e244b044, type: 2}
+    targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
+    value: 2
+    applyChance: 1
+    conditions: []
   statusApplications: []
+  needsInHand: {fileID: 11400000, guid: f7e6da4136e64f6980182fcef5c13ba5, type: 2}
+  heldInHand: 0
   baseGoldValue: 1

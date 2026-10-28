@@ -19,6 +19,19 @@ MonoBehaviour:
     text: "Two wolf hides. Fresh, not chewed."
     conditions: []
     nextLineIndex: -1
-    endDialogueAfterLine: 1
+    endDialogueAfterLine: 0
     actions: []
-    choices: []
+    choices:
+    - text: "Show me what you've got."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 0}
+    - text: "We're on it."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []

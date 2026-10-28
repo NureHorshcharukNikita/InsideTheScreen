@@ -14,11 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: torch
   cardName: Torch
-  description: 
+  description: 'Deal {instant0.value} Damage to all foes, half again to the burning ones, and Apply {status0.value} {status0.status} to them for {status0.duration} turn.'
+  shortDescription: '{instant0.value} Damage to all, {status0.status}.'
   icon: {fileID: 21300000, guid: 3f112c17dc21cba49ab82c37faffc682, type: 3}
-  categories: 
-  cost: 1
+  categories:
+  - 0
+  - 3
+  cost: 2
   conditions: []
-  instantEffects: []
-  statusApplications: []
+  instantEffects:
+  - effect: {fileID: 11400000, guid: fda69c7ca0624db0bbd17ffa38c4f3f3, type: 2}
+    targeting: {fileID: 11400000, guid: 10502f8a3fcf4dd7872af19f7955a6d1, type: 2}
+    value: 3
+    applyChance: 1
+    conditions: []
+  statusApplications:
+  - status: {fileID: 11400000, guid: e620edc075084ea4a25b3ed4d29a732b, type: 2}
+    targeting: {fileID: 11400000, guid: 10502f8a3fcf4dd7872af19f7955a6d1, type: 2}
+    value: 2
+    duration: 1
+    stacks: 1
+    applyChance: 1
+    reapplyMode: 0
+    conditions: []
+  needsInHand: {fileID: 0}
+  heldInHand: 0
   baseGoldValue: 3

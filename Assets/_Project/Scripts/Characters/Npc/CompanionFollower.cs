@@ -98,6 +98,18 @@ public sealed class CompanionFollower : MonoBehaviour
         return false;
     }
 
+    // The companion walking with the player right now, e.g. to step up in front for a talk he leads.
+    public static CompanionFollower FindFollowing()
+    {
+        foreach (CompanionFollower follower in FindObjectsByType<CompanionFollower>(FindObjectsSortMode.None))
+        {
+            if (follower.isActiveAndEnabled && follower.ShouldFollow)
+                return follower;
+        }
+
+        return null;
+    }
+
     // The companions following the player right now, as they join a battle at the player's side.
     public static List<EnemyData> CollectBattleAllies()
     {
@@ -159,7 +171,9 @@ public sealed class CompanionFollower : MonoBehaviour
             return;
         }
 
-        wasGameplay = true;
+        if (!wasGameplay)
+            ResumeAfterPause();
+
         bool animateWalk = Time.time < walkAnimationUntil;
         if (animateWalk)
             UpdateFacing(moveDirection);
@@ -173,6 +187,10 @@ public sealed class CompanionFollower : MonoBehaviour
     {
         if (!following || player == null || !GameStateManager.IsGameplay || !body.simulated)
             return;
+
+        // Physics runs before Update in the frame play comes back.
+        if (!wasGameplay)
+            ResumeAfterPause();
 
         Vector2 playerPosition = player.position;
         Vector2 playerStep = playerPosition - lastPlayerPosition;
@@ -248,6 +266,21 @@ public sealed class CompanionFollower : MonoBehaviour
             Vector3 scale = transform.lossyScale;
             return new Vector2(Mathf.Abs(size.x * scale.x), Mathf.Abs(size.y * scale.y)) * 0.95f;
         }
+    }
+
+    // Back in play after a dialogue or a story event, which may have walked and turned him: go on
+    // from where he stands and looks now. Otherwise the step he was taking when it began plays on
+    // for a moment (Time.time stood still meanwhile), e.g. a turn back towards the road he walked
+    // up, after a cutscene left him facing Haru.
+    private void ResumeAfterPause()
+    {
+        wasGameplay = true;
+        StopWalking();
+        lastBodyPosition = body.position;
+        lastPlayerPosition = player.position;
+        walkAnimationUntil = 0f;
+        if (CharacterWalkAnimation.TryGetFacing(animator, out Vector2 shown))
+            facing = shown;
     }
 
     private void StartWalking()

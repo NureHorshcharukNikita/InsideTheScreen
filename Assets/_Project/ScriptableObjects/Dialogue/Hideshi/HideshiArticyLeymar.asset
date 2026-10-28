@@ -136,7 +136,7 @@ MonoBehaviour:
     text: "What?"
     conditions: []
     nextLineIndex: -1
-    endDialogueAfterLine: 0
+    endDialogueAfterLine: 1
     actions: []
     choices: []
   - speakerSide: 1
@@ -145,7 +145,7 @@ MonoBehaviour:
     text: "There's a tower in the center. That old man must be Eldon, the one the trader mentioned."
     conditions: []
     nextLineIndex: -1
-    endDialogueAfterLine: 0
+    endDialogueAfterLine: 1
     actions: []
     choices: []
   - speakerSide: 1

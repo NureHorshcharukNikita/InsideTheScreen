@@ -35,4 +35,8 @@ MonoBehaviour:
     dropChancePercent: 15
     minAmount: 1
     maxAmount: 1
+  - card: {fileID: 11400000, guid: d5a6383a50c244a7953b4a46bd116974, type: 2}
+    dropChancePercent: 45
+    minAmount: 1
+    maxAmount: 2
   storyFlagOnDefeat:

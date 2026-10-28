@@ -352,6 +352,12 @@ public class BattleSystem : MonoBehaviour
         CurrentBattleState = BattleState.Defeat;
     }
 
+    // E.g. whether there is a Bow to shoot an Arrow with.
+    public bool HasInHand(CardData card)
+    {
+        return deckManager != null && deckManager.Hand.Contains(card);
+    }
+
     public bool CanPlay()
     {
         return CurrentBattleState == BattleState.Running
@@ -429,10 +435,7 @@ public class BattleSystem : MonoBehaviour
             return droppedLoot;
 
         for (int i = 0; i < droppedLoot.Count; i++)
-        {
             player.InventoryData.AddCard(droppedLoot[i]);
-            ExplorationPlayerSession.AddToDeckIfRoom(droppedLoot[i], 1);
-        }
 
         return droppedLoot;
     }

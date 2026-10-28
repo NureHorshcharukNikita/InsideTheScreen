@@ -6,11 +6,14 @@ public sealed class DefaultDamageService : IDamageService
     }
 
     // A hit: Haru's skills add to the blows he deals (Strength, Aggression when low on health) and
-    // take off the ones he gets (Armor), and Counterattack strikes back at whoever hit him.
+    // take off the ones he gets (Armor), and Counterattack strikes back at whoever hit him. A
+    // weakened attacker hits softer.
     public void ApplyDamage(ICombatant source, IDamageable target, int amount, float armorPierce)
     {
         if (target == null || amount < 0)
             return;
+
+        amount = WeakenedStatus.Weaken(source, amount);
 
         if (source is PlayerCharacter attacker && amount > 0)
         {

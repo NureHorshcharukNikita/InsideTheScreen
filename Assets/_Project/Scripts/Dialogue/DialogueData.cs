@@ -64,6 +64,7 @@ public sealed class DialogueData : ScriptableObject
 
             DialogueLine line = lines[index];
             DoSkipped(line.actions, questActions);
+            KnownNames.Hear(line.text);
 
             List<DialogueChoice> choices = line.choices != null
                 ? line.choices.FindAll(choice => choice != null && !string.IsNullOrWhiteSpace(choice.text))

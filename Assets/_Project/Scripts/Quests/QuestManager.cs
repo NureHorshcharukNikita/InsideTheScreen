@@ -415,7 +415,6 @@ public static class QuestManager
             if (reward.Card != null && reward.CardCount > 0)
             {
                 inventory.AddCards(reward.Card, reward.CardCount);
-                ExplorationPlayerSession.AddToDeckIfRoom(reward.Card, reward.CardCount);
                 grantedAnyReward = true;
             }
 

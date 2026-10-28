@@ -173,7 +173,7 @@ public sealed class QuestPageView : MonoBehaviour
         {
             bool hasGiver = !string.IsNullOrWhiteSpace(quest.GiverName);
             giverText.gameObject.SetActive(hasGiver);
-            giverText.text = hasGiver ? $"<color=#9A948C>Giver:</color> {quest.GiverName}" : string.Empty;
+            giverText.text = hasGiver ? $"<color=#9A948C>Giver:</color> {KnownNames.Shown(quest.GiverName)}" : string.Empty;
             giverText.color = DetailsTextColor;
         }
 

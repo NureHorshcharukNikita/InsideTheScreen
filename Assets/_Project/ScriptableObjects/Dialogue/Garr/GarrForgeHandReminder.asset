@@ -21,7 +21,20 @@ MonoBehaviour:
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
-    choices: []
+    choices:
+    - text: "Show me what you've got."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 0}
+    - text: "We're on it."
+      nextLineIndex: -1
+      endDialogue: 0
+      actions: []
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}

@@ -14,11 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: dart
   cardName: Dart
-  description: 
+  description: 'Needs a Blowpipe in hand. Deal {instant0.value} Damage (1 more to a burning foe) and Apply {status0.value} {status0.status} for {status0.duration} turns.'
+  shortDescription: 'Needs a Blowpipe. {instant0.value} Damage, {status0.status}.'
   icon: {fileID: 21300000, guid: 23126fd677a217a4ca32807e21136a6b, type: 3}
-  categories: 
+  categories:
+  - 0
+  - 4
   cost: 1
   conditions: []
-  instantEffects: []
-  statusApplications: []
+  instantEffects:
+  - effect: {fileID: 11400000, guid: 2c1b79dedafc42209efd72c6e244b044, type: 2}
+    targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
+    value: 6
+    applyChance: 1
+    conditions: []
+  statusApplications:
+  - status: {fileID: 11400000, guid: c728098568ec4f30a68c8974508854b7, type: 2}
+    targeting: {fileID: 11400000, guid: d850d138d93ef16478c2751569fd0f10, type: 2}
+    value: 1
+    duration: 3
+    stacks: 1
+    applyChance: 1
+    reapplyMode: 0
+    conditions: []
+  needsInHand: {fileID: 11400000, guid: 43c21fd74bbd440a9aea8c6ac1f24a3a, type: 2}
+  heldInHand: 0
   baseGoldValue: 2

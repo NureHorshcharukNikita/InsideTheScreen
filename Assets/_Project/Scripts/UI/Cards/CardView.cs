@@ -33,6 +33,9 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IPointerClic
     private CanvasGroup canvasGroup;
     private LayoutElement layoutElement;
 
+    private static readonly Color WaitingIconColor = new(0.4f, 0.4f, 0.4f, 1f);
+    private bool iconWaiting;
+
     private CardBattleDragHandler battleDrag;
     private BattleSystem battleSystem;
 
@@ -171,6 +174,19 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IPointerClic
 
         if (battleDrag == null || !battleDrag.IsDragging)
             canvasGroup.blocksRaycasts = canInteract;
+
+        RefreshWaitingLook();
+    }
+
+    // An Arrow without a Bow in hand: its picture greys out until there is one.
+    private void RefreshWaitingLook()
+    {
+        bool waiting = cardData != null && cardData.NeedsInHand != null && !battleSystem.HasInHand(cardData.NeedsInHand);
+        if (cardIcon == null || waiting == iconWaiting)
+            return;
+
+        iconWaiting = waiting;
+        cardIcon.color = waiting ? WaitingIconColor : Color.white;
     }
 
     private void CacheRectHierarchy()

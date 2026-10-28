@@ -62,19 +62,6 @@ public static class ExplorationPlayerSession
         return runtimeInventory;
     }
 
-    // New battle cards (given, earned, bought, looted) join the deck while it has room, so Haru never
-    // walks into a fight with an empty deck. Cards without battle effects (materials, keepsakes)
-    // stay in the inventory only. Call after adding them to the inventory.
-    public static void AddToDeckIfRoom(CardData card, int count)
-    {
-        if (runtimeDeck == null || card == null || count <= 0)
-            return;
-
-        bool hasEffects = (card.InstantEffects?.Count ?? 0) > 0 || (card.StatusApplications?.Count ?? 0) > 0;
-        if (hasEffects)
-            runtimeDeck.AddCards(card, count);
-    }
-
     // The deck is picked from the inventory: after cards leave the inventory (sold, handed in for a
     // quest) the deck may not hold more copies of a card than the inventory still has.
     public static void TrimDeckToInventory()
@@ -183,6 +170,11 @@ public static class ExplorationPlayerSession
         HasSession = true;
     }
 
+    public static void SaveCraftingProgress()
+    {
+        HasSession = true;
+    }
+
     public static bool TryGetNpcPosition(string npcKey, out Vector3 position)
     {
         if (string.IsNullOrWhiteSpace(npcKey))
@@ -281,6 +273,7 @@ public static class ExplorationPlayerSession
         SkillProgression.Clear();
         NpcDialogueProgress.Clear();
         StoryFlagManager.Clear();
+        CraftingProgress.Clear();
     }
 
     private static SessionSaveData CreateSaveData()
@@ -303,7 +296,9 @@ public static class ExplorationPlayerSession
             SkillProgression.IsInitialized,
             SkillProgression.AvailablePoints,
             SkillProgression.ToArray(),
-            StoryFlagManager.ToArray());
+            StoryFlagManager.ToArray(),
+            CraftingProgress.ObtainedToArray(),
+            CraftingProgress.OpenedToArray());
     }
 
     private static void RestoreFrom(SessionSaveData data)
@@ -335,6 +330,7 @@ public static class ExplorationPlayerSession
         SkillProgression.Restore(data.hasSkillProgression, data.skillPoints, data.skillProgression);
         NpcDialogueProgress.Restore(data.npcDialogueProgress);
         StoryFlagManager.Restore(data.storyFlags);
+        CraftingProgress.Restore(data.obtainedCardIds, data.openedRecipeKeys);
         RestoreNpcPositions(data.npcPositions);
     }
 

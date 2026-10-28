@@ -14,11 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: bracelet
   cardName: Bracelet
-  description: 
+  description: 'Heals you get are {status0.value}% stronger for {status0.duration} turns.'
+  shortDescription: 'Heals +{status0.value}% / {status0.duration} turns.'
   icon: {fileID: 21300000, guid: 432e3eab6d0033b449aa51d138bc3d94, type: 3}
-  categories: 
+  categories:
+  - 1
   cost: 1
   conditions: []
   instantEffects: []
-  statusApplications: []
+  statusApplications:
+  - status: {fileID: 11400000, guid: fb0a7e6e8b374ecaab71563084d8a7dd, type: 2}
+    targeting: {fileID: 11400000, guid: be7b1e9d20a648744b2a709c9f856cf5, type: 2}
+    value: 15
+    duration: 4
+    stacks: 1
+    applyChance: 1
+    reapplyMode: 0
+    conditions: []
+  needsInHand: {fileID: 0}
+  heldInHand: 0
   baseGoldValue: 8

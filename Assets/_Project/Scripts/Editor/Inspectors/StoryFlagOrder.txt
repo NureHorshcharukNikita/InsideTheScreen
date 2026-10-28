@@ -1,0 +1,69 @@
+# The story flags in the order they happen, for the [StoryFlag] dropdown (StoryFlagDrawer).
+# It only changes how the dropdown shows them: the flags keep their names, so saves keep working.
+#   ## Title    a chapter
+#   flag        the main line, numbered in this order
+#   - flag      a side quest or a place off the main line: any time during its chapter
+#   * flag      a state that is set and cleared again, not a step of the story
+# Flags used in the project but not listed here show at the end, under "Not in the order yet".
+# Text after # is a note for whoever edits this file; the dropdown does not show it.
+
+## Home and the forest
+a1_home_intro                   # the intro at home, ending pulled into the screen
+a1_forest_wakeup                # Haru and Hideshi wake up in the forest
+a1_forest_wolf                  # the wolf on the forest path
+- a1_broken_bridge              # the broken bridge east of the forest
+a1_met_trader                   # the trader's campfire; he takes them to Leymar
+
+## Leymar, the first night
+a1_arrived_leymar               # walking into Leymar
+met_ancient_eldon               # first talk with Eldon
+a1_leymar_asleep                # Leymar goes to sleep (start of the talk after Eldon)
+a1_garr_home                    # after the talk Garr goes home for the night (gone until a1_leymar_morning)
+a1_after_eldon_talk             # Haru and Hideshi talk it over
+a1_leymar_morning               # dawn in Garr's barn: Garr is out again
+a1_spent_night                  # the night in Garr's barn
+a1_met_garr                     # Garr finds them in his barn in the morning
+
+## Leymar, the morning
+a1_eldon_morning                # Eldon's half-dream talk; the three morning quests start
+a1_ground_revealed              # right after Eldon they step away left of the tower; Hideshi shows Haru how to look
+a1_ground_lesson                # the end of Hideshi's lesson by the apple bushes; Survival Basics starts
+a1_gathered_first               # the first thing gathered by the bushes
+a1_first_gather_talk            # Haru: "it turned into a card?"
+a1_gathered_berries
+a1_gathered_stick
+a1_gathered_rock
+a1_gathered_apple
+a1_basic_resources_gathered     # all four gathered: show Dad
+a1_letter_delivered             # Letter for the Smith
+a1_crystal_dust_collected       # Heart of the Barrier: the crystal dust
+eldon_echo_crystal_discussed    # Eldon on the Echo Crystal; Leymar's exit opens
+- a1_walk_alone_declined        # A Walk Alone: Haru said "not yet" to going alone
+- a1_trader_pack_found          # The Trader's Pack
+
+## Beyond Leymar: the crystal
+a1_left_leymar                  # first steps out of Leymar
+a1_root_stone_found             # Stone Beneath the Roots
+garr_trade_open                 # Garr sells to Haru from now on
+a1_resin_collected              # Resin for Binding
+a1_crystal_forging              # Garr forges the crystal
+a1_crystal_forge_night          # one more night in the barn
+a1_crystal_charged              # Eldon checks the crystal; Road to the Altar
+a1_reached_echo_altar           # at the Echo Altar
+occultist_defeated              # the Occult Guardian is beaten
+demo_complete                   # the end of the demo
+- a1_trader_ward_given          # Whispers by the Fire: Eldon's ward for the trader
+- a1_fishing_net_found          # Farel's Net
+- a1_old_mechanism_found        # Relic from the Ruins
+- a1_east_bridge_seen           # The Eastern Road: the bridge
+- a1_east_satchel_found         # The Eastern Road: the satchel
+- a1_echo_altar_broken          # after the altar; nothing in the scene sets it yet (only the unused Arc1StoryTriggers prefab)
+
+## Where Hideshi waits
+* hideshi_stays_behind          # Hideshi does not follow Haru (set with any of the below)
+* a1_hideshi_in_village         # A Walk Alone
+* a1_hideshi_waits              # Standing on Your Own
+* a1_hideshi_at_forge           # A Hand at the Forge
+* a1_hideshi_at_farel           # Farel's Net
+* a1_hideshi_fishing            # Fresh Bait
+* a1_hideshi_at_tower           # Whispers by the Fire

@@ -19,6 +19,9 @@ public sealed class NpcData : ScriptableObject
     [Tooltip("Said instead of a dialogue that needs Hideshi while he is not with Haru, e.g. \"Where's your father?\". Empty = such dialogues wait and the next one is said.")]
     public DialogueData companionAwayDialogue;
 
+    [Tooltip("In a talk Hideshi speaks in (Needs Companion), he first steps up to where Haru stands and Haru backs off a step beside him, e.g. Eldon: the father does the talking.")]
+    public bool companionLeadsTalks;
+
     [Header("Overhead Speech")]
     public bool enableOverheadSpeech = true;
 
@@ -38,6 +41,11 @@ public sealed class NpcData : ScriptableObject
     [Header("Story")]
     [Tooltip("The NPC disappears once this story flag is set. Empty = always present.")]
     [StoryFlag] public string hiddenAfterStoryFlag;
+
+    [Tooltip("Not around while all of these are met, and back once they no longer are, e.g. Garr at home for the night after Eldon's first talk, until the morning. Empty = always around.")]
+    public List<StoryCondition> awayWhile = new();
+
+    public bool IsAway => awayWhile != null && awayWhile.Count > 0 && StoryCondition.AreMet(awayWhile);
 
     public bool CanTalk => enableDialogue && HasAnyDialogueEntry();
     public bool CanShowOverheadLines => enableOverheadSpeech && HasAnyText(overheadLines);

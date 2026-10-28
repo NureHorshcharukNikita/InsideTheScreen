@@ -29,7 +29,6 @@ public static class ShopManager
             return 0;
 
         inventory.AddCards(item.card, purchasedCount);
-        ExplorationPlayerSession.AddToDeckIfRoom(item.card, purchasedCount);
 
         if (item.HasLimitedStock)
         {

@@ -8,7 +8,8 @@ using UnityEngine;
 // With Avoid Obstacles it goes around a well, a lamp post or a house in the way (StoryPath).
 // It stops facing the way it walked (or, backwards, the other way), and the new position is saved.
 // Sideways slides it there in the pose it has, without turning or stepping. Bob gives a character
-// drawn as one sprite (Garr) a step it can be seen and heard taking.
+// drawn as one sprite (Garr) a step it can be seen and heard taking. Arrive Second lets someone
+// walking alongside get there first.
 [Serializable, SubclassMenu("Characters/Walk To")]
 public sealed class WalkToStep : StoryStep
 {
@@ -43,9 +44,23 @@ public sealed class WalkToStep : StoryStep
     [SerializeField] private bool bob;
     [Tooltip("Goes around walls, props and people in the way instead of through them. Straight where nothing is in the way.")]
     [SerializeField] private bool avoidObstacles;
+    [Tooltip("Comes in second, after Arrive After, walked by another Walk To in the same Parallel: waits a little short of the end until they stand, e.g. Haru letting his father step up to the trader first.")]
+    [SerializeField] private bool arriveSecond;
+    [SerializeField] private StoryTarget arriveAfter = new(StoryTargetType.Npc);
 
     private const float BobStepLength = 0.5f;
     private const float BobHeight = 0.08f;
+    // How far short of the end it waits for the one it comes in after.
+    private const float WaitShortOfEnd = 1.2f;
+
+    // The characters Walk To steps are walking right now, for Arrive After.
+    private static readonly HashSet<Transform> Walking = new();
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetForPlayMode()
+    {
+        Walking.Clear();
+    }
 
     public override IEnumerator Run(StoryEventContext context)
     {
@@ -54,7 +69,13 @@ public sealed class WalkToStep : StoryStep
         if (walker == null || target == null)
             yield break;
 
+        Transform waitFor = arriveSecond && arriveAfter != null ? arriveAfter.Resolve(context) : null;
+        if (waitFor == walker)
+            waitFor = null;
+
         context.TakeControl(walker);
+        Walking.Add(walker);
+        context.OnRelease(() => Walking.Remove(walker));
         Animator animator = StoryEventContext.GetAnimator(walker);
         FootstepAudio footsteps = silent ? walker.GetComponentInChildren<FootstepAudio>() : null;
         if (footsteps != null)
@@ -89,8 +110,10 @@ public sealed class WalkToStep : StoryStep
         // Where the feet are, without the bob.
         Vector3 position = start;
         float walked = 0f;
-        foreach (Vector3 point in Legs(points, start))
+        List<Vector3> way = new(Legs(points, start));
+        for (int leg = 0; leg < way.Count; leg++)
         {
+            Vector3 point = way[leg];
             if ((position - point).sqrMagnitude <= 0.0001f)
                 continue;
 
@@ -100,6 +123,15 @@ public sealed class WalkToStep : StoryStep
 
             while ((position - point).sqrMagnitude > 0.0001f)
             {
+                // Stands a moment short of the end while the one it comes in after still walks.
+                if (waitFor != null && Walking.Contains(waitFor) && LeftToWalk(position, way, leg) <= WaitShortOfEnd)
+                {
+                    if (!sideways)
+                        CharacterWalkAnimation.Apply(animator, false, facing);
+                    yield return null;
+                    continue;
+                }
+
                 Vector3 next = Vector3.MoveTowards(position, point, speed * GameClock.DeltaTime);
                 int stepsBefore = Mathf.FloorToInt(walked / BobStepLength);
                 walked += Vector3.Distance(position, next);
@@ -126,6 +158,17 @@ public sealed class WalkToStep : StoryStep
             CharacterWalkAnimation.Apply(animator, false, facing);
         Unmute(footsteps);
         context.SavePosition(walker);
+        Walking.Remove(walker);
+    }
+
+    // From here to the end, through the corners still ahead.
+    private static float LeftToWalk(Vector3 position, List<Vector3> way, int leg)
+    {
+        float left = Vector3.Distance(position, way[leg]);
+        for (int i = leg + 1; i < way.Count; i++)
+            left += Vector3.Distance(way[i - 1], way[i]);
+
+        return left;
     }
 
     // The route's corners, with the way around anything in between when avoiding obstacles.

@@ -320,6 +320,7 @@ MonoBehaviour:
       questStatus: 1
       invert: 0
   companionAwayDialogue: {fileID: 11400000, guid: 2ef0ec4d3c6b45d592e8a7bab23dfa36, type: 2}
+  companionLeadsTalks: 1
   enableOverheadSpeech: 1
   overheadLines:
   - The old screen hums again.

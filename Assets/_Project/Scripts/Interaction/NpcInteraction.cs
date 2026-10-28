@@ -6,7 +6,8 @@ using UnityEngine;
 // The talk zone of an NPC. When the player stands in several zones at once, only the focused
 // NPC shows its prompt and answers the Interact key:
 // 1. a companion that follows the player (Hideshi) comes last, so walking together never
-//    blocks talking to others;
+//    blocks talking to others - nor picking something up or opening a chest (ForagePickup,
+//    LootChest): those come before him, though after any other NPC;
 // 2. NPCs in front of the player (where they look) come before the ones beside or behind;
 // 3. then the closest one.
 [RequireComponent(typeof(Collider2D))]
@@ -97,7 +98,7 @@ public sealed class NpcInteraction : MonoBehaviour
         }
 
         bool idle = !overheadPlaying && !promptReturnPending && promptRoot != null;
-        if (GetFocused() != this)
+        if (GetFocused() != this || YieldsToThingInReach)
         {
             if (idle && PromptShown)
                 HideSpeechRoot();
@@ -136,8 +137,13 @@ public sealed class NpcInteraction : MonoBehaviour
         HideSpeechRoot();
     }
 
-    // An NPC answers the Interact key right now: things on the ground let it go first (ForagePickup).
-    public static bool AnyInRange => GameStateManager.IsGameplay && GetFocused() != null;
+    // An NPC other than Hideshi following along answers the Interact key right now: things on the
+    // ground and chests let it go first (ForagePickup, LootChest).
+    public static bool AnyInRangeBesidesCompanion =>
+        GameStateManager.IsGameplay && GetFocused() is { IsFollowingCompanion: false };
+
+    // Hideshi walking along leaves the key to something at Haru's feet.
+    private bool YieldsToThingInReach => IsFollowingCompanion && (ForagePickup.AnyInReach || LootChest.AnyInReach);
 
     private static NpcInteraction GetFocused()
     {

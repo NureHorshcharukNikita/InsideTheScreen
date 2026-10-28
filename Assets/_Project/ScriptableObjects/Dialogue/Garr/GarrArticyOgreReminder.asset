@@ -13,4 +13,25 @@ MonoBehaviour:
   m_Name: GarrArticyOgreReminder
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "The ogre won't step aside because you asked nicely. Cold iron, three pieces.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 1
+    speakerName: Garr Steelclad
+    portraitOverride: {fileID: 0}
+    text: "The ogre won't step aside because you asked nicely. Cold iron, three pieces."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices:
+    - text: "Show me what you've got."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 0}
+    - text: "We're on it."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []

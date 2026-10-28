@@ -24,6 +24,19 @@ public class CardPlayer
             return false;
         }
 
+        // A Bow is held, not played; an Arrow flies only while the Bow is in hand.
+        if (card.IsHeldInHand)
+        {
+            DevLog.Log($"{card.CardName} is held, not played");
+            return false;
+        }
+
+        if (card.NeedsInHand != null && !deckManager.Hand.Contains(card.NeedsInHand))
+        {
+            DevLog.Log($"{card.CardName} needs {card.NeedsInHand.CardName} in hand");
+            return false;
+        }
+
         BattleTargetingContext context = turnManager.BuildTargetingContext(player, target);
         if (!CardResolver.CanResolveAnyTarget(card, context))
             return false;

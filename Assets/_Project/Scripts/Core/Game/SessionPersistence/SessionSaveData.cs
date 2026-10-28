@@ -45,6 +45,10 @@ public sealed class SessionSaveData
     public bool hasSkillProgression;
     public int skillPoints;
     public SkillProgressSaveData[] skillProgression;
+    // Crafting tab: every card ever in the inventory (which recipes are known) and the recipes
+    // clicked since they appeared (no longer new).
+    public string[] obtainedCardIds;
+    public string[] openedRecipeKeys;
 }
 
 [Serializable]

@@ -258,20 +258,6 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       questStatus: 1
       invert: 0
-  - key: hideshi_survival
-    dialogue: {fileID: 11400000, guid: c66316bc37c72aa8bbcbc79849427aea, type: 2}
-    repeatable: 0
-    needsCompanion: 0
-    talkTiming: 0
-    conversationNumber: 1
-    rangeStartConversation: 1
-    rangeEndConversation: 0
-    conditions:
-    - type: 0
-      storyFlag: a1_eldon_morning
-      quest: {fileID: 0}
-      questStatus: 1
-      invert: 0
   - key: hideshi_find_shelter
     dialogue: {fileID: 11400000, guid: bf084b6a99c147a5b4b53892743db020, type: 2}
     repeatable: 1
