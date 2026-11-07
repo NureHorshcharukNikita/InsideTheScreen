@@ -58,8 +58,23 @@ public sealed class SettingsInputPanel : MonoBehaviour
         if (applyButton != null)
             applyButton.onClick.AddListener(HandleActionButton);
 
+#if UNITY_EDITOR
+        WarnAboutMissingRows();
+#endif
         Refresh();
     }
+
+#if UNITY_EDITOR
+    // A new action gets its row from Tools > UI > Add Missing Key Binding Rows.
+    private void WarnAboutMissingRows()
+    {
+        foreach (GameInputAction action in GameInputSettings.SettingsOrder)
+        {
+            if (bindingRows == null || !Array.Exists(bindingRows, row => row != null && row.Action == action))
+                Debug.LogWarning($"Keyboard Bindings has no row for {action}: run Tools > UI > Add Missing Key Binding Rows.", this);
+        }
+    }
+#endif
 
     private void OnEnable()
     {

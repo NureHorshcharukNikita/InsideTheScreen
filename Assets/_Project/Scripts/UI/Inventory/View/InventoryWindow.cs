@@ -52,18 +52,6 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private Sprite confirmationButtonSprite;
     [SerializeField] private Sprite confirmationDividerSprite;
 
-    private static readonly GameInputAction[] SettingsActions =
-    {
-        GameInputAction.MoveUp,
-        GameInputAction.MoveDown,
-        GameInputAction.MoveLeft,
-        GameInputAction.MoveRight,
-        GameInputAction.Interact,
-        GameInputAction.Inventory,
-        GameInputAction.EndTurn,
-        GameInputAction.Close
-    };
-
     private static readonly Color OverlayColor = new(0.1f, 0.08f, 0.07f, 0.74f);
     private static readonly Color PanelColor = new(0.31f, 0.23f, 0.2f, 1f);
     private static readonly Color ButtonColor = new(0.66f, 0.59f, 0.55f, 1f);
@@ -398,6 +386,29 @@ public class InventoryWindow : MonoBehaviour
             Close();
         else
             Open();
+    }
+
+    // A quick key: opens the window on its page, turns to the page while the window is open, or
+    // closes the window when the page is already shown.
+    public void ToggleTab(InventoryTab tab)
+    {
+        int index = (int)tab;
+        if (IsOpen)
+        {
+            if (selectedTopIconIndex == index)
+                Close();
+            else
+                SelectTopIcon(index);
+
+            return;
+        }
+
+        if (!GameStateManager.CanOpenInventory())
+            return;
+
+        Open();
+        if (IsOpen)
+            SelectTopIcon(index);
     }
 
     public void SelectTopIcon(int index)
@@ -1058,7 +1069,7 @@ public class InventoryWindow : MonoBehaviour
         contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         scrollRect.content = contentRect;
 
-        foreach (GameInputAction action in SettingsActions)
+        foreach (GameInputAction action in GameInputSettings.SettingsOrder)
             CreateSettingsBindingRow(contentRect.transform, action);
 
         EnsureSettingsScrollbar(bodyRect, scrollRect);

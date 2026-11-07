@@ -55,6 +55,8 @@ public class EnemyEncounter : MonoBehaviour
 
     private void Awake()
     {
+        MapSprite.Apply(gameObject, enemyData != null ? enemyData.MapSprite : null);
+
         if (string.IsNullOrWhiteSpace(encounterId))
             encounterId = (nextEncounterId++).ToString();
     }
@@ -207,6 +209,8 @@ public class EnemyEncounter : MonoBehaviour
     private void OnValidate()
     {
         maxExtraEnemies = Mathf.Max(maxExtraEnemies, minExtraEnemies);
+        // The look comes from the data: a new enemy is a variant of ExplorationEnemyBase with its EnemyData.
+        MapSprite.Apply(gameObject, enemyData != null ? enemyData.MapSprite : null);
     }
 
     // The one on the map first, then its group: rolled at the first battle, the same one after.

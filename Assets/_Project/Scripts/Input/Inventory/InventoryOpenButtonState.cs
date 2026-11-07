@@ -27,7 +27,8 @@ public sealed class InventoryOpenButtonState : MonoBehaviour
         Refresh();
     }
 
-    private void Update()
+    // After the Updates, so the button is already gone on the frame a dialogue starts.
+    private void LateUpdate()
     {
         Refresh();
     }
@@ -40,7 +41,9 @@ public sealed class InventoryOpenButtonState : MonoBehaviour
 
     private void Refresh()
     {
-        bool visible = string.IsNullOrWhiteSpace(visibleAfterStoryFlag) || StoryFlagManager.HasFlag(visibleAfterStoryFlag);
+        // Hidden outright, not greyed out, while a dialogue or a story scene plays.
+        bool visible = (string.IsNullOrWhiteSpace(visibleAfterStoryFlag) || StoryFlagManager.HasFlag(visibleAfterStoryFlag))
+            && !GameStateManager.IsDialogue;
         SetVisible(visible);
 
         if (button != null)

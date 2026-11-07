@@ -35,10 +35,15 @@ public sealed class CharacterProfile : ScriptableObject
     [Tooltip("How their lines sound while they type out. Empty = silent.")]
     public DialogueVoice voice;
 
+    [Header("Map")]
+    [Tooltip("How they look walking on the map, e.g. the small Mini sprite of an NPC. Empty = an NPC keeps the sprite set on it; an enemy shows its portrait.")]
+    public Sprite mapSprite;
+
     public string CharacterID => !string.IsNullOrWhiteSpace(characterID) ? characterID : name;
     public string DisplayName => !string.IsNullOrWhiteSpace(displayName) ? displayName : name;    public string Description => description;
     public Sprite PortraitSprite => portraitSprite;
     public SpriteFacing PortraitFacing => portraitFacing;
     public Sprite BattleIcon => battleIcon;
+    public Sprite MapSprite => mapSprite;
     public DialogueVoice Voice => voice;
 }

@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2751550222458681660
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 366605077096279255, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
+      propertyPath: m_Name
+      value: PlayerExploration
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 366605077096279255, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7000000000000000003}
+    - targetCorrespondingSourceObject: {fileID: 366605077096279255, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2322554107593301820}
+    - targetCorrespondingSourceObject: {fileID: 366605077096279255, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3877182516714812601}
+    - targetCorrespondingSourceObject: {fileID: 366605077096279255, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5361005518021097031}
+  m_SourcePrefab: {fileID: 100100000, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
+--- !u!1 &2538070006598882795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 366605077096279255, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
+  m_PrefabInstance: {fileID: 2751550222458681660}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7000000000000000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538070006598882795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8649ba8b4f4d4081108b67f2f61d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepAudio
+  sampleOffset: {x: 0, y: -0.35}
+  grassTilemaps: []
+  pathTilemaps: []
+  surfaces:
+  - surface: 0
+    clips:
+    - {fileID: 8300000, guid: 4d5629eb1c969914ab1567b85cb8062b, type: 3}
+    - {fileID: 8300000, guid: bfc770a0a4954b24e9376aace2784764, type: 3}
+    volumeScale: 0.75
+  - surface: 1
+    clips: []
+    volumeScale: 0.8
+--- !u!50 &2322554107593301820
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538070006598882795}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!95 &3877182516714812601
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538070006598882795}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 89f12ddf50c64e446bc219c1d009826a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5361005518021097031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538070006598882795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d014bad007df06545bd428da48cd5dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  speed: 5
+

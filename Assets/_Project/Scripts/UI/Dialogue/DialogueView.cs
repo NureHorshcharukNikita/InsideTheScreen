@@ -25,6 +25,8 @@ public sealed class DialogueView : MonoBehaviour
 
     [Header("Text Reveal")]
     [SerializeField, Min(1f)] private float charactersPerSecond = 45f;
+    [Tooltip("How long Next Line is held before the lines start running by on their own.")]
+    [SerializeField, Min(0f)] private float holdToSkipDelay = 0.4f;
 
     [Header("Input")]
     [SerializeField] private Button continueButton;
@@ -56,7 +58,13 @@ public sealed class DialogueView : MonoBehaviour
     private bool visible;
     private bool showingChoices;
     private bool revealingText;
-    private bool fastForwarding;
+    // Held keys and arrows: Skip Dialogue at once, Next Line after holdToSkipDelay; both stop when
+    // let go, so a short press only hurries the text a little.
+    private bool skipHeld;
+    private bool nextHeldSincePress;
+    private float nextPressedAt;
+    private DialogueHoldButton continueHold;
+    private DialogueHoldButton skipHold;
 
     private void Awake()
     {
@@ -70,10 +78,8 @@ public sealed class DialogueView : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (continueButton != null)
-            continueButton.onClick.RemoveListener(RequestContinue);
-        if (skipDialogueButton != null)
-            skipDialogueButton.onClick.RemoveListener(BeginFastForward);
+        if (continueHold != null)
+            continueHold.Pressed -= PressNext;
 
         ClearChoices();
     }
@@ -92,8 +98,56 @@ public sealed class DialogueView : MonoBehaviour
         if (revealingText && Time.frameCount == revealStartedFrame)
             return;
 
-        if (GameInputSettings.GetKeyDown(GameInputAction.Interact) || Input.GetKeyDown(KeyCode.Space))
-            RequestContinue();
+        // Skip first: the player may put it on the Interact key, which also turns to the next line.
+        if (GameInputSettings.GetKeyHeld(GameInputAction.DialogueSkip) || IsHeld(skipHold))
+        {
+            nextHeldSincePress = false;
+            HoldSkip();
+            return;
+        }
+
+        if (GameInputSettings.GetKeyDown(GameInputAction.DialogueNext)
+            || GameInputSettings.GetKeyDown(GameInputAction.Interact))
+        {
+            PressNext();
+            return;
+        }
+
+        // Only a press made in this dialogue counts: the E that started the talk, still held, does not.
+        bool nextHeld = GameInputSettings.GetKeyHeld(GameInputAction.DialogueNext)
+            || GameInputSettings.GetKeyHeld(GameInputAction.Interact)
+            || IsHeld(continueHold);
+        nextHeldSincePress &= nextHeld;
+
+        if (nextHeldSincePress && GameClock.Now - nextPressedAt >= holdToSkipDelay)
+            HoldSkip();
+        else
+            skipHeld = false;
+    }
+
+    // The Next Line key or the continue arrow: the text at once, or the next line; held, they run on.
+    private void PressNext()
+    {
+        if (!visible || showingChoices)
+            return;
+
+        nextHeldSincePress = true;
+        nextPressedAt = GameClock.Now;
+        skipHeld = false;
+        RequestContinue();
+    }
+
+    // The text comes fast and each line gives way to the next as soon as it is out.
+    private void HoldSkip()
+    {
+        skipHeld = true;
+        if (!revealingText)
+            ContinueRequested?.Invoke();
+    }
+
+    private static bool IsHeld(DialogueHoldButton button)
+    {
+        return button != null && button.IsHeld;
     }
 
     public void ShowLine(
@@ -156,7 +210,8 @@ public sealed class DialogueView : MonoBehaviour
     public void Hide()
     {
         StopTextReveal();
-        fastForwarding = false;
+        skipHeld = false;
+        nextHeldSincePress = false;
         lastLeftPortrait = null;
         lastRightPortrait = null;
         voice = null;
@@ -187,17 +242,24 @@ public sealed class DialogueView : MonoBehaviour
     {
         if (continueButton != null)
         {
-            continueButton.onClick.RemoveListener(RequestContinue);
-            continueButton.onClick.AddListener(RequestContinue);
+            continueHold = EnsureHoldButton(continueButton);
+            continueHold.Pressed -= PressNext;
+            continueHold.Pressed += PressNext;
             EnsureHoverDarken(continueButton);
         }
 
         if (skipDialogueButton != null)
         {
-            skipDialogueButton.onClick.RemoveListener(BeginFastForward);
-            skipDialogueButton.onClick.AddListener(BeginFastForward);
+            skipHold = EnsureHoldButton(skipDialogueButton);
             EnsureHoverDarken(skipDialogueButton);
         }
+    }
+
+    private static DialogueHoldButton EnsureHoldButton(Button button)
+    {
+        return button.TryGetComponent(out DialogueHoldButton hold)
+            ? hold
+            : button.gameObject.AddComponent<DialogueHoldButton>();
     }
 
     // The arrows darken while hovered.
@@ -213,17 +275,6 @@ public sealed class DialogueView : MonoBehaviour
             return;
 
         ContinueRequested?.Invoke();
-    }
-
-    private void BeginFastForward()
-    {
-        if (!visible || showingChoices || fastForwarding)
-            return;
-
-        fastForwarding = true;
-
-        if (!revealingText)
-            ContinueRequested?.Invoke();
     }
 
     private void RequestChoice(int index)
@@ -244,8 +295,6 @@ public sealed class DialogueView : MonoBehaviour
             canvasGroup.interactable = value;
             canvasGroup.blocksRaycasts = value;
         }
-
-        GameplayHudFadeState.SetMinimapBlocked(value);
     }
 
     private void CacheDialogueTextLayout()
@@ -308,7 +357,7 @@ public sealed class DialogueView : MonoBehaviour
 
         while (dialogueText != null && dialogueText.maxVisibleCharacters < characterCount)
         {
-            float revealSpeed = charactersPerSecond * (fastForwarding ? FastForwardMultiplier : 1f);
+            float revealSpeed = charactersPerSecond * (skipHeld ? FastForwardMultiplier : 1f);
             visibleCharacters += revealSpeed * GameClock.DeltaTime;
             int shownBefore = dialogueText.maxVisibleCharacters;
             dialogueText.maxVisibleCharacters = Mathf.Min(
@@ -327,7 +376,7 @@ public sealed class DialogueView : MonoBehaviour
     // while the dialogue is being skipped.
     private void Speak(int from, int to)
     {
-        if (voice == null || fastForwarding)
+        if (voice == null || skipHeld)
             return;
 
         TMP_CharacterInfo[] characters = dialogueText.textInfo.characterInfo;
@@ -365,7 +414,7 @@ public sealed class DialogueView : MonoBehaviour
         pendingChoices = null;
         ShowChoices(choices);
 
-        if (fastForwarding && !showingChoices)
+        if (skipHeld && !showingChoices)
             ContinueRequested?.Invoke();
     }
 
@@ -387,7 +436,11 @@ public sealed class DialogueView : MonoBehaviour
         bool hasChoices = choices != null && choices.Count > 0;
         showingChoices = hasChoices;
         if (showingChoices)
-            fastForwarding = false;
+        {
+            // A choice is never skipped; after it a held Next Line needs a new press to run again.
+            skipHeld = false;
+            nextHeldSincePress = false;
+        }
         SetContinueIcon(false);
         if (continueButton != null)
             continueButton.gameObject.SetActive(!showingChoices);

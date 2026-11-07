@@ -34,11 +34,18 @@ public class NpcCharacter : Character
     protected override void Awake()
     {
         base.Awake();
+        MapSprite.Apply(gameObject, npcData != null ? npcData.MapSprite : null);
         RestoreSavedPosition();
 
         StoryFlagManager.Changed += ApplyStoryVisibility;
         QuestManager.QuestChanged += ApplyStoryVisibilityForQuest;
         ApplyStoryVisibility();
+    }
+
+    // The look comes from the data: a new NPC is Npc.prefab with its NpcData.
+    private void OnValidate()
+    {
+        MapSprite.Apply(gameObject, npcData != null ? npcData.MapSprite : null);
     }
 
     private void OnDestroy()

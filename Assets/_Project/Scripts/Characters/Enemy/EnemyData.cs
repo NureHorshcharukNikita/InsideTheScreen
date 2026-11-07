@@ -35,6 +35,8 @@ public class EnemyData : ScriptableObject
     public string DisplayName => profile != null ? profile.DisplayName : name;
     public string Description => profile != null ? profile.Description : string.Empty;
     public Sprite PortraitSprite => profile != null ? profile.PortraitSprite : null;
+    // Enemies look on the map as they do in battle, unless the profile has a map sprite of its own.
+    public Sprite MapSprite => profile == null ? null : profile.MapSprite != null ? profile.MapSprite : profile.PortraitSprite;
     public Sprite BattleSprite => PortraitSprite;
     public Sprite BattleIcon => profile != null ? profile.BattleIcon : null;
     public IReadOnlyList<EnemyLootDrop> LootDrops => lootDrops;

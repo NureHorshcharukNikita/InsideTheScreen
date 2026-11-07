@@ -2,29 +2,35 @@ using UnityEngine;
 
 // Keeps a piece of the HUD invisible until a story flag is set, e.g. the minimap: it appears
 // together with the backpack once the home intro is over, not while the eyes open in the forest.
-// Hides through a CanvasGroup rather than SetActive, so it does not fight the doorways and
-// arrival points that show and hide the minimap as the player moves between areas.
+// It is also gone while a dialogue or a story scene plays. Hides through a CanvasGroup rather
+// than SetActive, so it does not fight the doorways and arrival points that show and hide the
+// minimap as the player moves between areas.
 public sealed class HiddenUntilStoryFlag : MonoBehaviour
 {
     [Tooltip("Hidden until this story flag is set, e.g. a1_home_intro. Empty = always shown.")]
     [SerializeField, StoryFlag] private string storyFlag;
+    [Tooltip("Hidden outright, not faded, while a dialogue or a story scene plays.")]
+    [SerializeField] private bool hideDuringDialogue = true;
 
     private CanvasGroup canvasGroup;
 
     private void OnEnable()
     {
         StoryFlagManager.Changed += Refresh;
+        GameStateManager.StateChanged += Refresh;
         Refresh();
     }
 
     private void OnDisable()
     {
         StoryFlagManager.Changed -= Refresh;
+        GameStateManager.StateChanged -= Refresh;
     }
 
     private void Refresh()
     {
-        bool visible = string.IsNullOrWhiteSpace(storyFlag) || StoryFlagManager.HasFlag(storyFlag);
+        bool visible = (string.IsNullOrWhiteSpace(storyFlag) || StoryFlagManager.HasFlag(storyFlag))
+            && !(hideDuringDialogue && GameStateManager.IsDialogue);
 
         if (canvasGroup == null)
         {

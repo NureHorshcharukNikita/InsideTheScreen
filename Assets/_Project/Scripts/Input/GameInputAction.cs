@@ -1,3 +1,4 @@
+// The settings rows store an action by its number: new actions go at the end.
 public enum GameInputAction
 {
     MoveUp,
@@ -7,5 +8,11 @@ public enum GameInputAction
     Interact,
     Inventory,
     EndTurn,
-    Close
+    Close,
+    Quests,
+    Crafting,
+    Map,
+    Skills,
+    DialogueNext,
+    DialogueSkip
 }

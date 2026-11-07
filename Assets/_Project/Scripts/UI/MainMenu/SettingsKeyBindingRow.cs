@@ -19,6 +19,7 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
     private bool skipCurrentFrame;
 
     public bool IsWaitingForKey => isWaitingForKey;
+    public GameInputAction Action => action;
 
     private void Awake()
     {
@@ -146,6 +147,12 @@ public sealed class SettingsKeyBindingRow : MonoBehaviour
             GameInputAction.Inventory => "Inventory",
             GameInputAction.EndTurn => "End Turn",
             GameInputAction.Close => "Pause",
+            GameInputAction.Quests => "Quests",
+            GameInputAction.Crafting => "Crafting",
+            GameInputAction.Map => "Map",
+            GameInputAction.Skills => "Skills",
+            GameInputAction.DialogueNext => "Next Line",
+            GameInputAction.DialogueSkip => "Skip Dialogue",
             _ => inputAction.ToString()
         };
     }

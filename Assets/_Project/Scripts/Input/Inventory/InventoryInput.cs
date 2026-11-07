@@ -1,8 +1,20 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InventoryInput : MonoBehaviour
 {
     [SerializeField] private InventoryWindow inventoryWindow;
+
+    // The quick keys of the window's pages.
+    private static readonly (GameInputAction action, InventoryTab tab)[] TabKeys =
+    {
+        (GameInputAction.Inventory, InventoryTab.Inventory),
+        (GameInputAction.Crafting, InventoryTab.Crafting),
+        (GameInputAction.Quests, InventoryTab.Quests),
+        (GameInputAction.Map, InventoryTab.Map),
+        (GameInputAction.Skills, InventoryTab.Skills)
+    };
 
     private void Update()
     {
@@ -20,11 +32,25 @@ public class InventoryInput : MonoBehaviour
             return;
         }
 
-        if (!GameInputSettings.GetKeyDown(GameInputAction.Inventory))
+        // Not over the pause menu (its settings take keys to rebind), and not while a letter is
+        // typed into the card search.
+        if (inventoryWindow.IsPauseShown || IsTyping())
             return;
 
-        if (inventoryWindow.IsOpen || GameStateManager.CanOpenInventory())
-            inventoryWindow.Toggle();
+        foreach (var (action, tab) in TabKeys)
+        {
+            if (!GameInputSettings.GetKeyDown(action))
+                continue;
+
+            inventoryWindow.ToggleTab(tab);
+            return;
+        }
+    }
+
+    private static bool IsTyping()
+    {
+        GameObject selected = EventSystem.current != null ? EventSystem.current.currentSelectedGameObject : null;
+        return selected != null && selected.TryGetComponent(out TMP_InputField field) && field.isFocused;
     }
 
     // Switching to another window in the middle of play opens the pause menu. Not during a story

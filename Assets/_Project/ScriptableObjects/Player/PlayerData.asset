@@ -28,7 +28,7 @@ MonoBehaviour:
     count: 2
   minimumBattleDeckSize: 5
   Inventory: {fileID: 11400000, guid: a5eb58870111e944bb81aff9b9d78960, type: 2}
-  startingGold: 20
+  startingGold: 0
   startingSkillPoints: 0
   skills:
   - {fileID: 11400000, guid: 9368dd1369f245a9b54d29037f1868a8, type: 2}

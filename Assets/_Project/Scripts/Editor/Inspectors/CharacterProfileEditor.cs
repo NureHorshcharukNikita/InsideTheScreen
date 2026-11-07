@@ -8,6 +8,7 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
     private SerializedProperty descriptionProp;
     private SerializedProperty portraitSpriteProp;
     private SerializedProperty portraitFacingProp;
+    private SerializedProperty mapSpriteProp;
     private SerializedProperty voiceProp;
 
     private void OnEnable()
@@ -20,6 +21,7 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
         descriptionProp = serializedObject.FindProperty("description");
         portraitSpriteProp = serializedObject.FindProperty("portraitSprite");
         portraitFacingProp = serializedObject.FindProperty("portraitFacing");
+        mapSpriteProp = serializedObject.FindProperty("mapSprite");
         voiceProp = serializedObject.FindProperty("voice");
     }
 
@@ -32,6 +34,7 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
 
         EditorSectionGUI.DrawSection("Identity", DrawIdentitySection, 0f);
         EditorSectionGUI.DrawSection("Portrait", DrawPortraitSection);
+        EditorSectionGUI.DrawSection("Map", DrawMapSection);
         EditorSectionGUI.DrawSection("Dialogue", DrawDialogueSection);
 
         serializedObject.ApplyModifiedProperties();
@@ -48,6 +51,11 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
     {
         EditorGUILayout.PropertyField(portraitSpriteProp);
         EditorGUILayout.PropertyField(portraitFacingProp);
+    }
+
+    private void DrawMapSection()
+    {
+        EditorGUILayout.PropertyField(mapSpriteProp);
     }
 
     private void DrawDialogueSection()

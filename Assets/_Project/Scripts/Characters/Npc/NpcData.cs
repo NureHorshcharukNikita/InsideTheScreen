@@ -55,6 +55,7 @@ public sealed class NpcData : ScriptableObject
     public string DisplayName => profile != null ? profile.DisplayName : name;
     public string Description => profile != null ? profile.Description : string.Empty;
     public Sprite PortraitSprite => profile != null ? profile.PortraitSprite : null;
+    public Sprite MapSprite => profile != null ? profile.MapSprite : null;
 
     public bool CanTalkWithState(string npcKey)
     {

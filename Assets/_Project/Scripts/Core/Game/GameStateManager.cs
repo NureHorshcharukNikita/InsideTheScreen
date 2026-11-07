@@ -5,7 +5,11 @@ public static class GameStateManager
     public static GameState State = GameState.Gameplay;
     public static int LastStateChangeFrame { get; private set; } = -1;
 
+    public static event System.Action StateChanged;
+
     public static bool IsGameplay => State == GameState.Gameplay;
+    // A dialogue or a story scene is playing.
+    public static bool IsDialogue => State == GameState.Dialogue;
     public static bool IsBattleScene => SceneManager.GetActiveScene().name == SceneNames.Battle;
 
     public static bool CanOpenInventory()
@@ -37,7 +41,8 @@ public static class GameStateManager
 
     public static void SetState(GameState state)
     {
-        if (State != state)
+        bool changed = State != state;
+        if (changed)
             LastStateChangeFrame = UnityEngine.Time.frameCount;
 
         State = state;
@@ -47,5 +52,8 @@ public static class GameStateManager
             || state == GameState.Shop
             ? 0f
             : 1f;
+
+        if (changed)
+            StateChanged?.Invoke();
     }
 }
