@@ -110,8 +110,19 @@ public sealed class DialogueAction
         FadeManager.TryFadeToScene(SceneNames.Battle);
     }
 
+    // Opens the NPC's own shop while it does not trade yet (NpcData.tradeConditions), e.g. Garr
+    // before his first errand is done: such an answer is not offered (DialogueManager), and nothing
+    // opens.
+    public bool OpensClosedShop(NpcCharacter npc)
+    {
+        return type == DialogueActionType.OpenShop && shop == null && npc != null && !npc.CanTrade;
+    }
+
     private void OpenShop(NpcCharacter npc, PlayerCharacter player)
     {
+        if (OpensClosedShop(npc))
+            return;
+
         ShopData shopToOpen = shop != null ? shop : npc != null ? npc.Shop : null;
         if (shopToOpen == null)
             return;

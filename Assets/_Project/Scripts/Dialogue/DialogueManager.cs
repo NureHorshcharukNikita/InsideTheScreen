@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +23,10 @@ public sealed class DialogueManager : MonoBehaviour
     // played in parts (see DialogueStep) only has the people of the part in its portraits.
     private readonly List<DialogueLine> reachableLines = new();
     private readonly List<DialogueAction> deferredActions = new();
+    // The answers for the NPC's talk topics (NpcData.talkTopics), made once per topic in a talk so
+    // the one picked is known again in Choose.
+    private readonly Dictionary<NpcTalkTopic, DialogueChoice> topicChoices = new();
+    private DialogueChoice closeTopicChoice;
     private NpcCharacter activeNpc;
     private NpcDialogueEntry activeDialogueEntry;
     private System.Action<int> activeOnEnded;
@@ -32,8 +35,6 @@ public sealed class DialogueManager : MonoBehaviour
     private int activeLineIndex;
     private GameState previousState;
     private bool dialogueActive;
-    // While Hideshi steps up in front for a talk he leads, before its first line.
-    private StoryEventContext leadContext;
 
     private Sprite PlayerPortrait => activePlayer != null ? activePlayer.DialogueSprite : null;
 
@@ -79,8 +80,6 @@ public sealed class DialogueManager : MonoBehaviour
             view.ContinueRequested -= Continue;
             view.ChoiceRequested -= Choose;
         }
-
-        ReleaseLead();
     }
 
     private void OnDestroy()
@@ -91,6 +90,8 @@ public sealed class DialogueManager : MonoBehaviour
 
     public bool IsDialogueActive => dialogueActive;
 
+    // Talking to an NPC starts right where the player stands: nobody steps forward first. Only a story
+    // event walking them up to the NPC puts Hideshi in front (TalkToStep, Eldon's first meeting).
     public bool StartDialogue(NpcCharacter npc)
     {
         if (npc == null || !npc.CanTalk)
@@ -122,43 +123,19 @@ public sealed class DialogueManager : MonoBehaviour
         previousState = GameStateManager.State;
         GameStateManager.SetState(GameState.Dialogue);
         npc.TryInteract(NpcInteractionType.Talk);
-        if (!TryLetCompanionLead(npc, selectedEntry))
-            ShowCurrentLine();
+        ShowCurrentLine();
         return true;
     }
 
-    // A talk Hideshi leads (NpcData.companionLeadsTalks), one he speaks in: he steps up in front
-    // first, and the first line shows once both stand (CompanionStepsForward).
-    private bool TryLetCompanionLead(NpcCharacter npc, NpcDialogueEntry entry)
+    // The companion walking with the player who leads this talk when a story event walks them up to
+    // the NPC (NpcData.companionLeadsTalks, a talk he speaks in; TalkToStep); null when the player
+    // talks alone.
+    public static CompanionFollower FindCompanionLeading(NpcCharacter npc, NpcDialogueEntry entry)
     {
-        if (entry == null || !entry.needsCompanion || npc.Data == null || !npc.Data.companionLeadsTalks
-            || activePlayer == null)
-            return false;
+        if (npc == null || entry == null || !entry.needsCompanion || npc.Data == null || !npc.Data.companionLeadsTalks)
+            return null;
 
-        CompanionFollower companion = CompanionFollower.FindFollowing();
-        if (companion == null || !CompanionStepsForward.CanPlay(npc.transform, activePlayer.transform, companion.transform))
-            return false;
-
-        leadContext = new StoryEventContext(this);
-        StartCoroutine(LetCompanionLead(npc.transform, companion.transform));
-        return true;
-    }
-
-    private IEnumerator LetCompanionLead(Transform npc, Transform companion)
-    {
-        yield return CompanionStepsForward.Play(leadContext, npc, companion);
-        ReleaseLead();
-        if (dialogueActive)
-            ShowCurrentLine();
-    }
-
-    private void ReleaseLead()
-    {
-        if (leadContext == null)
-            return;
-
-        leadContext.Release();
-        leadContext = null;
+        return CompanionFollower.FindFollowing();
     }
 
     // Story scenes without an NPC (see DialogueStep). Speakers come from the lines themselves;
@@ -211,7 +188,7 @@ public sealed class DialogueManager : MonoBehaviour
 
     public void Continue()
     {
-        if (!dialogueActive || leadContext != null)
+        if (!dialogueActive)
             return;
 
         if (view != null && view.TryCompleteTextReveal())
@@ -232,16 +209,15 @@ public sealed class DialogueManager : MonoBehaviour
 
     public void Choose(int choiceIndex)
     {
-        if (!dialogueActive || leadContext != null)
+        if (!dialogueActive)
             return;
 
-        DialogueLine line = activeLines[activeLineIndex];
-        List<DialogueChoice> choices = GetValidChoices(line);
+        List<DialogueChoice> choices = GetValidChoices(activeLineIndex);
         if (choiceIndex < 0 || choiceIndex >= choices.Count)
             return;
 
         DialogueChoice choice = choices[choiceIndex];
-        if (choice == null)
+        if (choice == null || TryTalkAbout(choice))
             return;
 
         ExecuteActions(choice.actions, activeNpc, activePlayer);
@@ -330,7 +306,7 @@ public sealed class DialogueManager : MonoBehaviour
             }
 
             said[index] = true;
-            List<DialogueChoice> choices = GetValidChoices(activeLines[index]);
+            List<DialogueChoice> choices = GetValidChoices(index);
             if (choices.Count > 0)
             {
                 foreach (DialogueChoice choice in choices)
@@ -366,6 +342,7 @@ public sealed class DialogueManager : MonoBehaviour
         dialogueActive = false;
         activeLines.Clear();
         reachableLines.Clear();
+        topicChoices.Clear();
 
         if (view != null)
             view.Hide();
@@ -413,7 +390,7 @@ public sealed class DialogueManager : MonoBehaviour
             GetListenerPortrait(DialogueSpeakerSide.Left, PlayerPortrait),
             GetListenerPortrait(DialogueSpeakerSide.Right, npcPortrait),
             GetVoice(line),
-            GetValidChoices(line));
+            GetValidChoices(activeLineIndex));
 
         // After the name plate: a name said on this line shows from the next one on.
         KnownNames.Hear(line.text);
@@ -518,25 +495,120 @@ public sealed class DialogueManager : MonoBehaviour
 
     private bool CurrentLineHasChoices()
     {
-        return activeLineIndex >= 0
-            && activeLineIndex < activeLines.Count
-            && GetValidChoices(activeLines[activeLineIndex]).Count > 0;
+        return GetValidChoices(activeLineIndex).Count > 0;
     }
 
-    private static List<DialogueChoice> GetValidChoices(DialogueLine line)
+    // Answers without text are left out, and so is one opening the NPC's shop while it does not
+    // trade yet, e.g. "Show me what you've got." to Garr before his first errand is done. Where a
+    // talk with an NPC ends, the topics the player can talk about with it are offered (AddTopicChoices).
+    private List<DialogueChoice> GetValidChoices(int lineIndex)
     {
         List<DialogueChoice> choices = new();
-        if (line?.choices == null)
+        DialogueLine line = lineIndex >= 0 && lineIndex < activeLines.Count ? activeLines[lineIndex] : null;
+        if (line == null)
             return choices;
 
-        for (int i = 0; i < line.choices.Count; i++)
+        if (line.choices != null)
         {
-            DialogueChoice choice = line.choices[i];
-            if (choice != null && !string.IsNullOrWhiteSpace(choice.text))
-                choices.Add(choice);
+            for (int i = 0; i < line.choices.Count; i++)
+            {
+                DialogueChoice choice = line.choices[i];
+                if (choice != null && !string.IsNullOrWhiteSpace(choice.text) && !OpensClosedShop(choice))
+                    choices.Add(choice);
+            }
         }
 
+        if (choices.Count == 0 && EndsTalk(lineIndex))
+            AddTopicChoices(choices);
+
         return choices;
+    }
+
+    // The line a talk with an NPC ends on: nothing is said after it. Not in story dialogues.
+    private bool EndsTalk(int lineIndex)
+    {
+        if (activeNpc == null)
+            return false;
+
+        if (activeLines[lineIndex].endDialogueAfterLine)
+            return true;
+
+        int nextLineIndex = SkipUnsaidLines(GetNextLineIndex(lineIndex));
+        return nextLineIndex < 0 || nextLineIndex >= activeLines.Count;
+    }
+
+    // The topics the player can talk about with the NPC now (NpcData.talkTopics), and an answer that
+    // just ends the talk, e.g. "Do you think we'll get out of here?" / "Nothing. I'll get going." to
+    // Hideshi waiting in Leymar. No topics: the talk ends as written.
+    private void AddTopicChoices(List<DialogueChoice> choices)
+    {
+        NpcData data = activeNpc.Data;
+        if (data == null || data.talkTopics == null)
+            return;
+
+        int count = choices.Count;
+        foreach (NpcTalkTopic topic in data.talkTopics)
+        {
+            if (topic == null || !topic.IsAvailable)
+                continue;
+
+            if (!topicChoices.TryGetValue(topic, out DialogueChoice choice))
+            {
+                choice = new DialogueChoice { text = topic.choiceText, endDialogue = true };
+                topicChoices.Add(topic, choice);
+            }
+
+            choices.Add(choice);
+        }
+
+        if (choices.Count == count)
+            return;
+
+        closeTopicChoice ??= new DialogueChoice { endDialogue = true };
+        closeTopicChoice.text = data.TalkTopicsCloseText;
+        choices.Add(closeTopicChoice);
+    }
+
+    // A topic picked (AddTopicChoices): it counts as talked about, and its dialogue is said from here
+    // on in the same talk. At its end the topics still left are offered again.
+    private bool TryTalkAbout(DialogueChoice choice)
+    {
+        foreach (KeyValuePair<NpcTalkTopic, DialogueChoice> pair in topicChoices)
+        {
+            if (pair.Value != choice)
+                continue;
+
+            pair.Key.MarkDone();
+            activeLines.Clear();
+            AddDialogueDataLines(pair.Key.dialogue);
+            int firstLine = SkipUnsaidLines(0);
+            if (firstLine < 0 || firstLine >= activeLines.Count)
+            {
+                EndDialogue();
+                return true;
+            }
+
+            activeLineIndex = firstLine;
+            CollectReachableLines();
+            ShowCurrentLine();
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool OpensClosedShop(DialogueChoice choice)
+    {
+        if (choice.actions == null)
+            return false;
+
+        foreach (DialogueAction action in choice.actions)
+        {
+            if (action != null && action.OpensClosedShop(activeNpc))
+                return true;
+        }
+
+        return false;
     }
 
     private void AddDialogueDataLines(DialogueData dialogue)

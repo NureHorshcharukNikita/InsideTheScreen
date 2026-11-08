@@ -13,6 +13,68 @@ MonoBehaviour:
   m_Name: HideshiArticySurvivalReminder
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Look around the village. Bushes, stones, anything that looks useful.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "And you're just going to stand here?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "Someone has to keep an eye on the road.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 0}
+    text: "Look around the village. Bushes, stones, anything that looks useful."
+    conditions:
+    - type: 0
+      storyFlag: a1_survival_reminder_heard
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "And you're just going to stand here?"
+    conditions:
+    - type: 0
+      storyFlag: a1_survival_reminder_heard
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 0}
+    text: "I need a moment to think about what Eldon said. Go on, I won't be far."
+    conditions:
+    - type: 0
+      storyFlag: a1_survival_reminder_heard
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_survival_reminder_heard
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId:
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 0}
+    text: "Back already? I'm still here."
+    conditions:
+    - type: 0
+      storyFlag: a1_survival_reminder_heard
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []

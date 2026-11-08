@@ -165,4 +165,13 @@ MonoBehaviour:
       encounterId: 
       card: {fileID: 0}
       count: 1
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: hideshi_stays_behind
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

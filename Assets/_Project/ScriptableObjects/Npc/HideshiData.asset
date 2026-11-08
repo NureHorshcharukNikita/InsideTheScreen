@@ -387,6 +387,59 @@ MonoBehaviour:
       questStatus: 1
       invert: 0
   companionAwayDialogue: {fileID: 0}
+  companionLeadsTalks: 0
+  talkTopics:
+  - choiceText: What do you make of this world?
+    conditions:
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    dialogue: {fileID: 11400000, guid: 47ef250741144b68918466794ccbb19b, type: 2}
+    doneFlag: a1_asked_dad_world
+  - choiceText: How are you holding up, Dad?
+    conditions:
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    dialogue: {fileID: 11400000, guid: c976447a83334e97af297edafe74e307, type: 2}
+    doneFlag: a1_asked_dad_holding_up
+  - choiceText: Do you think we'll get out of here?
+    conditions:
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    dialogue: {fileID: 11400000, guid: 692a2684394c4998b48d1ad60485467c, type: 2}
+    doneFlag: a1_asked_dad_way_home
+  - choiceText: Look, it turned into a card.
+    conditions:
+    - type: 0
+      storyFlag: a1_gathered_first
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_basic_resources_gathered
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    dialogue: {fileID: 11400000, guid: b5cef93c617f470baf4d46f6323256bb, type: 2}
+    doneFlag: a1_showed_dad_first_card
+  - choiceText: I saw the old bridge in the forest.
+    conditions:
+    - type: 0
+      storyFlag: a1_broken_bridge_seen_alone
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    dialogue: {fileID: 11400000, guid: 56adf67e7fa041ce92ff2511c379a325, type: 2}
+    doneFlag: a1_told_dad_broken_bridge
+  talkTopicsCloseChoice: Nothing. I'll get going.
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

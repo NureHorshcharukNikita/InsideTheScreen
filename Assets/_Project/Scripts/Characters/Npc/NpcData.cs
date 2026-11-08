@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Characters/NPC Data")]
 public sealed class NpcData : ScriptableObject
 {
+    private const string DefaultTalkTopicsCloseChoice = "Nothing.";
+
     [Header("Profile")]
     public CharacterProfile profile;
 
@@ -19,8 +21,15 @@ public sealed class NpcData : ScriptableObject
     [Tooltip("Said instead of a dialogue that needs Hideshi while he is not with Haru, e.g. \"Where's your father?\". Empty = such dialogues wait and the next one is said.")]
     public DialogueData companionAwayDialogue;
 
-    [Tooltip("In a talk Hideshi speaks in (Needs Companion), he first steps up to where Haru stands and Haru backs off a step beside him, e.g. Eldon: the father does the talking.")]
+    [Tooltip("When a story event walks Haru up to this NPC for a talk Hideshi speaks in (Walk Up and Talk step, Needs Companion), the father walks up in front and Haru stops a step behind him to the side, e.g. Eldon's first meeting. Talks started with the Interact key begin where everyone stands.")]
     public bool companionLeadsTalks;
+
+    [Header("Talk Topics")]
+    [Tooltip("Things the player can talk about with this NPC, offered as answers where a talk with it ends, e.g. asking Hideshi about this world while he waits, or telling him about the broken bridge Haru saw alone. Each one until it has been talked about; after one, the others are offered again. Empty = talks end as written.")]
+    public List<NpcTalkTopic> talkTopics = new();
+
+    [Tooltip("The answer next to them that ends the talk, e.g. \"Nothing. I'll get going.\"")]
+    public string talkTopicsCloseChoice = DefaultTalkTopicsCloseChoice;
 
     [Header("Overhead Speech")]
     public bool enableOverheadSpeech = true;
@@ -31,7 +40,7 @@ public sealed class NpcData : ScriptableObject
     [Header("Trade")]
     public ShopData shop;
 
-    [Tooltip("Trading straight away, when the NPC has nothing to say, only once all of these are met, e.g. Garr not before he has met Haru. A dialogue can still open the shop. Empty = always.")]
+    [Tooltip("Trading only once all of these are met, e.g. Garr not before Haru has done his first errand: until then neither the Trade key nor a dialogue answer opens the shop. Empty = always.")]
     public List<StoryCondition> tradeConditions = new();
 
     [Header("Movement")]
@@ -51,6 +60,7 @@ public sealed class NpcData : ScriptableObject
     public bool CanShowOverheadLines => enableOverheadSpeech && HasAnyText(overheadLines);
     public bool CanTrade => shop != null && shop.HasItems && StoryCondition.AreMet(tradeConditions);
     public ShopData Shop => shop;
+    public string TalkTopicsCloseText => string.IsNullOrWhiteSpace(talkTopicsCloseChoice) ? DefaultTalkTopicsCloseChoice : talkTopicsCloseChoice;
     public string CharacterID => profile != null ? profile.CharacterID : name;
     public string DisplayName => profile != null ? profile.DisplayName : name;
     public string Description => profile != null ? profile.Description : string.Empty;

@@ -67,3 +67,12 @@ demo_complete                   # the end of the demo
 * a1_hideshi_at_farel           # Farel's Net
 * a1_hideshi_fishing            # Fresh Bait
 * a1_hideshi_at_tower           # Whispers by the Fire
+
+## Talking with Dad while he waits (HideshiData Talk Topics)
+- a1_survival_reminder_heard    # Hideshi's gathering reminder said once; later talks open with a short line
+- a1_asked_dad_world            # "What do you make of this world?"
+- a1_asked_dad_holding_up       # "How are you holding up, Dad?"
+- a1_asked_dad_way_home         # "Do you think we'll get out of here?"
+- a1_showed_dad_first_card      # "Look, it turned into a card." (after the first thing gathered)
+- a1_broken_bridge_seen_alone   # Haru found the broken forest bridge while Hideshi waited (never saw it with him)
+- a1_told_dad_broken_bridge     # "I saw the old bridge in the forest."
