@@ -8,7 +8,9 @@ using UnityEngine.Tilemaps;
 // thing, put at random on open grass or path: not in water, on cliffs, in trees or against walls.
 // Picked ones grow back, all of the area's spots at once and in new places, after a while of
 // exploring (WorldClock); that happens while the player is away from the area, never before their
-// eyes. The spots stay put between visits, and a picked one stays picked until then.
+// eyes. The spots stay put between visits, and a picked one stays picked until then. The things lie
+// there only while the conditions are met, e.g. once Hideshi has shown Haru how to look
+// (a1_ground_revealed); when they come true, the things come up out of the grass one after another.
 [RequireComponent(typeof(BoxCollider2D))]
 public sealed class ForageSpawner : MonoBehaviour
 {
@@ -27,6 +29,8 @@ public sealed class ForageSpawner : MonoBehaviour
     private const int TriesPerSpot = 25;
     // How far the player must be from the area before its things grow back.
     private const float RegrowOutOfSightDistance = 16f;
+    // Coming up out of the grass: each thing after its own delay, up to this, in seconds.
+    private const float MaxAppearDelay = 1.2f;
 
     [Tooltip("Remembers which spots are picked. Unique in the scene.")]
     [SerializeField] private string spawnerId;
@@ -38,6 +42,8 @@ public sealed class ForageSpawner : MonoBehaviour
     [SerializeField] private Material material;
     [Tooltip("The prompt shown over the thing in reach (DoorwayPrompt).")]
     [SerializeField] private GameObject promptPrefab;
+    [Tooltip("The things lie there only while all of them are met. Empty = always.")]
+    [SerializeField] private List<StoryCondition> conditions = new();
 
     private static readonly List<Tilemap> OpenGround = new();
     private static readonly List<Tilemap> Blocked = new();
@@ -46,7 +52,10 @@ public sealed class ForageSpawner : MonoBehaviour
     private readonly List<ForagePickup> lying = new();
     private BoxCollider2D area;
     private int shownCycle = -1;
+    private bool shownAvailable;
     private float nextCheck;
+    // Past Start: from now on the things come up before Haru's eyes instead of just lying there.
+    private bool started;
 
     private int Cycle => Mathf.FloorToInt(WorldClock.PlaySeconds / Mathf.Max(30f, regrowSeconds));
 
@@ -56,12 +65,23 @@ public sealed class ForageSpawner : MonoBehaviour
         area.isTrigger = true;
         if (string.IsNullOrWhiteSpace(spawnerId))
             spawnerId = name;
+
+        StoryFlagManager.Changed += Apply;
+        QuestManager.QuestChanged += ApplyForQuest;
     }
 
+    // After the save is loaded: which spots are picked, which flags and quests are there.
     private void Start()
     {
         FindTilemaps();
-        Spread(Cycle);
+        Spread(Cycle, false);
+        started = true;
+    }
+
+    private void OnDestroy()
+    {
+        StoryFlagManager.Changed -= Apply;
+        QuestManager.QuestChanged -= ApplyForQuest;
     }
 
     private void Update()
@@ -71,11 +91,24 @@ public sealed class ForageSpawner : MonoBehaviour
 
         nextCheck = Time.unscaledTime + 2f;
         if (Cycle != shownCycle && !PlayerIsNear())
-            Spread(Cycle);
+            Spread(Cycle, false);
     }
 
-    // The things of this cycle that are not picked yet, each on its own spot.
-    private void Spread(int cycle)
+    private void ApplyForQuest(QuestData quest, QuestStatus status)
+    {
+        Apply();
+    }
+
+    // Allowed now, or no longer: at once, the same spots as before (the cycle grows back by itself).
+    private void Apply()
+    {
+        if (started && StoryCondition.AreMet(conditions) != shownAvailable)
+            Spread(shownCycle, true);
+    }
+
+    // The things of this cycle that are not picked yet, each on its own spot, if they may lie there.
+    // Popping up: coming up out of the grass, each after its own delay.
+    private void Spread(int cycle, bool popUp)
     {
         foreach (ForagePickup thing in lying)
         {
@@ -85,10 +118,11 @@ public sealed class ForageSpawner : MonoBehaviour
 
         lying.Clear();
         shownCycle = cycle;
+        shownAvailable = StoryCondition.AreMet(conditions);
 
         string current = $"{spawnerId}#{cycle}#";
         CollectedPickups.ForgetWhere(id => id.StartsWith(spawnerId + "#") && !id.StartsWith(current));
-        if (forage.Count == 0)
+        if (forage.Count == 0 || !shownAvailable)
             return;
 
         // The same places and things for the whole cycle, also after a battle or a reload.
@@ -101,7 +135,11 @@ public sealed class ForageSpawner : MonoBehaviour
             if (!found || pick?.card == null || pick.sprite == null || CollectedPickups.IsCollected(pickupId))
                 continue;
 
-            lying.Add(ForagePickup.Create(transform, place, pick.sprite, material, pick.card, pick.count, pickupId, promptPrefab, null));
+            ForagePickup thing = ForagePickup.Create(transform, place, pick.sprite, material, pick.card, pick.count, pickupId, promptPrefab, null);
+            if (popUp)
+                thing.PopUp(UnityEngine.Random.Range(0f, MaxAppearDelay));
+
+            lying.Add(thing);
         }
     }
 

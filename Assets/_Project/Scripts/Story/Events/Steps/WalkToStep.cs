@@ -8,7 +8,8 @@ using UnityEngine;
 // With Avoid Obstacles it goes around a well, a lamp post or a house in the way (StoryPath).
 // It stops facing the way it walked (or, backwards, the other way), and the new position is saved.
 // Sideways slides it there in the pose it has, without turning or stepping. Bob gives a character
-// drawn as one sprite (Garr) a step it can be seen and heard taking. Arrive Second lets someone
+// drawn as one sprite a step it can be seen and heard taking; one with walk animations needs
+// none. Arrive Second lets someone
 // walking alongside get there first.
 [Serializable, SubclassMenu("Characters/Walk To")]
 public sealed class WalkToStep : StoryStep
@@ -40,7 +41,7 @@ public sealed class WalkToStep : StoryStep
     [SerializeField] private bool preferUpDown;
     [Tooltip("No footsteps, e.g. walking up outside, out of view, before coming in.")]
     [SerializeField] private bool silent;
-    [Tooltip("Bobs up and down with every step and is heard stepping, for a character drawn as one sprite without walk animations (e.g. Garr).")]
+    [Tooltip("Bobs up and down with every step and is heard stepping, for a character drawn as one sprite without walk animations. Off for one with them: it would shake as it walks.")]
     [SerializeField] private bool bob;
     [Tooltip("Goes around walls, props and people in the way instead of through them. Straight where nothing is in the way.")]
     [SerializeField] private bool avoidObstacles;

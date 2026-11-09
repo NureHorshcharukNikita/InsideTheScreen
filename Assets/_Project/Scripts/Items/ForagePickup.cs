@@ -34,6 +34,8 @@ public sealed class ForagePickup : MonoBehaviour
     private float reach;
     private Action picked;
     private bool taken;
+    // Not come up yet (PopUp after a delay): not seen, not in reach.
+    private bool waiting;
 
     // Made from code (ForageSpawner, ForageSpot, FruitBush): its looks, what it gives, the id that
     // remembers it was taken, the word on the prompt (Pick up when empty) and how far Haru reaches
@@ -84,18 +86,30 @@ public sealed class ForagePickup : MonoBehaviour
             StartCoroutine(PickUp());
     }
 
-    // Comes up out of the grass before Haru's eyes (ForageSpot, during his father's lesson): from small
-    // and see-through to its size, with a little spring. On the GameClock, as a story event is playing.
-    public void PopUp()
+    // Comes up out of the grass before Haru's eyes (ForageSpot, ForageSpawner, during his father's
+    // lesson): after the delay, from small and see-through to its size, with a little spring. On the
+    // GameClock, as a story event is playing.
+    public void PopUp(float delay = 0f)
     {
-        StartCoroutine(PlayPopUp());
+        StartCoroutine(PlayPopUp(delay));
     }
 
-    private IEnumerator PlayPopUp()
+    private IEnumerator PlayPopUp(float delay)
     {
         SpriteRenderer look = GetComponent<SpriteRenderer>();
         Vector3 scale = transform.localScale;
         Color color = look.color;
+        if (delay > 0f)
+        {
+            waiting = true;
+            look.enabled = false;
+            for (float waited = 0f; waited < delay; waited += GameClock.DeltaTime)
+                yield return null;
+
+            look.enabled = true;
+            waiting = false;
+        }
+
         for (float elapsed = 0f; elapsed < PopUpSeconds; elapsed += GameClock.DeltaTime)
         {
             float t = elapsed / PopUpSeconds;
@@ -132,7 +146,7 @@ public sealed class ForagePickup : MonoBehaviour
             float best = float.MaxValue;
             foreach (ForagePickup candidate in Lying)
             {
-                if (candidate == null || candidate.taken)
+                if (candidate == null || candidate.taken || candidate.waiting)
                     continue;
 
                 float distance = Vector2.Distance(candidate.transform.position, player.transform.position);

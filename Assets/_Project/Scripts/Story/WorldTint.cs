@@ -33,6 +33,22 @@ public sealed class WorldTint : MonoBehaviour
         ? Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(LampsStartAt, LampsFullAt, instance.current.a))
         : 0f;
 
+    // How much darker than by day the world is, by how bright its light is (its colour counted, so a
+    // rosy sunset is less dark than a blue night of the same strength): 0 by day, about 0.25 at the
+    // sunset after the wolf, 0.55-0.6 at night. The night sounds go by it (SceneAudio).
+    public static float Dimming
+    {
+        get
+        {
+            if (instance == null)
+                return 0f;
+
+            Color tint = instance.current;
+            Color light = Color.Lerp(Color.white, new Color(tint.r, tint.g, tint.b, 1f), tint.a);
+            return Mathf.Clamp01(1f - (0.2126f * light.r + 0.7152f * light.g + 0.0722f * light.b));
+        }
+    }
+
     // On the scene's Global Light 2D, made the first time it is needed.
     public static WorldTint Get()
     {

@@ -129,8 +129,7 @@ MonoBehaviour:
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Let's hurry. We need to reach Leymar."
-    nextLineIndex: -1
-    endDialogueAfterLine: 1
+    nextLineIndex: 33
     actions:
     - type: 2
       quest: {fileID: 11400000, guid: 6b17c5a25c203580afb8005c062b0149, type: 2}
@@ -196,8 +195,7 @@ MonoBehaviour:
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "But let's not waste time. Come on! We need to reach Leymar."
-    nextLineIndex: -1
-    endDialogueAfterLine: 1
+    nextLineIndex: 33
     actions:
     - type: 2
       quest: {fileID: 11400000, guid: 6b17c5a25c203580afb8005c062b0149, type: 2}
@@ -207,6 +205,19 @@ MonoBehaviour:
     - type: 1
       quest: {fileID: 11400000, guid: 6b0dc17eb6a21d10baa32ec5503067a7, type: 2}
       storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "It's getting dark. After that wolf, I don't want to be in these woods at night."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_met_trader
       silent: 0
       shop: {fileID: 0}
     choices: []

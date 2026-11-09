@@ -47,6 +47,11 @@ public sealed class AudioManager : MonoBehaviour
     private int nextVoiceSource;
     private Coroutine musicFadeRoutine;
     private Coroutine ambienceFadeRoutine;
+    // A sound effect that goes on until stopped (PlaySfxLoop), e.g. the wolf growling until Hideshi
+    // has chased it off; its own share of the sound effects volume.
+    private AudioSource sfxLoopSource;
+    private float sfxLoopScale = 1f;
+    private Coroutine sfxLoopFadeRoutine;
 
     public float MasterVolume => masterVolume;
     public float MusicVolume => musicVolume;
@@ -78,10 +83,12 @@ public sealed class AudioManager : MonoBehaviour
         Instance = null;
     }
 
-    // A new scene starts outdoors; its indoor areas mute the ambience again from their own Start.
+    // A new scene starts outdoors; its indoor areas mute the ambience again from their own Start. A
+    // looping sound effect belongs to the scene it was started in, e.g. not to the battle after it.
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SetAmbienceMuted(false);
+        StopSfxLoop();
     }
 
     public static void TryPlaySfx(AudioClip clip, float volumeScale = 1f)
@@ -160,6 +167,43 @@ public sealed class AudioManager : MonoBehaviour
     public void PlayUi(AudioClip clip, float volumeScale = 1f)
     {
         PlayOneShot(uiSource, clip, volumeScale);
+    }
+
+    // Loops the clip as a sound effect until StopSfxLoop, coming in over the fade; the same clip
+    // already playing only takes the new volume.
+    public void PlaySfxLoop(AudioClip clip, float volumeScale = 1f, float fadeDuration = 0f)
+    {
+        if (sfxLoopSource == null || clip == null)
+            return;
+
+        if (sfxLoopFadeRoutine != null)
+            StopCoroutine(sfxLoopFadeRoutine);
+
+        sfxLoopFadeRoutine = null;
+        sfxLoopScale = Mathf.Clamp01(volumeScale);
+        float target = GetOutputVolume(AudioChannel.Sfx) * sfxLoopScale;
+        if (sfxLoopSource.clip != clip || !sfxLoopSource.isPlaying)
+        {
+            sfxLoopSource.clip = clip;
+            sfxLoopSource.volume = fadeDuration > 0f ? 0f : target;
+            sfxLoopSource.Play();
+        }
+
+        if (fadeDuration > 0f)
+            sfxLoopFadeRoutine = StartCoroutine(FadeSfxLoopIn(fadeDuration, target));
+        else
+            sfxLoopSource.volume = target;
+    }
+
+    private IEnumerator FadeSfxLoopIn(float duration, float target)
+    {
+        yield return FadeSourceVolume(sfxLoopSource, duration, sfxLoopSource.volume, target);
+        sfxLoopFadeRoutine = null;
+    }
+
+    public void StopSfxLoop(float fadeDuration = 0f)
+    {
+        StopLoopingClip(sfxLoopSource, fadeDuration, ref sfxLoopFadeRoutine);
     }
 
     // Counts as sound effects for the volume.
@@ -241,6 +285,7 @@ public sealed class AudioManager : MonoBehaviour
         ambienceSource = EnsureSource(ambienceSource, "Ambience Source", true);
         sfxSource = EnsureSource(sfxSource, "SFX Source", false);
         uiSource = EnsureSource(uiSource, "UI Source", false);
+        sfxLoopSource = EnsureSource(sfxLoopSource, "SFX Loop Source", true);
         for (int i = 0; i < VoiceSourceCount; i++)
             voiceSources[i] = EnsureSource(voiceSources[i], "Voice Source", false);
     }
@@ -363,6 +408,9 @@ public sealed class AudioManager : MonoBehaviour
 
         if (uiSource != null)
             uiSource.volume = GetOutputVolume(AudioChannel.Ui);
+
+        if (sfxLoopSource != null && sfxLoopFadeRoutine == null)
+            sfxLoopSource.volume = GetOutputVolume(AudioChannel.Sfx) * sfxLoopScale;
     }
 
     private void LoadVolumes()

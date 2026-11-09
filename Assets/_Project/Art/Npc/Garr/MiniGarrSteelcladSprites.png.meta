@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: fb2770e84dd142f2a90c91f616064668
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8931060832175552498
+    second: MiniGarrSteelcladSprites_0
+  - first:
+      213: -103292479592740706
+    second: MiniGarrSteelcladSprites_1
+  - first:
+      213: -4726134676445708046
+    second: MiniGarrSteelcladSprites_2
+  - first:
+      213: -926162113212527961
+    second: MiniGarrSteelcladSprites_3
+  - first:
+      213: 4831892123614589068
+    second: MiniGarrSteelcladSprites_4
+  - first:
+      213: 8733799312916786927
+    second: MiniGarrSteelcladSprites_5
+  - first:
+      213: 3580966932949434549
+    second: MiniGarrSteelcladSprites_6
+  - first:
+      213: 5916006544088468064
+    second: MiniGarrSteelcladSprites_7
+  - first:
+      213: 7793550989652795115
+    second: MiniGarrSteelcladSprites_8
+  - first:
+      213: 25245398855395224
+    second: MiniGarrSteelcladSprites_9
+  - first:
+      213: 814338670919993791
+    second: MiniGarrSteelcladSprites_10
+  - first:
+      213: 6831126185385971200
+    second: MiniGarrSteelcladSprites_11
+  - first:
+      213: 202723177691487334
+    second: MiniGarrSteelcladSprites_12
+  - first:
+      213: 3347877250748360809
+    second: MiniGarrSteelcladSprites_13
+  - first:
+      213: 3161252378458127532
+    second: MiniGarrSteelcladSprites_14
+  - first:
+      213: -3794713838202963837
+    second: MiniGarrSteelcladSprites_15
+  - first:
+      213: 2635657992596905082
+    second: MiniGarrSteelcladSprites_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 86
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_0
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 953
+        width: 136
+        height: 301
+      alignment: 9
+      pivot: {x: 0.4512, y: 0.0133}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aae4500934a4f4a9d349785b5945174
+      internalID: -8931060832175552498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_1
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 953
+        width: 194
+        height: 301
+      alignment: 9
+      pivot: {x: 0.5186, y: 0.0133}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c7ee6c958534fa19952f98e82c353ed
+      internalID: -103292479592740706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_2
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 953
+        width: 198
+        height: 301
+      alignment: 9
+      pivot: {x: 0.4985, y: 0.0133}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a52d6d7c2d34fc3aa2457d1b8448f61
+      internalID: -4726134676445708046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_3
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 637
+        width: 143
+        height: 313
+      alignment: 9
+      pivot: {x: 0.5358, y: 0.0096}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb15734a0b664431aa6307767e83bb33
+      internalID: -926162113212527961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_4
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 640
+        width: 209
+        height: 309
+      alignment: 9
+      pivot: {x: 0.5198, y: 0.0097}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b6977abf6ac412ca17fb90e779ecc2f
+      internalID: 4831892123614589068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_5
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 640
+        width: 191
+        height: 309
+      alignment: 9
+      pivot: {x: 0.5022, y: 0.0097}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f2792858e944c49a4512dcb40c63a9f
+      internalID: 8733799312916786927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_6
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 331
+        width: 207
+        height: 301
+      alignment: 9
+      pivot: {x: 0.4997, y: 0.0133}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba8d901dab8d45529e3ff68ab8f5607f
+      internalID: 3580966932949434549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_7
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 329
+        width: 200
+        height: 305
+      alignment: 9
+      pivot: {x: 0.4937, y: 0.0098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b8fbfc6421c43b2a57a2036661e5091
+      internalID: 5916006544088468064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_8
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 329
+        width: 194
+        height: 304
+      alignment: 9
+      pivot: {x: 0.5036, y: 0.0099}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e270fce236b048de9a16c396a0393b2f
+      internalID: 7793550989652795115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_9
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 329
+        width: 194
+        height: 305
+      alignment: 9
+      pivot: {x: 0.4987, y: 0.0098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da4690c4a180495b8dc346e91d5284b3
+      internalID: 25245398855395224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_10
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 330
+        width: 199
+        height: 305
+      alignment: 9
+      pivot: {x: 0.4861, y: 0.0098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 354c4abd13a449abb11457fad51c0cee
+      internalID: 814338670919993791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_11
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 13
+        width: 195
+        height: 306
+      alignment: 9
+      pivot: {x: 0.493, y: 0.0131}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 077a4e53d5204dff871407b81b863ff4
+      internalID: 6831126185385971200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_12
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 13
+        width: 195
+        height: 308
+      alignment: 9
+      pivot: {x: 0.5054, y: 0.013}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bac38dff7da84bf998d06318f55a9d50
+      internalID: 202723177691487334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_13
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 13
+        width: 193
+        height: 307
+      alignment: 9
+      pivot: {x: 0.5062, y: 0.013}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43891ebbd5a24bb8831b10937dceeb4b
+      internalID: 3347877250748360809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_14
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 14
+        width: 191
+        height: 306
+      alignment: 9
+      pivot: {x: 0.5086, y: 0.0098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: debdadf498a94a1888ace578cb291188
+      internalID: 3161252378458127532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_15
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 13
+        width: 202
+        height: 307
+      alignment: 9
+      pivot: {x: 0.5071, y: 0.013}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d0d01e6bcbe4748a61a80aacafee147
+      internalID: -3794713838202963837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniGarrSteelcladSprites_16
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 14
+        width: 197
+        height: 306
+      alignment: 9
+      pivot: {x: 0.5047, y: 0.0098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2fbbbe276624444b57d2f51a8c8db09
+      internalID: 2635657992596905082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fa5e97f5fd4aa3e074a536d01d501ad7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MiniGarrSteelcladSprites_0: -8931060832175552498
+      MiniGarrSteelcladSprites_1: -103292479592740706
+      MiniGarrSteelcladSprites_10: 814338670919993791
+      MiniGarrSteelcladSprites_11: 6831126185385971200
+      MiniGarrSteelcladSprites_12: 202723177691487334
+      MiniGarrSteelcladSprites_13: 3347877250748360809
+      MiniGarrSteelcladSprites_14: 3161252378458127532
+      MiniGarrSteelcladSprites_15: -3794713838202963837
+      MiniGarrSteelcladSprites_16: 2635657992596905082
+      MiniGarrSteelcladSprites_2: -4726134676445708046
+      MiniGarrSteelcladSprites_3: -926162113212527961
+      MiniGarrSteelcladSprites_4: 4831892123614589068
+      MiniGarrSteelcladSprites_5: 8733799312916786927
+      MiniGarrSteelcladSprites_6: 3580966932949434549
+      MiniGarrSteelcladSprites_7: 5916006544088468064
+      MiniGarrSteelcladSprites_8: 7793550989652795115
+      MiniGarrSteelcladSprites_9: 25245398855395224
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -17,12 +17,12 @@ MonoBehaviour:
   giverName: Ancient Eldon
   description: "The barrier that protects Leymar is growing weak. Eldon needs dust from the old standing stone at the crossroads, south of his tower, to strengthen it."
   status: 0
-  objectiveType: 0
-  objectiveLabel: "Bring dust from the crossroads stone to Eldon"
+  objectiveType: 3
+  objectiveLabel: "Bring Eldon three handfuls of dust from the crossroads stone"
   targetEncounterId: 
   targetEnemy: {fileID: 0}
-  targetCard: {fileID: 0}
-  targetCount: 1
+  targetCard: {fileID: 11400000, guid: 110733b7e7d74b84933f0b7b00c28b3c, type: 2}
+  targetCount: 3
   rewards:
   - type: 1
     card: {fileID: 0}

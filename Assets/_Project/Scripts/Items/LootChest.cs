@@ -8,7 +8,9 @@ using UnityEngine;
 // the empty chest fades away, gone for good, also after a reload (CollectedPickups). Chests further
 // along the story hold better cards (their pools). An NPC or a thing to pick up in reach answers
 // the key first, though not Hideshi following along. The chest is solid (its collider); in reach
-// is Haru's feet close to it, from any side.
+// is Haru's feet close to it, from any side. It is there only while its conditions are met: like
+// the things on the ground, once Hideshi has shown Haru how to look (a1_ground_revealed). When they
+// come true while Haru is there, it comes up out of the grass before his eyes.
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class LootChest : MonoBehaviour
 {
@@ -26,6 +28,10 @@ public sealed class LootChest : MonoBehaviour
     // The open chest stays a moment after the last card, then fades.
     private const float FadeAfter = 0.5f;
     private const float FadeSeconds = 0.6f;
+    // Showing up: after a moment, among the things on the ground coming up, from small and
+    // see-through to its size, with a little spring (like ForagePickup).
+    private const float AppearDelay = 0.5f;
+    private const float AppearSeconds = 0.45f;
 
     [Tooltip("Remembers that it was opened. Unique in the scene. Empty = the object's name.")]
     [SerializeField] private string chestId;
@@ -39,6 +45,8 @@ public sealed class LootChest : MonoBehaviour
     [SerializeField] private GameObject promptPrefab;
     [Tooltip("Played as the lid opens.")]
     [SerializeField] private AudioClip openSound;
+    [Tooltip("It is there only while all of them are met. Empty = always.")]
+    [SerializeField] private List<StoryCondition> conditions = new();
 
     private static readonly List<LootChest> Placed = new();
 
@@ -49,6 +57,13 @@ public sealed class LootChest : MonoBehaviour
     private InteractionPrompt prompt;
     private bool promptShown;
     private bool opened;
+    // There, as in the scene, until its conditions say otherwise.
+    private bool there = true;
+    private Coroutine showingUp;
+    private Vector3 restScale;
+    private Color restColor;
+    // Past Start: from now on it shows up before Haru's eyes instead of just being there.
+    private bool started;
 
     private string ChestId => string.IsNullOrWhiteSpace(chestId) ? name : chestId;
 
@@ -59,6 +74,10 @@ public sealed class LootChest : MonoBehaviour
     {
         body = GetComponent<SpriteRenderer>();
         solid = GetComponent<Collider2D>();
+        restScale = transform.localScale;
+        restColor = body.color;
+        StoryFlagManager.Changed += Apply;
+        QuestManager.QuestChanged += ApplyForQuest;
     }
 
     private void OnEnable()
@@ -71,14 +90,91 @@ public sealed class LootChest : MonoBehaviour
         Placed.Remove(this);
     }
 
-    // After the save is loaded: one opened before is gone.
+    // After the save is loaded: one opened before is gone, and the flags and quests are there.
     private void Start()
     {
         opened = CollectedPickups.IsCollected(ChestId);
         if (opened)
+        {
             gameObject.SetActive(false);
-        else
-            body.sprite = closedSprite;
+            return;
+        }
+
+        body.sprite = closedSprite;
+        Show(StoryCondition.AreMet(conditions));
+        started = true;
+    }
+
+    private void ApplyForQuest(QuestData quest, QuestStatus status)
+    {
+        Apply();
+    }
+
+    private void Apply()
+    {
+        if (started && !opened)
+            Show(StoryCondition.AreMet(conditions));
+    }
+
+    // There or not. Once past Start it comes up out of the grass instead of just being there.
+    private void Show(bool shown)
+    {
+        if (shown == there)
+            return;
+
+        there = shown;
+        StopShowingUp();
+        if (shown && started)
+        {
+            showingUp = StartCoroutine(ShowUp());
+            return;
+        }
+
+        SetThere(shown);
+        if (!shown)
+            ShowPrompt(false);
+    }
+
+    // Seen and solid, or neither.
+    private void SetThere(bool shown)
+    {
+        body.enabled = shown;
+        if (solid != null)
+            solid.enabled = shown;
+    }
+
+    // On the GameClock: Hideshi's lesson, which shows it, is a story event.
+    private IEnumerator ShowUp()
+    {
+        for (float waited = 0f; waited < AppearDelay; waited += GameClock.DeltaTime)
+            yield return null;
+
+        SetThere(true);
+        for (float elapsed = 0f; elapsed < AppearSeconds; elapsed += GameClock.DeltaTime)
+        {
+            float t = elapsed / AppearSeconds;
+            // Ease out with a slight overshoot, then settling at its size.
+            float back = t - 1f;
+            float size = Mathf.LerpUnclamped(0.3f, 1f, 1f + 2.70158f * back * back * back + 1.70158f * back * back);
+            transform.localScale = restScale * size;
+            body.color = new Color(restColor.r, restColor.g, restColor.b, restColor.a * Mathf.Clamp01(t * 2f));
+            yield return null;
+        }
+
+        transform.localScale = restScale;
+        body.color = restColor;
+        showingUp = null;
+    }
+
+    private void StopShowingUp()
+    {
+        if (showingUp == null)
+            return;
+
+        StopCoroutine(showingUp);
+        showingUp = null;
+        transform.localScale = restScale;
+        body.color = restColor;
     }
 
     private void OnValidate()
@@ -88,6 +184,8 @@ public sealed class LootChest : MonoBehaviour
 
     private void OnDestroy()
     {
+        StoryFlagManager.Changed -= Apply;
+        QuestManager.QuestChanged -= ApplyForQuest;
         if (promptRoot != null)
             Destroy(promptRoot.gameObject);
     }
@@ -103,7 +201,7 @@ public sealed class LootChest : MonoBehaviour
 
     private bool CanBeOpened()
     {
-        return !opened && GameStateManager.IsGameplay && InReach();
+        return !opened && there && showingUp == null && GameStateManager.IsGameplay && InReach();
     }
 
     // Measured to the solid part, not the middle: Haru, wide as he is, reaches it from the sides too.
