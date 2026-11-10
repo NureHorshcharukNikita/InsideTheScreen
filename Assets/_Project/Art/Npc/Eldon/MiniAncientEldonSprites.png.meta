@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: ca10ed7d78794061ab55e6e48419a0d3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8638621589056577701
+    second: MiniAncientEldonSprites_0
+  - first:
+      213: -2382328484791621262
+    second: MiniAncientEldonSprites_1
+  - first:
+      213: 5628284914669818702
+    second: MiniAncientEldonSprites_2
+  - first:
+      213: -2757704969121399032
+    second: MiniAncientEldonSprites_4
+  - first:
+      213: 3173022906994592232
+    second: MiniAncientEldonSprites_5
+  - first:
+      213: -8881588167011009273
+    second: MiniAncientEldonSprites_3
+  - first:
+      213: 650060481508987074
+    second: MiniAncientEldonSprites_6
+  - first:
+      213: -6917748964221897711
+    second: MiniAncientEldonSprites_7
+  - first:
+      213: -6319327538932705598
+    second: MiniAncientEldonSprites_8
+  - first:
+      213: -7337889482407765385
+    second: MiniAncientEldonSprites_9
+  - first:
+      213: 1083718192551507206
+    second: MiniAncientEldonSprites_10
+  - first:
+      213: -5148379300868184884
+    second: MiniAncientEldonSprites_11
+  - first:
+      213: 3709256985565987052
+    second: MiniAncientEldonSprites_12
+  - first:
+      213: 5232507626615022281
+    second: MiniAncientEldonSprites_13
+  - first:
+      213: -886244491505897951
+    second: MiniAncientEldonSprites_14
+  - first:
+      213: -8471525365527536857
+    second: MiniAncientEldonSprites_15
+  - first:
+      213: -6618830872663414206
+    second: MiniAncientEldonSprites_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 88.43
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_0
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 921
+        width: 115
+        height: 266
+      alignment: 9
+      pivot: {x: 0.4642, y: 0.0113}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82804417fd7f44fb854212ef73d9ddd0
+      internalID: 8638621589056577701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_1
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 921
+        width: 160
+        height: 266
+      alignment: 9
+      pivot: {x: 0.4957, y: 0.0113}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f7103faeb394934b61e7d92c7d1f994
+      internalID: -2382328484791621262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_2
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 921
+        width: 166
+        height: 266
+      alignment: 9
+      pivot: {x: 0.4678, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 746f171559a1492288d1661e3e1c1eaf
+      internalID: 5628284914669818702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_4
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 625
+        width: 152
+        height: 263
+      alignment: 9
+      pivot: {x: 0.5425, y: 0.0152}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf6f0a4b8c914938babb91dc998f308d
+      internalID: -2757704969121399032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_5
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 628
+        width: 165
+        height: 260
+      alignment: 9
+      pivot: {x: 0.5238, y: 0.0154}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb84a4bea6d948249ea850e97c41af27
+      internalID: 3173022906994592232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_3
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 627
+        width: 130
+        height: 261
+      alignment: 9
+      pivot: {x: 0.4918, y: 0.0153}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cd97a9e1c7740ecb4722c8896f7ac6b
+      internalID: -8881588167011009273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_6
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 343
+        width: 165
+        height: 264
+      alignment: 9
+      pivot: {x: 0.5558, y: 0.0152}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38600d38c618404fbb4e0ca3d0991635
+      internalID: 650060481508987074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_7
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 340
+        width: 166
+        height: 267
+      alignment: 9
+      pivot: {x: 0.5467, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae0e5897f98a4c33878a2cdd386c43cc
+      internalID: -6917748964221897711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_8
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 340
+        width: 166
+        height: 267
+      alignment: 9
+      pivot: {x: 0.5448, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 231d8a9dcba944fdadf8746e5889c89e
+      internalID: -6319327538932705598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_9
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 340
+        width: 166
+        height: 267
+      alignment: 9
+      pivot: {x: 0.5536, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb82e2d422c04cc6828d397550669db7
+      internalID: -7337889482407765385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_10
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 340
+        width: 166
+        height: 267
+      alignment: 9
+      pivot: {x: 0.5459, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19aa944c03704b0fb8b0abcec87558e1
+      internalID: 1083718192551507206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_11
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 56
+        width: 155
+        height: 265
+      alignment: 9
+      pivot: {x: 0.4757, y: 0.0113}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b92b4732a684217aace97f3b8a2a3f5
+      internalID: -5148379300868184884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_12
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 56
+        width: 156
+        height: 265
+      alignment: 9
+      pivot: {x: 0.4786, y: 0.0113}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58a358650f040128f0650f616cbb2d4
+      internalID: 3709256985565987052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_13
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 56
+        width: 161
+        height: 264
+      alignment: 9
+      pivot: {x: 0.4852, y: 0.0114}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a617ba1221574e0e9ffb7500ddc2ac43
+      internalID: 5232507626615022281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_14
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 56
+        width: 159
+        height: 264
+      alignment: 9
+      pivot: {x: 0.4828, y: 0.0114}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c37d08468fb648df8c33b92299cdce38
+      internalID: -886244491505897951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_15
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 56
+        width: 159
+        height: 264
+      alignment: 9
+      pivot: {x: 0.4773, y: 0.0114}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05ab0d28ed5745509e88ffcd4bea2be4
+      internalID: -8471525365527536857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniAncientEldonSprites_16
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 56
+        width: 157
+        height: 264
+      alignment: 9
+      pivot: {x: 0.4797, y: 0.0114}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e7a1a66ceab48cf826368bdfe53b437
+      internalID: -6618830872663414206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fa5e97f5fd4aa3e074a536d01d501ad7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MiniAncientEldonSprites_0: 8638621589056577701
+      MiniAncientEldonSprites_1: -2382328484791621262
+      MiniAncientEldonSprites_10: 1083718192551507206
+      MiniAncientEldonSprites_11: -5148379300868184884
+      MiniAncientEldonSprites_12: 3709256985565987052
+      MiniAncientEldonSprites_13: 5232507626615022281
+      MiniAncientEldonSprites_14: -886244491505897951
+      MiniAncientEldonSprites_15: -8471525365527536857
+      MiniAncientEldonSprites_16: -6618830872663414206
+      MiniAncientEldonSprites_2: 5628284914669818702
+      MiniAncientEldonSprites_3: -8881588167011009273
+      MiniAncientEldonSprites_4: -2757704969121399032
+      MiniAncientEldonSprites_5: 3173022906994592232
+      MiniAncientEldonSprites_6: 650060481508987074
+      MiniAncientEldonSprites_7: -6917748964221897711
+      MiniAncientEldonSprites_8: -6319327538932705598
+      MiniAncientEldonSprites_9: -7337889482407765385
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

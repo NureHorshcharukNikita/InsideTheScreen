@@ -6,7 +6,13 @@ using UnityEngine;
 // moves with physics, so walls and furniture stop him, finds a way around obstacles on a small
 // grid, and jumps next to the player when left far behind (doorways, story teleports). He never
 // bumps into the player. While following, he also fights at the player's side (battleData).
-// While the Stays Behind flag is set he waits where he stood, and Haru fights alone.
+// While the Stays Behind flag is set he waits where he stood, and Haru fights alone. Standing by
+// Haru he looks at him; waiting on his own, he turns ahead after a cutscene or a talk like anyone
+// (StandingFacesAhead).
+// Several companions keep the same distance and never stand inside each other: one
+// standing is in the others' way like furniture, so they stop beside him, and with no room by the
+// player (a narrow passage) one waits behind another instead of pushing into him. They never hide
+// the player from each other.
 [RequireComponent(typeof(NpcCharacter))]
 public sealed class CompanionFollower : MonoBehaviour
 {
@@ -19,6 +25,13 @@ public sealed class CompanionFollower : MonoBehaviour
     private const float RepathPlayerMoveDistance = 0.5f;
     // Staying behind this close to an NPC (about half a screen), he is there for their talk (IsPresentAt).
     private const float PresentDistance = 12f;
+    // Another companion standing this close (feet to feet, about touching) and between him and the
+    // player: he waits behind him.
+    private const float QueueTouchDistance = 1.25f;
+    private const float QueueBehindDot = 0.7f;
+
+    // The companions in the scene, for keeping out of each other's way every physics step.
+    private static readonly List<CompanionFollower> Active = new();
 
     [SerializeField, StoryFlag] private string followAfterStoryFlag = "a1_home_intro";
     [Tooltip("Stays where he is like any other NPC instead of following. Can be switched in Play mode too.")]
@@ -80,6 +93,7 @@ public sealed class CompanionFollower : MonoBehaviour
     private bool stuckRepathDone;
     private float walkAnimationUntil;
     private readonly Dictionary<Collider2D, bool> doorPartCache = new();
+    private readonly Dictionary<Collider2D, CompanionFollower> companionPartCache = new();
 
     public bool IsFollowing => following;
 
@@ -149,6 +163,16 @@ public sealed class CompanionFollower : MonoBehaviour
         obstacleFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
     }
 
+    private void OnEnable()
+    {
+        Active.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        Active.Remove(this);
+    }
+
     private void Update()
     {
         bool wasFollowing = following;
@@ -216,9 +240,11 @@ public sealed class CompanionFollower : MonoBehaviour
         }
 
         bool canSeePlayer = HasLineOfSight(feet, playerFeet);
-        if (walking && distance <= followDistance && canSeePlayer)
+        bool queued = IsQueuedBehindCompanion(feet, playerFeet, distance);
+        if (walking && ((distance <= followDistance && canSeePlayer) || queued))
             StopWalking();
-        else if (!walking && (distance > followDistance + resumeMargin || (distance > followDistance && !canSeePlayer)))
+        else if (!walking && !queued
+            && (distance > followDistance + resumeMargin || (distance > followDistance && !canSeePlayer)))
             StartWalking();
 
         if (!walking)
@@ -252,6 +278,27 @@ public sealed class CompanionFollower : MonoBehaviour
         commandedStep = Mathf.Min(speed * Time.fixedDeltaTime, waypointDistance);
         body.linearVelocity = Vector2.zero;
         body.MovePosition(body.position + moveDirection * commandedStep);
+    }
+
+    // Another companion following too stands right in front of him, between him and the player:
+    // there is no room by the player, so he waits there (and sets off once that one walks on).
+    private bool IsQueuedBehindCompanion(Vector2 feet, Vector2 playerFeet, float distance)
+    {
+        Vector2 toPlayer = (playerFeet - feet).normalized;
+        foreach (CompanionFollower other in Active)
+        {
+            if (other == this || !other.following || other.walking)
+                continue;
+
+            Vector2 otherFeet = other.FeetCenter;
+            Vector2 toOther = otherFeet - feet;
+            if (toOther.magnitude <= QueueTouchDistance
+                && Vector2.Distance(otherFeet, playerFeet) < distance
+                && Vector2.Dot(toOther.normalized, toPlayer) >= QueueBehindDot)
+                return true;
+        }
+
+        return false;
     }
 
     private Vector2 FeetCenter => bodyCollider != null ? (Vector2)bodyCollider.bounds.center : body.position;
@@ -525,7 +572,7 @@ public sealed class CompanionFollower : MonoBehaviour
         int count = Physics2D.Linecast(from, to, obstacleFilter, castResults);
         for (int i = 0; i < count; i++)
         {
-            if (!IsIgnored(castResults[i].collider))
+            if (!IsIgnored(castResults[i].collider, true))
                 return false;
         }
 
@@ -533,10 +580,21 @@ public sealed class CompanionFollower : MonoBehaviour
     }
 
     // Himself, the player, and doors that open on their own when he walks up are not obstacles.
-    private bool IsIgnored(Collider2D other)
+    // Another companion following too never hides the player, and is in the way only standing:
+    // walking, he moves on.
+    private bool IsIgnored(Collider2D other, bool forSight = false)
     {
         if (other == null || ignoredColliders.Contains(other))
             return true;
+
+        if (!companionPartCache.TryGetValue(other, out CompanionFollower companion))
+        {
+            companion = other.GetComponentInParent<CompanionFollower>();
+            companionPartCache[other] = companion;
+        }
+
+        if (companion != null && companion != this && companion.following)
+            return forSight || companion.walking;
 
         if (!doorPartCache.TryGetValue(other, out bool automaticDoor))
         {

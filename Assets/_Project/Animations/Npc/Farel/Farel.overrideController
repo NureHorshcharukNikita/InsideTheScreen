@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Farel
+  m_Controller: {fileID: 9100000, guid: 70f599205bfc5aec0e57833389c344bb, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 2fb9b637bf9303aa530c938dfac0a517, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 15f13d0c002948b5840e7fe6ba0a429a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 17c60255f39033a61cafbed15d08f58b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e83c8eafbc39461791b3e3a7a3e97ea7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b0b1447d96fedc41a86a1672a4da04a1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7f992992ed6a4eee9d55bb23a495a11f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: efd5f3e709a82a7ba63f0400ab8a475c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 54f7b4401e264e25835141c871b20c90, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1ff3a6300dfdaf2748b32bd8afc32c47, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3a6ab717a7f24ef4b6765bcdf9d43fdb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b9981fc00fb8222589e3ee83b888c56a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0a67b8a399f94302b83f2892dfc2196b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2a7ed064cfc4c68a32937c2e058d1520, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f197fd98c3614e579cbeca5d0daefeaa, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 942c73b838664fe8f2b32b2d14813cb9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 528e5eccba994a9499339b302ea182d6, type: 2}

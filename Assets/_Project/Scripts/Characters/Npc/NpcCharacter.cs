@@ -35,6 +35,7 @@ public class NpcCharacter : Character
     {
         base.Awake();
         MapSprite.Apply(gameObject, npcData != null ? npcData.MapSprite : null);
+        StandingFacesAhead.Attach(gameObject);
         RestoreSavedPosition();
 
         StoryFlagManager.Changed += ApplyStoryVisibility;

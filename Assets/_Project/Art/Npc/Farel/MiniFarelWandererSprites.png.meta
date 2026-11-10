@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: aaa35c71320742f1a21c5532992e62dc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8862758099366813113
+    second: MiniFarelWandererSprites_0
+  - first:
+      213: -7927356905803856371
+    second: MiniFarelWandererSprites_1
+  - first:
+      213: 6083685589337171456
+    second: MiniFarelWandererSprites_2
+  - first:
+      213: 2149922736503086844
+    second: MiniFarelWandererSprites_4
+  - first:
+      213: -862304732464067490
+    second: MiniFarelWandererSprites_5
+  - first:
+      213: 855483467706959329
+    second: MiniFarelWandererSprites_3
+  - first:
+      213: 881106396482176152
+    second: MiniFarelWandererSprites_6
+  - first:
+      213: 2150761972975675605
+    second: MiniFarelWandererSprites_7
+  - first:
+      213: -852921069931412032
+    second: MiniFarelWandererSprites_8
+  - first:
+      213: -8703454484225005676
+    second: MiniFarelWandererSprites_9
+  - first:
+      213: -2146979454219467396
+    second: MiniFarelWandererSprites_10
+  - first:
+      213: -7672297277042123395
+    second: MiniFarelWandererSprites_11
+  - first:
+      213: 692422991863407677
+    second: MiniFarelWandererSprites_12
+  - first:
+      213: 2202421188651900191
+    second: MiniFarelWandererSprites_13
+  - first:
+      213: -5284609393340674656
+    second: MiniFarelWandererSprites_14
+  - first:
+      213: 7965954457640273195
+    second: MiniFarelWandererSprites_15
+  - first:
+      213: 3479389675967138659
+    second: MiniFarelWandererSprites_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 84.0
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_0
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 941
+        width: 150
+        height: 260
+      alignment: 9
+      pivot: {x: 0.3467, y: 0.0192}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e365ad0e800e4264945b1f79af138f05
+      internalID: -8862758099366813113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_1
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 941
+        width: 197
+        height: 260
+      alignment: 9
+      pivot: {x: 0.4333, y: 0.0192}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 012ca8219ae546bdbd33965bb139cdd7
+      internalID: -7927356905803856371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_2
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 945
+        width: 195
+        height: 256
+      alignment: 9
+      pivot: {x: 0.4256, y: 0.0117}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ab696410e974cbf83d8dbf3cd83071d
+      internalID: 6083685589337171456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_4
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 665
+        width: 192
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5662, y: 0.0117}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d88b5b367bc948d9aacf537ca8d6890a
+      internalID: 2149922736503086844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_5
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 666
+        width: 202
+        height: 254
+      alignment: 9
+      pivot: {x: 0.5838, y: 0.0157}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b607e449b43941b7aac01ef16a3dc9c8
+      internalID: -862304732464067490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_3
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 661
+        width: 150
+        height: 259
+      alignment: 9
+      pivot: {x: 0.6499, y: 0.0154}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcda52ef5cb9429c8e523d992b594154
+      internalID: 855483467706959329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_6
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 358
+        width: 164
+        height: 270
+      alignment: 9
+      pivot: {x: 0.5989, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ad10d3559f947f7b894840b4603747f
+      internalID: 881106396482176152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_7
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 357
+        width: 161
+        height: 271
+      alignment: 9
+      pivot: {x: 0.6171, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 685f6bd8b3e74d9b87c7f211ea31a3d7
+      internalID: 2150761972975675605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_8
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 357
+        width: 165
+        height: 271
+      alignment: 9
+      pivot: {x: 0.5985, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b56d000434e4ef080fa355d1da7569e
+      internalID: -852921069931412032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_9
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 358
+        width: 163
+        height: 270
+      alignment: 9
+      pivot: {x: 0.6131, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 380729eb06114f02896aeb05e227d7ac
+      internalID: -8703454484225005676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_10
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 357
+        width: 162
+        height: 271
+      alignment: 9
+      pivot: {x: 0.5874, y: 0.0148}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b61df116649a4937b35c923715ad0a1a
+      internalID: -2146979454219467396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_11
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 42
+        width: 134
+        height: 279
+      alignment: 9
+      pivot: {x: 0.4983, y: 0.0108}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50ca667c62254eab8fd939370b9df687
+      internalID: -7672297277042123395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_12
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 46
+        width: 141
+        height: 276
+      alignment: 9
+      pivot: {x: 0.5132, y: 0.0145}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10b8b3a8ceca44b692e81c6b1c66b0b4
+      internalID: 692422991863407677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_13
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 42
+        width: 144
+        height: 280
+      alignment: 9
+      pivot: {x: 0.4943, y: 0.0143}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b92e7628785849fbb8f326998b257990
+      internalID: 2202421188651900191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_14
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 46
+        width: 147
+        height: 275
+      alignment: 9
+      pivot: {x: 0.4968, y: 0.0109}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 394ca480ea444b93a918dfa87fd5a699
+      internalID: -5284609393340674656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_15
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 46
+        width: 146
+        height: 272
+      alignment: 9
+      pivot: {x: 0.4848, y: 0.011}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef5119e9216d49729b9aef5e4b9b9148
+      internalID: 7965954457640273195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniFarelWandererSprites_16
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 42
+        width: 136
+        height: 279
+      alignment: 9
+      pivot: {x: 0.4998, y: 0.0108}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acf68b70b7244e089678b7eab1eb405a
+      internalID: 3479389675967138659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fa5e97f5fd4aa3e074a536d01d501ad7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MiniFarelWandererSprites_0: -8862758099366813113
+      MiniFarelWandererSprites_1: -7927356905803856371
+      MiniFarelWandererSprites_10: -2146979454219467396
+      MiniFarelWandererSprites_11: -7672297277042123395
+      MiniFarelWandererSprites_12: 692422991863407677
+      MiniFarelWandererSprites_13: 2202421188651900191
+      MiniFarelWandererSprites_14: -5284609393340674656
+      MiniFarelWandererSprites_15: 7965954457640273195
+      MiniFarelWandererSprites_16: 3479389675967138659
+      MiniFarelWandererSprites_2: 6083685589337171456
+      MiniFarelWandererSprites_3: 855483467706959329
+      MiniFarelWandererSprites_4: 2149922736503086844
+      MiniFarelWandererSprites_5: -862304732464067490
+      MiniFarelWandererSprites_6: 881106396482176152
+      MiniFarelWandererSprites_7: 2150761972975675605
+      MiniFarelWandererSprites_8: -852921069931412032
+      MiniFarelWandererSprites_9: -8703454484225005676
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
