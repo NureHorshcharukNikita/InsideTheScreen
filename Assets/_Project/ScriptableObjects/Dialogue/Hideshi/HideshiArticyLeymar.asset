@@ -127,7 +127,7 @@ MonoBehaviour:
     text: "Wait..."
     conditions: []
     nextLineIndex: -1
-    endDialogueAfterLine: 1
+    endDialogueAfterLine: 0
     actions: []
     choices: []
   - speakerSide: 0
