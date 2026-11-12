@@ -30,12 +30,9 @@ public static class QuestManager
             wasOpened = false
         });
 
+        // No toast: the quest tracker shows it coming in.
         QuestChanged?.Invoke(quest, QuestStatus.Active);
         QuestStarted?.Invoke(quest);
-
-        if (showNotification)
-            QuestNotificationToast.ShowQuestAdded(quest);
-
         ExplorationPlayerSession.SaveQuestProgress();
 
         // The marked enemy was beaten before anyone asked: done at once.
@@ -48,12 +45,13 @@ public static class QuestManager
 
     public static bool SetStatus(QuestData quest, QuestStatus status)
     {
-        return SetStatusInternal(quest, status, true);
+        return SetStatusInternal(quest, status);
     }
 
+    // Show Notification: its reward shown (in the quest tracker, or a toast); none when skipped.
     public static bool CompleteQuest(QuestData quest, InventoryData inventory = null, bool showNotification = true)
     {
-        if (!SetStatusInternal(quest, QuestStatus.Completed, showNotification))
+        if (!SetStatusInternal(quest, QuestStatus.Completed))
             return false;
 
         inventory ??= ExplorationPlayerSession.RuntimeInventory;
@@ -67,7 +65,7 @@ public static class QuestManager
         return true;
     }
 
-    private static bool SetStatusInternal(QuestData quest, QuestStatus status, bool showNotification)
+    private static bool SetStatusInternal(QuestData quest, QuestStatus status)
     {
         if (quest == null || string.IsNullOrWhiteSpace(quest.QuestKey))
             return false;
@@ -92,12 +90,7 @@ public static class QuestManager
         QuestChanged?.Invoke(quest, status);
 
         if (status == QuestStatus.Completed)
-        {
             QuestCompleted?.Invoke(quest);
-
-            if (showNotification)
-                QuestNotificationToast.ShowQuestCompleted(quest);
-        }
 
         ExplorationPlayerSession.SaveQuestProgress();
         return true;
@@ -163,7 +156,6 @@ public static class QuestManager
             }
 
             QuestProgressChanged?.Invoke(quest);
-            QuestNotificationToast.ShowQuestProgress(quest, progress.progress, quest.TargetCount);
             ExplorationPlayerSession.SaveQuestProgress();
         }
     }
@@ -186,9 +178,48 @@ public static class QuestManager
                 current = status == QuestStatus.Completed ? target : CountCards(quest.TargetCard);
                 current = Math.Min(current, target);
                 return true;
+            case QuestObjectiveType.StoryFlags:
+                current = status == QuestStatus.Completed ? target : Math.Min(quest.TargetFlagsSet, target);
+                return true;
             default:
                 return false;
         }
+    }
+
+    // Something Haru just took counts for an active quest: the quest tracker lights its count up, e.g.
+    // Survival Basics (2/4) for a thing gathered (Story Flags), Heart of the Barrier (1/3) for a card
+    // (Collect Cards).
+    public static void NoteTaken(CardData card, IEnumerable<string> flagsSet)
+    {
+        for (int i = 0; i < KnownQuests.Count; i++)
+        {
+            QuestData quest = KnownQuests[i];
+            if (quest == null || GetStatus(quest) != QuestStatus.Active)
+                continue;
+
+            bool counts = quest.ObjectiveType switch
+            {
+                QuestObjectiveType.CollectCards => card != null && quest.TargetCard == card,
+                QuestObjectiveType.StoryFlags => flagsSet != null && Counts(quest, flagsSet),
+                _ => false
+            };
+            if (counts)
+                QuestProgressChanged?.Invoke(quest);
+        }
+    }
+
+    private static bool Counts(QuestData quest, IEnumerable<string> flags)
+    {
+        foreach (string flag in flags)
+        {
+            foreach (string target in quest.TargetFlags)
+            {
+                if (!string.IsNullOrWhiteSpace(flag) && flag == target)
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     // A Defeat Enemies or Collect Cards quest that is active and has reached its count: time to
@@ -436,7 +467,8 @@ public static class QuestManager
 
         QuestRewardGranted?.Invoke(quest);
 
+        // The quest tracker shows it as the quest goes, or a toast does.
         if (showNotification)
-            QuestNotificationToast.ShowRewardReceived(quest);
+            QuestNotificationToast.NoteRewardReceived(quest);
     }
 }

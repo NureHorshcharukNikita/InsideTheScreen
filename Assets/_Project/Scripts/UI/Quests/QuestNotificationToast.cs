@@ -5,14 +5,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// "New quest: Survival Basics" and the like, in the bottom right corner, one after another. Quests
-// mostly start and end in the middle of a talk or a cutscene: the toasts wait until the player has
-// control again, so they do not slide in under the dialogue box, unread.
+// Hints, and "Reward received" for a reward the quest tracker does not show, in the bottom right
+// corner, one after another. They wait until the player has control again, so they do not slide in
+// under the dialogue box, unread. A quest received or done is not a toast: the quest tracker under
+// the minimap shows it coming in and going, with its reward.
+// Once the first quest of a game has come into the tracker, it asks for one more: "Press J to view
+// your quests", with the key the quest log is bound to in the settings now. Once per game
+// (hint_quest_log_key, saved with the story); not while the quest log has no key.
 public sealed class QuestNotificationToast : MonoBehaviour
 {
-    private const string QuestAddedMessage = "New quest:";
-    private const string QuestCompletedMessage = "Quest completed:";
+    private const string QuestLogHintFlag = "hint_quest_log_key";
     private const string RewardReceivedMessage = "Reward received";
+
+    // Rewards given and not shown yet, by quest (kept over battles: shown back in the world).
+    private static readonly List<QuestData> UntakenRewards = new();
     private static readonly Color PanelColor = new(0.31f, 0.23f, 0.2f, 0.98f);
     private static readonly Color BorderColor = new(0.94f, 0.68f, 0.34f, 1f);
     private static readonly Color TextColor = new(1f, 0.91f, 0.68f, 1f);
@@ -21,12 +27,17 @@ public sealed class QuestNotificationToast : MonoBehaviour
     // As wide as the text needs, the quest's name included, within these.
     private const float MinWidth = 360f;
     private const float MaxWidth = 760f;
-    private const float SlideDuration = 0.22f;
+    // As long as the quest tracker takes to come in.
+    private const float SlideDuration = 0.7f;
     private const float HoldDuration = 3f;
+    // The quest log hint: a little longer, to read the key.
+    private const float HintHoldDuration = 4.5f;
+    private static readonly Color KeyColor = new(1f, 1f, 1f, 1f);
     private const float BetweenToastDelay = 0.28f;
     private const float ExplorationSceneToastDelay = 0.5f;
-    // After a talk or a cutscene, before the first toast: the dialogue box is gone by then.
-    private const float AfterDialogueDelay = 0.4f;
+    // How long the player must have had control on end before a toast comes: the dialogue box is gone
+    // by then, and a talk following right after another has begun.
+    private const float AfterDialogueDelay = 0.5f;
 
     private static QuestNotificationToast instance;
 
@@ -35,7 +46,8 @@ public sealed class QuestNotificationToast : MonoBehaviour
     private Image toastIcon;
     private Coroutine toastCoroutine;
     private Coroutine delayedStartCoroutine;
-    private readonly Queue<ToastPayload> queuedToasts = new();
+    // In order; one cut short by a talk goes back to the front.
+    private readonly List<ToastPayload> queuedToasts = new();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void EnsureAfterSceneLoad()
@@ -43,35 +55,52 @@ public sealed class QuestNotificationToast : MonoBehaviour
         EnsureInstance();
     }
 
-    public static void ShowQuestAdded(QuestData quest)
-    {
-        if (quest == null)
-            return;
+    // Once per game, when the player has seen a quest come into the tracker: the key that opens the
+    // quest log, as it is bound now. Not while it has no key (asked again later, once it has one).
+    public static bool QuestLogHintShown => StoryFlagManager.HasFlag(QuestLogHintFlag);
 
-        EnsureInstance();
-        if (instance != null)
-            instance.Enqueue($"{QuestAddedMessage} {quest.Title}", null);
+    // Past the start of the game already (a later save, a test start further on): not to be shown.
+    public static void SkipQuestLogHint()
+    {
+        StoryFlagManager.SetFlag(QuestLogHintFlag);
     }
 
-    public static void ShowQuestCompleted(QuestData quest)
+    public static void ShowQuestLogHint()
     {
-        if (quest == null)
+        if (QuestLogHintShown || GameInputSettings.GetKey(GameInputAction.Quests) == KeyCode.None)
             return;
 
         EnsureInstance();
-        if (instance != null)
-            instance.Enqueue($"{QuestCompletedMessage} {quest.Title}", null);
+        if (instance == null)
+            return;
+
+        StoryFlagManager.SetFlag(QuestLogHintFlag);
+        string key = GameInputSettings.GetDisplayName(GameInputAction.Quests);
+        instance.Enqueue($"Press <color=#{ColorUtility.ToHtmlStringRGB(KeyColor)}>{key}</color> to view your quests",
+            null, HintHoldDuration);
     }
 
-    // E.g. "Wolf Hunt 2/3" after a battle that counted for a Defeat Enemies quest.
-    public static void ShowQuestProgress(QuestData quest, int current, int target)
+    // A quest's reward was given: the quest tracker shows it in the quest as it goes (TakeReward). One
+    // it does not show (slid away, or the quest was never in it, e.g. done in a battle) comes as a
+    // toast instead (ShowUntakenRewards).
+    public static void NoteRewardReceived(QuestData quest)
     {
-        if (quest == null)
-            return;
+        if (quest != null && !UntakenRewards.Contains(quest))
+            UntakenRewards.Add(quest);
+    }
 
-        EnsureInstance();
-        if (instance != null)
-            instance.Enqueue($"{quest.Title} {current}/{target}", null);
+    // The quest tracker shows this quest's reward itself: no toast for it.
+    public static bool TakeReward(QuestData quest)
+    {
+        return quest != null && UntakenRewards.Remove(quest);
+    }
+
+    public static void ShowUntakenRewards()
+    {
+        foreach (QuestData quest in UntakenRewards)
+            ShowRewardReceived(quest);
+
+        UntakenRewards.Clear();
     }
 
     public static void ShowRewardReceived(QuestData quest)
@@ -172,12 +201,12 @@ public sealed class QuestNotificationToast : MonoBehaviour
         toastRect.gameObject.SetActive(false);
     }
 
-    private void Enqueue(string message, Sprite icon)
+    private void Enqueue(string message, Sprite icon, float hold = HoldDuration)
     {
         if (toastRect == null || toastText == null)
             Build();
 
-        queuedToasts.Enqueue(new ToastPayload(message, icon));
+        queuedToasts.Add(new ToastPayload(message, icon, hold));
         TryStartQueue();
     }
 
@@ -234,28 +263,43 @@ public sealed class QuestNotificationToast : MonoBehaviour
         TryStartQueue();
     }
 
+    // Each toast waits until the player has had control for a moment on end: a talk following right
+    // after another (a quest done, then "Haru, wait a moment") is not a gap to slide in. One cut short by
+    // a talk or a cutscene slides away at once and is shown again, whole, once it is over.
     private IEnumerator AnimateQueuedToasts()
     {
         while (queuedToasts.Count > 0)
         {
-            if (!CanShowNow())
+            float free = 0f;
+            while (free < AfterDialogueDelay)
             {
-                while (!CanShowNow())
-                    yield return null;
-
-                yield return new WaitForGameSeconds(AfterDialogueDelay);
+                free = CanShowNow() ? free + Time.unscaledDeltaTime : 0f;
+                yield return null;
             }
 
-            ToastPayload payload = queuedToasts.Dequeue();
+            ToastPayload payload = queuedToasts[0];
+            queuedToasts.RemoveAt(0);
             Vector2 hidden = Show(payload);
 
             yield return Slide(hidden, VisiblePosition);
-            yield return new WaitForGameSeconds(HoldDuration);
-            yield return Slide(VisiblePosition, hidden);
+            bool cutShort = false;
+            for (float held = 0f; held < payload.Hold; held += Time.unscaledDeltaTime)
+            {
+                if (!CanShowNow())
+                {
+                    cutShort = true;
+                    break;
+                }
 
+                yield return null;
+            }
+
+            yield return Slide(VisiblePosition, hidden);
             toastRect.gameObject.SetActive(false);
 
-            if (queuedToasts.Count > 0)
+            if (cutShort)
+                queuedToasts.Insert(0, payload);
+            else if (queuedToasts.Count > 0)
                 yield return new WaitForGameSeconds(BetweenToastDelay);
         }
 
@@ -285,6 +329,7 @@ public sealed class QuestNotificationToast : MonoBehaviour
         return new Vector2(width + 30f, HiddenPosition.y);
     }
 
+    // In or out from the right, eased at both ends, like the quest tracker.
     private IEnumerator Slide(Vector2 from, Vector2 to)
     {
         float elapsed = 0f;
@@ -293,8 +338,7 @@ public sealed class QuestNotificationToast : MonoBehaviour
         while (elapsed < SlideDuration)
         {
             elapsed += GameClock.DeltaTime;
-            float t = Mathf.Clamp01(elapsed / SlideDuration);
-            t = 1f - Mathf.Pow(1f - t, 3f);
+            float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / SlideDuration));
             toastRect.anchoredPosition = Vector2.LerpUnclamped(from, to, t);
             yield return null;
         }
@@ -325,13 +369,16 @@ public sealed class QuestNotificationToast : MonoBehaviour
 
     private readonly struct ToastPayload
     {
-        public ToastPayload(string message, Sprite icon)
+        public ToastPayload(string message, Sprite icon, float hold)
         {
             Message = message;
             Icon = icon;
+            Hold = hold;
         }
 
         public readonly string Message;
         public readonly Sprite Icon;
+        // How long it stays in sight, in seconds.
+        public readonly float Hold;
     }
 }

@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: c2fe7e862fc54bffbb5072100e27c2c2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2113578668716809357
+    second: MiniPlayerNoBagsSprites_0
+  - first:
+      213: 3973567540950506814
+    second: MiniPlayerNoBagsSprites_1
+  - first:
+      213: 2111443910698912683
+    second: MiniPlayerNoBagsSprites_2
+  - first:
+      213: 8028841605346603087
+    second: MiniPlayerNoBagsSprites_3
+  - first:
+      213: 5248150132333350978
+    second: MiniPlayerNoBagsSprites_4
+  - first:
+      213: -8928098029916397691
+    second: MiniPlayerNoBagsSprites_5
+  - first:
+      213: -7948509487323212119
+    second: MiniPlayerNoBagsSprites_6
+  - first:
+      213: -5306497524097997483
+    second: MiniPlayerNoBagsSprites_7
+  - first:
+      213: 348084525108451591
+    second: MiniPlayerNoBagsSprites_8
+  - first:
+      213: 7535580227120967091
+    second: MiniPlayerNoBagsSprites_9
+  - first:
+      213: -1947052977973628984
+    second: MiniPlayerNoBagsSprites_10
+  - first:
+      213: -3480554288287306055
+    second: MiniPlayerNoBagsSprites_11
+  - first:
+      213: -1477183448534165237
+    second: MiniPlayerNoBagsSprites_12
+  - first:
+      213: 378217889588608549
+    second: MiniPlayerNoBagsSprites_13
+  - first:
+      213: -111575521179294396
+    second: MiniPlayerNoBagsSprites_14
+  - first:
+      213: 9216914959390576895
+    second: MiniPlayerNoBagsSprites_15
+  - first:
+      213: 4724688272863509639
+    second: MiniPlayerNoBagsSprites_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 89.6
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_0
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 992
+        width: 109
+        height: 267
+      alignment: 9
+      pivot: {x: 0.4941, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93dec9e581ac430eb1f671b7862f435c
+      internalID: 2113578668716809357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_1
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 997
+        width: 144
+        height: 258
+      alignment: 9
+      pivot: {x: 0.4733, y: 0.0155}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd5d879bc5414c128d6fdc78ce389dab
+      internalID: 3973567540950506814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_2
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 1001
+        width: 144
+        height: 258
+      alignment: 9
+      pivot: {x: 0.4949, y: 0.0116}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29bc6fbd6dbe442fb0e13e75bae8d198
+      internalID: 2111443910698912683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_3
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 687
+        width: 145
+        height: 260
+      alignment: 9
+      pivot: {x: 0.5111, y: 0.0115}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d1d2d956c564f1598a57de958669f97
+      internalID: 8028841605346603087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_4
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 691
+        width: 137
+        height: 259
+      alignment: 9
+      pivot: {x: 0.4987, y: 0.0116}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 730d5bb3db9345ccafaea5f16411515b
+      internalID: 5248150132333350978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_5
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 681
+        width: 109
+        height: 266
+      alignment: 9
+      pivot: {x: 0.5136, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af076296b17e4b1d95041bf9f7c3d182
+      internalID: -8928098029916397691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_6
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 372
+        width: 134
+        height: 273
+      alignment: 9
+      pivot: {x: 0.4966, y: 0.0147}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83021eb20fbd4ceb8bd0dcae89b76b08
+      internalID: -7948509487323212119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_7
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 369
+        width: 136
+        height: 273
+      alignment: 9
+      pivot: {x: 0.4843, y: 0.011}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56c0709a257041788f1df0bffab2dd79
+      internalID: -5306497524097997483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_8
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 369
+        width: 133
+        height: 272
+      alignment: 9
+      pivot: {x: 0.5025, y: 0.011}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abf30a82ca1b44bab6e0acb4125b7aa2
+      internalID: 348084525108451591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_9
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 366
+        width: 130
+        height: 276
+      alignment: 9
+      pivot: {x: 0.4896, y: 0.0145}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2c879f118804a6a8b368f412fda2e74
+      internalID: 7535580227120967091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_10
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 362
+        width: 131
+        height: 276
+      alignment: 9
+      pivot: {x: 0.4959, y: 0.0145}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afafc7819133428784b2b378285de2da
+      internalID: -1947052977973628984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_11
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 71
+        width: 122
+        height: 253
+      alignment: 9
+      pivot: {x: 0.4946, y: 0.0158}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c38026ac63b3464aa65ab3f3d7086723
+      internalID: -3480554288287306055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_12
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 66
+        width: 119
+        height: 252
+      alignment: 9
+      pivot: {x: 0.4789, y: 0.0159}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f27b41da581499cb0da5f9343ee4dfc
+      internalID: -1477183448534165237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_13
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 66
+        width: 128
+        height: 253
+      alignment: 9
+      pivot: {x: 0.5079, y: 0.0158}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e74f7274cb442ac84ab46b22c9803b9
+      internalID: 378217889588608549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_14
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 66
+        width: 124
+        height: 252
+      alignment: 9
+      pivot: {x: 0.5151, y: 0.0159}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3e70f1ce9424fcc92db29496ee5dc6f
+      internalID: -111575521179294396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_15
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 64
+        width: 127
+        height: 252
+      alignment: 9
+      pivot: {x: 0.5004, y: 0.0159}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5a0eb2b2e6d46dfbfe57f23e137d135
+      internalID: 9216914959390576895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerNoBagsSprites_16
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 59
+        width: 124
+        height: 253
+      alignment: 9
+      pivot: {x: 0.4875, y: 0.0158}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd2e0dfac620412da01e501f4939e2d0
+      internalID: 4724688272863509639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5d1d0697c9ec5eb44aa7e5c6f854ef15
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MiniPlayerNoBagsSprites_0: 2113578668716809357
+      MiniPlayerNoBagsSprites_1: 3973567540950506814
+      MiniPlayerNoBagsSprites_10: -1947052977973628984
+      MiniPlayerNoBagsSprites_11: -3480554288287306055
+      MiniPlayerNoBagsSprites_12: -1477183448534165237
+      MiniPlayerNoBagsSprites_13: 378217889588608549
+      MiniPlayerNoBagsSprites_14: -111575521179294396
+      MiniPlayerNoBagsSprites_15: 9216914959390576895
+      MiniPlayerNoBagsSprites_16: 4724688272863509639
+      MiniPlayerNoBagsSprites_2: 2111443910698912683
+      MiniPlayerNoBagsSprites_3: 8028841605346603087
+      MiniPlayerNoBagsSprites_4: 5248150132333350978
+      MiniPlayerNoBagsSprites_5: -8928098029916397691
+      MiniPlayerNoBagsSprites_6: -7948509487323212119
+      MiniPlayerNoBagsSprites_7: -5306497524097997483
+      MiniPlayerNoBagsSprites_8: 348084525108451591
+      MiniPlayerNoBagsSprites_9: 7535580227120967091
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

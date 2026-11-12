@@ -7,14 +7,19 @@ using Object = UnityEngine.Object;
 // Brings the story up to a point as if it had been played there (Debug Test Start). For a story
 // flag, the event or the talk that sets it is skipped instead of played, so the quests it starts
 // and completes, their rewards and its other flags come with it. What that event or talk waits
-// for (an earlier flag, a quest that must be active or done) is reached the same way first, so
-// the last flag alone brings everything before it. A flag set by picking something up (ForageSpot)
+// for (an earlier flag, a quest that must be active or done) is reached the same way first; so is
+// every flag of the main line before it (StoryFlagOrder.txt, the numbered ones), in order, even
+// one nothing after it waits for. So the last flag alone brings everything before it; side flags
+// ("-") and states ("*") only when something waits for them. A flag set by picking something up (ForageSpot)
 // comes with the thing picked up, card and all. Before a quest is completed it is started and
 // the events that happen while it is active (the places it sends the player to) are skipped too.
 // A quest nothing in the scene starts or completes (a battle quest) is set directly. Battles and
 // shops are left out.
 public sealed class StoryShortcut
 {
+    private const string OrderFile = "Assets/_Project/Scripts/Editor/Inspectors/StoryFlagOrder.txt";
+
+    private readonly List<string> mainLine = ReadMainLine();
     private readonly List<StoryEvent> events = new();
     private readonly List<NpcCharacter> npcs = new();
     private readonly List<ForageSpot> spots = new();
@@ -39,6 +44,11 @@ public sealed class StoryShortcut
         if (string.IsNullOrWhiteSpace(flag) || StoryFlagManager.HasFlag(flag) || !reached.Add("flag " + flag))
             return;
 
+        // A step of the main line comes only after all those before it.
+        int place = mainLine.IndexOf(flag);
+        for (int i = 0; i < place; i++)
+            ReachFlag(mainLine[i]);
+
         StoryEvent setter = events.Find(storyEvent => storyEvent.DoneFlag == flag);
         ForageSpot gathered = spots.Find(spot => spot.SetsFlag(flag));
         if (setter != null)
@@ -49,6 +59,30 @@ public sealed class StoryShortcut
             SkipWhatDoes(action => action.type == DialogueActionType.SetStoryFlag && action.storyFlag == flag);
 
         StoryFlagManager.SetFlag(flag);
+    }
+
+    // The main line's flags in story order, as StoryFlagOrder.txt has them (as StoryFlagDrawer reads
+    // it): the plain lines, not side flags ("-"), states ("*"), chapters ("##") or notes ("#").
+    private static List<string> ReadMainLine()
+    {
+        List<string> flags = new();
+        if (!System.IO.File.Exists(OrderFile))
+            return flags;
+
+        foreach (string raw in System.IO.File.ReadAllLines(OrderFile))
+        {
+            string line = raw.Trim();
+            int note = line.IndexOf('#');
+            if (note >= 0)
+                line = line.Substring(0, note).Trim();
+
+            if (line.Length == 0 || line[0] is '-' or '*')
+                continue;
+
+            flags.Add(line.Split(' ', '\t')[0]);
+        }
+
+        return flags;
     }
 
     // Active, or also completed: by the event or the talk that does it, else directly.

@@ -47,6 +47,8 @@ public sealed class QuestPageView : MonoBehaviour
 
     private readonly List<QuestListItemView> itemViews = new();
     private readonly List<QuestRewardItemView> rewardItemViews = new();
+    // Objective rows after the first, cloned from it: one per step reached.
+    private readonly List<(GameObject row, TMP_Text label, Image box)> objectiveRows = new();
     private readonly List<QuestData> receivedQuests = new();
     private int selectedIndex = NoSelectionIndex;
 
@@ -79,7 +81,9 @@ public sealed class QuestPageView : MonoBehaviour
         BuildList();
     }
 
-    private void BuildList()
+    // From the top when the page opens or gets new quests; kept where it was scrolled to when a
+    // quest changes while it is open.
+    private void BuildList(bool fromTop = true)
     {
         RefreshReceivedQuests();
 
@@ -137,7 +141,8 @@ public sealed class QuestPageView : MonoBehaviour
         else
             ShowQuest(selectedIndex);
 
-        ResetScrolls();
+        if (fromTop)
+            ResetScrolls();
     }
 
     private void SelectQuest(int index)
@@ -189,7 +194,8 @@ public sealed class QuestPageView : MonoBehaviour
         ApplyRewards(quest);
 
         RebuildDetailsLayout();
-        ResetScrolls();
+        // Only the details: the list stays where it was scrolled to, e.g. down to the quest picked.
+        ResetDetailsScroll();
     }
 
     private void ShowEmptyDetails()
@@ -298,11 +304,16 @@ public sealed class QuestPageView : MonoBehaviour
 
     private void ResetScrolls()
     {
-        if (detailsScroll != null)
-            detailsScroll.verticalNormalizedPosition = 1f;
+        ResetDetailsScroll();
 
         if (listScroll != null)
             listScroll.verticalNormalizedPosition = 1f;
+    }
+
+    private void ResetDetailsScroll()
+    {
+        if (detailsScroll != null)
+            detailsScroll.verticalNormalizedPosition = 1f;
     }
 
     private void RebuildDetailsLayout()
@@ -322,7 +333,7 @@ public sealed class QuestPageView : MonoBehaviour
 
     private void HandleQuestChanged(QuestData quest, QuestStatus status)
     {
-        BuildList();
+        BuildList(false);
     }
 
     private void ApplyStatus(QuestStatus status)
@@ -352,6 +363,9 @@ public sealed class QuestPageView : MonoBehaviour
         };
     }
 
+    // Every stage reached so far, one row per step, the oldest at the top: done ones ticked and greyed,
+    // the stage under way below them; the stages still to come are not shown. A completed quest shows
+    // all of them ticked. The count goes on the step it belongs to.
     private void ApplyObjective(QuestData quest, QuestStatus status)
     {
         bool completed = status == QuestStatus.Completed;
@@ -359,16 +373,70 @@ public sealed class QuestPageView : MonoBehaviour
         if (objectivesRoot != null)
             objectivesRoot.SetActive(true);
 
-        if (objectiveText != null)
+        if (objectiveText == null)
+            return;
+
+        string count = QuestManager.TryGetObjectiveProgress(quest, out int current, out int target)
+            ? $" ({current}/{target})"
+            : string.Empty;
+
+        int used = 0;
+        IReadOnlyList<QuestStep> steps = quest.Steps;
+        if (steps == null || steps.Count == 0)
         {
-            objectiveText.text = QuestManager.TryGetObjectiveProgress(quest, out int current, out int target)
-                ? $"{quest.ObjectiveLabel} ({current}/{target})"
-                : quest.ObjectiveLabel;
-            objectiveText.color = completed ? CompletedObjectiveColor : DetailsTextColor;
+            SetObjectiveRow(used++, quest.ObjectiveLabel + count, completed);
+        }
+        else
+        {
+            int reached = completed ? quest.StageCount - 1 : quest.CurrentStage;
+            for (int i = 0; i < steps.Count; i++)
+            {
+                if (steps[i] == null || string.IsNullOrWhiteSpace(steps[i].label) || quest.StageOf(i) > reached)
+                    continue;
+
+                SetObjectiveRow(used++, steps[i].label + (quest.StepShowsCount(i) ? count : string.Empty),
+                    completed || quest.IsStepDone(i));
+            }
         }
 
-        if (objectiveCheckbox != null)
-            objectiveCheckbox.sprite = completed ? checkedObjectiveSprite : uncheckedObjectiveSprite;
+        for (int i = Mathf.Max(1, used); i <= objectiveRows.Count; i++)
+            objectiveRows[i - 1].row.SetActive(false);
+    }
+
+    // The first row is the one in the window; the others are cloned beside it, in order.
+    private void SetObjectiveRow(int index, string text, bool done)
+    {
+        Transform firstRow = objectiveText.transform.parent;
+        TMP_Text label = objectiveText;
+        Image box = objectiveCheckbox;
+        if (index > 0)
+        {
+            while (objectiveRows.Count < index)
+            {
+                GameObject row = Instantiate(firstRow.gameObject, firstRow.parent);
+                row.name = firstRow.name;
+                objectiveRows.Add((row,
+                    row.transform.GetChild(objectiveText.transform.GetSiblingIndex()).GetComponent<TMP_Text>(),
+                    objectiveCheckbox != null
+                        ? row.transform.GetChild(objectiveCheckbox.transform.GetSiblingIndex()).GetComponent<Image>()
+                        : null));
+            }
+
+            var clone = objectiveRows[index - 1];
+            clone.row.SetActive(true);
+            clone.row.transform.SetSiblingIndex(firstRow.GetSiblingIndex() + index);
+            label = clone.label;
+            box = clone.box;
+        }
+
+        if (label != null)
+        {
+            label.text = text;
+            label.color = done ? CompletedObjectiveColor : DetailsTextColor;
+        }
+
+        if (box != null)
+            box.sprite = done ? checkedObjectiveSprite : uncheckedObjectiveSprite;
     }
 
     private void ApplyRewards(QuestData quest)

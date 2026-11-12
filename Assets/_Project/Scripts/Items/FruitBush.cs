@@ -7,7 +7,8 @@ using UnityEngine;
 // never before his eyes; until then it stays picked, also after a reload. It can be picked only
 // while its conditions are met, e.g. the apple bush of Survival Basics once the quest's apple is
 // off it (ForageSpot has it before that), or any bush only after Hideshi has shown Haru how to
-// gather (a1_ground_lesson). Haru reaches for the middle of the bush, from any side.
+// gather (a1_ground_lesson). Haru reaches for the middle of the bush, from any side. Picking it sets
+// its story flags, e.g. a1_gathered_first: berries off a bush are a find like the quest's things.
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class FruitBush : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public sealed class FruitBush : MonoBehaviour
     [SerializeField, Min(30f)] private float regrowSeconds = 300f;
     [Tooltip("It can be picked only while all of them are met. Empty = always.")]
     [SerializeField] private List<StoryCondition> conditions = new();
+    [Tooltip("Set each time it is picked, e.g. a1_gathered_first for Haru's first find. Empty = none.")]
+    [SerializeField] private List<string> flagsWhenTaken = new();
     [Tooltip("The word on the prompt.")]
     [SerializeField] private string action = "Gather";
     [Tooltip("The prompt shown over the bush in reach (DoorwayPrompt).")]
@@ -129,6 +132,7 @@ public sealed class FruitBush : MonoBehaviour
         fruit = null;
         if (bareSprite != null)
             look.sprite = bareSprite;
+        ForageSpot.SetTakenFlags(flagsWhenTaken);
         StartCoroutine(ForageSpot.Rustle(transform));
     }
 

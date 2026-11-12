@@ -25,32 +25,13 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "But the barrier still needs the dust from the crossroads stone."
+    text: "But the barrier still needs the dust. Look for where it glitters."
     conditions:
     - type: 1
       storyFlag: 
       quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
       questStatus: 1
       invert: 0
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: "And my letter is still waiting for Garr."
-    conditions:
-    - type: 1
-      storyFlag: 
-      quest: {fileID: 11400000, guid: ef021cc4b7414e6fa16bfe4c00a826a1, type: 2}
-      questStatus: 1
-      invert: 0
-    - type: 0
-      storyFlag: a1_letter_delivered
-      quest: {fileID: 0}
-      questStatus: 1
-      invert: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []

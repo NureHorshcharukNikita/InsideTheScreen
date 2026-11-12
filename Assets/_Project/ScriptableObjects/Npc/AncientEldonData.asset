@@ -206,30 +206,6 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       questStatus: 2
       invert: 0
-    - type: 1
-      storyFlag: 
-      quest: {fileID: 11400000, guid: ef021cc4b7414e6fa16bfe4c00a826a1, type: 2}
-      questStatus: 2
-      invert: 0
-  - key: eldon_letter_done
-    dialogue: {fileID: 11400000, guid: 5d3e7a598e824a1db4efeb259f977425, type: 2}
-    repeatable: 0
-    needsCompanion: 1
-    talkTiming: 0
-    conversationNumber: 1
-    rangeStartConversation: 1
-    rangeEndConversation: 0
-    conditions:
-    - type: 1
-      storyFlag: 
-      quest: {fileID: 11400000, guid: ef021cc4b7414e6fa16bfe4c00a826a1, type: 2}
-      questStatus: 1
-      invert: 0
-    - type: 0
-      storyFlag: a1_letter_delivered
-      quest: {fileID: 0}
-      questStatus: 1
-      invert: 0
   - key: eldon_barrier_done
     dialogue: {fileID: 11400000, guid: f49c52fb1a82ca45ccf69dc1129c5d32, type: 2}
     repeatable: 0

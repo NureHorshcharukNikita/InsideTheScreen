@@ -84,25 +84,6 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: bf7ee36f62767e17c74411adc890bcae, type: 2}
       questStatus: 2
       invert: 0
-  - key: garr_letter
-    dialogue: {fileID: 11400000, guid: 7cf9ce9cd5084596961515d5caadd10a, type: 2}
-    repeatable: 0
-    needsCompanion: 1
-    talkTiming: 0
-    conversationNumber: 1
-    rangeStartConversation: 1
-    rangeEndConversation: 0
-    conditions:
-    - type: 1
-      storyFlag: 
-      quest: {fileID: 11400000, guid: ef021cc4b7414e6fa16bfe4c00a826a1, type: 2}
-      questStatus: 1
-      invert: 0
-    - type: 0
-      storyFlag: a1_letter_delivered
-      quest: {fileID: 0}
-      questStatus: 1
-      invert: 1
   - key: garr_hand_done
     dialogue: {fileID: 11400000, guid: 1f457838bffd446abe6b7f6bb9e1d77e, type: 2}
     repeatable: 0

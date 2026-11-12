@@ -9,7 +9,8 @@ public sealed class QuestDataEditor : UnityEditor.Editor
         new GUIContent("Dialogue / Script"),
         new GUIContent("Defeat Encounter"),
         new GUIContent("Defeat Enemies"),
-        new GUIContent("Collect Cards")
+        new GUIContent("Collect Cards"),
+        new GUIContent("Story Flags")
     };
 
     private static readonly int[] ObjectiveValues =
@@ -17,7 +18,8 @@ public sealed class QuestDataEditor : UnityEditor.Editor
         (int)QuestObjectiveType.Manual,
         (int)QuestObjectiveType.DefeatEncounter,
         (int)QuestObjectiveType.DefeatEnemies,
-        (int)QuestObjectiveType.CollectCards
+        (int)QuestObjectiveType.CollectCards,
+        (int)QuestObjectiveType.StoryFlags
     };
 
     private SerializedProperty questKeyProp;
@@ -31,6 +33,8 @@ public sealed class QuestDataEditor : UnityEditor.Editor
     private SerializedProperty targetEnemyProp;
     private SerializedProperty targetCardProp;
     private SerializedProperty targetCountProp;
+    private SerializedProperty targetFlagsProp;
+    private SerializedProperty stepsProp;
     private SerializedProperty rewardsProp;
 
     private void OnEnable()
@@ -49,6 +53,8 @@ public sealed class QuestDataEditor : UnityEditor.Editor
         targetEnemyProp = serializedObject.FindProperty("targetEnemy");
         targetCardProp = serializedObject.FindProperty("targetCard");
         targetCountProp = serializedObject.FindProperty("targetCount");
+        targetFlagsProp = serializedObject.FindProperty("targetFlags");
+        stepsProp = serializedObject.FindProperty("steps");
         rewardsProp = serializedObject.FindProperty("rewards");
     }
 
@@ -113,6 +119,25 @@ public sealed class QuestDataEditor : UnityEditor.Editor
                     "Quest Objective Done condition, and its Complete Quest action takes the cards.",
                     MessageType.None);
                 break;
+            case QuestObjectiveType.StoryFlags:
+                EditorGUILayout.PropertyField(targetFlagsProp, new GUIContent("Flags"), true);
+                EditorGUILayout.HelpBox(
+                    "Counts the flags set, e.g. the things gathered for Survival Basics (2/4). The quest " +
+                    "is completed by a dialogue or a story event, e.g. the one showing them to the giver.",
+                    MessageType.None);
+                break;
+        }
+
+        EditorGUILayout.PropertyField(stepsProp, new GUIContent("Steps"), true);
+        if (stepsProp.arraySize > 0)
+        {
+            EditorGUILayout.HelpBox(
+                "Steps instead of Objective Label, one stage after another. A step is done once its flag " +
+                "is set, or, without a flag, once the count is reached (never in the last stage: the quest " +
+                "is completed instead). With Previous puts a step in the stage of the one before it: done " +
+                "at once, in any order. The quest tracker shows the stage under way; the quest log every " +
+                "stage reached, the oldest at the top.",
+                MessageType.None);
         }
     }
 

@@ -8,8 +8,11 @@ public static class InventoryCounters
         InventoryData storage,
         DeckData deck)
     {
+        // Before Haru has his bags: his pockets in use (Pockets).
         int inventoryCount = storage.Cards.Count;
-        inventoryText.text = $"{inventoryCount}/60";
+        inventoryText.text = Pockets.AreLimited
+            ? $"{Pockets.Used(storage)}/{Pockets.Count}"
+            : $"{inventoryCount}/60";
 
         if (deck != null)
         {

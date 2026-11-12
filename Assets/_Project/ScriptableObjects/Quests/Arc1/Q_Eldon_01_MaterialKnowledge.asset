@@ -18,7 +18,7 @@ MonoBehaviour:
   description: Eldon gave you the recipe for the Echo Crystal. Garr the blacksmith will know which materials it needs.
   status: 0
   objectiveType: 0
-  objectiveLabel: Show the Echo Crystal recipe to Garr
+  objectiveLabel: Show Eldon's recipe to Garr at the forge
   targetEncounterId: 
   rewards:
   - type: 1

@@ -17,10 +17,11 @@ MonoBehaviour:
   - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Good.", nextLineIndex: -1}
   - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Can you feel it? The air is a little lighter now.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "...Not really.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Ancient Eldon, text: "You will. Here, for your trouble. Even strangers need coin in Leymar.", nextLineIndex: -1}
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "You will. Take this as thanks. Knowledge is the only coin I trust."
+    text: "And this. Knowledge is the only coin I trust."
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:

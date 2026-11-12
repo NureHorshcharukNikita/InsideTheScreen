@@ -28,6 +28,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 366605077096279255, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5361005518021097031}
+    - targetCorrespondingSourceObject: {fileID: 366605077096279255, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8623068698072073835}
   m_SourcePrefab: {fileID: 100100000, guid: 6078bac92639455ebd8f7b94b3057eb9, type: 3}
 --- !u!1 &2538070006598882795 stripped
 GameObject:
@@ -121,3 +124,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
 
+--- !u!114 &8623068698072073835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2538070006598882795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7bd434259c4711a4484da0a3d5b2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryLook
+  profile: {fileID: 11400000, guid: 6ab36fdbc77e493ab4c9071ea094fbc4, type: 2}
+  animatorBefore: {fileID: 22100000, guid: 3ad94a618fd44980ac77676a07a39abb, type: 2}
+  spriteBefore: {fileID: 0}

@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: a3840e82bb534501ae7b0fbfba2436dc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6628721754456064710
+    second: MiniPlayerPutOnBags_0
+  - first:
+      213: -9161659725654641873
+    second: MiniPlayerPutOnBags_1
+  - first:
+      213: -2736613551654412419
+    second: MiniPlayerPutOnBags_2
+  - first:
+      213: -640877478382960338
+    second: MiniPlayerPutOnBags_3
+  - first:
+      213: 2893005392289999503
+    second: MiniPlayerPutOnBags_4
+  - first:
+      213: 2303426609654045777
+    second: MiniPlayerPutOnBags_5
+  - first:
+      213: -8277096704860118316
+    second: MiniPlayerPutOnBags_6
+  - first:
+      213: -2193013440410866493
+    second: MiniPlayerPutOnBags_7
+  - first:
+      213: -5032110463747266105
+    second: MiniPlayerPutOnBags_8
+  - first:
+      213: 7668507916157380503
+    second: MiniPlayerPutOnBags_9
+  - first:
+      213: 5454283657396375278
+    second: MiniPlayerPutOnBags_10
+  - first:
+      213: 2390745262414875647
+    second: MiniPlayerPutOnBags_11
+  - first:
+      213: 9174543101624029686
+    second: MiniPlayerPutOnBags_12
+  - first:
+      213: 662642922967747273
+    second: MiniPlayerPutOnBags_13
+  - first:
+      213: 5058298002517082048
+    second: MiniPlayerPutOnBags_14
+  - first:
+      213: 140202278727843495
+    second: MiniPlayerPutOnBags_15
+  - first:
+      213: 3633779120184762272
+    second: MiniPlayerPutOnBags_16
+  - first:
+      213: 5439031193449960038
+    second: MiniPlayerPutOnBags_17
+  - first:
+      213: -5841249787021812247
+    second: MiniPlayerPutOnBags_18
+  - first:
+      213: -8856997655435217989
+    second: MiniPlayerPutOnBags_19
+  - first:
+      213: -254070657280302372
+    second: MiniPlayerPutOnBags_20
+  - first:
+      213: 6280910017887478738
+    second: MiniPlayerPutOnBags_21
+  - first:
+      213: 7750097495592397047
+    second: MiniPlayerPutOnBags_22
+  - first:
+      213: 5894730717859741764
+    second: MiniPlayerPutOnBags_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 79.87
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 740df019dafc4f76bbd67c0e14d13a98
+      internalID: -6628721754456064710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 438cf74932634e46a5eab1336c4f6a46
+      internalID: -9161659725654641873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f47def4b475349faa9c9204323e6bccc
+      internalID: -2736613551654412419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7be3cfa7c004308ac751514c15a913c
+      internalID: -640877478382960338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0314345ef48941c8947ec5a46f438ced
+      internalID: 2893005392289999503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_5
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 129ac2804bcc4edcbcd16963ef268a62
+      internalID: 2303426609654045777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 804c8b7c576d42d19ad231f67378df21
+      internalID: -8277096704860118316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_7
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91f9a158bca3490faeb2fd3d8778693a
+      internalID: -2193013440410866493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6af07c1c3404c519518a4ef0bb360d6
+      internalID: -5032110463747266105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_9
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b247597393be45738522ba641fcfe7e2
+      internalID: 7668507916157380503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_10
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f2c782c2b0140bca90005b90c98adc1
+      internalID: 5454283657396375278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_11
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 512
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e3d7dae8d92485c8a9441625024b1df
+      internalID: 2390745262414875647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20c3fa201b1c4c9d97c810cd6b17cd86
+      internalID: 9174543101624029686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_13
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5709cfa7b1204cf6a60f0492a1771f35
+      internalID: 662642922967747273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_14
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eff7f537fd1a4edf94aa900f48824f32
+      internalID: 5058298002517082048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_15
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4525965d861144d1b7c85a6c47627ce0
+      internalID: 140202278727843495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_16
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd9fc157e3d34a0abf8cf5d2f5cca539
+      internalID: 3633779120184762272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_17
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7837a80078c4e33a257aef62ab18907
+      internalID: 5439031193449960038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb760f614b7f469ca40a6f2a504bc663
+      internalID: -5841249787021812247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_19
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 194d549fff194892baa2f9e43513be93
+      internalID: -8856997655435217989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_20
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 587ea08cf7004319ba49f69be6731108
+      internalID: -254070657280302372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_21
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d53243ca4e544cb3a32e0565ee61113d
+      internalID: 6280910017887478738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_22
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d949e6b80d6e41659c9df45e3425ef2b
+      internalID: 7750097495592397047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniPlayerPutOnBags_23
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5156, y: 0.0469}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cccf5262daf46be8239003b0fa74150
+      internalID: 5894730717859741764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5d1d0697c9ec5eb44aa7e5c6f854ef15
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MiniPlayerPutOnBags_0: -6628721754456064710
+      MiniPlayerPutOnBags_1: -9161659725654641873
+      MiniPlayerPutOnBags_10: 5454283657396375278
+      MiniPlayerPutOnBags_11: 2390745262414875647
+      MiniPlayerPutOnBags_12: 9174543101624029686
+      MiniPlayerPutOnBags_13: 662642922967747273
+      MiniPlayerPutOnBags_14: 5058298002517082048
+      MiniPlayerPutOnBags_15: 140202278727843495
+      MiniPlayerPutOnBags_16: 3633779120184762272
+      MiniPlayerPutOnBags_17: 5439031193449960038
+      MiniPlayerPutOnBags_18: -5841249787021812247
+      MiniPlayerPutOnBags_19: -8856997655435217989
+      MiniPlayerPutOnBags_2: -2736613551654412419
+      MiniPlayerPutOnBags_20: -254070657280302372
+      MiniPlayerPutOnBags_21: 6280910017887478738
+      MiniPlayerPutOnBags_22: 7750097495592397047
+      MiniPlayerPutOnBags_23: 5894730717859741764
+      MiniPlayerPutOnBags_3: -640877478382960338
+      MiniPlayerPutOnBags_4: 2893005392289999503
+      MiniPlayerPutOnBags_5: 2303426609654045777
+      MiniPlayerPutOnBags_6: -8277096704860118316
+      MiniPlayerPutOnBags_7: -2193013440410866493
+      MiniPlayerPutOnBags_8: -5032110463747266105
+      MiniPlayerPutOnBags_9: 7668507916157380503
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

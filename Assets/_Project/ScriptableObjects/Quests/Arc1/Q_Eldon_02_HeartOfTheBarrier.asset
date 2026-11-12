@@ -15,7 +15,7 @@ MonoBehaviour:
   questKey: a1_heart_of_the_barrier
   title: Heart of the Barrier
   giverName: Ancient Eldon
-  description: "The barrier that protects Leymar is growing weak. Eldon needs dust from the old standing stone at the crossroads, south of his tower, to strengthen it."
+  description: "The barrier that protects Leymar is growing weak. The old standing stone at the crossroads has been shedding its dust, and the wind has carried it about the village. Eldon needs three handfuls to strengthen the barrier."
   status: 0
   objectiveType: 3
   objectiveLabel: "Bring Eldon three handfuls of dust from the crossroads stone"
@@ -23,6 +23,11 @@ MonoBehaviour:
   targetEnemy: {fileID: 0}
   targetCard: {fileID: 11400000, guid: 110733b7e7d74b84933f0b7b00c28b3c, type: 2}
   targetCount: 3
+  steps:
+  - label: "Find the glittering dust around the village"
+    doneWhen: 
+  - label: "Bring the dust to Eldon in his tower"
+    doneWhen: 
   rewards:
   - type: 1
     card: {fileID: 0}
@@ -34,5 +39,5 @@ MonoBehaviour:
     card: {fileID: 0}
     cardCount: 1
     skillPoints: 1
-    gold: 10
+    gold: 20
     icon: {fileID: 21300000, guid: 9f7d23e22527dc148997f9a29ed64ff3, type: 3}

@@ -173,7 +173,7 @@ public sealed class DialogueView : MonoBehaviour
 
         Sprite portrait = line.hidePortrait
             ? null
-            : line.portraitOverride != null ? line.portraitOverride : fallbackPortrait;
+            : line.portraitOverride != null ? CharacterProfile.AsNow(line.portraitOverride) : fallbackPortrait;
         if (line.speakerSide == DialogueSpeakerSide.Left)
             lastLeftPortrait = portrait;
         else

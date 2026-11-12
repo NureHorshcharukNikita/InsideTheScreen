@@ -26,6 +26,8 @@ public sealed class DialogueManager : MonoBehaviour
     // The answers for the NPC's talk topics (NpcData.talkTopics), made once per topic in a talk so
     // the one picked is known again in Choose.
     private readonly Dictionary<NpcTalkTopic, DialogueChoice> topicChoices = new();
+    // Talked about in this talk: an Every Talk topic is not offered again until the next one.
+    private readonly HashSet<NpcTalkTopic> topicsTalkedAbout = new();
     private DialogueChoice closeTopicChoice;
     private NpcCharacter activeNpc;
     private NpcDialogueEntry activeDialogueEntry;
@@ -343,6 +345,7 @@ public sealed class DialogueManager : MonoBehaviour
         activeLines.Clear();
         reachableLines.Clear();
         topicChoices.Clear();
+        topicsTalkedAbout.Clear();
 
         if (view != null)
             view.Hide();
@@ -445,7 +448,7 @@ public sealed class DialogueManager : MonoBehaviour
         foreach (DialogueLine line in reachableLines)
         {
             if (line != null && line.speakerSide == side && !line.hidePortrait && !string.IsNullOrWhiteSpace(line.text))
-                return line.portraitOverride != null ? line.portraitOverride : defaultPortrait;
+                return line.portraitOverride != null ? CharacterProfile.AsNow(line.portraitOverride) : defaultPortrait;
         }
 
         return activeNpc != null ? defaultPortrait : null;
@@ -549,7 +552,7 @@ public sealed class DialogueManager : MonoBehaviour
         int count = choices.Count;
         foreach (NpcTalkTopic topic in data.talkTopics)
         {
-            if (topic == null || !topic.IsAvailable)
+            if (topic == null || !topic.IsAvailable || topicsTalkedAbout.Contains(topic))
                 continue;
 
             if (!topicChoices.TryGetValue(topic, out DialogueChoice choice))
@@ -579,6 +582,7 @@ public sealed class DialogueManager : MonoBehaviour
                 continue;
 
             pair.Key.MarkDone();
+            topicsTalkedAbout.Add(pair.Key);
             activeLines.Clear();
             AddDialogueDataLines(pair.Key.dialogue);
             int firstLine = SkipUnsaidLines(0);

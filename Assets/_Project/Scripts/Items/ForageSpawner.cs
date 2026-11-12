@@ -11,6 +11,7 @@ using UnityEngine.Tilemaps;
 // eyes. The spots stay put between visits, and a picked one stays picked until then. The things lie
 // there only while the conditions are met, e.g. once Hideshi has shown Haru how to look
 // (a1_ground_revealed); when they come true, the things come up out of the grass one after another.
+// Picking one sets the area's story flags, e.g. a1_gathered_first for Haru's first find.
 [RequireComponent(typeof(BoxCollider2D))]
 public sealed class ForageSpawner : MonoBehaviour
 {
@@ -44,6 +45,8 @@ public sealed class ForageSpawner : MonoBehaviour
     [SerializeField] private GameObject promptPrefab;
     [Tooltip("The things lie there only while all of them are met. Empty = always.")]
     [SerializeField] private List<StoryCondition> conditions = new();
+    [Tooltip("Set each time a thing here is picked, e.g. a1_gathered_first for Haru's first find. Empty = none.")]
+    [SerializeField] private List<string> flagsWhenTaken = new();
 
     private static readonly List<Tilemap> OpenGround = new();
     private static readonly List<Tilemap> Blocked = new();
@@ -135,12 +138,17 @@ public sealed class ForageSpawner : MonoBehaviour
             if (!found || pick?.card == null || pick.sprite == null || CollectedPickups.IsCollected(pickupId))
                 continue;
 
-            ForagePickup thing = ForagePickup.Create(transform, place, pick.sprite, material, pick.card, pick.count, pickupId, promptPrefab, null);
+            ForagePickup thing = ForagePickup.Create(transform, place, pick.sprite, material, pick.card, pick.count, pickupId, promptPrefab, Taken);
             if (popUp)
                 thing.PopUp(UnityEngine.Random.Range(0f, MaxAppearDelay));
 
             lying.Add(thing);
         }
+    }
+
+    private void Taken()
+    {
+        ForageSpot.SetTakenFlags(flagsWhenTaken);
     }
 
     private Forage PickForage(System.Random random)

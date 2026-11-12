@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ca3852662c4aaebee1f83a4829596e, type: 3}
+  m_Name: HaruPutOnBags
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlipbook
+  frames:
+  - {fileID: -6628721754456064710, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -9161659725654641873, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -2736613551654412419, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -640877478382960338, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 2893005392289999503, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 2303426609654045777, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -8277096704860118316, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -2193013440410866493, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -5032110463747266105, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 7668507916157380503, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 5454283657396375278, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 2390745262414875647, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 9174543101624029686, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 662642922967747273, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 5058298002517082048, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 140202278727843495, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 3633779120184762272, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 5439031193449960038, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -5841249787021812247, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -8856997655435217989, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: -254070657280302372, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 6280910017887478738, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 7750097495592397047, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  - {fileID: 5894730717859741764, guid: a3840e82bb534501ae7b0fbfba2436dc, type: 3}
+  framesPerSecond: 10
+  sounds:
+  - frame: 3
+    clip: {fileID: 8300000, guid: 80ed36b1dc844946b1e673619f32a519, type: 3}
+    volume: 0.8
+  - frame: 13
+    clip: {fileID: 8300000, guid: bb8863c573d04811a6de08cf832eb482, type: 3}
+    volume: 0.7
+  - frame: 16
+    clip: {fileID: 8300000, guid: 0fa5ede91afc47138d672041c9df536e, type: 3}
+    volume: 0.6

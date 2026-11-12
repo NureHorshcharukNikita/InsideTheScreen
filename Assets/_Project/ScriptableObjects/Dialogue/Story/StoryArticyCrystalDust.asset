@@ -16,7 +16,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "The old stone at the crossroads is covered in glittering dust."
+    text: "The old stone at the crossroads glitters with dust."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "Three handfuls for Eldon."
+    text: "Only a handful left on it, though. The wind must have carried the rest around the village."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1

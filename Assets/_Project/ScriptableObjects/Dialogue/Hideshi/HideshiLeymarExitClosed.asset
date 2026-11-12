@@ -100,6 +100,11 @@ MonoBehaviour:
     text: "Where does this road go?"
     conditions:
     - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
       storyFlag: a1_spent_night
       quest: {fileID: 0}
       questStatus: 1
@@ -118,6 +123,11 @@ MonoBehaviour:
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Out of Leymar. And we have no reason to go out there yet."
     conditions:
+    - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
     - type: 0
       storyFlag: a1_spent_night
       quest: {fileID: 0}
@@ -138,6 +148,11 @@ MonoBehaviour:
     text: "Eldon hasn't told us what to look for. Until he does, there's nothing for us out there."
     conditions:
     - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
       storyFlag: a1_spent_night
       quest: {fileID: 0}
       questStatus: 1
@@ -156,6 +171,11 @@ MonoBehaviour:
     portraitOverride: {fileID: 0}
     text: "And until then?"
     conditions:
+    - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
     - type: 0
       storyFlag: a1_spent_night
       quest: {fileID: 0}
@@ -176,10 +196,63 @@ MonoBehaviour:
     text: "Until then, we stay in the village. Help where we can, talk to people. Someone here may know more than they let on."
     conditions:
     - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
       storyFlag: a1_spent_night
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Not yet. Eldon sent us to Garr first."
+    conditions:
+    - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_bags_worn
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Let's hear what he has to say before we go out there."
+    conditions:
+    - type: 0
+      storyFlag: eldon_echo_crystal_discussed
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_bags_worn
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
     - type: 0
       storyFlag: hideshi_stays_behind
       quest: {fileID: 0}

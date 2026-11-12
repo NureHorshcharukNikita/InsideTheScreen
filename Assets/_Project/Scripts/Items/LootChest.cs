@@ -10,7 +10,9 @@ using UnityEngine;
 // the key first, though not Hideshi following along. The chest is solid (its collider); in reach
 // is Haru's feet close to it, from any side. It is there only while its conditions are met: like
 // the things on the ground, once Hideshi has shown Haru how to look (a1_ground_revealed). When they
-// come true while Haru is there, it comes up out of the grass before his eyes.
+// come true while Haru is there, it comes up out of the grass before his eyes. Before Haru has his
+// bags its cards have to fit in his pockets (Pockets): it gives only what fits, and while nothing
+// would, it stays shut and its prompt says his pockets are full for a moment.
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class LootChest : MonoBehaviour
 {
@@ -32,6 +34,8 @@ public sealed class LootChest : MonoBehaviour
     // see-through to its size, with a little spring (like ForagePickup).
     private const float AppearDelay = 0.5f;
     private const float AppearSeconds = 0.45f;
+    // How long the prompt says the pockets are full before it shows the key again.
+    private const float FullMessageSeconds = 1.6f;
 
     [Tooltip("Remembers that it was opened. Unique in the scene. Empty = the object's name.")]
     [SerializeField] private string chestId;
@@ -56,6 +60,8 @@ public sealed class LootChest : MonoBehaviour
     private Transform promptRoot;
     private InteractionPrompt prompt;
     private bool promptShown;
+    // The prompt says the pockets are full until then (unscaled time); 0 = it shows the key.
+    private float fullMessageUntil;
     private bool opened;
     // There, as in the scene, until its conditions say otherwise.
     private bool there = true;
@@ -194,9 +200,32 @@ public sealed class LootChest : MonoBehaviour
     {
         bool canOpen = CanBeOpened() && !NpcInteraction.AnyInRangeBesidesCompanion && !ForagePickup.AnyInReach;
         ShowPrompt(canOpen);
+        if (fullMessageUntil > 0f && (!canOpen || Time.unscaledTime >= fullMessageUntil))
+            ShowOpenAction();
 
-        if (canOpen && GameInputSettings.GetKeyDown(GameInputAction.Interact))
+        if (!canOpen || !GameInputSettings.GetKeyDown(GameInputAction.Interact))
+            return;
+
+        if (HasRoomForAny())
             StartCoroutine(Open());
+        else
+            ShowPocketsFull();
+    }
+
+    private static InventoryData Inventory
+    {
+        get
+        {
+            PlayerCharacter haru = FindFirstObjectByType<PlayerCharacter>();
+            return haru != null ? haru.InventoryData : ExplorationPlayerSession.RuntimeInventory;
+        }
+    }
+
+    // Something in its pool would fit in Haru's pockets.
+    private bool HasRoomForAny()
+    {
+        InventoryData inventory = Inventory;
+        return cardPool.Exists(card => card != null && Pockets.CanTake(inventory, card));
     }
 
     private bool CanBeOpened()
@@ -246,15 +275,18 @@ public sealed class LootChest : MonoBehaviour
 
         PlayerCharacter haru = FindFirstObjectByType<PlayerCharacter>();
         InventoryData inventory = haru != null ? haru.InventoryData : ExplorationPlayerSession.RuntimeInventory;
-        List<(CardData card, int count)> found = Draw();
+        List<(CardData card, int count)> found = Draw(inventory);
         float delay = FirstCardAfter;
         for (int i = 0; i < found.Count; i++)
         {
             (CardData card, int count) = found[i];
             inventory?.AddCards(card, count);
+            QuestManager.NoteTaken(card, null);
             PickupCard.Show(haru, card, count, delay, (i - (found.Count - 1) * 0.5f) * CardSpacing);
             delay += CardInterval;
         }
+
+        Pockets.NoteTaken(inventory);
 
         // Empty now: a moment after the last card it fades away, and Haru can walk where it stood.
         yield return new WaitForGameSeconds(delay - CardInterval + FadeAfter);
@@ -271,18 +303,22 @@ public sealed class LootChest : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // Min to Max cards from the pool, the same ones counted together, in the order they came out.
-    private List<(CardData card, int count)> Draw()
+    // Min to Max cards from the pool, the same ones counted together, in the order they came out;
+    // before Haru has his bags, only ones that still fit in his pockets with the rest.
+    private List<(CardData card, int count)> Draw(InventoryData inventory)
     {
         List<CardData> pool = cardPool.FindAll(card => card != null);
         List<(CardData card, int count)> found = new();
-        if (pool.Count == 0)
-            return found;
-
+        HashSet<CardData> taking = new();
         int cards = Random.Range(minCards, Mathf.Max(minCards, maxCards) + 1);
         for (int i = 0; i < cards; i++)
         {
+            pool.RemoveAll(fitting => !Pockets.CanTake(inventory, fitting, taking));
+            if (pool.Count == 0)
+                break;
+
             CardData card = pool[Random.Range(0, pool.Count)];
+            taking.Add(card);
             int index = found.FindIndex(entry => entry.card == card);
             if (index >= 0)
                 found[index] = (card, found[index].count + 1);
@@ -302,13 +338,28 @@ public sealed class LootChest : MonoBehaviour
         if (show)
         {
             promptRoot.position = new Vector3(transform.position.x, body.bounds.max.y + PromptAboveTop, transform.position.z);
-            prompt?.ShowAction(GameInputSettings.GetDisplayName(GameInputAction.Interact), "Open");
+            ShowOpenAction();
         }
 
         if (prompt != null)
             prompt.SetShown(show);
         else if (promptRoot != null)
             promptRoot.gameObject.SetActive(show);
+    }
+
+    private void ShowOpenAction()
+    {
+        fullMessageUntil = 0f;
+        prompt?.ShowAction(GameInputSettings.GetDisplayName(GameInputAction.Interact), "Open");
+    }
+
+    private void ShowPocketsFull()
+    {
+        if (prompt == null || string.IsNullOrWhiteSpace(Pockets.FullMessage))
+            return;
+
+        prompt.ShowMessage(Pockets.FullMessage);
+        fullMessageUntil = Time.unscaledTime + FullMessageSeconds;
     }
 
     // Made the first time Haru comes close; not the chest's child, so the lid's spring leaves it be.

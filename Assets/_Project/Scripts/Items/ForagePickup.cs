@@ -10,7 +10,8 @@ using UnityEngine;
 // In reach - Haru's feet close to it, from any side - the prompt shows over the closest. An NPC in
 // reach answers the key first, except Hideshi following along: walking together, the thing at
 // Haru's feet comes first. The card goes into the inventory, a mini card of it pops up over Haru
-// (PickupCard), and the thing hops and is gone.
+// (PickupCard), and the thing hops and is gone. Before he has his bags it has to fit in his
+// pockets (Pockets): if not, it stays and the prompt says his pockets are full for a moment.
 public sealed class ForagePickup : MonoBehaviour
 {
     // From Haru's feet (his position) to where it lies, unless it says otherwise (a bush, wider).
@@ -19,6 +20,8 @@ public sealed class ForagePickup : MonoBehaviour
     private const float PopSeconds = 0.25f;
     private const float PopUpSeconds = 0.4f;
     private const string DefaultAction = "Pick up";
+    // How long the prompt says the pockets are full before it shows the key again.
+    private const float FullMessageSeconds = 1.6f;
 
     private static readonly List<ForagePickup> Lying = new();
     private static InteractionPrompt prompt;
@@ -26,6 +29,8 @@ public sealed class ForagePickup : MonoBehaviour
     private static ForagePickup prompted;
     private static int focusFrame = -1;
     private static ForagePickup focused;
+    // The prompt says the pockets are full until then (unscaled time); 0 = it shows the key.
+    private static float fullMessageUntil;
 
     private CardData card;
     private int count;
@@ -82,8 +87,25 @@ public sealed class ForagePickup : MonoBehaviour
         if (GetFocused() != this || taken)
             return;
 
-        if (GameInputSettings.GetKeyDown(GameInputAction.Interact))
+        if (fullMessageUntil > 0f && Time.unscaledTime >= fullMessageUntil)
+            ShowAction(this);
+
+        if (!GameInputSettings.GetKeyDown(GameInputAction.Interact))
+            return;
+
+        if (Pockets.CanTake(Inventory, card))
             StartCoroutine(PickUp());
+        else
+            ShowPocketsFull();
+    }
+
+    private static InventoryData Inventory
+    {
+        get
+        {
+            PlayerCharacter player = FindFirstObjectByType<PlayerCharacter>();
+            return player != null ? player.InventoryData : ExplorationPlayerSession.RuntimeInventory;
+        }
     }
 
     // Comes up out of the grass before Haru's eyes (ForageSpot, ForageSpawner, during his father's
@@ -174,6 +196,8 @@ public sealed class ForagePickup : MonoBehaviour
         if (card != null && inventory != null)
         {
             inventory.AddCards(card, count);
+            Pockets.NoteTaken(inventory);
+            QuestManager.NoteTaken(card, null);
             PickupCard.Show(player, card, count);
         }
 
@@ -219,13 +243,28 @@ public sealed class ForagePickup : MonoBehaviour
         if (pickup != null)
         {
             promptRoot.position = pickup.transform.position + Vector3.up * PromptHeight;
-            if (prompt != null)
-                prompt.ShowAction(GameInputSettings.GetDisplayName(GameInputAction.Interact), pickup.action);
+            ShowAction(pickup);
         }
 
         if (prompt != null)
             prompt.SetShown(pickup != null);
         else
             promptRoot.gameObject.SetActive(pickup != null);
+    }
+
+    private static void ShowAction(ForagePickup pickup)
+    {
+        fullMessageUntil = 0f;
+        if (prompt != null)
+            prompt.ShowAction(GameInputSettings.GetDisplayName(GameInputAction.Interact), pickup.action);
+    }
+
+    private static void ShowPocketsFull()
+    {
+        if (prompt == null || string.IsNullOrWhiteSpace(Pockets.FullMessage))
+            return;
+
+        prompt.ShowMessage(Pockets.FullMessage);
+        fullMessageUntil = Time.unscaledTime + FullMessageSeconds;
     }
 }

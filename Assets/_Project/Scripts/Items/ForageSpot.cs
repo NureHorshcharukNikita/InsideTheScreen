@@ -176,10 +176,22 @@ public sealed class ForageSpot : MonoBehaviour
     {
         // It hops and is gone by itself; the flags below must not take it away halfway.
         lying = null;
-        foreach (string flag in flagsWhenTaken)
+        SetTakenFlags(flagsWhenTaken);
+    }
+
+    // The story flags of something taken, and the quests counting them get to know (also FruitBush,
+    // ForageSpawner: any first find, e.g., Haru's "it turned into a card?").
+    public static void SetTakenFlags(List<string> flags)
+    {
+        if (flags == null || flags.Count == 0)
+            return;
+
+        foreach (string flag in flags)
         {
             if (!string.IsNullOrWhiteSpace(flag))
                 StoryFlagManager.SetFlag(flag);
         }
+
+        QuestManager.NoteTaken(null, flags);
     }
 }

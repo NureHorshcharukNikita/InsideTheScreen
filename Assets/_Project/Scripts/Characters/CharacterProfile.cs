@@ -39,11 +39,48 @@ public sealed class CharacterProfile : ScriptableObject
     [Tooltip("How they look walking on the map, e.g. the small Mini sprite of an NPC. Empty = an NPC keeps the sprite set on it; an enemy shows its portrait.")]
     public Sprite mapSprite;
 
+    [Header("Look Before")]
+    [Tooltip("Until this story flag is set they look different, e.g. Haru without his bags until Garr gives them: Portrait Before in dialogues, and on the map or in battle whatever a Story Look on them shows. Empty = always as above.")]
+    [StoryFlag] public string lookChangesAt;
+    [Tooltip("Their portrait until Look Changes At is set. Empty = Portrait Sprite.")]
+    public Sprite portraitBefore;
+
+    // The profiles loaded, to tell whose usual portrait a dialogue line names by hand (AsNow).
+    private static readonly List<CharacterProfile> Loaded = new();
+
     public string CharacterID => !string.IsNullOrWhiteSpace(characterID) ? characterID : name;
     public string DisplayName => !string.IsNullOrWhiteSpace(displayName) ? displayName : name;    public string Description => description;
-    public Sprite PortraitSprite => portraitSprite;
+    public bool LooksAsBefore => !string.IsNullOrWhiteSpace(lookChangesAt) && !StoryFlagManager.HasFlag(lookChangesAt);
+    public Sprite PortraitSprite => portraitBefore != null && LooksAsBefore ? portraitBefore : portraitSprite;
     public SpriteFacing PortraitFacing => portraitFacing;
     public Sprite BattleIcon => battleIcon;
     public Sprite MapSprite => mapSprite;
     public DialogueVoice Voice => voice;
+
+    // A portrait set by hand on a dialogue line that is someone's usual one shows as theirs is now,
+    // e.g. Haru's without his bags before Garr gives them.
+    public static Sprite AsNow(Sprite portrait)
+    {
+        if (portrait == null)
+            return null;
+
+        foreach (CharacterProfile profile in Loaded)
+        {
+            if (profile != null && profile.portraitSprite == portrait)
+                return profile.PortraitSprite;
+        }
+
+        return portrait;
+    }
+
+    private void OnEnable()
+    {
+        if (!Loaded.Contains(this))
+            Loaded.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        Loaded.Remove(this);
+    }
 }

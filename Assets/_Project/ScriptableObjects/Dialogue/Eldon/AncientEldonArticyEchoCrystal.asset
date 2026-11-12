@@ -142,7 +142,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Can anyone help us find them?"
+    text: "Can anyone help us?"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "Garr Steelclad. He knows what you need and where to find it."
+    text: "Garr Steelclad. Only he can forge it, and he knows where to find what it needs."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -160,7 +160,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "Give him this recipe. After my letter, he will be expecting it."
+    text: "Give him this recipe. He won't like it. Tell him I asked."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0

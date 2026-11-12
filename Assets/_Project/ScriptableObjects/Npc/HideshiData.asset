@@ -325,6 +325,11 @@ MonoBehaviour:
     conditions:
     - type: 1
       storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 1
+      storyFlag: 
       quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       questStatus: 2
       invert: 0
@@ -354,6 +359,11 @@ MonoBehaviour:
     conditions:
     - type: 1
       storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 1
+      storyFlag: 
       quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       questStatus: 2
       invert: 0
@@ -374,6 +384,20 @@ MonoBehaviour:
       invert: 0
   - key: hideshi_idle
     dialogue: {fileID: 11400000, guid: f522e02d9ce489efd1902abdc8b93617, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_spent_night
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: hideshi_opener
+    dialogue: {fileID: 11400000, guid: b38367d3c86a41d6a87e0a6cd76dee01, type: 2}
     repeatable: 1
     needsCompanion: 0
     talkTiming: 0
@@ -389,10 +413,20 @@ MonoBehaviour:
   companionAwayDialogue: {fileID: 0}
   companionLeadsTalks: 0
   talkTopics:
+  - choiceText: What should we do now?
+    conditions:
+    - type: 0
+      storyFlag: a1_eldon_morning
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    dialogue: {fileID: 11400000, guid: 89339400c64e491d8978eaec63b7e578, type: 2}
+    doneFlag: 
+    everyTalk: 1
   - choiceText: What do you make of this world?
     conditions:
     - type: 0
-      storyFlag: hideshi_stays_behind
+      storyFlag: a1_eldon_morning
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
@@ -401,7 +435,7 @@ MonoBehaviour:
   - choiceText: How are you holding up, Dad?
     conditions:
     - type: 0
-      storyFlag: hideshi_stays_behind
+      storyFlag: a1_eldon_morning
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
@@ -410,7 +444,7 @@ MonoBehaviour:
   - choiceText: Do you think we'll get out of here?
     conditions:
     - type: 0
-      storyFlag: hideshi_stays_behind
+      storyFlag: a1_eldon_morning
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
@@ -439,7 +473,7 @@ MonoBehaviour:
       invert: 0
     dialogue: {fileID: 11400000, guid: 56adf67e7fa041ce92ff2511c379a325, type: 2}
     doneFlag: a1_told_dad_broken_bridge
-  talkTopicsCloseChoice: Nothing. I'll get going.
+  talkTopicsCloseChoice: Nothing.
   enableOverheadSpeech: 1
   overheadLines: []
   shop: {fileID: 0}

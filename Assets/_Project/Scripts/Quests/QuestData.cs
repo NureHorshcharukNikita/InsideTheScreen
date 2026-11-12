@@ -26,6 +26,10 @@ public sealed class QuestData : ScriptableObject
     [SerializeField] private CardData targetCard;
     [Tooltip("Defeat Enemies: how many. Collect Cards: how many to bring.")]
     [SerializeField, Min(1)] private int targetCount = 1;
+    [Tooltip("Story Flags: each one counts once it is set, e.g. the four things gathered for Survival Basics (2/4).")]
+    [SerializeField, StoryFlag] private List<string> targetFlags = new();
+    [Tooltip("What to do, one stage after another, e.g. take the letter to Garr, then tell Eldon. A step With Previous belongs to the stage of the one before it: both are to be done at once, in any order, e.g. two things to find before bringing them back. The quest tracker shows the stage under way, the quest log every stage reached. Empty = just Objective Label.")]
+    [SerializeField] private List<QuestStep> steps = new();
 
     [Header("Reward")]
     [SerializeField] private List<QuestRewardData> rewards = new();
@@ -36,13 +40,20 @@ public sealed class QuestData : ScriptableObject
     public string Description => description;
     public QuestStatus Status => status;
     public QuestObjectiveType ObjectiveType => objectiveType;
-    public string ObjectiveLabel => string.IsNullOrWhiteSpace(objectiveLabel)
-        ? GetDefaultObjectiveLabel()
-        : objectiveLabel;
+    public string ObjectiveLabel => CurrentStep != null
+        ? CurrentStep.label
+        : string.IsNullOrWhiteSpace(objectiveLabel) ? GetDefaultObjectiveLabel() : objectiveLabel;
     public string TargetEncounterId => targetEncounterId;
     public EnemyData TargetEnemy => targetEnemy;
     public CardData TargetCard => targetCard;
-    public int TargetCount => Mathf.Max(1, targetCount);
+    public int TargetCount => objectiveType == QuestObjectiveType.StoryFlags
+        ? Mathf.Max(1, CountTargetFlags(false))
+        : Mathf.Max(1, targetCount);
+    // Story Flags: how many of them are set.
+    public int TargetFlagsSet => CountTargetFlags(true);
+    public IReadOnlyList<string> TargetFlags => targetFlags;
+    // What to do, one step after another (QuestTracker lists them all). Empty = Objective Label alone.
+    public IReadOnlyList<QuestStep> Steps => steps;
     public int RewardCount
     {
         get
@@ -95,6 +106,141 @@ public sealed class QuestData : ScriptableObject
         QuestManager.RegisterQuest(this);
     }
 
+    // The steps make stages: a step starts a new one unless it goes With Previous. The steps of a stage
+    // are to be done at once; the stages one after another.
+    public int StageCount
+    {
+        get
+        {
+            int count = 0;
+            for (int i = 0; steps != null && i < steps.Count; i++)
+            {
+                if (i == 0 || !IsWithPrevious(i))
+                    count++;
+            }
+
+            return count;
+        }
+    }
+
+    public int StageOf(int index)
+    {
+        int stage = -1;
+        for (int i = 0; steps != null && i <= index && i < steps.Count; i++)
+        {
+            if (i == 0 || !IsWithPrevious(i))
+                stage++;
+        }
+
+        return Mathf.Max(0, stage);
+    }
+
+    // The first stage with a step not done yet; the last one once the others are.
+    public int CurrentStage
+    {
+        get
+        {
+            int stages = StageCount;
+            for (int stage = 0; stage < stages - 1; stage++)
+            {
+                if (!IsStageDone(stage))
+                    return stage;
+            }
+
+            return Mathf.Max(0, stages - 1);
+        }
+    }
+
+    public bool IsStageDone(int stage)
+    {
+        bool any = false;
+        for (int i = 0; steps != null && i < steps.Count; i++)
+        {
+            if (steps[i] == null || StageOf(i) != stage)
+                continue;
+
+            any = true;
+            if (!IsStepDone(i))
+                return false;
+        }
+
+        return any;
+    }
+
+    // A step is done once its flag is set, or, without a flag, once the quest's count is reached (2/4
+    // gathered, 3/3 brought). Without a flag in the last stage it never is: the quest is completed
+    // instead ("Show your father what you found").
+    public bool IsStepDone(int index)
+    {
+        if (steps == null || index < 0 || index >= steps.Count || steps[index] == null)
+            return false;
+
+        string flag = steps[index].doneWhen;
+        if (!string.IsNullOrWhiteSpace(flag))
+            return StoryFlagManager.HasFlag(flag);
+
+        return StageOf(index) < StageCount - 1
+            && QuestManager.TryGetObjectiveProgress(this, out int current, out int target) && current >= target;
+    }
+
+    // The quest's count (2/4) goes with this step: one without a flag, done once the count is reached,
+    // or the only stage's. Not with one in the last of several stages ("Show your father what you found").
+    public bool StepShowsCount(int index)
+    {
+        if (steps == null || steps.Count <= 1)
+            return true;
+
+        if (index < 0 || index >= steps.Count || steps[index] == null || !string.IsNullOrWhiteSpace(steps[index].doneWhen))
+            return false;
+
+        int stages = StageCount;
+        return stages == 1 || StageOf(index) < stages - 1;
+    }
+
+    private bool IsWithPrevious(int index)
+    {
+        return steps[index] != null && steps[index].withPrevious;
+    }
+
+    // The first step of the stage under way that is not done yet; its first one if all are.
+    private QuestStep CurrentStep
+    {
+        get
+        {
+            if (steps == null || steps.Count == 0)
+                return null;
+
+            int stage = CurrentStage;
+            QuestStep first = null;
+            for (int i = 0; i < steps.Count; i++)
+            {
+                if (steps[i] == null || StageOf(i) != stage)
+                    continue;
+
+                first ??= steps[i];
+                if (!IsStepDone(i))
+                    return steps[i];
+            }
+
+            return first ?? steps[steps.Count - 1];
+        }
+    }
+
+    private int CountTargetFlags(bool onlySet)
+    {
+        int count = 0;
+        if (targetFlags == null)
+            return count;
+
+        foreach (string flag in targetFlags)
+        {
+            if (!string.IsNullOrWhiteSpace(flag) && (!onlySet || StoryFlagManager.HasFlag(flag)))
+                count++;
+        }
+
+        return count;
+    }
+
     private string GetDefaultObjectiveLabel()
     {
         return objectiveType switch
@@ -102,6 +248,7 @@ public sealed class QuestData : ScriptableObject
             QuestObjectiveType.DefeatEncounter => "Defeat the marked enemy",
             QuestObjectiveType.DefeatEnemies when targetEnemy != null => $"Defeat {TargetCount}x {targetEnemy.DisplayName}",
             QuestObjectiveType.CollectCards when targetCard != null => $"Bring {TargetCount}x {GetCardName(targetCard)}",
+            QuestObjectiveType.StoryFlags => "Do what is asked",
             _ => "Complete the requested task"
         };
     }
@@ -110,6 +257,18 @@ public sealed class QuestData : ScriptableObject
     {
         return string.IsNullOrWhiteSpace(card.CardName) ? card.name : card.CardName;
     }
+}
+
+// One step of a quest's objective (QuestData.steps).
+[Serializable]
+public sealed class QuestStep
+{
+    [Tooltip("What the quest log says to do, e.g. Take Eldon's letter to Garr's forge.")]
+    public string label;
+    [Tooltip("Done once this flag is set. Empty = once the quest's count is reached.")]
+    [StoryFlag] public string doneWhen;
+    [Tooltip("Done at once with the step before it, in any order, e.g. a second thing to find: shown together, and the next stage comes once both are done.")]
+    public bool withPrevious;
 }
 
 [Serializable]
@@ -166,5 +325,7 @@ public enum QuestObjectiveType
     // Defeat a number of enemies of one kind, anywhere: completes itself at the count.
     DefeatEnemies,
     // Bring a number of one card: done when the inventory has them; completing the quest takes them.
-    CollectCards
+    CollectCards,
+    // Set a few story flags, e.g. the four things gathered for Survival Basics: shows how many (2/4).
+    StoryFlags
 }

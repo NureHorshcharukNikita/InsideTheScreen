@@ -124,16 +124,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "There's an old standing stone at the crossroads, south of the tower. Its dust still holds the old ward. Bring me three handfuls, and the barrier will hold long enough for me to dream the rest."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "Dust from a stone can do that?"
+    text: "Dust from the old standing stone at the crossroads. The ward over Leymar was carved into that stone long ago."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -142,7 +133,34 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "Old stones remember more than people do."
+    text: "The stone is crumbling, and the wind has carried its dust all over the village. Look for where it glitters, and bring me three handfuls."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Here. Keep it in this pouch."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "A pouch... just for dust?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "For this dust. It slips through anything else."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -151,7 +169,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "And then you'll know how we get home?"
+    text: "And once the barrier holds, you'll know how we get home?"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -161,51 +179,6 @@ MonoBehaviour:
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
     text: "Then I'll know where to look. That's more than I know now."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: "And take this letter to Garr. It concerns him more than he will like."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "What's in it?"
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: "Things a blacksmith should hear from me before a stranger asks him for them."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "Strangers... like us?"
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: "Today, yes."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -257,24 +230,6 @@ MonoBehaviour:
       count: 1
     - type: 2
       quest: {fileID: 11400000, guid: 27d033e25721074234e74e93b432c324, type: 2}
-      storyFlag: 
-      silent: 0
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    - type: 1
-      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
-      storyFlag: 
-      silent: 0
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    - type: 1
-      quest: {fileID: 11400000, guid: ef021cc4b7414e6fa16bfe4c00a826a1, type: 2}
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
