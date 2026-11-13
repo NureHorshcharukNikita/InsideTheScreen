@@ -10,6 +10,13 @@ public static class CardDescriptionFormatter
 
         return BattleDescriptionFormatter.Format(template, card.InstantEffects, card.StatusApplications);
     }
+
+    // The card's main number as it reads ({value}): its first effect's (the damage, the healing), else its
+    // first status's; 0 for none.
+    public static int PrimaryValue(CardData card)
+    {
+        return card != null ? BattleDescriptionFormatter.PrimaryValue(card.InstantEffects, card.StatusApplications) : 0;
+    }
 }
 
 public static class BattleDescriptionFormatter
@@ -27,7 +34,7 @@ public static class BattleDescriptionFormatter
         TInstant instant = GetFirst(instantEffects);
         TStatus status = GetFirst(statusApplications);
 
-        int primaryValue = instant?.Value ?? status?.Value ?? 0;
+        int primaryValue = PrimaryValue(instantEffects, statusApplications);
         int primaryStacks = status?.Stacks ?? 1;
         int primaryTotal = primaryValue * primaryStacks;
         string result = template
@@ -52,6 +59,15 @@ public static class BattleDescriptionFormatter
         }
 
         return result;
+    }
+
+    public static int PrimaryValue<TInstant, TStatus>(
+        IReadOnlyList<TInstant> instantEffects,
+        IReadOnlyList<TStatus> statusApplications)
+        where TInstant : class, IInstantEffectSpec
+        where TStatus : class, IStatusApplicationSpec
+    {
+        return GetFirst(instantEffects)?.Value ?? GetFirst(statusApplications)?.Value ?? 0;
     }
 
     private static string FormatInstantEffect<TInstant>(string text, int index, TInstant entry)

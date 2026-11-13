@@ -272,8 +272,8 @@ public sealed class CompanionFollower : MonoBehaviour
             return;
         }
 
-        // Catch up a little faster when falling behind.
-        float speed = distance > followDistance * 2f ? moveSpeed * 1.5f : moveSpeed;
+        // Catch up a little faster when falling behind; slower in among trees (Thicket), like the player.
+        float speed = (distance > followDistance * 2f ? moveSpeed * 1.5f : moveSpeed) * Thicket.SpeedAt(feet);
         moveDirection = toWaypoint / waypointDistance;
         commandedStep = Mathf.Min(speed * Time.fixedDeltaTime, waypointDistance);
         body.linearVelocity = Vector2.zero;

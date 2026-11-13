@@ -44,6 +44,28 @@ public sealed class BackgroundWalk : MonoBehaviour
         walk.enabled = true;
     }
 
+    // Where a walk would have ended, at once and without walking (a skipped Walk Off step): standing
+    // there the way it should look, the place saved as after the walk.
+    public static void Place(Transform walker, Vector2 destination, Vector2 facingAtEnd)
+    {
+        if (walker == null)
+            return;
+
+        if (walker.TryGetComponent(out BackgroundWalk walk))
+            Destroy(walk);
+
+        Vector3 position = new(destination.x, destination.y, walker.position.z);
+        if (walker.TryGetComponent(out Rigidbody2D body))
+            body.position = destination;
+        walker.position = position;
+
+        Vector2 look = facingAtEnd != Vector2.zero ? facingAtEnd : Vector2.down;
+        FlipSpriteToFace.Apply(walker, look);
+        CharacterWalkAnimation.Apply(StoryEventContext.GetAnimator(walker), false, look);
+        if (walker.TryGetComponent(out NpcCharacter npc))
+            ExplorationPlayerSession.SaveNpcPosition(npc.PersistenceKey, position);
+    }
+
     private void Awake()
     {
         animator = StoryEventContext.GetAnimator(transform);
@@ -108,7 +130,9 @@ public sealed class BackgroundWalk : MonoBehaviour
         }
 
         heading = way[corner] - position;
-        Vector2 next = Vector2.MoveTowards(position, way[corner], speed * Time.fixedDeltaTime);
+        // Slower in among trees (Thicket), like the player.
+        float step = speed * Thicket.SpeedAt(Thicket.FeetOf(this)) * Time.fixedDeltaTime;
+        Vector2 next = Vector2.MoveTowards(position, way[corner], step);
         if (body != null && body.simulated)
             body.MovePosition(next);
         else

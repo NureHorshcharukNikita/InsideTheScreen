@@ -251,7 +251,8 @@ public sealed class EnemyChaser : MonoBehaviour
         if (Mathf.Abs(direction.x) >= FacingThreshold)
             facingX = direction.x;
 
-        commandedStep = Mathf.Min(speed * Time.fixedDeltaTime, distance);
+        // Slower in among trees (Thicket), like the player, so the forest does not hand him over.
+        commandedStep = Mathf.Min(speed * Thicket.SpeedAt(FeetCenter) * Time.fixedDeltaTime, distance);
         body.linearVelocity = Vector2.zero;
         body.MovePosition(body.position + direction * commandedStep);
     }

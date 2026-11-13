@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: GarrNotTradingYet
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Busy day at the forge. Mind the sparks.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "If you're looking for work, Eldon is the one to ask.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Not now, lad. The iron's hot, and it won't wait.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Mind the sparks.", nextLineIndex: -1, endDialogueAfterLine: 1}

@@ -5,6 +5,8 @@ using UnityEngine;
 public sealed class DialogueData : ScriptableObject
 {
     public List<DialogueLine> lines = new();
+    [Tooltip("A talk that leads straight on into a story scene, e.g. Dad's \"Hit me with that stick\": the NPC's talk topics are not offered where it ends.")]
+    public bool noTalkTopics;
 
     public bool HasLines
     {

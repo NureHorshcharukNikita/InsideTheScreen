@@ -31,6 +31,8 @@ public sealed class DialogueManager : MonoBehaviour
     private DialogueChoice closeTopicChoice;
     private NpcCharacter activeNpc;
     private NpcDialogueEntry activeDialogueEntry;
+    // The talk leads straight on into a story scene (DialogueData.noTalkTopics): no topics at its end.
+    private bool activeWithoutTopics;
     private System.Action<int> activeOnEnded;
     private string activeNpcKey;
     private PlayerCharacter activePlayer;
@@ -118,6 +120,7 @@ public sealed class DialogueManager : MonoBehaviour
 
         activeNpc = npc;
         activeDialogueEntry = selectedEntry;
+        activeWithoutTopics = dialogue != null && dialogue.noTalkTopics;
         activeNpcKey = npc.PersistenceKey;
         activeLineIndex = firstLine;
         CollectReachableLines();
@@ -546,7 +549,7 @@ public sealed class DialogueManager : MonoBehaviour
     private void AddTopicChoices(List<DialogueChoice> choices)
     {
         NpcData data = activeNpc.Data;
-        if (data == null || data.talkTopics == null)
+        if (data == null || data.talkTopics == null || activeWithoutTopics)
             return;
 
         int count = choices.Count;
@@ -573,7 +576,8 @@ public sealed class DialogueManager : MonoBehaviour
     }
 
     // A topic picked (AddTopicChoices): it counts as talked about, and its dialogue is said from here
-    // on in the same talk. At its end the topics still left are offered again.
+    // on in the same talk. At its end the topics still left are offered again, unless that dialogue
+    // ends the talk (No Talk Topics), e.g. Haru's "Let's go." to Dad.
     private bool TryTalkAbout(DialogueChoice choice)
     {
         foreach (KeyValuePair<NpcTalkTopic, DialogueChoice> pair in topicChoices)
@@ -585,6 +589,8 @@ public sealed class DialogueManager : MonoBehaviour
             topicsTalkedAbout.Add(pair.Key);
             activeLines.Clear();
             AddDialogueDataLines(pair.Key.dialogue);
+            if (pair.Key.dialogue != null && pair.Key.dialogue.noTalkTopics)
+                activeWithoutTopics = true;
             int firstLine = SkipUnsaidLines(0);
             if (firstLine < 0 || firstLine >= activeLines.Count)
             {

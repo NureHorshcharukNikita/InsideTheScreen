@@ -444,7 +444,7 @@ public sealed class QuestPageView : MonoBehaviour
         if (rewardsContainer == null || rewardItemTemplate == null)
             return;
 
-        int rewardCount = quest != null ? quest.RewardCount : 0;
+        int rewardCount = quest != null ? quest.ShownRewardCount : 0;
         if (rewardsRoot != null)
             rewardsRoot.SetActive(rewardCount > 0);
 
@@ -467,7 +467,7 @@ public sealed class QuestPageView : MonoBehaviour
             rewardItemViews[i].gameObject.SetActive(visible);
 
             if (visible)
-                rewardItemViews[i].Setup(quest.GetReward(i));
+                rewardItemViews[i].Setup(quest.GetShownReward(i));
         }
     }
 }

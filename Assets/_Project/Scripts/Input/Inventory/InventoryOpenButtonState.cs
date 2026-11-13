@@ -7,8 +7,15 @@ public sealed class InventoryOpenButtonState : MonoBehaviour
     [SerializeField] private Button button;
     [Tooltip("The button stays hidden until this story flag is set, e.g. a1_home_intro: no backpack at home. Empty = always shown.")]
     [SerializeField, StoryFlag] private string visibleAfterStoryFlag;
+    [Tooltip("The button's picture, which changes once Haru has his bags.")]
+    [SerializeField] private Image icon;
+    [Tooltip("Shown on it until Icon Changes At is set, e.g. Haru's coat pocket before Garr gives him the pack. Empty = always its own sprite.")]
+    [SerializeField] private Sprite iconBefore;
+    [SerializeField, StoryFlag] private string iconChangesAt;
 
     private CanvasGroup canvasGroup;
+    // Its own sprite, e.g. the backpack.
+    private Sprite iconAfter;
 
     private void Reset()
     {
@@ -18,6 +25,9 @@ public sealed class InventoryOpenButtonState : MonoBehaviour
     private void Awake()
     {
         ResolveButton();
+        if (icon != null)
+            iconAfter = icon.sprite;
+
         Refresh();
     }
 
@@ -48,6 +58,14 @@ public sealed class InventoryOpenButtonState : MonoBehaviour
 
         if (button != null)
             button.interactable = visible && GameStateManager.CanOpenInventory();
+
+        if (icon != null && iconBefore != null && iconAfter != null)
+        {
+            bool changed = string.IsNullOrWhiteSpace(iconChangesAt) || StoryFlagManager.HasFlag(iconChangesAt);
+            Sprite wanted = changed ? iconAfter : iconBefore;
+            if (icon.sprite != wanted)
+                icon.sprite = wanted;
+        }
     }
 
     private void SetVisible(bool visible)

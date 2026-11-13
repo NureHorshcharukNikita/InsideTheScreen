@@ -80,6 +80,23 @@ public sealed class QuestNotificationToast : MonoBehaviour
             null, HintHoldDuration);
     }
 
+    // A tab of the inventory window has opened by itself for the first time (InventoryInput): the
+    // quick key that opens it, as it is bound now, e.g. "Press I to open your inventory". Not while
+    // that key is unbound, nor without words for it.
+    public static void ShowKeyHint(GameInputAction action, string what)
+    {
+        if (string.IsNullOrWhiteSpace(what) || GameInputSettings.GetKey(action) == KeyCode.None)
+            return;
+
+        EnsureInstance();
+        if (instance == null)
+            return;
+
+        string key = GameInputSettings.GetDisplayName(action);
+        instance.Enqueue($"Press <color=#{ColorUtility.ToHtmlStringRGB(KeyColor)}>{key}</color> {what.Trim()}",
+            null, HintHoldDuration);
+    }
+
     // A quest's reward was given: the quest tracker shows it in the quest as it goes (TakeReward). One
     // it does not show (slid away, or the quest was never in it, e.g. done in a battle) comes as a
     // toast instead (ShowUntakenRewards).
@@ -105,12 +122,13 @@ public sealed class QuestNotificationToast : MonoBehaviour
 
     public static void ShowRewardReceived(QuestData quest)
     {
-        if (quest == null)
+        // Only skill points or gold before the HUD shows them: given quietly.
+        if (quest == null || quest.ShownRewardCount == 0)
             return;
 
         EnsureInstance();
         if (instance != null)
-            instance.Enqueue(RewardReceivedMessage, quest.RewardIcon);
+            instance.Enqueue(RewardReceivedMessage, quest.ShownRewardIcon);
     }
 
     private static void EnsureInstance()
@@ -264,8 +282,10 @@ public sealed class QuestNotificationToast : MonoBehaviour
     }
 
     // Each toast waits until the player has had control for a moment on end: a talk following right
-    // after another (a quest done, then "Haru, wait a moment") is not a gap to slide in. One cut short by
-    // a talk or a cutscene slides away at once and is shown again, whole, once it is over.
+    // after another (a quest done, then "Haru, wait a moment") is not a gap to slide in. A talk or a
+    // cutscene starting while one is in sight takes it away at once, for good. The pause menu only
+    // stops it where it is, coming in, staying or going out, and it goes on from there once the game
+    // is back. The inventory or a shop opened meanwhile does not stop it.
     private IEnumerator AnimateQueuedToasts()
     {
         while (queuedToasts.Count > 0)
@@ -281,29 +301,52 @@ public sealed class QuestNotificationToast : MonoBehaviour
             queuedToasts.RemoveAt(0);
             Vector2 hidden = Show(payload);
 
-            yield return Slide(hidden, VisiblePosition);
-            bool cutShort = false;
-            for (float held = 0f; held < payload.Hold; held += Time.unscaledDeltaTime)
+            float slidIn = 0f;
+            float held = 0f;
+            float slidOut = 0f;
+            while (slidOut < SlideDuration)
             {
-                if (!CanShowNow())
-                {
-                    cutShort = true;
+                if (IsTakenAway())
                     break;
+
+                if (!IsStopped())
+                {
+                    float step = GameClock.DeltaTime;
+                    if (slidIn < SlideDuration)
+                        slidIn += step;
+                    else if (held < payload.Hold)
+                        held += step;
+                    else
+                        slidOut += step;
                 }
 
+                toastRect.anchoredPosition = slidIn < SlideDuration
+                    ? Ease(hidden, VisiblePosition, slidIn)
+                    : held < payload.Hold
+                        ? VisiblePosition
+                        : Ease(VisiblePosition, hidden, slidOut);
                 yield return null;
             }
 
-            yield return Slide(VisiblePosition, hidden);
             toastRect.gameObject.SetActive(false);
-
-            if (cutShort)
-                queuedToasts.Insert(0, payload);
-            else if (queuedToasts.Count > 0)
+            if (queuedToasts.Count > 0)
                 yield return new WaitForGameSeconds(BetweenToastDelay);
         }
 
         toastCoroutine = null;
+    }
+
+    // A talk or a cutscene (the Dialogue state), leaving the world or a fade: no toast over them.
+    private static bool IsTakenAway()
+    {
+        return !CanShowInCurrentScene() || GameStateManager.IsDialogue
+            || FadeManager.Instance != null && FadeManager.Instance.IsFading;
+    }
+
+    // The pause menu: the toast waits where it is. The inventory or a shop over the game does not stop it.
+    private static bool IsStopped()
+    {
+        return GameStateManager.State == GameState.Paused;
     }
 
     // Returns where it hides, just past the right edge of the screen at its width.
@@ -330,20 +373,10 @@ public sealed class QuestNotificationToast : MonoBehaviour
     }
 
     // In or out from the right, eased at both ends, like the quest tracker.
-    private IEnumerator Slide(Vector2 from, Vector2 to)
+    private static Vector2 Ease(Vector2 from, Vector2 to, float elapsed)
     {
-        float elapsed = 0f;
-        toastRect.anchoredPosition = from;
-
-        while (elapsed < SlideDuration)
-        {
-            elapsed += GameClock.DeltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / SlideDuration));
-            toastRect.anchoredPosition = Vector2.LerpUnclamped(from, to, t);
-            yield return null;
-        }
-
-        toastRect.anchoredPosition = to;
+        float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / SlideDuration));
+        return Vector2.LerpUnclamped(from, to, t);
     }
 
     private static bool CanShowInCurrentScene()

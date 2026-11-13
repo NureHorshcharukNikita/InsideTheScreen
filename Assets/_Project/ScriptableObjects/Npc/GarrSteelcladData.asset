@@ -277,6 +277,44 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: beae17b99fea4a6bb6dc78a9f7248295, type: 2}
       questStatus: 1
       invert: 0
+  - key: garr_salve
+    dialogue: {fileID: 11400000, guid: 1f26da86eb544e4ca4de5a0865f59df8, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_salve_recipe
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: garr_salve_reminder
+    dialogue: {fileID: 11400000, guid: 829f2d7a599b47418169aadee100c2c1, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_salve_recipe
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
   - key: garr_morning_no_trade
     dialogue: {fileID: 11400000, guid: f798d2c5fc944beca5da02a63befecbb, type: 2}
     repeatable: 0

@@ -35,6 +35,20 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Eldon's dust. Say the word, and we'll go and look for it."
+    conditions:
+    - type: 0
+      storyFlag: a1_dad_ready_to_go
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Show me what you found, then we'll see."
     conditions:
     - type: 1
@@ -45,6 +59,58 @@ MonoBehaviour:
     - type: 0
       storyFlag: a1_basic_resources_gathered
       quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "The trader's hand needs seeing to. Garr will know what helps."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_salve_recipe
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Leaves, bark, a red flower and berries, by the bushes west of the tower. Then Garr's bench."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 2
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Take the herbs to the trader by the east gate."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
       questStatus: 1
       invert: 0
     nextLineIndex: -1

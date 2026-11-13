@@ -174,7 +174,7 @@ public sealed class QuestTrackerEntry : MonoBehaviour
             return;
 
         closing = true;
-        showsReward = withReward && reward != null && Quest != null && Quest.RewardCount > 0;
+        showsReward = withReward && reward != null && Quest != null && Quest.ShownRewardCount > 0;
         stayed = 0f;
         stayLeft = showsReward
             ? RewardAfterSeconds + RewardRoomSeconds + RewardSlideSeconds + RewardStaySeconds
@@ -312,9 +312,9 @@ public sealed class QuestTrackerEntry : MonoBehaviour
     private void FillReward()
     {
         List<string> parts = new();
-        for (int i = 0; i < Quest.RewardCount; i++)
+        for (int i = 0; i < Quest.ShownRewardCount; i++)
         {
-            QuestRewardData given = Quest.GetReward(i);
+            QuestRewardData given = Quest.GetShownReward(i);
             if (given != null && !string.IsNullOrWhiteSpace(given.Label))
                 parts.Add(given.Label);
         }
@@ -324,7 +324,7 @@ public sealed class QuestTrackerEntry : MonoBehaviour
 
         if (rewardIcon != null)
         {
-            rewardIcon.sprite = Quest.RewardIcon;
+            rewardIcon.sprite = Quest.ShownRewardIcon;
             rewardIcon.enabled = rewardIcon.sprite != null;
         }
     }

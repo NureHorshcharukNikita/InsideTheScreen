@@ -57,7 +57,9 @@ public class PlayerMovement : MonoBehaviour
         if (!GameStateManager.IsGameplay)
             return;
 
-        rigidBody.MovePosition(rigidBody.position + movement * speed * Time.fixedDeltaTime);
+        // Slower in among trees one walks through (Thicket).
+        float thicket = movement.sqrMagnitude > MovementThreshold ? Thicket.SpeedAt(Thicket.FeetOf(this)) : 1f;
+        rigidBody.MovePosition(rigidBody.position + movement * speed * thicket * Time.fixedDeltaTime);
     }
 
     public void StopMovement()

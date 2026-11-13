@@ -32,19 +32,36 @@ a1_ground_revealed              # right after Eldon they step away left of the t
 a1_ground_lesson                # the end of Hideshi's lesson by the apple bushes; Survival Basics starts
 a1_gathered_first               # the first thing gathered by the bushes
 a1_first_gather_talk            # Haru: "it turned into a card?"
+ui_inventory                    # the inventory tab and the backpack button; the window opens by itself on it
+ui_inventory_shown              # that first look is over: the "Press I" hint
 a1_gathered_berries
 a1_gathered_stick
 a1_gathered_rock
 a1_gathered_apple
 a1_basic_resources_gathered     # all four gathered: show Dad
+a1_health_test                  # Dad: "hit me with that stick you found"
+ui_health                       # one off thirty: Haru keeps their health in his head; HP shows in the inventory, which opens by itself
+a1_health_test_done             # the stick test is over (Survival Basics: shown to Dad); it ends, and Heart of the Barrier starts, at Haru's "Let's go."
+* a1_dad_ready_to_go           # after the stick test Dad waits where he is until Haru says "Let's go."
 a1_crystal_dust_seen            # Heart of the Barrier: Haru sees the dust on the crossroads stone
 a1_crystal_dust_1               # Heart of the Barrier: the handful left on the crossroads stone
-a1_crystal_dust_2               # Heart of the Barrier: the handful blown east, by the last house
+- a1_trader_leymar_called       # the trader by the east gate calls them over (A Salve for the Trader)
+a1_salve_recipe                 # Garr: leaves, bark, a red flower and berries; his bench
+ui_crafting                     # crafting: the tab, opening by itself
+ui_crafting_shown               # that first look is over: the "Press C" hint
+ui_gold                         # the trader pays: the first coin; the gold in the inventory (quest rewards show it from now on)
+ui_trade                        # the trader is the first to trade (him in Leymar and at his camp)
+a1_crystal_dust_2               # Heart of the Barrier: the handful on the trader's tarp, his pay for the salve
 a1_crystal_dust_3               # Heart of the Barrier: the handful blown west, behind Garr's house
 a1_crystal_dust_collected       # Heart of the Barrier: all three handfuls found (Event_A1_DustCollected)
+ui_skills                       # Eldon: the skills tab, opening by itself
+ui_skills_shown                 # that first look is over: the "Press K" hint
+ui_skill_points                 # the skill points in the inventory (quest rewards show them from now on)
 eldon_echo_crystal_discussed    # Eldon on the Echo Crystal; he sends them to Garr
 a1_bags_received                # Garr gives Haru an old pack and a belt with pouches
 a1_bags_worn                    # Haru puts them on: his look with the bags, no pocket limit; Leymar's exit opens
+- ui_map                        # the map tab: not brought up yet
+- ui_mind                       # Haru's state of mind in the inventory: a later chapter
 - a1_walk_alone_declined        # A Walk Alone: Haru said "not yet" to going alone
 - a1_trader_pack_found          # The Trader's Pack
 

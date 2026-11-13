@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: GarrArticyBlacksmith
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Garr Steelclad, text: "You again.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "Not now, lad. The iron's hot, and it won't wait.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "The whole village has been at my door since sunrise.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Eldon sent us. He says only you can forge this.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Garr Steelclad, text: "Of course he did. It's always easier for him to send someone else.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Garr Steelclad, text: "...Eldon. Of course he did. It's always easier for him to send someone else.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, text: "He said to tell you he asked.", nextLineIndex: -1}
   - {speakerSide: 1, speakerName: Garr Steelclad, text: "Show me.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, text: "Here.", nextLineIndex: -1}

@@ -7,7 +7,8 @@ using UnityEngine;
 // never before his eyes; until then it stays picked, also after a reload. It can be picked only
 // while its conditions are met, e.g. the apple bush of Survival Basics once the quest's apple is
 // off it (ForageSpot has it before that), or any bush only after Hideshi has shown Haru how to
-// gather (a1_ground_lesson). Haru reaches for the middle of the bush, from any side. Picking it sets
+// gather (a1_ground_lesson). Haru reaches for the middle of the bush, from any side, from below a little
+// further (its heap keeps him off its foot). Picking it sets
 // its story flags, e.g. a1_gathered_first: berries off a bush are a find like the quest's things.
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class FruitBush : MonoBehaviour
@@ -16,7 +17,9 @@ public sealed class FruitBush : MonoBehaviour
     private const float RegrowOutOfSightDistance = 16f;
     // From the foot of the bush up to where Haru reaches for the fruit, and how far from his feet.
     private const float ReachHeight = 0.5f;
-    private const float Reach = 1.8f;
+    public const float Reach = 1.8f;
+    // From below: its heap's collider keeps Haru's feet further from the bush than from beside it.
+    public const float ReachBelow = 2.4f;
 
     [Tooltip("Remembers when it was picked. Unique in the scene. Empty = the object's name.")]
     [SerializeField] private string bushId;
@@ -31,12 +34,17 @@ public sealed class FruitBush : MonoBehaviour
     [SerializeField] private List<StoryCondition> conditions = new();
     [Tooltip("Set each time it is picked, e.g. a1_gathered_first for Haru's first find. Empty = none.")]
     [SerializeField] private List<string> flagsWhenTaken = new();
+    [Tooltip("Set too when that card is what is picked, e.g. a1_gathered_berries for berries: Survival Basics"
+        + " counts berries off any bush. Empty = none.")]
+    [SerializeField] private List<CardFlag> flagsByCard = new();
     [Tooltip("The word on the prompt.")]
     [SerializeField] private string action = "Gather";
     [Tooltip("The prompt shown over the bush in reach (DoorwayPrompt).")]
     [SerializeField] private GameObject promptPrefab;
 
     private SpriteRenderer look;
+    // What the fruit on it now gives.
+    private CardData pickedCard;
     private Sprite ripeSprite;
     private ForagePickup fruit;
     private int shownCycle = -1;
@@ -104,10 +112,11 @@ public sealed class FruitBush : MonoBehaviour
         bool ripe = !CollectedPickups.IsCollected(pickId);
         look.sprite = ripe || bareSprite == null ? ripeSprite : bareSprite;
         CardData card = PickCard(shownCycle);
+        pickedCard = card;
         if (ripe && card != null)
         {
             fruit = ForagePickup.Create(transform, transform.position + Vector3.up * ReachHeight, null, null, card,
-                count, pickId, promptPrefab, Picked, action, Reach);
+                count, pickId, promptPrefab, Picked, action, Reach, ReachBelow);
         }
     }
 
@@ -132,8 +141,21 @@ public sealed class FruitBush : MonoBehaviour
         fruit = null;
         if (bareSprite != null)
             look.sprite = bareSprite;
-        ForageSpot.SetTakenFlags(flagsWhenTaken);
+        ForageSpot.SetTakenFlags(FlagsFor(pickedCard));
         StartCoroutine(ForageSpot.Rustle(transform));
+    }
+
+    // Its own flags, and the one for the card picked.
+    private List<string> FlagsFor(CardData card)
+    {
+        List<string> flags = new(flagsWhenTaken);
+        foreach (CardFlag byCard in flagsByCard)
+        {
+            if (byCard != null && byCard.card == card && !string.IsNullOrWhiteSpace(byCard.flag))
+                flags.Add(byCard.flag);
+        }
+
+        return flags;
     }
 
     private bool PlayerIsNear()
@@ -142,4 +164,12 @@ public sealed class FruitBush : MonoBehaviour
         return player != null
             && Vector2.Distance(player.transform.position, transform.position) < RegrowOutOfSightDistance;
     }
+}
+
+// A story flag set when a bush gives that card (FruitBush.flagsByCard).
+[System.Serializable]
+public sealed class CardFlag
+{
+    public CardData card;
+    [StoryFlag] public string flag;
 }

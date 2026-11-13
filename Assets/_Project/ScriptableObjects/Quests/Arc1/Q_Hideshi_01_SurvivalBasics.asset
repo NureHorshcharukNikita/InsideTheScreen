@@ -32,6 +32,8 @@ MonoBehaviour:
   - label: "Gather berries, an apple, a stick and a stone by the apple bushes west of the tower"
     doneWhen: 
   - label: "Show your father what you found"
+    doneWhen: a1_health_test_done
+  - label: "Tell your father when you're ready to look for Eldon's dust"
     doneWhen: 
   rewards:
   - type: 1

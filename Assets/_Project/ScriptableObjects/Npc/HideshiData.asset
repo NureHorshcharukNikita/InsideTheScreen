@@ -382,6 +382,20 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+  - key: hideshi_ready_to_go
+    dialogue: {fileID: 11400000, guid: 9a16b0f696104970baaf9b0497895309, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_dad_ready_to_go
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
   - key: hideshi_idle
     dialogue: {fileID: 11400000, guid: f522e02d9ce489efd1902abdc8b93617, type: 2}
     repeatable: 0
@@ -396,6 +410,11 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+    - type: 0
+      storyFlag: a1_health_test
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
   - key: hideshi_opener
     dialogue: {fileID: 11400000, guid: b38367d3c86a41d6a87e0a6cd76dee01, type: 2}
     repeatable: 1
@@ -413,6 +432,16 @@ MonoBehaviour:
   companionAwayDialogue: {fileID: 0}
   companionLeadsTalks: 0
   talkTopics:
+  - choiceText: Let's go.
+    conditions:
+    - type: 0
+      storyFlag: a1_dad_ready_to_go
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    dialogue: {fileID: 11400000, guid: e97c24363de84011bcf5e45fa830fa00, type: 2}
+    doneFlag: 
+    everyTalk: 1
   - choiceText: What should we do now?
     conditions:
     - type: 0

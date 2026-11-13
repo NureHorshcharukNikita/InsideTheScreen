@@ -198,7 +198,7 @@ public sealed class LootChest : MonoBehaviour
 
     private void Update()
     {
-        bool canOpen = CanBeOpened() && !NpcInteraction.AnyInRangeBesidesCompanion && !ForagePickup.AnyInReach;
+        bool canOpen = CanBeOpened() && !NpcInteraction.AnyTakesKeyFromThings && !ForagePickup.AnyInReach;
         ShowPrompt(canOpen);
         if (fullMessageUntil > 0f && (!canOpen || Time.unscaledTime >= fullMessageUntil))
             ShowOpenAction();

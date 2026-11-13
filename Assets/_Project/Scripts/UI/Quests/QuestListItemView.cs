@@ -63,7 +63,7 @@ public sealed class QuestListItemView : MonoBehaviour, IPointerEnterHandler, IPo
 
         if (rewardIcon != null)
         {
-            rewardIcon.sprite = quest != null ? quest.RewardIcon : null;
+            rewardIcon.sprite = quest != null ? quest.ShownRewardIcon : null;
             rewardIcon.enabled = rewardIcon.sprite != null;
             rewardIcon.color = Color.white;
         }

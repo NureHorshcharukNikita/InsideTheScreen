@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 // Plays a footstep from the walk animations' PlayFootstep events. Works on the player and on
-// characters walked by code (a following companion), which take their sounds from the player.
+// characters walked by code (a following companion), which take their sounds from the player. In
+// among trees one walks through (Thicket), the step rustles the leaves too.
 public sealed class FootstepAudio : MonoBehaviour
 {
     private static readonly int IsMovingParameter = Animator.StringToHash("IsMoving");
@@ -108,7 +109,7 @@ public sealed class FootstepAudio : MonoBehaviour
             return;
 
         lastStepFrame = Time.frameCount;
-        PlayStep(transform.position, movement != null ? 1f : NpcVolumeScale);
+        PlayStep(transform, movement != null ? 1f : NpcVolumeScale);
     }
 
     // A step of a character without walk animations or footsteps of their own, e.g. Garr walked by
@@ -117,12 +118,14 @@ public sealed class FootstepAudio : MonoBehaviour
     {
         PlayerMovement player = walker != null ? FindFirstObjectByType<PlayerMovement>() : null;
         if (player != null && player.TryGetComponent(out FootstepAudio playerFootsteps))
-            playerFootsteps.PlayStep(walker.position, NpcVolumeScale);
+            playerFootsteps.PlayStep(walker, NpcVolumeScale);
     }
 
-    private void PlayStep(Vector3 position, float volumeScale)
+    private void PlayStep(Transform walker, float volumeScale)
     {
-        FootstepSurface surface = DetectSurface(position);
+        Thicket.Rustle(Thicket.FeetOf(walker), volumeScale);
+
+        FootstepSurface surface = DetectSurface(walker.position);
         SurfaceAudio surfaceAudio = GetSurfaceAudio(surface) ?? GetSurfaceAudio(FootstepSurface.Grass);
         if (surfaceAudio == null)
             return;

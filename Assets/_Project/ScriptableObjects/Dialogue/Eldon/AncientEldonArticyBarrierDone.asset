@@ -13,15 +13,146 @@ MonoBehaviour:
   m_Name: AncientEldonArticyBarrierDone
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Here. Three handfuls, just like you asked.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Good.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, portraitOverride: {fileID: 0}, text: "Can you feel it? The air is a little lighter now.", nextLineIndex: -1}
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "...Not really.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Ancient Eldon, text: "You will. Here, for your trouble. Even strangers need coin in Leymar.", nextLineIndex: -1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Here. Three handfuls, just like you asked."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "And this. Knowledge is the only coin I trust."
+    text: "Good."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Can you feel it? The air is a little lighter now."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "...Not really."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Hm. Come closer, boy."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "..."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "There's something in you I haven't felt in anyone. Unworn. Unexplored."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Unexplored? What do you mean?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Every lesson you've lived through here has left something behind. Your father's. The forest's. The smith's."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "You can see that?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "I can feel it. It's waiting to be shaped."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Close your eyes, Haru. Choose one thing you want to be better at, and hold on to it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: ui_skills
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: ui_skill_points
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "...It's like a tree. With things I could learn."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Ancient Eldon
+    portraitOverride: {fileID: 0}
+    text: "Then learn them. Slowly. Every lesson leaves a little more."
+    conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:
@@ -30,4 +161,8 @@ MonoBehaviour:
       storyFlag: 
       silent: 0
       shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

@@ -146,3 +146,6 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryOpenButtonState
   button: {fileID: 882385298784838348}
+  icon: {fileID: 7307619153746167091}
+  iconBefore: {fileID: 21300000, guid: 100fc5ae62e7c6d4e8ef0a74799af73a, type: 3}
+  iconChangesAt: a1_bags_worn

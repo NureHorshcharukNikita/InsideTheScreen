@@ -209,7 +209,7 @@ MonoBehaviour:
   - key: eldon_barrier_done
     dialogue: {fileID: 11400000, guid: f49c52fb1a82ca45ccf69dc1129c5d32, type: 2}
     repeatable: 0
-    needsCompanion: 0
+    needsCompanion: 1
     talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1

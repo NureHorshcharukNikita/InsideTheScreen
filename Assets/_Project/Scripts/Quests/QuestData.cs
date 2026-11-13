@@ -75,6 +75,42 @@ public sealed class QuestData : ScriptableObject
 
     public Sprite RewardIcon => RewardCount > 0 ? GetReward(0).Icon : null;
 
+    // The rewards shown to the player now (QuestRewardData.IsShown); all of them are given all the same.
+    public int ShownRewardCount
+    {
+        get
+        {
+            int count = 0;
+            for (int i = 0; i < RewardCount; i++)
+            {
+                if (GetReward(i).IsShown)
+                    count++;
+            }
+
+            return count;
+        }
+    }
+
+    public Sprite ShownRewardIcon => ShownRewardCount > 0 ? GetShownReward(0).Icon : null;
+
+    public QuestRewardData GetShownReward(int index)
+    {
+        int shown = 0;
+        for (int i = 0; i < RewardCount; i++)
+        {
+            QuestRewardData reward = GetReward(i);
+            if (!reward.IsShown)
+                continue;
+
+            if (shown == index)
+                return reward;
+
+            shown++;
+        }
+
+        return null;
+    }
+
     public QuestRewardData GetReward(int index)
     {
         if (index < 0)
@@ -293,6 +329,15 @@ public sealed class QuestRewardData
     public int SkillPoints => type == QuestRewardType.SkillPoints ? Mathf.Max(0, skillPoints) : 0;
     public int Gold => type == QuestRewardType.Gold ? Mathf.Max(0, gold) : 0;
     public bool HasContent => Card != null || SkillPoints > 0 || Gold > 0;
+
+    // Shown in the quest log, the tracker and the toasts only once the HUD shows what it gives:
+    // skill points and gold come in quietly until the story has brought them up (HudFlags).
+    public bool IsShown => type switch
+    {
+        QuestRewardType.SkillPoints => HudFlags.IsOpen(HudFlags.SkillPoints),
+        QuestRewardType.Gold => HudFlags.IsOpen(HudFlags.Gold),
+        _ => true
+    };
 
     // E.g. "Meat x1", "+1 Skill Point" or "+20 Gold".
     private string GetLabel()

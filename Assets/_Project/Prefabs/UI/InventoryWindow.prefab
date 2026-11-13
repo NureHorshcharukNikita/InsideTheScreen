@@ -1187,6 +1187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8482897064236669945}
   - component: {fileID: 6088648172396043345}
+  - component: {fileID: 6720323072520195788}
   m_Layer: 5
   m_Name: MapContainer
   m_TagString: Untagged
@@ -3323,6 +3324,8 @@ GameObject:
   - component: {fileID: 920000000000000002}
   - component: {fileID: 920000000000000003}
   - component: {fileID: 920000000000000004}
+  - component: {fileID: 3822841533192324612}
+  - component: {fileID: 6909128955025646259}
   m_Layer: 5
   m_Name: GoldBalance
   m_TagString: Untagged
@@ -10159,6 +10162,8 @@ GameObject:
   - component: {fileID: 928148402085532429}
   - component: {fileID: 7654828221378633936}
   - component: {fileID: 4273758889399770809}
+  - component: {fileID: 2629773515501232846}
+  - component: {fileID: 137301444518487914}
   m_Layer: 5
   m_Name: HPContainer
   m_TagString: Untagged
@@ -12668,6 +12673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5363310242800119322}
   - component: {fileID: 2389056156037905130}
+  - component: {fileID: 4855051525050877522}
   m_Layer: 5
   m_Name: BackpackContainer
   m_TagString: Untagged
@@ -13066,6 +13072,8 @@ GameObject:
   - component: {fileID: 3836694096071043261}
   - component: {fileID: 616267373227734440}
   - component: {fileID: 7782111389107106321}
+  - component: {fileID: 6298953555623357947}
+  - component: {fileID: 5700353355093606767}
   m_Layer: 5
   m_Name: SkillPointContainer
   m_TagString: Untagged
@@ -14709,6 +14717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4489644557599686811}
   - component: {fileID: 2632237506362121865}
+  - component: {fileID: 662976687211467739}
   m_Layer: 5
   m_Name: SkillsContainer
   m_TagString: Untagged
@@ -14842,6 +14851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4976082272751351592}
   - component: {fileID: 1451760955368195973}
+  - component: {fileID: 4494289139160384286}
   m_Layer: 5
   m_Name: CraftTableContainer
   m_TagString: Untagged
@@ -18862,6 +18872,8 @@ GameObject:
   - component: {fileID: 4284939230433746423}
   - component: {fileID: 6082082548134751042}
   - component: {fileID: 2076399707229322077}
+  - component: {fileID: 8320367384992015214}
+  - component: {fileID: 4866099688398078422}
   m_Layer: 5
   m_Name: PsychoState
   m_TagString: Untagged
@@ -18880,7 +18892,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
   m_Father: {fileID: 6302225910696426164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -19480,6 +19492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1147600104997180467}
   - component: {fileID: 5573990384148037727}
+  - component: {fileID: 8852380287587554198}
   m_Layer: 5
   m_Name: IconsContainer
   m_TagString: Untagged
@@ -19528,7 +19541,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_Spacing: 1
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
@@ -20281,6 +20294,7 @@ GameObject:
   - component: {fileID: 3693653129188003461}
   - component: {fileID: 6904524087086573989}
   - component: {fileID: 813081761483875185}
+  - component: {fileID: 7354265223859290892}
   m_Layer: 5
   m_Name: InventoryWindow
   m_TagString: Untagged
@@ -20414,7 +20428,22 @@ MonoBehaviour:
   - {fileID: 910000000000000000}
   - {fileID: 0}
   - {fileID: 2710641955099793057}
+  tabUnlocks:
+  - {fileID: 4855051525050877522}
+  - {fileID: 4494289139160384286}
+  - {fileID: 0}
+  - {fileID: 6720323072520195788}
+  - {fileID: 662976687211467739}
+  counterUnlocks:
+  - {fileID: 137301444518487914}
+  - {fileID: 4866099688398078422}
+  - {fileID: 5700353355093606767}
+  - {fileID: 6909128955025646259}
   goldBalanceText: {fileID: 920000000000000014}
+  openSound: {fileID: 0}
+  openVolume: 0.6
+  openFade: {fileID: 7354265223859290892}
+  openFadeSeconds: 0.18
   pauseOverlay: {fileID: 900100000000000000}
   pauseMenuPanel: {fileID: 900100000000000010}
   optionsPanel: {fileID: 7380576675431435309}
@@ -66144,3 +66173,211 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8852380287587554198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8256663623495022673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: 654
+  m_MinHeight: -1
+  m_PreferredWidth: 654
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &4855051525050877522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322579714978159667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
+  flag: ui_inventory
+  keepPlace: 0
+  opensWindow: 0
+  keyHint: to open your inventory
+--- !u!114 &4494289139160384286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090579999707248523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
+  flag: ui_crafting
+  keepPlace: 0
+  opensWindow: 0
+  keyHint: to open crafting
+--- !u!114 &6720323072520195788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773284754519215824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
+  flag: ui_map
+  keepPlace: 0
+  opensWindow: 0
+  keyHint: to open the map
+--- !u!114 &662976687211467739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033996613336617041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
+  flag: ui_skills
+  keepPlace: 0
+  opensWindow: 0
+  keyHint: to view your skills
+--- !u!225 &2629773515501232846
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201339974283005050}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &137301444518487914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201339974283005050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
+  flag: ui_health
+  keepPlace: 1
+  opensWindow: 0
+  keyHint: to view your health
+--- !u!225 &8320367384992015214
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001999433754711752}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &4866099688398078422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001999433754711752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
+  flag: ui_mind
+  keepPlace: 1
+  opensWindow: 0
+  keyHint: to view your state of mind
+--- !u!225 &6298953555623357947
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548356240114532915}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &5700353355093606767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548356240114532915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
+  flag: ui_skill_points
+  keepPlace: 1
+  opensWindow: 0
+  keyHint: 
+--- !u!225 &3822841533192324612
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920000000000000001}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &6909128955025646259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920000000000000001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
+  flag: ui_gold
+  keepPlace: 1
+  opensWindow: 0
+  keyHint: to view your gold
+--- !u!225 &7354265223859290892
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950000000000000000}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

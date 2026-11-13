@@ -29,5 +29,14 @@ MonoBehaviour:
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
-    actions: []
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: ui_inventory
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

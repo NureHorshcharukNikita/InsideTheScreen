@@ -37,6 +37,18 @@ public sealed class WalkOffStep : StoryStep
         BackgroundWalk.Begin(walker, target.position, speed, FacingDirection, avoidObstacles);
     }
 
+    // Skipped (Debug Test Start): the character is already there, as if it had walked, e.g. Hideshi
+    // waiting by Eldon's tower after the ground lesson.
+    public override void Skip(StoryEventContext context)
+    {
+        Transform walker = actor.Resolve(context);
+        Transform target = destination.Resolve(context);
+        if (walker == null || target == null || walker == context.Player)
+            return;
+
+        BackgroundWalk.Place(walker, target.position, FacingDirection);
+    }
+
     private Vector2 FacingDirection => facingAtEnd switch
     {
         EndFacing.Down => Vector2.down,

@@ -236,6 +236,20 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: f7777e2cf4214d218366733c9ae3d845, type: 2}
       questStatus: 0
       invert: 0
+  - key: trader_idle_road
+    dialogue: {fileID: 11400000, guid: c4618c4be4be4c89a85632c4dc055a20, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_arrived_leymar
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
   - key: trader_idle
     dialogue: {fileID: 11400000, guid: 1de705470d881f71be94828f91e33b62, type: 2}
     repeatable: 1
@@ -249,5 +263,11 @@ MonoBehaviour:
   enableOverheadSpeech: 0
   overheadLines: []
   shop: {fileID: 11400000, guid: 1b8d49705ccd48f5a08a59c038af3341, type: 2}
+  tradeConditions:
+  - type: 0
+    storyFlag: ui_trade
+    quest: {fileID: 0}
+    questStatus: 1
+    invert: 0
   canMove: 0
   moveSpeed: 2

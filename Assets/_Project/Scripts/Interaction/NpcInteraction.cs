@@ -6,8 +6,9 @@ using UnityEngine;
 // The talk zone of an NPC. When the player stands in several zones at once, only the focused
 // NPC shows its prompt and answers the Interact key:
 // 1. a companion that follows the player (Hideshi) comes last, so walking together never
-//    blocks talking to others - nor picking something up or opening a chest (ForagePickup,
-//    LootChest): those come before him, though after any other NPC;
+//    blocks talking to others. Something to pick up or a chest in reach (ForagePickup, LootChest)
+//    comes before any NPC the player does not look at, e.g. Dad waiting behind Haru by the
+//    bushes; an NPC he looks at (in front of him) comes first;
 // 2. NPCs in front of the player (where they look) come before the ones beside or behind;
 // 3. then the closest one.
 [RequireComponent(typeof(Collider2D))]
@@ -137,13 +138,15 @@ public sealed class NpcInteraction : MonoBehaviour
         HideSpeechRoot();
     }
 
-    // An NPC other than Hideshi following along answers the Interact key right now: things on the
-    // ground and chests let it go first (ForagePickup, LootChest).
-    public static bool AnyInRangeBesidesCompanion =>
-        GameStateManager.IsGameplay && GetFocused() is { IsFollowingCompanion: false };
+    // An NPC Haru looks at, other than Hideshi following along, answers the Interact key right now:
+    // things on the ground and chests let it go first (ForagePickup, LootChest).
+    public static bool AnyTakesKeyFromThings =>
+        GameStateManager.IsGameplay && GetFocused() is { TakesKeyFromThings: true };
 
-    // Hideshi walking along leaves the key to something at Haru's feet.
-    private bool YieldsToThingInReach => IsFollowingCompanion && (ForagePickup.AnyInReach || LootChest.AnyInReach);
+    private bool TakesKeyFromThings => !IsFollowingCompanion && IsInFrontOfPlayer();
+
+    // Hideshi walking along, or an NPC beside or behind Haru, leaves the key to something in reach.
+    private bool YieldsToThingInReach => !TakesKeyFromThings && (ForagePickup.AnyInReach || LootChest.AnyInReach);
 
     private static NpcInteraction GetFocused()
     {

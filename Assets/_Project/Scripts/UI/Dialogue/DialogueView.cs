@@ -204,7 +204,7 @@ public sealed class DialogueView : MonoBehaviour
         if (rightSpeakerRoot != null)
             rightSpeakerRoot.SetActive(rightPortrait == null || rightPortrait.sprite != null);
 
-        StartTextReveal(line.text, choices);
+        StartTextReveal(line.ShownText, choices);
     }
 
     public void Hide()

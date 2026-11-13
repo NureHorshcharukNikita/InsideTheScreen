@@ -38,7 +38,19 @@ public class InventoryWindow : MonoBehaviour
     [Header("Top Icons")]
     [SerializeField] private List<GameObject> topIconBorders = new();
     [SerializeField] private List<GameObject> pages = new();
+    [Tooltip("The tabs' Story Unlocks, in the order of the tabs (Inventory, Crafting, Quests, Map, Skills): a tab the story has not brought up yet cannot be chosen. None = always there.")]
+    [SerializeField] private List<StoryUnlock> tabUnlocks = new();
+    [Tooltip("The counters' Story Unlocks (health, mind, skill points, gold): new until the window has been open with them there.")]
+    [SerializeField] private List<StoryUnlock> counterUnlocks = new();
     [SerializeField] private TMP_Text goldBalanceText;
+
+    [Header("Opening")]
+    [Tooltip("Played as the window opens. Empty = none.")]
+    [SerializeField] private AudioClip openSound; // [SFX] sfx_inventory_open
+    [SerializeField, Range(0f, 1f)] private float openVolume = 0.6f;
+    [Tooltip("Fades in as the window opens. Empty = it is just there.")]
+    [SerializeField] private CanvasGroup openFade;
+    [SerializeField, Min(0f)] private float openFadeSeconds = 0.18f;
 
     [Header("Pause Menu")]
     [SerializeField] private GameObject pauseOverlay;
@@ -170,8 +182,8 @@ public class InventoryWindow : MonoBehaviour
         RebuildCategories();
 
         inventoryPreviewPanel.Clear();
-        
-        SelectTopIcon(0);
+
+        SelectTopIcon(FirstOpenTab());
         Refresh();
     }
 
@@ -179,6 +191,9 @@ public class InventoryWindow : MonoBehaviour
     {
         PlayerWallet.GoldChanged -= HandleGoldChanged;
         HideTransferQuantityPrompt();
+        // A fade cut short by closing must not leave the window half clear.
+        if (openFade != null)
+            openFade.alpha = 1f;
 
         if (GameStateManager.State == GameState.Inventory
             || GameStateManager.State == GameState.Paused)
@@ -261,12 +276,84 @@ public class InventoryWindow : MonoBehaviour
 
         inventoryPreviewPanel.Clear();
         ResetPauseMenu();
-        SelectTopIcon(0);
+        SelectTopIcon(FirstOpenTab());
         Refresh();
+        PlayOpening();
+    }
+
+    // A tab the story has brought up (Story Unlock), or one that is always there.
+    public bool IsTabOpen(InventoryTab tab)
+    {
+        return IsTabOpen((int)tab);
+    }
+
+    public IReadOnlyList<StoryUnlock> CounterUnlocks => counterUnlocks;
+
+    // Whatever was new in the window has been seen now that it closes: no more New Mark on it.
+    private void MarkNewShown()
+    {
+        foreach (StoryUnlock unlock in tabUnlocks)
+        {
+            if (unlock != null)
+                unlock.MarkShown();
+        }
+
+        foreach (StoryUnlock unlock in counterUnlocks)
+        {
+            if (unlock != null)
+                unlock.MarkShown();
+        }
+    }
+
+    public StoryUnlock GetTabUnlock(InventoryTab tab)
+    {
+        int index = (int)tab;
+        return index >= 0 && index < tabUnlocks.Count ? tabUnlocks[index] : null;
+    }
+
+    private bool IsTabOpen(int index)
+    {
+        StoryUnlock unlock = index >= 0 && index < tabUnlocks.Count ? tabUnlocks[index] : null;
+        return unlock == null || unlock.IsUnlocked;
+    }
+
+    // The window opens on the backpack, or on the first tab there is before Haru has one (the quests).
+    private int FirstOpenTab()
+    {
+        for (int i = 0; i < topIconBorders.Count; i++)
+        {
+            if (IsTabOpen(i))
+                return i;
+        }
+
+        return 0;
+    }
+
+    private void PlayOpening()
+    {
+        if (openSound != null)
+            AudioManager.TryPlaySfx(openSound, openVolume);
+
+        if (openFade != null && openFadeSeconds > 0f && isActiveAndEnabled)
+            StartCoroutine(FadeIn());
+    }
+
+    private IEnumerator FadeIn()
+    {
+        for (float elapsed = 0f; elapsed < openFadeSeconds; elapsed += Time.unscaledDeltaTime)
+        {
+            openFade.alpha = Mathf.SmoothStep(0f, 1f, elapsed / openFadeSeconds);
+            yield return null;
+        }
+
+        openFade.alpha = 1f;
     }
 
     public void Close()
     {
+        if (isOpen)
+            MarkNewShown();
+
         HideTransferQuantityPrompt();
         inventoryScreenController?.ClearSelection();
         ResetPauseMenu();
@@ -393,6 +480,9 @@ public class InventoryWindow : MonoBehaviour
     public void ToggleTab(InventoryTab tab)
     {
         int index = (int)tab;
+        if (!IsTabOpen(index))
+            return;
+
         if (IsOpen)
         {
             if (selectedTopIconIndex == index)
@@ -413,7 +503,7 @@ public class InventoryWindow : MonoBehaviour
 
     public void SelectTopIcon(int index)
     {
-        if (inventoryScreenController == null || index < 0 || index >= topIconBorders.Count)
+        if (inventoryScreenController == null || index < 0 || index >= topIconBorders.Count || !IsTabOpen(index))
             return;
 
         selectedTopIconIndex = index;
@@ -681,26 +771,31 @@ public class InventoryWindow : MonoBehaviour
 
     public void SelectNextTopIcon()
     {
-        if (topIconBorders.Count == 0)
-            return;
-
-        int next = selectedTopIconIndex + 1;
-        if (next >= topIconBorders.Count)
-            next = 0;
-
-        SelectTopIcon(next);
+        StepTopIcon(1);
     }
 
     public void SelectPreviousTopIcon()
     {
-        if (topIconBorders.Count == 0)
+        StepTopIcon(-1);
+    }
+
+    // To the next tab that is there, past those the story has not brought up yet.
+    private void StepTopIcon(int direction)
+    {
+        int count = topIconBorders.Count;
+        if (count == 0)
             return;
 
-        int prev = selectedTopIconIndex - 1;
-        if (prev < 0)
-            prev = topIconBorders.Count - 1;
-
-        SelectTopIcon(prev);
+        int index = selectedTopIconIndex;
+        for (int i = 0; i < count; i++)
+        {
+            index = ((index + direction) % count + count) % count;
+            if (IsTabOpen(index))
+            {
+                SelectTopIcon(index);
+                return;
+            }
+        }
     }
 
     public void ReturnToMainMenu()

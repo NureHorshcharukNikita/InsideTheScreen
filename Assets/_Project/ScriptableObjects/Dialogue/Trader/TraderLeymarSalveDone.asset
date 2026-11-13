@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: TraderLeymarSalveDone
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Here. Garr says this helps a cut."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "Smells like a trampled meadow. ...But it stings the right way."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "Fair's fair. The glittering muck, all of it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 8
+      quest: {fileID: 0}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 11400000, guid: 110733b7e7d74b84933f0b7b00c28b3c, type: 2}
+      count: 1
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_crystal_dust_2
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "And coin, for the hands that fixed mine. Even strangers need it in Leymar."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: ui_gold
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: ui_trade
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    - type: 2
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Coin? Real money?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "As real as anything here. Spend it on something useful. Which, as it happens, I sell."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "Care to have a look?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices:
+    - text: "Show me what you've got."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 0}
+        enemy: {fileID: 0}
+        encounterId: 
+        card: {fileID: 0}
+        count: 1
+    - text: "Maybe later."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []

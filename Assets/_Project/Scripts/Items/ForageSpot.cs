@@ -153,8 +153,10 @@ public sealed class ForageSpot : MonoBehaviour
 
     private ForagePickup Create()
     {
+        // Off a bush: reached as the bush's own fruit is, from below a little further.
+        bool offBush = drawnOn != null && drawnOn.GetComponent<FruitBush>() != null;
         return ForagePickup.Create(transform, transform.position, sprite, material, card, count, PickupId,
-            promptPrefab, PickedUp, action);
+            promptPrefab, PickedUp, action, offBush ? FruitBush.Reach : 0f, offBush ? FruitBush.ReachBelow : 0f);
     }
 
     private void Hide()

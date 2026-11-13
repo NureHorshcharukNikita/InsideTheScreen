@@ -13,134 +13,73 @@ MonoBehaviour:
   m_Name: HideshiArticySurvivalDone
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Dad, look! Everything I picked up turned into cards!"
+    conditions:
+    - type: 0
+      storyFlag: a1_showed_dad_first_card
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Cards? ...Huh. Just like that."
+    conditions:
+    - type: 0
+      storyFlag: a1_showed_dad_first_card
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "You don't look surprised."
+    conditions:
+    - type: 0
+      storyFlag: a1_showed_dad_first_card
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "After a forest inside a TV? I'm saving my surprise for something bigger."
+    conditions:
+    - type: 0
+      storyFlag: a1_showed_dad_first_card
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Let me see what you've got."
     conditions: []
     nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "Some cards... This one hits, this one heals. It's strange, but it makes sense."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "My pockets won't hold much more, though."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Then choose what you keep. Without a proper bag, you won't carry much."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Every card is an action. Just like in the old games I used to play."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "You played games?"
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Before you were born. Long before I got too busy for them."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "..."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "One more thing. Your own hands and feet count too. Watch."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "A punch, a kick. Not much, but they are always with you."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Good. Now I can let you out of my sight for a minute."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "Just a minute?"
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Let's not push it. Now, what Eldon asked of us."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
+    endDialogueAfterLine: 1
     actions:
-    - type: 2
-      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
-      storyFlag: 
-      silent: 0
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    - type: 5
+    - type: 4
       quest: {fileID: 0}
-      storyFlag: hideshi_stays_behind
+      storyFlag: a1_health_test
       silent: 1
       shop: {fileID: 0}
       enemy: {fileID: 0}
@@ -148,39 +87,4 @@ MonoBehaviour:
       card: {fileID: 0}
       count: 1
     choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "The dust for the barrier. You know how to look now. You'll see where it glitters."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "Three handfuls, somewhere in the village..."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Then let's start looking."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 1
-    actions:
-    - type: 1
-      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
-      storyFlag: 
-      silent: 0
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    choices: []
+  noTalkTopics: 1

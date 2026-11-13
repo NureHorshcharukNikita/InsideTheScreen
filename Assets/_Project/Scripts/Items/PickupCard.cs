@@ -37,6 +37,14 @@ public sealed class PickupCard : ScriptableObject
     private static PickupCard Instance =>
         instance != null ? instance : instance = Resources.Load<PickupCard>(ResourceName);
 
+    // The card on its own, without the count, e.g. in Haru's hand as it turns into what it is (Card
+    // Turn step). Drawn over that sprite. Null without the frame.
+    public static GameObject BuildCard(CardData card, SpriteRenderer over)
+    {
+        PickupCard look = Instance;
+        return look != null && look.frame != null && card != null ? look.Build(card, 0, over) : null;
+    }
+
     // Delay: after how long it shows; sideways: how far left or right of Haru's middle, in units,
     // e.g. several cards out of a chest dealt side by side, one after the other.
     public static void Show(PlayerCharacter player, CardData card, int count, float delay = 0f, float sideways = 0f)
@@ -115,7 +123,10 @@ public sealed class PickupCard : ScriptableObject
         }
 
         // How many, also one: small, on the card halfway between the icon and the card's bottom,
-        // outlined to read over the frame.
+        // outlined to read over the frame. None for a card on its own (count 0).
+        if (count <= 0)
+            return miniCard;
+
         GameObject countObject = new("Count");
         countObject.transform.SetParent(miniCard.transform, false);
         countObject.transform.localPosition = new Vector3(0f, (iconBottom - height * 0.5f) * 0.5f, 0f);
