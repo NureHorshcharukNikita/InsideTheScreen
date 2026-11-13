@@ -225,6 +225,117 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
+  - key: eldon_third_dust
+    dialogue: {fileID: 11400000, guid: f6c4931e8e894da8b6583979eaa81367, type: 2}
+    repeatable: 0
+    needsCompanion: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_1
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_2
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_eldon_sent_to_trader
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: a1_third_dust_missing
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: eldon_trader_bitten
+    dialogue: {fileID: 11400000, guid: 112ff63845584e518595f764df04819b, type: 2}
+    repeatable: 0
+    needsCompanion: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_3
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: eldon_trader_help
+    dialogue: {fileID: 11400000, guid: aac966e73a5245cc98f0477fb6a93117, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_3
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: eldon_trader_reminder
+    dialogue: {fileID: 11400000, guid: 49e48071e71248afbec262126e33aca3, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_eldon_sent_to_trader
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_3
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 0
+      invert: 0
   - key: eldon_dream_wait
     dialogue: {fileID: 11400000, guid: 6bf14aa6a9f7449c95bde1c16fb61aa3, type: 2}
     repeatable: 1

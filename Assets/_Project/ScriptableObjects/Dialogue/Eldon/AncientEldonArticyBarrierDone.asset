@@ -129,15 +129,6 @@ MonoBehaviour:
       encounterId: 
       card: {fileID: 0}
       count: 1
-    - type: 4
-      quest: {fileID: 0}
-      storyFlag: ui_skill_points
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
     choices: []
   - speakerSide: 0
     speakerName: Haru

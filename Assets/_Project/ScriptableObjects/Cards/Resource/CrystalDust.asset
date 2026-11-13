@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardID: crystal_dust
   cardName: Crystal Dust
-  description: "Glittering dust from the old standing stone at the crossroads. Eldon needs it for the barrier."
+  description: "Glittering dust from the old standing stone at the crossroads. Eldon needs three handfuls of it to restore the thinning barrier around Leymar."
+  shortDescription: "Glittering dust for Eldon's barrier."
   icon: {fileID: 21300000, guid: f90a5aadca1c402a9a500bb9c384d901, type: 3}
   categories:
   - 9

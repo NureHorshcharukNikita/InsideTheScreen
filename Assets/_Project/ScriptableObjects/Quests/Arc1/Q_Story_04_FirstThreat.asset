@@ -15,10 +15,10 @@ MonoBehaviour:
   questKey: a1_first_threat
   title: First Threat
   giverName: Hideshi
-  description: "The wolf from the forest followed you all the way to Leymar. Time to use your cards in a real fight."
+  description: "The wolf from the forest followed you to Leymar and bit the trader at his camp. It still prowls the road south of his camp, the way you came. Time to use your cards in a real fight."
   status: 0
   objectiveType: 1
-  objectiveLabel: "Defeat the wolf"
+  objectiveLabel: "Defeat the wolf on the road south of the trader's camp"
   targetEncounterId: a1_forest_wolves
   targetEnemy: {fileID: 0}
   targetCard: {fileID: 0}

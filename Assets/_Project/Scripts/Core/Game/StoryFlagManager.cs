@@ -6,6 +6,8 @@ public static class StoryFlagManager
     private static readonly List<string> Flags = new();
 
     public static event Action Changed;
+    // A flag set now (Set Flag), not one that came back with a save (Restore).
+    public static event Action<string> FlagSet;
 
     public static bool HasFlag(string flag)
     {
@@ -29,6 +31,7 @@ public static class StoryFlagManager
         Flags.Add(flag);
         ExplorationPlayerSession.SaveStoryFlags();
         Changed?.Invoke();
+        FlagSet?.Invoke(flag);
         return true;
     }
 

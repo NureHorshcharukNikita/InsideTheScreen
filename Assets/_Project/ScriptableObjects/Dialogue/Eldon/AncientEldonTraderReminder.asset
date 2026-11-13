@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: TraderLeymarEarly
+  m_Name: AncientEldonTraderReminder
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerSide: 1
-    speakerName: Trader
+    speakerName: Ancient Eldon
     portraitOverride: {fileID: 0}
-    text: "Mind the cart, lad. That wheel's cracked right through, and so's my patience."
+    text: "The trader, Haru. Tell him it's for Eldon - he'll understand."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1

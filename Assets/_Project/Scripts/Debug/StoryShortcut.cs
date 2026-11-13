@@ -134,6 +134,38 @@ public sealed class StoryShortcut
                 return;
             }
         }
+
+        // Else a talk topic picked with an NPC, e.g. Hideshi's "Let's go." that ends Survival Basics,
+        // starts Heart of the Barrier and has him follow Haru again.
+        foreach (NpcCharacter npc in npcs)
+        {
+            if (npc.Data == null || npc.Data.talkTopics == null)
+                continue;
+
+            foreach (NpcTalkTopic topic in npc.Data.talkTopics)
+            {
+                if (topic?.dialogue == null || !Contains(topic.dialogue.GetActions(), does))
+                    continue;
+
+                SkipTopic(topic, does);
+                return;
+            }
+        }
+    }
+
+    private void SkipTopic(NpcTalkTopic topic, Predicate<DialogueAction> does)
+    {
+        if (!reached.Add(topic))
+            return;
+
+        Meet(topic.conditions);
+        BeforeCompleting(topic.dialogue.GetActions());
+        List<DialogueAction> together = FindActionsWith(topic.dialogue, does, out DialogueChoice answer);
+        topic.dialogue.Skip(0, answer);
+        foreach (DialogueAction action in together)
+            action?.ExecuteSkipped();
+
+        topic.MarkDone();
     }
 
     private void SkipEvent(StoryEvent storyEvent)

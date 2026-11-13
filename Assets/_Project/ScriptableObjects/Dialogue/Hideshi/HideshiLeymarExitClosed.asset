@@ -94,11 +94,122 @@ MonoBehaviour:
     endDialogueAfterLine: 0
     actions: []
     choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Eldon said the dust is all over the village. Let's look here first."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_third_dust_missing
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Not yet. Let's ask Eldon about that last handful first."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_third_dust_missing
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_eldon_sent_to_trader
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Not that way. The trader's camp is down the south road."
+    conditions:
+    - type: 0
+      storyFlag: a1_crystal_dust_3
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_eldon_sent_to_trader
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Not yet. Eldon is waiting for his dust."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_3
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: hideshi_stays_behind
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
     text: "Where does this road go?"
     conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 1
     - type: 0
       storyFlag: eldon_echo_crystal_discussed
       quest: {fileID: 0}
@@ -123,6 +234,11 @@ MonoBehaviour:
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Out of Leymar. And we have no reason to go out there yet."
     conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 1
     - type: 0
       storyFlag: eldon_echo_crystal_discussed
       quest: {fileID: 0}
@@ -147,6 +263,11 @@ MonoBehaviour:
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Eldon hasn't told us what to look for. Until he does, there's nothing for us out there."
     conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 1
     - type: 0
       storyFlag: eldon_echo_crystal_discussed
       quest: {fileID: 0}
@@ -171,6 +292,11 @@ MonoBehaviour:
     portraitOverride: {fileID: 0}
     text: "And until then?"
     conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 1
     - type: 0
       storyFlag: eldon_echo_crystal_discussed
       quest: {fileID: 0}
@@ -195,6 +321,11 @@ MonoBehaviour:
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
     text: "Until then, we stay in the village. Help where we can, talk to people. Someone here may know more than they let on."
     conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 1
     - type: 0
       storyFlag: eldon_echo_crystal_discussed
       quest: {fileID: 0}

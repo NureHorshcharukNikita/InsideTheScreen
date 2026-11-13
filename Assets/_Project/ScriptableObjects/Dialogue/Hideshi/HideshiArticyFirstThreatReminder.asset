@@ -16,7 +16,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "That wolf is still out there, Haru. It won't leave us alone."
+    text: "That wolf is still out there, Haru. Down the south road, past the trader's camp."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -34,26 +34,9 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Then we'll learn something. Remember: one card, one action."
+    text: "Then we'll learn something. Stay close to me when we find it."
     conditions: []
     nextLineIndex: -1
-    endDialogueAfterLine: 0
+    endDialogueAfterLine: 1
     actions: []
-    choices:
-    - text: "Let's face it again."
-      nextLineIndex: -1
-      endDialogue: 1
-      actions:
-      - type: 7
-        quest: {fileID: 0}
-        storyFlag: 
-        silent: 0
-        shop: {fileID: 0}
-        enemy: {fileID: 11400000, guid: d1d2e2db8a7f6dc4e87b3af2e78481bb, type: 2}
-        encounterId: a1_forest_wolves
-        card: {fileID: 0}
-        count: 1
-    - text: "Not yet."
-      nextLineIndex: -1
-      endDialogue: 1
-      actions: []
+    choices: []

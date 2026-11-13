@@ -48,6 +48,8 @@ public sealed class CraftingPageView : MonoBehaviour
 
     [SerializeField] private PlayerCharacter player;
     [SerializeField] private List<CraftingRecipe> recipes = new();
+
+    public IReadOnlyList<CraftingRecipe> Recipes => recipes;
     [Tooltip("The card shown for each ingredient (Card Slot).")]
     [SerializeField] private CardView cardViewPrefab;
 

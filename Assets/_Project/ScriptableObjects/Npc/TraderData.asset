@@ -32,6 +32,86 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 1
+  - key: trader_salve_done
+    dialogue: {fileID: 11400000, guid: 9bce637d7aaa470181d6023f10b2c757, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 2
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: trader_salve_reminder
+    dialogue: {fileID: 11400000, guid: 29befb3ef4a640cfa4202643a70c58d1, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: trader_salve_meet
+    dialogue: {fileID: 11400000, guid: 9589a9a17ccd4880973dd98fe7f6127e, type: 2}
+    repeatable: 0
+    needsCompanion: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 0
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 0
+      storyFlag: a1_eldon_sent_to_trader
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: trader_wolf_reminder
+    dialogue: {fileID: 11400000, guid: eb94e9837adf4827969013f175a296a4, type: 2}
+    repeatable: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 1
+      invert: 0
+  - key: trader_wolf_thanks
+    dialogue: {fileID: 11400000, guid: f222269595444de784fa2fc1e69b8474, type: 2}
+    repeatable: 0
+    needsCompanion: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
+      invert: 0
   - key: trader_pack_done
     dialogue: {fileID: 11400000, guid: 42c719fa089d4839ba919175b0018b44, type: 2}
     repeatable: 0
@@ -265,7 +345,7 @@ MonoBehaviour:
   shop: {fileID: 11400000, guid: 1b8d49705ccd48f5a08a59c038af3341, type: 2}
   tradeConditions:
   - type: 0
-    storyFlag: ui_trade
+    storyFlag: a1_crystal_dust_3
     quest: {fileID: 0}
     questStatus: 1
     invert: 0

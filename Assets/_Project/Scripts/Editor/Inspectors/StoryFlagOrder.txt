@@ -31,32 +31,26 @@ a1_eldon_morning                # Eldon's half-dream talk; the three morning que
 a1_ground_revealed              # right after Eldon they step away left of the tower; Hideshi shows Haru how to look: things on the ground and chests show up
 a1_ground_lesson                # the end of Hideshi's lesson by the apple bushes; Survival Basics starts
 a1_gathered_first               # the first thing gathered by the bushes
-a1_first_gather_talk            # Haru: "it turned into a card?"
-ui_inventory                    # the inventory tab and the backpack button; the window opens by itself on it
-ui_inventory_shown              # that first look is over: the "Press I" hint
+a1_first_gather_talk            # Haru: "it turned into a card?"; the cards tab in the inventory window and the I key come up
 a1_gathered_berries
 a1_gathered_stick
 a1_gathered_rock
 a1_gathered_apple
 a1_basic_resources_gathered     # all four gathered: show Dad
 a1_health_test                  # Dad: "hit me with that stick you found"
-ui_health                       # one off thirty: Haru keeps their health in his head; HP shows in the inventory, which opens by itself
-a1_health_test_done             # the stick test is over (Survival Basics: shown to Dad); it ends, and Heart of the Barrier starts, at Haru's "Let's go."
-* a1_dad_ready_to_go           # after the stick test Dad waits where he is until Haru says "Let's go."
+a1_health_test_done             # the stick test is over (Survival Basics: shown to Dad); Haru's health in the inventory window; Dad waits where he is until Haru's "Let's go.", which ends it and starts Heart of the Barrier
 a1_crystal_dust_seen            # Heart of the Barrier: Haru sees the dust on the crossroads stone
 a1_crystal_dust_1               # Heart of the Barrier: the handful left on the crossroads stone
-- a1_trader_leymar_called       # the trader by the east gate calls them over (A Salve for the Trader)
-a1_salve_recipe                 # Garr: leaves, bark, a red flower and berries; his bench
-ui_crafting                     # crafting: the tab, opening by itself
-ui_crafting_shown               # that first look is over: the "Press C" hint
-ui_gold                         # the trader pays: the first coin; the gold in the inventory (quest rewards show it from now on)
-ui_trade                        # the trader is the first to trade (him in Leymar and at his camp)
-a1_crystal_dust_2               # Heart of the Barrier: the handful on the trader's tarp, his pay for the salve
-a1_crystal_dust_3               # Heart of the Barrier: the handful blown west, behind Garr's house
+a1_crystal_dust_2               # Heart of the Barrier: the handful blown west, behind Garr's house
+a1_third_dust_missing           # Heart of the Barrier: two handfuls found, Haru can't find the third (Dad's topic or answer, or after a while)
+a1_eldon_sent_to_trader         # Eldon: the third has worn away, the trader keeps some; Leymar's south road opens
+a1_trader_met_bitten            # at the trader's camp: the wolf bit his hand; he asks for something for it (A Salve for the Trader)
+a1_salve_ingredients            # Garr is busy: bring leaves, bark, a red flower and berries; the herbs by the river show up
+a1_salve_recipe                 # Garr, the herbs in hand: shows the salve at his bench; the crafting tab and the C key
+a1_craft_ideas                  # Dad after Haru makes the salve: from now on he thinks of recipes when he has all they take
+a1_crystal_dust_3               # the trader gets the salve: Eldon's dust and his first coin; gold in the inventory, trading opens
 a1_crystal_dust_collected       # Heart of the Barrier: all three handfuls found (Event_A1_DustCollected)
-ui_skills                       # Eldon: the skills tab, opening by itself
-ui_skills_shown                 # that first look is over: the "Press K" hint
-ui_skill_points                 # the skill points in the inventory (quest rewards show them from now on)
+ui_skills                       # Eldon: the skills tab, the K key and the skill points (quest rewards show them from now on)
 eldon_echo_crystal_discussed    # Eldon on the Echo Crystal; he sends them to Garr
 a1_bags_received                # Garr gives Haru an old pack and a belt with pouches
 a1_bags_worn                    # Haru puts them on: his look with the bags, no pocket limit; Leymar's exit opens

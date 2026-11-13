@@ -25,7 +25,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "It's the trader by the east gate. A splinter went into his hand."
+    text: "It's the trader on the south road. A wolf bit his hand."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "Then he'll live. But a cut left open goes bad."
+    text: "Then he'll live. But a bite left open goes bad."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -61,7 +61,25 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "Leaves, tree bark, a red flower and a few berries. Crush them together and wrap it."
+    text: "My hands are full right now. Bring me what it takes, and I'll tell you what to do next."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "What does it take?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Garr Steelclad
+    portraitOverride: {fileID: 0}
+    text: "Leaves, tree bark, a red flower and a few berries."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -79,8 +97,36 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "By the apple bushes west of the tower, like anything green in Leymar."
+    text: "Berries off any bush. The rest grows by the broken bridge - you'll find it all there."
     conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_salve_ingredients
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "What broken bridge?"
+    conditions:
+    - type: 0
+      storyFlag: a1_broken_bridge
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: a1_broken_bridge_seen_alone
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -88,36 +134,19 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "Then use my bench. I'll show you once."
-    conditions: []
+    text: "Down south, past the trader's camp. The old bridge over the river - broken for years."
+    conditions:
+    - type: 0
+      storyFlag: a1_broken_bridge
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    - type: 0
+      storyFlag: a1_broken_bridge_seen_alone
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
-    actions:
-    - type: 4
-      quest: {fileID: 0}
-      storyFlag: a1_salve_recipe
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    - type: 4
-      quest: {fileID: 0}
-      storyFlag: ui_crafting
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    choices: []
-  - speakerSide: 1
-    speakerName: Garr Steelclad
-    portraitOverride: {fileID: 0}
-    text: "And don't touch the anvil."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 1
     actions: []
     choices: []

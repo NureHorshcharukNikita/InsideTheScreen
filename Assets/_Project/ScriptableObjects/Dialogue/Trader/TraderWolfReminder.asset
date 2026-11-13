@@ -10,27 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: TraderLeymarReminder
+  m_Name: TraderWolfReminder
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerSide: 1
     speakerName: Trader
     portraitOverride: {fileID: 0}
-    text: "Hand's not healing on its own, lad. Try the smith."
-    conditions:
-    - type: 0
-      storyFlag: a1_salve_recipe
-      quest: {fileID: 0}
-      questStatus: 1
-      invert: 1
-    nextLineIndex: -1
-    endDialogueAfterLine: 1
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Trader
-    portraitOverride: {fileID: 0}
-    text: "Leaves and bark, was it? Hurry, before I stop feeling my fingers."
+    text: "That wolf's still out there, down the road the way you came. Mind your legs."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1

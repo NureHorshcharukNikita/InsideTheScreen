@@ -45,16 +45,49 @@ public sealed class CharacterProfile : ScriptableObject
     [Tooltip("Their portrait until Look Changes At is set. Empty = Portrait Sprite.")]
     public Sprite portraitBefore;
 
+    // How they look from a point of the story on (Looks Later).
+    [Serializable]
+    public sealed class LaterLook
+    {
+        [Tooltip("From when: once this story flag is set, e.g. a1_leymar_morning for the trader's bitten hand.")]
+        [StoryFlag] public string from;
+        [Tooltip("Their portrait from then on. Empty = as before.")]
+        public Sprite portrait;
+        [Tooltip("How they look on the map from then on. Empty = as before.")]
+        public Sprite mapSprite;
+    }
+
+    [Header("Looks Later")]
+    [Tooltip("Their look changing as the story goes on: the last one whose flag is set is how they look, e.g. the trader's bitten hand from dawn, bandaged once he has the salve. Empty = always as above.")]
+    public List<LaterLook> laterLooks = new();
+
     // The profiles loaded, to tell whose usual portrait a dialogue line names by hand (AsNow).
     private static readonly List<CharacterProfile> Loaded = new();
 
     public string CharacterID => !string.IsNullOrWhiteSpace(characterID) ? characterID : name;
     public string DisplayName => !string.IsNullOrWhiteSpace(displayName) ? displayName : name;    public string Description => description;
     public bool LooksAsBefore => !string.IsNullOrWhiteSpace(lookChangesAt) && !StoryFlagManager.HasFlag(lookChangesAt);
-    public Sprite PortraitSprite => portraitBefore != null && LooksAsBefore ? portraitBefore : portraitSprite;
+    public Sprite PortraitSprite => portraitBefore != null && LooksAsBefore ? portraitBefore
+        : LaterSprite(look => look.portrait) ?? portraitSprite;
     public SpriteFacing PortraitFacing => portraitFacing;
     public Sprite BattleIcon => battleIcon;
-    public Sprite MapSprite => mapSprite;
+    public Sprite MapSprite => LaterSprite(look => look.mapSprite) ?? mapSprite;
+
+    // The latest look the story has reached that has this sprite; null for none.
+    private Sprite LaterSprite(Func<LaterLook, Sprite> sprite)
+    {
+        for (int i = (laterLooks?.Count ?? 0) - 1; i >= 0; i--)
+        {
+            LaterLook look = laterLooks[i];
+            if (look == null || sprite(look) == null || string.IsNullOrWhiteSpace(look.from))
+                continue;
+
+            if (StoryFlagManager.HasFlag(look.from))
+                return sprite(look);
+        }
+
+        return null;
+    }
     public DialogueVoice Voice => voice;
 
     // A portrait set by hand on a dialogue line that is someone's usual one shows as theirs is now,

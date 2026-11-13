@@ -28,8 +28,11 @@ public sealed class CraftingRecipe : ScriptableObject
     [Tooltip("How many cards one craft makes.")]
     [SerializeField, Min(1)] private int resultCount = 1;
     [SerializeField] private List<Ingredient> ingredients = new();
+    [Tooltip("Taught by someone: known once this story flag is set, e.g. Garr's salve (a1_salve_recipe). Empty = Haru thinks of it himself: after his father's talk about making things (CraftingProgress.IdeasFlag), once he has all it takes at once.")]
+    [SerializeField, StoryFlag] private string learnedAt;
 
     public CardData Result => result;
+    public string LearnedAt => learnedAt;
     public int ResultCount => resultCount;
     public IReadOnlyList<Ingredient> Ingredients => ingredients;
 }

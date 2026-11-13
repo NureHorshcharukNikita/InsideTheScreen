@@ -326,16 +326,7 @@ MonoBehaviour:
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
-    actions:
-    - type: 4
-      quest: {fileID: 0}
-      storyFlag: ui_health
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
+    actions: []
     choices: []
   - speakerSide: 1
     speakerName: Hideshi
@@ -429,15 +420,6 @@ MonoBehaviour:
     - type: 4
       quest: {fileID: 0}
       storyFlag: a1_health_test_done
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    - type: 4
-      quest: {fileID: 0}
-      storyFlag: a1_dad_ready_to_go
       silent: 1
       shop: {fileID: 0}
       enemy: {fileID: 0}

@@ -66205,9 +66205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
-  flag: ui_inventory
+  flag: a1_first_gather_talk
   keepPlace: 0
-  opensWindow: 0
   keyHint: to open your inventory
 --- !u!114 &4494289139160384286
 MonoBehaviour:
@@ -66221,9 +66220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
-  flag: ui_crafting
+  flag: a1_salve_recipe
   keepPlace: 0
-  opensWindow: 0
   keyHint: to open crafting
 --- !u!114 &6720323072520195788
 MonoBehaviour:
@@ -66239,7 +66237,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
   flag: ui_map
   keepPlace: 0
-  opensWindow: 0
   keyHint: to open the map
 --- !u!114 &662976687211467739
 MonoBehaviour:
@@ -66255,7 +66252,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
   flag: ui_skills
   keepPlace: 0
-  opensWindow: 0
   keyHint: to view your skills
 --- !u!225 &2629773515501232846
 CanvasGroup:
@@ -66281,9 +66277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
-  flag: ui_health
+  flag: a1_health_test_done
   keepPlace: 1
-  opensWindow: 0
   keyHint: to view your health
 --- !u!225 &8320367384992015214
 CanvasGroup:
@@ -66311,7 +66306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
   flag: ui_mind
   keepPlace: 1
-  opensWindow: 0
   keyHint: to view your state of mind
 --- !u!225 &6298953555623357947
 CanvasGroup:
@@ -66337,9 +66331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
-  flag: ui_skill_points
+  flag: ui_skills
   keepPlace: 1
-  opensWindow: 0
   keyHint: 
 --- !u!225 &3822841533192324612
 CanvasGroup:
@@ -66365,9 +66358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f7bccf61da444a8ff96ef1e6767a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryUnlock
-  flag: ui_gold
+  flag: a1_crystal_dust_3
   keepPlace: 1
-  opensWindow: 0
   keyHint: to view your gold
 --- !u!225 &7354265223859290892
 CanvasGroup:

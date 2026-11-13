@@ -39,15 +39,6 @@ MonoBehaviour:
       encounterId: 
       card: {fileID: 0}
       count: 1
-    - type: 5
-      quest: {fileID: 0}
-      storyFlag: a1_dad_ready_to_go
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
     - type: 2
       quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       storyFlag: 

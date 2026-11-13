@@ -298,7 +298,8 @@ public static class ExplorationPlayerSession
             SkillProgression.ToArray(),
             StoryFlagManager.ToArray(),
             CraftingProgress.ObtainedToArray(),
-            CraftingProgress.OpenedToArray());
+            CraftingProgress.OpenedToArray(),
+            CraftingProgress.ThoughtOfToArray());
     }
 
     private static void RestoreFrom(SessionSaveData data)
@@ -330,7 +331,7 @@ public static class ExplorationPlayerSession
         SkillProgression.Restore(data.hasSkillProgression, data.skillPoints, data.skillProgression);
         NpcDialogueProgress.Restore(data.npcDialogueProgress);
         StoryFlagManager.Restore(data.storyFlags);
-        CraftingProgress.Restore(data.obtainedCardIds, data.openedRecipeKeys);
+        CraftingProgress.Restore(data.obtainedCardIds, data.openedRecipeKeys, data.thoughtOfRecipeKeys);
         RestoreNpcPositions(data.npcPositions);
     }
 

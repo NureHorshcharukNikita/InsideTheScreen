@@ -289,22 +289,6 @@ public class InventoryWindow : MonoBehaviour
 
     public IReadOnlyList<StoryUnlock> CounterUnlocks => counterUnlocks;
 
-    // Whatever was new in the window has been seen now that it closes: no more New Mark on it.
-    private void MarkNewShown()
-    {
-        foreach (StoryUnlock unlock in tabUnlocks)
-        {
-            if (unlock != null)
-                unlock.MarkShown();
-        }
-
-        foreach (StoryUnlock unlock in counterUnlocks)
-        {
-            if (unlock != null)
-                unlock.MarkShown();
-        }
-    }
-
     public StoryUnlock GetTabUnlock(InventoryTab tab)
     {
         int index = (int)tab;
@@ -351,9 +335,6 @@ public class InventoryWindow : MonoBehaviour
 
     public void Close()
     {
-        if (isOpen)
-            MarkNewShown();
-
         HideTransferQuantityPrompt();
         inventoryScreenController?.ClearSelection();
         ResetPauseMenu();

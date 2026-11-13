@@ -26,7 +26,7 @@ public sealed class DialogueManager : MonoBehaviour
     // The answers for the NPC's talk topics (NpcData.talkTopics), made once per topic in a talk so
     // the one picked is known again in Choose.
     private readonly Dictionary<NpcTalkTopic, DialogueChoice> topicChoices = new();
-    // Talked about in this talk: an Every Talk topic is not offered again until the next one.
+    // Talked about in this talk (an Every Talk topic is offered again all the same).
     private readonly HashSet<NpcTalkTopic> topicsTalkedAbout = new();
     private DialogueChoice closeTopicChoice;
     private NpcCharacter activeNpc;
@@ -555,7 +555,8 @@ public sealed class DialogueManager : MonoBehaviour
         int count = choices.Count;
         foreach (NpcTalkTopic topic in data.talkTopics)
         {
-            if (topic == null || !topic.IsAvailable || topicsTalkedAbout.Contains(topic))
+            // One for every talk (What should we do now?) stays on offer in the same talk too.
+            if (topic == null || !topic.IsAvailable || !topic.everyTalk && topicsTalkedAbout.Contains(topic))
                 continue;
 
             if (!topicChoices.TryGetValue(topic, out DialogueChoice choice))

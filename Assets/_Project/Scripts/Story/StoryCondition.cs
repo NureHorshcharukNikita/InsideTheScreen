@@ -6,7 +6,9 @@ public enum StoryConditionType
 {
     StoryFlag,
     QuestStatus,
-    QuestObjectiveDone
+    QuestObjectiveDone,
+    // So many of a card in the pockets now, e.g. the herbs Garr asked for.
+    HasCard
 }
 
 // One requirement of an NPC dialogue entry or a story event: a story flag is set,
@@ -22,6 +24,9 @@ public sealed class StoryCondition
     public QuestStatus questStatus = QuestStatus.Active;
     [Tooltip("Met when the opposite is true: the flag is not set, the quest is not in this status.")]
     public bool invert;
+    [Tooltip("Has Card: the card that must be in the pockets, and how many.")]
+    public CardData card;
+    [Min(1)] public int count = 1;
 
     // A condition with no flag or quest picked yet is ignored.
     public bool IsMet()
@@ -31,6 +36,9 @@ public sealed class StoryCondition
 
         if (type == StoryConditionType.QuestObjectiveDone)
             return quest == null || QuestManager.IsObjectiveDone(quest) != invert;
+
+        if (type == StoryConditionType.HasCard)
+            return card == null || (Crafting.Owned(ExplorationPlayerSession.RuntimeInventory, card) >= Mathf.Max(1, count)) != invert;
 
         return string.IsNullOrWhiteSpace(storyFlag) || StoryFlagManager.HasFlag(storyFlag) != invert;
     }

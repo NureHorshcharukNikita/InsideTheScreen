@@ -32,6 +32,8 @@ public sealed class StoryEvent : MonoBehaviour
     [SerializeField] private bool cameraFollows;
     [Tooltip("Happens again every time it can start, e.g. turning the player back at an exit that is not open yet (Done Flag is then ignored). With When Player Enters, a step must take the player out of the trigger, or it starts over at once.")]
     [SerializeField] private bool everyTime;
+    [Tooltip("Automatically: once the conditions are met, it waits this long while the player walks about freely (talks and menus do not count), e.g. Haru giving up on the last handful after looking around a while. 0 = at once.")]
+    [SerializeField, Min(0f)] private float afterSeconds;
 
     [Header("Steps")]
     [SerializeReference, SubclassPicker] private List<StoryStep> steps = new();
@@ -39,6 +41,8 @@ public sealed class StoryEvent : MonoBehaviour
     private StoryEventContext context;
     private bool hasControl;
     private bool playedThisScene;
+    // How long the player has walked about with the conditions met (After Seconds).
+    private float waited;
 
     public bool IsPlaying => context != null;
 
@@ -60,8 +64,25 @@ public sealed class StoryEvent : MonoBehaviour
 
     private void Update()
     {
-        if (start == StoryEventStart.Automatically && CanStart())
-            Play();
+        if (start != StoryEventStart.Automatically || IsPlaying || IsDone)
+            return;
+
+        if (!StoryCondition.AreMet(conditions))
+        {
+            waited = 0f;
+            return;
+        }
+
+        if (!GameStateManager.IsGameplay)
+            return;
+
+        if (waited < afterSeconds)
+        {
+            waited += Time.deltaTime;
+            return;
+        }
+
+        Play();
     }
 
     // Stay instead of Enter: the event also starts when its conditions become true while the

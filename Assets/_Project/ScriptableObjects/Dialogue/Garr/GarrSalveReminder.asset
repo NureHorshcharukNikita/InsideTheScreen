@@ -16,7 +16,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "Well? Take it to him before he bleeds all over my road."
+    text: "Well? Take it to him before that bite goes bad."
     conditions:
     - type: 2
       storyFlag: 
@@ -30,7 +30,21 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "Leaves, bark, a red flower and berries. By the bushes west of the tower. Then my bench."
+    text: "You know how now. Crush them, wrap them, my bench."
+    conditions:
+    - type: 0
+      storyFlag: a1_salve_recipe
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Garr Steelclad
+    portraitOverride: {fileID: 0}
+    text: "Berries off any bush; leaves, bark and a red flower by the broken bridge. Bring them here, and I'll tell you what's next."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1

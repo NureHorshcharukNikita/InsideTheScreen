@@ -391,7 +391,8 @@ public sealed class QuestPageView : MonoBehaviour
             int reached = completed ? quest.StageCount - 1 : quest.CurrentStage;
             for (int i = 0; i < steps.Count; i++)
             {
-                if (steps[i] == null || string.IsNullOrWhiteSpace(steps[i].label) || quest.StageOf(i) > reached)
+                if (steps[i] == null || string.IsNullOrWhiteSpace(steps[i].label) || quest.StageOf(i) > reached
+                    || !quest.IsStepReached(i))
                     continue;
 
                 SetObjectiveRow(used++, steps[i].label + (quest.StepShowsCount(i) ? count : string.Empty),

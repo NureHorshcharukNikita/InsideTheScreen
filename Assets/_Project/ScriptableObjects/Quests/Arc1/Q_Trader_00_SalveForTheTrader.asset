@@ -15,7 +15,7 @@ MonoBehaviour:
   questKey: a1_trader_salve
   title: A Salve for the Trader
   giverName: Trader
-  description: "The trader came to Leymar at dawn, and his cart's wheel cracked at the east gate - with a splinter in his hand for good measure. The glittering dust on his tarp is yours if you bring him something for that hand."
+  description: "A wolf came out of the woods at dawn and bit the trader at his camp on the south road. He keeps the dust Eldon needs, and it is yours if you bring him something for that hand."
   status: 0
   objectiveType: 3
   objectiveLabel: "Bring the trader something for his hand"
@@ -25,11 +25,13 @@ MonoBehaviour:
   targetCount: 1
   targetFlags: []
   steps:
-  - label: "Ask Garr what helps a cut"
+  - label: "Ask Garr what helps a bite"
+    doneWhen: a1_salve_ingredients
+  - label: "Bring Garr leaves, bark and a red flower from the broken bridge, and some berries"
     doneWhen: a1_salve_recipe
-  - label: "Gather leaves, bark and a red flower by the bushes west of the tower, and make Healing Herbs"
+  - label: "Make Healing Herbs at Garr's bench"
     doneWhen: 
-  - label: "Bring them to the trader by the east gate"
+  - label: "Bring them to the trader's camp on the south road"
     doneWhen: 
   rewards:
   - type: 2

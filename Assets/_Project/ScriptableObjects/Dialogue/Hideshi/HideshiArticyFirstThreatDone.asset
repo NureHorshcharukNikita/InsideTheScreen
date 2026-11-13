@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HideshiArticyFirstThreatDone
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "We did it... We actually beat them.", nextLineIndex: -1}
+  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "We did it... We actually beat it.", nextLineIndex: -1}
   - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "You did. I barely had to do anything.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "My hands are still shaking.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "That's normal. Mine shook too, when that wolf jumped at me.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "They behave like living creatures... but something in them is broken. As if someone twisted them.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "That's normal. Mine shook too, when it jumped at me in the forest.", nextLineIndex: -1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "It behaved like a living creature... but something in it was broken. As if someone twisted it.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Twisted by what?", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "I don't know yet. Let's finish the crystal first. Maybe then we'll find out.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - {speakerSide: 1, speakerName: Hideshi, portraitOverride: {fileID: 0}, text: "I don't know yet. But I mean to find out.", nextLineIndex: -1, endDialogueAfterLine: 1}

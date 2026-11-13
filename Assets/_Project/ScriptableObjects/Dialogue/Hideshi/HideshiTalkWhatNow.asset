@@ -38,8 +38,13 @@ MonoBehaviour:
     text: "Eldon's dust. Say the word, and we'll go and look for it."
     conditions:
     - type: 0
-      storyFlag: a1_dad_ready_to_go
+      storyFlag: a1_health_test_done
       quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       questStatus: 1
       invert: 0
     nextLineIndex: -1
@@ -76,6 +81,30 @@ MonoBehaviour:
       questStatus: 1
       invert: 0
     - type: 0
+      storyFlag: a1_salve_ingredients
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Leaves, bark and a red flower by the broken bridge, and berries off any bush. Then back to Garr."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_salve_ingredients
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
       storyFlag: a1_salve_recipe
       quest: {fileID: 0}
       questStatus: 1
@@ -87,11 +116,16 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Leaves, bark, a red flower and berries, by the bushes west of the tower. Then Garr's bench."
+    text: "Garr showed you how. Make it at his bench, then take it to the trader."
     conditions:
     - type: 1
       storyFlag: 
       quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_salve_recipe
+      quest: {fileID: 0}
       questStatus: 1
       invert: 0
     - type: 2
@@ -106,7 +140,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Take the herbs to the trader by the east gate."
+    text: "Take the herbs to the trader's camp, down the south road."
     conditions:
     - type: 1
       storyFlag: 
@@ -116,6 +150,106 @@ MonoBehaviour:
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "That wolf is down the south road, past the trader's camp. Stay close to me when we find it."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 1
+      invert: 0
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Eldon's sending us to the trader. His camp is down the south road."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_eldon_sent_to_trader
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 0
+      invert: 0
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Let's ask Eldon about that last handful. He'll know where it went."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_third_dust_missing
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_eldon_sent_to_trader
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Two handfuls, and nothing else glitters anywhere. Let's ask Eldon about the last one."
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_1
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_2
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_third_dust_missing
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_third_dust_missing
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []
   - speakerSide: 1
     speakerName: Hideshi

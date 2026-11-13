@@ -292,10 +292,62 @@ MonoBehaviour:
       questStatus: 1
       invert: 0
     - type: 0
+      storyFlag: a1_salve_ingredients
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+  - key: garr_salve_teach
+    dialogue: {fileID: 11400000, guid: 285ca4c43898449287c19d19a6b8b9dc, type: 2}
+    repeatable: 0
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_salve_ingredients
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
       storyFlag: a1_salve_recipe
       quest: {fileID: 0}
       questStatus: 1
       invert: 1
+    - type: 3
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 11400000, guid: 493c8f4a68744d7c9ffd5259e8a87613, type: 2}
+      count: 1
+    - type: 3
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 11400000, guid: 7668e87e8808462684f1925bcb62ef1f, type: 2}
+      count: 1
+    - type: 3
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 11400000, guid: 6f129b50f5614c34aa80546f52a9e68b, type: 2}
+      count: 1
+    - type: 3
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 11400000, guid: 23c8905197c649329d0864b1b02d4ee9, type: 2}
+      count: 1
   - key: garr_salve_reminder
     dialogue: {fileID: 11400000, guid: 829f2d7a599b47418169aadee100c2c1, type: 2}
     repeatable: 1
@@ -311,7 +363,7 @@ MonoBehaviour:
       questStatus: 1
       invert: 0
     - type: 0
-      storyFlag: a1_salve_recipe
+      storyFlag: a1_salve_ingredients
       quest: {fileID: 0}
       questStatus: 1
       invert: 0

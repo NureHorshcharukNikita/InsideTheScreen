@@ -25,9 +25,23 @@ MonoBehaviour:
   targetCount: 3
   steps:
   - label: "Find the glittering dust around the village"
-    doneWhen: 
+    doneWhen:
+    withPrevious: 0
+    shownWhen:
+  - label: "Ask Eldon about the last handful"
+    doneWhen: a1_eldon_sent_to_trader
+    withPrevious: 1
+    shownWhen: a1_third_dust_missing
+    detour: 1
+  - label: "Get Eldon's dust from the trader at his camp down the south road"
+    doneWhen: a1_crystal_dust_3
+    withPrevious: 1
+    shownWhen: a1_eldon_sent_to_trader
+    detour: 1
   - label: "Bring the dust to Eldon in his tower"
-    doneWhen: 
+    doneWhen:
+    withPrevious: 0
+    shownWhen:
   rewards:
   - type: 1
     card: {fileID: 0}

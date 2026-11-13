@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: TraderLeymarSalveDone
+  m_Name: TraderSalveDone
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "Here. Garr says this helps a cut."
+    text: "Here. Garr says this helps a bite."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Trader
     portraitOverride: {fileID: 0}
-    text: "Fair's fair. The glittering muck, all of it."
+    text: "Fair's fair. Eldon's dust - every grain I had."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
       count: 1
     - type: 4
       quest: {fileID: 0}
-      storyFlag: a1_crystal_dust_2
+      storyFlag: a1_crystal_dust_3
       silent: 1
       shop: {fileID: 0}
       enemy: {fileID: 0}
@@ -66,24 +66,6 @@ MonoBehaviour:
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions:
-    - type: 4
-      quest: {fileID: 0}
-      storyFlag: ui_gold
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    - type: 4
-      quest: {fileID: 0}
-      storyFlag: ui_trade
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
     - type: 2
       quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
       storyFlag: 
@@ -115,7 +97,52 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Trader
     portraitOverride: {fileID: 0}
-    text: "Care to have a look?"
+    text: "Before you go - that wolf's still about. I heard it down the road past my camp, the way you came."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "If it bit you, it could go for someone in the village next."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "That's what worries me."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Then we'll deal with it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 1
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "Care to have a look before you go?"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0

@@ -45,10 +45,11 @@ public sealed class SessionSaveData
     public bool hasSkillProgression;
     public int skillPoints;
     public SkillProgressSaveData[] skillProgression;
-    // Crafting tab: every card ever in the inventory (which recipes are known) and the recipes
-    // clicked since they appeared (no longer new).
+    // Crafting tab: every card ever in the inventory, the recipes clicked since they appeared (no
+    // longer new), and the recipes Haru has thought of himself (CraftingProgress).
     public string[] obtainedCardIds;
     public string[] openedRecipeKeys;
+    public string[] thoughtOfRecipeKeys;
 }
 
 [Serializable]

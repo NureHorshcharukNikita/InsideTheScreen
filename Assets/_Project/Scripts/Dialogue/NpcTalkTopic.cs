@@ -21,7 +21,7 @@ public sealed class NpcTalkTopic
     [Tooltip("Set once it has been talked about, so it is offered only once. Empty = never offered (unless Every Talk).")]
     [StoryFlag] public string doneFlag;
 
-    [Tooltip("Offered in every talk, once per talk, e.g. \"What should we do now?\" Done Flag is not needed.")]
+    [Tooltip("Offered in every talk, and again after it is asked in the same talk, e.g. \"What should we do now?\" Done Flag is not needed.")]
     public bool everyTalk;
 
     public bool IsAvailable => !string.IsNullOrWhiteSpace(choiceText)

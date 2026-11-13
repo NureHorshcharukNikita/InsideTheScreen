@@ -26,6 +26,9 @@ public sealed class QuestTrackerEntry : MonoBehaviour
     private const float StayDoneSeconds = 1.4f;
     // A stage done: how long its steps stay struck out, the strike-out included.
     private const float StageStaySeconds = 1.1f;
+    // Other steps of the same stage coming up (a detour, Quest Step): how long the ones on show stay
+    // first; as long as a stage's if one of them was just done and is struck out.
+    private const float StepsSwapStaySeconds = 0.3f;
     private const float StepsSlideSeconds = 0.6f;
     private const float StepsResizeSeconds = 0.4f;
     // Done with a reward: after the strike-out its row makes room, slides in, and stays a while before
@@ -80,6 +83,8 @@ public sealed class QuestTrackerEntry : MonoBehaviour
     private float stayLeft;
     // The stage whose steps are on show; below zero = none yet.
     private int shownStage = -1;
+    // Which of its steps are on show (Quest Step: Shown When, Detour), kept while they give way to others.
+    private readonly List<int> shownSteps = new();
     private int nextStage;
     private StageChange change;
     private float changeLeft;
@@ -152,6 +157,7 @@ public sealed class QuestTrackerEntry : MonoBehaviour
         room = comingIn ? 0f : 1f;
         slidIn = comingIn ? 0f : 1f;
         shownStage = -1;
+        shownSteps.Clear();
         showsReward = false;
         foreach (QuestTrackerStep step in steps)
             step.Forget();
@@ -207,18 +213,69 @@ public sealed class QuestTrackerEntry : MonoBehaviour
             return;
         }
 
-        // A new stage under way: the one on show goes first (Update), then it comes.
+        // A new stage under way, or other steps of it to show: the ones on show go first (Update), then
+        // the others come.
         int current = Quest.CurrentStage;
         if (shownStage < 0)
+        {
             shownStage = current;
-        else if (!completed && !closing && change == StageChange.None && current != shownStage)
+            TakeShownSteps();
+        }
+        else if (!completed && !closing && change == StageChange.None
+                 && (current != shownStage || !SameSteps(VisibleSteps(current))))
         {
             change = StageChange.Staying;
-            changeLeft = StageStaySeconds;
+            changeLeft = current != shownStage || AnyShownDone() ? StageStaySeconds : StepsSwapStaySeconds;
             nextStage = current;
         }
 
-        ShowStage(shownStage, completed);
+        ShowStage(completed);
+    }
+
+    // The steps of a stage the quest log shows now.
+    private List<int> VisibleSteps(int stage)
+    {
+        List<int> visible = new();
+        IReadOnlyList<QuestStep> questSteps = Quest.Steps;
+        for (int i = 0; questSteps != null && i < questSteps.Count; i++)
+        {
+            if (questSteps[i] != null && !string.IsNullOrWhiteSpace(questSteps[i].label) && Quest.StageOf(i) == stage
+                && Quest.IsStepShown(i))
+                visible.Add(i);
+        }
+
+        return visible;
+    }
+
+    private void TakeShownSteps()
+    {
+        shownSteps.Clear();
+        shownSteps.AddRange(VisibleSteps(shownStage));
+    }
+
+    private bool SameSteps(List<int> visible)
+    {
+        if (visible.Count != shownSteps.Count)
+            return false;
+
+        for (int i = 0; i < visible.Count; i++)
+        {
+            if (visible[i] != shownSteps[i])
+                return false;
+        }
+
+        return true;
+    }
+
+    private bool AnyShownDone()
+    {
+        foreach (int i in shownSteps)
+        {
+            if (Quest.IsStepDone(i))
+                return true;
+        }
+
+        return false;
     }
 
     // Coming in: room first, then the slide. Going: the stay, the slide, then the room closes. Meanwhile
@@ -284,10 +341,11 @@ public sealed class QuestTrackerEntry : MonoBehaviour
                     // Out of sight: the next stage's steps take their place, the room held as it was.
                     fromHeight = stepsLayout != null ? stepsLayout.preferredHeight : 0f;
                     shownStage = nextStage;
+                    TakeShownSteps();
                     foreach (QuestTrackerStep shown in steps)
                         shown.Forget();
 
-                    ShowStage(shownStage, false);
+                    ShowStage(false);
                     resize = 0f;
                     change = StageChange.Resizing;
                 }
@@ -301,7 +359,13 @@ public sealed class QuestTrackerEntry : MonoBehaviour
             case StageChange.Coming:
                 stepsIn = Mathf.MoveTowards(stepsIn, 1f, step / StepsSlideSeconds);
                 if (stepsIn >= 1f)
+                {
                     change = StageChange.None;
+                    // Something more may have changed meanwhile: that goes the same way.
+                    if (Quest != null && !closing)
+                        Show(false);
+                }
+
                 break;
         }
 
@@ -376,15 +440,15 @@ public sealed class QuestTrackerEntry : MonoBehaviour
         ApplySteps();
     }
 
-    // The steps of one stage: done ones ticked and struck out, the others to do.
-    private void ShowStage(int stage, bool completed)
+    // The steps on show: done ones ticked and struck out, the others to do.
+    private void ShowStage(bool completed)
     {
         string count = Count();
         int used = 0;
         IReadOnlyList<QuestStep> questSteps = Quest.Steps;
-        for (int i = 0; i < questSteps.Count; i++)
+        foreach (int i in shownSteps)
         {
-            if (questSteps[i] == null || string.IsNullOrWhiteSpace(questSteps[i].label) || Quest.StageOf(i) != stage)
+            if (i < 0 || i >= questSteps.Count || questSteps[i] == null)
                 continue;
 
             QuestTrackerStepState state = completed || Quest.IsStepDone(i)

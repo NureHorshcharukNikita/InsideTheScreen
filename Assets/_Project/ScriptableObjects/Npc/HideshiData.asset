@@ -392,8 +392,13 @@ MonoBehaviour:
     rangeEndConversation: 0
     conditions:
     - type: 0
-      storyFlag: a1_dad_ready_to_go
+      storyFlag: a1_health_test_done
       quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       questStatus: 1
       invert: 0
   - key: hideshi_idle
@@ -435,13 +440,43 @@ MonoBehaviour:
   - choiceText: Let's go.
     conditions:
     - type: 0
-      storyFlag: a1_dad_ready_to_go
+      storyFlag: a1_health_test_done
       quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       questStatus: 1
       invert: 0
     dialogue: {fileID: 11400000, guid: e97c24363de84011bcf5e45fa830fa00, type: 2}
     doneFlag: 
     everyTalk: 1
+  - choiceText: I can't find the last handful.
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_1
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_crystal_dust_2
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: a1_third_dust_missing
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+    dialogue: {fileID: 11400000, guid: 67a91f6b6f0b4bfbbd884a01d9e0f6a9, type: 2}
+    doneFlag: a1_third_dust_missing
+    everyTalk: 0
   - choiceText: What should we do now?
     conditions:
     - type: 0

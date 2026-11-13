@@ -219,6 +219,37 @@ public sealed class QuestData : ScriptableObject
             && QuestManager.TryGetObjectiveProgress(this, out int current, out int target) && current >= target;
     }
 
+    // In the quest tracker now: from its stage on, or once its Shown When flag is set; not while a
+    // detour of its stage is under way, and a detour itself only until it is done.
+    public bool IsStepShown(int index)
+    {
+        if (!IsStepReached(index))
+            return false;
+
+        if (steps[index].detour)
+            return !IsStepDone(index);
+
+        int stage = StageOf(index);
+        for (int i = 0; i < steps.Count; i++)
+        {
+            if (i != index && steps[i] != null && steps[i].detour && StageOf(i) == stage && IsStepReached(i) && !IsStepDone(i))
+                return false;
+        }
+
+        return true;
+    }
+
+    // Come up at all (its Shown When flag set, or none): the quest's page lists every such step in order,
+    // the step a detour stood in front of above it, e.g. the dust 2/3 over asking Eldon.
+    public bool IsStepReached(int index)
+    {
+        if (steps == null || index < 0 || index >= steps.Count || steps[index] == null)
+            return false;
+
+        string flag = steps[index].shownWhen;
+        return string.IsNullOrWhiteSpace(flag) || StoryFlagManager.HasFlag(flag);
+    }
+
     // The quest's count (2/4) goes with this step: one without a flag, done once the count is reached,
     // or the only stage's. Not with one in the last of several stages ("Show your father what you found").
     public bool StepShowsCount(int index)
@@ -305,6 +336,10 @@ public sealed class QuestStep
     [StoryFlag] public string doneWhen;
     [Tooltip("Done at once with the step before it, in any order, e.g. a second thing to find: shown together, and the next stage comes once both are done.")]
     public bool withPrevious;
+    [Tooltip("Shown in the log only once this flag is set: a step that comes up along the way, e.g. asking Eldon about the last handful once Haru cannot find it. Empty = shown with its stage.")]
+    [StoryFlag] public string shownWhen;
+    [Tooltip("A detour in the quest tracker: while it is shown and not done, the other steps of its stage step aside for it there; once it is done it goes, and they come back. E.g. asking Eldon about the last handful in place of looking for the dust. The quest's page lists them all in order.")]
+    public bool detour;
 }
 
 [Serializable]
@@ -334,7 +369,7 @@ public sealed class QuestRewardData
     // skill points and gold come in quietly until the story has brought them up (HudFlags).
     public bool IsShown => type switch
     {
-        QuestRewardType.SkillPoints => HudFlags.IsOpen(HudFlags.SkillPoints),
+        QuestRewardType.SkillPoints => HudFlags.IsOpen(HudFlags.Skills),
         QuestRewardType.Gold => HudFlags.IsOpen(HudFlags.Gold),
         _ => true
     };

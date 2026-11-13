@@ -8,6 +8,8 @@ public class NpcCharacter : Character
     [SerializeField] private NpcState state = NpcState.Idle;
     [SerializeField] private string persistenceKeyOverride;
 
+    private bool started;
+
     public override int MaxHealth => npcData != null ? Mathf.Max(1, npcData.maxHealth) : 1;
     public override int StartingArmor => npcData != null ? Mathf.Max(0, npcData.startingArmor) : 0;
     public override CombatTeam Team => CombatTeam.Neutral;
@@ -34,7 +36,7 @@ public class NpcCharacter : Character
     protected override void Awake()
     {
         base.Awake();
-        MapSprite.Apply(gameObject, npcData != null ? npcData.MapSprite : null);
+        MapSprite.Apply(gameObject, BaseMapSprite);
         StandingFacesAhead.Attach(gameObject);
         RestoreSavedPosition();
 
@@ -43,11 +45,22 @@ public class NpcCharacter : Character
         ApplyStoryVisibility();
     }
 
-    // The look comes from the data: a new NPC is Npc.prefab with its NpcData.
+    // The look comes from the data: a new NPC is Npc.prefab with its NpcData. In the editor always the
+    // usual one: a look the story changes (Looks Later) is never written into the scene.
     private void OnValidate()
     {
+        MapSprite.Apply(gameObject, BaseMapSprite);
+    }
+
+    // The look the story has reached, e.g. the trader's bitten hand. Not in Awake: a sprite changed
+    // there cannot tell its renderer's listeners.
+    private void Start()
+    {
+        started = true;
         MapSprite.Apply(gameObject, npcData != null ? npcData.MapSprite : null);
     }
+
+    private Sprite BaseMapSprite => npcData != null && npcData.profile != null ? npcData.profile.mapSprite : null;
 
     private void OnDestroy()
     {
@@ -66,6 +79,10 @@ public class NpcCharacter : Character
     {
         if (npcData == null)
             return;
+
+        // A look the story has just changed, e.g. the trader's hand bandaged (Character Profile, Looks Later).
+        if (started)
+            MapSprite.Apply(gameObject, npcData.MapSprite);
 
         bool hasHiddenFlag = !string.IsNullOrWhiteSpace(npcData.hiddenAfterStoryFlag);
         if (!hasHiddenFlag && (npcData.awayWhile == null || npcData.awayWhile.Count == 0))

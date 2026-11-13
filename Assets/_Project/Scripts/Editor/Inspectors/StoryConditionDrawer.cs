@@ -42,6 +42,14 @@ public sealed class StoryConditionDrawer : PropertyDrawer
         {
             EditorGUI.PropertyField(valueRect, property.FindPropertyRelative("quest"), GUIContent.none);
         }
+        else if ((StoryConditionType)typeProp.enumValueIndex == StoryConditionType.HasCard)
+        {
+            const float countWidth = 40f;
+            Rect cardRect = new(valueRect.x, valueRect.y, valueRect.width - countWidth - Gap, valueRect.height);
+            Rect countRect = new(cardRect.xMax + Gap, valueRect.y, countWidth, valueRect.height);
+            EditorGUI.PropertyField(cardRect, property.FindPropertyRelative("card"), GUIContent.none);
+            EditorGUI.PropertyField(countRect, property.FindPropertyRelative("count"), GUIContent.none);
+        }
         else
         {
             EditorGUI.PropertyField(valueRect, property.FindPropertyRelative("storyFlag"), GUIContent.none);
