@@ -7,12 +7,20 @@ using UnityEngine.UI;
 // Runs a battle of one to three fighters a side. On the left the player, who plays cards, and up
 // to two allies (companions travelling with the player); on the right one to three enemies. Once
 // the player ends their turn, each ally acts, then each enemy, left to right. Won when every enemy
-// is down, lost when the player is; a fallen ally just leaves the fight.
+// is down, lost when the player is. A fallen ally steps back, see-through, out of the fight (in a first
+// lesson its fall loses the fight too: BattleTalkData). What Haru and his side say meanwhile, and the
+// lesson's rules, come from BattleTalk.
 public class BattleSystem : MonoBehaviour
 {
     public BattleState CurrentBattleState { get; private set; } = BattleState.Running;
 
     public event Action<DeckManager> HandChanged;
+    // For BattleTalk: what happens in the fight.
+    public event Action StartingHandDealt;
+    public event Action<int> PlayerTurnStarted;
+    public event Action CardPlayed;
+    public event Action DeckReshuffled;
+    public event Action<EnemyCharacter> AllyFell;
 
     [Header("Characters")]
     [Tooltip("The first enemy. Copies of it make the other enemies and the allies.")]
@@ -30,6 +38,10 @@ public class BattleSystem : MonoBehaviour
     [Header("Quests")]
     [SerializeField] private List<QuestData> questCatalog = new();
 
+    [Header("Talk")]
+    [Tooltip("What Haru and his side say in this fight, and a first lesson's rules. Empty = a fight like any other.")]
+    [SerializeField] private BattleTalk talk;
+
     [Header("Turn Pacing")]
     [SerializeField] private float enemyIntentTelegraphDuration = 0.5f;
     [SerializeField] private float enemyIntentHideDuration = 0.15f;
@@ -40,6 +52,10 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private float defeatFadeDuration = 0.4f;
     [Tooltip("How long the fighters still standing take to regroup after one falls.")]
     [SerializeField] private float regroupDuration = 0.5f;
+    [Tooltip("How see-through a fallen ally stays, stepped back out of the fight.")]
+    [SerializeField, Range(0f, 1f)] private float fallenAllyAlpha = 0.4f;
+    [Tooltip("How far a fallen ally steps back, away from the enemies and up into the background (world units).")]
+    [SerializeField] private Vector2 fallenAllyStepBack = new(0.8f, 0.5f);
 
     private DeckManager deckManager;
     private CardPlayer cardPlayer;
@@ -75,7 +91,35 @@ public class BattleSystem : MonoBehaviour
         ? encounter.Enemies
         : Array.Empty<EnemyCharacter>();
 
-    private bool IsDecided => !player.IsAlive || turnManager.AllEnemiesDefeated;
+    public PlayerCharacter Player => player;
+    public EnemyCharacter FirstAlly => encounter != null && encounter.Allies.Count > 0 ? encounter.Allies[0] : null;
+    public bool IsPlayerTurn => turnManager != null && turnManager.CurrentTurn == TurnOwner.Player;
+    // The player's turns so far, the first one 1.
+    public int PlayerTurn { get; private set; }
+
+    // Nothing moving: no turn changing, no cards flying.
+    public bool IsSettled => CurrentBattleState == BattleState.Running
+                             && !turnTransitionInProgress
+                             && (handUI == null || !handUI.IsAnimatingCards);
+
+    private bool IsDecided => !player.IsAlive || IsLostByAllyFalling || turnManager.AllEnemiesDefeated;
+
+    private bool IsLostByAllyFalling
+    {
+        get
+        {
+            if (talk == null || talk.Data == null || !talk.Data.LostIfAllyFalls || encounter == null)
+                return false;
+
+            foreach (EnemyCharacter ally in encounter.Allies)
+            {
+                if (ally != null && !ally.IsAlive)
+                    return true;
+            }
+
+            return false;
+        }
+    }
 
     private void Start()
     {
@@ -99,6 +143,7 @@ public class BattleSystem : MonoBehaviour
         deckManager = new DeckManager();
         // Too few cards in the deck: Haru's fists and legs make up the rest (PlayerData).
         deckManager.Initialize(player.DeckData, player.BaseCardsInFillOrder, player.MinimumBattleDeckSize);
+        deckManager.Reshuffled += () => DeckReshuffled?.Invoke();
 
         deckUI.Bind(deckManager.Deck);
 
@@ -109,7 +154,7 @@ public class BattleSystem : MonoBehaviour
             () => cardPlayer,
             () => turnManager,
             CanPlay,
-            AfterAction,
+            AfterCardPlayed,
             NotifyHandChanged,
             RequestEndPlayerTurn);
 
@@ -139,6 +184,9 @@ public class BattleSystem : MonoBehaviour
 
         turnManager.DrawStartingHand();
         NotifyHandChanged();
+        PlayerTurn = 1;
+        StartingHandDealt?.Invoke();
+        PlayerTurnStarted?.Invoke(PlayerTurn);
 
         EndTurnTransition();
     }
@@ -236,6 +284,8 @@ public class BattleSystem : MonoBehaviour
         turnManager.PlanNextAiActions();
         RevealIntents();
         NotifyHandChanged();
+        PlayerTurn++;
+        PlayerTurnStarted?.Invoke(PlayerTurn);
 
         EndTurnTransition();
     }
@@ -358,11 +408,17 @@ public class BattleSystem : MonoBehaviour
         return deckManager != null && deckManager.Hand.Contains(card);
     }
 
+    // Not while a line of the talk waits to be read either.
     public bool CanPlay()
     {
-        return CurrentBattleState == BattleState.Running
-               && !turnTransitionInProgress
-               && (handUI == null || !handUI.IsAnimatingCards);
+        return IsSettled && (talk == null || !talk.IsHolding);
+    }
+
+    private void AfterCardPlayed()
+    {
+        AfterAction();
+        if (CurrentBattleState == BattleState.Running)
+            CardPlayed?.Invoke();
     }
 
     public void AfterAction()
@@ -373,12 +429,45 @@ public class BattleSystem : MonoBehaviour
             return;
         }
 
-        if (player.CurrentHealth <= 0)
+        if (player.CurrentHealth <= 0 || IsLostByAllyFalling)
+            HandleDefeat();
+    }
+
+    // A first lesson (BattleTalkData) has only Retry, and after so many losses its enemy runs off.
+    private void HandleDefeat()
+    {
+        if (CurrentBattleState != BattleState.Running)
+            return;
+
+        SetDefeat();
+        handUI?.ReleaseAllBattleCardDrags();
+        talk?.Stop();
+
+        BattleTalkData lesson = talk != null ? talk.Data : null;
+        string encounterId = PendingBattleEnemy.EncounterId;
+        int losses = BattleTries.NoteLoss(encounterId);
+        if (lesson != null && lesson.LossesBeforeEnemyFlees > 0 && losses >= lesson.LossesBeforeEnemyFlees)
         {
-            SetDefeat();
-            handUI?.ReleaseAllBattleCardDrags();
-            battleEndUI?.ShowDefeat();
+            HandleEnemyFled(lesson, encounterId);
+            return;
         }
+
+        battleEndUI?.ShowDefeat(lesson == null);
+    }
+
+    // Counts as won, without loot; Haru's health stays as it was before the fight.
+    private void HandleEnemyFled(BattleTalkData lesson, string encounterId)
+    {
+        victoryHandled = true;
+        CurrentBattleState = BattleState.Victory;
+        BattleTries.Forget(encounterId);
+
+        if (!string.IsNullOrWhiteSpace(lesson.EnemyFledFlag))
+            StoryFlagManager.SetFlag(lesson.EnemyFledFlag);
+
+        DefeatedEncounters.MarkDefeated(encounterId);
+        QuestManager.HandleEncounterDefeated(encounterId, player.InventoryData);
+        battleEndUI?.ShowEnemyFled(lesson.EnemyFledTitle);
     }
 
     private void HandleVictory()
@@ -388,6 +477,8 @@ public class BattleSystem : MonoBehaviour
 
         victoryHandled = true;
         SetVictory();
+        talk?.Stop();
+        BattleTries.Forget(PendingBattleEnemy.EncounterId);
 
         List<CardData> droppedLoot = RollAndCollectEnemyLoot();
 
@@ -837,22 +928,56 @@ public class BattleSystem : MonoBehaviour
         if (encounter.IntentViews.TryGetValue(fighter, out EnemyIntentView intentView))
             intentView.gameObject.SetActive(false);
 
+        // An ally is not gone: he steps back, away from the enemies and into the background, and
+        // stays there see-through.
+        bool ally = fighter.Team == player.Team;
+        if (ally)
+            AllyFell?.Invoke(fighter);
+
         if (fighter.TryGetComponent(out SpriteRenderer sprite))
         {
             Color color = sprite.color;
             float startAlpha = color.a;
+            float endAlpha = ally ? startAlpha * fallenAllyAlpha : 0f;
+            Vector3 from = fighter.transform.position;
+            float awayFromEnemies = Mathf.Sign(from.x - enemySceneX);
+            Vector3 to = ally
+                ? from + new Vector3(awayFromEnemies * fallenAllyStepBack.x, fallenAllyStepBack.y, 0f)
+                : from;
+            if (ally)
+                sprite.sortingOrder -= 10;
+
             for (float elapsed = 0f; elapsed < defeatFadeDuration; elapsed += Time.deltaTime)
             {
-                color.a = Mathf.Lerp(startAlpha, 0f, elapsed / defeatFadeDuration);
+                float t = elapsed / defeatFadeDuration;
+                color.a = Mathf.Lerp(startAlpha, endAlpha, t);
                 sprite.color = color;
+                fighter.transform.position = Vector3.Lerp(from, to, Mathf.SmoothStep(0f, 1f, t));
                 yield return null;
             }
 
-            color.a = 0f;
+            color.a = endAlpha;
             sprite.color = color;
+            fighter.transform.position = to;
         }
 
         RequestRegroup();
+    }
+
+    // The intent shown over the first fighter still standing on that side, for the pointer.
+    public RectTransform GetIntentRect(bool allySide)
+    {
+        if (encounter == null)
+            return null;
+
+        IReadOnlyList<EnemyCharacter> side = allySide ? encounter.Allies : encounter.Enemies;
+        foreach (EnemyCharacter fighter in side)
+        {
+            if (fighter != null && fighter.IsAlive && encounter.IntentViews.TryGetValue(fighter, out EnemyIntentView view) && view != null)
+                return view.transform as RectTransform;
+        }
+
+        return null;
     }
 
     // E.g. Seal of Immortality: announce it, and since the fighter may now fight differently

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 217b60ac56e245beb0b5e71f116c0e18, type: 3}
+  m_Name: BrannocProfile
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterProfile
+  characterID: brannoc
+  displayName: Brannoc
+  namesHeard:
+  - heardAs:
+    - Brannoc
+    shownAs: 
+  description: 
+  portraitSprite: {fileID: 21300000, guid: e46f0ce2582641be8de9b64eb958cf3b, type: 3}
+  portraitFacing: 1
+  voice: {fileID: 11400000, guid: 2f3bfa0be04e4760817d918c5d5560ff, type: 2}
+  mapSprite: {fileID: 21300000, guid: 89798a26449441c6b2dc50b5802061f1, type: 3}

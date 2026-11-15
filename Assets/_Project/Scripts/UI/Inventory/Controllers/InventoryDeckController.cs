@@ -21,9 +21,12 @@ public class InventoryDeckController
         return GetAddableCount(card) > 0;
     }
 
+    // Before the story brings the deck up (HudFlags.Deck) nothing goes in or out, dragged or not.
+    public static bool IsOpen => HudFlags.IsOpen(HudFlags.Deck);
+
     public int GetAddableCount(CardData card)
     {
-        if (card == null || deck == null || storage == null)
+        if (card == null || deck == null || storage == null || !IsOpen)
             return 0;
 
         int inventoryCopies = storage.Cards.Count(storedCard => storedCard == card);
@@ -65,7 +68,7 @@ public class InventoryDeckController
 
     public int Remove(CardData card, int count)
     {
-        if (card == null || deck == null)
+        if (card == null || deck == null || !IsOpen)
             return 0;
 
         int quantity = System.Math.Min(count, GetDeckCount(card));

@@ -18,6 +18,9 @@ public static class HudFlags
     // The gold in the inventory, and trading at all (shops wait for it): the trader pays for the salve,
     // Eldon's dust and his first coin.
     public const string Gold = "a1_crystal_dust_3";
+    // The deck on the cards tab (its panel, the Add / Remove buttons): Dad, before the wolf, has Haru
+    // pick what he takes into the fight. Until then nothing goes into the deck.
+    public const string Deck = "a1_deck_lesson";
 
     public static bool IsOpen(string flag)
     {
@@ -25,7 +28,8 @@ public static class HudFlags
     }
 
     // A save from before the HUD came up bit by bit: what the story has already brought up is there,
-    // without opening itself. Once, as a scene starts (InventoryInput).
+    // without opening itself. Also puts right flags a story change has left behind. Once, as a scene
+    // starts (InventoryInput).
     public static void CatchUpOldSave()
     {
         // From before the stick test: Survival Basics done without it.
@@ -49,6 +53,16 @@ public static class HudFlags
         // From before his father's talk about making things: past the salve, Haru thinks of recipes.
         if (IsDone("a1_trader_salve") || StoryFlagManager.HasFlag("a1_bags_received"))
             Bring(CraftingProgress.IdeasFlag);
+
+        // From before the deck waited for the wolf: past it, or with cards already in the deck.
+        DeckData deck = ExplorationPlayerSession.RuntimeDeck;
+        if (IsDone("a1_first_threat") || (deck != null && deck.Cards.Count > 0))
+            Bring(Deck);
+
+        // From before Standing on Your Own was taken out: Dad was left waiting for Haru to beat two
+        // ants alone, and nothing would call him back now.
+        if (StoryFlagManager.ClearFlag("a1_hideshi_waits"))
+            StoryFlagManager.ClearFlag("hideshi_stays_behind");
     }
 
     private static void Bring(string flag)

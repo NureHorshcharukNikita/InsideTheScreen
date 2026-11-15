@@ -3,9 +3,13 @@ using UnityEngine;
 
 // Makes an NPC walk after the player once a story flag is set, e.g. Hideshi travelling with
 // Haru through Arc 1. With Stays Put on he stands where he is like any other NPC. The companion
-// moves with physics, so walls and furniture stop him, finds a way around obstacles on a small
-// grid, and jumps next to the player when left far behind (doorways, story teleports). He never
-// bumps into the player. While following, he also fights at the player's side (battleData).
+// moves with physics, so walls and furniture stop him. With nothing in the way he walks straight to
+// the player; otherwise the way the player walked (the player's trail, which he surely fits), and
+// with no trail to take a way around on a small grid lined up with the tiles. Left far behind
+// (doorways, story teleports), or stuck for good where the player cannot see him, he jumps after
+// the player: to a spot of the trail off screen if there is one, so he walks in rather than
+// appears. He never bumps into the player. While following, he also fights at the player's side
+// (battleData).
 // While the Stays Behind flag is set he waits where he stood, and Haru fights alone. Standing by
 // Haru he looks at him; waiting on his own, he turns ahead after a cutscene or a talk like anyone
 // (StandingFacesAhead).
@@ -21,7 +25,21 @@ public sealed class CompanionFollower : MonoBehaviour
     private const float WalkAnimationHoldTime = 0.15f;
     private const float StuckRepathTime = 0.5f;
     private const float StuckTeleportTime = 3f;
+    // In sight of the player he jumps only after this long: he keeps trying the trail meanwhile.
+    private const float StuckTeleportTimeOnScreen = 8f;
+    // Caught on something: for this long after, the player's trail comes before the shortcuts.
+    private const float PreferTrailTime = 2f;
+    // The player's trail: a point every so far walked, the last so many of them. A jump longer than
+    // Trail Jump (a door, a story teleport) starts it over.
+    private const float TrailSpacing = 0.35f;
+    private const int TrailLength = 90;
+    private const float TrailJump = 2f;
+    // How far past the screen's edge (share of the screen) a spot counts as out of sight.
+    private const float OffScreenMargin = 0.04f;
     private const int MaxSearchNodes = 4000;
+    // Straight stretches are taken only with this much room to spare (times his feet), so he does
+    // not catch on corners.
+    private const float PathClearance = 1.15f;
     private const float RepathPlayerMoveDistance = 0.5f;
     // Staying behind this close to an NPC (about half a screen), he is there for their talk (IsPresentAt).
     private const float PresentDistance = 12f;
@@ -65,6 +83,7 @@ public sealed class CompanionFollower : MonoBehaviour
     };
 
     private readonly List<Vector2> path = new();
+    private readonly List<Vector2> trail = new();
     private readonly Collider2D[] overlapResults = new Collider2D[8];
     private readonly RaycastHit2D[] castResults = new RaycastHit2D[8];
     private readonly List<Collider2D> ignoredColliders = new();
@@ -90,7 +109,8 @@ public sealed class CompanionFollower : MonoBehaviour
     private Vector2 pathGoal;
     private float commandedStep;
     private float stuckTime;
-    private bool stuckRepathDone;
+    private float nextStuckRepath = StuckRepathTime;
+    private float preferTrailUntil;
     private float walkAnimationUntil;
     private readonly Dictionary<Collider2D, bool> doorPartCache = new();
     private readonly Dictionary<Collider2D, CompanionFollower> companionPartCache = new();
@@ -183,7 +203,7 @@ public sealed class CompanionFollower : MonoBehaviour
         // Sets off far from the player, e.g. a debug start inside the house while he stands outside,
         // or a loaded save: at their side at once, before the frame is drawn, not a physics step later.
         if (!wasFollowing && Vector2.Distance(FeetCenter, PlayerFeetCenter) > teleportDistance)
-            TeleportNearPlayer();
+            TeleportNearPlayer(walkInFromOffScreen: false);
 
         if (!GameStateManager.IsGameplay)
         {
@@ -232,10 +252,11 @@ public sealed class CompanionFollower : MonoBehaviour
         Vector2 feet = FeetCenter;
         Vector2 playerFeet = PlayerFeetCenter;
         float distance = Vector2.Distance(feet, playerFeet);
+        RecordTrail(playerFeet);
 
         if (distance > teleportDistance)
         {
-            TeleportNearPlayer();
+            TeleportNearPlayer(walkInFromOffScreen: true);
             return;
         }
 
@@ -261,7 +282,10 @@ public sealed class CompanionFollower : MonoBehaviour
         while (path.Count > 0 && (path[0] - feet).sqrMagnitude < WaypointReachedDistance * WaypointReachedDistance)
             path.RemoveAt(0);
 
-        // No way found: head straight for the player and let the walls stop him.
+        // At the end of the way, still not by the player: the next way at once.
+        if (path.Count == 0)
+            RebuildPath(feet, playerFeet);
+
         Vector2 waypoint = path.Count > 0 ? path[0] : playerFeet;
         Vector2 toWaypoint = waypoint - feet;
         float waypointDistance = toWaypoint.magnitude;
@@ -277,6 +301,16 @@ public sealed class CompanionFollower : MonoBehaviour
         moveDirection = toWaypoint / waypointDistance;
         commandedStep = Mathf.Min(speed * Time.fixedDeltaTime, waypointDistance);
         body.linearVelocity = Vector2.zero;
+
+        // Not into the way of someone walking past on their own (Garr to his forge): he waits until
+        // they are by. Not stuck meanwhile.
+        if (!BackgroundWalk.InSomeonesWay(feet, transform)
+            && BackgroundWalk.InSomeonesWay(feet + moveDirection * commandedStep, transform))
+        {
+            commandedStep = 0f;
+            return;
+        }
+
         body.MovePosition(body.position + moveDirection * commandedStep);
     }
 
@@ -345,31 +379,73 @@ public sealed class CompanionFollower : MonoBehaviour
     }
 
     // Compares the last physics step with the step asked for: pressed against something, look for
-    // another way once, and as a last resort jump next to the player.
+    // another way every half second, the player's trail first; as a last resort jump after the
+    // player, at once only where the player cannot see it.
     private void TrackStuck(float moved)
     {
         if (!walking || commandedStep <= 0f || moved >= commandedStep * 0.1f)
         {
             stuckTime = 0f;
-            stuckRepathDone = false;
+            nextStuckRepath = StuckRepathTime;
             return;
         }
 
         stuckTime += Time.fixedDeltaTime;
-        if (stuckTime >= StuckRepathTime && !stuckRepathDone)
+        if (stuckTime >= nextStuckRepath)
         {
-            stuckRepathDone = true;
+            nextStuckRepath += StuckRepathTime;
             repathNow = true;
+            preferTrailUntil = Time.time + PreferTrailTime;
         }
 
-        if (stuckTime >= StuckTeleportTime && Vector2.Distance(FeetCenter, PlayerFeetCenter) > followDistance * 2f)
-            TeleportNearPlayer();
+        bool farBehind = Vector2.Distance(FeetCenter, PlayerFeetCenter) > followDistance * 2f;
+        if (farBehind && stuckTime >= StuckTeleportTime && (!IsOnScreen(FeetCenter) || stuckTime >= StuckTeleportTimeOnScreen))
+            TeleportNearPlayer(walkInFromOffScreen: true);
     }
 
-    private void TeleportNearPlayer()
+    // The player's feet every Trail Spacing walked: a way the companion surely fits through.
+    private void RecordTrail(Vector2 playerFeet)
+    {
+        if (trail.Count > 0)
+        {
+            float step = Vector2.Distance(trail[^1], playerFeet);
+            if (step > TrailJump)
+                trail.Clear();
+            else if (step < TrailSpacing)
+                return;
+        }
+
+        trail.Add(playerFeet);
+        if (trail.Count > TrailLength)
+            trail.RemoveAt(0);
+    }
+
+    private static bool IsOnScreen(Vector2 point)
+    {
+        Camera camera = Camera.main;
+        if (camera == null)
+            return true;
+
+        Vector3 viewport = camera.WorldToViewportPoint(point);
+        return viewport.x >= -OffScreenMargin && viewport.x <= 1f + OffScreenMargin
+            && viewport.y >= -OffScreenMargin && viewport.y <= 1f + OffScreenMargin;
+    }
+
+    // walkInFromOffScreen: to the newest spot of the player's trail out of sight, so he walks in
+    // from there; with none, or for a jump nobody is to see (a loaded save), right behind the player.
+    private void TeleportNearPlayer(bool walkInFromOffScreen)
     {
         Vector2 playerFeet = PlayerFeetCenter;
         Vector2 feetOffset = FeetCenter - body.position;
+        if (walkInFromOffScreen && TryFindOffScreenTrailSpot(playerFeet, out Vector2 offScreen))
+        {
+            npc.TeleportTo(offScreen - feetOffset);
+            lastBodyPosition = body.position;
+            StopWalking();
+            UpdateFacing(playerFeet - offScreen);
+            return;
+        }
+
         Vector2 target = playerFeet - playerHeading * followDistance;
 
         // Behind the player first, then around them, closer each round, on a free spot they can see.
@@ -397,6 +473,30 @@ public sealed class CompanionFollower : MonoBehaviour
         UpdateFacing(playerHeading);
     }
 
+    private bool TryFindOffScreenTrailSpot(Vector2 playerFeet, out Vector2 spot)
+    {
+        for (int i = trail.Count - 1; i >= 0; i--)
+        {
+            Vector2 point = trail[i];
+            if (Vector2.Distance(point, playerFeet) > teleportDistance)
+                break;
+
+            if (!IsOnScreen(point) && IsWalkable(point, FeetSize))
+            {
+                spot = point;
+                return true;
+            }
+        }
+
+        spot = default;
+        return false;
+    }
+
+    // Straight there if nothing is in the way. Otherwise the way the player walked (the trail): he
+    // surely fits where the player went. With no trail to take, the shortest way on the grid; with
+    // none either, along the trail from its point nearest to him, sliding along whatever is in the
+    // way, never pushing straight at it. Just caught on something: no straight line, that is what he
+    // got caught on.
     private void RebuildPath(Vector2 from, Vector2 goal)
     {
         nextRepathTime = Time.time + repathInterval;
@@ -404,32 +504,85 @@ public sealed class CompanionFollower : MonoBehaviour
         pathGoal = goal;
         path.Clear();
 
-        if (CanWalkStraight(from, goal))
+        if (Time.time >= preferTrailUntil && CanWalkClear(from, goal))
         {
             path.Add(goal);
             return;
         }
 
-        if (!TryFindPath(from, goal))
+        if (TryTrailPath(from))
             return;
 
-        SmoothPath(from);
+        if (TryFindPath(from, goal))
+        {
+            SmoothPath(from);
+            return;
+        }
+
+        if (TryNearestTrailPath(from))
+            return;
+
+        path.Add(goal);
+    }
+
+    // From the newest point of the player's trail he can walk to in a straight line, then along it.
+    private bool TryTrailPath(Vector2 from)
+    {
+        for (int i = trail.Count - 1; i >= 0; i--)
+        {
+            if (!CanWalkClear(from, trail[i]))
+                continue;
+
+            for (int j = i; j < trail.Count; j++)
+                path.Add(trail[j]);
+
+            SmoothPath(from);
+            return path.Count > 0;
+        }
+
+        return false;
+    }
+
+    private bool TryNearestTrailPath(Vector2 from)
+    {
+        int nearest = -1;
+        float nearestDistance = float.MaxValue;
+        for (int i = 0; i < trail.Count; i++)
+        {
+            float d = (trail[i] - from).sqrMagnitude;
+            if (d < nearestDistance)
+            {
+                nearestDistance = d;
+                nearest = i;
+            }
+        }
+
+        if (nearest < 0)
+            return false;
+
+        for (int j = nearest; j < trail.Count; j++)
+            path.Add(trail[j]);
+
+        return true;
     }
 
     // A* on a grid around the companion and the player. Any free cell within Follow Distance of
     // the player, with a clear view of them, is a good place to stop.
     private bool TryFindPath(Vector2 from, Vector2 goal)
     {
+        // The grid lines up with the world (and the tiles), not with where he stands: a doorway
+        // between walls on tile edges then has cells down its middle.
+        Vector2 origin = new(Mathf.Round(from.x / cellSize) * cellSize, Mathf.Round(from.y / cellSize) * cellSize);
         Vector2 min = Vector2.Min(from, goal) - Vector2.one * searchMargin;
         Vector2 max = Vector2.Max(from, goal) + Vector2.one * searchMargin;
-        Vector2Int minCell = ToCell(min, from);
-        Vector2Int maxCell = ToCell(max, from);
+        Vector2Int minCell = ToCell(min, origin);
+        Vector2Int maxCell = ToCell(max, origin);
 
         var walkable = new Dictionary<Vector2Int, bool>();
         var cameFrom = new Dictionary<Vector2Int, Vector2Int>();
         var cost = new Dictionary<Vector2Int, float> { [Vector2Int.zero] = 0f };
         var open = new CellQueue();
-        open.Push(Vector2Int.zero, Heuristic(from, goal));
+        open.Push(Vector2Int.zero, Heuristic(origin, goal));
         var closed = new HashSet<Vector2Int>();
 
         while (open.Count > 0 && closed.Count < MaxSearchNodes)
@@ -438,10 +591,10 @@ public sealed class CompanionFollower : MonoBehaviour
             if (!closed.Add(cell))
                 continue;
 
-            Vector2 position = ToWorld(cell, from);
+            Vector2 position = ToWorld(cell, origin);
             if (cell != Vector2Int.zero && Vector2.Distance(position, goal) <= followDistance && HasLineOfSight(position, goal))
             {
-                BuildPath(cell, cameFrom, from);
+                BuildPath(cell, cameFrom, origin);
                 return true;
             }
 
@@ -451,13 +604,13 @@ public sealed class CompanionFollower : MonoBehaviour
                 if (closed.Contains(next) || next.x < minCell.x || next.x > maxCell.x || next.y < minCell.y || next.y > maxCell.y)
                     continue;
 
-                if (!IsWalkableCell(next, from, walkable))
+                if (!IsWalkableCell(next, origin, walkable))
                     continue;
 
                 // No cutting corners past a wall.
                 bool diagonal = offset.x != 0 && offset.y != 0;
-                if (diagonal && (!IsWalkableCell(new Vector2Int(next.x, cell.y), from, walkable)
-                    || !IsWalkableCell(new Vector2Int(cell.x, next.y), from, walkable)))
+                if (diagonal && (!IsWalkableCell(new Vector2Int(next.x, cell.y), origin, walkable)
+                    || !IsWalkableCell(new Vector2Int(cell.x, next.y), origin, walkable)))
                     continue;
 
                 float nextCost = cost[cell] + (diagonal ? 1.4142f : 1f) * cellSize;
@@ -466,7 +619,7 @@ public sealed class CompanionFollower : MonoBehaviour
 
                 cost[next] = nextCost;
                 cameFrom[next] = cell;
-                open.Push(next, nextCost + Heuristic(ToWorld(next, from), goal));
+                open.Push(next, nextCost + Heuristic(ToWorld(next, origin), goal));
             }
         }
 
@@ -487,7 +640,8 @@ public sealed class CompanionFollower : MonoBehaviour
         }
     }
 
-    // Skip waypoints that can be reached in a straight line, so he does not zigzag along the grid.
+    // Skip waypoints that can be reached in a straight line with room to spare, so he does not
+    // zigzag along the grid or the trail, nor catch on a corner he cut.
     private void SmoothPath(Vector2 from)
     {
         var smoothed = new List<Vector2>();
@@ -498,7 +652,7 @@ public sealed class CompanionFollower : MonoBehaviour
             int furthest = index;
             for (int i = path.Count - 1; i > index; i--)
             {
-                if (CanWalkStraight(current, path[i]))
+                if (CanWalkClear(current, path[i]))
                 {
                     furthest = i;
                     break;
@@ -540,6 +694,10 @@ public sealed class CompanionFollower : MonoBehaviour
     // could sit in the gap between two neighbouring cells.
     private bool IsWalkable(Vector2 feetCenter, Vector2 size)
     {
+        // Where someone walking past on their own is about to be: the way round goes behind them.
+        if (BackgroundWalk.InSomeonesWay(feetCenter, transform))
+            return false;
+
         int count = Physics2D.OverlapBox(feetCenter, size, 0f, obstacleFilter, overlapResults);
         for (int i = 0; i < count; i++)
         {
@@ -550,21 +708,68 @@ public sealed class CompanionFollower : MonoBehaviour
         return true;
     }
 
-    private bool CanWalkStraight(Vector2 from, Vector2 to)
+    // A straight stretch with room to spare (Path Clearance). The wider box already touches what he
+    // stands against, e.g. a haystack he was walked into: then only that is in its way, and his own
+    // size tells whether the stretch is free (it leads away or along it) or not.
+    private bool CanWalkClear(Vector2 from, Vector2 to)
+    {
+        if (CrossesSomeonesWay(from, to))
+            return false;
+
+        Way way = Cast(from, to, FeetSize * PathClearance);
+        return way == Way.Clear || (way == Way.TouchingAtStart && Cast(from, to, FeetSize) == Way.Clear);
+    }
+
+    // Into the way of someone walking past on their own, from outside it (already in it, any way out
+    // will do).
+    private bool CrossesSomeonesWay(Vector2 from, Vector2 to)
+    {
+        if (BackgroundWalk.InSomeonesWay(from, transform))
+            return false;
+
+        float length = Vector2.Distance(from, to);
+        int samples = Mathf.CeilToInt(length / 0.3f);
+        for (int i = 1; i <= samples; i++)
+        {
+            if (BackgroundWalk.InSomeonesWay(Vector2.Lerp(from, to, i / (float)samples), transform))
+                return true;
+        }
+
+        return false;
+    }
+
+    private enum Way
+    {
+        Clear,
+        Blocked,
+        // Only something the box already overlaps where it starts.
+        TouchingAtStart
+    }
+
+    private Way Cast(Vector2 from, Vector2 to, Vector2 size)
     {
         Vector2 delta = to - from;
         float distance = delta.magnitude;
         if (distance < 0.0001f)
-            return true;
+            return Way.Clear;
 
-        int count = Physics2D.BoxCast(from, FeetSize, 0f, delta / distance, obstacleFilter, castResults, distance);
+        bool touching = false;
+        int count = Physics2D.BoxCast(from, size, 0f, delta / distance, obstacleFilter, castResults, distance);
         for (int i = 0; i < count; i++)
         {
-            if (!IsIgnored(castResults[i].collider))
-                return false;
+            if (IsIgnored(castResults[i].collider))
+                continue;
+
+            if (castResults[i].distance <= 0.0001f)
+            {
+                touching = true;
+                continue;
+            }
+
+            return Way.Blocked;
         }
 
-        return true;
+        return touching ? Way.TouchingAtStart : Way.Clear;
     }
 
     private bool HasLineOfSight(Vector2 from, Vector2 to)
@@ -585,6 +790,11 @@ public sealed class CompanionFollower : MonoBehaviour
     private bool IsIgnored(Collider2D other, bool forSight = false)
     {
         if (other == null || ignoredColliders.Contains(other))
+            return true;
+
+        // Someone walking past on their own passes through him: their way is kept clear instead
+        // (BackgroundWalk.InSomeonesWay).
+        if (BackgroundWalk.IsWalkingPast(other) && other.attachedRigidbody != body)
             return true;
 
         if (!companionPartCache.TryGetValue(other, out CompanionFollower companion))

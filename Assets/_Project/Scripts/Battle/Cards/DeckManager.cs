@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 
 public class DeckManager
 {
+    // The draw pile ran out and the played cards were shuffled back into it.
+    public event Action Reshuffled;
+
     public Deck Deck { get; private set; }
     public Hand Hand { get; } = new();
     public DiscardPile DiscardPile { get; } = new();
@@ -88,5 +92,6 @@ public class DeckManager
 
         DiscardPile.Clear();
         Deck.Shuffle();
+        Reshuffled?.Invoke();
     }
 }

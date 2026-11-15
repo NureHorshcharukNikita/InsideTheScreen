@@ -42,7 +42,7 @@ public sealed class StoryConditionDrawer : PropertyDrawer
         {
             EditorGUI.PropertyField(valueRect, property.FindPropertyRelative("quest"), GUIContent.none);
         }
-        else if ((StoryConditionType)typeProp.enumValueIndex == StoryConditionType.HasCard)
+        else if ((StoryConditionType)typeProp.enumValueIndex is StoryConditionType.HasCard or StoryConditionType.InDeck)
         {
             const float countWidth = 40f;
             Rect cardRect = new(valueRect.x, valueRect.y, valueRect.width - countWidth - Gap, valueRect.height);

@@ -455,3 +455,14 @@ MonoBehaviour:
     quest: {fileID: 0}
     questStatus: 1
     invert: 1
+  awayAlsoWhile:
+  - type: 0
+    storyFlag: a1_spent_night
+    quest: {fileID: 0}
+    questStatus: 1
+    invert: 0
+  - type: 0
+    storyFlag: a1_garr_out_of_barn
+    quest: {fileID: 0}
+    questStatus: 1
+    invert: 1

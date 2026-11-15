@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: HideshiStandOwnWaiting
+  m_Name: SorrelIdle
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Two ants, Haru. I'm not going anywhere."
+    speakerName: Sorrel
+    portraitOverride: {fileID: 0}
+    text: "Eat something, dear. You look like you've walked a long way."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1

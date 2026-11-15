@@ -43,7 +43,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "We fight it together. Listen to me."
+    text: "Hold on. I've played a game or two in my time. In ones like this, you don't dig through your pockets in the middle of a fight."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -52,9 +52,16 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Your cards are what you can do. Pick one, and you do it. The stick hits for {card0.value}."
-    cards:
-    - {fileID: 11400000, guid: 1d2fd7ff5942449bae8c2047a54c3ef4, type: 2}
+    text: "You pick what you take in before it starts."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "So... like building a deck?"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -63,8 +70,33 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Each card takes some of your strength, and you only have so much in a turn. When you're out, end your turn. Then it's the wolf's move."
+    text: "Call it what you like. What are you taking?"
     conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_deck_lesson
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Good. Whatever room's left, your fists and feet fill it."
+    conditions:
+    - type: 4
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -72,19 +104,15 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Watch it. You'll see what it means to do before it does it."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "And if it gets you, eat the apple. It heals {card0.value}."
-    cards:
-    - {fileID: 11400000, guid: 050024cdfc2440cba309c2ceb9b9d2f4, type: 2}
-    conditions: []
+    text: "Nothing? ...Fine. Fists and feet it is. They don't run out."
+    conditions:
+    - type: 4
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+      card: {fileID: 0}
+      count: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []

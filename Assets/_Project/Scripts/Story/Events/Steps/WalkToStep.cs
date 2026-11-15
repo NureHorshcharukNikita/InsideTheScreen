@@ -5,6 +5,7 @@ using UnityEngine;
 
 // Walks a character to a point or to another character: in a straight line, or first across and
 // then up or down (or the other way round, or up/down-across-up/down), turning at the corners.
+// Via: through points on the way first, e.g. along a road; the route is walked from the last of them.
 // With Avoid Obstacles it goes around a well, a lamp post or a house in the way (StoryPath).
 // It stops facing the way it walked (or, backwards, the other way), and the new position is saved.
 // Sideways slides it there in the pose it has, without turning or stepping. Bob gives a character
@@ -26,6 +27,8 @@ public sealed class WalkToStep : StoryStep
     [SerializeField] private StoryTarget destination = new(StoryTargetType.SceneObject);
     [Tooltip("Added to the destination, e.g. to stop next to a character instead of on top of them.")]
     [SerializeField] private Vector2 offset;
+    [Tooltip("Points it walks through first, in order, e.g. along the road instead of across the grass or along a wall; Route is walked from the last of them to the destination. Empty = from where it stands.")]
+    [SerializeField] private List<Transform> via = new();
     [Tooltip("Straight: the shortest way, at a slant if needed. Across Then Up Down: first left or right, then up or down, e.g. lining up below someone and walking up to them. Up Down Then Across: the other way round. Up Down Across Up Down: a little up or down first (out of the bushes onto the path), then across, then the last stretch up or down.")]
     [SerializeField] private WalkRoute route = WalkRoute.Straight;
     [Tooltip("Up Down Across Up Down only: how far it walks up or down at the end, after walking across, in units. Larger = turns across sooner.")]
@@ -92,20 +95,32 @@ public sealed class WalkToStep : StoryStep
         if (maxDistance > 0f && (end - start).magnitude > maxDistance)
             end = start + (end - start).normalized * maxDistance;
 
-        float upDown = end.y - start.y;
-        float acrossY = end.y - Mathf.Sign(upDown) * Mathf.Min(lastUpDown, Mathf.Abs(upDown));
-        Vector3[] points = route switch
+        // Through the points on the way first, then the route from the last of them.
+        List<Vector3> points = new();
+        Vector3 routeStart = start;
+        foreach (Transform point in via)
         {
-            WalkRoute.AcrossThenUpDown => new[] { new Vector3(end.x, start.y, start.z), end },
-            WalkRoute.UpDownThenAcross => new[] { new Vector3(start.x, end.y, start.z), end },
+            if (point == null)
+                continue;
+
+            routeStart = new Vector3(point.position.x, point.position.y, start.z);
+            points.Add(routeStart);
+        }
+
+        float upDown = end.y - routeStart.y;
+        float acrossY = end.y - Mathf.Sign(upDown) * Mathf.Min(lastUpDown, Mathf.Abs(upDown));
+        points.AddRange(route switch
+        {
+            WalkRoute.AcrossThenUpDown => new[] { new Vector3(end.x, routeStart.y, start.z), end },
+            WalkRoute.UpDownThenAcross => new[] { new Vector3(routeStart.x, end.y, start.z), end },
             WalkRoute.UpDownAcrossUpDown => new[]
             {
-                new Vector3(start.x, acrossY, start.z),
+                new Vector3(routeStart.x, acrossY, start.z),
                 new Vector3(end.x, acrossY, start.z),
                 end
             },
             _ => new[] { end }
-        };
+        });
 
         Vector2 facing = FacingTowards(end - start);
         // Where the feet are, without the bob.
@@ -173,7 +188,7 @@ public sealed class WalkToStep : StoryStep
     }
 
     // The route's corners, with the way around anything in between when avoiding obstacles.
-    private IEnumerable<Vector3> Legs(Vector3[] corners, Vector3 start)
+    private IEnumerable<Vector3> Legs(List<Vector3> corners, Vector3 start)
     {
         Vector3 from = start;
         foreach (Vector3 corner in corners)

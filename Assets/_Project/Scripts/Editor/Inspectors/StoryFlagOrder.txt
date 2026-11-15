@@ -12,6 +12,7 @@ a1_home_intro                   # the intro at home, ending pulled into the scre
 a1_forest_wakeup                # Haru and Hideshi wake up in the forest
 - hint_quest_log_key            # the "Press J to view your quests" toast, once the first quest is in the quest tracker
 * ui_quest_tracker_hidden       # the quest tracker slid away by its arrow (a new game starts with it out)
+* ui_dialogue_skip_unasked      # "Don't ask again" ticked on the fast-skip warning (DialogueSkipWarning); a new game asks again
 a1_forest_wolf                  # the wolf on the forest path
 - a1_broken_bridge              # the broken bridge east of the forest
 a1_met_trader                   # the trader's campfire; he takes them to Leymar. Set as Hideshi, stepped away, says it is getting dark: the night sounds come in
@@ -24,9 +25,11 @@ a1_garr_home                    # after the talk Garr goes home for the night (g
 a1_after_eldon_talk             # Haru and Hideshi talk it over
 a1_leymar_morning               # dawn in Garr's barn: Garr is out again
 a1_spent_night                  # the night in Garr's barn
-a1_met_garr                     # Garr finds them in his barn in the morning
+a1_met_garr                     # Garr finds them in his barn in the morning, sends them out and goes in himself
+a1_garr_out_of_barn             # a minute of play later Garr comes out of the barn and walks to his forge (gone until then)
 
 ## Leymar, the morning
+- a1_garr_apology               # sorry about the barn: talking to Garr, or getting in his way on his walk to the forge (he tells them off first)
 a1_eldon_morning                # Eldon's half-dream talk; the three morning quests start
 a1_ground_revealed              # right after Eldon they step away left of the tower; Hideshi shows Haru how to look: things on the ground and chests show up
 a1_ground_lesson                # the end of Hideshi's lesson by the apple bushes; Survival Basics starts
@@ -48,12 +51,15 @@ a1_trader_met_bitten            # at the trader's camp: the wolf bit his hand; h
 a1_salve_ingredients            # Garr is busy: bring leaves, bark, a red flower and berries; the herbs by the river show up
 a1_salve_recipe                 # Garr, the herbs in hand: shows the salve at his bench; the crafting tab and the C key
 a1_craft_ideas                  # Dad after Haru makes the salve: from now on he thinks of recipes when he has all they take
-a1_crystal_dust_3               # the trader gets the salve: Eldon's dust and his first coin; gold in the inventory, trading opens
+a1_salve_given                  # Haru hands the trader the salve; he asks for a moment to see to his hand (Event_A1_TraderBandages: heard over a black screen)
+a1_crystal_dust_3               # the trader has bandaged his hand (his bandaged look): Eldon's dust and his first coin; gold in the inventory, trading opens
 a1_crystal_dust_collected       # Heart of the Barrier: all three handfuls found (Event_A1_DustCollected)
-ui_skills                       # Eldon: the skills tab, the K key and the skill points (quest rewards show them from now on)
+ui_skills                       # Eldon: the skills tab, the K key and the skill points. Heart of the Barrier gives the first one; no quest before it gives any
 eldon_echo_crystal_discussed    # Eldon on the Echo Crystal; he sends them to Garr
 a1_bags_received                # Garr gives Haru an old pack and a belt with pouches
 a1_bags_worn                    # Haru puts them on: his look with the bags, no pocket limit; Leymar's exit opens
+- a1_deck_lesson                # the wolf south of the trader's camp (First Threat): Dad, going by games he played, has Haru pick what he takes into the fight; the deck on the cards tab comes up
+- a1_wolf_fled                  # the wolf ran off after Haru lost to it three times (BT_A1_ForestWolf); First Threat counts as done
 - ui_map                        # the map tab: not brought up yet
 - ui_mind                       # Haru's state of mind in the inventory: a later chapter
 - a1_walk_alone_declined        # A Walk Alone: Haru said "not yet" to going alone
@@ -80,7 +86,6 @@ demo_complete                   # the end of the demo
 ## Where Hideshi waits
 * hideshi_stays_behind          # Hideshi does not follow Haru (set with any of the below)
 * a1_hideshi_in_village         # A Walk Alone
-* a1_hideshi_waits              # Standing on Your Own
 * a1_hideshi_at_forge           # A Hand at the Forge
 * a1_hideshi_at_farel           # Farel's Net
 * a1_hideshi_fishing            # Fresh Bait

@@ -13,14 +13,6 @@ MonoBehaviour:
   m_Name: AncientEldonArticyFirstMeeting
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - speakerSide: 1
-    speakerName: Ancient Eldon
-    portraitOverride: {fileID: 0}
-    text: "Two strangers in the middle of the night... Come closer."
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}

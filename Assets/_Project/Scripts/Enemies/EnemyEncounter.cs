@@ -15,6 +15,10 @@ public class EnemyEncounter : MonoBehaviour
     private const int MaxExtraEnemies = PendingBattleEnemy.MaxPerSide - 1;
     // How far (world units) the touch zone reaches past the feet collider on every side.
     private const float TouchMargin = 0.25f;
+    // How far short of a wall the player is put back after the battle.
+    private const float WallGap = 0.05f;
+
+    private static readonly RaycastHit2D[] ReturnHits = new RaycastHit2D[8];
 
     [SerializeField] private EnemyData enemyData;
 
@@ -28,6 +32,7 @@ public class EnemyEncounter : MonoBehaviour
 
     [Space]
     [SerializeField] private string encounterId;
+    [Tooltip("How far the player is put back from it after the battle; a wall in the way stops him short of it.")]
     [SerializeField] private float playerReturnOffset = 1.25f;
 
     [Header("Respawn")]
@@ -190,7 +195,7 @@ public class EnemyEncounter : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isTriggered = true;
-            ExplorationPlayerSession.SavePosition(GetPlayerReturnPosition(other.transform));
+            ExplorationPlayerSession.SavePosition(GetPlayerReturnPosition(other));
             ExplorationPlayerSession.SaveNpcPositions();
 
             PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
@@ -254,14 +259,56 @@ public class EnemyEncounter : MonoBehaviour
             : enemyData;
     }
 
-    private Vector3 GetPlayerReturnPosition(Transform player)
+    // Back on the map the player stands a step away from it, so the battle does not start again at
+    // once. A wall stops the step short: with a cliff at his back he stays at the cliff, not in it.
+    private Vector3 GetPlayerReturnPosition(Collider2D player)
     {
-        Vector3 direction = player.position - transform.position;
-        direction.z = 0f;
+        Vector3 position = player.transform.position;
+        Vector2 direction = position - transform.position;
+        direction = direction.sqrMagnitude <= 0.0001f ? Vector2.down : direction.normalized;
 
-        if (direction.sqrMagnitude <= 0.0001f)
-            direction = Vector3.down;
+        Collider2D feet = FeetOf(player);
+        float step = feet != null ? FreeDistance(feet, direction, playerReturnOffset) : 0f;
+        return position + (Vector3)(direction * step);
+    }
 
-        return player.position + direction.normalized * playerReturnOffset;
+    private static Collider2D FeetOf(Collider2D part)
+    {
+        if (!part.isTrigger)
+            return part;
+
+        foreach (Collider2D sibling in part.GetComponents<Collider2D>())
+        {
+            if (!sibling.isTrigger)
+                return sibling;
+        }
+
+        return null;
+    }
+
+    // How far the feet can go that way before a wall. People (enemies, companions) do not count:
+    // they all stand elsewhere once the map loads again.
+    private static float FreeDistance(Collider2D feet, Vector2 direction, float distance)
+    {
+        var filter = new ContactFilter2D { useTriggers = false };
+        filter.SetLayerMask(Physics2D.GetLayerCollisionMask(feet.gameObject.layer));
+
+        float free = distance;
+        int count = feet.Cast(direction, filter, ReturnHits, distance + WallGap);
+        for (int i = 0; i < count; i++)
+        {
+            RaycastHit2D hit = ReturnHits[i];
+            Rigidbody2D hitBody = hit.collider != null ? hit.collider.attachedRigidbody : null;
+            if (hit.collider == null || (hitBody != null && hitBody.bodyType != RigidbodyType2D.Static))
+                continue;
+
+            // A wall he is leaving behind.
+            if (Vector2.Dot(hit.normal, direction) > 0f)
+                continue;
+
+            free = Mathf.Min(free, hit.distance - WallGap);
+        }
+
+        return Mathf.Max(0f, free);
     }
 }

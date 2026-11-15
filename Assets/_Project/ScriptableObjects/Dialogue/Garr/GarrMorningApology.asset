@@ -17,4 +17,14 @@ MonoBehaviour:
   - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Hm. Don't worry about it, lad.", nextLineIndex: -1}
   - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "What's done is done. You slept, the barn's still standing. No harm in that.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Hideshi, portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}, text: "Still, thank you for letting it go.", nextLineIndex: -1}
-  - {speakerSide: 1, speakerName: Garr Steelclad, portraitOverride: {fileID: 0}, text: "Go on, then. Eldon is already waiting for you.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 1
+    speakerName: Garr Steelclad
+    portraitOverride: {fileID: 0}
+    text: "Go on, then. Eldon is already waiting for you."
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_garr_apology
+      silent: 1

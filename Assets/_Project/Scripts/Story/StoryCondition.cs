@@ -8,7 +8,10 @@ public enum StoryConditionType
     QuestStatus,
     QuestObjectiveDone,
     // So many of a card in the pockets now, e.g. the herbs Garr asked for.
-    HasCard
+    HasCard,
+    // So many of a card in the deck now; no card picked = any card at all, e.g. Dad's answer to what
+    // Haru took into his first fight (Invert: the deck is empty).
+    InDeck
 }
 
 // One requirement of an NPC dialogue entry or a story event: a story flag is set,
@@ -24,7 +27,7 @@ public sealed class StoryCondition
     public QuestStatus questStatus = QuestStatus.Active;
     [Tooltip("Met when the opposite is true: the flag is not set, the quest is not in this status.")]
     public bool invert;
-    [Tooltip("Has Card: the card that must be in the pockets, and how many.")]
+    [Tooltip("Has Card: the card that must be in the pockets, and how many. In Deck: the card that must be in the deck, and how many; none = that many cards of any kind.")]
     public CardData card;
     [Min(1)] public int count = 1;
 
@@ -40,7 +43,26 @@ public sealed class StoryCondition
         if (type == StoryConditionType.HasCard)
             return card == null || (Crafting.Owned(ExplorationPlayerSession.RuntimeInventory, card) >= Mathf.Max(1, count)) != invert;
 
+        if (type == StoryConditionType.InDeck)
+            return (CountInDeck(card) >= Mathf.Max(1, count)) != invert;
+
         return string.IsNullOrWhiteSpace(storyFlag) || StoryFlagManager.HasFlag(storyFlag) != invert;
+    }
+
+    private static int CountInDeck(CardData wanted)
+    {
+        DeckData deck = ExplorationPlayerSession.RuntimeDeck;
+        if (deck == null)
+            return 0;
+
+        int found = 0;
+        foreach (CardData inDeck in deck.Cards)
+        {
+            if (inDeck != null && (wanted == null || inDeck == wanted))
+                found++;
+        }
+
+        return found;
     }
 
     public static bool AreMet(IReadOnlyList<StoryCondition> conditions)

@@ -33,6 +33,8 @@ public sealed class DialogueView : MonoBehaviour
     [SerializeField] private Image continueIcon;
     [SerializeField] private RawImage skipTypingIcon;
     [SerializeField] private Button skipDialogueButton;
+    [Tooltip("Asks before the first fast skip (the skip key, the arrow, or Next held): the SkipDialogueWarning panel. Empty = skips without asking.")]
+    [SerializeField] private DialogueSkipWarning skipWarning;
 
     [Header("Choices")]
     [SerializeField] private RectTransform choicesRoot;
@@ -65,6 +67,8 @@ public sealed class DialogueView : MonoBehaviour
     private float nextPressedAt;
     private DialogueHoldButton continueHold;
     private DialogueHoldButton skipHold;
+    // After the skip warning: nothing is skipped until every key and arrow held for it is let go.
+    private bool skipWaitsForRelease;
 
     private void Awake()
     {
@@ -88,6 +92,21 @@ public sealed class DialogueView : MonoBehaviour
     {
         if (!visible)
             return;
+
+        if (skipWarning != null && skipWarning.IsOpen)
+        {
+            skipHeld = false;
+            nextHeldSincePress = false;
+            return;
+        }
+
+        if (skipWaitsForRelease)
+        {
+            if (SkipInputHeld())
+                return;
+
+            skipWaitsForRelease = false;
+        }
 
         if (showingChoices)
         {
@@ -137,12 +156,31 @@ public sealed class DialogueView : MonoBehaviour
         RequestContinue();
     }
 
-    // The text comes fast and each line gives way to the next as soon as it is out.
+    // The text comes fast and each line gives way to the next as soon as it is out. The first time in
+    // a while it asks first (Dialogue Skip Warning), and runs once it is held again.
     private void HoldSkip()
     {
+        if (skipWarning != null && !DialogueSkipWarning.MayFastSkip)
+        {
+            skipHeld = false;
+            nextHeldSincePress = false;
+            skipWaitsForRelease = true;
+            skipWarning.Ask();
+            return;
+        }
+
         skipHeld = true;
         if (!revealingText)
             ContinueRequested?.Invoke();
+    }
+
+    private bool SkipInputHeld()
+    {
+        return GameInputSettings.GetKeyHeld(GameInputAction.DialogueSkip)
+            || GameInputSettings.GetKeyHeld(GameInputAction.DialogueNext)
+            || GameInputSettings.GetKeyHeld(GameInputAction.Interact)
+            || IsHeld(skipHold)
+            || IsHeld(continueHold);
     }
 
     private static bool IsHeld(DialogueHoldButton button)
@@ -211,6 +249,9 @@ public sealed class DialogueView : MonoBehaviour
     {
         StopTextReveal();
         skipHeld = false;
+        skipWaitsForRelease = false;
+        if (skipWarning != null)
+            skipWarning.Close();
         nextHeldSincePress = false;
         lastLeftPortrait = null;
         lastRightPortrait = null;

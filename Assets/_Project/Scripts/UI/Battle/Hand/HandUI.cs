@@ -122,6 +122,18 @@ public partial class HandUI : MonoBehaviour
         deckUi?.EndDeckCountFlyStagger();
     }
 
+    // The first card in the hand that matches, e.g. one that heals, for the pointer to show.
+    public RectTransform FindCardView(Func<CardData, bool> matches)
+    {
+        foreach (CardView view in _spawnedViews)
+        {
+            if (view != null && view.isActiveAndEnabled && view.Data != null && matches(view.Data))
+                return (RectTransform)view.transform;
+        }
+
+        return null;
+    }
+
     public void ReleaseAllBattleCardDrags()
     {
         Canvas rootCanvas = handPanel.GetComponentInParent<Canvas>()?.rootCanvas;

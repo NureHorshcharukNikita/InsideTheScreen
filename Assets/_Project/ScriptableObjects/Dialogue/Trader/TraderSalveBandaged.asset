@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: TraderSalveBandaged
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
+    text: "Ah... It stings the right way."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
+    text: "Fair's fair. Eldon's dust - every grain I had."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 8
+      quest: {fileID: 0}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 11400000, guid: 110733b7e7d74b84933f0b7b00c28b3c, type: 2}
+      count: 1
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_crystal_dust_3
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
+    text: "And coin, for the hands that fixed mine. Even strangers need it in Leymar."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 2
+      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Coin? Real money?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
+    text: "As real as anything here. Spend it on something useful. Which, as it happens, I sell."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
+    text: "Before you go - that wolf's still about. I heard it down the road past my camp, the way you came."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "If it bit you, it could go for someone in the village next."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
+    text: "That's what worries me."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Then we'll deal with it."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions:
+    - type: 1
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
+    text: "Care to have a look before you go?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices:
+    - text: "Show me what you've got."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions:
+      - type: 6
+        quest: {fileID: 0}
+        storyFlag: 
+        silent: 0
+        shop: {fileID: 11400000, guid: 1b8d49705ccd48f5a08a59c038af3341, type: 2}
+        enemy: {fileID: 0}
+        encounterId: 
+        card: {fileID: 0}
+        count: 1
+    - text: "Maybe later."
+      nextLineIndex: -1
+      endDialogue: 1
+      actions: []

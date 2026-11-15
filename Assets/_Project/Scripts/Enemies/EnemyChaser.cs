@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Makes an enemy on the map notice the player and run after them, then walk back to its spot once
-// the player gets away. It notices a player it can see within Sight Radius who is on its ground:
+// the player gets away. Until it notices anyone it strolls about its spot (Wander Radius), now and
+// then, so it does not stand on one tile like a sign. It notices a player it can see within Sight Radius who is on its ground:
 // within Leash Radius of its spot. A guard has a small ground and defends only its place; a hunter
 // roams far. Chase Speed decides who can be outrun: the player walks at 5. Running into the player
 // starts the battle (EnemyEncounter). On the way back it takes the shortest way it knows: straight
@@ -33,6 +34,13 @@ public sealed class EnemyChaser : MonoBehaviour
     [Tooltip("Which way the map sprite looks; it is flipped to look where it runs.")]
     [SerializeField] private bool spriteFacesLeft = true;
 
+    [Header("Wandering")]
+    [Tooltip("Strolls about its spot this far while it has not seen the player: a wolf on the prowl, a slime oozing about. 0 = stands still.")]
+    [SerializeField, Min(0f)] private float wanderRadius = 2f;
+    [SerializeField, Min(0.1f)] private float wanderSpeed = 1.2f;
+    [Tooltip("How long it stands between two strolls, at random between X and Y seconds.")]
+    [SerializeField] private Vector2 wanderPause = new(2f, 5f);
+
     private readonly List<Vector2> trail = new();
     private readonly List<Collider2D> ownColliders = new();
     private readonly RaycastHit2D[] castHits = new RaycastHit2D[8];
@@ -55,6 +63,9 @@ public sealed class EnemyChaser : MonoBehaviour
     private float facingX;
     private Vector2 returnWaypoint;
     private float nextReturnRepathTime;
+    private bool wandering;
+    private Vector2 wanderTarget;
+    private float nextWanderTime;
 
     private enum State
     {
@@ -85,6 +96,8 @@ public sealed class EnemyChaser : MonoBehaviour
 
         home = body.position;
         lastBodyPosition = home;
+        // Not all of them setting off at the same moment.
+        nextWanderTime = Random.Range(0f, Mathf.Max(wanderPause.x, wanderPause.y));
     }
 
     private void Update()
@@ -115,6 +128,8 @@ public sealed class EnemyChaser : MonoBehaviour
             case State.Idle:
                 if (CanNoticePlayer())
                     SetState(State.Noticing);
+                else
+                    Wander();
                 break;
 
             case State.Noticing:
@@ -238,6 +253,43 @@ public sealed class EnemyChaser : MonoBehaviour
         returnWaypoint = trail.Count > 0 ? trail[^1] : home;
     }
 
+    // Now and then a stroll to a spot near its own, in a straight line nothing is in the way of; a
+    // spot it cannot walk straight to is given up until the next stroll.
+    private void Wander()
+    {
+        if (wanderRadius <= 0f)
+            return;
+
+        if (!wandering)
+        {
+            if (Time.time < nextWanderTime)
+                return;
+
+            nextWanderTime = Time.time + WanderPause();
+            Vector2 spot = home + Random.insideUnitCircle * wanderRadius;
+            if (!CanWalkStraightTo(spot))
+                return;
+
+            wanderTarget = spot;
+            wandering = true;
+        }
+
+        if ((wanderTarget - body.position).sqrMagnitude <= ArriveDistance * ArriveDistance || stuckTime >= StuckGiveUpTime)
+        {
+            wandering = false;
+            Halt();
+            nextWanderTime = Time.time + WanderPause();
+            return;
+        }
+
+        Step(wanderTarget - body.position, wanderSpeed);
+    }
+
+    private float WanderPause()
+    {
+        return Random.Range(Mathf.Max(0f, wanderPause.x), Mathf.Max(wanderPause.x, wanderPause.y));
+    }
+
     private void Step(Vector2 toTarget, float speed)
     {
         float distance = toTarget.magnitude;
@@ -299,6 +351,8 @@ public sealed class EnemyChaser : MonoBehaviour
         else if (next == State.Idle)
         {
             trail.Clear();
+            wandering = false;
+            nextWanderTime = Time.time + WanderPause();
         }
     }
 

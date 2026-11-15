@@ -9,6 +9,8 @@ public class NpcCharacter : Character
     [SerializeField] private string persistenceKeyOverride;
 
     private bool started;
+    private Vector3 scenePosition;
+    private bool hasScenePosition;
 
     public override int MaxHealth => npcData != null ? Mathf.Max(1, npcData.maxHealth) : 1;
     public override int StartingArmor => npcData != null ? Mathf.Max(0, npcData.startingArmor) : 0;
@@ -29,6 +31,9 @@ public class NpcCharacter : Character
     public bool CanShowOverheadLines => npcData != null && npcData.CanShowOverheadLines;
     public bool CanTrade => npcData != null && npcData.CanTrade;
     public string PersistenceKey => GetPersistenceKey();
+    // Where it is placed in the scene, before a saved position moves it: e.g. back there after a
+    // story walk took it off (Teleport, Back To Its Place).
+    public Vector3 ScenePosition => hasScenePosition ? scenePosition : transform.position;
 
     public event Action<NpcState, NpcState> StateChanged;
     public event Action<NpcCharacter, NpcInteractionType> InteractionRequested;
@@ -38,6 +43,8 @@ public class NpcCharacter : Character
         base.Awake();
         MapSprite.Apply(gameObject, BaseMapSprite);
         StandingFacesAhead.Attach(gameObject);
+        scenePosition = transform.position;
+        hasScenePosition = true;
         RestoreSavedPosition();
 
         StoryFlagManager.Changed += ApplyStoryVisibility;
@@ -85,7 +92,7 @@ public class NpcCharacter : Character
             MapSprite.Apply(gameObject, npcData.MapSprite);
 
         bool hasHiddenFlag = !string.IsNullOrWhiteSpace(npcData.hiddenAfterStoryFlag);
-        if (!hasHiddenFlag && (npcData.awayWhile == null || npcData.awayWhile.Count == 0))
+        if (!hasHiddenFlag && !npcData.HasAwayRules)
             return;
 
         bool gone = hasHiddenFlag && StoryFlagManager.HasFlag(npcData.hiddenAfterStoryFlag);

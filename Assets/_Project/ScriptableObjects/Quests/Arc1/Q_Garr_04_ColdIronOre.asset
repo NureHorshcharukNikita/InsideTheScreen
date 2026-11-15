@@ -15,10 +15,10 @@ MonoBehaviour:
   questKey: a1_cold_iron_ore
   title: Cold Iron Ore
   giverName: Garr Steelclad
-  description: "The last material is cold iron. An ogre guards the cave past the riverbank where it can be found. Defeat it and bring Garr the ore."
+  description: "The last material is cold iron. An ogre guards the cave under the cliffs past the eastern bridge, where it can be found. Defeat it and bring Garr the ore."
   status: 0
   objectiveType: 1
-  objectiveLabel: "Defeat the ogre in the cave past the riverbank"
+  objectiveLabel: "Defeat the ogre past the eastern bridge"
   targetEncounterId: a1_cold_iron_ogre
   targetEnemy: {fileID: 0}
   targetCard: {fileID: 0}

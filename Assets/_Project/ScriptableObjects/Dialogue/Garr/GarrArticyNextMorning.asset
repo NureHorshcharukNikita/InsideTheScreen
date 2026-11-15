@@ -82,7 +82,12 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "We're from another world, if you can believe that."
+    text: "We came from another wor..."
+    nextLineIndex: -1
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "...From another land, I mean. Far from here."
     nextLineIndex: -1
   - speakerSide: 0
     speakerName: Hideshi
@@ -97,7 +102,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 21300000, guid: e6d7c9f5a7a493346804b4ce95740d1b, type: 3}
-    text: "Hideshi... Haru... Strange names. Haven't even heard anything like them from the northern nomads."
+    text: "Hideshi... Haru... Strange names. Not even the northern nomads have names like that, and theirs are strange enough."
     nextLineIndex: -1
   - speakerSide: 0
     speakerName: Haru
@@ -131,7 +136,12 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 21300000, guid: e6d7c9f5a7a493346804b4ce95740d1b, type: 3}
-    text: "Now clear out of my barn. I've got work to do. If you need anything repaired, the forge is up the road, past the well."
+    text: "If you need anything repaired, the forge is up the road, past the well."
+    nextLineIndex: -1
+  - speakerSide: 1
+    speakerName: Garr Steelclad
+    portraitOverride: {fileID: 21300000, guid: e6d7c9f5a7a493346804b4ce95740d1b, type: 3}
+    text: "Now clear away from my barn and let me through. I've got work to do."
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions:

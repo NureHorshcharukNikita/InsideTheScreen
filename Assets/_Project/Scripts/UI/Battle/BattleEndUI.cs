@@ -29,6 +29,7 @@ public class BattleEndUI : MonoBehaviour
     [SerializeField] private TMP_Text leaveButtonText;
 
     private bool _lastOutcomeWasVictory;
+    private bool _canLeave = true;
     private bool _transitionStarted;
     private bool _createdLeaveButton;
     private Vector2 _retryButtonStartPosition;
@@ -67,19 +68,31 @@ public class BattleEndUI : MonoBehaviour
 
     public void ShowVictory(IReadOnlyList<CardData> droppedLoot) => ShowEndScreen(true, droppedLoot);
 
-    public void ShowDefeat() => ShowEndScreen(false);
+    public void ShowDefeat() => ShowDefeat(true);
 
-    private void ShowEndScreen(bool victory, IReadOnlyList<CardData> droppedLoot = null)
+    // canLeave off: only Retry, e.g. a first fight the story waits on (BattleTalkData).
+    public void ShowDefeat(bool canLeave)
+    {
+        _canLeave = canLeave;
+        ShowEndScreen(false);
+    }
+
+    // The enemy gave up and ran off: it counts as won, without loot, e.g. "The wolf runs off".
+    public void ShowEnemyFled(string title) => ShowEndScreen(true, null, title);
+
+    private void ShowEndScreen(bool victory, IReadOnlyList<CardData> droppedLoot = null, string title = null)
     {
         StopVictorySequence();
         _lastOutcomeWasVictory = victory;
+        if (victory)
+            _canLeave = true;
         CloseOpenInventoryWindow();
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
         ClearPointerUiState();
         SuppressOtherUiRaycastsUnderBattleCanvas();
         if (resultText != null)
-            resultText.text = victory ? "VICTORY" : "DEFEAT";
+            resultText.text = !string.IsNullOrWhiteSpace(title) ? title : victory ? "VICTORY" : "DEFEAT";
 
         if (victory)
         {
@@ -596,12 +609,12 @@ public class BattleEndUI : MonoBehaviour
             retryButtonText.text = victory ? "Continue" : "Retry";
 
         if (leaveButton != null)
-            leaveButton.gameObject.SetActive(!victory);
+            leaveButton.gameObject.SetActive(!victory && _canLeave);
 
         if (leaveButtonText != null)
             leaveButtonText.text = "Leave";
 
-        if (victory)
+        if (victory || !_canLeave)
             CenterRetryButton();
         else
             ArrangeCreatedButtons();

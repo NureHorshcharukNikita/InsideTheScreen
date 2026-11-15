@@ -19,6 +19,8 @@ public partial class CardView : MonoBehaviour, IPointerDownHandler, IPointerClic
 
     private CardData cardData;
     private int cardIndex;
+
+    public CardData Data => cardData;
     private Action<int> onPointerDown;
     private Action<CardData, InventoryCardLocation, InventoryCardLocation> onInventoryDrop;
     private InventoryCardLocation inventoryDragSource;

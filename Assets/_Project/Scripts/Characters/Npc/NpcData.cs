@@ -54,7 +54,16 @@ public sealed class NpcData : ScriptableObject
     [Tooltip("Not around while all of these are met, and back once they no longer are, e.g. Garr at home for the night after Eldon's first talk, until the morning. Empty = always around.")]
     public List<StoryCondition> awayWhile = new();
 
-    public bool IsAway => awayWhile != null && awayWhile.Count > 0 && StoryCondition.AreMet(awayWhile);
+    [Tooltip("Another time it is not around: while all of these are met, e.g. Garr in his barn for a while after sending Haru and Hideshi out of it. Empty = no other time.")]
+    public List<StoryCondition> awayAlsoWhile = new();
+
+    public bool HasAwayRules => HasAny(awayWhile) || HasAny(awayAlsoWhile);
+
+    public bool IsAway => IsMet(awayWhile) || IsMet(awayAlsoWhile);
+
+    private static bool HasAny(List<StoryCondition> conditions) => conditions != null && conditions.Count > 0;
+
+    private static bool IsMet(List<StoryCondition> conditions) => HasAny(conditions) && StoryCondition.AreMet(conditions);
 
     public bool CanTalk => enableDialogue && HasAnyDialogueEntry();
     public bool CanShowOverheadLines => enableOverheadSpeech && HasAnyText(overheadLines);

@@ -29,27 +29,6 @@ MonoBehaviour:
     stock: 1
     sellPriceMode: 0
     sellPrice: 1
-  - card: {fileID: 11400000, guid: dcb2e2dd2c6043198b3e56e2138e8367, type: 2}
-    buyPriceMode: 0
-    buyPrice: 1
-    stockMode: 0
-    stock: 1
-    sellPriceMode: 0
-    sellPrice: 1
-  - card: {fileID: 11400000, guid: 8012d6dac9ec1854f9c9ca003b3f4db0, type: 2}
-    buyPriceMode: 0
-    buyPrice: 1
-    stockMode: 1
-    stock: 4
-    sellPriceMode: 0
-    sellPrice: 1
-  - card: {fileID: 11400000, guid: 442fed74c6c741a38916a82c41291104, type: 2}
-    buyPriceMode: 0
-    buyPrice: 1
-    stockMode: 1
-    stock: 3
-    sellPriceMode: 0
-    sellPrice: 1
   - card: {fileID: 11400000, guid: f61879da35c74e8ba1969bb9c095c44c, type: 2}
     buyPriceMode: 0
     buyPrice: 1

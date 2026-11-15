@@ -10,22 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: HideshiStandOwnDone
+  m_Name: FennaFirstMeeting
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "Two ants. Alone."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
   - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "I know. I didn't see it... but I can tell."
+    speakerName: Fenna
+    portraitOverride: {fileID: 0}
+    text: "Hey! Where's your tail?"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -34,45 +25,45 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "How?"
+    text: "I... don't have one."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
     choices: []
   - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "You're standing differently."
+    speakerName: Fenna
+    portraitOverride: {fileID: 0}
+    text: "Did it fall off?!"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "No! Where I'm from, people just don't have tails."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
     choices: []
   - speakerSide: 1
-    speakerName: Hideshi
-    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "Come on. From now on, we walk side by side."
+    speakerName: Fenna
+    portraitOverride: {fileID: 0}
+    text: "That's so sad."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Fenna
+    portraitOverride: {fileID: 0}
+    text: "I'm Fenna! When I grow up, I'll keep watch like Papa. All night!"
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
-    actions:
-    - type: 5
-      quest: {fileID: 0}
-      storyFlag: hideshi_stays_behind
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    - type: 5
-      quest: {fileID: 0}
-      storyFlag: a1_hideshi_waits
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
+    actions: []
     choices: []

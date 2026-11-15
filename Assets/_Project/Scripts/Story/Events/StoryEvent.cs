@@ -5,7 +5,10 @@ using UnityEngine;
 public enum StoryEventStart
 {
     Automatically,
-    WhenPlayerEnters
+    WhenPlayerEnters,
+    // Only when a step of another event starts it, e.g. Garr walking to his forge (Walk Off) when the
+    // player gets in his way.
+    WhenCalled
 }
 
 // Anything that happens in the story: a line when the player finds something, a quest update,
@@ -15,6 +18,8 @@ public enum StoryEventStart
 //   (the intro of a new game, a scene right after a dialogue sets a flag).
 // - When Player Enters: when the player stands in this object's trigger collider
 //   (found the root stone, reached the altar).
+// - When Called: only when something else starts it, e.g. a Walk Off step whose walker the player
+//   gets in the way of (Garr on his way to the forge).
 // It happens once: doneFlag is set at the end, so it does not run again and dialogues or other
 // events can check it. Unless everyTime is on: then it happens whenever it can start (a closed exit). While the steps run, the game is in the Dialogue state: the player has no
 // control and Time.timeScale is 0, so steps run on the GameClock. An event made only of instant
@@ -24,7 +29,7 @@ public sealed class StoryEvent : MonoBehaviour
 {
     [Tooltip("Story flag set when the event is over. Also prevents it from happening twice. Empty = happens again every time the scene loads.")]
     [SerializeField] private string doneFlag;
-    [Tooltip("Automatically: as soon as the conditions are met. When Player Enters: when the player stands in this object's trigger collider.")]
+    [Tooltip("Automatically: as soon as the conditions are met. When Player Enters: when the player stands in this object's trigger collider. When Called: only when something else starts it, e.g. a Walk Off step whose walker the player gets in the way of.")]
     [SerializeField] private StoryEventStart start = StoryEventStart.Automatically;
     [Tooltip("All of them must be met. Empty = no conditions.")]
     [SerializeField] private List<StoryCondition> conditions = new();
@@ -34,9 +39,14 @@ public sealed class StoryEvent : MonoBehaviour
     [SerializeField] private bool everyTime;
     [Tooltip("Automatically: once the conditions are met, it waits this long while the player walks about freely (talks and menus do not count), e.g. Haru giving up on the last handful after looking around a while. 0 = at once.")]
     [SerializeField, Min(0f)] private float afterSeconds;
+    [Tooltip("After Seconds goes on counting while a dialogue with someone is open too (not in a cutscene, a menu or the pause), and an event done at once (only instant steps, e.g. a Walk Off) then starts right away instead of waiting for the end of it, e.g. Garr coming out of his barn while Haru talks to his father.")]
+    [SerializeField] private bool countsDuringTalks;
 
     [Header("Steps")]
     [SerializeReference, SubclassPicker] private List<StoryStep> steps = new();
+
+    // Events playing that took the game (cutscenes), anywhere.
+    private static int playingCutscenes;
 
     private StoryEventContext context;
     private bool hasControl;
@@ -45,6 +55,16 @@ public sealed class StoryEvent : MonoBehaviour
     private float waited;
 
     public bool IsPlaying => context != null;
+
+    // A story event has the game right now (a cutscene), not just a dialogue with someone.
+    public static bool CutscenePlaying => playingCutscenes > 0;
+
+    // Play mode may start again without the statics being reset.
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        playingCutscenes = 0;
+    }
 
     public string DoneFlag => doneFlag;
 
@@ -73,14 +93,20 @@ public sealed class StoryEvent : MonoBehaviour
             return;
         }
 
-        if (!GameStateManager.IsGameplay)
+        // Time stands still in a talk: counted on the game clock then. Not in a cutscene.
+        bool talking = countsDuringTalks && GameStateManager.IsDialogue && !CutscenePlaying;
+        if (!GameStateManager.IsGameplay && !talking)
             return;
 
         if (waited < afterSeconds)
         {
-            waited += Time.deltaTime;
+            waited += talking ? GameClock.DeltaTime : Time.deltaTime;
             return;
         }
+
+        // In a talk only an event done at once, which takes nothing and no one over.
+        if (talking && !steps.TrueForAll(step => step == null || step.IsInstant))
+            return;
 
         Play();
     }
@@ -121,6 +147,7 @@ public sealed class StoryEvent : MonoBehaviour
         }
 
         hasControl = true;
+        playingCutscenes++;
         GameStateManager.SetState(GameState.Dialogue);
         if (cameraFollows)
             context.KeepCamerasMoving();
@@ -153,9 +180,24 @@ public sealed class StoryEvent : MonoBehaviour
         }
     }
 
+    // Plays it if it can start now: not done yet, its conditions met, nothing else going on. E.g.
+    // When Called by a Walk Off step. False if it did not start.
+    public bool TryPlay()
+    {
+        if (!CanStart())
+            return false;
+
+        Play();
+        return true;
+    }
+
+    // Not done, not playing and its conditions met: it would start now if nothing else had the game,
+    // e.g. Garr's telling-off waiting for the end of a talk he walked into.
+    public bool IsReady => !IsPlaying && !IsDone && StoryCondition.AreMet(conditions);
+
     private bool CanStart()
     {
-        return !IsPlaying && !IsDone && GameStateManager.IsGameplay && StoryCondition.AreMet(conditions);
+        return IsReady && GameStateManager.IsGameplay;
     }
 
     private IEnumerator PlaySteps()
@@ -177,6 +219,7 @@ public sealed class StoryEvent : MonoBehaviour
         if (hasControl)
         {
             hasControl = false;
+            playingCutscenes = Mathf.Max(0, playingCutscenes - 1);
             GameStateManager.SetState(GameState.Gameplay);
         }
     }

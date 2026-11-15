@@ -32,6 +32,11 @@ public sealed class DialogueStep : StoryStep
 
         yield return new WaitUntil(() => finished);
 
+        // A shop it opened at its end (Open Shop), e.g. the trader's after the salve: the event waits
+        // until the player has closed it.
+        while (GameStateManager.State == GameState.Shop)
+            yield return null;
+
         // The dialogue gives back the state it started in; keep the event in control.
         GameStateManager.SetState(GameState.Dialogue);
     }

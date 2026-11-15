@@ -25,7 +25,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Trader
     portraitOverride: {fileID: 0}
-    text: "Smells like a trampled meadow. ...But it stings the right way."
+    text: "Smells like a trampled meadow. Garr knows his herbs."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -34,23 +34,14 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Trader
     portraitOverride: {fileID: 0}
-    text: "Fair's fair. Eldon's dust - every grain I had."
+    text: "Give me a moment. Let me see to this hand before it gets any worse."
     conditions: []
     nextLineIndex: -1
-    endDialogueAfterLine: 0
+    endDialogueAfterLine: 1
     actions:
-    - type: 8
-      quest: {fileID: 0}
-      storyFlag: 
-      silent: 0
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 11400000, guid: 110733b7e7d74b84933f0b7b00c28b3c, type: 2}
-      count: 1
     - type: 4
       quest: {fileID: 0}
-      storyFlag: a1_crystal_dust_3
+      storyFlag: a1_salve_given
       silent: 1
       shop: {fileID: 0}
       enemy: {fileID: 0}
@@ -58,110 +49,3 @@ MonoBehaviour:
       card: {fileID: 0}
       count: 1
     choices: []
-  - speakerSide: 1
-    speakerName: Trader
-    portraitOverride: {fileID: 0}
-    text: "And coin, for the hands that fixed mine. Even strangers need it in Leymar."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions:
-    - type: 2
-      quest: {fileID: 11400000, guid: 10817b4f8a724cec8df0f3e6478bd33b, type: 2}
-      storyFlag: 
-      silent: 0
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "Coin? Real money?"
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Trader
-    portraitOverride: {fileID: 0}
-    text: "As real as anything here. Spend it on something useful. Which, as it happens, I sell."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Trader
-    portraitOverride: {fileID: 0}
-    text: "Before you go - that wolf's still about. I heard it down the road past my camp, the way you came."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "If it bit you, it could go for someone in the village next."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Trader
-    portraitOverride: {fileID: 0}
-    text: "That's what worries me."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "Then we'll deal with it."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions:
-    - type: 1
-      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
-      storyFlag: 
-      silent: 0
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
-    choices: []
-  - speakerSide: 1
-    speakerName: Trader
-    portraitOverride: {fileID: 0}
-    text: "Care to have a look before you go?"
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices:
-    - text: "Show me what you've got."
-      nextLineIndex: -1
-      endDialogue: 1
-      actions:
-      - type: 6
-        quest: {fileID: 0}
-        storyFlag: 
-        silent: 0
-        shop: {fileID: 0}
-        enemy: {fileID: 0}
-        encounterId: 
-        card: {fileID: 0}
-        count: 1
-    - text: "Maybe later."
-      nextLineIndex: -1
-      endDialogue: 1
-      actions: []
