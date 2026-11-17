@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Which side of what it shows the pointer stands on. Auto: above what is in the lower half of the
 // screen, below what is in the upper half.
@@ -31,6 +33,13 @@ public sealed class UiPointer : MonoBehaviour
     [SerializeField, Min(0f)] private float pulseSpeed = 5f;
     [SerializeField, Min(0f)] private float fadeSeconds = 0.15f;
 
+    [Header("Caption")]
+    [Tooltip("Optional: a box just past the arrow's tail that says what to do, e.g. \"Pick a card to take into the fight\" in Dad's deck lesson. Its own object beside the arrow, not under it, since the arrow turns. Empty = the arrow alone.")]
+    [SerializeField] private CanvasGroup caption;
+    [SerializeField] private TMP_Text captionText;
+    [Tooltip("How far past the arrow's tail the caption stands, in canvas units.")]
+    [SerializeField, Min(0f)] private float captionGap = 6f;
+
     private RectTransform rect;
     private CanvasGroup group;
     private Canvas rootCanvas;
@@ -39,6 +48,7 @@ public sealed class UiPointer : MonoBehaviour
     private Transform pulsing;
     private Vector3 pulsingScale;
     private float shownSince;
+    private string captionLine;
 
     private void Awake()
     {
@@ -47,6 +57,12 @@ public sealed class UiPointer : MonoBehaviour
         group.interactable = false;
         group.blocksRaycasts = false;
         group.alpha = 0f;
+        if (caption != null)
+        {
+            caption.interactable = false;
+            caption.blocksRaycasts = false;
+            caption.alpha = 0f;
+        }
     }
 
     private void OnEnable()
@@ -60,16 +76,17 @@ public sealed class UiPointer : MonoBehaviour
         Hide();
     }
 
-    // Points at the target with this id (UiPointerTarget) on whichever canvas it is.
-    public static bool TryPointAt(string id, PointerSide side = PointerSide.Auto)
+    // Points at the target with this id (UiPointerTarget) on whichever canvas it is. The caption, if
+    // any, is said past the arrow on a pointer that has a caption box.
+    public static bool TryPointAt(string id, PointerSide side = PointerSide.Auto, string captionLine = null)
     {
         if (!UiPointerTarget.TryFind(id, out UiPointerTarget found))
             return false;
 
-        return TryPointAt((RectTransform)found.transform, side, found.Pulse);
+        return TryPointAt((RectTransform)found.transform, side, found.Pulse, captionLine);
     }
 
-    public static bool TryPointAt(RectTransform target, PointerSide side = PointerSide.Auto, bool pulse = false)
+    public static bool TryPointAt(RectTransform target, PointerSide side = PointerSide.Auto, bool pulse = false, string captionLine = null)
     {
         if (target == null)
             return false;
@@ -80,11 +97,32 @@ public sealed class UiPointer : MonoBehaviour
         {
             if (pointer != null && pointer.RootCanvas == root)
             {
-                pointer.Show(target, side, pulse);
+                pointer.Show(target, side, pulse, captionLine);
                 return true;
             }
         }
 
+        return false;
+    }
+
+    // The far end of the arrow that shows something on this canvas, at the farthest of its bob, in
+    // world space, and the way it points: a line about what it shows is said just past it
+    // (BattleTalkBubble).
+    public static bool TryGetTail(Canvas canvas, out Vector3 tail, out Vector2 towardsTarget)
+    {
+        Canvas root = canvas != null ? canvas.rootCanvas : null;
+        foreach (UiPointer pointer in All)
+        {
+            if (pointer == null || pointer.RootCanvas != root || !pointer.TryGetAim(out Vector2 edge, out towardsTarget))
+                continue;
+
+            float length = pointer.rect.rect.width;
+            tail = pointer.rect.parent.TransformPoint(edge - towardsTarget * (pointer.gap + length + pointer.bobDistance));
+            return true;
+        }
+
+        tail = default;
+        towardsTarget = default;
         return false;
     }
 
@@ -111,9 +149,10 @@ public sealed class UiPointer : MonoBehaviour
         }
     }
 
-    private void Show(RectTransform newTarget, PointerSide newSide, bool pulse)
+    private void Show(RectTransform newTarget, PointerSide newSide, bool pulse, string newCaption)
     {
-        if (newTarget == target && newSide == side)
+        newCaption = string.IsNullOrWhiteSpace(newCaption) ? null : newCaption;
+        if (newTarget == target && newSide == side && newCaption == captionLine)
             return;
 
         StopPulse();
@@ -122,10 +161,17 @@ public sealed class UiPointer : MonoBehaviour
 
         target = newTarget;
         side = newSide;
+        captionLine = newCaption;
         if (pulse)
         {
             pulsing = target;
             pulsingScale = target.localScale;
+        }
+
+        if (caption != null && captionText != null)
+        {
+            captionText.text = captionLine ?? string.Empty;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)caption.transform);
         }
 
         LateUpdate();
@@ -135,8 +181,11 @@ public sealed class UiPointer : MonoBehaviour
     {
         StopPulse();
         target = null;
+        captionLine = null;
         if (group != null)
             group.alpha = 0f;
+        if (caption != null)
+            caption.alpha = 0f;
     }
 
     private void StopPulse()
@@ -152,7 +201,7 @@ public sealed class UiPointer : MonoBehaviour
         if (target == null)
             return;
 
-        if (!target.gameObject.activeInHierarchy || !(rect.parent is RectTransform parent))
+        if (!TryGetAim(out Vector2 edge, out Vector2 towardsTarget))
         {
             Hide();
             return;
@@ -160,6 +209,54 @@ public sealed class UiPointer : MonoBehaviour
 
         float now = Time.unscaledTime;
         group.alpha = fadeSeconds > 0f ? Mathf.Clamp01((now - shownSince) / fadeSeconds) : 1f;
+
+        float halfLength = rect.rect.width * 0.5f;
+        float bob = (0.5f - 0.5f * Mathf.Cos(now * bobSpeed)) * bobDistance;
+        rect.localPosition = edge - towardsTarget * (gap + halfLength + bob);
+        rect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(towardsTarget.y, towardsTarget.x) * Mathf.Rad2Deg);
+
+        if (pulsing != null)
+            pulsing.localScale = pulsingScale * (1f + pulseScale * (0.5f - 0.5f * Mathf.Cos(now * pulseSpeed)));
+
+        PlaceCaption(edge, towardsTarget);
+    }
+
+    // Past the arrow's tail at the farthest of its bob, the way it points from (above an arrow
+    // pointing down, and so on), kept inside its parent.
+    private void PlaceCaption(Vector2 edge, Vector2 towardsTarget)
+    {
+        if (caption == null)
+            return;
+
+        if (captionLine == null || !(caption.transform is RectTransform box) || !(box.parent is RectTransform boxParent)
+            || !(rect.parent is RectTransform parent))
+        {
+            caption.alpha = 0f;
+            return;
+        }
+
+        caption.alpha = group.alpha;
+
+        Vector2 tail = edge - towardsTarget * (gap + rect.rect.width + bobDistance);
+        Vector2 tailInBoxParent = boxParent.InverseTransformPoint(parent.TransformPoint(tail));
+        Vector2 size = box.rect.size;
+        float halfAlong = Mathf.Abs(towardsTarget.x) > Mathf.Abs(towardsTarget.y) ? size.x * 0.5f : size.y * 0.5f;
+        Vector2 center = tailInBoxParent - towardsTarget * (captionGap + halfAlong);
+
+        Rect area = boxParent.rect;
+        center.x = Mathf.Clamp(center.x, area.xMin + size.x * 0.5f, Mathf.Max(area.xMin + size.x * 0.5f, area.xMax - size.x * 0.5f));
+        center.y = Mathf.Clamp(center.y, area.yMin + size.y * 0.5f, Mathf.Max(area.yMin + size.y * 0.5f, area.yMax - size.y * 0.5f));
+        box.localPosition = center + Vector2.Scale(box.pivot - new Vector2(0.5f, 0.5f), size);
+    }
+
+    // The middle of the side of the target the arrow stands at, and the way it points, in the arrow's
+    // parent. False while it shows nothing.
+    private bool TryGetAim(out Vector2 edge, out Vector2 towardsTarget)
+    {
+        edge = default;
+        towardsTarget = default;
+        if (target == null || !target.gameObject.activeInHierarchy || !(rect.parent is RectTransform parent))
+            return false;
 
         // Where the target is, in the pointer's parent.
         var corners = new Vector3[4];
@@ -174,20 +271,12 @@ public sealed class UiPointer : MonoBehaviour
         }
 
         Vector2 center = (min + max) * 0.5f;
-        Vector2 towardsTarget = TowardsTarget(target.TransformPoint(target.rect.center));
-        float halfLength = rect.rect.width * 0.5f;
-        float bob = (0.5f - 0.5f * Mathf.Cos(now * bobSpeed)) * bobDistance;
-
-        Vector2 edge = towardsTarget.y < 0f ? new Vector2(center.x, max.y)
+        towardsTarget = TowardsTarget(target.TransformPoint(target.rect.center));
+        edge = towardsTarget.y < 0f ? new Vector2(center.x, max.y)
             : towardsTarget.y > 0f ? new Vector2(center.x, min.y)
             : towardsTarget.x > 0f ? new Vector2(min.x, center.y)
             : new Vector2(max.x, center.y);
-
-        rect.localPosition = edge - towardsTarget * (gap + halfLength + bob);
-        rect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(towardsTarget.y, towardsTarget.x) * Mathf.Rad2Deg);
-
-        if (pulsing != null)
-            pulsing.localScale = pulsingScale * (1f + pulseScale * (0.5f - 0.5f * Mathf.Cos(now * pulseSpeed)));
+        return true;
     }
 
     // The way the arrow points: down at a target it stands above, and so on.

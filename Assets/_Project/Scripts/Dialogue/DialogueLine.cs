@@ -69,6 +69,8 @@ public sealed class DialogueLine
     [Header("Flow")]
     [Tooltip("Said only when all of these are met; otherwise the dialogue goes on as if the line were not there. Empty = always said.")]
     public List<StoryCondition> conditions = new();
+    [Tooltip("Said only when the talk has no topics to offer at its end (NpcData Talk Topics), e.g. Haru's \"Um... no, nothing.\" after Dad's \"What is it, Haru?\" while there is nothing to ask him yet.")]
+    public bool onlyWithoutTopics;
     [Tooltip("Line to show after this line. -1 continues to the next line.")]
     public int nextLineIndex = -1;
     public bool endDialogueAfterLine;

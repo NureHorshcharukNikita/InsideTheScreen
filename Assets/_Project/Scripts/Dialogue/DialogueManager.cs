@@ -94,6 +94,20 @@ public sealed class DialogueManager : MonoBehaviour
 
     public bool IsDialogueActive => dialogueActive;
 
+    // The line shown now, the very one of its DialogueData, e.g. for a story event to act as it
+    // starts (WaitForLineStep). False between dialogues.
+    public bool IsShowing(DialogueLine line)
+    {
+        return dialogueActive && line != null && activeLineIndex >= 0 && activeLineIndex < activeLines.Count
+            && activeLines[activeLineIndex] == line;
+    }
+
+    // Whether the dialogue playing now has this line in it.
+    public bool IsPlaying(DialogueLine line)
+    {
+        return dialogueActive && line != null && activeLines.Contains(line);
+    }
+
     // Talking to an NPC starts right where the player stands: nobody steps forward first. Only a story
     // event walking them up to the NPC puts Hideshi in front (TalkToStep, Eldon's first meeting).
     public bool StartDialogue(NpcCharacter npc)
@@ -267,10 +281,28 @@ public sealed class DialogueManager : MonoBehaviour
     }
 
     // A line whose conditions are not met is passed over as if it were not there, e.g. a hint
-    // that only makes sense until a quest is done.
-    private static bool IsSaid(DialogueLine line)
+    // that only makes sense until a quest is done; so is one said only without talk topics while
+    // there are some.
+    private bool IsSaid(DialogueLine line)
     {
-        return line != null && StoryCondition.AreMet(line.conditions);
+        return line != null && StoryCondition.AreMet(line.conditions)
+            && !(line.onlyWithoutTopics && HasTopicsOnOffer());
+    }
+
+    // Whether AddTopicChoices would offer any topic at the end of this talk.
+    private bool HasTopicsOnOffer()
+    {
+        NpcData data = activeNpc != null ? activeNpc.Data : null;
+        if (data == null || data.talkTopics == null || activeWithoutTopics)
+            return false;
+
+        foreach (NpcTalkTopic topic in data.talkTopics)
+        {
+            if (topic != null && topic.IsAvailable && (topic.everyTalk || !topicsTalkedAbout.Contains(topic)))
+                return true;
+        }
+
+        return false;
     }
 
     // The line itself, or the first one after it that is said. Out of range: no more lines.
@@ -389,14 +421,19 @@ public sealed class DialogueManager : MonoBehaviour
         if (!dialogueActive)
             return;
 
+        // Their own name said on their own line shows on the plate as it is typed out, e.g. "I'm Sorrel".
+        CharacterProfile speaker = GetSpeaker(line);
+        int nameSaidAt = KnownNames.SaidAt(speaker, speakerName, line.ShownText, out string nameOnceSaid);
         view.ShowLine(
             line,
-            KnownNames.Shown(GetSpeaker(line), speakerName),
+            KnownNames.Shown(speaker, speakerName),
             fallbackPortrait,
             GetListenerPortrait(DialogueSpeakerSide.Left, PlayerPortrait),
             GetListenerPortrait(DialogueSpeakerSide.Right, npcPortrait),
             GetVoice(line),
-            GetValidChoices(activeLineIndex));
+            GetValidChoices(activeLineIndex),
+            nameSaidAt,
+            nameOnceSaid);
 
         // After the name plate: a name said on this line shows from the next one on.
         KnownNames.Hear(line.text);
@@ -556,6 +593,7 @@ public sealed class DialogueManager : MonoBehaviour
         foreach (NpcTalkTopic topic in data.talkTopics)
         {
             // One for every talk (What should we do now?) stays on offer in the same talk too.
+            // Keep in step with HasTopicsOnOffer.
             if (topic == null || !topic.IsAvailable || !topic.everyTalk && topicsTalkedAbout.Contains(topic))
                 continue;
 

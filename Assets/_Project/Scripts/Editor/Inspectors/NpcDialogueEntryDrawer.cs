@@ -23,6 +23,7 @@ public sealed class NpcDialogueEntryDrawer : PropertyDrawer
             DrawProperty(position, ref y, property, "key", "Key");
             DrawProperty(position, ref y, property, "dialogue", "Dialogue");
             DrawProperty(position, ref y, property, "repeatable", "Can Repeat");
+            DrawProperty(position, ref y, property, "takesTurns", "Takes Turns");
             DrawProperty(position, ref y, property, "needsCompanion", "Needs Hideshi");
 
             DrawSection(position, ref y, "Availability");
@@ -49,6 +50,7 @@ public sealed class NpcDialogueEntryDrawer : PropertyDrawer
             AddPropertyHeight(ref height, property.FindPropertyRelative("key"), "Key");
             AddPropertyHeight(ref height, property.FindPropertyRelative("dialogue"), "Dialogue");
             AddPropertyHeight(ref height, property.FindPropertyRelative("repeatable"), "Can Repeat");
+            AddPropertyHeight(ref height, property.FindPropertyRelative("takesTurns"), "Takes Turns");
             AddPropertyHeight(ref height, property.FindPropertyRelative("needsCompanion"), "Needs Hideshi");
 
             AddSectionHeight(ref height);

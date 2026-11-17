@@ -6,13 +6,16 @@ using UnityEngine;
 // Place off). A counter keeps its place empty, so nothing next to it moves (Keep Place on: its Canvas
 // Group goes clear). When the story brings it up, a hint at the bottom gives the key to see it once
 // the player has control again, e.g. "Press I to view your health" (InventoryInput); nothing opens by
-// itself.
+// itself. Gone Once Set turns it the other way round: there until the flag, e.g. the spacers that keep
+// the inventory panels their size, centred, until the deck panel comes up between them.
 public sealed class StoryUnlock : MonoBehaviour
 {
     [Tooltip("There once this story flag is set. Empty = always.")]
     [SerializeField, StoryFlag] private string flag;
     [Tooltip("Hidden, it keeps its place (its Canvas Group goes clear) instead of going and letting the others close up.")]
     [SerializeField] private bool keepPlace;
+    [Tooltip("The other way round: there until the flag is set, then gone, e.g. a spacer holding the deck panel's room until it comes up.")]
+    [SerializeField] private bool goneOnceSet;
     [Tooltip("The hint once the story brings it up, after the key, e.g. 'to view your health'. Empty = no hint.")]
     [SerializeField] private string keyHint;
     [Tooltip("A counter: the key its hint gives (a tab's hint gives the tab's own quick key).")]
@@ -47,7 +50,7 @@ public sealed class StoryUnlock : MonoBehaviour
 
     private void Apply()
     {
-        bool unlocked = IsUnlocked;
+        bool unlocked = IsUnlocked != goneOnceSet;
         if (keepPlace && canvasGroup != null)
         {
             canvasGroup.alpha = unlocked ? 1f : 0f;

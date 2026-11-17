@@ -13,10 +13,28 @@ MonoBehaviour:
   m_Name: TraderArticyIdle
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "How's the hand?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Trader
-    portraitOverride: {fileID: 21300000, guid: 175a506a29eb5d04e80111e364db8d4f, type: 3}
-    text: "Back again? The fire's warm and my prices are fair. Mostly."
+    portraitOverride: {fileID: 0}
+    text: "Itches like mad. The smith says that means it's healing."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Trader
+    portraitOverride: {fileID: 0}
+    text: "Your salve did that, lad. I won't forget it."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -39,3 +57,4 @@ MonoBehaviour:
       nextLineIndex: -1
       endDialogue: 1
       actions: []
+  noTalkTopics: 0

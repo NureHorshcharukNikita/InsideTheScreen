@@ -11,6 +11,11 @@ using UnityEngine;
 //    bushes; an NPC he looks at (in front of him) comes first;
 // 2. NPCs in front of the player (where they look) come before the ones beside or behind;
 // 3. then the closest one.
+// An NPC walking off somewhere by itself (BackgroundWalk) has no prompt until it stands there.
+// A zone can also talk for several NPCs standing together (Together), e.g. one prompt between Sorrel
+// and Fenna until they have been met together: their own zones say nothing while it answers, and
+// the talk is its NPC's (Sorrel's), which the others speak in, or a story event it plays instead
+// (Plays Event), e.g. their first meeting with Fenna coming out from behind her mother.
 [RequireComponent(typeof(Collider2D))]
 public sealed class NpcInteraction : MonoBehaviour
 {
@@ -18,14 +23,25 @@ public sealed class NpcInteraction : MonoBehaviour
     private const float FrontCone = 0.5f;
 
     private static readonly List<NpcInteraction> Nearby = new();
+    // Zones that talk for others too (Together), wherever the player is.
+    private static readonly List<NpcInteraction> Shared = new();
     private static Transform player;
     private static PlayerMovement playerMovement;
 
+    [Tooltip("Whose talk it starts. Empty = the NPC this zone is on.")]
     [SerializeField] private NpcCharacter npc;
     [SerializeField] private GameObject promptRoot;
     [SerializeField] private CanvasGroup promptCanvasGroup;
     [SerializeField] private TMP_Text promptText;
     [SerializeField] private string interactHintTemplate = "{0} - {1}";
+
+    [Header("Talking Together")]
+    [Tooltip("Others this zone talks for too, e.g. Fenna beside Sorrel: one prompt between them, and their own zones (and its NPC's) say nothing while this one answers. Empty = only its NPC, in its own zone.")]
+    [SerializeField] private List<NpcCharacter> together = new();
+    [Tooltip("It answers only while all of these are met, e.g. Sorrel and Fenna's zone until they have been met together (a1_met_fox_family not set). Empty = always.")]
+    [SerializeField] private List<StoryCondition> answersWhile = new();
+    [Tooltip("The Interact key plays this story event (Start: When Called) instead of the NPC's talk, while it can start, e.g. Sorrel and Fenna's first meeting with Fenna coming out from behind her mother. Empty = the NPC's talk.")]
+    [SerializeField] private StoryEvent playsEvent;
 
     [Header("Overhead Speech")]
     [SerializeField] private float overheadLineDuration = 2f;
@@ -58,11 +74,25 @@ public sealed class NpcInteraction : MonoBehaviour
         HideSpeechRoot();
     }
 
+    private void OnEnable()
+    {
+        if (together != null && together.Count > 0 && !Shared.Contains(this))
+            Shared.Add(this);
+    }
+
     // Hidden or destroyed while the player stands in the zone: no exit message comes then.
     private void OnDisable()
     {
         playerNearby = false;
         Nearby.Remove(this);
+        Shared.Remove(this);
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetForPlayMode()
+    {
+        Nearby.Clear();
+        Shared.Clear();
     }
 
     private void ResolveViewReferences()
@@ -180,19 +210,27 @@ public sealed class NpcInteraction : MonoBehaviour
         if (player == null || playerMovement == null)
             return false;
 
-        Vector2 toNpc = npc.transform.position - player.position;
+        Vector2 toNpc = transform.position - player.position;
         return toNpc.sqrMagnitude > 0.0001f && Vector2.Dot(playerMovement.FacingDirection, toNpc.normalized) >= FrontCone;
     }
 
+    // From the zone itself: on an NPC where it stands, between them for a zone talking for several.
     private float DistanceToPlayer()
     {
-        return player != null ? Vector2.Distance(player.position, npc.transform.position) : 0f;
+        return player != null ? Vector2.Distance(player.position, transform.position) : 0f;
     }
 
     private void Interact()
     {
         if (overheadPlaying || promptReturnPending)
             return;
+
+        if (playsEvent != null)
+        {
+            if (playsEvent.TryPlay())
+                HideSpeechRoot();
+            return;
+        }
 
         if (npc.CanTalk && DialogueManager.Instance != null && DialogueManager.Instance.StartDialogue(npc))
         {
@@ -236,9 +274,36 @@ public sealed class NpcInteraction : MonoBehaviour
 
     private InteractionPrompt Prompt => prompt != null ? prompt : prompt = InteractionPrompt.For(promptText);
 
+    // Nothing while it walks off somewhere by itself (BackgroundWalk), e.g. Garr on his way to the
+    // forge, nor while a zone talking for it together with others answers instead (Together).
     private bool HasAnyInteraction()
     {
-        return npc != null && (npc.CanTalk || npc.CanShowOverheadLines || npc.CanTrade);
+        if (npc == null || !npc.gameObject.activeInHierarchy || !Answers || SpokenForElsewhere || BackgroundWalk.IsWalking(npc))
+            return false;
+
+        return playsEvent != null ? playsEvent.IsReady : npc.CanTalk || npc.CanShowOverheadLines || npc.CanTrade;
+    }
+
+    private bool Answers => StoryCondition.AreMet(answersWhile);
+
+    // A zone talking for this NPC together with others answers now: this one says nothing.
+    private bool SpokenForElsewhere
+    {
+        get
+        {
+            foreach (NpcInteraction shared in Shared)
+            {
+                if (shared != null && shared != this && shared.Answers && shared.TalksFor(npc))
+                    return true;
+            }
+
+            return false;
+        }
+    }
+
+    private bool TalksFor(NpcCharacter character)
+    {
+        return character != null && (character == npc || together.Contains(character));
     }
 
     private string GetPromptActionName()
@@ -246,7 +311,7 @@ public sealed class NpcInteraction : MonoBehaviour
         if (npc == null)
             return "Interact";
 
-        if (npc.CanTalk || npc.CanShowOverheadLines)
+        if (playsEvent != null || npc.CanTalk || npc.CanShowOverheadLines)
             return "Talk";
 
         if (npc.CanTrade)

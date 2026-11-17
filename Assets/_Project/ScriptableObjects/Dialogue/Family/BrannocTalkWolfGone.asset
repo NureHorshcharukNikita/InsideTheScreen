@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: FennaFirstMeeting
+  m_Name: BrannocTalkWolfGone
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerSide: 1
-    speakerName: Fenna
+    speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "Hey! Where's your tail?"
+    text: "I know. The tracks stop past the trader's campfire. I hear you two saw to that."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -25,45 +25,58 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "I... don't have one."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Fenna
-    portraitOverride: {fileID: 0}
-    text: "Did it fall off?!"
+    text: "Dad did most of it."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
     choices: []
   - speakerSide: 0
-    speakerName: Haru
-    portraitOverride: {fileID: 0}
-    text: "No! Where I'm from, people just don't have tails."
-    conditions: []
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Haru did his share."
+    conditions:
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
     choices: []
   - speakerSide: 1
-    speakerName: Fenna
+    speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "That's so sad."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Fenna
-    portraitOverride: {fileID: 0}
-    text: "I'm Fenna! When I grow up, I'll keep watch like Papa. All night!"
-    conditions: []
+    text: "Then thank him for me. And you stood your ground. That counts."
+    conditions:
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+      card: {fileID: 0}
+      count: 1
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions: []
     choices: []
+  - speakerSide: 1
+    speakerName: Brannoc
+    portraitOverride: {fileID: 0}
+    text: "Then you have my thanks. Both of you."
+    conditions:
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  noTalkTopics: 0

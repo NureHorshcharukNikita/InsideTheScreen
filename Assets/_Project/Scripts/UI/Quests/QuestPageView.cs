@@ -3,12 +3,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// The quest log: the list of quests received on the left, the one picked on the right. Over the list,
+// tabs: all of them, the quests under way, the finished ones (completed or failed), each with its count.
+// The list puts the quests under way first, then the finished ones, each newest first. The tab stays
+// while the game runs. With no tabs set up, the list shows all quests.
 public sealed class QuestPageView : MonoBehaviour
 {
     private const int NoSelectionIndex = -1;
     private const string EmptyDetailsMessage = "Select a quest to view details";
     private const string EmptyListMessage = "No quests yet";
+    private const string NoActiveQuestsMessage = "No active quests";
+    private const string NoFinishedQuestsMessage = "No completed quests yet";
     private const string RewardItemName = "RewardItem";
+
+    private enum ListFilter
+    {
+        Active,
+        Finished,
+        All
+    }
     private static readonly Color DetailsTextColor = new(0.96f, 0.91f, 0.84f, 1f);
     private static readonly Color CompletedObjectiveColor = new(0.62f, 0.58f, 0.53f, 1f);
 
@@ -19,6 +32,14 @@ public sealed class QuestPageView : MonoBehaviour
     [SerializeField] private Transform listContent;
     [SerializeField] private QuestListItemView listItemTemplate;
     [SerializeField] private ScrollRect listScroll;
+
+    [Header("Tabs")]
+    [Tooltip("The quests under way.")]
+    [SerializeField] private CategoryButton activeTab;
+    [Tooltip("The finished quests: completed and failed.")]
+    [SerializeField] private CategoryButton finishedTab;
+    [Tooltip("All quests received. The tab picked when the game starts.")]
+    [SerializeField] private CategoryButton allTab;
 
     [Header("Details")]
     [SerializeField] private TMP_Text titleText;
@@ -49,13 +70,20 @@ public sealed class QuestPageView : MonoBehaviour
     private readonly List<QuestRewardItemView> rewardItemViews = new();
     // Objective rows after the first, cloned from it: one per step reached.
     private readonly List<(GameObject row, TMP_Text label, Image box)> objectiveRows = new();
+    // The quests shown: received, in the tab picked, in list order.
     private readonly List<QuestData> receivedQuests = new();
-    private int selectedIndex = NoSelectionIndex;
+    private QuestData selectedQuest;
+    private ListFilter filter = ListFilter.All;
+    private int receivedCount;
+    private int activeCount;
+
+    private bool HasTabs => activeTab != null || finishedTab != null || allTab != null;
+    private ListFilter ShownFilter => HasTabs ? filter : ListFilter.All;
 
     private void OnEnable()
     {
         QuestManager.QuestChanged += HandleQuestChanged;
-        selectedIndex = NoSelectionIndex;
+        selectedQuest = null;
         BuildList();
     }
 
@@ -77,15 +105,17 @@ public sealed class QuestPageView : MonoBehaviour
             }
         }
 
-        selectedIndex = NoSelectionIndex;
+        selectedQuest = null;
         BuildList();
     }
 
-    // From the top when the page opens or gets new quests; kept where it was scrolled to when a
-    // quest changes while it is open.
+    // From the top when the page opens, gets new quests or another tab; kept where it
+    // was scrolled to when a quest changes while it is open. The quest picked stays picked while it is
+    // still in the list.
     private void BuildList(bool fromTop = true)
     {
         RefreshReceivedQuests();
+        RefreshTabs();
 
         if (listContent == null || listItemTemplate == null)
         {
@@ -98,6 +128,7 @@ public sealed class QuestPageView : MonoBehaviour
 
         if (receivedQuests.Count == 0)
         {
+            selectedQuest = null;
             HideListItems();
             SetListContentVisible(false);
             SetEmptyListVisible(true);
@@ -109,8 +140,9 @@ public sealed class QuestPageView : MonoBehaviour
         SetListContentVisible(true);
         SetEmptyListVisible(false);
 
-        if (selectedIndex >= receivedQuests.Count)
-            selectedIndex = NoSelectionIndex;
+        int selectedIndex = selectedQuest != null ? receivedQuests.IndexOf(selectedQuest) : NoSelectionIndex;
+        if (selectedIndex == NoSelectionIndex)
+            selectedQuest = null;
 
         List<QuestListItemView> reusableItems = GetReusableListItems();
         itemViews.Clear();
@@ -150,13 +182,13 @@ public sealed class QuestPageView : MonoBehaviour
         if (index < 0 || index >= receivedQuests.Count)
             return;
 
-        selectedIndex = index;
-        QuestManager.MarkOpened(receivedQuests[selectedIndex]);
-        ShowQuest(selectedIndex);
+        selectedQuest = receivedQuests[index];
+        QuestManager.MarkOpened(selectedQuest);
+        ShowQuest(index);
 
         for (int i = 0; i < itemViews.Count; i++)
         {
-            itemViews[i].SetSelected(i == selectedIndex);
+            itemViews[i].SetSelected(i == index);
             itemViews[i].SetUnread(QuestManager.IsUnread(receivedQuests[i]));
             itemViews[i].SetStatus(QuestManager.GetStatus(receivedQuests[i]));
         }
@@ -250,13 +282,20 @@ public sealed class QuestPageView : MonoBehaviour
         emptyDetailsText.text = EmptyDetailsMessage;
     }
 
+    // Why the list is empty: no quest yet at all, or none in the tab.
     private void SetEmptyListVisible(bool visible)
     {
         if (emptyListText == null)
             return;
 
         emptyListText.gameObject.SetActive(visible);
-        emptyListText.text = EmptyListMessage;
+        emptyListText.text = receivedCount == 0 ? EmptyListMessage
+            : ShownFilter switch
+            {
+                ListFilter.Active => NoActiveQuestsMessage,
+                ListFilter.Finished => NoFinishedQuestsMessage,
+                _ => EmptyListMessage
+            };
     }
 
     private void SetListContentVisible(bool visible)
@@ -328,7 +367,57 @@ public sealed class QuestPageView : MonoBehaviour
     private void RefreshReceivedQuests()
     {
         receivedQuests.Clear();
-        receivedQuests.AddRange(QuestManager.GetReceivedQuests(quests));
+        List<QuestData> received = QuestManager.GetReceivedQuests(quests);
+        receivedCount = received.Count;
+        activeCount = 0;
+        foreach (QuestData quest in received)
+        {
+            if (!IsFinished(quest))
+                activeCount++;
+        }
+
+        ListFilter shown = ShownFilter;
+
+        // The quests under way first, then the finished ones; each newest first, as received.
+        for (int pass = 0; pass < 2; pass++)
+        {
+            bool finishedPass = pass == 1;
+            if (shown == ListFilter.Active && finishedPass || shown == ListFilter.Finished && !finishedPass)
+                continue;
+
+            foreach (QuestData quest in received)
+            {
+                if (IsFinished(quest) == finishedPass)
+                    receivedQuests.Add(quest);
+            }
+        }
+    }
+
+    private static bool IsFinished(QuestData quest)
+    {
+        return QuestManager.GetStatus(quest) is QuestStatus.Completed or QuestStatus.Failed;
+    }
+
+    private void RefreshTabs()
+    {
+        SetTab(activeTab, ListFilter.Active, $"Active ({activeCount})");
+        SetTab(finishedTab, ListFilter.Finished, $"Completed ({receivedCount - activeCount})");
+        SetTab(allTab, ListFilter.All, $"All ({receivedCount})");
+    }
+
+    private void SetTab(CategoryButton tab, ListFilter tabFilter, string label)
+    {
+        if (tab != null)
+            tab.Init(label, null, () => ShowFilter(tabFilter), filter == tabFilter);
+    }
+
+    private void ShowFilter(ListFilter newFilter)
+    {
+        if (filter == newFilter)
+            return;
+
+        filter = newFilter;
+        BuildList();
     }
 
     private void HandleQuestChanged(QuestData quest, QuestStatus status)

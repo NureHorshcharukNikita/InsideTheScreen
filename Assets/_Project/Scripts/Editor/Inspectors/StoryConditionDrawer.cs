@@ -50,6 +50,10 @@ public sealed class StoryConditionDrawer : PropertyDrawer
             EditorGUI.PropertyField(cardRect, property.FindPropertyRelative("card"), GUIContent.none);
             EditorGUI.PropertyField(countRect, property.FindPropertyRelative("count"), GUIContent.none);
         }
+        else if ((StoryConditionType)typeProp.enumValueIndex == StoryConditionType.CompanionWithPlayer)
+        {
+            EditorGUI.LabelField(valueRect, "Hideshi is with Haru");
+        }
         else
         {
             EditorGUI.PropertyField(valueRect, property.FindPropertyRelative("storyFlag"), GUIContent.none);

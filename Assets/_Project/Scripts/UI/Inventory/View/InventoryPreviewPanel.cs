@@ -9,6 +9,8 @@ public class InventoryPreviewPanel : MonoBehaviour
     [SerializeField] private TMP_Text emptyPreviewText;
     [SerializeField] private CardView previewCard;
     [SerializeField] private TMP_Text descriptionText;
+    [Tooltip("Said under the description of a card that does nothing in a fight and so never goes in the deck, e.g. the Crystal Dust. Empty = nothing.")]
+    [SerializeField, TextArea(1, 2)] private string notForBattleNote = "Not something to take into a fight.";
 
     [Header("Buttons")]
     [SerializeField] private Button addButton;
@@ -52,7 +54,9 @@ public class InventoryPreviewPanel : MonoBehaviour
         previewCard.Setup(card, null, 0, null);
 
         descriptionText.gameObject.SetActive(true);
-        descriptionText.text = card.Description;
+        descriptionText.text = card.IsUsedInBattle || string.IsNullOrWhiteSpace(notForBattleNote)
+            ? card.Description
+            : $"{card.Description}\n<i><alpha=#AA>{notForBattleNote}</i>";
         RebuildDescriptionLayout();
 
         var scrollRect = descriptionText.GetComponentInParent<ScrollRect>();

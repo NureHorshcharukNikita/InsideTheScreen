@@ -96,6 +96,20 @@ public sealed class StoryEventContext
         }
     }
 
+    // Gives a character back before the event is over, as Release() would at its end, e.g. Brannoc
+    // sent off down the south road (Walk Off, Walks During Talks) after the event turned him to Haru:
+    // he walks on through the rest of it instead of standing there until it ends.
+    public void GiveBack(Transform actor)
+    {
+        if (actor == null || !actors.TryGetValue(actor, out ActorState state))
+            return;
+
+        state.Release();
+        actors.Remove(actor);
+        ControlledActors.Remove(actor);
+        Physics2D.SyncTransforms();
+    }
+
     // E.g. a door opens for them even where the player has to press Interact (Door).
     public static bool IsControlledByStory(Transform actor)
     {

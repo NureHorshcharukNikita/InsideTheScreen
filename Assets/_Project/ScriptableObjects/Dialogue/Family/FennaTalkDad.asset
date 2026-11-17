@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
+  m_Name: FennaTalkDad
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speakerSide: 1
+    speakerName: Fenna
+    portraitOverride: {fileID: 21300000, guid: bc0d44b9ac2a42eb911f06f6a6426594, type: 3}
+    text: "The tall man in the black coat. Is he your papa?"
+    conditions:
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Fenna
+    portraitOverride: {fileID: 21300000, guid: bc0d44b9ac2a42eb911f06f6a6426594, type: 3}
+    text: "Haru, is that your papa? The tall one in the black coat?"
+    conditions:
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Yeah. That's my dad."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Fenna
+    portraitOverride: {fileID: 21300000, guid: bc0d44b9ac2a42eb911f06f6a6426594, type: 3}
+    text: "He looks grumpy. Like Garr before breakfast."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "I can hear you, you know."
+    conditions:
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Fenna
+    portraitOverride: {fileID: 21300000, guid: bc0d44b9ac2a42eb911f06f6a6426594, type: 3}
+    text: "...With those little ears?!"
+    conditions:
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "He's not grumpy. He's just thinking. He's always thinking."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Fenna
+    portraitOverride: {fileID: 21300000, guid: bc0d44b9ac2a42eb911f06f6a6426594, type: 3}
+    text: "When my papa thinks, his ears go all flat. Do your papa's ears go-"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Fenna
+    portraitOverride: {fileID: 21300000, guid: bc0d44b9ac2a42eb911f06f6a6426594, type: 3}
+    text: "...Oh. Right. Sorry."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  noTalkTopics: 0

@@ -81,8 +81,9 @@ public sealed class NpcData : ScriptableObject
         return SelectDialogue(npcKey, out _) != null;
     }
 
-    // The first entry that can be said. One that needs Hideshi while he is away gives the Companion
-    // Away dialogue instead (selectedEntry stays null: it does not count as a talk).
+    // The first entry that can be said; if it takes turns, the one whose turn it is. One that needs
+    // Hideshi while he is away gives the Companion Away dialogue instead (selectedEntry stays null: it
+    // does not count as a talk).
     public DialogueData SelectDialogue(string npcKey, out NpcDialogueEntry selectedEntry, bool companionPresent = true)
     {
         selectedEntry = null;
@@ -96,6 +97,9 @@ public sealed class NpcData : ScriptableObject
                 NpcDialogueEntry entry = dialogueEntries[i];
                 if (entry == null || !entry.IsAvailable(npcKey))
                     continue;
+
+                if (entry.takesTurns)
+                    entry = TakeTurn(npcKey, i);
 
                 if (entry.needsCompanion && !companionPresent)
                 {
@@ -111,6 +115,32 @@ public sealed class NpcData : ScriptableObject
         }
 
         return null;
+    }
+
+    // The Takes Turns entries that can be said now, from the first one on, take turns: one a talk with
+    // this NPC, round and round (its talks counted), e.g. Fenna's little lines.
+    private NpcDialogueEntry TakeTurn(string npcKey, int first)
+    {
+        int turns = 0;
+        for (int i = first; i < dialogueEntries.Count; i++)
+        {
+            if (TakesTurnNow(dialogueEntries[i], npcKey))
+                turns++;
+        }
+
+        int turn = NpcDialogueProgress.GetTalkCount(npcKey) % Mathf.Max(1, turns);
+        for (int i = first; i < dialogueEntries.Count; i++)
+        {
+            if (TakesTurnNow(dialogueEntries[i], npcKey) && turn-- == 0)
+                return dialogueEntries[i];
+        }
+
+        return dialogueEntries[first];
+    }
+
+    private static bool TakesTurnNow(NpcDialogueEntry entry, string npcKey)
+    {
+        return entry != null && entry.takesTurns && entry.IsAvailable(npcKey);
     }
 
     private static bool HasAnyText(List<string> values)

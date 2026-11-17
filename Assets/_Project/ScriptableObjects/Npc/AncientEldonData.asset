@@ -395,6 +395,37 @@ MonoBehaviour:
   - key: eldon_idle
     dialogue: {fileID: 11400000, guid: 3f94e8849f1448c9a5b0ab5a1377617e, type: 2}
     repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: met_ancient_eldon
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: eldon_idle_dreams
+    dialogue: {fileID: 11400000, guid: 18ef6d79c93e4235bff71eaf09144eac, type: 2}
+    repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: met_ancient_eldon
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: eldon_idle_tower
+    dialogue: {fileID: 11400000, guid: c8f86e1fa53d4c7cbd045d0c1782ebb0, type: 2}
+    repeatable: 1
+    takesTurns: 1
     needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1

@@ -39,14 +39,11 @@ public sealed class StoryEvent : MonoBehaviour
     [SerializeField] private bool everyTime;
     [Tooltip("Automatically: once the conditions are met, it waits this long while the player walks about freely (talks and menus do not count), e.g. Haru giving up on the last handful after looking around a while. 0 = at once.")]
     [SerializeField, Min(0f)] private float afterSeconds;
-    [Tooltip("After Seconds goes on counting while a dialogue with someone is open too (not in a cutscene, a menu or the pause), and an event done at once (only instant steps, e.g. a Walk Off) then starts right away instead of waiting for the end of it, e.g. Garr coming out of his barn while Haru talks to his father.")]
+    [Tooltip("After Seconds goes on counting in dialogues and cutscenes too (not in a menu or the pause), and an event done at once (only instant steps, e.g. a Walk Off) then starts right away instead of waiting for the end of it, e.g. Garr coming out of his barn while Haru talks to his father or meets the fox family. A cutscene that sets one of its conditions is over before the count starts, e.g. the barn morning.")]
     [SerializeField] private bool countsDuringTalks;
 
     [Header("Steps")]
     [SerializeReference, SubclassPicker] private List<StoryStep> steps = new();
-
-    // Events playing that took the game (cutscenes), anywhere.
-    private static int playingCutscenes;
 
     private StoryEventContext context;
     private bool hasControl;
@@ -55,16 +52,6 @@ public sealed class StoryEvent : MonoBehaviour
     private float waited;
 
     public bool IsPlaying => context != null;
-
-    // A story event has the game right now (a cutscene), not just a dialogue with someone.
-    public static bool CutscenePlaying => playingCutscenes > 0;
-
-    // Play mode may start again without the statics being reset.
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void ResetStatics()
-    {
-        playingCutscenes = 0;
-    }
 
     public string DoneFlag => doneFlag;
 
@@ -93,8 +80,8 @@ public sealed class StoryEvent : MonoBehaviour
             return;
         }
 
-        // Time stands still in a talk: counted on the game clock then. Not in a cutscene.
-        bool talking = countsDuringTalks && GameStateManager.IsDialogue && !CutscenePlaying;
+        // Time stands still in a talk or a cutscene: counted on the game clock then.
+        bool talking = countsDuringTalks && GameStateManager.IsDialogue;
         if (!GameStateManager.IsGameplay && !talking)
             return;
 
@@ -104,7 +91,7 @@ public sealed class StoryEvent : MonoBehaviour
             return;
         }
 
-        // In a talk only an event done at once, which takes nothing and no one over.
+        // In a talk or a cutscene only an event done at once, which takes nothing and no one over.
         if (talking && !steps.TrueForAll(step => step == null || step.IsInstant))
             return;
 
@@ -147,7 +134,6 @@ public sealed class StoryEvent : MonoBehaviour
         }
 
         hasControl = true;
-        playingCutscenes++;
         GameStateManager.SetState(GameState.Dialogue);
         if (cameraFollows)
             context.KeepCamerasMoving();
@@ -219,7 +205,6 @@ public sealed class StoryEvent : MonoBehaviour
         if (hasControl)
         {
             hasControl = false;
-            playingCutscenes = Mathf.Max(0, playingCutscenes - 1);
             GameStateManager.SetState(GameState.Gameplay);
         }
     }

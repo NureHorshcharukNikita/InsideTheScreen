@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: e491775c28a9459ca542da04b525a474
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1893840997254225366
+    second: MiniBrannocSprites_0
+  - first:
+      213: -6451966494803703876
+    second: MiniBrannocSprites_1
+  - first:
+      213: -7054312938223473413
+    second: MiniBrannocSprites_2
+  - first:
+      213: -6055019093518710951
+    second: MiniBrannocSprites_3
+  - first:
+      213: 6282043529495590047
+    second: MiniBrannocSprites_4
+  - first:
+      213: -2814957760877587599
+    second: MiniBrannocSprites_5
+  - first:
+      213: -2573336894206036656
+    second: MiniBrannocSprites_6
+  - first:
+      213: 548740366978056986
+    second: MiniBrannocSprites_7
+  - first:
+      213: 5625842433767572534
+    second: MiniBrannocSprites_8
+  - first:
+      213: 2653946972336092428
+    second: MiniBrannocSprites_9
+  - first:
+      213: -281907323069758439
+    second: MiniBrannocSprites_10
+  - first:
+      213: -320086679954241764
+    second: MiniBrannocSprites_11
+  - first:
+      213: 1043791106259783223
+    second: MiniBrannocSprites_12
+  - first:
+      213: 655434726473741642
+    second: MiniBrannocSprites_13
+  - first:
+      213: -4451231429160918563
+    second: MiniBrannocSprites_14
+  - first:
+      213: -7795707805703441674
+    second: MiniBrannocSprites_15
+  - first:
+      213: -6752382985834131201
+    second: MiniBrannocSprites_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 81.45
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MiniBrannocSprites_0
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 967
+        width: 132
+        height: 259
+      alignment: 9
+      pivot: {x: 0.3795, y: 0.0154}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49193b8afc4b4c988ac0959597791cbb
+      internalID: 1893840997254225366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_1
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 968
+        width: 174
+        height: 258
+      alignment: 9
+      pivot: {x: 0.4566, y: 0.0155}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52ef3f6b184f45a7870d6eff74d79fb4
+      internalID: -6451966494803703876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_2
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 968
+        width: 162
+        height: 258
+      alignment: 9
+      pivot: {x: 0.4519, y: 0.0155}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abef2345ce314cee82c079c5154cb613
+      internalID: -7054312938223473413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_3
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 680
+        width: 132
+        height: 259
+      alignment: 9
+      pivot: {x: 0.6132, y: 0.0154}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fd90ebfe995426cb0f86d3fb9e48799
+      internalID: -6055019093518710951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_4
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 679
+        width: 162
+        height: 258
+      alignment: 9
+      pivot: {x: 0.5419, y: 0.0155}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0875240b04a49c0b32ce269cb0a5f1e
+      internalID: 6282043529495590047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_5
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 679
+        width: 174
+        height: 258
+      alignment: 9
+      pivot: {x: 0.5377, y: 0.0155}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6571a3a5fd804036ba6083fc101e1c4f
+      internalID: -2814957760877587599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_6
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 367
+        width: 152
+        height: 265
+      alignment: 9
+      pivot: {x: 0.5765, y: 0.0151}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03344f75107240fb82cce2024fd11abb
+      internalID: -2573336894206036656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_7
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 367
+        width: 159
+        height: 266
+      alignment: 9
+      pivot: {x: 0.588, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c36bc5172eb14e47b2daaea29047776e
+      internalID: 548740366978056986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_8
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 368
+        width: 162
+        height: 265
+      alignment: 9
+      pivot: {x: 0.5604, y: 0.0113}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8d5939b3a8e44a586632922a84ade4a
+      internalID: 5625842433767572534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_9
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 367
+        width: 166
+        height: 266
+      alignment: 9
+      pivot: {x: 0.5705, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d8f443a19174e46b487d24adc2101bd
+      internalID: 2653946972336092428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_10
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 364
+        width: 161
+        height: 269
+      alignment: 9
+      pivot: {x: 0.5606, y: 0.0112}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1618f4c13fea4a879987fdf84f58374b
+      internalID: -281907323069758439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_11
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 65
+        width: 126
+        height: 267
+      alignment: 9
+      pivot: {x: 0.5028, y: 0.015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b0548566dca4915bb87b50505b75b28
+      internalID: -320086679954241764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_12
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 63
+        width: 159
+        height: 269
+      alignment: 9
+      pivot: {x: 0.4899, y: 0.0149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c17202dbe1c4bd8b726f764e075122f
+      internalID: 1043791106259783223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_13
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 64
+        width: 133
+        height: 268
+      alignment: 9
+      pivot: {x: 0.4683, y: 0.0149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94747a62ceb448409b9044e9b73a1890
+      internalID: 655434726473741642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_14
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 63
+        width: 164
+        height: 269
+      alignment: 9
+      pivot: {x: 0.5168, y: 0.0149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2de4ab9037e4dd9b21ad6eac03b569e
+      internalID: -4451231429160918563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_15
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 64
+        width: 132
+        height: 268
+      alignment: 9
+      pivot: {x: 0.5077, y: 0.0149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ebfd5a30fc9409a99cab49e524155f4
+      internalID: -7795707805703441674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiniBrannocSprites_16
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 64
+        width: 141
+        height: 268
+      alignment: 9
+      pivot: {x: 0.489, y: 0.0112}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ac0433867284a07940b86d9f6005938
+      internalID: -6752382985834131201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fa5e97f5fd4aa3e074a536d01d501ad7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MiniBrannocSprites_0: 1893840997254225366
+      MiniBrannocSprites_1: -6451966494803703876
+      MiniBrannocSprites_10: -281907323069758439
+      MiniBrannocSprites_11: -320086679954241764
+      MiniBrannocSprites_12: 1043791106259783223
+      MiniBrannocSprites_13: 655434726473741642
+      MiniBrannocSprites_14: -4451231429160918563
+      MiniBrannocSprites_15: -7795707805703441674
+      MiniBrannocSprites_16: -6752382985834131201
+      MiniBrannocSprites_2: -7054312938223473413
+      MiniBrannocSprites_3: -6055019093518710951
+      MiniBrannocSprites_4: 6282043529495590047
+      MiniBrannocSprites_5: -2814957760877587599
+      MiniBrannocSprites_6: -2573336894206036656
+      MiniBrannocSprites_7: 548740366978056986
+      MiniBrannocSprites_8: 5625842433767572534
+      MiniBrannocSprites_9: 2653946972336092428
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

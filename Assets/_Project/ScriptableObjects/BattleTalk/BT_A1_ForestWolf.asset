@@ -32,7 +32,7 @@ MonoBehaviour:
     tries: 0
     dialogue: {fileID: 0}
     speaker: 1
-    text: "Each card costs some of your strength. See that number? When it runs out, you're done for the turn."
+    text: "Each card costs some strength. See that number? When it runs out, your turn's done."
     waitForClick: 1
     pointAt: battle_strength
     pointerSide: 0
@@ -54,6 +54,15 @@ MonoBehaviour:
     waitForClick: 0
     pointAt: 
     pointerSide: 0
+  - moment: 0
+    turn: 2
+    tries: 0
+    dialogue: {fileID: 0}
+    speaker: 1
+    text: "Mine shows too. I'll fight my own way - but if I go down, we lose."
+    waitForClick: 1
+    pointAt: ally_intent
+    pointerSide: 1
   - moment: 0
     turn: 2
     tries: 1
@@ -81,6 +90,24 @@ MonoBehaviour:
     waitForClick: 1
     pointAt: battle_end_turn
     pointerSide: 0
+  - moment: 5
+    turn: 2
+    tries: 0
+    dialogue: {fileID: 0}
+    speaker: 0
+    text: "Wait - the cards I played are back?"
+    waitForClick: 0
+    pointAt: 
+    pointerSide: 0
+  - moment: 5
+    turn: 2
+    tries: 0
+    dialogue: {fileID: 0}
+    speaker: 1
+    text: "When the pile runs out, they all go back in. Nothing you play is lost."
+    waitForClick: 0
+    pointAt: battle_draw_pile
+    pointerSide: 0
   - moment: 1
     turn: 2
     tries: 0
@@ -99,21 +126,12 @@ MonoBehaviour:
     waitForClick: 1
     pointAt: healing_card
     pointerSide: 0
-  - moment: 5
+  - moment: 7
     turn: 2
-    tries: 0
-    dialogue: {fileID: 0}
-    speaker: 0
-    text: "I'm out of cards?"
-    waitForClick: 0
-    pointAt: 
-    pointerSide: 0
-  - moment: 5
-    turn: 2
-    tries: 0
+    tries: 2
     dialogue: {fileID: 0}
     speaker: 1
-    text: "They come back. Nothing you play is lost."
-    waitForClick: 0
-    pointAt: battle_draw_pile
+    text: "I've taken a few bites myself. Toss me something to eat."
+    waitForClick: 1
+    pointAt: healing_card
     pointerSide: 0

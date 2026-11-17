@@ -27,7 +27,14 @@ public class Deck
             return;
         }
 
-        cards = new List<CardData>(deckData.Cards);
+        // A card that does nothing in a fight stays out, e.g. Crystal Dust put in the deck by an old save.
+        cards = new List<CardData>();
+        foreach (CardData card in deckData.Cards)
+        {
+            if (card != null && card.IsUsedInBattle)
+                cards.Add(card);
+        }
+
         MaxCount = cards.Count;
     }
 

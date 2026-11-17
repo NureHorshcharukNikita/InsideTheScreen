@@ -10,6 +10,9 @@ public sealed class NpcDialogueEntry
     public DialogueData dialogue;
     public bool repeatable = true;
 
+    [Tooltip("Said in turn with the other Takes Turns entries of this NPC that can be said now, one a talk, e.g. Fenna's little lines once all her talks are said. Off = the first entry that can be said is said.")]
+    public bool takesTurns;
+
     [Tooltip("Hideshi speaks in it. While he is not with Haru (he stays behind somewhere else), the NPC says its Companion Away dialogue instead.")]
     public bool needsCompanion;
 

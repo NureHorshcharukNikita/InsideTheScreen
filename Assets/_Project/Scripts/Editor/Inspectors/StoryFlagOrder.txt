@@ -1,6 +1,7 @@
 # The story flags in the order they happen, for the [StoryFlag] dropdown (StoryFlagDrawer).
 # It only changes how the dropdown shows them: the flags keep their names, so saves keep working.
 #   ## Title    a chapter
+#   ### Title   a part of the chapter, its own submenu in it (main-line numbers go on across parts)
 #   flag        the main line, numbered in this order
 #   - flag      a side quest or a place off the main line: any time during its chapter
 #   * flag      a state that is set and cleared again, not a step of the story
@@ -23,16 +24,25 @@ met_ancient_eldon               # first talk with Eldon
 a1_leymar_asleep                # Leymar goes to sleep (start of the talk after Eldon)
 a1_garr_home                    # after the talk Garr goes home for the night (gone until a1_leymar_morning)
 a1_after_eldon_talk             # Haru and Hideshi talk it over
+- a1_brannoc_night_walk         # on the way to the barn Haru sees Brannoc at the crossroads walk off down the south road, out of the village; Haru and Dad talk it over (Trigger_BrannocNightWalk); he is away till a1_leymar_morning
 a1_leymar_morning               # dawn in Garr's barn: Garr is out again
 a1_spent_night                  # the night in Garr's barn
 a1_met_garr                     # Garr finds them in his barn in the morning, sends them out and goes in himself
 a1_garr_out_of_barn             # a minute of play later Garr comes out of the barn and walks to his forge (gone until then)
 
 ## Leymar, the morning
+### Garr's apology and the fox family
 - a1_garr_apology               # sorry about the barn: talking to Garr, or getting in his way on his walk to the forge (he tells them off first)
+- a1_fenna_hid                  # Haru comes near Sorrel and Fenna the first time: Fenna runs behind her mother and peeks out (Event_A1_FennaHides)
+- a1_met_brannoc                # the end of Brannoc's first talk; Sorrel then speaks of him as already met in the family meeting
+- a1_met_fox_family             # Sorrel and Fenna met together through the one prompt between them (FoxFamilyTalk plays Event_A1_FoxFamilyMeeting: "!" over Fenna at "Where did you go?", she comes out): Sorrel introduces them both, shy Fenna warms up and asks where Haru's tail is; then each has talks of her own
+
+### Eldon and Dad's lesson
 a1_eldon_morning                # Eldon's half-dream talk; the three morning quests start
 a1_ground_revealed              # right after Eldon they step away left of the tower; Hideshi shows Haru how to look: things on the ground and chests show up
 a1_ground_lesson                # the end of Hideshi's lesson by the apple bushes; Survival Basics starts
+
+### Survival Basics: gathering and the stick test
 a1_gathered_first               # the first thing gathered by the bushes
 a1_first_gather_talk            # Haru: "it turned into a card?"; the cards tab in the inventory window and the I key come up
 a1_gathered_berries
@@ -42,11 +52,15 @@ a1_gathered_apple
 a1_basic_resources_gathered     # all four gathered: show Dad
 a1_health_test                  # Dad: "hit me with that stick you found"
 a1_health_test_done             # the stick test is over (Survival Basics: shown to Dad); Haru's health in the inventory window; Dad waits where he is until Haru's "Let's go.", which ends it and starts Heart of the Barrier
+
+### Heart of the Barrier: the dust
 a1_crystal_dust_seen            # Heart of the Barrier: Haru sees the dust on the crossroads stone
 a1_crystal_dust_1               # Heart of the Barrier: the handful left on the crossroads stone
 a1_crystal_dust_2               # Heart of the Barrier: the handful blown west, behind Garr's house
 a1_third_dust_missing           # Heart of the Barrier: two handfuls found, Haru can't find the third (Dad's topic or answer, or after a while)
 a1_eldon_sent_to_trader         # Eldon: the third has worn away, the trader keeps some; Leymar's south road opens
+
+### A Salve for the Trader and the last dust
 a1_trader_met_bitten            # at the trader's camp: the wolf bit his hand; he asks for something for it (A Salve for the Trader)
 a1_salve_ingredients            # Garr is busy: bring leaves, bark, a red flower and berries; the herbs by the river show up
 a1_salve_recipe                 # Garr, the herbs in hand: shows the salve at his bench; the crafting tab and the C key
@@ -54,18 +68,25 @@ a1_craft_ideas                  # Dad after Haru makes the salve: from now on he
 a1_salve_given                  # Haru hands the trader the salve; he asks for a moment to see to his hand (Event_A1_TraderBandages: heard over a black screen)
 a1_crystal_dust_3               # the trader has bandaged his hand (his bandaged look): Eldon's dust and his first coin; gold in the inventory, trading opens
 a1_crystal_dust_collected       # Heart of the Barrier: all three handfuls found (Event_A1_DustCollected)
+
+### Skills, the Echo Crystal and the bags
 ui_skills                       # Eldon: the skills tab, the K key and the skill points. Heart of the Barrier gives the first one; no quest before it gives any
 eldon_echo_crystal_discussed    # Eldon on the Echo Crystal; he sends them to Garr
 a1_bags_received                # Garr gives Haru an old pack and a belt with pouches
 a1_bags_worn                    # Haru puts them on: his look with the bags, no pocket limit; Leymar's exit opens
+
+### First Threat: the wolf
 - a1_deck_lesson                # the wolf south of the trader's camp (First Threat): Dad, going by games he played, has Haru pick what he takes into the fight; the deck on the cards tab comes up
 - a1_wolf_fled                  # the wolf ran off after Haru lost to it three times (BT_A1_ForestWolf); First Threat counts as done
+
+### Other side quests and tabs
 - ui_map                        # the map tab: not brought up yet
 - ui_mind                       # Haru's state of mind in the inventory: a later chapter
 - a1_walk_alone_declined        # A Walk Alone: Haru said "not yet" to going alone
 - a1_trader_pack_found          # The Trader's Pack
 
 ## Beyond Leymar: the crystal
+### The crystal
 a1_left_leymar                  # first steps out of Leymar
 a1_root_stone_found             # Stone Beneath the Roots
 garr_trade_open                 # Garr sells to Haru from now on
@@ -76,6 +97,8 @@ a1_crystal_charged              # Eldon checks the crystal; Road to the Altar
 a1_reached_echo_altar           # at the Echo Altar
 occultist_defeated              # the Occult Guardian is beaten
 demo_complete                   # the end of the demo
+
+### Side quests
 - a1_trader_ward_given          # Whispers by the Fire: Eldon's ward for the trader
 - a1_fishing_net_found          # Farel's Net
 - a1_old_mechanism_found        # Relic from the Ruins
@@ -99,3 +122,24 @@ demo_complete                   # the end of the demo
 - a1_showed_dad_first_card      # "Look, it turned into a card." (after the first thing gathered)
 - a1_broken_bridge_seen_alone   # Haru found the broken forest bridge while Hideshi waited (never saw it with him)
 - a1_told_dad_broken_bridge     # "I saw the old bridge in the forest."
+
+## Talking with the fox family (Talk Topics, each asked once after their short line)
+### Brannoc
+- a1_asked_brannoc_south_road   # Brannoc: "Were you out on the south road again?" (while the wolf is about)
+- a1_told_brannoc_wolf_gone     # Brannoc: "The wolf on the south road is gone." (First Threat done)
+- a1_asked_brannoc_fenna        # Brannoc: "Did Fenna tell you we met?"
+- a1_asked_brannoc_sleep        # Brannoc: "Don't you ever sleep?"
+
+### Sorrel
+- a1_asked_sorrel_brannoc       # Sorrel: "Is Brannoc alright? He looks tired." (while the wolf is about)
+- a1_sorrel_wolf_gone           # Sorrel: "You look happy today." (First Threat done)
+- a1_told_sorrel_pack           # Sorrel: "Garr gave me his old pack." (bags worn)
+- a1_asked_sorrel_fenna         # Sorrel: "Fenna asks a lot of questions."
+- a1_thanked_sorrel             # Sorrel: "Thanks for the tip about the bushes."
+
+### Fenna
+- a1_told_fenna_wolf_gone       # Fenna: "Guess what? The wolf on the south road is gone." (First Threat done)
+- a1_fenna_asked_balance        # Fenna: "Still saving your questions?"
+- a1_fenna_asked_ears           # Fenna: "Why are you staring at my head?"
+- a1_fenna_asked_dad            # Fenna: "What's on your mind?"
+- a1_fenna_keeps_watch          # Fenna: "What are you up to?"

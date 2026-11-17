@@ -4,8 +4,8 @@ using UnityEngine;
 
 // Plays the lines of this fight's BattleTalkData at their moments, as BattleSystem tells it what
 // happens: one at a time, each once, once the fight is settled (no cards flying, no turn changing).
-// A line is said in a bubble over the speaker or as a dialogue in the dialogue box, with the pointer
-// at what it is about. While a line waits to be read the fight waits too (Is Holding): no card is
+// A line is said in a bubble or as a dialogue in the dialogue box, with the pointer at what it is
+// about; a bubble about something the pointer shows stands right by it, else over the speaker. While a line waits to be read the fight waits too (Is Holding): no card is
 // played, the turn does not end.
 public sealed class BattleTalk : MonoBehaviour
 {
@@ -147,12 +147,19 @@ public sealed class BattleTalk : MonoBehaviour
 
     private void CheckLowHealth()
     {
-        PlayerCharacter player = battle.Player;
-        if (player == null || !battle.IsPlayerTurn || player.CurrentHealth * 2 > player.MaxHealth)
+        if (!battle.IsPlayerTurn || hand == null || hand.FindCardView(Heals) == null)
             return;
 
-        if (hand != null && hand.FindCardView(Heals) != null)
+        if (IsLow(battle.Player))
             Reach(BattleMoment.LowHealth);
+
+        if (IsLow(battle.FirstAlly))
+            Reach(BattleMoment.AllyLowHealth);
+    }
+
+    private static bool IsLow(Character fighter)
+    {
+        return fighter != null && fighter.IsAlive && fighter.CurrentHealth * 2 <= fighter.MaxHealth;
     }
 
     private static bool Heals(CardData card)
@@ -239,7 +246,7 @@ public sealed class BattleTalk : MonoBehaviour
             yield break;
 
         holding = line.waitForClick;
-        bubble.Show(speaker, line.text, line.waitForClick);
+        bubble.Show(speaker, line.text, line.waitForClick, besidePointer: !string.IsNullOrWhiteSpace(line.pointAt));
 
         if (line.waitForClick)
         {

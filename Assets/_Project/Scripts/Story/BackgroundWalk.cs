@@ -12,15 +12,20 @@ using UnityEngine;
 // It can come out of somewhere as it sets off (fading in, a door heard if it is on screen), e.g. Garr
 // out of his barn, and call a story event when the player gets in its way, e.g. Garr telling Haru off:
 // it stands while that plays and walks on after. Once that event is done it just walks through him.
-// Walks During Talks: it goes on walking while a dialogue with someone is open (time stands still then,
-// so it walks on the game clock), not in a cutscene, nor when it is the one talking; walking into the
-// player meanwhile it waits in front of him for the end of the talk, and the event it calls plays then.
+// Walks During Talks: it goes on walking while a dialogue or a cutscene plays (time stands still then,
+// so it walks on the game clock), not in a menu or the pause, nor when it is the one talking; walking
+// into the player meanwhile it waits in front of him for the end of it, and the event it calls plays then.
 // Points on the way (Via): it walks through them in order, e.g. along the roads instead of across
 // the grass right behind a house, each stretch around what is in the way.
+// Bob: a character drawn as one sprite without walk animations bobs up and down with every step and
+// is heard stepping, e.g. Fenna running behind her mother.
 [DisallowMultipleComponent]
 public sealed class BackgroundWalk : MonoBehaviour
 {
     private const float ComeOutDuration = 0.35f;
+    // As Walk To's Bob.
+    private const float BobStepLength = 0.5f;
+    private const float BobHeight = 0.08f;
     // The player in its way: in front of it, this far ahead of its feet at most and this far to
     // either side of where it is heading.
     private const float InTheWayAhead = 1.3f;
@@ -66,6 +71,10 @@ public sealed class BackgroundWalk : MonoBehaviour
     private NpcCharacter npc;
     private bool animatorOnGameClock;
     private AnimatorUpdateMode animatorMode;
+    private bool bob;
+    private float walked;
+    // How far up it is bobbed right now, above its feet.
+    private float bobOffset;
 
     // facingAtEnd: zero = the way it walked.
     public static BackgroundWalk Begin(Transform walker, Vector2 destination, float speed, Vector2 facingAtEnd, bool avoidObstacles,
@@ -97,8 +106,16 @@ public sealed class BackgroundWalk : MonoBehaviour
         walk.standingFor = null;
         walk.walksDuringTalks = walksDuringTalks;
         walk.waitingInTheWay = false;
+        walk.bob = false;
+        walk.walked = 0f;
         walk.enabled = true;
         return walk;
+    }
+
+    // One sprite without walk animations: it bobs with every step and is heard stepping.
+    public void BobAsItWalks()
+    {
+        bob = true;
     }
 
     // It comes out of somewhere as it sets off: out of sight until then (also while its object is
@@ -148,6 +165,13 @@ public sealed class BackgroundWalk : MonoBehaviour
 
     // Set off and not there yet.
     public bool IsOnItsWay => started && !arrived && isActiveAndEnabled;
+
+    // On its way or about to set off: nobody talks to it until it stands there (NpcInteraction), e.g.
+    // no talk prompt over Garr walking to his forge.
+    public static bool IsWalking(Component character)
+    {
+        return character != null && character.TryGetComponent(out BackgroundWalk walk) && !walk.arrived && walk.isActiveAndEnabled;
+    }
 
     // In the way of someone walking past on their own: where they stand or just in front of them, the
     // way they head. E.g. Hideshi waits for Garr to go by, or goes round behind him.
@@ -205,6 +229,8 @@ public sealed class BackgroundWalk : MonoBehaviour
     private void OnDestroy()
     {
         StopPassingThroughPlayer();
+        // Ended halfway into a bob: back down on its feet.
+        SetBob(0f);
 
         // An event taking it over keeps its animator on the game clock itself and puts it back after.
         if (!StoryEventContext.IsControlledByStory(transform))
@@ -221,8 +247,8 @@ public sealed class BackgroundWalk : MonoBehaviour
     // (the one that sent it) is waited out; one taking it over on the way ends the walk.
     private bool Busy => StoryEventContext.IsControlledByStory(transform) || follower != null && follower.IsFollowing;
 
-    // A dialogue or another event plays and it walks on through it (Walks During Talks).
-    private bool WalkingThroughTalk => walksDuringTalks && GameStateManager.IsDialogue && !StoryEvent.CutscenePlaying && !IsTalking;
+    // A dialogue or a cutscene plays and it walks on through it (Walks During Talks).
+    private bool WalkingThroughTalk => walksDuringTalks && GameStateManager.IsDialogue && !IsTalking;
 
     // The one talking or trading: it stands for that.
     private bool IsTalking => npc != null && (npc.State == NpcState.Talking || npc.State == NpcState.Trading);
@@ -285,7 +311,8 @@ public sealed class BackgroundWalk : MonoBehaviour
         if (!started)
             SetOff();
 
-        Vector2 position = Position;
+        // Where its feet are, without the bob.
+        Vector2 position = Position - Vector2.up * bobOffset;
         while (corner < way.Count && (way[corner] - position).sqrMagnitude <= 0.0001f)
             corner++;
 
@@ -315,6 +342,16 @@ public sealed class BackgroundWalk : MonoBehaviour
         // Slower in among trees (Thicket), like the player.
         float step = speed * Thicket.SpeedAt(Thicket.FeetOf(this)) * deltaTime;
         Vector2 next = Vector2.MoveTowards(position, way[corner], step);
+        if (bob)
+        {
+            int stepsBefore = Mathf.FloorToInt(walked / BobStepLength);
+            walked += Vector2.Distance(position, next);
+            bobOffset = BobHeight * Mathf.Abs(Mathf.Sin(walked / BobStepLength * Mathf.PI));
+            next += Vector2.up * bobOffset;
+            if (Mathf.FloorToInt(walked / BobStepLength) > stepsBefore)
+                FootstepAudio.PlayStepFor(transform);
+        }
+
         if (body != null && body.simulated)
         {
             if (byPhysics)
@@ -510,9 +547,24 @@ public sealed class BackgroundWalk : MonoBehaviour
     }
 
     // Stays on until the player is out of its way, so he is not shoved off when it blocks him again.
+    // Up from its feet by this much (Bob), the feet staying where they are.
+    private void SetBob(float offset)
+    {
+        float change = offset - bobOffset;
+        if (Mathf.Approximately(change, 0f))
+            return;
+
+        bobOffset = offset;
+        Vector3 moved = transform.position + Vector3.up * change;
+        if (body != null && body.simulated)
+            body.position = moved;
+        transform.position = moved;
+    }
+
     private void Arrive(Vector2 position)
     {
         arrived = true;
+        SetBob(0f);
         AnimatorBackOnGameTime();
         Vector2 look = facingAtEnd != Vector2.zero ? facingAtEnd : heading;
         FlipSpriteToFace.Apply(transform, look);

@@ -18,39 +18,98 @@ MonoBehaviour:
   startingArmor: 0
   enableDialogue: 1
   dialogueEntries:
-  - key: fenna_first_meeting
-    dialogue: {fileID: 11400000, guid: 0e6ecc9bfd754a47851c52669203515c, type: 2}
-    repeatable: 0
+  - key: fenna_idle
+    dialogue: {fileID: 11400000, guid: 5caf8b39a7f447b094c5dfa26a9080b0, type: 2}
+    repeatable: 1
+    takesTurns: 1
     needsCompanion: 0
-    talkTiming: 1
+    talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions:
     - type: 0
-      storyFlag: a1_leymar_morning
+      storyFlag: a1_met_fox_family
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
       card: {fileID: 0}
       count: 1
-  - key: fenna_idle
-    dialogue: {fileID: 11400000, guid: 5caf8b39a7f447b094c5dfa26a9080b0, type: 2}
+  - key: fenna_idle_grass_tail
+    dialogue: {fileID: 11400000, guid: cfc30a12a3124fcaaff0ccf0a6c91d2a, type: 2}
     repeatable: 1
+    takesTurns: 1
     needsCompanion: 0
-    talkTiming: 2
+    talkTiming: 0
     conversationNumber: 1
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions:
     - type: 0
-      storyFlag: a1_leymar_morning
+      storyFlag: a1_met_fox_family
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+  - key: fenna_idle_hiding
+    dialogue: {fileID: 11400000, guid: 328d40fec14c4cddbf74526658a20d0c, type: 2}
+    repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_met_fox_family
       quest: {fileID: 0}
       questStatus: 1
       invert: 0
       card: {fileID: 0}
       count: 1
   companionAwayDialogue: {fileID: 0}
+  companionLeadsTalks: 0
+  talkTopics:
+  - choiceText: Guess what? The wolf on the south road is gone.
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    dialogue: {fileID: 11400000, guid: 7818be6520a045f0b2675fd093ce60ce, type: 2}
+    doneFlag: a1_told_fenna_wolf_gone
+    everyTalk: 0
+  - choiceText: Still saving your questions?
+    conditions: []
+    dialogue: {fileID: 11400000, guid: 85b4023e991a4b8891566023b134d907, type: 2}
+    doneFlag: a1_fenna_asked_balance
+    everyTalk: 0
+  - choiceText: Why are you staring at my head?
+    conditions: []
+    dialogue: {fileID: 11400000, guid: 38778b471adb4608aa425856e5c4c35b, type: 2}
+    doneFlag: a1_fenna_asked_ears
+    everyTalk: 0
+  - choiceText: What's on your mind?
+    conditions: []
+    dialogue: {fileID: 11400000, guid: 64b15243c95d415c88882278fa0413a8, type: 2}
+    doneFlag: a1_fenna_asked_dad
+    everyTalk: 0
+  - choiceText: What are you up to?
+    conditions: []
+    dialogue: {fileID: 11400000, guid: 2d4436b4c52146de979eac52e7c4ac7e, type: 2}
+    doneFlag: a1_fenna_keeps_watch
+    everyTalk: 0
+  - choiceText: What's new, Fenna?
+    conditions: []
+    dialogue: {fileID: 11400000, guid: 388a9f5f201340fd8e722a7462cb0172, type: 2}
+    doneFlag: 
+    everyTalk: 1
+  talkTopicsCloseChoice: Bye, Fenna!
   enableOverheadSpeech: 0
   overheadLines: []
   shop: {fileID: 0}

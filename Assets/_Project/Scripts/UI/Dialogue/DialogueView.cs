@@ -69,11 +69,23 @@ public sealed class DialogueView : MonoBehaviour
     private DialogueHoldButton skipHold;
     // After the skip warning: nothing is skipped until every key and arrow held for it is let go.
     private bool skipWaitsForRelease;
+    // The top of each portrait's frame as laid out in the scene, before a shorter one lowers it
+    // (CharacterProfile Portrait Height).
+    private float leftPortraitTop = 1f;
+    private float rightPortraitTop = 1f;
+    // The speaker's name as it becomes known on this line, shown once this many letters are typed out,
+    // e.g. "Sorrel" after "I'm Sorrel" (KnownNames.SaidAt); -1 = none.
+    private int nameSaidAt = -1;
+    private string nameOnceSaid;
 
     private void Awake()
     {
         WireButtons();
         CacheDialogueTextLayout();
+        if (leftPortrait != null)
+            leftPortraitTop = leftPortrait.rectTransform.anchorMax.y;
+        if (rightPortrait != null)
+            rightPortraitTop = rightPortrait.rectTransform.anchorMax.y;
         SetContinueIcon(false);
 
         if (!visible)
@@ -195,7 +207,9 @@ public sealed class DialogueView : MonoBehaviour
         Sprite leftFallbackPortrait,
         Sprite rightFallbackPortrait,
         DialogueVoice speakerVoice,
-        IReadOnlyList<DialogueChoice> choices = null)
+        IReadOnlyList<DialogueChoice> choices = null,
+        int nameSaidAt = -1,
+        string nameOnceSaid = null)
     {
         if (line == null)
             return;
@@ -206,6 +220,8 @@ public sealed class DialogueView : MonoBehaviour
 
         if (speakerNameText != null)
             speakerNameText.text = speakerName;
+        this.nameSaidAt = string.IsNullOrEmpty(nameOnceSaid) ? -1 : nameSaidAt;
+        this.nameOnceSaid = nameOnceSaid;
 
         MoveNamePlate(line.speakerSide);
 
@@ -228,13 +244,15 @@ public sealed class DialogueView : MonoBehaviour
             leftPortrait,
             displayedLeftPortrait,
             line.speakerSide == DialogueSpeakerSide.Left,
-            false);
+            false,
+            leftPortraitTop);
 
         SetPortrait(
             rightPortrait,
             displayedRightPortrait,
             line.speakerSide == DialogueSpeakerSide.Right,
-            true);
+            true,
+            rightPortraitTop);
 
         if (leftSpeakerRoot != null)
             leftSpeakerRoot.SetActive(leftPortrait == null || leftPortrait.sprite != null);
@@ -405,6 +423,8 @@ public sealed class DialogueView : MonoBehaviour
                 characterCount,
                 Mathf.FloorToInt(visibleCharacters));
             Speak(shownBefore, dialogueText.maxVisibleCharacters);
+            if (nameSaidAt >= 0 && dialogueText.maxVisibleCharacters >= nameSaidAt)
+                ShowSaidName();
             yield return null;
         }
 
@@ -450,6 +470,7 @@ public sealed class DialogueView : MonoBehaviour
 
         if (dialogueText != null)
             dialogueText.maxVisibleCharacters = int.MaxValue;
+        ShowSaidName();
 
         IReadOnlyList<DialogueChoice> choices = pendingChoices;
         pendingChoices = null;
@@ -457,6 +478,17 @@ public sealed class DialogueView : MonoBehaviour
 
         if (skipHeld && !showingChoices)
             ContinueRequested?.Invoke();
+    }
+
+    // The name the speaker has just said is theirs, on the plate from now on.
+    private void ShowSaidName()
+    {
+        if (nameSaidAt < 0)
+            return;
+
+        nameSaidAt = -1;
+        if (speakerNameText != null && !string.IsNullOrEmpty(nameOnceSaid))
+            speakerNameText.text = nameOnceSaid;
     }
 
     private void StopTextReveal()
@@ -658,7 +690,9 @@ public sealed class DialogueView : MonoBehaviour
         }
     }
 
-    private void SetPortrait(Image image, Sprite sprite, bool activeSpeaker, bool flipped)
+    // A shorter one (a child like Fenna) keeps the bottom of its frame, its feet where everyone's are,
+    // and only so much of the frame's height (CharacterProfile Portrait Height).
+    private void SetPortrait(Image image, Sprite sprite, bool activeSpeaker, bool flipped, float frameTop)
     {
         if (image == null)
             return;
@@ -667,6 +701,10 @@ public sealed class DialogueView : MonoBehaviour
         image.enabled = sprite != null;
 
         RectTransform rect = image.rectTransform;
+        Vector2 anchorMax = rect.anchorMax;
+        anchorMax.y = rect.anchorMin.y + (frameTop - rect.anchorMin.y) * CharacterProfile.PortraitHeightOf(sprite);
+        rect.anchorMax = anchorMax;
+
         Vector3 scale = rect.localScale;
         scale.x = Mathf.Abs(scale.x) * (flipped ? -1f : 1f);
         rect.localScale = scale;

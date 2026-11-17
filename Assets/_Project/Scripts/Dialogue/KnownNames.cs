@@ -7,7 +7,8 @@ using UnityEngine;
 // dialogue name plate and in the quest log until a dialogue line says one of the words or phrases
 // of the first step, then shows what the last step heard says: e.g. the father is "..." until Haru
 // says "Dad", "Father" until he introduces himself to Garr ("I'm Hideshi"), then Hideshi. A step
-// heard on a line shows from the next line on. Remembered as story flags, so saved with them.
+// heard on a line shows from the next line on; the speaker's own name on their plate as soon as the
+// line types it out, e.g. Sorrel's at "I'm Sorrel" (SaidAt). Remembered as story flags, so saved with them.
 public static class KnownNames
 {
     public const string Unknown = "...";
@@ -62,6 +63,74 @@ public static class KnownNames
                     StoryFlagManager.SetFlag(StepFlag(profile, i));
             }
         }
+    }
+
+    // Where a line makes more of someone's name known, counted in the letters the dialogue types out
+    // (rich-text tags left out), and how it shows from there on, e.g. "Sorrel" right after "I'm Sorrel"
+    // on her own line. -1 when the line makes no more of it known.
+    public static int SaidAt(CharacterProfile profile, string name, string text, out string shownThen)
+    {
+        shownThen = null;
+        List<CharacterProfile.HeardName> steps = profile != null ? profile.namesHeard : null;
+        if (steps == null || string.IsNullOrWhiteSpace(text))
+            return -1;
+
+        int known = -1;
+        for (int i = steps.Count - 1; i >= 0 && known < 0; i--)
+        {
+            if (StoryFlagManager.HasFlag(StepFlag(profile, i)))
+                known = i;
+        }
+
+        // The last step the line says is the one that shows, from the end of its words on.
+        for (int i = steps.Count - 1; i > known; i--)
+        {
+            int end = EndOfWords(text, steps[i]);
+            if (end < 0)
+                continue;
+
+            shownThen = string.IsNullOrWhiteSpace(steps[i].shownAs) ? name : steps[i].shownAs;
+            return TypedLetters(text, end);
+        }
+
+        return -1;
+    }
+
+    // Where the first of a step's words or phrases ends in the text; -1 when none is said.
+    private static int EndOfWords(string text, CharacterProfile.HeardName step)
+    {
+        if (step?.heardAs == null)
+            return -1;
+
+        int first = -1;
+        foreach (string words in step.heardAs)
+        {
+            if (string.IsNullOrWhiteSpace(words))
+                continue;
+
+            Match match = Regex.Match(text, $@"\b{Regex.Escape(words.Trim())}\b", RegexOptions.IgnoreCase);
+            if (match.Success && (first < 0 || match.Index + match.Length < first))
+                first = match.Index + match.Length;
+        }
+
+        return first;
+    }
+
+    private static int TypedLetters(string text, int end)
+    {
+        int letters = 0;
+        bool inTag = false;
+        for (int i = 0; i < end && i < text.Length; i++)
+        {
+            if (text[i] == '<')
+                inTag = true;
+            else if (text[i] == '>' && inTag)
+                inTag = false;
+            else if (!inTag)
+                letters++;
+        }
+
+        return letters;
     }
 
     private static string StepFlag(CharacterProfile profile, int step)

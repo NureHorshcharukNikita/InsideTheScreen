@@ -154,20 +154,6 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
       questStatus: 2
       invert: 0
-  - key: hideshi_first_threat_reminder
-    dialogue: {fileID: 11400000, guid: bd505f85a9c38fffa576cdcee6816147, type: 2}
-    repeatable: 1
-    needsCompanion: 0
-    talkTiming: 0
-    conversationNumber: 1
-    rangeStartConversation: 1
-    rangeEndConversation: 0
-    conditions:
-    - type: 1
-      storyFlag: 
-      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
-      questStatus: 1
-      invert: 0
   - key: hideshi_survival_done
     dialogue: {fileID: 11400000, guid: d0679b09576d1d39b05b93c3764b795e, type: 2}
     repeatable: 0

@@ -28,6 +28,8 @@ public sealed class CharacterProfile : ScriptableObject
     public Sprite portraitSprite;
     [Tooltip("Which way the portrait art looks. In battle it is mirrored as needed so everyone faces their opponent.")]
     public SpriteFacing portraitFacing = SpriteFacing.Left;
+    [Tooltip("How tall they stand in a dialogue, of the full portrait frame, e.g. 0.72 for a child like Fenna: their feet stay where everyone's are, so they look shorter. 1 = full height.")]
+    [Range(0.3f, 1f)] public float portraitHeight = 1f;
     [Tooltip("Small picture shown in battle in place of the name, e.g. where an enemy's intent points. Empty = the name.")]
     public Sprite battleIcon;
 
@@ -104,6 +106,37 @@ public sealed class CharacterProfile : ScriptableObject
         }
 
         return portrait;
+    }
+
+    // How tall whoever this portrait is of stands in a dialogue (Portrait Height): any of their
+    // portraits, also one from before or later in the story. 1 = full height, also for a portrait
+    // nobody's profile has, or a height not loaded yet.
+    public static float PortraitHeightOf(Sprite portrait)
+    {
+        if (portrait == null)
+            return 1f;
+
+        foreach (CharacterProfile profile in Loaded)
+        {
+            if (profile != null && profile.HasPortrait(portrait))
+                return profile.portraitHeight > 0f && profile.portraitHeight < 1f ? profile.portraitHeight : 1f;
+        }
+
+        return 1f;
+    }
+
+    private bool HasPortrait(Sprite portrait)
+    {
+        if (portraitSprite == portrait || portraitBefore == portrait)
+            return true;
+
+        foreach (LaterLook look in laterLooks)
+        {
+            if (look != null && look.portrait == portrait)
+                return true;
+        }
+
+        return false;
     }
 
     private void OnEnable()

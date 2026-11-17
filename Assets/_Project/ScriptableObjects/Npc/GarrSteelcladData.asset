@@ -413,6 +413,47 @@ MonoBehaviour:
   - key: garr_idle
     dialogue: {fileID: 11400000, guid: 8c54220ce24fd3278e9cf1996aca6fff, type: 2}
     repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_met_garr
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: garr_trade_open
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_idle_handle
+    dialogue: {fileID: 11400000, guid: f069a68e58c348c58c5405d670a4cfc2, type: 2}
+    repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_met_garr
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+    - type: 0
+      storyFlag: garr_trade_open
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+  - key: garr_idle_heat
+    dialogue: {fileID: 11400000, guid: a82072885ac04bbf830d7d9688e4b0d4, type: 2}
+    repeatable: 1
+    takesTurns: 1
     needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1

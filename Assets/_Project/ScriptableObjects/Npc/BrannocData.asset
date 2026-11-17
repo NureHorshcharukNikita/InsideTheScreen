@@ -21,6 +21,7 @@ MonoBehaviour:
   - key: brannoc_first_meeting
     dialogue: {fileID: 11400000, guid: 041bab2e649f4c6e891857790769dbf0, type: 2}
     repeatable: 0
+    takesTurns: 0
     needsCompanion: 0
     talkTiming: 1
     conversationNumber: 1
@@ -37,6 +38,48 @@ MonoBehaviour:
   - key: brannoc_idle
     dialogue: {fileID: 11400000, guid: 754657abe8784e3486993e193521776b, type: 2}
     repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 2
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_leymar_morning
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+  - key: brannoc_idle_watch
+    dialogue: {fileID: 11400000, guid: 5db136addfda4d6c8f1f8baf1f350a7d, type: 2}
+    repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 2
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 0
+      storyFlag: a1_leymar_morning
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    - type: 0
+      storyFlag: a1_met_fox_family
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+  - key: brannoc_idle_carving
+    dialogue: {fileID: 11400000, guid: ac209b487f0947bdbcbf7829e3c8c4bd, type: 2}
+    repeatable: 1
+    takesTurns: 1
     needsCompanion: 0
     talkTiming: 2
     conversationNumber: 1
@@ -51,6 +94,55 @@ MonoBehaviour:
       card: {fileID: 0}
       count: 1
   companionAwayDialogue: {fileID: 0}
+  companionLeadsTalks: 0
+  talkTopics:
+  - choiceText: Were you out on the south road again?
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
+      invert: 1
+      card: {fileID: 0}
+      count: 1
+    dialogue: {fileID: 11400000, guid: 0a6830eabcc94824895c33c9d940c542, type: 2}
+    doneFlag: a1_asked_brannoc_south_road
+    everyTalk: 0
+  - choiceText: The wolf on the south road is gone.
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    dialogue: {fileID: 11400000, guid: 2c48c9661e054f7784e66c25ea0a4a56, type: 2}
+    doneFlag: a1_told_brannoc_wolf_gone
+    everyTalk: 0
+  - choiceText: Did Fenna tell you we met?
+    conditions:
+    - type: 0
+      storyFlag: a1_met_fox_family
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    dialogue: {fileID: 11400000, guid: 78f9e2aa07504ef0af8cdae8f5ee248c, type: 2}
+    doneFlag: a1_asked_brannoc_fenna
+    everyTalk: 0
+  - choiceText: Don't you ever sleep?
+    conditions: []
+    dialogue: {fileID: 11400000, guid: 24bc13f0343f4ff0b5ad40e49132b342, type: 2}
+    doneFlag: a1_asked_brannoc_sleep
+    everyTalk: 0
+  - choiceText: Anything new?
+    conditions: []
+    dialogue: {fileID: 11400000, guid: 0836b1c12d0b4d309037565e26e3aea9, type: 2}
+    doneFlag: 
+    everyTalk: 1
+  talkTopicsCloseChoice: I'll let you get some rest.
   enableOverheadSpeech: 1
   overheadLines:
   - "Late to be on the road, strangers."
@@ -62,7 +154,7 @@ MonoBehaviour:
   hiddenAfterStoryFlag: 
   awayWhile:
   - type: 0
-    storyFlag: a1_garr_home
+    storyFlag: a1_brannoc_night_walk
     quest: {fileID: 0}
     questStatus: 1
     invert: 0

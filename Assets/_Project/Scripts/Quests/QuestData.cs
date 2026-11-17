@@ -203,17 +203,24 @@ public sealed class QuestData : ScriptableObject
         return any;
     }
 
-    // A step is done once its flag is set, or, without a flag, once the quest's count is reached (2/4
-    // gathered, 3/3 brought). Without a flag in the last stage it never is: the quest is completed
-    // instead ("Show your father what you found").
+    // A step is done once its flag is set, or while its Done While Met conditions are (the herbs in the
+    // pockets), or, with neither, once the quest's count is reached (2/4 gathered, 3/3 brought).
+    // Without either in the last stage it never is: the quest is completed instead ("Show your father
+    // what you found").
     public bool IsStepDone(int index)
     {
         if (steps == null || index < 0 || index >= steps.Count || steps[index] == null)
             return false;
 
         string flag = steps[index].doneWhen;
+        if (!string.IsNullOrWhiteSpace(flag) && StoryFlagManager.HasFlag(flag))
+            return true;
+
+        if (HasDoneConditions(index))
+            return StoryCondition.AreMet(steps[index].doneWhileMet);
+
         if (!string.IsNullOrWhiteSpace(flag))
-            return StoryFlagManager.HasFlag(flag);
+            return false;
 
         return StageOf(index) < StageCount - 1
             && QuestManager.TryGetObjectiveProgress(this, out int current, out int target) && current >= target;
@@ -257,11 +264,17 @@ public sealed class QuestData : ScriptableObject
         if (steps == null || steps.Count <= 1)
             return true;
 
-        if (index < 0 || index >= steps.Count || steps[index] == null || !string.IsNullOrWhiteSpace(steps[index].doneWhen))
+        if (index < 0 || index >= steps.Count || steps[index] == null
+            || !string.IsNullOrWhiteSpace(steps[index].doneWhen) || HasDoneConditions(index))
             return false;
 
         int stages = StageCount;
         return stages == 1 || StageOf(index) < stages - 1;
+    }
+
+    private bool HasDoneConditions(int index)
+    {
+        return steps[index].doneWhileMet != null && steps[index].doneWhileMet.Count > 0;
     }
 
     private bool IsWithPrevious(int index)
@@ -334,6 +347,8 @@ public sealed class QuestStep
     public string label;
     [Tooltip("Done once this flag is set. Empty = once the quest's count is reached.")]
     [StoryFlag] public string doneWhen;
+    [Tooltip("Done also while these are met, before the flag, e.g. Has Card for each herb Garr asked for: all in the pockets, the next step (take them to him) comes up; eat the berries and it is back. Empty = only the flag (or the count).")]
+    public List<StoryCondition> doneWhileMet = new();
     [Tooltip("Done at once with the step before it, in any order, e.g. a second thing to find: shown together, and the next stage comes once both are done.")]
     public bool withPrevious;
     [Tooltip("Shown in the log only once this flag is set: a step that comes up along the way, e.g. asking Eldon about the last handful once Haru cannot find it. Empty = shown with its stage.")]

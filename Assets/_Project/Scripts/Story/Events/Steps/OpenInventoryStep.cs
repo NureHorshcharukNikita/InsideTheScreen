@@ -4,18 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Opens the inventory window on one of its pages and waits until the player closes it, e.g. for Haru
-// to pick what he takes into his first fight. While it is open the pointer shows the first of Point At
-// that is there (a UiPointerTarget id), e.g. the Add to deck button once a card is picked, the cards
-// before that; it goes once Pointer Until is met, e.g. a card is in the deck.
+// to pick what he takes into his first fight. While it is open the pointer shows the first of its
+// hints that is on screen and not done yet, with what to do said past the arrow, e.g. "Pick a card"
+// at the cards, then "Press Add" at the Add to deck button once a card is picked, then the close
+// button once something is in the deck.
 [Serializable, SubclassMenu("Story/Open Inventory")]
 public sealed class OpenInventoryStep : StoryStep
 {
+    [Serializable]
+    public sealed class PointerHint
+    {
+        [Tooltip("What the pointer shows: a UiPointerTarget id, e.g. inventory_cards, deck_add, inventory_close.")]
+        public string target;
+        public PointerSide side;
+        [Tooltip("Said in a box past the arrow, e.g. \"Pick a card to take into the fight.\" Empty = the arrow alone.")]
+        [TextArea(1, 3)] public string caption;
+        [Tooltip("Not shown any more once these are met, e.g. In Deck (no card): something is in the deck. Empty = shown while it is on screen.")]
+        public List<StoryCondition> doneWhen = new();
+    }
+
     [SerializeField] private InventoryTab tab = InventoryTab.Inventory;
-    [Tooltip("What the pointer shows, the first one there is: UiPointerTarget ids, e.g. deck_add, then inventory_cards. Empty = no pointer.")]
-    [SerializeField] private List<string> pointAt = new();
-    [SerializeField] private PointerSide pointerSide;
-    [Tooltip("The pointer goes once these are met, e.g. In Deck (no card): something is in the deck. Empty = it stays while the window is open.")]
-    [SerializeField] private List<StoryCondition> pointerUntil = new();
+    [Tooltip("The first of these that is on screen and not done is shown; none = no pointer.")]
+    [SerializeField] private List<PointerHint> hints = new();
 
     public override IEnumerator Run(StoryEventContext context)
     {
@@ -29,11 +39,7 @@ public sealed class OpenInventoryStep : StoryStep
 
         while (window.IsOpen)
         {
-            if (pointerUntil.Count > 0 && StoryCondition.AreMet(pointerUntil))
-                UiPointer.HideAll();
-            else
-                PointAtFirstThere();
-
+            ShowFirstHint();
             yield return null;
         }
 
@@ -41,11 +47,14 @@ public sealed class OpenInventoryStep : StoryStep
         GameStateManager.SetState(GameState.Dialogue);
     }
 
-    private void PointAtFirstThere()
+    private void ShowFirstHint()
     {
-        foreach (string id in pointAt)
+        foreach (PointerHint hint in hints)
         {
-            if (UiPointer.TryPointAt(id, pointerSide))
+            if (hint == null || (hint.doneWhen != null && hint.doneWhen.Count > 0 && StoryCondition.AreMet(hint.doneWhen)))
+                continue;
+
+            if (UiPointer.TryPointAt(hint.target, hint.side, hint.caption))
                 return;
         }
 

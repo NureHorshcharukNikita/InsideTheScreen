@@ -3,30 +3,35 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+// How a dialogue choice looks when the mouse or the keyboard is on it: arrows at both ends, the
+// lighter background and text, and the button a little bigger. The text stays where it is, centred
+// between room left for the arrows.
 [RequireComponent(typeof(Button))]
 public sealed class DialogueChoiceButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
     private static readonly Color NormalText = new(0.94f, 0.88f, 0.80f, 1f);
     private static readonly Color HighlightedText = new(1f, 0.91f, 0.68f, 1f);
-    // The text starts near the left edge; highlighted, it moves right to make room for the arrow
-    // (selectionIndicator) that appears in front of it.
-    private const float NormalTextLeftPadding = 24f;
-    private const float HighlightedTextLeftPadding = 58f;
-    private const float TextRightPadding = 24f;
+    // Room on each side of the text for the arrows (selectionIndicator, rightSelectionIndicator).
+    private const float TextSidePadding = 58f;
 
-    // The room the text needs on its sides when highlighted, so the widest choice still fits hovered.
-    public const float HorizontalPadding = HighlightedTextLeftPadding + TextRightPadding;
-
-    private bool layoutConfigured;
+    // The room the text needs on its sides, so the widest choice still fits.
+    public const float HorizontalPadding = TextSidePadding * 2f;
 
     [SerializeField] private TMP_Text label;
     [SerializeField] private Image background;
     [SerializeField] private Outline outline;
     [SerializeField] private Image selectionIndicator;
+    [Tooltip("The arrow at the right end, mirrored, shown with the left one. Empty = the left one alone.")]
+    [SerializeField] private Image rightSelectionIndicator;
     [SerializeField] private Sprite normalBackgroundSprite;
     [SerializeField] private Sprite highlightedBackgroundSprite;
+    [Tooltip("How much bigger the choice the mouse or keyboard is on grows. 1 = not at all.")]
+    [SerializeField, Min(1f)] private float highlightedScale = 1.04f;
+    [Tooltip("How long it takes to grow, or to shrink back, in seconds.")]
+    [SerializeField, Min(0.01f)] private float scaleSeconds = 0.06f;
 
     private string normalText = string.Empty;
+    private float targetScale = 1f;
 
     private void Awake()
     {
@@ -38,6 +43,19 @@ public sealed class DialogueChoiceButtonFeedback : MonoBehaviour, IPointerEnterH
     private void OnDisable()
     {
         SetHighlighted(false);
+        transform.localScale = Vector3.one;
+    }
+
+    private void Update()
+    {
+        float scale = transform.localScale.x;
+        if (Mathf.Approximately(scale, targetScale))
+            return;
+
+        // Dialogues stop the game clock: on unscaled time.
+        float step = Mathf.Max(highlightedScale - 1f, 0.001f) / scaleSeconds * Time.unscaledDeltaTime;
+        scale = Mathf.MoveTowards(scale, targetScale, step);
+        transform.localScale = new Vector3(scale, scale, 1f);
     }
 
     public void Configure(TMP_Text textLabel, string text)
@@ -87,9 +105,6 @@ public sealed class DialogueChoiceButtonFeedback : MonoBehaviour, IPointerEnterH
         {
             label.text = normalText;
             label.color = highlighted ? HighlightedText : NormalText;
-
-            if (layoutConfigured)
-                SetTextLeftPadding(highlighted ? HighlightedTextLeftPadding : NormalTextLeftPadding);
         }
 
         if (background != null)
@@ -105,26 +120,20 @@ public sealed class DialogueChoiceButtonFeedback : MonoBehaviour, IPointerEnterH
 
         if (selectionIndicator != null)
             selectionIndicator.gameObject.SetActive(highlighted);
+        if (rightSelectionIndicator != null)
+            rightSelectionIndicator.gameObject.SetActive(highlighted);
+
+        targetScale = highlighted ? highlightedScale : 1f;
     }
 
+    // The same room on both sides, so centred text stays put whether highlighted or not.
     private void ConfigureLabelLayout()
     {
         if (label == null)
             return;
 
         RectTransform rect = label.rectTransform;
-        Vector2 offsetMax = rect.offsetMax;
-        offsetMax.x = -TextRightPadding;
-        rect.offsetMax = offsetMax;
-        layoutConfigured = true;
+        rect.offsetMin = new Vector2(TextSidePadding, rect.offsetMin.y);
+        rect.offsetMax = new Vector2(-TextSidePadding, rect.offsetMax.y);
     }
-
-    private void SetTextLeftPadding(float padding)
-    {
-        RectTransform rect = label.rectTransform;
-        Vector2 offsetMin = rect.offsetMin;
-        offsetMin.x = padding;
-        rect.offsetMin = offsetMin;
-    }
-
 }

@@ -9,6 +9,8 @@ public class NpcCharacter : Character
     [SerializeField] private string persistenceKeyOverride;
 
     private bool started;
+    // Waiting for its walk to end before it goes (away or hidden).
+    private Coroutine leavingOnceThere;
     private Vector3 scenePosition;
     private bool hasScenePosition;
 
@@ -96,7 +98,32 @@ public class NpcCharacter : Character
             return;
 
         bool gone = hasHiddenFlag && StoryFlagManager.HasFlag(npcData.hiddenAfterStoryFlag);
-        gameObject.SetActive(!gone && !npcData.IsAway);
+        bool hidden = gone || npcData.IsAway;
+
+        // On its way somewhere (Walk Off), it gets there first and goes only then, e.g. Brannoc
+        // leaving the village for the night: not vanishing on the road when the talk is skipped.
+        if (hidden && gameObject.activeInHierarchy && BackgroundWalk.IsWalking(this))
+        {
+            leavingOnceThere ??= StartCoroutine(GoOnceThere());
+            return;
+        }
+
+        gameObject.SetActive(!hidden);
+    }
+
+    private System.Collections.IEnumerator GoOnceThere()
+    {
+        while (BackgroundWalk.IsWalking(this))
+            yield return null;
+
+        leavingOnceThere = null;
+        ApplyStoryVisibility();
+    }
+
+    // Turned off meanwhile (the scene unloading): its wait for the walk stopped with it.
+    private void OnDisable()
+    {
+        leavingOnceThere = null;
     }
 
     public void ApplyData(NpcData data)

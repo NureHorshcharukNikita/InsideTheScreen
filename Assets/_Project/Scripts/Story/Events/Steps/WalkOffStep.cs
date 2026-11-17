@@ -36,8 +36,10 @@ public sealed class WalkOffStep : StoryStep
     [SerializeField, Range(0f, 1f)] private float comeOutVolume = 0.6f;
     [Tooltip("Played when the player gets in its way on the way there (its Start: When Called), e.g. Garr telling Haru off; it stands still meanwhile and walks on after. Once that event is done, or while its conditions are not met, it just walks through. Empty = none.")]
     [SerializeField] private StoryEvent whenInTheWay;
-    [Tooltip("It goes on walking while a dialogue with someone is open (not in a cutscene, a menu or the pause), unless it is the one talking, e.g. Garr coming out of his barn while Haru talks to his father. Walking into the player meanwhile it waits in front of him, and When In The Way plays after the talk. Off = it stands while a dialogue or a menu is open.")]
+    [Tooltip("It goes on walking while a dialogue or a cutscene plays (not in a menu or the pause), unless it is the one talking, e.g. Garr coming out of his barn while Haru talks to his father. It sets off at once, also when this event turned it before, e.g. Brannoc leaving for the night. Walking into the player meanwhile it waits in front of him, and When In The Way plays after. Off = it stands while a dialogue or a menu is open.")]
     [SerializeField] private bool walksDuringTalks;
+    [Tooltip("Bobs up and down with every step and is heard stepping, for a character drawn as one sprite without walk animations, e.g. Fenna running behind her mother. Off for one with them: it would shake as it walks.")]
+    [SerializeField] private bool bob;
 
     public override bool IsInstant => true;
 
@@ -47,6 +49,11 @@ public sealed class WalkOffStep : StoryStep
         Transform target = destination.Resolve(context);
         if (walker == null || target == null || walker == context.Player)
             yield break;
+
+        // Walking through the rest of the event: also when the event turned it earlier, e.g. Brannoc
+        // looking up at Haru before he sets off; held by the event, it would stand until the end.
+        if (walksDuringTalks)
+            context.GiveBack(walker);
 
         var points = new List<Vector2>();
         foreach (Transform point in via)
@@ -63,6 +70,8 @@ public sealed class WalkOffStep : StoryStep
             walk.ComeOut(comeOutSound, comeOutVolume);
         if (whenInTheWay != null)
             walk.CallWhenInTheWay(whenInTheWay);
+        if (bob)
+            walk.BobAsItWalks();
     }
 
     // Skipped (Debug Test Start): the character is already there, as if it had walked, e.g. Hideshi

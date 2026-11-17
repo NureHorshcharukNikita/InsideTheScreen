@@ -62,7 +62,8 @@ public sealed class StoryShortcut
     }
 
     // The main line's flags in story order, as StoryFlagOrder.txt has them (as StoryFlagDrawer reads
-    // it): the plain lines, not side flags ("-"), states ("*"), chapters ("##") or notes ("#").
+    // it): the plain lines, not side flags ("-"), states ("*"), chapters ("##"), their parts ("###")
+    // or notes ("#").
     private static List<string> ReadMainLine()
     {
         List<string> flags = new();

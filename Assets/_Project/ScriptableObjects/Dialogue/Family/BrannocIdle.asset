@@ -13,10 +13,19 @@ MonoBehaviour:
   m_Name: BrannocIdle
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Everything quiet?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "Sorrel says I worry too much. Sorrel is usually right."
+    text: "For now. Sorrel says I worry too much. Sorrel is usually right."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0

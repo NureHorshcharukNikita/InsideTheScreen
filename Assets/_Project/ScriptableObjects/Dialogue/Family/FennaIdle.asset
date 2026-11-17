@@ -13,12 +13,22 @@ MonoBehaviour:
   m_Name: FennaIdle
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Hey there, little one."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Fenna
-    portraitOverride: {fileID: 0}
-    text: "Papa says I'm too small to stay up late. I'm not small. I'm medium."
+    portraitOverride: {fileID: 21300000, guid: bc0d44b9ac2a42eb911f06f6a6426594, type: 3}
+    text: "I'm not little! Papa says I'm too small to carry the water bucket. I'm not small either. I'm medium."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions: []
     choices: []
+  noTalkTopics: 0

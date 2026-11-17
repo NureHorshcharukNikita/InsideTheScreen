@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d964d57d8f2a8645b731e5591055186, type: 3}
-  m_Name: SorrelFirstMeeting
+  m_Name: BrannocTalkFamily
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speakerSide: 1
-    speakerName: Sorrel
+    speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "Oh! You must be the boy who slept in Garr's barn. Did he at least give you a blanket?"
+    text: "Tell me? She came home with a list of questions about you. She wanted me to ask them for her."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -25,36 +25,28 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "He gave us... hay."
+    text: "Go on, then."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
     choices: []
   - speakerSide: 1
-    speakerName: Sorrel
+    speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "Of course he did. I'm Sorrel."
+    text: "I told her a man's tail is his own business. Even when he hasn't got one."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
     choices: []
   - speakerSide: 1
-    speakerName: Sorrel
+    speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "If you get hungry, the bushes by Eldon's tower don't belong to anyone. Help yourself."
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Sorrel
-    portraitOverride: {fileID: 0}
-    text: "And don't mind Fenna. She's never seen anyone without a tail."
+    text: "She's been making you one out of grass, by the way. If she hasn't shown you yet, act surprised."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
     actions: []
     choices: []
+  noTalkTopics: 0

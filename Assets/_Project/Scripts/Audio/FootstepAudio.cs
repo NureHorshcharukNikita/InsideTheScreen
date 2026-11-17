@@ -4,13 +4,25 @@ using UnityEngine.Tilemaps;
 
 // Plays a footstep from the walk animations' PlayFootstep events. Works on the player and on
 // characters walked by code (a following companion), which take their sounds from the player. In
-// among trees one walks through (Thicket), the step rustles the leaves too.
+// among trees one walks through (Thicket), the step rustles the leaves too. Steps far off are heard
+// quieter, and not at all past what the minimap shows (HeardAt).
 public sealed class FootstepAudio : MonoBehaviour
 {
     private static readonly int IsMovingParameter = Animator.StringToHash("IsMoving");
 
     // NPCs (a following companion included) step half as loud as the player.
     private const float NpcVolumeScale = 0.5f;
+
+    // How far off a step is heard (HeardAt): in full in the camera's view, a little quieter just past
+    // its edge, then fading out to nothing at the edge of what the minimap shows, e.g. Brannoc walking
+    // off down the south road at night.
+    private const float EdgeOfViewVolume = 0.6f;
+    // Still heard in full this far past the edge of the view, in units: someone stepping out of it.
+    private const float ViewMargin = 0.5f;
+    // No minimap camera on (in a house): heard up to this many times the view's size.
+    private const float ReachWithoutMinimap = 3f;
+
+    private static Camera minimapCamera;
 
     [Serializable]
     private sealed class SurfaceAudio
@@ -123,6 +135,11 @@ public sealed class FootstepAudio : MonoBehaviour
 
     private void PlayStep(Transform walker, float volumeScale)
     {
+        float heard = HeardAt(walker.position);
+        if (heard <= 0f)
+            return;
+
+        volumeScale *= heard;
         Thicket.Rustle(Thicket.FeetOf(walker), volumeScale);
 
         FootstepSurface surface = DetectSurface(walker.position);
@@ -135,6 +152,65 @@ public sealed class FootstepAudio : MonoBehaviour
             return;
 
         AudioManager.TryPlaySfx(clip, surfaceAudio.VolumeScale * volumeScale);
+    }
+
+    // How loud a step there is heard, 0..1: 1 in the camera's view, Edge Of View Volume just past it,
+    // fading to 0 at the edge of what the minimap camera films (both around where the camera looks,
+    // so a cutscene looking at someone far off hears them). Out past that it is not heard at all.
+    public static float HeardAt(Vector3 position)
+    {
+        Camera view = Camera.main;
+        if (view == null || !view.orthographic)
+            return 1f;
+
+        Vector2 offset = position - view.transform.position;
+        float x = Mathf.Abs(offset.x);
+        float y = Mathf.Abs(offset.y);
+        Vector2 inner = new(view.orthographicSize * view.aspect + ViewMargin, view.orthographicSize + ViewMargin);
+        if (x <= inner.x && y <= inner.y)
+            return 1f;
+
+        Vector2 outer = MinimapReach(inner);
+        float beyond = Mathf.Max(Beyond(x, inner.x, outer.x), Beyond(y, inner.y, outer.y));
+        return EdgeOfViewVolume * (1f - beyond);
+    }
+
+    private static float Beyond(float distance, float inner, float outer)
+    {
+        return Mathf.Clamp01((distance - inner) / Mathf.Max(0.01f, outer - inner));
+    }
+
+    // Half the size of what the minimap shows, never inside the view.
+    private static Vector2 MinimapReach(Vector2 view)
+    {
+        Camera minimap = FindMinimapCamera();
+        if (minimap == null)
+            return view * ReachWithoutMinimap;
+
+        RenderTexture texture = minimap.targetTexture;
+        float aspect = texture != null && texture.height > 0 ? (float)texture.width / texture.height : minimap.aspect;
+        float half = minimap.orthographicSize;
+        return new Vector2(Mathf.Max(half * aspect, view.x + 1f), Mathf.Max(half, view.y + 1f));
+    }
+
+    // The camera filming the world into the minimap's texture; none while it is off (in a house).
+    private static Camera FindMinimapCamera()
+    {
+        if (minimapCamera != null && minimapCamera.isActiveAndEnabled)
+            return minimapCamera;
+
+        minimapCamera = null;
+        Camera main = Camera.main;
+        foreach (Camera camera in Camera.allCameras)
+        {
+            if (camera != main && camera.orthographic && camera.targetTexture != null)
+            {
+                minimapCamera = camera;
+                break;
+            }
+        }
+
+        return minimapCamera;
     }
 
     private FootstepSurface DetectSurface(Vector3 position)

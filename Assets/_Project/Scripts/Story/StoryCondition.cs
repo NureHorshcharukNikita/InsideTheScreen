@@ -11,7 +11,10 @@ public enum StoryConditionType
     HasCard,
     // So many of a card in the deck now; no card picked = any card at all, e.g. Dad's answer to what
     // Haru took into his first fight (Invert: the deck is empty).
-    InDeck
+    InDeck,
+    // Hideshi is with Haru right now: walking with him, or standing close by where Haru is, e.g. his
+    // lines in a talk with Sorrel and Fenna (Invert: Haru came alone).
+    CompanionWithPlayer
 }
 
 // One requirement of an NPC dialogue entry or a story event: a story flag is set,
@@ -46,7 +49,16 @@ public sealed class StoryCondition
         if (type == StoryConditionType.InDeck)
             return (CountInDeck(card) >= Mathf.Max(1, count)) != invert;
 
+        if (type == StoryConditionType.CompanionWithPlayer)
+            return CompanionWithPlayer() != invert;
+
         return string.IsNullOrWhiteSpace(storyFlag) || StoryFlagManager.HasFlag(storyFlag) != invert;
+    }
+
+    private static bool CompanionWithPlayer()
+    {
+        PlayerMovement player = UnityEngine.Object.FindFirstObjectByType<PlayerMovement>();
+        return player != null && CompanionFollower.IsPresentAt(player.transform.position);
     }
 
     private static int CountInDeck(CardData wanted)
@@ -58,7 +70,7 @@ public sealed class StoryCondition
         int found = 0;
         foreach (CardData inDeck in deck.Cards)
         {
-            if (inDeck != null && (wanted == null || inDeck == wanted))
+            if (inDeck != null && inDeck.IsUsedInBattle && (wanted == null || inDeck == wanted))
                 found++;
         }
 

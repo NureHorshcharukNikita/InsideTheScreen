@@ -8,8 +8,10 @@ using UnityEngine;
 // (dialogue actions, NPC conditions, story events), so a new flag shows up here
 // as soon as the asset or scene that sets it is saved. Each chapter of the story is a submenu, its
 // flags in story order, as StoryFlagOrder.txt next to this file has them: the main line numbered,
-// side quests marked, states that come and go (where Hideshi waits) on their own. Flags it does not
-// list yet come last. Only the dropdown changes: the flags keep their names, so saves keep working.
+// side quests marked, states that come and go (where Hideshi waits) on their own. A long chapter is
+// split into parts, each a submenu of its own, e.g. Leymar's morning into Eldon's lesson, the
+// gathering, the dust and so on; the main line is numbered on across them. Flags it does not list
+// yet come last. Only the dropdown changes: the flags keep their names, so saves keep working.
 [CustomPropertyDrawer(typeof(StoryFlagAttribute))]
 public sealed class StoryFlagDrawer : PropertyDrawer
 {
@@ -21,10 +23,18 @@ public sealed class StoryFlagDrawer : PropertyDrawer
     private static readonly Regex FlagLine = new(
         @"^\s*(?:storyFlag|doneFlag|hiddenAfterStoryFlag|followAfterStoryFlag): (\S+)\s*$");
 
-    private sealed class Chapter
+    // A part of a chapter ("### Title"), or its flags before the first part (no title: right in the
+    // chapter's submenu).
+    private sealed class Part
     {
         public string Title;
         public readonly List<(string flag, string label)> Flags = new();
+    }
+
+    private sealed class Chapter
+    {
+        public string Title;
+        public readonly List<Part> Parts = new();
     }
 
     private static List<string> knownFlags;
@@ -67,7 +77,8 @@ public sealed class StoryFlagDrawer : PropertyDrawer
         return labels.TryGetValue(flag, out string label) ? label : flag;
     }
 
-    // One submenu per chapter, opening on hover; picking a flag writes it to every selected object.
+    // One submenu per chapter and one in it per part, opening on hover; picking a flag writes it to
+    // every selected object.
     private static void ShowMenu(Rect field, Object[] targets, string path, string value)
     {
         GenericMenu menu = new();
@@ -75,8 +86,12 @@ public sealed class StoryFlagDrawer : PropertyDrawer
         menu.AddSeparator(string.Empty);
         foreach (Chapter chapter in GetChapters())
         {
-            foreach ((string flag, string label) in chapter.Flags)
-                menu.AddItem(new GUIContent($"{chapter.Title}/{label}"), flag == value, () => Pick(targets, path, flag));
+            foreach (Part part in chapter.Parts)
+            {
+                string folder = part.Title == null ? chapter.Title : $"{chapter.Title}/{part.Title}";
+                foreach ((string flag, string label) in part.Flags)
+                    menu.AddItem(new GUIContent($"{folder}/{label}"), flag == value, () => Pick(targets, path, flag));
+            }
         }
 
         // A flag nothing uses any more still shows, so it can be seen and changed.
@@ -105,8 +120,9 @@ public sealed class StoryFlagDrawer : PropertyDrawer
         owner.ApplyModifiedProperties();
     }
 
-    // "## Title" starts a chapter, "flag" is the main line (numbered), "- flag" a side quest,
-    // "* flag" a state; "#" starts a note. Only flags the project uses are listed.
+    // "## Title" starts a chapter, "### Title" a part of it, "flag" is the main line (numbered),
+    // "- flag" a side quest, "* flag" a state; "#" starts a note. Only flags the project uses are
+    // listed; a part or a chapter with none of them is left out.
     private static List<Chapter> GetChapters()
     {
         if (chapters != null)
@@ -117,16 +133,25 @@ public sealed class StoryFlagDrawer : PropertyDrawer
         List<Chapter> ordered = new();
         labels = new Dictionary<string, string>();
         Chapter chapter = null;
+        Part part = null;
         int step = 0;
 
         string[] lines = File.Exists(OrderFile) ? File.ReadAllLines(OrderFile) : new string[0];
         foreach (string raw in lines)
         {
             string line = raw.Trim();
+            if (line.StartsWith("###"))
+            {
+                chapter ??= AddChapter(ordered, "Story");
+                part = new Part { Title = line.Substring(3).Trim() };
+                chapter.Parts.Add(part);
+                continue;
+            }
+
             if (line.StartsWith("##"))
             {
-                chapter = new Chapter { Title = line.Substring(2).Trim() };
-                ordered.Add(chapter);
+                chapter = AddChapter(ordered, line.Substring(2).Trim());
+                part = null;
                 continue;
             }
 
@@ -139,22 +164,35 @@ public sealed class StoryFlagDrawer : PropertyDrawer
             if (flag.Length == 0 || !known.Contains(flag) || !placed.Add(flag))
                 continue;
 
-            if (chapter == null)
+            chapter ??= AddChapter(ordered, "Story");
+            if (part == null)
             {
-                chapter = new Chapter { Title = "Story" };
-                ordered.Add(chapter);
+                // Flags before the chapter's first part: right in the chapter's submenu.
+                part = new Part();
+                chapter.Parts.Add(part);
             }
 
             string label = kind == '-' ? $"{flag}  (side)" : kind == '*' ? flag : $"{++step:00}  {flag}";
-            chapter.Flags.Add((flag, label));
+            part.Flags.Add((flag, label));
             labels[flag] = label;
         }
 
-        chapters = ordered.FindAll(candidate => candidate.Flags.Count > 0);
+        // Numbered as shown: 3. Leymar, the morning, its parts 3.1, 3.2...
+        foreach (Chapter candidate in ordered)
+            candidate.Parts.RemoveAll(empty => empty.Flags.Count == 0);
+        chapters = ordered.FindAll(candidate => candidate.Parts.Count > 0);
         for (int i = 0; i < chapters.Count; i++)
+        {
             chapters[i].Title = $"{i + 1}. {chapters[i].Title}";
+            int number = 0;
+            foreach (Part titled in chapters[i].Parts)
+            {
+                if (titled.Title != null)
+                    titled.Title = $"{i + 1}.{++number} {titled.Title}";
+            }
+        }
 
-        Chapter unordered = new() { Title = UnorderedTitle };
+        Part unordered = new();
         foreach (string flag in GetKnownFlags())
         {
             if (placed.Contains(flag))
@@ -165,9 +203,20 @@ public sealed class StoryFlagDrawer : PropertyDrawer
         }
 
         if (unordered.Flags.Count > 0)
-            chapters.Add(unordered);
+        {
+            Chapter rest = new() { Title = UnorderedTitle };
+            rest.Parts.Add(unordered);
+            chapters.Add(rest);
+        }
 
         return chapters;
+    }
+
+    private static Chapter AddChapter(List<Chapter> ordered, string title)
+    {
+        Chapter chapter = new() { Title = title };
+        ordered.Add(chapter);
+        return chapter;
     }
 
     private static IReadOnlyList<string> GetKnownFlags()

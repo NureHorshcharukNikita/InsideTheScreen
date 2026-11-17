@@ -8,6 +8,7 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
     private SerializedProperty descriptionProp;
     private SerializedProperty portraitSpriteProp;
     private SerializedProperty portraitFacingProp;
+    private SerializedProperty portraitHeightProp;
     private SerializedProperty mapSpriteProp;
     private SerializedProperty voiceProp;
 
@@ -21,6 +22,7 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
         descriptionProp = serializedObject.FindProperty("description");
         portraitSpriteProp = serializedObject.FindProperty("portraitSprite");
         portraitFacingProp = serializedObject.FindProperty("portraitFacing");
+        portraitHeightProp = serializedObject.FindProperty("portraitHeight");
         mapSpriteProp = serializedObject.FindProperty("mapSprite");
         voiceProp = serializedObject.FindProperty("voice");
     }
@@ -51,6 +53,8 @@ public sealed class CharacterProfileEditor : UnityEditor.Editor
     {
         EditorGUILayout.PropertyField(portraitSpriteProp);
         EditorGUILayout.PropertyField(portraitFacingProp);
+        if (portraitHeightProp != null)
+            EditorGUILayout.PropertyField(portraitHeightProp);
     }
 
     private void DrawMapSection()

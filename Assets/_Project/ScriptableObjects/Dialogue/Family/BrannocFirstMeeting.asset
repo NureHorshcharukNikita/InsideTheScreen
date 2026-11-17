@@ -13,11 +13,18 @@ MonoBehaviour:
   m_Name: BrannocFirstMeeting
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - speakerSide: 1
-    speakerName: Brannoc
-    portraitOverride: {fileID: 0}
-    text: "Morning. You're the two who came in after dark with the trader."
-    conditions: []
+  - speakerSide: 0
+    speakerName: Hideshi
+    portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
+    text: "Good morning. I'm Hideshi, and this is my son, Haru."
+    conditions: 
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -25,7 +32,23 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "That's us. I'm Haru."
+    text: "Good morning. I'm Haru."
+    conditions: 
+    - type: 5
+      storyFlag: 
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Brannoc
+    portraitOverride: {fileID: 0}
+    text: "Brannoc. You two came in after dark with the trader."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -34,8 +57,24 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "Brannoc. The house behind me is mine - and so is the noise in front of it."
+    text: "The house behind me is mine. I live there with my wife and our little daughter."
     conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Brannoc
+    portraitOverride: {fileID: 0}
+    text: "Though I hear you've met them both already. Fenna hasn't stopped talking about your tail. Or where it should be."
+    conditions:
+    - type: 0
+      storyFlag: a1_met_fox_family
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -52,7 +91,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "I keep watch till the village sleeps. Something's been prowling the south road. Big paws, by the tracks."
+    text: "I keep watch while the village sleeps. Something's been prowling the south road. Big paws, by the tracks."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -74,5 +113,14 @@ MonoBehaviour:
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1
-    actions: []
+    actions:
+    - type: 4
+      quest: {fileID: 0}
+      storyFlag: a1_met_brannoc
+      silent: 1
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
     choices: []

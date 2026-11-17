@@ -27,7 +27,38 @@ MonoBehaviour:
   steps:
   - label: "Ask Garr what helps a bite"
     doneWhen: a1_salve_ingredients
-  - label: "Bring Garr leaves, bark and a red flower from the broken bridge, and some berries"
+  - label: "Gather leaves, bark and a red flower by the broken bridge, and some berries"
+    doneWhen: a1_salve_recipe
+    doneWhileMet:
+    - type: 3
+      storyFlag:
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 11400000, guid: 493c8f4a68744d7c9ffd5259e8a87613, type: 2}
+      count: 1
+    - type: 3
+      storyFlag:
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 11400000, guid: 23c8905197c649329d0864b1b02d4ee9, type: 2}
+      count: 1
+    - type: 3
+      storyFlag:
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 11400000, guid: 6f129b50f5614c34aa80546f52a9e68b, type: 2}
+      count: 1
+    - type: 3
+      storyFlag:
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 11400000, guid: 7668e87e8808462684f1925bcb62ef1f, type: 2}
+      count: 1
+  - label: "Bring them to Garr"
     doneWhen: a1_salve_recipe
   - label: "Make Healing Herbs at Garr's bench"
     doneWhen: 

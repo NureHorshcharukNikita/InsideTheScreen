@@ -24,9 +24,10 @@ public class InventoryDeckController
     // Before the story brings the deck up (HudFlags.Deck) nothing goes in or out, dragged or not.
     public static bool IsOpen => HudFlags.IsOpen(HudFlags.Deck);
 
+    // Only what does something in a fight goes in, e.g. not the Crystal Dust for Eldon (CardData.IsUsedInBattle).
     public int GetAddableCount(CardData card)
     {
-        if (card == null || deck == null || storage == null || !IsOpen)
+        if (card == null || !card.IsUsedInBattle || deck == null || storage == null || !IsOpen)
             return 0;
 
         int inventoryCopies = storage.Cards.Count(storedCard => storedCard == card);

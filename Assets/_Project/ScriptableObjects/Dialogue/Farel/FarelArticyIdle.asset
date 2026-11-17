@@ -13,4 +13,22 @@ MonoBehaviour:
   m_Name: FarelArticyIdle
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 1, speakerName: Farel Wanderer, portraitOverride: {fileID: 0}, text: "The river is calmer now. The fish are coming back, slowly.", nextLineIndex: -1, endDialogueAfterLine: 1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Is the river always this quiet?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Farel Wanderer
+    portraitOverride: {fileID: 0}
+    text: "Not always. It's calmer now. The fish are coming back, slowly."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions: []
+    choices: []
+  noTalkTopics: 0

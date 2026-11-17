@@ -13,10 +13,37 @@ MonoBehaviour:
   m_Name: GarrArticyIdle
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "Busy?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "If you need something repaired, I'm here. If you need anything else, I'm busy."
+    text: "Always. Ask me again when the iron's cold."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "When's that?"
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 1
+    speakerName: Garr Steelclad
+    portraitOverride: {fileID: 0}
+    text: "Never. That's the trick of it."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -35,7 +62,8 @@ MonoBehaviour:
         encounterId: 
         card: {fileID: 0}
         count: 1
-    - text: "Never mind."
+    - text: "I'll let you work."
       nextLineIndex: -1
       endDialogue: 1
       actions: []
+  noTalkTopics: 0

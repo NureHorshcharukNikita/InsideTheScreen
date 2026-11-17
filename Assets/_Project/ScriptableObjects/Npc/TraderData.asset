@@ -333,6 +333,27 @@ MonoBehaviour:
   - key: trader_idle
     dialogue: {fileID: 11400000, guid: 1de705470d881f71be94828f91e33b62, type: 2}
     repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions: []
+  - key: trader_idle_buttons
+    dialogue: {fileID: 11400000, guid: 9ff65612f23f4991bd599fddae4a0083, type: 2}
+    repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions: []
+  - key: trader_idle_fire
+    dialogue: {fileID: 11400000, guid: a28db63298034d0080d856b3a7cacf8b, type: 2}
+    repeatable: 1
+    takesTurns: 1
     needsCompanion: 0
     talkTiming: 0
     conversationNumber: 1

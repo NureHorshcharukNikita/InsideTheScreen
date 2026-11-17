@@ -56,6 +56,19 @@ public sealed class TeleportStep : StoryStep
         }
     }
 
+    // Skipped (Debug Test Start): an NPC sent back to its place is there, e.g. Brannoc at his spot for
+    // the morning after his night at the crossroads. Other teleports leave nothing: the steps after
+    // them (walks, not skipped either) would have moved the character on.
+    public override void Skip(StoryEventContext context)
+    {
+        if (!backToItsPlace)
+            return;
+
+        Transform mover = actor.Resolve(context);
+        if (mover != null && mover.TryGetComponent(out NpcCharacter placed))
+            placed.TeleportTo(placed.ScenePosition);
+    }
+
     public override string ToString()
     {
         return backToItsPlace ? $"{actor} goes back to its place in the scene" : $"{actor} teleports to {destination}";

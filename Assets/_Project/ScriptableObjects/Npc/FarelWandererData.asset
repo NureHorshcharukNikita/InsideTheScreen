@@ -181,6 +181,27 @@ MonoBehaviour:
   - key: farel_idle
     dialogue: {fileID: 11400000, guid: dbdb2eaea47d9175455c2f894ba092b2, type: 2}
     repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 2
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions: []
+  - key: farel_idle_wanderer
+    dialogue: {fileID: 11400000, guid: e3f4ac2714ce4ee0b8b58114855968f8, type: 2}
+    repeatable: 1
+    takesTurns: 1
+    needsCompanion: 0
+    talkTiming: 2
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions: []
+  - key: farel_idle_catch
+    dialogue: {fileID: 11400000, guid: e3d540ca1ca64a059ba8ff43c375533a, type: 2}
+    repeatable: 1
+    takesTurns: 1
     needsCompanion: 0
     talkTiming: 2
     conversationNumber: 1

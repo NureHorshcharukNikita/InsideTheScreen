@@ -51,7 +51,7 @@ public sealed class BattleTalkLine
     public bool waitForClick = true;
 
     [Header("Pointer")]
-    [Tooltip("What the pointer shows meanwhile: a UiPointerTarget id (battle_hand, battle_strength, battle_end_turn, battle_draw_pile), or enemy_intent, ally_intent, healing_card. Empty = nothing.")]
+    [Tooltip("What the pointer shows meanwhile, the bubble standing right past the pointer instead of over the speaker: a UiPointerTarget id (battle_hand, battle_strength, battle_end_turn, battle_draw_pile), or enemy_intent, ally_intent, healing_card. Empty = nothing.")]
     public string pointAt;
     public PointerSide pointerSide;
 }
@@ -68,7 +68,10 @@ public enum BattleMoment
     LowHealth,
     // The draw pile ran out and the played cards came back.
     DeckReshuffled,
-    AllyFell
+    AllyFell,
+    // The first ally at half health or less in the player's turn, with something that heals in the
+    // hand, e.g. Dad asking Haru for food in the wolf fight, where his fall loses it.
+    AllyLowHealth
 }
 
 public enum BattleSpeaker
