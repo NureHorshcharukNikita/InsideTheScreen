@@ -30,7 +30,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "You know how now. Crush them, wrap them, my bench."
+    text: "You know how now. Flower and berries first, then the leaf, then the bark."
     conditions:
     - type: 0
       storyFlag: a1_salve_recipe
@@ -44,7 +44,7 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Garr Steelclad
     portraitOverride: {fileID: 0}
-    text: "Berries off any bush; leaves, bark and a red flower by the broken bridge. Bring them here, and I'll tell you what's next."
+    text: "Berries from the grass around the village; leaves, bark and a red flower by the broken bridge. Bring them here, and I'll tell you what's next."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1

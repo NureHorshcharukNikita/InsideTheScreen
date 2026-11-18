@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// A fruit bush Haru picks with the Interact key: one of its cards at random (an apple or berries),
-// the fruit gone from the bush at once (Bare Sprite) and the bush shaking as he picks. The fruit
+// A fruit bush Haru picks with the Interact key: one of its cards at random, the fruit gone from the
+// bush at once (Bare Sprite) and the bush shaking as he picks. It gives what is drawn on it: the
+// apple bushes, drawn with red apples, give apples only (berries lie in the grass, ForageSpawner). The fruit
 // grows back after a while of exploring (WorldClock), and only while Haru is away from the bush,
 // never before his eyes; until then it stays picked, also after a reload. It can be picked only
 // while its conditions are met, e.g. the apple bush of Survival Basics once the quest's apple is
 // off it (ForageSpot has it before that), or any bush only after Hideshi has shown Haru how to
 // gather (a1_ground_lesson). Haru reaches for the middle of the bush, from any side, from below a little
 // further (its heap keeps him off its foot). Picking it sets
-// its story flags, e.g. a1_gathered_first: berries off a bush are a find like the quest's things.
+// its story flags, e.g. a1_gathered_first: an apple off a bush is a find like the quest's things.
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class FruitBush : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public sealed class FruitBush : MonoBehaviour
 
     [Tooltip("Remembers when it was picked. Unique in the scene. Empty = the object's name.")]
     [SerializeField] private string bushId;
-    [Tooltip("One of them at random each time it is picked.")]
+    [Tooltip("One of them at random each time it is picked. Only what is drawn on the bush, e.g. an apple bush gives apples alone.")]
     [SerializeField] private List<CardData> cards = new();
     [SerializeField, Min(1)] private int count = 1;
     [Tooltip("The bush once picked, without its fruit.")]
@@ -34,8 +35,8 @@ public sealed class FruitBush : MonoBehaviour
     [SerializeField] private List<StoryCondition> conditions = new();
     [Tooltip("Set each time it is picked, e.g. a1_gathered_first for Haru's first find. Empty = none.")]
     [SerializeField] private List<string> flagsWhenTaken = new();
-    [Tooltip("Set too when that card is what is picked, e.g. a1_gathered_berries for berries: Survival Basics"
-        + " counts berries off any bush. Empty = none.")]
+    [Tooltip("Set too when that card is what is picked, e.g. a1_gathered_apple for an apple: Survival Basics"
+        + " counts an apple off any bush. Empty = none.")]
     [SerializeField] private List<CardFlag> flagsByCard = new();
     [Tooltip("The word on the prompt.")]
     [SerializeField] private string action = "Gather";

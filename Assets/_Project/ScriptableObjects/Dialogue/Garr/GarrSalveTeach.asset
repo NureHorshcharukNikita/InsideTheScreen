@@ -15,8 +15,8 @@ MonoBehaviour:
   lines:
   - speakerSide: 1
     speakerName: Garr Steelclad
-    portraitOverride: {fileID: 0}
-    text: "Got it all? Let's see... leaves, bark, the flower, berries. Good."
+    portraitOverride: {fileID: 21300000, guid: e6d7c9f5a7a493346804b4ce95740d1b, type: 3}
+    text: "Got it all? Leaves, bark, the flower, berries... Good."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -24,35 +24,17 @@ MonoBehaviour:
     choices: []
   - speakerSide: 1
     speakerName: Garr Steelclad
-    portraitOverride: {fileID: 0}
-    text: "Crush them together, then wrap it tight. Use my bench - I'll show you once."
+    portraitOverride: {fileID: 21300000, guid: e6d7c9f5a7a493346804b4ce95740d1b, type: 3}
+    text: "Where's your father? Fetch him. I'll show it once, and I'd rather two of you remembered it."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
-    actions:
-    - type: 4
-      quest: {fileID: 0}
-      storyFlag: a1_salve_recipe
-      silent: 1
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
+    actions: []
     choices: []
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "Like this?"
-    conditions: []
-    nextLineIndex: -1
-    endDialogueAfterLine: 0
-    actions: []
-    choices: []
-  - speakerSide: 1
-    speakerName: Garr Steelclad
-    portraitOverride: {fileID: 0}
-    text: "Like that. Now make it, and take it to him before that bite goes bad."
+    text: "I'll get him."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 1

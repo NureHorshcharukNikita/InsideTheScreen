@@ -20,3 +20,8 @@ MonoBehaviour:
     tool: 0
     orInstead: {fileID: 0}
     orInsteadIsTool: 0
+  - card: {fileID: 11400000, guid: f743d7d94274492bb18abb1b4dce09ac, type: 2}
+    count: 1
+    tool: 1
+    orInstead: {fileID: 11400000, guid: 9466bc51d4784fd1a8c1ffd7d5e584e3, type: 2}
+    orInsteadIsTool: 1

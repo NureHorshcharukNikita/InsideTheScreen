@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 2c8c744563e3c1347a55cc7ba96005ca
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2445839660753326463
+    second: Pixel-Art-Rubble-Stone-Berm_0
+  - first:
+      213: 5156496878215637800
+    second: Pixel-Art-Rubble-Stone-Berm_1
+  - first:
+      213: -2674139554914329541
+    second: Pixel-Art-Rubble-Stone-Berm_2
+  - first:
+      213: 2483654979808097218
+    second: Pixel-Art-Rubble-Stone-Berm_3
+  - first:
+      213: -3571047458145494712
+    second: Pixel-Art-Rubble-Stone-Berm_4
+  - first:
+      213: 5052293040023988333
+    second: Pixel-Art-Rubble-Stone-Berm_5
+  - first:
+      213: -5622648430598235705
+    second: Pixel-Art-Rubble-Stone-Berm_6
+  - first:
+      213: 5189465955235873516
+    second: Pixel-Art-Rubble-Stone-Berm_7
+  - first:
+      213: 8117338712429113979
+    second: Pixel-Art-Rubble-Stone-Berm_8
+  - first:
+      213: 7708057762820033062
+    second: Pixel-Art-Rubble-Stone-Berm_9
+  - first:
+      213: -7403232482575716196
+    second: Pixel-Art-Rubble-Stone-Berm_10
+  - first:
+      213: -2606306673490361963
+    second: Pixel-Art-Rubble-Stone-Berm_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.49031517, y: 0.32391268}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_0
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 724
+        width: 30
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18e6c3389c1ae0ed0800000000000000
+      internalID: -2445839660753326463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_1
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 0
+        width: 1717
+        height: 681
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82b2477279e8f8740800000000000000
+      internalID: 5156496878215637800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_2
+      rect:
+        serializedVersion: 2
+        x: 1720
+        y: 425
+        width: 27
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3c92853e3c83ead0800000000000000
+      internalID: -2674139554914329541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_3
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 184
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c377109b07b77220800000000000000
+      internalID: 2483654979808097218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_4
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 158
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8491d2dc147117ec0800000000000000
+      internalID: -3571047458145494712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_5
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 176
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d68eecf60c95d1640800000000000000
+      internalID: 5052293040023988333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_6
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 112
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c9d84dda0758f1b0800000000000000
+      internalID: -5622648430598235705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_7
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 120
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce241d39acfa40840800000000000000
+      internalID: 5189465955235873516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_8
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 94
+        width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b723ddb2d8496a070800000000000000
+      internalID: 8117338712429113979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_9
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 101
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62a841d32b588fa60800000000000000
+      internalID: 7708057762820033062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_10
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 98
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c90f076f74f624990800000000000000
+      internalID: -7403232482575716196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel-Art-Rubble-Stone-Berm_11
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 97
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59180e6a3e984dbd0800000000000000
+      internalID: -2606306673490361963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Pixel-Art-Rubble-Stone-Berm_0: -2445839660753326463
+      Pixel-Art-Rubble-Stone-Berm_1: 5156496878215637800
+      Pixel-Art-Rubble-Stone-Berm_10: -7403232482575716196
+      Pixel-Art-Rubble-Stone-Berm_11: -2606306673490361963
+      Pixel-Art-Rubble-Stone-Berm_2: -2674139554914329541
+      Pixel-Art-Rubble-Stone-Berm_3: 2483654979808097218
+      Pixel-Art-Rubble-Stone-Berm_4: -3571047458145494712
+      Pixel-Art-Rubble-Stone-Berm_5: 5052293040023988333
+      Pixel-Art-Rubble-Stone-Berm_6: -5622648430598235705
+      Pixel-Art-Rubble-Stone-Berm_7: 5189465955235873516
+      Pixel-Art-Rubble-Stone-Berm_8: 8117338712429113979
+      Pixel-Art-Rubble-Stone-Berm_9: 7708057762820033062
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

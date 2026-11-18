@@ -149,10 +149,10 @@ MonoBehaviour:
     rangeStartConversation: 1
     rangeEndConversation: 0
     conditions:
-    - type: 1
-      storyFlag: 
-      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
-      questStatus: 2
+    - type: 0
+      storyFlag: a1_wolf_beaten
+      quest: {fileID: 0}
+      questStatus: 1
       invert: 0
   - key: hideshi_survival_done
     dialogue: {fileID: 11400000, guid: d0679b09576d1d39b05b93c3764b795e, type: 2}
@@ -277,6 +277,11 @@ MonoBehaviour:
       quest: {fileID: 0}
       questStatus: 1
       invert: 1
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
+      invert: 0
   - key: hideshi_walk_alone_again
     dialogue: {fileID: 11400000, guid: c4116d1b5041475ca11aa6bcc2af9c86, type: 2}
     repeatable: 1
@@ -310,6 +315,11 @@ MonoBehaviour:
       storyFlag: a1_walk_alone_declined
       quest: {fileID: 0}
       questStatus: 1
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
       invert: 0
   - key: hideshi_ready_to_go
     dialogue: {fileID: 11400000, guid: 9a16b0f696104970baaf9b0497895309, type: 2}

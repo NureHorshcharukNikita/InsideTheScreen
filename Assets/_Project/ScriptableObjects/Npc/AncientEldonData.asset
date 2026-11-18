@@ -187,6 +187,25 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: a8fcd588209c1818a81368b066c1b279, type: 2}
       questStatus: 1
       invert: 0
+  - key: eldon_skills
+    dialogue: {fileID: 11400000, guid: cff960b02e104ba4ae665672421f2e44, type: 2}
+    repeatable: 0
+    needsCompanion: 1
+    talkTiming: 0
+    conversationNumber: 1
+    rangeStartConversation: 1
+    rangeEndConversation: 0
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 0
+      storyFlag: ui_skills
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
   - key: eldon_echo_crystal
     dialogue: {fileID: 11400000, guid: 787341a7958244d79ece40556d507e1b, type: 2}
     repeatable: 0
@@ -205,6 +224,16 @@ MonoBehaviour:
       storyFlag: 
       quest: {fileID: 11400000, guid: 92a4ffbd6dd3a0cbef69334e4c2e035b, type: 2}
       questStatus: 2
+      invert: 0
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 2
+      invert: 0
+    - type: 0
+      storyFlag: ui_skills
+      quest: {fileID: 0}
+      questStatus: 1
       invert: 0
   - key: eldon_barrier_done
     dialogue: {fileID: 11400000, guid: f49c52fb1a82ca45ccf69dc1129c5d32, type: 2}
@@ -354,6 +383,11 @@ MonoBehaviour:
       storyFlag: eldon_echo_crystal_discussed
       quest: {fileID: 0}
       questStatus: 1
+      invert: 1
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: aa6089a987eb4f121e2c95bf964871c0, type: 2}
+      questStatus: 2
       invert: 1
   - key: eldon_half_dream
     dialogue: {fileID: 11400000, guid: 49e3835bb6e94837aea893c8f13090ae, type: 2}

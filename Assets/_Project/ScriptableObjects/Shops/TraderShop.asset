@@ -50,5 +50,12 @@ MonoBehaviour:
     stock: 1
     sellPriceMode: 0
     sellPrice: 1
+  - card: {fileID: 11400000, guid: 508f432c9ff940baac8a87a0131bfff1, type: 2}
+    buyPriceMode: 0
+    buyPrice: 1
+    stockMode: 0
+    stock: 1
+    sellPriceMode: 0
+    sellPrice: 1
   buyMultiplier: 1.1
   sellMultiplier: 1.2

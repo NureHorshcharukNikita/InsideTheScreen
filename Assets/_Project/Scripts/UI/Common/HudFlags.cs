@@ -47,8 +47,12 @@ public static class HudFlags
             Bring(Crafting);
 
         // From before Garr asked for the herbs first: he showed the salve straight away.
+        // From before the herbs gathered had a flag of their own: past the salve lesson, they were.
         if (StoryFlagManager.HasFlag("a1_salve_recipe"))
+        {
             Bring("a1_salve_ingredients");
+            Bring("a1_salve_herbs_gathered");
+        }
 
         // From before his father's talk about making things: past the salve, Haru thinks of recipes.
         if (IsDone("a1_trader_salve") || StoryFlagManager.HasFlag("a1_bags_received"))

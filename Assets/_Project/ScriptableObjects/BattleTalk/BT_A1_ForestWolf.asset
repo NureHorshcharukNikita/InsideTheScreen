@@ -17,6 +17,7 @@ MonoBehaviour:
   lossesBeforeEnemyFlees: 3
   enemyFledTitle: THE WOLF RAN OFF
   enemyFledFlag: a1_wolf_fled
+  overFlag: a1_wolf_beaten
   lines:
   - moment: 0
     turn: 2

@@ -464,6 +464,7 @@ public class BattleSystem : MonoBehaviour
 
         if (!string.IsNullOrWhiteSpace(lesson.EnemyFledFlag))
             StoryFlagManager.SetFlag(lesson.EnemyFledFlag);
+        SetOverFlag(lesson);
 
         DefeatedEncounters.MarkDefeated(encounterId);
         QuestManager.HandleEncounterDefeated(encounterId, player.InventoryData);
@@ -488,6 +489,7 @@ public class BattleSystem : MonoBehaviour
             if (!string.IsNullOrWhiteSpace(defeatFlag))
                 StoryFlagManager.SetFlag(defeatFlag);
         }
+        SetOverFlag(talk != null ? talk.Data : null);
 
         // Health carries over to the next fight as it is: winning heals nothing.
         ExplorationPlayerSession.SaveHealth(player.CurrentHealth);
@@ -499,6 +501,14 @@ public class BattleSystem : MonoBehaviour
 
         handUI?.ReleaseAllBattleCardDrags();
         battleEndUI?.ShowVictory(droppedLoot);
+    }
+
+    // A lesson fight over for good, won or its enemy run off (BattleTalkData Over Flag), e.g. the wolf
+    // beaten: First Threat goes on to telling Brannoc.
+    private static void SetOverFlag(BattleTalkData lesson)
+    {
+        if (lesson != null && !string.IsNullOrWhiteSpace(lesson.OverFlag))
+            StoryFlagManager.SetFlag(lesson.OverFlag);
     }
 
     private List<EnemyData> GetDefeatedEnemyData()

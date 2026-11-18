@@ -10,11 +10,14 @@ using UnityEngine;
 // shows up before his eyes, out of the grass, each after its own delay, so several come one after
 // another. Picked off a bush, the fruit is gone from it (Drawn On Picked) and the bush shakes, as
 // Haru picks; from then on the bush's FruitBush grows it back. Taking it sets its story flags, for a
-// story event to follow it (Haru's first find) or to count what is gathered.
+// story event to follow it (Haru's first find) or to count what is gathered, and can play a story
+// event of its own right then (When Taken), e.g. Haru counting the handfuls of crystal dust.
 public sealed class ForageSpot : MonoBehaviour
 {
     private const float RustleSeconds = 0.5f;
     private const float RustleWidth = 0.07f;
+    // When Taken waits this long for the hop and the text first.
+    private const float WhenTakenDelay = 0.4f;
 
     [Tooltip("Remembers that it was taken. Unique in the scene. Empty = the object's name.")]
     [SerializeField] private string pickupId;
@@ -30,6 +33,8 @@ public sealed class ForageSpot : MonoBehaviour
     [SerializeField] private string action = "Pick up";
     [Tooltip("Set when it is taken.")]
     [SerializeField] private List<string> flagsWhenTaken = new();
+    [Tooltip("Played once Haru takes it (its Start: When Called), after the hop, as soon as nothing else has the game, e.g. him counting the handfuls of crystal dust. Not when it is skipped (Debug Test Start) or was taken before a reload. Empty = none.")]
+    [SerializeField] private StoryEvent whenTaken;
     [Tooltip("It is there only while all of them are met. Empty = always.")]
     [SerializeField] private List<StoryCondition> conditions = new();
     [Tooltip("Showing up before Haru's eyes: after how long, in seconds.")]
@@ -126,6 +131,17 @@ public sealed class ForageSpot : MonoBehaviour
         ShowPicked();
         if (drawnOn != null)
             StartCoroutine(Rustle(drawnOn));
+        if (whenTaken != null)
+            StartCoroutine(PlayWhenTaken());
+    }
+
+    // After the hop, once nothing else has the game (an event the flags just set starts first);
+    // not at all while its conditions are not met.
+    private IEnumerator PlayWhenTaken()
+    {
+        yield return new WaitForGameSeconds(WhenTakenDelay);
+        while (whenTaken != null && whenTaken.IsReady && !whenTaken.TryPlay())
+            yield return null;
     }
 
     private void ShowPicked()

@@ -40,7 +40,7 @@ public sealed class NpcInteraction : MonoBehaviour
     [SerializeField] private List<NpcCharacter> together = new();
     [Tooltip("It answers only while all of these are met, e.g. Sorrel and Fenna's zone until they have been met together (a1_met_fox_family not set). Empty = always.")]
     [SerializeField] private List<StoryCondition> answersWhile = new();
-    [Tooltip("The Interact key plays this story event (Start: When Called) instead of the NPC's talk, while it can start, e.g. Sorrel and Fenna's first meeting with Fenna coming out from behind her mother. Empty = the NPC's talk.")]
+    [Tooltip("The Interact key plays this story event (Start: When Called) instead of the NPC's talk while it can start, e.g. Sorrel and Fenna's first meeting with Fenna coming out from behind her mother, or Dad's talk after the gathering, which walks Haru round to his left first. Otherwise the NPC's own talk. Empty = always the NPC's talk.")]
     [SerializeField] private StoryEvent playsEvent;
 
     [Header("Overhead Speech")]
@@ -225,7 +225,7 @@ public sealed class NpcInteraction : MonoBehaviour
         if (overheadPlaying || promptReturnPending)
             return;
 
-        if (playsEvent != null)
+        if (PlaysEventNow)
         {
             if (playsEvent.TryPlay())
                 HideSpeechRoot();
@@ -281,8 +281,11 @@ public sealed class NpcInteraction : MonoBehaviour
         if (npc == null || !npc.gameObject.activeInHierarchy || !Answers || SpokenForElsewhere || BackgroundWalk.IsWalking(npc))
             return false;
 
-        return playsEvent != null ? playsEvent.IsReady : npc.CanTalk || npc.CanShowOverheadLines || npc.CanTrade;
+        return PlaysEventNow || npc.CanTalk || npc.CanShowOverheadLines || npc.CanTrade;
     }
+
+    // Its story event can start now: the key plays it instead of the talk.
+    private bool PlaysEventNow => playsEvent != null && playsEvent.IsReady;
 
     private bool Answers => StoryCondition.AreMet(answersWhile);
 
@@ -311,7 +314,7 @@ public sealed class NpcInteraction : MonoBehaviour
         if (npc == null)
             return "Interact";
 
-        if (playsEvent != null || npc.CanTalk || npc.CanShowOverheadLines)
+        if (PlaysEventNow || npc.CanTalk || npc.CanShowOverheadLines)
             return "Talk";
 
         if (npc.CanTrade)

@@ -9,7 +9,7 @@ public class InventoryPreviewPanel : MonoBehaviour
     [SerializeField] private TMP_Text emptyPreviewText;
     [SerializeField] private CardView previewCard;
     [SerializeField] private TMP_Text descriptionText;
-    [Tooltip("Said under the description of a card that does nothing in a fight and so never goes in the deck, e.g. the Crystal Dust. Empty = nothing.")]
+    [Tooltip("Said first, above the description, in the same plain text, for a card that does nothing in a fight and so never goes in the deck, e.g. the Crystal Dust. Empty = nothing.")]
     [SerializeField, TextArea(1, 2)] private string notForBattleNote = "Not something to take into a fight.";
 
     [Header("Buttons")]
@@ -54,9 +54,7 @@ public class InventoryPreviewPanel : MonoBehaviour
         previewCard.Setup(card, null, 0, null);
 
         descriptionText.gameObject.SetActive(true);
-        descriptionText.text = card.IsUsedInBattle || string.IsNullOrWhiteSpace(notForBattleNote)
-            ? card.Description
-            : $"{card.Description}\n<i><alpha=#AA>{notForBattleNote}</i>";
+        descriptionText.text = DescriptionOf(card);
         RebuildDescriptionLayout();
 
         var scrollRect = descriptionText.GetComponentInParent<ScrollRect>();
@@ -83,6 +81,18 @@ public class InventoryPreviewPanel : MonoBehaviour
 
         addButton.interactable = false;
         removeButton.interactable = false;
+    }
+
+    // A card that does nothing in a fight says so first, in the description's own plain text, then
+    // what it is, e.g. the Crystal Dust: seen at once, not at the bottom under the scroll.
+    private string DescriptionOf(CardData card)
+    {
+        if (card.IsUsedInBattle || string.IsNullOrWhiteSpace(notForBattleNote))
+            return card.Description;
+
+        return string.IsNullOrWhiteSpace(card.Description)
+            ? notForBattleNote
+            : $"{notForBattleNote}\n\n{card.Description}";
     }
 
     private void RebuildDescriptionLayout()

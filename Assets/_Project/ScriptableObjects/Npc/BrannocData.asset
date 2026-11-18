@@ -101,19 +101,38 @@ MonoBehaviour:
     - type: 1
       storyFlag: 
       quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
-      questStatus: 2
-      invert: 1
+      questStatus: 0
+      invert: 0
       card: {fileID: 0}
       count: 1
     dialogue: {fileID: 11400000, guid: 0a6830eabcc94824895c33c9d940c542, type: 2}
     doneFlag: a1_asked_brannoc_south_road
     everyTalk: 0
-  - choiceText: The wolf on the south road is gone.
+  - choiceText: Eldon sent us. It's about the wolf.
     conditions:
     - type: 1
       storyFlag: 
       quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
-      questStatus: 2
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    dialogue: {fileID: 11400000, guid: 98d49e87da3441dc9ec0155b9455ee96, type: 2}
+    doneFlag: a1_brannoc_wolf_talk
+    everyTalk: 0
+  - choiceText: The wolf is gone.
+    conditions:
+    - type: 1
+      storyFlag: 
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    - type: 0
+      storyFlag: a1_wolf_beaten
+      quest: {fileID: 0}
+      questStatus: 1
       invert: 0
       card: {fileID: 0}
       count: 1

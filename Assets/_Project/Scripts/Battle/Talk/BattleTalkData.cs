@@ -21,6 +21,8 @@ public sealed class BattleTalkData : ScriptableObject
     [SerializeField] private string enemyFledTitle = "IT RAN OFF";
     [Tooltip("Set when it runs off, for the talk after the fight.")]
     [SerializeField, StoryFlag] private string enemyFledFlag;
+    [Tooltip("Set when the fight is over for good: won, or the enemy ran off, e.g. a1_wolf_beaten, which sends First Threat on to telling Brannoc. Empty = none.")]
+    [SerializeField, StoryFlag] private string overFlag;
 
     [Header("Lines")]
     [SerializeField] private List<BattleTalkLine> lines = new();
@@ -30,6 +32,7 @@ public sealed class BattleTalkData : ScriptableObject
     public int LossesBeforeEnemyFlees => lossesBeforeEnemyFlees;
     public string EnemyFledTitle => enemyFledTitle;
     public string EnemyFledFlag => enemyFledFlag;
+    public string OverFlag => overFlag;
     public IReadOnlyList<BattleTalkLine> Lines => lines;
 }
 

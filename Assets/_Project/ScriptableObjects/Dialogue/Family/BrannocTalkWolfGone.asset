@@ -16,8 +16,40 @@ MonoBehaviour:
   - speakerSide: 1
     speakerName: Brannoc
     portraitOverride: {fileID: 0}
-    text: "I know. The tracks stop past the trader's campfire. I hear you two saw to that."
+    text: "Is it? Then I can stop jumping at every shadow on that road."
     conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "It won't bite anyone again."
+    conditions:
+    - type: 0
+      storyFlag: a1_wolf_fled
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "It ran off into the forest. I don't think it'll come back."
+    conditions:
+    - type: 0
+      storyFlag: a1_wolf_fled
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
     nextLineIndex: -1
     endDialogueAfterLine: 0
     actions: []
@@ -60,7 +92,7 @@ MonoBehaviour:
       card: {fileID: 0}
       count: 1
     nextLineIndex: -1
-    endDialogueAfterLine: 1
+    endDialogueAfterLine: 0
     actions: []
     choices: []
   - speakerSide: 1
@@ -76,7 +108,24 @@ MonoBehaviour:
       card: {fileID: 0}
       count: 1
     nextLineIndex: -1
-    endDialogueAfterLine: 1
+    endDialogueAfterLine: 0
     actions: []
     choices: []
-  noTalkTopics: 0
+  - speakerSide: 1
+    speakerName: Brannoc
+    portraitOverride: {fileID: 0}
+    text: "Here. It isn't much, but a watchman pays his debts."
+    conditions: []
+    nextLineIndex: -1
+    endDialogueAfterLine: 1
+    actions:
+    - type: 2
+      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
+      storyFlag: 
+      silent: 0
+      shop: {fileID: 0}
+      enemy: {fileID: 0}
+      encounterId: 
+      card: {fileID: 0}
+      count: 1
+    choices: []

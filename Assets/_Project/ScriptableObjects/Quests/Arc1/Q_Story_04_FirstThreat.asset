@@ -14,15 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   questKey: a1_first_threat
   title: First Threat
-  giverName: Hideshi
-  description: "The wolf from the forest followed you to Leymar and bit the trader at his camp. It still prowls the road south of his camp, the way you came. Time to use your cards in a real fight."
+  giverName: Brannoc
+  description: "The wolf that bit the trader is still about. Eldon says you must learn to stand up for yourselves in this world, and Brannoc, who keeps watch over Leymar, knows its ways. He blames himself for the trader's hand."
   status: 0
-  objectiveType: 1
-  objectiveLabel: "Defeat the wolf on the road south of the trader's camp"
+  objectiveType: 0
+  objectiveLabel: "Deal with the wolf that bit the trader"
   targetEncounterId: a1_forest_wolves
   targetEnemy: {fileID: 0}
   targetCard: {fileID: 0}
   targetCount: 1
+  steps:
+  - label: "Ask Brannoc about the wolf - his house is just left of Eldon's tower"
+    doneWhen: a1_brannoc_wolf_talk
+    doneWhileMet: []
+    withPrevious: 0
+    shownWhen: 
+    detour: 0
+  - label: "Face the wolf in the forest clearing where you first woke up"
+    doneWhen: a1_wolf_beaten
+    doneWhileMet: []
+    withPrevious: 0
+    shownWhen: 
+    detour: 0
+  - label: "Tell Brannoc the wolf is gone"
+    doneWhen: 
+    doneWhileMet: []
+    withPrevious: 0
+    shownWhen: 
+    detour: 0
   rewards:
   - type: 0
     card: {fileID: 11400000, guid: 72d41a12baee418493bd6c6ab72a1d64, type: 2}

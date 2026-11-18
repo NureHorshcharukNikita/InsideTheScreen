@@ -8,10 +8,24 @@ using UnityEngine;
 // from, Haru to a step behind him to the side (CompanionStepsForward). Otherwise Haru walks up alone.
 // The spot is Distance from the NPC below, above or beside it, on the side Haru comes from. E.g.
 // Eldon's first meeting, started from a zone around him (When Player Enters) instead of the key.
+// Side: Haru always walks round to that side instead, alone, and the NPC turns to him before the
+// talk starts, e.g. Dad's talk after the gathering: Haru on his left, so the stick test after it
+// plays with Eldon's tower behind Dad.
 [Serializable, SubclassMenu("Characters/Walk Up and Talk")]
 public sealed class TalkToStep : StoryStep
 {
+    public enum StandSide
+    {
+        WayHaruComes,
+        Left,
+        Right,
+        Below,
+        Above
+    }
+
     [SerializeField] private StoryTarget npc = new(StoryTargetType.Npc);
+    [Tooltip("Where Haru stands for the talk: on the side he comes from (or the next free one), or always on this side of the NPC, who then turns to him before the first line.")]
+    [SerializeField] private StandSide side = StandSide.WayHaruComes;
     [Tooltip("How far from the NPC the one leading the talk stands, in units: about where its Talk prompt shows.")]
     [SerializeField, Min(0.5f)] private float distance = 1.6f;
     [SerializeField, Min(0.1f)] private float speed = 2.4f;
@@ -27,14 +41,28 @@ public sealed class TalkToStep : StoryStep
             || !target.TryGetComponent(out NpcCharacter character) || !character.CanTalk)
             yield break;
 
-        character.SelectDialogue(out NpcDialogueEntry entry);
-        CompanionFollower companion = DialogueManager.FindCompanionLeading(character, entry);
-        Transform father = companion != null && CompanionStepsForward.CanPlay(target, player, companion.transform)
-            ? companion.transform
-            : null;
+        if (side != StandSide.WayHaruComes)
+        {
+            Vector2 at = (Vector2)target.position + SideDirection * distance;
+            yield return CompanionStepsForward.Play(context, target, null, at, speed, avoidObstacles);
 
-        Vector2 spot = CompanionStepsForward.FindStandSpot(target, player, father, distance);
-        yield return CompanionStepsForward.Play(context, target, father, spot, speed, avoidObstacles);
+            // The NPC turns to Haru before the first line.
+            context.TakeControl(target);
+            Vector2 toHaru = player.position - target.position;
+            CharacterWalkAnimation.Apply(StoryEventContext.GetAnimator(target), false, toHaru);
+            FlipSpriteToFace.Apply(target, toHaru);
+        }
+        else
+        {
+            character.SelectDialogue(out NpcDialogueEntry entry);
+            CompanionFollower companion = DialogueManager.FindCompanionLeading(character, entry);
+            Transform father = companion != null && CompanionStepsForward.CanPlay(target, player, companion.transform)
+                ? companion.transform
+                : null;
+
+            Vector2 spot = CompanionStepsForward.FindStandSpot(target, player, father, distance);
+            yield return CompanionStepsForward.Play(context, target, father, spot, speed, avoidObstacles);
+        }
 
         if (!dialogueManager.StartDialogue(character))
             yield break;
@@ -45,8 +73,18 @@ public sealed class TalkToStep : StoryStep
         GameStateManager.SetState(GameState.Dialogue);
     }
 
+    private Vector2 SideDirection => side switch
+    {
+        StandSide.Left => Vector2.left,
+        StandSide.Right => Vector2.right,
+        StandSide.Above => Vector2.up,
+        _ => Vector2.down
+    };
+
     public override string ToString()
     {
-        return $"Player walks up and talks to {npc}";
+        return side == StandSide.WayHaruComes
+            ? $"Player walks up and talks to {npc}"
+            : $"Player walks round to the {side.ToString().ToLowerInvariant()} of {npc} and talks to them";
     }
 }

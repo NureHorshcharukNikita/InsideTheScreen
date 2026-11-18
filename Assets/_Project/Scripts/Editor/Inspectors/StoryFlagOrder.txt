@@ -54,30 +54,34 @@ a1_health_test                  # Dad: "hit me with that stick you found"
 a1_health_test_done             # the stick test is over (Survival Basics: shown to Dad); Haru's health in the inventory window; Dad waits where he is until Haru's "Let's go.", which ends it and starts Heart of the Barrier
 
 ### Heart of the Barrier: the dust
-a1_crystal_dust_seen            # Heart of the Barrier: Haru sees the dust on the crossroads stone
-a1_crystal_dust_1               # Heart of the Barrier: the handful left on the crossroads stone
-a1_crystal_dust_2               # Heart of the Barrier: the handful blown west, behind Garr's house
+a1_crystal_dust_seen            # Heart of the Barrier: Haru walks up to the crossroads stone (Trigger_A1_CrystalDust); he says it differently if the far handful is already found
+a1_crystal_dust_1               # Heart of the Barrier: the handful on the crossroads stone, taken: Haru counts (Event_A1_DustStoneTaken, ForageSpot When Taken)
+a1_crystal_dust_2               # Heart of the Barrier: the handful blown west, behind Garr's house, taken: Haru counts (Event_A1_DustFarTaken). Either handful can be taken first
 a1_third_dust_missing           # Heart of the Barrier: two handfuls found, Haru can't find the third (Dad's topic or answer, or after a while)
 a1_eldon_sent_to_trader         # Eldon: the third has worn away, the trader keeps some; Leymar's south road opens
 
 ### A Salve for the Trader and the last dust
 a1_trader_met_bitten            # at the trader's camp: the wolf bit his hand; he asks for something for it (A Salve for the Trader)
 a1_salve_ingredients            # Garr is busy: bring leaves, bark, a red flower and berries; the herbs by the river show up
-a1_salve_recipe                 # Garr, the herbs in hand: shows the salve at his bench; the crafting tab and the C key
+a1_salve_herbs_gathered         # all four herbs in the pockets (Event_A1_SalveHerbsGathered): time to take them to Garr; Debug Test Start gives the four cards
+a1_salve_recipe                 # Garr's lesson at his workbench (Event_A1_SalveLesson, Dad there), then at the bench with Dad the recipe comes to Haru: the crafting tab and the C key
 a1_craft_ideas                  # Dad after Haru makes the salve: from now on he thinks of recipes when he has all they take
 a1_salve_given                  # Haru hands the trader the salve; he asks for a moment to see to his hand (Event_A1_TraderBandages: heard over a black screen)
 a1_crystal_dust_3               # the trader has bandaged his hand (his bandaged look): Eldon's dust and his first coin; gold in the inventory, trading opens
 a1_crystal_dust_collected       # Heart of the Barrier: all three handfuls found (Event_A1_DustCollected)
 
-### Skills, the Echo Crystal and the bags
-ui_skills                       # Eldon: the skills tab, the K key and the skill points. Heart of the Barrier gives the first one; no quest before it gives any
-eldon_echo_crystal_discussed    # Eldon on the Echo Crystal; he sends them to Garr
+### The wolf, then the skills
+a1_brannoc_wolf_talk            # First Threat (Eldon sends them at the dust delivery): Brannoc's topic "Eldon sent us. It's about the wolf." (BrannocTalkWolfHunt): it waits in the forest clearing where Haru and Dad woke up; the wolf, its scene and the meat behind it show up
+- a1_deck_lesson                # at the wolf (First Threat): Dad, going by games he played, has Haru pick what he takes into the fight; the deck on the cards tab comes up
+- a1_wolf_fled                  # the wolf ran off after Haru lost to it three times (BT_A1_ForestWolf); it counts as beaten
+a1_wolf_beaten                  # the wolf fight is over, won or the wolf ran off (BT_A1_ForestWolf Over Flag); Dad's talk after it; First Threat: tell Brannoc
+a1_told_brannoc_wolf_gone       # Brannoc's topic "The wolf is gone.": he thanks them, pays, and First Threat is done
+ui_skills                       # back to Eldon after the wolf (AncientEldonArticySkills): what is unexplored in Haru; the skills tab, the K key and the skill points (Heart of the Barrier's came in quietly)
+
+### The Echo Crystal and the bags
+eldon_echo_crystal_discussed    # Eldon on the Echo Crystal, once First Threat is done; he sends them to Garr
 a1_bags_received                # Garr gives Haru an old pack and a belt with pouches
 a1_bags_worn                    # Haru puts them on: his look with the bags, no pocket limit; Leymar's exit opens
-
-### First Threat: the wolf
-- a1_deck_lesson                # the wolf south of the trader's camp (First Threat): Dad, going by games he played, has Haru pick what he takes into the fight; the deck on the cards tab comes up
-- a1_wolf_fled                  # the wolf ran off after Haru lost to it three times (BT_A1_ForestWolf); First Threat counts as done
 
 ### Other side quests and tabs
 - ui_map                        # the map tab: not brought up yet
@@ -126,7 +130,6 @@ demo_complete                   # the end of the demo
 ## Talking with the fox family (Talk Topics, each asked once after their short line)
 ### Brannoc
 - a1_asked_brannoc_south_road   # Brannoc: "Were you out on the south road again?" (while the wolf is about)
-- a1_told_brannoc_wolf_gone     # Brannoc: "The wolf on the south road is gone." (First Threat done)
 - a1_asked_brannoc_fenna        # Brannoc: "Did Fenna tell you we met?"
 - a1_asked_brannoc_sleep        # Brannoc: "Don't you ever sleep?"
 

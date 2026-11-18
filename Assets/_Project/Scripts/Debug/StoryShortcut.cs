@@ -239,7 +239,8 @@ public sealed class StoryShortcut
         return false;
     }
 
-    // What an event or a talk waits for: flags set, quests active or done. "Not" conditions are
+    // What an event or a talk waits for: flags set, quests active or done, cards in the pockets (the
+    // ones short are given, e.g. the four herbs before Garr's salve lesson). "Not" conditions are
     // left as they are.
     private void Meet(IReadOnlyList<StoryCondition> conditions)
     {
@@ -263,8 +264,22 @@ public sealed class StoryShortcut
                 case StoryConditionType.QuestObjectiveDone:
                     ReachQuest(condition.quest, false);
                     break;
+                case StoryConditionType.HasCard:
+                    GiveShort(condition.card, condition.count);
+                    break;
             }
         }
+    }
+
+    private static void GiveShort(CardData card, int count)
+    {
+        InventoryData inventory = ExplorationPlayerSession.RuntimeInventory;
+        if (card == null || inventory == null)
+            return;
+
+        int missing = Mathf.Max(1, count) - Crafting.Owned(inventory, card);
+        if (missing > 0)
+            inventory.AddCards(card, missing);
     }
 
     // The actions of the line or the answer that has the one wanted, and the answer if it is one.

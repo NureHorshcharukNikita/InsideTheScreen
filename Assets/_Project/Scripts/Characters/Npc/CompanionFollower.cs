@@ -43,6 +43,10 @@ public sealed class CompanionFollower : MonoBehaviour
     private const float RepathPlayerMoveDistance = 0.5f;
     // Staying behind this close to an NPC (about half a screen), he is there for their talk (IsPresentAt).
     private const float PresentDistance = 12f;
+    // Staying behind this close to the player (right beside him), he is in the player's talk
+    // (IsWithPlayer); farther off, though in sight, he is not, e.g. waiting by the bushes while Haru
+    // talks to Brannoc a few steps away.
+    private const float WithPlayerDistance = 4f;
     // Another companion standing this close (feet to feet, about touching) and between him and the
     // player: he waits behind him.
     private const float QueueTouchDistance = 1.25f;
@@ -126,6 +130,21 @@ public sealed class CompanionFollower : MonoBehaviour
         {
             if (follower.isActiveAndEnabled
                 && (follower.ShouldFollow || Vector2.Distance(follower.transform.position, spot) <= PresentDistance))
+                return true;
+        }
+
+        return false;
+    }
+
+    // Walking with the player, or staying behind right beside him: he takes part in the player's talk,
+    // e.g. his lines with the fox family (StoryCondition Companion With Player). Waiting somewhere
+    // else, even close enough to be seen, he does not.
+    public static bool IsWithPlayer(Vector3 playerPosition)
+    {
+        foreach (CompanionFollower follower in FindObjectsByType<CompanionFollower>(FindObjectsSortMode.None))
+        {
+            if (follower.isActiveAndEnabled
+                && (follower.ShouldFollow || Vector2.Distance(follower.transform.position, playerPosition) <= WithPlayerDistance))
                 return true;
         }
 

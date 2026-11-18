@@ -98,6 +98,11 @@ MonoBehaviour:
       quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
       questStatus: 1
       invert: 0
+    - type: 0
+      storyFlag: a1_wolf_beaten
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
   - key: trader_wolf_thanks
     dialogue: {fileID: 11400000, guid: f222269595444de784fa2fc1e69b8474, type: 2}
     repeatable: 0

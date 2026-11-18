@@ -25,7 +25,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "It followed us all this way?"
+    text: "Right where we woke up... Brannoc was right."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Hideshi
     portraitOverride: {fileID: 21300000, guid: 1d68cf1441823f4438d8af9c5ba43460, type: 3}
-    text: "And now it bites people. This time we don't chase it off."
+    text: "It bit the trader. This time we don't chase it off."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0

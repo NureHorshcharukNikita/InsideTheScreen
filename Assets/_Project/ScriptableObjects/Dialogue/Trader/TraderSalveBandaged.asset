@@ -115,20 +115,11 @@ MonoBehaviour:
   - speakerSide: 0
     speakerName: Haru
     portraitOverride: {fileID: 0}
-    text: "Then we'll deal with it."
+    text: "Someone should do something about it."
     conditions: []
     nextLineIndex: -1
     endDialogueAfterLine: 0
-    actions:
-    - type: 1
-      quest: {fileID: 11400000, guid: c1301b1fd751b1f2854ea3b6ca647c95, type: 2}
-      storyFlag: 
-      silent: 0
-      shop: {fileID: 0}
-      enemy: {fileID: 0}
-      encounterId: 
-      card: {fileID: 0}
-      count: 1
+    actions: []
     choices: []
   - speakerSide: 1
     speakerName: Trader

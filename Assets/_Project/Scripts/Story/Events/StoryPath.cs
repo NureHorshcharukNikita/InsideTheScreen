@@ -147,6 +147,25 @@ public static class StoryPath
         return free;
     }
 
+    // How far a character's feet get straight from here before something is in the way, up to
+    // Distance, e.g. Dad hopping back from Haru (Step Back) without landing in a fence.
+    public static float ClearDistance(Vector2 from, Vector2 direction, float distance)
+    {
+        if (distance <= 0f || direction.sqrMagnitude < 0.0001f)
+            return 0f;
+
+        float clear = distance;
+        int count = Physics2D.BoxCast(from + FeetOffset, FeetSize, 0f, direction.normalized, filter, Hits, distance);
+        for (int i = 0; i < count; i++)
+        {
+            // Something its feet already touch where it stands does not hold it there.
+            if (Hits[i].distance > 0f && !IsIgnored(Hits[i].collider))
+                clear = Mathf.Min(clear, Hits[i].distance);
+        }
+
+        return Mathf.Max(0f, clear - 0.05f);
+    }
+
     // The probe is at least a cell big: walls are thin outlines that could slip between two cells.
     private static bool IsFree(Vector2 position)
     {

@@ -13,7 +13,77 @@ MonoBehaviour:
   m_Name: StoryArticyBrokenBridgeAlone
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "The bridge... it's broken.", nextLineIndex: -1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "This must be the bridge Garr was talking about."
+    conditions:
+    - type: 0
+      storyFlag: a1_salve_ingredients
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "He said it was broken... I didn't think it was this bad."
+    conditions:
+    - type: 0
+      storyFlag: a1_salve_ingredients
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "The bridge... it's broken."
+    conditions:
+    - type: 0
+      storyFlag: a1_salve_ingredients
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Half of it is just gone. And the boards are snapped, not rotten.", nextLineIndex: -1}
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Something broke it. Or someone.", nextLineIndex: -1}
+  - speakerSide: 0
+    speakerName: Haru
+    portraitOverride: {fileID: 0}
+    text: "At least what Garr wants grows on this side."
+    conditions:
+    - type: 0
+      storyFlag: a1_salve_ingredients
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 0
+      card: {fileID: 0}
+      count: 1
+    - type: 0
+      storyFlag: a1_salve_recipe
+      quest: {fileID: 0}
+      questStatus: 1
+      invert: 1
+      card: {fileID: 0}
+      count: 1
+    nextLineIndex: -1
+    endDialogueAfterLine: 0
+    actions: []
+    choices: []
   - {speakerSide: 0, speakerName: Haru, portraitOverride: {fileID: 0}, text: "Dad should hear about this.", nextLineIndex: -1, endDialogueAfterLine: 1}

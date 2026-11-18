@@ -12,8 +12,9 @@ public enum StoryConditionType
     // So many of a card in the deck now; no card picked = any card at all, e.g. Dad's answer to what
     // Haru took into his first fight (Invert: the deck is empty).
     InDeck,
-    // Hideshi is with Haru right now: walking with him, or standing close by where Haru is, e.g. his
-    // lines in a talk with Sorrel and Fenna (Invert: Haru came alone).
+    // Hideshi is with Haru right now: walking with him, or staying behind right beside him, e.g. his
+    // lines in a talk with Sorrel and Fenna (Invert: Haru came alone). Waiting a few steps off, e.g.
+    // by the bushes while Haru gathers, he is not.
     CompanionWithPlayer
 }
 
@@ -58,7 +59,7 @@ public sealed class StoryCondition
     private static bool CompanionWithPlayer()
     {
         PlayerMovement player = UnityEngine.Object.FindFirstObjectByType<PlayerMovement>();
-        return player != null && CompanionFollower.IsPresentAt(player.transform.position);
+        return player != null && CompanionFollower.IsWithPlayer(player.transform.position);
     }
 
     private static int CountInDeck(CardData wanted)
